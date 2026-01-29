@@ -2,78 +2,74 @@ import { SiteContent } from '../types';
 
 export const content: SiteContent = {
   personal: {
-    name: "Николай Казимиров",
+    name: "Nikolai Kazimirov",
     logoText: "N.K. ⊬ ⊥",
     degree: "Ph.D.",
-    // Вернул как было про логику. Специфику про 01.01.05 убрал в About.
-    headline: "Математическая логика и основания математики", 
-    tagline: "Научная экспертиза, фундаментальная логика и строгие математические модели.",
+    headline: "Mathematical Logic & Foundations of Mathematics",
+    tagline: "Scientific expertise, fundamental logic, and rigorous mathematical models.",
     email: "ngoogstein@gmail.com"
   },
   navigation: [
-    { label: "Услуги", href: "#services" },
-    { label: "Книги", href: "#books" },
-    { label: "Лекции", href: "#lectures" },
-    { label: "Обо мне", href: "#about" },
+    { label: "Services", href: "#services" },
+    { label: "Books", href: "#books" },
+    { label: "Lectures", href: "#lectures" },
+    { label: "About", href: "#about" },
   ],
   services: [
     {
       id: "consulting",
-      title: "Научный консалтинг",
-      targetAudience: "IT-специалисты, Аналитики, R&D",
-      description: "Экспертиза математических моделей и поиск логических ошибок в архитектуре сложных систем.",
+      title: "Scientific Consulting",
+      targetAudience: "IT Specialists, Analysts, R&D",
+      description: "Expertise in mathematical models and detection of logical errors in complex system architectures.",
       details: [
-        "Анализ формальных постановок задач",
-        "Помощь в чтении научных статей (Papers review)",
-        "Консультации по дискретной математике и логике",
-        "Устранение пробелов в фундаментальной базе"
+        "Analysis of formal problem statements",
+        "Assistance with scientific papers (Paper review)",
+        "Consulting on Discrete Math and Logic",
+        "Bridging gaps in fundamental background"
       ],
-      cta: "Обсудить задачу",
+      cta: "Discuss a Project",
       iconName: "Brain"
     },
     {
       id: "school",
-      title: "Заочная школа",
-      targetAudience: "Индивидуальное обучение",
-      description: "Работа один на один. Вы смотрите лекции и решаете задачи, я проверяю доказательства и логику рассуждений.",
+      title: "Distance Logic School",
+      targetAudience: "Individual Learners",
+      description: "One-on-one mentorship. You watch lectures and solve problems; I verify your proofs and reasoning logic.",
       details: [
-        "Классический университетский подход",
-        "Письменная проверка решений (LaTeX/Рукопись)",
-        "Индивидуальный график",
-        "Прямая связь через Telegram/Email"
+        "Classical university approach",
+        "Written proof verification (LaTeX/Manuscript)",
+        "Individual schedule (No webinars)",
+        "Direct contact via Telegram/Email"
       ],
-      cta: "Записаться",
+      cta: "Enroll",
       iconName: "GraduationCap"
     }
   ],
   books: [
     {
       id: "archetypes",
-      title: "Архетипы математики",
-      role: "Автор",
+      title: "Archetypes of Mathematics",
+      role: "Author",
       year: "2019",
-      description: "Монография: общие методы, приемы, конструкции, идеи математики и ее оснований. (М.: Юстицинформ).",
-      // ВАЖНО: Положите файл archetypes.jpg в папку public
+      description: "Monograph: General methods, techniques, constructions, and ideas of mathematics and its foundations. (Moscow: Justicinform).",
       coverImage: "/archetypes.png", 
       link: "https://tinyurl.com/3j7z25k2"
     },
     {
       id: "savvateev",
-      title: "Введение в настоящую математику",
-      role: "Соавтор",
+      title: "Introduction to Real Mathematics",
+      role: "Co-author",
       year: "2022",
-      description: "Совместно с А.В. Савватеевым. Пособие по мотивам курса «100 уроков математики».",
-      // ВАЖНО: Положите файл savvateev.jpg в папку public
+      description: "Co-authored with A.V. Savvateev. A guide based on the '100 Lessons of Mathematics' course.",
       coverImage: "/savvateev.png",
       link: "https://tinyurl.com/mr28x2t2"
     },
     {
       id: "springer",
       title: "Math as a Foreign Language",
-      role: "Автор",
+      role: "Author",
       year: "Under Review",
-      description: "Готовится к изданию. Книга посвящена языку математики и методологии мышления.",
-      // Можете положить любую заглушку или лого Springer
+      description: "In preparation for Springer. The book is dedicated to the language of mathematics and the methodology of thinking.",
       coverImage: "/MFL.png",
       link: "#"
     }
@@ -81,45 +77,42 @@ export const content: SiteContent = {
   lectures: [
     {
       id: "game",
-      title: "Игра Эренфойхта-Фраиссе",
-      // Youtube сам отдает картинку максимального качества по этому адресу
+      title: "Ehrenfeucht-Fraïssé Games",
       thumbnail: "https://img.youtube.com/vi/FN_Sw4pKmZk/maxresdefault.jpg", 
-      duration: "Лекция",
+      duration: "Lecture",
       platform: "YouTube",
-      // Добавим ссылку на само видео, чтобы можно было перейти
       link: "https://youtu.be/FN_Sw4pKmZk" 
     },
     {
       id: "cantor",
-      title: "Теорема Кантора-Бернштейна",
+      title: "Cantor-Bernstein Theorem",
       thumbnail: "https://img.youtube.com/vi/2S-ofA4SRcY/maxresdefault.jpg",
-      duration: "Лекция",
+      duration: "Lecture",
       platform: "YouTube",
       link: "https://youtu.be/2S-ofA4SRcY"
     },
     {
       id: "godel",
-      title: "Вторая теорема Гёделя о неполноте",
+      title: "Gödel's Second Incompleteness Theorem",
       thumbnail: "https://img.youtube.com/vi/KhaYjR2sCEY/maxresdefault.jpg",
-      duration: "Лекция",
+      duration: "Lecture",
       platform: "YouTube",
       link: "https://www.youtube.com/watch?v=KhaYjR2sCEY"
     }
   ],
   about: {
-    bio: "Кандидат физико-математических наук (01.01.09). Окончил матфак ПетрГУ и аспирантуру КарНЦ РАН. В 2024–2025 годах жил и работал в Австрии (Грац), где опыт изучения немецкого языка в TU Graz вдохновил меня на написание книги «Math as a Foreign Language» (Springer, under review). Специализируюсь на основаниях математики, теории моделей и научной популяризации.",
+    bio: "Ph.D. in Physics and Mathematics (01.01.09). Graduated from the Faculty of Mathematics at PetrSU and postgraduate studies at KarRC RAS. In 2024–2025, I lived and worked in Austria (Graz), where my experience learning German at TU Graz inspired me to write the book 'Math as a Foreign Language' (Springer, under review). I specialize in foundations of mathematics, model theory, and scientific popularization.",
     interests: [
-      "Дискретная математика",
-      "Математическая логика",
-      "Теория моделей",
-      "Основания математики"
+      "Discrete Mathematics",
+      "Mathematical Logic",
+      "Model Theory",
+      "Foundations of Mathematics"
     ],
     socials: [
       { label: "Telegram", href: "https://t.me/mathreisender" },
       { label: "YouTube", href: "https://www.youtube.com/@reisedurchdiemathe" },
       { label: "Email", href: "mailto:ngoogstein@gmail.com" }
     ],
-    // Исправил локацию
-    location: "Москва, Россия" 
+    location: "Moscow, Russia" 
   }
 };
