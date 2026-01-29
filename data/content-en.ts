@@ -152,7 +152,11 @@ export const content: SiteContent = {
     socials: [
       { label: "Telegram", href: "https://t.me/mathreisender" },
       { label: "YouTube", href: "https://www.youtube.com/@reisedurchdiemathe" },
-      { label: "Email", href: "mailto:ngoogstein@gmail.com" }
+      { label: "Email", href: "mailto:ngoogstein@gmail.com" },
+      // Добавляем новые пункты для баланса:
+      { label: "LinkedIn", href: "https://www.linkedin.com/in/nikolai-kazimirov/" },
+      { label: "GitHub", href: "https://github.com/nkrishelie" }, // Если есть
+      // { label: "Google Scholar", href: "..." } // Если есть
     ],
     location: "Moscow, Russia"
   }
