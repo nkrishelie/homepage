@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { content } from '../data/content';
+//import { content } from '../data/content';
 import { Menu, X } from 'lucide-react';
+import { useLanguage } from '../LanguageContext';
 
 export const Header: React.FC = () => {
+  const { language, setLanguage, content } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -41,6 +43,14 @@ export const Header: React.FC = () => {
           ))}
         </nav>
 
+        {/* Language Switcher */}
+        <button 
+            onClick={() => setLanguage(language === 'ru' ? 'en' : 'ru')}
+            className="mr-4 text-sm font-bold uppercase tracking-wider text-academic-500 hover:text-academic-900 transition-colors border border-academic-300 px-2 py-1 rounded-sm"
+        >
+            {language === 'ru' ? 'EN' : 'RU'}
+        </button>
+        
         {/* Mobile Menu Toggle */}
         <button 
           className="md:hidden text-academic-800"
