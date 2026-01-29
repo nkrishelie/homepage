@@ -35,6 +35,7 @@ export interface LectureItem {
   thumbnail: string;
   duration: string;
   platform: string;
+  link?: string;
 }
 
 export interface SiteContent {
