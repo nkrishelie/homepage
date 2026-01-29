@@ -5,10 +5,28 @@ export const content: SiteContent = {
     name: "Николай Казимиров",
     logoText: "N.K. ⊬ ⊥",
     degree: "Ph.D.",
-    // Вернул как было про логику. Специфику про 01.01.05 убрал в About.
-    headline: "Математическая логика и основания математики", 
+    headline: "Математическая логика и основания математики",
     tagline: "Научная экспертиза, фундаментальная логика и строгие математические модели.",
     email: "ngoogstein@gmail.com"
+  },
+  // Новая секция с переводами интерфейса
+  ui: {
+    headers: {
+      services: "Услуги",
+      books: "Книги",
+      lectures: "Избранные лекции",
+      about: "Обо мне",
+      interests: "Научные интересы",
+      contacts: "Контакты",
+      location: "Локация"
+    },
+    buttons: {
+      details: "Подробнее",
+      watchAll: "Смотреть все лекции на YouTube"
+    },
+    footer: {
+      rights: "Все права защищены."
+    }
   },
   navigation: [
     { label: "Услуги", href: "#services" },
@@ -25,7 +43,7 @@ export const content: SiteContent = {
       details: [
         "Анализ формальных постановок задач",
         "Помощь в чтении научных статей (Papers review)",
-        "Консультации по дискретной математике и логике",
+        "Консультации по мат. логике и теории моделей",
         "Устранение пробелов в фундаментальной базе"
       ],
       cta: "Обсудить задачу",
@@ -53,8 +71,7 @@ export const content: SiteContent = {
       role: "Автор",
       year: "2019",
       description: "Монография: общие методы, приемы, конструкции, идеи математики и ее оснований. (М.: Юстицинформ).",
-      // ВАЖНО: Положите файл archetypes.jpg в папку public
-      coverImage: "/archetypes.png", 
+      coverImage: "/archetypes.png",
       link: "https://tinyurl.com/3j7z25k2"
     },
     {
@@ -63,7 +80,6 @@ export const content: SiteContent = {
       role: "Соавтор",
       year: "2022",
       description: "Совместно с А.В. Савватеевым. Пособие по мотивам курса «100 уроков математики».",
-      // ВАЖНО: Положите файл savvateev.jpg в папку public
       coverImage: "/savvateev.png",
       link: "https://tinyurl.com/mr28x2t2"
     },
@@ -73,8 +89,7 @@ export const content: SiteContent = {
       role: "Автор",
       year: "Under Review",
       description: "Готовится к изданию. Книга посвящена языку математики и методологии мышления.",
-      // Можете положить любую заглушку или лого Springer
-      coverImage: "/MFL.png",
+      coverImage: "/springer.png",
       link: "#"
     }
   ],
@@ -82,12 +97,10 @@ export const content: SiteContent = {
     {
       id: "game",
       title: "Игра Эренфойхта-Фраиссе",
-      // Youtube сам отдает картинку максимального качества по этому адресу
-      thumbnail: "https://img.youtube.com/vi/FN_Sw4pKmZk/maxresdefault.jpg", 
+      thumbnail: "https://img.youtube.com/vi/FN_Sw4pKmZk/maxresdefault.jpg",
       duration: "Лекция",
       platform: "YouTube",
-      // Добавим ссылку на само видео, чтобы можно было перейти
-      link: "https://youtu.be/FN_Sw4pKmZk" 
+      link: "https://youtu.be/FN_Sw4pKmZk"
     },
     {
       id: "cantor",
@@ -107,19 +120,20 @@ export const content: SiteContent = {
     }
   ],
   about: {
-    bio: "Кандидат физико-математических наук (01.01.09). Окончил матфак ПетрГУ и аспирантуру КарНЦ РАН. В 2024–2025 годах жил и работал в Австрии (Грац), где опыт изучения немецкого языка в TU Graz вдохновил меня на написание книги «Math as a Foreign Language» (Springer, under review). Специализируюсь на основаниях математики, теории моделей и научной популяризации.",
+    bio: "Кандидат физико-математических наук (01.01.05). Окончил матфак ПетрГУ и аспирантуру КарНЦ РАН. В 2024–2025 годах жил и работал в Австрии (Грац), где опыт изучения немецкого языка в TU Graz вдохновил меня на написание книги «Math as a Foreign Language» (Springer, under review). Специализируюсь на основаниях математики, теории моделей и научной популяризации.",
     interests: [
-      "Дискретная математика",
       "Математическая логика",
+      "Теория множеств",
       "Теория моделей",
-      "Основания математики"
+      "Теория доказательств",
+      "Основания математики",
+      "Computer Science"
     ],
     socials: [
       { label: "Telegram", href: "https://t.me/mathreisender" },
       { label: "YouTube", href: "https://www.youtube.com/@reisedurchdiemathe" },
       { label: "Email", href: "mailto:ngoogstein@gmail.com" }
     ],
-    // Исправил локацию
-    location: "Москва, Россия" 
+    location: "Москва, Россия"
   }
 };
