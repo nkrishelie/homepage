@@ -1,5 +1,5 @@
 import React from 'react';
-import { content } from '../data/content';
+import { useLanguage } from '../LanguageContext';
 import { ExternalLink } from 'lucide-react';
 
 export const Books: React.FC = () => {
