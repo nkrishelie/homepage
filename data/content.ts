@@ -74,32 +74,36 @@ export const content: SiteContent = {
       year: "Under Review",
       description: "Готовится к изданию. Книга посвящена языку математики и методологии мышления.",
       // Можете положить любую заглушку или лого Springer
-      coverImage: "https://placehold.co/400x600/e2e8f0/1e293b?text=Springer+Draft",
+      coverImage: "/MFL.png",
       link: "#"
     }
   ],
   lectures: [
     {
-      id: "l1",
-      title: "Математика как иностранный",
-      // Нужен ID видео (часть после v= в ссылке). Замените Zg_vKQ на реальный.
-      thumbnail: "https://img.youtube.com/vi/q1eJ7Zg_vKQ/maxresdefault.jpg", 
-      duration: "Цикл лекций",
-      platform: "YouTube"
+      id: "game",
+      title: "Игра Эренфойхта-Фраиссе",
+      // Youtube сам отдает картинку максимального качества по этому адресу
+      thumbnail: "https://img.youtube.com/vi/FN_Sw4pKmZk/maxresdefault.jpg", 
+      duration: "Лекция",
+      platform: "YouTube",
+      // Добавим ссылку на само видео, чтобы можно было перейти
+      link: "https://youtu.be/FN_Sw4pKmZk" 
     },
     {
-      id: "l2",
-      title: "Теорема Гёделя о неполноте",
-      thumbnail: "https://img.youtube.com/vi/YOUR_ID_HERE/maxresdefault.jpg", 
+      id: "cantor",
+      title: "Теорема Кантора-Бернштейна",
+      thumbnail: "https://img.youtube.com/vi/2S-ofA4SRcY/maxresdefault.jpg",
       duration: "Лекция",
-      platform: "YouTube"
+      platform: "YouTube",
+      link: "https://youtu.be/2S-ofA4SRcY"
     },
     {
-      id: "l3",
-      title: "Сюрреальные числа",
-      thumbnail: "https://img.youtube.com/vi/YOUR_ID_HERE_2/maxresdefault.jpg",
+      id: "godel",
+      title: "Вторая теорема Гёделя о неполноте",
+      thumbnail: "https://img.youtube.com/vi/KhaYjR2sCEY/maxresdefault.jpg",
       duration: "Лекция",
-      platform: "YouTube"
+      platform: "YouTube",
+      link: "https://www.youtube.com/watch?v=KhaYjR2sCEY"
     }
   ],
   about: {
