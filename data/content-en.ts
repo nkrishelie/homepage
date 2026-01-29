@@ -88,7 +88,7 @@ export const content: SiteContent = {
       title: "Math as a Foreign Language",
       role: "Author",
       year: "Under Review",
-      description: "In preparation for Springer. The book is dedicated to the language of mathematics and the methodology of thinking.",
+      description: "In preparation. The book is dedicated to the language of mathematics and the methodology of thinking.",
       coverImage: "/springer.png",
       link: "#"
     }
