@@ -1,16 +1,19 @@
 import React from 'react';
 import { useLanguage } from '../LanguageContext';
-import { Mail, Youtube, Send, MapPin, ExternalLink } from 'lucide-react';
+import { Mail, Youtube, Send, MapPin, ExternalLink, Linkedin, Github, GraduationCap } from 'lucide-react';
 
 export const About: React.FC = () => {
   const { content } = useLanguage();
 
-  // Простая функция для подбора иконки по названию соцсети
+  // Расширенная логика иконок
   const getIcon = (label: string) => {
     const l = label.toLowerCase();
     if (l.includes('telegram')) return <Send size={18} />;
     if (l.includes('youtube')) return <Youtube size={18} />;
     if (l.includes('email') || l.includes('mail')) return <Mail size={18} />;
+    if (l.includes('linkedin')) return <Linkedin size={18} />;
+    if (l.includes('github') || l.includes('git')) return <Github size={18} />;
+    if (l.includes('scholar') || l.includes('publication') || l.includes('orcid')) return <GraduationCap size={18} />;
     return <ExternalLink size={18} />;
   };
 
@@ -57,20 +60,21 @@ export const About: React.FC = () => {
                 </div>
             </div>
 
-            {/* КОЛОНКА 3: Контакты и Локация (25%) */}
-            {/* Сделали более компактным (p-5 вместо p-6) и уплотнили список */}
-            <div className="w-full md:w-1/4 bg-academic-800/30 p-5 rounded-sm border border-academic-700/50">
-                <h3 className="text-lg font-serif font-bold text-white mb-4">
+            {/* КОЛОНКА 3: Контакты (25%) */}
+            <div className="w-full md:w-1/4 bg-academic-800/30 p-5 rounded-sm border border-academic-700/50 flex flex-col h-full">
+                <h3 className="text-lg font-serif font-bold text-white mb-5">
                   {content.ui.headers.contacts}
                 </h3>
                 
-                {/* space-y-3 (было 4) - уменьшили расстояние между пунктами */}
-                <ul className="space-y-3 mb-6">
+                {/* Увеличили отступы (space-y-4), чтобы список занял больше места по вертикали */}
+                <ul className="space-y-4 mb-8">
                     {content.about.socials.map((social) => (
                         <li key={social.label}>
                             <a 
                                 href={social.href}
-                                className="flex items-center gap-3 text-academic-300 hover:text-white transition-colors group p-1 -ml-1" // увеличили область клика
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-3 text-academic-300 hover:text-white transition-colors group p-1 -ml-1"
                             >
                                 <span className="text-academic-500 group-hover:text-white transition-colors">
                                     {getIcon(social.label)}
@@ -81,7 +85,8 @@ export const About: React.FC = () => {
                     ))}
                 </ul>
 
-                <div className="pt-5 border-t border-academic-700/50">
+                {/* mt-auto прижмет локацию к низу блока, если он растянется */}
+                <div className="mt-auto pt-5 border-t border-academic-700/50">
                     <div className="text-academic-500 mb-1 font-mono text-xs uppercase tracking-widest flex items-center gap-2">
                         <MapPin size={14} />
                         {content.ui.headers.location}
