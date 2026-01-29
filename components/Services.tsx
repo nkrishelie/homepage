@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLanguage } from '../LanguageContext'; // <--- Важно
+import { useLanguage } from '../LanguageContext';
 import { Brain, GraduationCap, CheckCircle2 } from 'lucide-react';
 
 const icons = {
@@ -9,13 +9,12 @@ const icons = {
 };
 
 export const Services: React.FC = () => {
-  const { content } = useLanguage(); // <--- Важно
+  const { content } = useLanguage();
 
   return (
     <section id="services" className="py-24 bg-white">
       <div className="container mx-auto px-6 max-w-6xl">
         <div className="text-center mb-16">
-          {/* Динамический заголовок */}
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-academic-900 mb-4">
             {content.ui.headers.services} 
           </h2>
@@ -36,7 +35,6 @@ export const Services: React.FC = () => {
                   {service.title}
                 </h3>
                 
-                {/* Аудитория - можно оставить как есть или тоже перевести, но это часть контента */}
                 <p className="text-sm font-medium text-academic-500 mb-6 uppercase tracking-wide">
                    {service.targetAudience}
                 </p>
@@ -45,7 +43,8 @@ export const Services: React.FC = () => {
                   {service.description}
                 </p>
                 
-                <ul className=\"space-y-3 mb-8\">
+                {/* ВОТ ЗДЕСЬ БЫЛА ОШИБКА, ТЕПЕРЬ ИСПРАВЛЕНО: */}
+                <ul className="space-y-3 mb-8">
                   {service.details.map((detail, idx) => (
                     <li key={idx} className="flex items-start gap-3 text-academic-700">
                       <CheckCircle2 size={18} className="mt-1 text-academic-400 shrink-0" />
