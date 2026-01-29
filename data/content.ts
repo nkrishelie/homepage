@@ -54,7 +54,7 @@ export const content: SiteContent = {
       year: "2019",
       description: "Монография: общие методы, приемы, конструкции, идеи математики и ее оснований. (М.: Юстицинформ).",
       // ВАЖНО: Положите файл archetypes.jpg в папку public
-      coverImage: "/archetypes.jpg", 
+      coverImage: "/archetypes.png", 
       link: "https://tinyurl.com/3j7z25k2"
     },
     {
@@ -64,7 +64,7 @@ export const content: SiteContent = {
       year: "2022",
       description: "Совместно с А.В. Савватеевым. Пособие по мотивам курса «100 уроков математики».",
       // ВАЖНО: Положите файл savvateev.jpg в папку public
-      coverImage: "/savvateev.jpg",
+      coverImage: "/savvateev.png",
       link: "https://tinyurl.com/mr28x2t2"
     },
     {
@@ -72,7 +72,7 @@ export const content: SiteContent = {
       title: "Math as a Foreign Language",
       role: "Автор",
       year: "Under Review",
-      description: "Готовится к изданию в Springer. Книга посвящена языку математики и методологии мышления.",
+      description: "Готовится к изданию. Книга посвящена языку математики и методологии мышления.",
       // Можете положить любую заглушку или лого Springer
       coverImage: "https://placehold.co/400x600/e2e8f0/1e293b?text=Springer+Draft",
       link: "#"
