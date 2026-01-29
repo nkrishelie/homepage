@@ -4,22 +4,21 @@ import { ExternalLink } from 'lucide-react';
 
 export const Books: React.FC = () => {
   const { content } = useLanguage();
+
   return (
     <section id="books" className="py-24 bg-academic-50">
       <div className="container mx-auto px-6 max-w-6xl">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
           <div>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-academic-900 mb-4">Книги и Публикации</h2>
-            <p className="text-academic-600 max-w-xl">
-              Избранные работы, посвященные математическим основаниям, педагогике и прикладной логике.
-            </p>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-academic-900 mb-4">
+               {content.ui.headers.books}
+            </h2>
           </div>
         </div>
 
         <div className="grid gap-12">
           {content.books.map((book) => (
             <div key={book.id} className="flex flex-col md:flex-row gap-8 items-start bg-white p-6 md:p-8 border border-academic-200 hover:shadow-sm transition-shadow">
-              {/* Book Cover Placeholder */}
               <div className="w-full md:w-48 shrink-0 aspect-[2/3] bg-academic-200 relative overflow-hidden group">
                  <img 
                     src={book.coverImage} 
@@ -49,7 +48,7 @@ export const Books: React.FC = () => {
                     href={book.link}
                     className="inline-flex items-center gap-2 text-academic-800 font-medium hover:text-academic-500 transition-colors"
                  >
-                    Подробнее
+                    {content.ui.buttons.details}
                     <ExternalLink size={16} />
                  </a>
               </div>
