@@ -2,6 +2,7 @@ import React from 'react';
 import { useLanguage } from '../LanguageContext';
 
 export const About: React.FC = () => {
+  const { content } = useLanguage();
   return (
     <section id="about" className="py-24 bg-academic-900 text-academic-100">
       <div className="container mx-auto px-6 max-w-4xl">
