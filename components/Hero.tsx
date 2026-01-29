@@ -6,12 +6,6 @@ export const Hero: React.FC = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-20 pb-16 px-6 bg-academic-50">
       <div className="max-w-4xl mx-auto text-center">
-        <div className="inline-block mb-4 px-3 py-1 border border-academic-300 rounded-full">
-          <span className="text-xs font-medium uppercase tracking-widest text-academic-500">
-            {content.personal.degree} — Математическая логика
-          </span>
-        </div>
-        
         <h1 className="text-5xl md:text-7xl font-serif font-bold text-academic-900 mb-6 leading-tight">
           {content.personal.name}
         </h1>
