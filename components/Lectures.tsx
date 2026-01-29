@@ -12,15 +12,22 @@ export const Lectures: React.FC = () => {
 
         <div className="grid md:grid-cols-3 gap-8">
             {content.lectures.map((lecture) => (
-                <div key={lecture.id} className="group cursor-pointer">
-                    <div className="relative aspect-video bg-academic-900 mb-4 overflow-hidden">
+                // ИЗМЕНЕНИЕ ЗДЕСЬ: Заменили div на a
+                <a 
+                    key={lecture.id} 
+                    href={lecture.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="group cursor-pointer block"
+                >
+                    <div className="relative aspect-video bg-academic-900 mb-4 overflow-hidden border border-academic-200">
                         <img 
                             src={lecture.thumbnail} 
                             alt={lecture.title}
                             className="w-full h-full object-cover opacity-80 group-hover:opacity-60 transition-opacity"
                         />
                         <div className="absolute inset-0 flex items-center justify-center">
-                            <PlayCircle size={48} className="text-white opacity-90 group-hover:scale-110 transition-transform" />
+                            <PlayCircle size={48} className="text-white opacity-90 group-hover:scale-110 transition-transform shadow-xl" />
                         </div>
                         <div className="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs font-medium rounded-sm">
                             {lecture.duration}
@@ -30,12 +37,18 @@ export const Lectures: React.FC = () => {
                         {lecture.title}
                     </h3>
                     <p className="text-sm text-academic-500 mt-1">{lecture.platform}</p>
-                </div>
+                </a>
             ))}
         </div>
         
         <div className="text-center mt-12">
-            <a href="#" className="inline-block border border-academic-300 px-6 py-3 text-sm font-medium hover:bg-academic-50 transition-colors">
+            {/* ИЗМЕНЕНИЕ ЗДЕСЬ: Добавили ссылку на канал */}
+            <a 
+                href="https://www.youtube.com/@reisedurchdiemathe" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block border border-academic-300 px-6 py-3 text-sm font-medium hover:bg-academic-50 transition-colors"
+            >
                 Смотреть все лекции на YouTube
             </a>
         </div>
