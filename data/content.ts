@@ -13,6 +13,7 @@ export const content: SiteContent = {
   ui: {
     headers: {
       services: "Услуги",
+      projects: "Цифровые проекты",
       books: "Книги",
       lectures: "Избранные лекции",
       about: "Обо мне",
@@ -22,7 +23,8 @@ export const content: SiteContent = {
     },
     buttons: {
       details: "Подробнее",
-      watchAll: "Смотреть все лекции на YouTube"
+      watchAll: "Смотреть все лекции на YouTube",
+      viewProject: "Открыть проект"
     },
     footer: {
       rights: "Все права защищены."
@@ -30,6 +32,7 @@ export const content: SiteContent = {
   },
   navigation: [
     { label: "Услуги", href: "#services" },
+    { label: "Проекты", href: "#projects" },
     { label: "Книги", href: "#books" },
     { label: "Лекции", href: "#lectures" },
     { label: "Обо мне", href: "#about" },
@@ -62,6 +65,22 @@ export const content: SiteContent = {
       ],
       cta: "Записаться",
       iconName: "GraduationCap"
+    }
+  ],
+  projects: [
+    {
+      id: "nexus",
+      title: "Nexus Math",
+      description: "Интерактивная 3D-карта оснований математики. Визуализация связей между аксиоматическими системами, теоремами и определениями в виде графа.",
+      link: "https://nexus.mathem.at/",
+      techStack: "WebGL / 3D Graph"
+    },
+    {
+      id: "arxiv",
+      title: "ArXiv Universe",
+      description: "3D-визуализация научного ландшафта на основе данных arXiv.org. Научные дисциплины представлены как планеты-гиганты, а отдельные статьи — как их спутники.",
+      link: "https://arxiv.mathem.at/",
+      techStack: "Data Viz / Big Data"
     }
   ],
   books: [
