@@ -1,12 +1,16 @@
 import React from 'react';
-import { content } from '../data/content';
-import { useLanguage } from '../LanguageContext';
+import { useLanguage } from '../LanguageContext'; // Подключаем язык
+import { ArrowRight, BookOpen } from 'lucide-react'; // <--- ВОТ ЭТОЙ СТРОКИ НЕ ХВАТАЛО
 
 export const Hero: React.FC = () => {
-  const { content } = useLanguage();
+  const { content } = useLanguage(); // Берем контент через хук
+
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-20 pb-16 px-6 bg-academic-50">
       <div className="max-w-4xl mx-auto text-center">
+        
+        {/* Плашка с Ph.D. убрана по вашей просьбе ранее, код чистый */}
+        
         <h1 className="text-5xl md:text-7xl font-serif font-bold text-academic-900 mb-6 leading-tight">
           {content.personal.name}
         </h1>
@@ -38,13 +42,13 @@ export const Hero: React.FC = () => {
         </div>
       </div>
       
-      {/* Decorative background element - Subtle grid */}
+      {/* Декоративный фон */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03]" 
         style={{
-          backgroundImage: 'linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)',
-          backgroundSize: '40px 40px'
+          backgroundImage: 'linear-gradient(#0f172a 1px, transparent 1px), linear-gradient(90deg, #0f172a 1px, transparent 1px)',
+          backgroundSize: '32px 32px'
         }}
-      />
+      ></div>
     </section>
   );
 };
