@@ -43,7 +43,9 @@ export const About: React.FC = () => {
                 
                 <div className="mt-8 pt-8 border-t border-academic-700">
                     <p className="text-sm text-academic-400 mb-2">Локация</p>
-                    <p className="text-academic-200">Берлин, Германия (Удаленно)</p>
+                    <p className="text-academic-200">
+    {content.about.location || "Москва, Россия"}
+</p>
                 </div>
             </div>
         </div>
