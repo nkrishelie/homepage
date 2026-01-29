@@ -1,20 +1,24 @@
 import React from 'react';
-import { useLanguage } from '../LanguageContext';
+import { useLanguage } from '../LanguageContext'; // <--- Важно
 import { Brain, GraduationCap, CheckCircle2 } from 'lucide-react';
 
 const icons = {
   Brain,
   GraduationCap,
-  Scroll: Brain // Fallback
+  Scroll: Brain
 };
 
 export const Services: React.FC = () => {
-  const { content } = useLanguage();
+  const { content } = useLanguage(); // <--- Важно
+
   return (
     <section id="services" className="py-24 bg-white">
       <div className="container mx-auto px-6 max-w-6xl">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-academic-900 mb-4">Услуги</h2>
+          {/* Динамический заголовок */}
+          <h2 className="text-3xl md:text-4xl font-serif font-bold text-academic-900 mb-4">
+            {content.ui.headers.services} 
+          </h2>
           <div className="w-16 h-1 bg-academic-800 mx-auto opacity-20"></div>
         </div>
 
@@ -32,15 +36,16 @@ export const Services: React.FC = () => {
                   {service.title}
                 </h3>
                 
+                {/* Аудитория - можно оставить как есть или тоже перевести, но это часть контента */}
                 <p className="text-sm font-medium text-academic-500 mb-6 uppercase tracking-wide">
-                  Аудитория: {service.targetAudience}
+                   {service.targetAudience}
                 </p>
                 
                 <p className="text-academic-600 mb-8 leading-relaxed">
                   {service.description}
                 </p>
                 
-                <ul className="space-y-3 mb-8">
+                <ul className=\"space-y-3 mb-8\">
                   {service.details.map((detail, idx) => (
                     <li key={idx} className="flex items-start gap-3 text-academic-700">
                       <CheckCircle2 size={18} className="mt-1 text-academic-400 shrink-0" />
@@ -50,13 +55,13 @@ export const Services: React.FC = () => {
                 </ul>
                 
                 <a 
-  href="https://t.me/mathreisender" 
-  target="_blank" 
-  rel="noopener noreferrer"
-  className="inline-block text-academic-900 font-bold border-b-2 border-academic-900 hover:text-academic-600 hover:border-academic-600 transition-colors pb-1 cursor-pointer"
->
-  {service.cta}
-</a>
+                  href="https://t.me/mathreisender" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-block text-academic-900 font-bold border-b-2 border-academic-900 hover:text-academic-600 hover:border-academic-600 transition-colors pb-1 cursor-pointer"
+                >
+                  {service.cta}
+                </a>
               </div>
             );
           })}
