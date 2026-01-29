@@ -54,7 +54,7 @@ export const content: SiteContent = {
       year: "2019",
       description: "Монография: общие методы, приемы, конструкции, идеи математики и ее оснований. (М.: Юстицинформ).",
       // ВАЖНО: Положите файл archetypes.jpg в папку public
-      coverImage: "/archetypes.png", 
+      coverImage: "/data/archetypes.png", 
       link: "https://tinyurl.com/3j7z25k2"
     },
     {
@@ -64,7 +64,7 @@ export const content: SiteContent = {
       year: "2022",
       description: "Совместно с А.В. Савватеевым. Пособие по мотивам курса «100 уроков математики».",
       // ВАЖНО: Положите файл savvateev.jpg в папку public
-      coverImage: "/savvateev.png",
+      coverImage: "/data/savvateev.png",
       link: "https://tinyurl.com/mr28x2t2"
     },
     {
