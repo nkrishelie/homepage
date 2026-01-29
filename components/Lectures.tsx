@@ -4,16 +4,16 @@ import { PlayCircle } from 'lucide-react';
 
 export const Lectures: React.FC = () => {
   const { content } = useLanguage();
+
   return (
     <section id="lectures" className="py-24 bg-white border-t border-academic-100">
       <div className="container mx-auto px-6 max-w-6xl">
         <h2 className="text-3xl md:text-4xl font-serif font-bold text-academic-900 mb-16 text-center">
-            Избранные лекции
+            {content.ui.headers.lectures}
         </h2>
 
         <div className="grid md:grid-cols-3 gap-8">
             {content.lectures.map((lecture) => (
-                // ИЗМЕНЕНИЕ ЗДЕСЬ: Заменили div на a
                 <a 
                     key={lecture.id} 
                     href={lecture.link} 
@@ -43,14 +43,13 @@ export const Lectures: React.FC = () => {
         </div>
         
         <div className="text-center mt-12">
-            {/* ИЗМЕНЕНИЕ ЗДЕСЬ: Добавили ссылку на канал */}
             <a 
                 href="https://www.youtube.com/@reisedurchdiemathe" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block border border-academic-300 px-6 py-3 text-sm font-medium hover:bg-academic-50 transition-colors"
             >
-                Смотреть все лекции на YouTube
+                {content.ui.buttons.watchAll}
             </a>
         </div>
       </div>
