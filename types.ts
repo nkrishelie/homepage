@@ -55,5 +55,6 @@ export interface SiteContent {
     bio: string;
     interests: string[];
     socials: SocialLink[];
+    location?: string;
   };
 }
