@@ -13,6 +13,7 @@ export const content: SiteContent = {
   ui: {
     headers: {
       services: "Services",
+      projects: "Digital Projects",
       books: "Books",
       lectures: "Selected Lectures",
       about: "About Me",
@@ -22,7 +23,8 @@ export const content: SiteContent = {
     },
     buttons: {
       details: "Details",
-      watchAll: "Watch all lectures on YouTube"
+      watchAll: "Watch all lectures on YouTube",
+      viewProject: "Launch Project"
     },
     footer: {
       rights: "All rights reserved."
@@ -30,6 +32,7 @@ export const content: SiteContent = {
   },
   navigation: [
     { label: "Services", href: "#services" },
+    { label: "Projects", href: "#projects" },
     { label: "Books", href: "#books" },
     { label: "Lectures", href: "#lectures" },
     { label: "About", href: "#about" },
@@ -62,6 +65,22 @@ export const content: SiteContent = {
       ],
       cta: "Enroll",
       iconName: "GraduationCap"
+    }
+  ],
+  projects: [
+    {
+      id: "nexus",
+      title: "Nexus Math",
+      description: "An interactive 3D map of mathematical foundations. Visualizing connections between axiomatic systems, theorems, and definitions.",
+      link: "https://nexus.mathem.at/",
+      techStack: "WebGL / 3D Graph"
+    },
+    {
+      id: "arxiv",
+      title: "ArXiv Universe",
+      description: "Interactive 3D visualization of the scientific landscape based on arXiv.org data. Disciplines are treated as massive planets with papers orbiting as satellites.",
+      link: "https://arxiv.mathem.at/",
+      techStack: "Data Viz / Big Data"
     }
   ],
   books: [
