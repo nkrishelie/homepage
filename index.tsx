@@ -1,15 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import './index.css';
+import { LanguageProvider } from './LanguageContext'; // <--- Импорт
 
 const rootElement = document.getElementById('root');
-if (!rootElement) {
-  throw new Error("Could not find root element to mount to");
-}
+if (!rootElement) throw new Error("Root not found");
 
-const root = ReactDOM.createRoot(rootElement);
-root.render(
+ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
-    <App />
+    <LanguageProvider>  {/* <--- Обертка */}
+      <App />
+    </LanguageProvider> {/* <--- Обертка */}
   </React.StrictMode>
 );
