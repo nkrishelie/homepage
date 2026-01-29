@@ -1,5 +1,5 @@
 import React from 'react';
-import { content } from '../data/content';
+import { useLanguage } from '../LanguageContext';
 import { Brain, GraduationCap, CheckCircle2 } from 'lucide-react';
 
 const icons = {
