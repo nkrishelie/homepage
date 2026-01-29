@@ -6,11 +6,11 @@ export const About: React.FC = () => {
 
   return (
     <section id="about" className="py-24 bg-academic-900 text-academic-100">
-      <div className="container mx-auto px-6 max-w-5xl"> {/* Чуть расширил контейнер */}
+      <div className="container mx-auto px-6 max-w-6xl"> 
         <div className="flex flex-col md:flex-row gap-12 items-start">
             
-            {/* Левая колонка: Текст */}
-            <div className="md:w-3/5">
+            {/* Левая колонка: Текст (Теперь занимает 2/3 ширины - 66%) */}
+            <div className="md:w-2/3">
                 <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-8">
                   {content.ui.headers.about}
                 </h2>
@@ -34,27 +34,27 @@ export const About: React.FC = () => {
                 </div>
             </div>
             
-            {/* Правая колонка: Фото + Контакты */}
-            <div className="md:w-2/5 w-full flex flex-col gap-6">
+            {/* Правая колонка: Фото + Контакты (Теперь занимает 1/3 ширины - 33%) */}
+            <div className="md:w-1/3 w-full flex flex-col gap-6">
                 
                 {/* ФОТОГРАФИЯ */}
-                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-sm border border-academic-700 bg-academic-800 group">
-                    {/* Предполагаем, что файл называется profile.jpg и лежит в папке public */}
+                {/* Изменено: aspect-square (квадрат) вместо 4/5 */}
+                <div className="relative aspect-square w-full overflow-hidden rounded-sm border border-academic-700 bg-academic-800 group">
                     <img 
                         src="/profile.jpg" 
                         alt="Nikolai Kazimirov" 
-                        className="w-full h-full object-cover grayscale opacity-90 transition-all duration-500 group-hover:grayscale-0 group-hover:opacity-100"
+                        // Добавлено: object-top (чтобы не обрезало голову)
+                        className="w-full h-full object-cover object-top grayscale opacity-90 transition-all duration-500 group-hover:grayscale-0 group-hover:opacity-100"
                     />
-                    {/* Тонкая рамка внутри */}
                     <div className="absolute inset-0 border border-white/10 pointer-events-none"></div>
                 </div>
 
                 {/* Блок контактов */}
-                <div className="bg-academic-800 p-8 rounded-sm border border-academic-700">
-                    <h3 className="text-lg font-serif font-semibold text-white mb-6">
+                <div className="bg-academic-800 p-6 rounded-sm border border-academic-700">
+                    <h3 className="text-lg font-serif font-semibold text-white mb-4">
                       {content.ui.headers.contacts}
                     </h3>
-                    <ul className="space-y-4">
+                    <ul className="space-y-3">
                         {content.about.socials.map((social) => (
                             <li key={social.label}>
                                 <a 
@@ -68,11 +68,11 @@ export const About: React.FC = () => {
                         ))}
                     </ul>
                     
-                    <div className="mt-8 pt-8 border-t border-academic-700">
-                        <p className="text-sm text-academic-400 mb-2">
+                    <div className="mt-6 pt-6 border-t border-academic-700">
+                        <p className="text-sm text-academic-400 mb-1">
                           {content.ui.headers.location}
                         </p>
-                        <p className="text-academic-200">
+                        <p className="text-academic-200 text-sm">
                             {content.about.location || "Москва, Россия"}
                         </p>
                     </div>
