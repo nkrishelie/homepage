@@ -58,6 +58,14 @@ export interface UILabels {
   };
 }
 
+export interface ProjectItem {
+  id: string;
+  title: string;
+  description: string;
+  link: string;
+  techStack?: string; // Например "Three.js, React"
+}
+
 export interface SiteContent {
   personal: {
     name: string;
