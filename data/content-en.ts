@@ -9,6 +9,25 @@ export const content: SiteContent = {
     tagline: "Scientific expertise, fundamental logic, and rigorous mathematical models.",
     email: "ngoogstein@gmail.com"
   },
+  // ENGLISH UI LABELS
+  ui: {
+    headers: {
+      services: "Services",
+      books: "Books",
+      lectures: "Selected Lectures",
+      about: "About Me",
+      interests: "Research Interests",
+      contacts: "Contact",
+      location: "Location"
+    },
+    buttons: {
+      details: "Details",
+      watchAll: "Watch all lectures on YouTube"
+    },
+    footer: {
+      rights: "All rights reserved."
+    }
+  },
   navigation: [
     { label: "Services", href: "#services" },
     { label: "Books", href: "#books" },
@@ -24,7 +43,7 @@ export const content: SiteContent = {
       details: [
         "Analysis of formal problem statements",
         "Assistance with scientific papers (Paper review)",
-        "Consulting on Discrete Math and Logic",
+        "Consulting on Logic and Model Theory",
         "Bridging gaps in fundamental background"
       ],
       cta: "Discuss a Project",
@@ -52,7 +71,7 @@ export const content: SiteContent = {
       role: "Author",
       year: "2019",
       description: "Monograph: General methods, techniques, constructions, and ideas of mathematics and its foundations. (Moscow: Justicinform).",
-      coverImage: "/archetypes.png", 
+      coverImage: "/archetypes.png",
       link: "https://tinyurl.com/3j7z25k2"
     },
     {
@@ -70,7 +89,7 @@ export const content: SiteContent = {
       role: "Author",
       year: "Under Review",
       description: "In preparation for Springer. The book is dedicated to the language of mathematics and the methodology of thinking.",
-      coverImage: "/MFL.png",
+      coverImage: "/springer.png",
       link: "#"
     }
   ],
@@ -78,10 +97,10 @@ export const content: SiteContent = {
     {
       id: "game",
       title: "Ehrenfeucht-Fraïssé Games",
-      thumbnail: "https://img.youtube.com/vi/FN_Sw4pKmZk/maxresdefault.jpg", 
+      thumbnail: "https://img.youtube.com/vi/FN_Sw4pKmZk/maxresdefault.jpg",
       duration: "Lecture",
       platform: "YouTube",
-      link: "https://youtu.be/FN_Sw4pKmZk" 
+      link: "https://youtu.be/FN_Sw4pKmZk"
     },
     {
       id: "cantor",
@@ -101,18 +120,21 @@ export const content: SiteContent = {
     }
   ],
   about: {
-    bio: "Ph.D. in Physics and Mathematics (01.01.09). Graduated from the Faculty of Mathematics at PetrSU and postgraduate studies at KarRC RAS. In 2024–2025, I lived and worked in Austria (Graz), where my experience learning German at TU Graz inspired me to write the book 'Math as a Foreign Language' (Springer, under review). I specialize in foundations of mathematics, model theory, and scientific popularization.",
+    // Упрощено: Ph.D. in Mathematics, без кодов ВАК
+    bio: "Ph.D. in Mathematics. Graduated from the Faculty of Mathematics at PetrSU and postgraduate studies at KarRC RAS. In 2024–2025, I lived and worked in Austria (Graz), where my experience learning German at TU Graz inspired me to write the book 'Math as a Foreign Language' (Springer, under review). I specialize in foundations of mathematics, model theory, and scientific popularization.",
     interests: [
-      "Discrete Mathematics",
       "Mathematical Logic",
+      "Set Theory",
       "Model Theory",
-      "Foundations of Mathematics"
+      "Proof Theory",
+      "Foundations of Mathematics",
+      "Computer Science"
     ],
     socials: [
       { label: "Telegram", href: "https://t.me/mathreisender" },
       { label: "YouTube", href: "https://www.youtube.com/@reisedurchdiemathe" },
       { label: "Email", href: "mailto:ngoogstein@gmail.com" }
     ],
-    location: "Moscow, Russia" 
+    location: "Moscow, Russia"
   }
 };
