@@ -1,14 +1,23 @@
 import React from 'react';
 import { useLanguage } from '../LanguageContext';
+import { Mail, Youtube, Send, MapPin, ExternalLink } from 'lucide-react';
 
 export const About: React.FC = () => {
   const { content } = useLanguage();
+
+  // Простая функция для подбора иконки по названию соцсети
+  const getIcon = (label: string) => {
+    const l = label.toLowerCase();
+    if (l.includes('telegram')) return <Send size={18} />;
+    if (l.includes('youtube')) return <Youtube size={18} />;
+    if (l.includes('email') || l.includes('mail')) return <Mail size={18} />;
+    return <ExternalLink size={18} />;
+  };
 
   return (
     <section id="about" className="py-24 bg-academic-900 text-academic-100">
       <div className="container mx-auto px-6 max-w-7xl"> 
         
-        {/* Flex-контейнер для трех колонок */}
         <div className="flex flex-col md:flex-row gap-8 lg:gap-12 items-start">
             
             {/* КОЛОНКА 1: Фотография (25%) */}
@@ -20,7 +29,6 @@ export const About: React.FC = () => {
                         className="w-full h-full object-cover object-top grayscale opacity-90 hover:grayscale-0 hover:opacity-100 transition-all duration-500"
                     />
                 </div>
-                {/* Подпись или статус можно добавить сюда, если понадобится */}
             </div>
 
             {/* КОЛОНКА 2: Биография и Интересы (50%) */}
@@ -50,31 +58,35 @@ export const About: React.FC = () => {
             </div>
 
             {/* КОЛОНКА 3: Контакты и Локация (25%) */}
-            <div className="w-full md:w-1/4 bg-academic-800/30 p-6 rounded-sm border border-academic-700/50">
-                <h3 className="text-lg font-serif font-bold text-white mb-6">
+            {/* Сделали более компактным (p-5 вместо p-6) и уплотнили список */}
+            <div className="w-full md:w-1/4 bg-academic-800/30 p-5 rounded-sm border border-academic-700/50">
+                <h3 className="text-lg font-serif font-bold text-white mb-4">
                   {content.ui.headers.contacts}
                 </h3>
                 
-                <ul className="space-y-4 mb-8">
+                {/* space-y-3 (было 4) - уменьшили расстояние между пунктами */}
+                <ul className="space-y-3 mb-6">
                     {content.about.socials.map((social) => (
                         <li key={social.label}>
                             <a 
                                 href={social.href}
-                                className="flex items-center gap-3 text-academic-300 hover:text-white transition-colors group"
+                                className="flex items-center gap-3 text-academic-300 hover:text-white transition-colors group p-1 -ml-1" // увеличили область клика
                             >
-                                <span className="w-8 h-px bg-academic-600 group-hover:bg-white transition-colors"></span>
-                                <span className="font-medium">{social.label}</span>
+                                <span className="text-academic-500 group-hover:text-white transition-colors">
+                                    {getIcon(social.label)}
+                                </span>
+                                <span className="font-medium text-sm md:text-base">{social.label}</span>
                             </a>
                         </li>
                     ))}
                 </ul>
 
-                <div className="pt-6 border-t border-academic-700/50">
-                    <div className="text-academic-500 mb-2 font-mono text-xs uppercase tracking-widest">
+                <div className="pt-5 border-t border-academic-700/50">
+                    <div className="text-academic-500 mb-1 font-mono text-xs uppercase tracking-widest flex items-center gap-2">
+                        <MapPin size={14} />
                         {content.ui.headers.location}
                     </div>
-                    <div className="text-white flex items-center gap-2">
-                        <span className="w-2 h-2 bg-academic-500 rounded-full"></span>
+                    <div className="text-white text-sm pl-6">
                         {content.about.location || "Москва, Россия"}
                     </div>
                 </div>
