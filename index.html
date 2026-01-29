@@ -4,16 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Николай Казимиров, Ph.D. - Математическая логика</title>
-    <meta name="description" content="Научный консалтинг и заочная школа логики" />
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Fonts: Merriweather (Serif) for headings, Inter (Sans) for body -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
-
     <script>
       tailwind.config = {
         theme: {
@@ -34,25 +26,21 @@
                 700: '#334155',
                 800: '#1e293b',
                 900: '#0f172a',
-                accent: '#2c3e50', // Deep Slate/Blue
+                accent: '#2c3e50',
               }
             }
           }
         }
       }
     </script>
-  <script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@^19.2.4",
-    "react/": "https://esm.sh/react@^19.2.4/",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-    "lucide-react": "https://esm.sh/lucide-react@^0.563.0"
-  }
-}
-</script>
-</head>
-  <body class="bg-white text-academic-800 antialiased selection:bg-academic-200 selection:text-academic-900">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-white text-academic-800 antialiased">
     <div id="root"></div>
+    
+    <script type="module" src="/src/index.tsx"></script>
   </body>
 </html>
