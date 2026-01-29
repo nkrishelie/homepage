@@ -3,6 +3,7 @@ import { content } from '../data/content';
 import { useLanguage } from '../LanguageContext';
 
 export const Hero: React.FC = () => {
+  const { content } = useLanguage();
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-20 pb-16 px-6 bg-academic-50">
       <div className="max-w-4xl mx-auto text-center">
