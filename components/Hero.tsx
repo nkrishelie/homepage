@@ -1,16 +1,12 @@
 import React from 'react';
-import { useLanguage } from '../LanguageContext'; // Подключаем язык
-import { ArrowRight, BookOpen } from 'lucide-react'; // <--- ВОТ ЭТОЙ СТРОКИ НЕ ХВАТАЛО
+import { useLanguage } from '../LanguageContext';
 
 export const Hero: React.FC = () => {
-  const { content } = useLanguage(); // Берем контент через хук
+  const { content } = useLanguage();
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-20 pb-16 px-6 bg-academic-50">
-      <div className="max-w-4xl mx-auto text-center">
-        
-        {/* Плашка с Ph.D. убрана по вашей просьбе ранее, код чистый */}
-        
+    <section className="relative min-h-[80vh] flex items-center justify-center pt-20 pb-16 px-6 bg-academic-50">
+      <div className="max-w-4xl mx-auto text-center z-10">
         <h1 className="text-5xl md:text-7xl font-serif font-bold text-academic-900 mb-6 leading-tight">
           {content.personal.name}
         </h1>
@@ -22,27 +18,8 @@ export const Hero: React.FC = () => {
         <p className="text-lg md:text-xl text-academic-500 max-w-2xl mx-auto mb-12 leading-relaxed">
           {content.personal.tagline}
         </p>
-        
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a 
-            href="#services"
-            className="group px-8 py-4 bg-academic-900 text-white font-medium rounded-sm hover:bg-academic-800 transition-all flex items-center gap-2"
-          >
-            Научный консалтинг
-            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-          </a>
-          
-          <a 
-            href="#services"
-            className="group px-8 py-4 bg-white border border-academic-300 text-academic-800 font-medium rounded-sm hover:border-academic-800 transition-all flex items-center gap-2"
-          >
-            Заочная школа
-            <BookOpen size={18} className="text-academic-500 group-hover:text-academic-800 transition-colors" />
-          </a>
-        </div>
       </div>
       
-      {/* Декоративный фон */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03]" 
         style={{
           backgroundImage: 'linear-gradient(#0f172a 1px, transparent 1px), linear-gradient(90deg, #0f172a 1px, transparent 1px)',
