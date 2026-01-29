@@ -2,7 +2,7 @@ import { SiteContent } from '../types';
 
 export const content: SiteContent = {
   personal: {
-    name: "Nikolai Kazimirov",
+    name: "Nikolai I. Kazimirov",
     logoText: "N.K. ⊬ ⊥",
     degree: "Ph.D.",
     headline: "Mathematical Logic & Foundations of Mathematics",
