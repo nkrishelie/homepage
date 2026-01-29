@@ -48,9 +48,14 @@ export const Services: React.FC = () => {
                   ))}
                 </ul>
                 
-                <button className="text-academic-900 font-bold border-b-2 border-academic-900 hover:text-academic-600 hover:border-academic-600 transition-colors pb-1">
-                  {service.cta}
-                </button>
+                <a 
+  href="https://t.me/mathreisender" 
+  target="_blank" 
+  rel="noopener noreferrer"
+  className="inline-block text-academic-900 font-bold border-b-2 border-academic-900 hover:text-academic-600 hover:border-academic-600 transition-colors pb-1 cursor-pointer"
+>
+  {service.cta}
+</a>
               </div>
             );
           })}
