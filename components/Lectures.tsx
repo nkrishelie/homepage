@@ -1,5 +1,5 @@
 import React from 'react';
-import { content } from '../data/content';
+import { useLanguage } from '../LanguageContext';
 import { PlayCircle } from 'lucide-react';
 
 export const Lectures: React.FC = () => {
