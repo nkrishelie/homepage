@@ -3,11 +3,11 @@ import { SiteContent } from '../types';
 export const content: SiteContent = {
   personal: {
     name: "Николай Казимиров",
-    logoText: "N.K. ⊬ ⊥", 
+    logoText: "N.K. ⊬ ⊥",
     degree: "Ph.D.",
-    // Точная формулировка специальности
-    headline: "Дискретная математика и математическая кибернетика (01.01.05)", 
-    tagline: "Научная экспертиза, фундаментальная логика и основания математики.",
+    // Вернул как было про логику. Специфику про 01.01.05 убрал в About.
+    headline: "Математическая логика и основания математики", 
+    tagline: "Научная экспертиза, фундаментальная логика и строгие математические модели.",
     email: "ngoogstein@gmail.com"
   },
   navigation: [
@@ -29,7 +29,7 @@ export const content: SiteContent = {
         "Устранение пробелов в фундаментальной базе"
       ],
       cta: "Обсудить задачу",
-      iconName: "Brain" 
+      iconName: "Brain"
     },
     {
       id: "school",
@@ -39,7 +39,7 @@ export const content: SiteContent = {
       details: [
         "Классический университетский подход",
         "Письменная проверка решений (LaTeX/Рукопись)",
-        "Индивидуальный график без вебинаров",
+        "Индивидуальный график",
         "Прямая связь через Telegram/Email"
       ],
       cta: "Записаться",
@@ -53,24 +53,27 @@ export const content: SiteContent = {
       role: "Автор",
       year: "2019",
       description: "Монография: общие методы, приемы, конструкции, идеи математики и ее оснований. (М.: Юстицинформ).",
-      coverImage: "https://placehold.co/400x600/e2e8f0/1e293b?text=Archetypes", // Заменишь на фото обложки
-      link: "https://mathem.at/book"
+      // ВАЖНО: Положите файл archetypes.jpg в папку public
+      coverImage: "/archetypes.jpg", 
+      link: "https://tinyurl.com/3j7z25k2"
     },
     {
       id: "savvateev",
       title: "Введение в настоящую математику",
       role: "Соавтор",
       year: "2022",
-      description: "Совместно с А.В. Савватеевым. Пособие по мотивам курса «100 уроков математики». (М.: Русский фонд содействия образованию и науке).",
-      coverImage: "https://placehold.co/400x600/e2e8f0/1e293b?text=Savvateev+Book",
-      link: "https://t.me/mathreisender" 
+      description: "Совместно с А.В. Савватеевым. Пособие по мотивам курса «100 уроков математики».",
+      // ВАЖНО: Положите файл savvateev.jpg в папку public
+      coverImage: "/savvateev.jpg",
+      link: "https://tinyurl.com/mr28x2t2"
     },
     {
       id: "springer",
       title: "Math as a Foreign Language",
       role: "Автор",
-      year: "In Review",
+      year: "Under Review",
       description: "Готовится к изданию в Springer. Книга посвящена языку математики и методологии мышления.",
+      // Можете положить любую заглушку или лого Springer
       coverImage: "https://placehold.co/400x600/e2e8f0/1e293b?text=Springer+Draft",
       link: "#"
     }
@@ -79,7 +82,8 @@ export const content: SiteContent = {
     {
       id: "l1",
       title: "Математика как иностранный",
-      thumbnail: "https://img.youtube.com/vi/q1eJ7Zg_vKQ/maxresdefault.jpg", // ID замени на реальный, если есть вводная лекция
+      // Нужен ID видео (часть после v= в ссылке). Замените Zg_vKQ на реальный.
+      thumbnail: "https://img.youtube.com/vi/q1eJ7Zg_vKQ/maxresdefault.jpg", 
       duration: "Цикл лекций",
       platform: "YouTube"
     },
@@ -99,8 +103,7 @@ export const content: SiteContent = {
     }
   ],
   about: {
-    // Компиляция из двух текстов: строго фактологическая + текущий статус
-    bio: "Кандидат физико-математических наук (2003). Окончил математический факультет ПетрГУ (2000) и аспирантуру Иракельского научного центра РАН. Диссертация посвящена дискретной математике («Леса Гальтона—Ватсона и случайные подстановки»). Работал научным сотрудником РАН, преподавал матанлиз на физфаке ПетрГУ и работал учителем в Университетском лицее. Автор более 10 научных работ. В последние годы специализируюсь на основаниях математики, логике и теории моделей, а также сотрудничаю с группой Алексея Савватеева в области популяризации «настоящей» математики.",
+    bio: "Кандидат физико-математических наук (01.01.05 — Дискретная математика и математическая кибернетика). Окончил матфак ПетрГУ и аспирантуру Карельского научного центра РАН. Диссертация посвящена стохастике («Леса Гальтона—Ватсона и случайные подстановки»). Работал научным сотрудником РАН, преподавал матанализ на физфаке ПетрГУ. В настоящее время специализируюсь на основаниях математики, теории моделей и научной популяризации (сотрудничество с А. Савватеевым, А. Павликовым).",
     interests: [
       "Дискретная математика",
       "Математическая логика",
@@ -109,8 +112,10 @@ export const content: SiteContent = {
     ],
     socials: [
       { label: "Telegram", href: "https://t.me/mathreisender" },
-      { label: "YouTube", href: "https://www.youtube.com/@reisedurchdiemathe" }, // Исправлена ссылка
+      { label: "YouTube", href: "https://www.youtube.com/@reisedurchdiemathe" },
       { label: "Email", href: "mailto:ngoogstein@gmail.com" }
-    ]
+    ],
+    // Исправил локацию
+    location: "Москва, Россия" 
   }
 };
