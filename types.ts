@@ -42,6 +42,7 @@ export interface LectureItem {
 export interface UILabels {
   headers: {
     services: string;
+    projects: string; // <--- НОВОЕ
     books: string;
     lectures: string;
     about: string;
@@ -52,6 +53,7 @@ export interface UILabels {
   buttons: {
     details: string;
     watchAll: string;
+    viewProject: string; // <--- НОВОЕ
   };
   footer: {
     rights: string;
@@ -78,6 +80,7 @@ export interface SiteContent {
   ui: UILabels; // <--- Добавили сюда
   navigation: LinkItem[];
   services: ServiceItem[];
+  projects: ProjectItem[];
   books: BookItem[];
   lectures: LectureItem[];
   about: {
