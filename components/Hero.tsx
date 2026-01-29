@@ -10,7 +10,7 @@ export const Hero: React.FC = () => {
     <section className="relative min-h-[90vh] flex items-center justify-center pt-20 pb-16 px-6 bg-academic-50 overflow-hidden">
       
       <div className="max-w-4xl mx-auto text-center z-10">
-        <h1 className="text-6xl md:text-8xl font-serif font-bold text-academic-900 mb-6 leading-tight">
+        <h1 className="text-4xl md:text-6xl font-serif font-bold text-academic-900 mb-6 leading-tight">
           {content.personal.name}
         </h1>
         
