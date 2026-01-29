@@ -1,6 +1,6 @@
 import React from 'react';
 import { content } from '../data/content';
-import { ArrowRight, BookOpen } from 'lucide-react';
+import { useLanguage } from '../LanguageContext';
 
 export const Hero: React.FC = () => {
   return (
