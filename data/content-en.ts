@@ -89,7 +89,7 @@ export const content: SiteContent = {
       role: "Author",
       year: "Under Review",
       description: "In preparation. The book is dedicated to the language of mathematics and the methodology of thinking.",
-      coverImage: "/springer.png",
+      coverImage: "/MFL.png",
       link: "#"
     }
   ],
