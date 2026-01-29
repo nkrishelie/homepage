@@ -6,7 +6,7 @@ export interface LinkItem {
 }
 
 export interface SocialLink extends LinkItem {
-  icon?: string; // Icon name reference
+  icon?: string;
 }
 
 export interface ServiceItem {
@@ -38,6 +38,26 @@ export interface LectureItem {
   link?: string;
 }
 
+// Новый раздел для интерфейсных текстов
+export interface UILabels {
+  headers: {
+    services: string;
+    books: string;
+    lectures: string;
+    about: string;
+    interests: string;
+    contacts: string;
+    location: string;
+  };
+  buttons: {
+    details: string;
+    watchAll: string;
+  };
+  footer: {
+    rights: string;
+  };
+}
+
 export interface SiteContent {
   personal: {
     name: string;
@@ -47,6 +67,7 @@ export interface SiteContent {
     tagline: string;
     email: string;
   };
+  ui: UILabels; // <--- Добавили сюда
   navigation: LinkItem[];
   services: ServiceItem[];
   books: BookItem[];
