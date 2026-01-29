@@ -3,6 +3,7 @@ import { useLanguage } from '../LanguageContext';
 import { ExternalLink } from 'lucide-react';
 
 export const Books: React.FC = () => {
+  const { content } = useLanguage();
   return (
     <section id="books" className="py-24 bg-academic-50">
       <div className="container mx-auto px-6 max-w-6xl">
