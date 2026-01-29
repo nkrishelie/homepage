@@ -3,6 +3,7 @@ import { useLanguage } from '../LanguageContext';
 import { PlayCircle } from 'lucide-react';
 
 export const Lectures: React.FC = () => {
+  const { content } = useLanguage();
   return (
     <section id="lectures" className="py-24 bg-white border-t border-academic-100">
       <div className="container mx-auto px-6 max-w-6xl">
