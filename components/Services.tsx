@@ -9,6 +9,7 @@ const icons = {
 };
 
 export const Services: React.FC = () => {
+  const { content } = useLanguage();
   return (
     <section id="services" className="py-24 bg-white">
       <div className="container mx-auto px-6 max-w-6xl">
