@@ -177,15 +177,38 @@ export const content: SiteContent = {
       title: "Work Experience",
       items: [
         {
-          role: "Head of Content & Data Analyst",
-          company: "Softline",
-          period: "2014 – Present",
+          role: "Senior Data Analyst",
+          company: "Softline (Ecommerce)",
+          period: "Sep 2019 – Present",
           description: [
-            "Orchestrated the implementation of a Business Intelligence (BI) solution leveraging Google Cloud Platform (GCP), reducing manual ETL procedures by 50-70%.",
-            "Constructed and configured over 70 dashboards using Looker to deliver comprehensive business metric insights.",
-            "Lead a team of 20 individuals (content managers, analysts), ensuring seamless collaboration.",
-            "Innovated and implemented an alert system for early problem detection in shopping carts. Conducted A/B testing using Python.",
-            "Enhanced Price and Product Management System (MCF), seamlessly integrating and automating pricing processes."
+            "Key Metrics: Supported revenue up to $5M across 10 online shops in 9 countries.",
+            "Data Engineering: Orchestrated BI implementation on GCP, reducing manual ETL procedures by 50-70%.",
+            "Analytics: Constructed over 70 dashboards (Looker/DataLens) for comprehensive business insights.",
+            "Optimization: Implemented alert systems for shopping carts and conducted A/B testing using Python.",
+            "Tech Stack: Python, SQL, BigQuery, Looker, ETL pipelines."
+          ]
+        },
+        // 2. MIDDLE ROLE
+        {
+          role: "Head of Content Division / Product Owner",
+          company: "Softline",
+          period: "Apr 2016 – Sep 2019",
+          description: [
+            "Business Growth: Online sales revenue increased 3.5 times during this period (up to $3.5M).",
+            "Product Management: Designed and launched a new CMS (MCF system); led the development team as PO.",
+            "Scaling: Grew the catalog to 100,000 items across 4 countries.",
+            "Leadership: Managed a division of 15-20 people (content managers, translators)."
+          ]
+        },
+        // 3. EARLY ROLE
+        {
+          role: "E-Com Manager / Team Lead",
+          company: "Softline",
+          period: "Mar 2014 – Apr 2016",
+          description: [
+            "Zero to One: Increased catalog volume from 0 to 5,000 positions.",
+            "Team Building: Hired and trained the initial team of 3 content managers.",
+            "Operations: Managed 25 product categories of hardware and software."
           ]
         },
         {
