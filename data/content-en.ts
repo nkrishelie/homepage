@@ -155,22 +155,23 @@ export const content: SiteContent = {
       { label: "Email", href: "mailto:ngoogstein@gmail.com" },
       // Добавляем новые пункты для баланса:
       { label: "LinkedIn", href: "https://www.linkedin.com/in/nikolai-kazimirov/" },
-      //{ label: "GitHub", href: "https://github.com/nkrishelie" }, // Если есть
+      { label: "GitHub", href: "https://github.com/nkrishelie" }, // Если есть
       // { label: "Google Scholar", href: "..." } // Если есть
     ],
     location: "Moscow, Russia"
   },
   // Добавить в конец объекта content
+// В файле src/data/content-en.ts
   portfolio: {
     header: {
       title: "Nikolai Kazimirov",
       subtitle: "Data Scientist / Product Owner / Head of Content",
       back: "Back to Home",
-      download: "Download CV"
+      download: "Download CV (PDF)" // <--- Убедитесь, что это поле есть!
     },
     summary: {
       title: "About Me",
-      text: "Mathematician with a passion for uncovering data patterns. I combine rigorous hypothesis testing with modern tools like Python and BigQuery. My focus is applying Data Science and ML to solve complex problems. Open to relocation."
+      text: "As a mathematician, I take great pride in my diligent work with numbers and data, uncovering intricate patterns. With a dedicated focus on formulating and rigorously testing hypotheses, I utilize Python programming and the powerful BigQuery warehouse. My sincere goal is to advance my career in the fields of Data Science and Machine Learning, continuously enhancing my skills and expertise. I am committed to staying current with industry advancements, striving for excellence in all endeavors. OPEN TO RELOCATION."
     },
     experience: {
       title: "Work Experience",
@@ -184,7 +185,7 @@ export const content: SiteContent = {
             "Constructed and configured over 70 dashboards using Looker to deliver comprehensive business metric insights.",
             "Lead a team of 20 individuals (content managers, analysts), ensuring seamless collaboration.",
             "Innovated and implemented an alert system for early problem detection in shopping carts. Conducted A/B testing using Python.",
-            "Enhanced Price and Product Management System (MCF), integrating and automating pricing processes."
+            "Enhanced Price and Product Management System (MCF), seamlessly integrating and automating pricing processes."
           ]
         },
         {
@@ -202,15 +203,15 @@ export const content: SiteContent = {
           company: "KarRC RAS / PetrSU",
           period: "1998 – 2003",
           description: [
-            "Teaching mathematical analysis, research in probability theory and random processes.",
-            "Academic writing and abstract modeling."
+            "PhD Thesis: Limit theorems for Galton-Watson random forests.",
+            "Research focus: Random Forests and Random Permutations."
           ]
         }
       ]
     },
     skills: {
       title: "Skills & Tech Stack",
-      tack: [
+      stack: [
         "Python (Pandas, NumPy, Scikit-learn)",
         "Google BigQuery / SQL",
         "ClickHouse / Redshift",
@@ -220,6 +221,7 @@ export const content: SiteContent = {
         "Team Leadership"
       ]
     },
+    // --- ВОТ ЭТОЙ СЕКЦИИ СКОРЕЕ ВСЕГО НЕ ХВАТАЛО ---
     languages: {
       title: "Languages",
       items: [
