@@ -154,7 +154,7 @@ export const content: SiteContent = {
       { label: "Email", href: "mailto:ngoogstein@gmail.com" },
       // Добавляем новые пункты для баланса:
       { label: "LinkedIn", href: "https://www.linkedin.com/in/nikolai-kazimirov/" },
-      //{ label: "GitHub", href: "https://github.com/nkrishelie" }, // Если есть
+      { label: "GitHub", href: "https://github.com/nkrishelie" }, // Если есть
       // { label: "Google Scholar", href: "..." } // Если есть
     ],
     location: "Москва, Россия"
