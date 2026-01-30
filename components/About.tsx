@@ -5,7 +5,6 @@ import { Mail, Youtube, Send, MapPin, ExternalLink, Linkedin, Github, Graduation
 export const About: React.FC = () => {
   const { content } = useLanguage();
 
-  // Расширенная логика иконок
   const getIcon = (label: string) => {
     const l = label.toLowerCase();
     if (l.includes('telegram')) return <Send size={18} />;
@@ -13,7 +12,7 @@ export const About: React.FC = () => {
     if (l.includes('email') || l.includes('mail')) return <Mail size={18} />;
     if (l.includes('linkedin')) return <Linkedin size={18} />;
     if (l.includes('github') || l.includes('git')) return <Github size={18} />;
-    if (l.includes('scholar') || l.includes('publication') || l.includes('orcid')) return <GraduationCap size={18} />;
+    if (l.includes('scholar') || l.includes('publication')) return <GraduationCap size={18} />;
     return <ExternalLink size={18} />;
   };
 
@@ -23,7 +22,7 @@ export const About: React.FC = () => {
         
         <div className="flex flex-col md:flex-row gap-8 lg:gap-12 items-start">
             
-            {/* КОЛОНКА 1: Фотография (25%) */}
+            {/* КОЛОНКА 1: Фотография */}
             <div className="w-full md:w-1/4 flex flex-col gap-4">
                 <div className="relative aspect-[3/4] w-full overflow-hidden rounded-sm border border-academic-600 shadow-2xl">
                     <img 
@@ -34,7 +33,7 @@ export const About: React.FC = () => {
                 </div>
             </div>
 
-            {/* КОЛОНКА 2: Биография и Интересы (50%) */}
+            {/* КОЛОНКА 2: Биография, Интересы и Ссылка на портфолио */}
             <div className="w-full md:w-2/4 flex flex-col">
                 <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-6 leading-tight border-b border-academic-700 pb-4">
                   {content.ui.headers.about}
@@ -46,6 +45,22 @@ export const About: React.FC = () => {
                     </p>
                 </div>
                 
+                {/* Блок со стеком технологий (IT-опыт) */}
+                <div className="mb-8 p-4 bg-academic-800/50 border-l-2 border-academic-500 rounded-r-sm">
+                    <h3 className="text-xs font-bold text-academic-400 uppercase tracking-widest mb-2">
+                      IT & Data Science Background
+                    </h3>
+                    <p className="text-sm text-academic-300 mb-3">
+                       Python (Pandas, Scikit-learn), SQL, BigQuery, Looker Studio.
+                    </p>
+                    <a 
+                      href="/portfolio" 
+                      className="text-white font-bold text-sm border-b border-white hover:text-academic-400 hover:border-academic-400 transition-colors"
+                    >
+                      {content.portfolio.header.back === "Back to Home" ? "View full Data Science Portfolio →" : "Смотреть полное IT-портфолио →"}
+                    </a>
+                </div>
+
                 <div className="mt-auto">
                     <h3 className="text-sm font-bold text-academic-400 uppercase tracking-widest mb-3">
                       {content.ui.headers.interests}
@@ -60,13 +75,12 @@ export const About: React.FC = () => {
                 </div>
             </div>
 
-            {/* КОЛОНКА 3: Контакты (25%) */}
+            {/* КОЛОНКА 3: Контакты */}
             <div className="w-full md:w-1/4 bg-academic-800/30 p-5 rounded-sm border border-academic-700/50 flex flex-col h-full">
                 <h3 className="text-lg font-serif font-bold text-white mb-5">
                   {content.ui.headers.contacts}
                 </h3>
                 
-                {/* Увеличили отступы (space-y-4), чтобы список занял больше места по вертикали */}
                 <ul className="space-y-4 mb-8">
                     {content.about.socials.map((social) => (
                         <li key={social.label}>
@@ -85,7 +99,6 @@ export const About: React.FC = () => {
                     ))}
                 </ul>
 
-                {/* mt-auto прижмет локацию к низу блока, если он растянется */}
                 <div className="mt-auto pt-5 border-t border-academic-700/50">
                     <div className="text-academic-500 mb-1 font-mono text-xs uppercase tracking-widest flex items-center gap-2">
                         <MapPin size={14} />
