@@ -222,6 +222,16 @@ export const content: SiteContent = {
           ]
         },
         {
+          role: "Content Engineer",
+          company: "it4profit",
+          period: "Mar 2004 – Jun 2011",
+          description: [
+            "Content Management: Managed product databases and technical specifications.",
+            "Automation: Set up data processing and import workflows.",
+            "Transitioned from academic research to the IT sector."
+          ]
+        },
+        {
           role: "Researcher / Lecturer",
           company: "KarRC RAS / PetrSU",
           period: "1998 – 2003",
