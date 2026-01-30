@@ -304,7 +304,7 @@ export const content: SiteContent = {
           "3. Basic instruments",
           "4. Universes and multisets"
         ],
-        icon: "{∅}"
+        icon: "/emptyset.png"
       },
       {
         id: "2",
@@ -316,7 +316,7 @@ export const content: SiteContent = {
           "3. A bit of number theory",
           "4. Numerical structures"
         ],
-        icon: "ℵ₀"
+        icon: "/Aleph.png"
       },
       {
         id: "3",
@@ -333,7 +333,7 @@ export const content: SiteContent = {
           "8. Groups: The final chord",
           "9. Numerical archetypes"
         ],
-        icon: "ℤ[i]"
+        icon: "/Zi.png"
       },
       {
         id: "4",
@@ -344,7 +344,7 @@ export const content: SiteContent = {
           "2. Axiom of Choice: useful and strange",
           "3. Computability and provability"
         ],
-        icon: "A → B"
+        icon: "/ModusPonens.png"
       },
       {
         id: "5",
@@ -357,7 +357,7 @@ export const content: SiteContent = {
           "4. Probability",
           "5. A few words on the big picture"
         ],
-        icon: "∫ f(x)dx"
+        icon: "/Integral.png"
       },
       {
         id: "6",
@@ -368,7 +368,7 @@ export const content: SiteContent = {
           "2. Regular graphs",
           "3. Probabilities on graphs"
         ],
-        icon: "G(V,E)"
+        icon: "/Graph.png"
       }
     ]
   }
