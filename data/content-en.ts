@@ -169,7 +169,7 @@ export const content: SiteContent = {
     },
     summary: {
       title: "About Me",
-      text: "As a mathematician, I take great pride in my diligent work with numbers and data, uncovering intricate patterns. With a dedicated focus on formulating and rigorously testing hypotheses, I utilize Python programming and the powerful BigQuery warehouse. My goal is to advance my career in Data Science and Machine Learning. Open to relocation."
+      text: "Mathematician with a passion for uncovering data patterns. I combine rigorous hypothesis testing with modern tools like Python and BigQuery. My focus is applying Data Science and ML to solve complex problems. Open to relocation."
     },
     experience: {
       title: "Work Experience",
