@@ -91,7 +91,7 @@ export const content: SiteContent = {
       year: "2019",
       description: "Монография: общие методы, приемы, конструкции, идеи математики и ее оснований. (М.: Юстицинформ).",
       coverImage: "/archetypes.png",
-      link: "https://tinyurl.com/3j7z25k2"
+      link: "/book"
     },
     {
       id: "savvateev",
@@ -100,7 +100,7 @@ export const content: SiteContent = {
       year: "2022",
       description: "Совместно с А.В. Савватеевым. Пособие по мотивам курса «100 уроков математики».",
       coverImage: "/savvateev.png",
-      link: "https://tinyurl.com/mr28x2t2"
+      link: "https://tinyurl.com/mr28x2t"
     },
     {
       id: "springer",
