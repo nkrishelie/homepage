@@ -29,6 +29,35 @@ export interface BookItem {
   year: string;
 }
 
+// 1. Интерфейс для одной главы
+export interface BookChapter {
+  id: string;
+  title: string;
+  description: string; // Текст для вкладки "Описание"
+  sections: string[];  // Список для вкладки "Разделы"
+  icon?: string;       // Символ главы
+}
+
+// 2. Интерфейс для всей страницы книги
+export interface BookPageContent {
+  title: string;
+  subtitle: string;
+  description: string;
+  downloadButton: string;
+  back: string;
+  ui: {
+    tabDescription: string; // Текст кнопки "Описание"
+    tabSections: string;    // Текст кнопки "Разделы"
+  };
+  stats: {
+    pages: string;
+    images: string;
+    sources: string;
+    archetypes: string;
+  };
+  chapters: BookChapter[];
+}
+
 export interface LectureItem {
   id: string;
   title: string;
@@ -133,5 +162,6 @@ export interface SiteContent {
     socials: SocialLink[];
     location?: string;
   };
+  bookPage: BookPageContent;
   portfolio: PortfolioContent;
 }
