@@ -7,7 +7,8 @@ import { Books } from './components/Books';
 import { Lectures } from './components/Lectures';
 import { About } from './components/About';
 import { Footer } from './components/Footer';
-import { Portfolio } from './components/Portfolio'; // Убедись, что файл Portfolio.tsx создан в папке components
+import { Portfolio } from './components/Portfolio';
+import { BookDetails } from './components/BookDetails';
 
 const App: React.FC = () => {
   // Состояние для хранения текущего пути URL
@@ -39,6 +40,9 @@ const App: React.FC = () => {
   // 1. Если адрес "/portfolio", показываем компонент портфолио
   if (currentPath === '/portfolio') {
     return <Portfolio />;
+  }
+  if (currentPath === '/book') {
+    return <BookDetails />;
   }
 
   // 2. Иначе показываем главную страницу (Academic Profile)
