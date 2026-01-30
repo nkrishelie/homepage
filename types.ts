@@ -87,6 +87,7 @@ export interface PortfolioContent {
     title: string;
     subtitle: string;
     back: string;
+    download: string;
   };
   summary: {
     title: string;
@@ -99,6 +100,11 @@ export interface PortfolioContent {
   skills: {
     title: string;
     stack: string[]; // Просто список строк для краткости
+  };
+  // Добавляем языки
+  languages: {
+    title: string;
+    items: { language: string; level: string }[];
   };
   certs: {
     title: string;
