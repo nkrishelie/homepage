@@ -158,5 +158,62 @@ export const content: SiteContent = {
       // { label: "Google Scholar", href: "..." } // Если есть
     ],
     location: "Москва, Россия"
+  },
+  // Добавить в конец объекта content, перед закрывающей скобкой };
+  portfolio: {
+    header: {
+      title: "Николай Казимиров",
+      subtitle: "Data Scientist / Product Owner / Head of Content",
+      back: "Вернуться на главную"
+    },
+    summary: {
+      title: "Обо мне",
+      text: "Как математик, я горжусь своей работой с данными, находя скрытые закономерности. Сочетаю строгий научный подход (проверка гипотез) с мощными инструментами (Python, BigQuery). Моя цель — применять экспертизу в Data Science и Machine Learning для решения сложных бизнес-задач. Открыт к релокации."
+    },
+    experience: {
+      title: "Опыт работы",
+      items: [
+        {
+          role: "Head of Content & Data Analyst",
+          company: "Softline",
+          period: "2014 – Наст. время",
+          description: [
+            "Организовал внедрение BI-системы на базе Google Cloud Platform (GCP), сократив ручные ETL-процессы на 50-70%.",
+            "Создал более 70 дашбордов в Looker Studio для комплексной оценки бизнес-метрик в e-commerce.",
+            "Руководил командой из 20 человек (контент-менеджеры, аналитики), обеспечивая бесперебойную работу департамента.",
+            "Внедрил систему алертов для раннего обнаружения проблем в корзине покупок. Проводил A/B тесты с использованием Python.",
+            "Развил систему управления ценами и продуктами (MCF), автоматизировав матчинг и ценообразование."
+          ]
+        },
+        {
+          role: "Научный сотрудник / Преподаватель",
+          company: "КарНЦ РАН / ПетрГУ",
+          period: "1998 – 2003",
+          description: [
+            "Преподавание матанализа, научные исследования в области теории вероятностей и случайных процессов.",
+            "Написание научных статей и работа с абстрактными моделями."
+          ]
+        }
+      ]
+    },
+    skills: {
+      title: "Навыки и технологии",
+      stack: [
+        "Google BigQuery (Data Warehouse)",
+        "SQL (Expert)",
+        "Looker Studio",
+        "Python (Pandas, NumPy, Scikit-learn)",
+        "ETL Pipelines",
+        "Statistical Analysis",
+        "Team Management"
+      ]
+    },
+    certs: {
+      title: "Сертификаты",
+      items: [
+        { title: "Data Scientist with Python", issuer: "DataCamp", year: "2023" },
+        { title: "Data Analyst", issuer: "DataCamp", year: "2023" }
+      ]
+    }
   }
 };
