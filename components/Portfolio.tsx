@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLanguage } from '../LanguageContext';
+import { Footer } from './Footer';
 import { Briefcase, Award, Code, GraduationCap, ArrowLeft, Globe, Download, Languages } from 'lucide-react';
 
 export const Portfolio: React.FC = () => {
@@ -20,7 +21,7 @@ export const Portfolio: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-academic-50 text-academic-900 font-sans">
+    <div className="min-h-screen bg-academic-50 text-academic-900 font-sans flex flex-col">
       
       {/* Header */}
       <header className="bg-academic-900 text-white py-12 px-6">
@@ -58,6 +59,7 @@ export const Portfolio: React.FC = () => {
       </header>
 
       <div className="container mx-auto max-w-4xl px-6 py-16 space-y-16">
+      <main className="container mx-auto max-w-4xl px-6 py-16 space-y-16 flex-grow">
         
         {/* SUMMARY */}
         <section>
@@ -175,6 +177,8 @@ export const Portfolio: React.FC = () => {
         </section>
 
       </div>
+    </main>
+    <Footer />
     </div>
   );
 };
