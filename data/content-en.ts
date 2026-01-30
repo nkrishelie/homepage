@@ -91,7 +91,7 @@ export const content: SiteContent = {
       year: "2019",
       description: "Monograph: General methods, techniques, constructions, and ideas of mathematics and its foundations. (Moscow: Justicinform).",
       coverImage: "/archetypes.png",
-      link: "https://tinyurl.com/3j7z25k2"
+      link: "/book"
     },
     {
       id: "savvateev",
