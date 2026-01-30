@@ -10,7 +10,7 @@ export const Portfolio: React.FC = () => {
   // Ссылка на PDF (убедитесь, что файл cv.pdf лежит в папке public)
   const CV_LINK = "https://docs.google.com/document/d/14eF1EOT46sqvChjIu2Z_rbAwE7jiInSrVZosBpb3OJY/edit?usp=sharing"; 
 
-  // Вспомогательная функция для полоски прогресса языка (чисто визуальный эффект)
+  // Вспомогательная функция для полоски прогресса языка
   const getLangPercent = (level: string) => {
       const l = level.toLowerCase();
       if (l.includes('native') || l.includes('родной')) return '100%';
@@ -58,7 +58,7 @@ export const Portfolio: React.FC = () => {
         </div>
       </header>
 
-      <div className="container mx-auto max-w-4xl px-6 py-16 space-y-16">
+      {/* Main Content */}
       <main className="container mx-auto max-w-4xl px-6 py-16 space-y-16 flex-grow">
         
         {/* SUMMARY */}
@@ -94,11 +94,10 @@ export const Portfolio: React.FC = () => {
           </div>
         </section>
 
-        {/* ИСПРАВЛЕННЫЙ БЛОК: SKILLS & LANGUAGES */}
-        {/* Используем grid с разными пропорциями (7 колонок слева, 5 справа) */}
+        {/* SKILLS & LANGUAGES */}
         <div className="grid md:grid-cols-12 gap-8 items-start">
             
-            {/* SKILLS (Компактнее и аккуратнее) */}
+            {/* SKILLS */}
             <section className="md:col-span-7">
               <h2 className="text-2xl font-serif font-bold mb-5 flex items-center gap-3">
                 <Code className="text-academic-600" /> {p.skills.title}
@@ -114,7 +113,7 @@ export const Portfolio: React.FC = () => {
               </div>
             </section>
 
-            {/* LANGUAGES (Прижат к верху, добавлен визуальный бар) */}
+            {/* LANGUAGES */}
             <section className="md:col-span-5">
                <h2 className="text-2xl font-serif font-bold mb-5 flex items-center gap-3">
                  <Languages className="text-academic-600" /> {p.languages.title}
@@ -126,7 +125,6 @@ export const Portfolio: React.FC = () => {
                                <span className="font-bold text-academic-900">{lang.language}</span>
                                <span className="text-academic-500 text-xs uppercase font-semibold">{lang.level}</span>
                            </div>
-                           {/* Тонкая полоска уровня владения */}
                            <div className="w-full h-1.5 bg-academic-100 rounded-full overflow-hidden">
                                <div 
                                    className="h-full bg-academic-600 rounded-full" 
@@ -176,9 +174,11 @@ export const Portfolio: React.FC = () => {
              </div>
         </section>
 
-      </div>
-    </main>
-    <Footer />
+      </main>
+
+      {/* Footer */}
+      <Footer />
+
     </div>
   );
 };
