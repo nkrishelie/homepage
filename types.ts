@@ -68,6 +68,44 @@ export interface ProjectItem {
   techStack?: string; // Например "Three.js, React"
 }
 
+// 1. Добавьте новые интерфейсы для портфолио
+export interface PortfolioExperience {
+  role: string;
+  company: string;
+  period: string;
+  description: string[];
+}
+
+export interface PortfolioCertificate {
+  title: string;
+  issuer: string;
+  year: string;
+}
+
+export interface PortfolioContent {
+  header: {
+    title: string;
+    subtitle: string;
+    back: string;
+  };
+  summary: {
+    title: string;
+    text: string;
+  };
+  experience: {
+    title: string;
+    items: PortfolioExperience[];
+  };
+  skills: {
+    title: string;
+    stack: string[]; // Просто список строк для краткости
+  };
+  certs: {
+    title: string;
+    items: PortfolioCertificate[];
+  };
+}
+
 export interface SiteContent {
   personal: {
     name: string;
@@ -89,4 +127,5 @@ export interface SiteContent {
     socials: SocialLink[];
     location?: string;
   };
+  portfolio: PortfolioContent;
 }
