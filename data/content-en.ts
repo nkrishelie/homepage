@@ -167,7 +167,7 @@ export const content: SiteContent = {
       title: "Nikolai Kazimirov",
       subtitle: "Data Scientist / Product Owner / Head of Content",
       back: "Back to Home",
-      download: "Download CV (PDF)" // <--- Убедитесь, что это поле есть!
+      download: "Download CV" // <--- Убедитесь, что это поле есть!
     },
     summary: {
       title: "About Me",
