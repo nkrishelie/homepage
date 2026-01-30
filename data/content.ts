@@ -164,7 +164,8 @@ export const content: SiteContent = {
     header: {
       title: "Николай Казимиров",
       subtitle: "Data Scientist / Product Owner / Head of Content",
-      back: "Вернуться на главную"
+      back: "Вернуться на главную",
+      download: "Скачать резюме"
     },
     summary: {
       title: "Обо мне",
@@ -186,6 +187,16 @@ export const content: SiteContent = {
           ]
         },
         {
+          role: "Lead Category Manager / Product Owner",
+          company: "Utinet (Маркетплейс)",
+          period: "2011 – 2013",
+          description: [
+            "Разработал и внедрил более 100 категорий компьютерной техники с детальными спецификациями (100k+ товаров).",
+            "Внедрил метрики поиска на основе технических характеристик, что увеличило конверсию в 2-3 раза.",
+            "Управление товарной матрицей и аналитика продаж."
+          ]
+        },
+        {
           role: "Научный сотрудник / Преподаватель",
           company: "КарНЦ РАН / ПетрГУ",
           period: "1998 – 2003",
@@ -193,19 +204,27 @@ export const content: SiteContent = {
             "Преподавание матанализа, научные исследования в области теории вероятностей и случайных процессов.",
             "Написание научных статей и работа с абстрактными моделями."
           ]
-        }
+        },
       ]
     },
     skills: {
       title: "Навыки и технологии",
       stack: [
-        "Google BigQuery (Data Warehouse)",
-        "SQL (Expert)",
-        "Looker Studio",
         "Python (Pandas, NumPy, Scikit-learn)",
-        "ETL Pipelines",
-        "Statistical Analysis",
-        "Team Management"
+        "Google BigQuery / SQL",
+        "ClickHouse / Redshift", 
+        "Looker Studio / DataLens",
+        "ETL / Web Scraping (BeautifulSoup)",
+        "Statistical Modelling",
+        "Team Leadership"
+      ]
+    },
+    languages: {
+      title: "Владение языками",
+      items: [
+        { language: "Русский", level: "Родной" },
+        { language: "English", level: "Fluent (Свободный)" },
+        { language: "Deutsch", level: "B1/B2 (TU Graz)" }, // Важно для Австрии!
       ]
     },
     certs: {
