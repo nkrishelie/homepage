@@ -7,7 +7,7 @@ import { ArrowLeft, Download, BookOpen, Image as ImageIcon, List, Star, Globe } 
 export const BookDetails: React.FC = () => {
   const { content, language, setLanguage } = useLanguage();
   const b = content.bookPage;
-  const PDF_LINK = "/book.pdf"; 
+  const PDF_LINK = "https://tinyurl.com/3j7z25k2"; 
 
   useEffect(() => {
     window.scrollTo(0, 0);
