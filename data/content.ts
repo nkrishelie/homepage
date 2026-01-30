@@ -301,7 +301,7 @@ export const content: SiteContent = {
           "3. Основные инструменты",
           "4. Универсумы и мультимножества"
         ],
-        icon: "{∅}"
+        icon: "/emptyset.png"
       },
       {
         id: "2",
@@ -313,7 +313,7 @@ export const content: SiteContent = {
           "3. Немного теории чисел",
           "4. Числовые структуры"
         ],
-        icon: "ℵ₀"
+        icon: "/Aleph.png"
       },
       {
         id: "3",
@@ -330,7 +330,7 @@ export const content: SiteContent = {
           "8. Группы: завершающий аккорд",
           "9. Числовые архетипы"
         ],
-        icon: "ℤ[i]"
+        icon: "/Zi.png"
       },
       {
         id: "4",
@@ -341,7 +341,7 @@ export const content: SiteContent = {
           "2. Аксиома выбора: полезная и странная",
           "3. Вычислимость и доказуемость"
         ],
-        icon: "A → B"
+        icon: "ModusPonens.png"
       },
       {
         id: "5",
@@ -354,7 +354,7 @@ export const content: SiteContent = {
           "4. Вероятности",
           "5. Несколько слов об общей картине"
         ],
-        icon: "∫ f(x)dx"
+        icon: "Integral.png"
       },
       {
         id: "6",
@@ -365,7 +365,7 @@ export const content: SiteContent = {
           "2. Обычные графы",
           "3. Вероятности на графах"
         ],
-        icon: "G(V,E)"
+        icon: "Graph.png"
       }
     ]
   }
