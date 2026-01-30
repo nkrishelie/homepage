@@ -274,5 +274,102 @@ export const content: SiteContent = {
         { title: "Introduction to Tableau", issuer: "DataCamp", year: "2022" }
       ]
     }
+  },
+  // В src/data/content-en.ts внутри объекта content:
+
+  bookPage: {
+    title: "Archetypes of Mathematics",
+    subtitle: "Monograph",
+    description: "Using examples from logic, set theory, algebra, geometry, analysis, and graph theory, the book explores common characteristic techniques and methods for constructing mathematical objects — the so-called archetypes. The material is presented at both naive and rigorous levels. Special attention is paid to the Axiom of Choice, Goodstein's Theorem, and Fermat's Last Theorem for n=3, 4.",
+    downloadButton: "Download Book (PDF)",
+    back: "Back to Home",
+    ui: {
+      tabDescription: "Description",
+      tabSections: "Sections"
+    },
+    stats: {
+      pages: "612 Pages",
+      images: "83 Diagrams",
+      sources: "126 Sources",
+      archetypes: "34 Archetypes"
+    },
+    chapters: [
+      {
+        id: "1",
+        title: "Chapter 1. Sets and Multisets",
+        description: "This chapter deals with the formal language of mathematics — set theory. We start with the 'naive' concept of a set, introduce the grammar of the language, and then examine the ZFC axiomatics in detail.",
+        sections: [
+          "1. Hereditarily finite sets",
+          "2. Zermelo-Fraenkel axiomatics",
+          "3. Basic instruments",
+          "4. Universes and multisets"
+        ],
+        icon: "{∅}"
+      },
+      {
+        id: "2",
+        title: "Chapter 2. Numbers",
+        description: "Dedicated to 'linear' numbers ordered by a linear relation. Starting from natural numbers and ordinals, we progress through rational and real numbers to surreal numbers.",
+        sections: [
+          "1. Arithmetic of ordinal numbers",
+          "2. Cardinal arithmetic",
+          "3. A bit of number theory",
+          "4. Numerical structures"
+        ],
+        icon: "ℵ₀"
+      },
+      {
+        id: "3",
+        title: "Chapter 3. Further Generalizations",
+        description: "We examine algebraic constructions and study numerical structures that might not look like numbers at first glance (e.g., polynomials, matrices, complex numbers).",
+        sections: [
+          "1. A window into general algebra",
+          "2. Matrix representation of numbers",
+          "3. Gaussian integers",
+          "4. Eisenstein integers",
+          "5. Linear spaces and operators",
+          "6. Excursion into geometry",
+          "7. Polynomials",
+          "8. Groups: The final chord",
+          "9. Numerical archetypes"
+        ],
+        icon: "ℤ[i]"
+      },
+      {
+        id: "4",
+        title: "Chapter 4. Math Logic. Calculus I",
+        description: "Dedicated to the foundations of mathematics. Essentially, a set of methods for working with numbers and symbolism, algorithms, and decidability problems.",
+        sections: [
+          "1. Propositional and predicate calculi",
+          "2. Axiom of Choice: useful and strange",
+          "3. Computability and provability"
+        ],
+        icon: "A → B"
+      },
+      {
+        id: "5",
+        title: "Chapter 5. Analysis. Calculus II",
+        description: "Spaces and mappings. Transformations of spaces. Finite differences and variations. Probability. A few words on the big picture.",
+        sections: [
+          "1. Spaces and mappings",
+          "2. Transformations of spaces",
+          "3. Finite differences and variations",
+          "4. Probability",
+          "5. A few words on the big picture"
+        ],
+        icon: "∫ f(x)dx"
+      },
+      {
+        id: "6",
+        title: "Chapter 6. Graphs",
+        description: "Approaches to definition. Regular graphs. Probabilities on graphs (Random Graphs).",
+        sections: [
+          "1. Approaches to definition",
+          "2. Regular graphs",
+          "3. Probabilities on graphs"
+        ],
+        icon: "G(V,E)"
+      }
+    ]
   }
 };
