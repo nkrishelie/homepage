@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import { useLanguage } from '../LanguageContext';
 import { Footer } from './Footer';
 import { BookChapterCard } from './BookChapterCard';
-import { ArrowLeft, Download, BookOpen, Image as ImageIcon, List, Star } from 'lucide-react';
+import { ArrowLeft, Download, BookOpen, Image as ImageIcon, List, Star, Globe } from 'lucide-react';
 
 export const BookDetails: React.FC = () => {
-  const { content } = useLanguage();
+  const { content, language, setLanguage } = useLanguage();
   const b = content.bookPage;
-  const PDF_LINK = "/book.pdf"; // PDF файл должен лежать в папке public
+  const PDF_LINK = "/book.pdf"; 
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -18,32 +18,47 @@ export const BookDetails: React.FC = () => {
       
       {/* HEADER */}
       <header className="bg-academic-900 text-white pt-12 pb-24 px-6 relative overflow-hidden">
+        {/* Фон */}
         <div className="absolute top-0 right-0 w-1/2 h-full bg-academic-800/20 skew-x-12 translate-x-20"></div>
 
         <div className="container mx-auto max-w-5xl relative z-10">
-          <a href="/" className="inline-flex items-center gap-2 text-academic-400 hover:text-white mb-8 transition-colors">
-            <ArrowLeft size={20} /> {b.back}
-          </a>
+          
+          {/* Верхняя панель: Назад + Язык */}
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+             <a href="/" className="inline-flex items-center gap-2 text-academic-400 hover:text-white transition-colors">
+               <ArrowLeft size={20} /> {b.back}
+             </a>
+
+             <button 
+                onClick={() => setLanguage(language === 'ru' ? 'en' : 'ru')}
+                className="flex items-center gap-2 px-3 py-1 rounded border border-academic-600 hover:bg-academic-800 transition-colors text-sm"
+             >
+                <Globe size={16} />
+                {language === 'ru' ? 'English' : 'Русский'}
+             </button>
+          </div>
 
           <div className="flex flex-col md:flex-row gap-12 items-center md:items-start">
-            {/* Обложка книги */}
-            <div className="shrink-0 w-48 h-72 bg-red-600 shadow-2xl rounded-sm flex items-center justify-center text-center p-4 border-4 border-white/10 rotate-1 transform hover:rotate-0 transition-transform duration-500">
-               <div>
-                 <div className="text-white/80 text-sm uppercase tracking-widest mb-2">Н.И. Казимиров</div>
-                 <div className="text-white font-serif font-bold text-2xl leading-tight">{b.title}</div>
-                 <div className="mt-4 text-white/60 font-mono text-xs">eⁱπ + 1 = 0</div>
-               </div>
+            
+            {/* ОБЛОЖКА КНИГИ (Реальная картинка) */}
+            <div className="shrink-0 w-64 md:w-72 shadow-2xl rounded-sm border-4 border-white/10 rotate-1 transform hover:rotate-0 transition-transform duration-500 overflow-hidden bg-white">
+               <img 
+                 src="/archetypes.png" 
+                 alt={b.title} 
+                 className="w-full h-full object-cover"
+               />
             </div>
 
-            <div className="flex-grow text-center md:text-left">
-               <h1 className="text-4xl md:text-6xl font-serif font-bold mb-4">{b.title}</h1>
-               <p className="text-xl text-academic-300 mb-8 max-w-2xl">{b.description}</p>
+            <div className="flex-grow text-center md:text-left pt-4">
+               <div className="text-academic-400 text-sm uppercase tracking-widest mb-2 font-bold">{b.subtitle}</div>
+               <h1 className="text-4xl md:text-5xl font-serif font-bold mb-6 leading-tight">{b.title}</h1>
+               <p className="text-lg text-academic-300 mb-8 max-w-2xl leading-relaxed">{b.description}</p>
                
                <a 
                  href={PDF_LINK}
                  target="_blank" 
                  rel="noopener noreferrer"
-                 className="inline-flex items-center gap-3 px-8 py-4 bg-red-600 text-white font-bold rounded hover:bg-red-700 transition-colors shadow-lg hover:shadow-red-900/50"
+                 className="inline-flex items-center gap-3 px-8 py-4 bg-white text-academic-900 font-bold rounded hover:bg-academic-100 transition-colors shadow-lg"
                >
                  <Download size={20} />
                  {b.downloadButton}
@@ -54,36 +69,28 @@ export const BookDetails: React.FC = () => {
       </header>
 
       {/* STATS STRIP */}
-      <div className="bg-academic-900 border-t border-academic-800 py-12">
+      <div className="bg-academic-800 border-t border-academic-700 py-12">
         <div className="container mx-auto max-w-5xl px-6">
            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              <div className="flex flex-col items-center text-center">
-                 <div className="w-16 h-16 rounded-full bg-red-500 flex items-center justify-center mb-4 text-white">
-                    <BookOpen size={32} />
-                 </div>
-                 <div className="text-3xl font-bold text-white mb-1">612</div>
-                 <div className="text-academic-400 text-sm uppercase tracking-wide">{b.stats.pages}</div>
+              <div className="flex flex-col items-center text-center group">
+                 <div className="text-academic-400 mb-2 group-hover:text-white transition-colors"><BookOpen size={28} /></div>
+                 <div className="text-3xl font-serif font-bold text-white mb-1">612</div>
+                 <div className="text-academic-500 text-xs uppercase tracking-widest">{b.stats.pages}</div>
               </div>
-              <div className="flex flex-col items-center text-center">
-                 <div className="w-16 h-16 rounded-full bg-red-500 flex items-center justify-center mb-4 text-white">
-                    <ImageIcon size={32} />
-                 </div>
-                 <div className="text-3xl font-bold text-white mb-1">83</div>
-                 <div className="text-academic-400 text-sm uppercase tracking-wide">{b.stats.images}</div>
+              <div className="flex flex-col items-center text-center group">
+                 <div className="text-academic-400 mb-2 group-hover:text-white transition-colors"><ImageIcon size={28} /></div>
+                 <div className="text-3xl font-serif font-bold text-white mb-1">83</div>
+                 <div className="text-academic-500 text-xs uppercase tracking-widest">{b.stats.images}</div>
               </div>
-              <div className="flex flex-col items-center text-center">
-                 <div className="w-16 h-16 rounded-full bg-red-500 flex items-center justify-center mb-4 text-white">
-                    <List size={32} />
-                 </div>
-                 <div className="text-3xl font-bold text-white mb-1">126</div>
-                 <div className="text-academic-400 text-sm uppercase tracking-wide">{b.stats.sources}</div>
+              <div className="flex flex-col items-center text-center group">
+                 <div className="text-academic-400 mb-2 group-hover:text-white transition-colors"><List size={28} /></div>
+                 <div className="text-3xl font-serif font-bold text-white mb-1">126</div>
+                 <div className="text-academic-500 text-xs uppercase tracking-widest">{b.stats.sources}</div>
               </div>
-              <div className="flex flex-col items-center text-center">
-                 <div className="w-16 h-16 rounded-full bg-red-500 flex items-center justify-center mb-4 text-white">
-                    <Star size={32} />
-                 </div>
-                 <div className="text-3xl font-bold text-white mb-1">34</div>
-                 <div className="text-academic-400 text-sm uppercase tracking-wide">{b.stats.archetypes}</div>
+              <div className="flex flex-col items-center text-center group">
+                 <div className="text-academic-400 mb-2 group-hover:text-white transition-colors"><Star size={28} /></div>
+                 <div className="text-3xl font-serif font-bold text-white mb-1">34</div>
+                 <div className="text-academic-500 text-xs uppercase tracking-widest">{b.stats.archetypes}</div>
               </div>
            </div>
         </div>
@@ -92,7 +99,7 @@ export const BookDetails: React.FC = () => {
       {/* CHAPTERS */}
       <main className="container mx-auto max-w-4xl px-6 py-16 flex-grow">
         <h2 className="text-3xl font-serif font-bold mb-12 text-center">
-            {useLanguage().language === 'ru' ? 'Содержание' : 'Table of Contents'}
+            {language === 'ru' ? 'Содержание' : 'Table of Contents'}
         </h2>
         
         <div className="space-y-6">
