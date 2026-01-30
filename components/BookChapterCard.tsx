@@ -65,7 +65,7 @@ export const BookChapterCard: React.FC<Props> = ({ chapter, labels }) => {
       </div>
 
       {/* ПРАВАЯ ЧАСТЬ: Картинка (Иконка) */}
-      <div className="hidden md:flex w-48 shrink-0 bg-academic-50 border-l border-academic-100 items-center justify-center p-6">
+      <div className="hidden md:flex w-48 shrink-0 bg-white border-l border-academic-100 items-center justify-center p-6">
          {/* Отображаем PNG вместо текста */}
          <img 
             src={chapter.icon} 
