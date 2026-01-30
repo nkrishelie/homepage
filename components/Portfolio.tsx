@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react'; // <--- 1. Добавили useEffect
 import { useLanguage } from '../LanguageContext';
 import { Footer } from './Footer';
 import { Briefcase, Award, Code, GraduationCap, ArrowLeft, Globe, Download, Languages } from 'lucide-react';
@@ -7,10 +7,16 @@ export const Portfolio: React.FC = () => {
   const { content, language, setLanguage } = useLanguage();
   const p = content.portfolio;
 
-  // Ссылка на PDF (убедитесь, что файл cv.pdf лежит в папке public)
+  // --- 2. ЛОГИКА АВТО-ПЕРЕКЛЮЧЕНИЯ ---
+  // При открытии этой страницы (монтировании компонента)
+  // мы принудительно ставим английский язык.
+  useEffect(() => {
+    setLanguage('en');
+  }, [setLanguage]);
+
+  // Ссылка на PDF
   const CV_LINK = "https://docs.google.com/document/d/14eF1EOT46sqvChjIu2Z_rbAwE7jiInSrVZosBpb3OJY/edit?usp=sharing"; 
 
-  // Вспомогательная функция для полоски прогресса языка
   const getLangPercent = (level: string) => {
       const l = level.toLowerCase();
       if (l.includes('native') || l.includes('родной')) return '100%';
