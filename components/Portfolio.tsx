@@ -7,7 +7,7 @@ export const Portfolio: React.FC = () => {
   const p = content.portfolio;
 
   // Ссылка на PDF (убедитесь, что файл cv.pdf лежит в папке public)
-  const CV_LINK = "/cv.pdf"; 
+  const CV_LINK = "https://docs.google.com/document/d/14eF1EOT46sqvChjIu2Z_rbAwE7jiInSrVZosBpb3OJY/edit?usp=sharing"; 
 
   // Вспомогательная функция для полоски прогресса языка (чисто визуальный эффект)
   const getLangPercent = (level: string) => {
