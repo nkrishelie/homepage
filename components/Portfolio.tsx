@@ -8,7 +8,7 @@ export const Portfolio: React.FC = () => {
 
   // Ссылка на PDF-файл резюме.
   // Положите файл cv.pdf в папку public/ вашего проекта.
-  const CV_LINK = "/cv.pdf"; 
+  const CV_LINK = "https://docs.google.com/document/d/14eF1EOT46sqvChjIu2Z_rbAwE7jiInSrVZosBpb3OJY/edit?usp=sharing"; 
 
   return (
     <div className="min-h-screen bg-academic-50 text-academic-900 font-sans">
