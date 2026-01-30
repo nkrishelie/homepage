@@ -209,10 +209,14 @@ export const content: SiteContent = {
       ]
     },
     certs: {
-      title: "Сертификаты",
+      title: "Сертификаты и курсы",
       items: [
+        { title: "Google Cloud Data Engineering Specialization", issuer: "Coursera / Google Cloud", year: "2023" },
+        { title: "Building Batch Data Pipelines on Google Cloud", issuer: "Coursera", year: "2023" },
+        { title: "Analyzing and Visualizing Data in Looker", issuer: "Coursera / Google Cloud", year: "2023" },
         { title: "Data Scientist with Python", issuer: "DataCamp", year: "2023" },
-        { title: "Data Analyst", issuer: "DataCamp", year: "2023" }
+        { title: "Data Analyst", issuer: "DataCamp", year: "2023" },
+        { title: "Introduction to Tableau", issuer: "DataCamp", year: "2022" }
       ]
     }
   }
