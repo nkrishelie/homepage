@@ -9,16 +9,13 @@ interface Props {
 export const BookChapterCard: React.FC<Props> = ({ chapter, labels }) => {
   const [activeTab, setActiveTab] = useState<'desc' | 'sections'>('desc');
 
-  // Уменьшаем шрифт для длинных формул
-  const iconSizeClass = chapter.icon && chapter.icon.length > 4 ? 'text-3xl' : 'text-5xl';
-
   return (
     <div className="bg-white border border-academic-200 rounded-sm shadow-sm hover:shadow-md transition-all duration-300 flex flex-col md:flex-row overflow-hidden group min-h-[250px]">
       
       {/* ЛЕВАЯ ЧАСТЬ: Контент */}
       <div className="flex-grow p-6 md:p-8 flex flex-col">
         
-        {/* Хедер: Заголовок и Кнопки */}
+        {/* Хедер */}
         <div className="border-b border-academic-100 mb-6 pb-2 flex flex-col md:flex-row md:items-center justify-between gap-4">
             <h3 className="text-xl font-bold text-academic-900">{chapter.title}</h3>
             
@@ -41,7 +38,7 @@ export const BookChapterCard: React.FC<Props> = ({ chapter, labels }) => {
             </div>
         </div>
 
-        {/* Тело карточки */}
+        {/* Тело */}
         <div className="flex-grow">
             {activeTab === 'desc' ? (
                 <div className="animate-fadeIn">
@@ -52,7 +49,6 @@ export const BookChapterCard: React.FC<Props> = ({ chapter, labels }) => {
             ) : (
                 <div className="animate-fadeIn">
                     {chapter.sections && chapter.sections.length > 0 ? (
-                        /* Убрали лишние точки, теперь просто чистый список */
                         <ul className="space-y-2">
                             {chapter.sections.map((section, idx) => (
                                 <li key={idx} className="text-academic-700 leading-snug font-medium pl-2 border-l-2 border-transparent hover:border-red-200 hover:bg-academic-50 transition-colors py-1 rounded-r">
@@ -68,11 +64,14 @@ export const BookChapterCard: React.FC<Props> = ({ chapter, labels }) => {
         </div>
       </div>
 
-      {/* ПРАВАЯ ЧАСТЬ: Иконка */}
-      <div className="hidden md:flex w-48 shrink-0 bg-academic-50 border-l border-academic-100 items-center justify-center p-4">
-         <span className={`${iconSizeClass} text-academic-800 font-serif font-medium group-hover:scale-110 transition-transform duration-500 select-none whitespace-nowrap`}>
-            {chapter.icon}
-         </span>
+      {/* ПРАВАЯ ЧАСТЬ: Картинка (Иконка) */}
+      <div className="hidden md:flex w-48 shrink-0 bg-academic-50 border-l border-academic-100 items-center justify-center p-6">
+         {/* Отображаем PNG вместо текста */}
+         <img 
+            src={chapter.icon} 
+            alt="Chapter Icon" 
+            className="max-w-full max-h-32 object-contain opacity-90 group-hover:scale-110 transition-transform duration-500"
+         />
       </div>
 
     </div>
