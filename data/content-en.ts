@@ -165,7 +165,8 @@ export const content: SiteContent = {
     header: {
       title: "Nikolai Kazimirov",
       subtitle: "Data Scientist / Product Owner / Head of Content",
-      back: "Back to Home"
+      back: "Back to Home",
+      download: "Download CV"
     },
     summary: {
       title: "About Me",
@@ -187,6 +188,16 @@ export const content: SiteContent = {
           ]
         },
         {
+          role: "Lead Category Manager",
+          company: "Utinet (Marketplace)",
+          period: "2011 – 2013",
+          description: [
+            "Established over 100 categories of computer hardware with detailed specifications, contributing to a diverse range exceeding 100,000 items.",
+            "Innovated search metrics based on technical characteristics, boosting conversion rates by 2-3 times.",
+            "Sales forecasting and product showcase management."
+          ]
+        },
+        {
           role: "Researcher / Lecturer",
           company: "KarRC RAS / PetrSU",
           period: "1998 – 2003",
@@ -199,14 +210,22 @@ export const content: SiteContent = {
     },
     skills: {
       title: "Skills & Tech Stack",
-      stack: [
-        "Google BigQuery (Data Warehouse)",
-        "SQL (Expert)",
-        "Looker Studio",
+      tack: [
         "Python (Pandas, NumPy, Scikit-learn)",
-        "ETL Pipelines",
-        "Statistical Analysis",
-        "Team Management"
+        "Google BigQuery / SQL",
+        "ClickHouse / Redshift",
+        "Looker Studio / DataLens",
+        "ETL / Web Scraping (BeautifulSoup)",
+        "Statistical Modelling",
+        "Team Leadership"
+      ]
+    },
+    languages: {
+      title: "Languages",
+      items: [
+        { language: "English", level: "Fluent" },
+        { language: "German", level: "B1/B2 (TU Graz)" },
+        { language: "Russian", level: "Native" },
       ]
     },
     certs: {
