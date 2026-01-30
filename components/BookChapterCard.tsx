@@ -23,17 +23,17 @@ export const BookChapterCard: React.FC<Props> = ({ chapter, labels }) => {
             <div className="flex gap-6 text-sm font-medium">
                 <button 
                     onClick={() => setActiveTab('desc')}
-                    className={`pb-2 transition-colors relative ${activeTab === 'desc' ? 'text-red-600' : 'text-academic-400 hover:text-academic-600'}`}
+                    className={`pb-2 transition-colors relative ${activeTab === 'desc' ? 'text-academic-900 font-bold' : 'text-academic-400 hover:text-academic-600'}`}
                 >
                     {labels.desc}
-                    {activeTab === 'desc' && <span className="absolute bottom-[-9px] left-0 w-full h-0.5 bg-red-600"></span>}
+                    {activeTab === 'desc' && <span className="absolute bottom-[-9px] left-0 w-full h-0.5 bg-academic-900"></span>}
                 </button>
                 <button 
                     onClick={() => setActiveTab('sections')}
-                    className={`pb-2 transition-colors relative ${activeTab === 'sections' ? 'text-red-600' : 'text-academic-400 hover:text-academic-600'}`}
+                    className={`pb-2 transition-colors relative ${activeTab === 'sections' ? 'text-academic-900 font-bold' : 'text-academic-400 hover:text-academic-600'}`}
                 >
                     {labels.sections}
-                    {activeTab === 'sections' && <span className="absolute bottom-[-9px] left-0 w-full h-0.5 bg-red-600"></span>}
+                    {activeTab === 'sections' && <span className="absolute bottom-[-9px] left-0 w-full h-0.5 bg-academic-900"></span>}
                 </button>
             </div>
         </div>
@@ -61,9 +61,10 @@ export const BookChapterCard: React.FC<Props> = ({ chapter, labels }) => {
         </div>
       </div>
 
-      {/* ПРАВАЯ ЧАСТЬ: Иконка */}
+      {/* ПРАВАЯ ЧАСТЬ: Иконка (Формула) */}
       <div className="hidden md:flex w-40 shrink-0 bg-academic-50 border-l border-academic-100 items-center justify-center">
-         <span className="text-5xl text-academic-800 font-serif italic font-bold opacity-80 group-hover:scale-110 transition-transform duration-500 select-none">
+         {/* Убрал italic, оставил font-serif для похожести на LaTeX */}
+         <span className="text-5xl text-academic-800 font-serif font-medium group-hover:scale-110 transition-transform duration-500 select-none">
             {chapter.icon}
          </span>
       </div>
