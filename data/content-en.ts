@@ -156,7 +156,7 @@ export const content: SiteContent = {
       // Добавляем новые пункты для баланса:
       { label: "LinkedIn", href: "https://www.linkedin.com/in/nikolai-kazimirov/" },
       { label: "GitHub", href: "https://github.com/nkrishelie" }, // Если есть
-      // { label: "Google Scholar", href: "..." } // Если есть
+      { label: "Google Scholar", href: "https://scholar.google.com/citations?user=GiQpW8MAAAAJ&hl=en" } // Если есть
     ],
     location: "Moscow, Russia"
   },
