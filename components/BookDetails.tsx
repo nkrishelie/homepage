@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useLanguage } from '../LanguageContext';
+import { Header } from './Header'; // <--- 1. Импортируем нашу главную шапку
 import { Footer } from './Footer';
 import { BookChapterCard } from './BookChapterCard';
 import { ArrowLeft, Download, BookOpen, Image as ImageIcon, List, Star, Globe } from 'lucide-react';
@@ -16,7 +17,10 @@ export const BookDetails: React.FC = () => {
   return (
     <div className="min-h-screen bg-academic-50 text-academic-900 font-sans flex flex-col">
       
-      {/* HEADER */}
+      {/* 2. ВСТАВЛЯЕМ ГЛАВНУЮ НАВИГАЦИЮ САМЫМ ПЕРВЫМ ЭЛЕМЕНТОМ */}
+      <Header />
+
+      {/* HEADER КНИГИ (Hero Section) */}
       <header className="bg-academic-900 text-white pt-12 pb-24 px-6 relative overflow-hidden">
         {/* Фон */}
         <div className="absolute top-0 right-0 w-1/2 h-full bg-academic-800/20 skew-x-12 translate-x-20"></div>
@@ -24,6 +28,7 @@ export const BookDetails: React.FC = () => {
         <div className="container mx-auto max-w-5xl relative z-10">
           
           {/* Верхняя панель: Назад + Язык */}
+          {/* Мы оставим кнопку "Назад" для удобства, даже при наличии меню */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
              <a href="/" className="inline-flex items-center gap-2 text-academic-400 hover:text-white transition-colors">
                <ArrowLeft size={20} /> {b.back}
@@ -40,7 +45,7 @@ export const BookDetails: React.FC = () => {
 
           <div className="flex flex-col md:flex-row gap-12 items-center md:items-start">
             
-            {/* ОБЛОЖКА КНИГИ (Реальная картинка) */}
+            {/* ОБЛОЖКА КНИГИ */}
             <div className="shrink-0 w-64 md:w-72 shadow-2xl rounded-sm border-4 border-white/10 rotate-1 transform hover:rotate-0 transition-transform duration-500 overflow-hidden bg-white">
                <img 
                  src="/archetypes.png" 
