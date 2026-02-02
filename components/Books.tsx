@@ -44,13 +44,23 @@ export const Books: React.FC = () => {
                     {book.description}
                  </p>
                  
-                 <a 
-                    href={book.link}
-                    className="inline-flex items-center gap-2 text-academic-800 font-medium hover:text-academic-500 transition-colors"
-                 >
-                    {content.ui.buttons.details}
-                    <ExternalLink size={16} />
-                 </a>
+                 {/* --- НАЧАЛО ИЗМЕНЕНИЙ --- */}
+                 {/* Проверяем: если ссылка '#' или пустая, показываем статус, иначе кнопку */}
+                 {book.link === '#' || !book.link ? (
+                    <div className="inline-flex items-center gap-2 text-academic-400 font-medium cursor-default bg-academic-50 px-3 py-1 rounded-sm border border-academic-100">
+                        Under Review (Springer)
+                    </div>
+                 ) : (
+                    <a 
+                        href={book.link}
+                        className="inline-flex items-center gap-2 text-academic-800 font-medium hover:text-academic-500 transition-colors"
+                    >
+                        {content.ui.buttons.details}
+                        <ExternalLink size={16} />
+                    </a>
+                 )}
+                 {/* --- КОНЕЦ ИЗМЕНЕНИЙ --- */}
+
               </div>
             </div>
           ))}
