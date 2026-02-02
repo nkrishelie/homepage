@@ -100,7 +100,7 @@ export const content: SiteContent = {
       year: "2022",
       description: "Совместно с А.В. Савватеевым. Пособие по мотивам курса «100 уроков математики».",
       coverImage: "/savvateev.png",
-      link: "https://tinyurl.com/mr28x2t"
+      link: "/100_final.pdf"
     },
     {
       id: "springer",
