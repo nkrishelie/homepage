@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useLanguage } from '../LanguageContext';
-import { Header } from './Header';
+import { Header } from './Header'; // Импортируем нашу исправленную шапку
 import { Footer } from './Footer';
 import { BookChapterCard } from './BookChapterCard';
 import { Download, BookOpen, Image as ImageIcon, List, Star } from 'lucide-react';
 
 export const BookDetails: React.FC = () => {
-  const { content, language } = useLanguage(); // setLanguage убрали, он в Хедере
+  const { content, language } = useLanguage(); 
   const b = content.bookPage;
   const PDF_LINK = "https://tinyurl.com/3j7z25k2"; 
 
@@ -17,18 +17,20 @@ export const BookDetails: React.FC = () => {
   return (
     <div className="min-h-screen bg-academic-50 text-academic-900 font-sans flex flex-col">
       
-      {/* ГЛОБАЛЬНАЯ ШАПКА */}
+      {/* 1. ГЛОБАЛЬНАЯ ШАПКА */}
       <Header />
 
-      {/* HEADER КНИГИ (Hero Section) */}
+      {/* 2. HEADER КНИГИ (Hero Section) */}
+      {/* pt-32 (padding-top) увеличен, чтобы текст не перекрывался меню */}
       <header className="bg-academic-900 text-white pt-32 pb-24 px-6 relative overflow-hidden">
-        {/* pt-32 (padding-top) увеличен, чтобы текст не лез под глобальное меню */}
         
         {/* Фон */}
         <div className="absolute top-0 right-0 w-1/2 h-full bg-academic-800/20 skew-x-12 translate-x-20"></div>
 
         <div className="container mx-auto max-w-5xl relative z-10">
           
+          {/* Старую панель с кнопкой "Назад" и языком мы УДАЛИЛИ отсюда, так как она теперь в Header */}
+
           <div className="flex flex-col md:flex-row gap-12 items-center md:items-start">
             
             {/* ОБЛОЖКА КНИГИ */}
