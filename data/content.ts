@@ -109,7 +109,7 @@ export const content: SiteContent = {
       year: "Under Review",
       description: "Готовится к изданию. Книга посвящена языку математики и методологии мышления.",
       coverImage: "/MFL.png",
-      link: "#"
+      link: "https://forms.gle/KWzAHGCjdPVmkabE9"
     }
   ],
   lectures: [
