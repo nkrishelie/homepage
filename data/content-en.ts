@@ -54,16 +54,16 @@ export const content: SiteContent = {
     },
     {
       id: "school",
-      title: "Distance Logic School",
-      targetAudience: "Individual Learners",
-      description: "One-on-one mentorship. You watch lectures and solve problems; I verify your proofs and reasoning logic.",
+      title: "Individual Mentorship",
+      targetAudience: "Personal Tutoring",
+      description: "A full educational dialogue. We analyze complex concepts, construct proofs, and develop mathematical intuition through live interaction.",
       details: [
-        "Classical university approach",
-        "Written proof verification (LaTeX/Manuscript)",
-        "Individual schedule (No webinars)",
-        "Direct contact via Telegram/Email"
+        "Live online sessions (Zoom/Meet)",
+        "Deep dive into theory and proofs",
+        "Code and LaTeX review",
+        "Direct support via Telegram/Email"
       ],
-      cta: "Enroll",
+      cta: "Discuss Plan",
       iconName: "GraduationCap"
     }
   ],
