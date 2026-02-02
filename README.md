@@ -1,20 +1,29 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Mathem.at — Academic Portfolio & Consulting
 
-# Run and deploy your AI Studio app
+Personal website and professional portfolio of **Nikolai Kazimirov, PhD**.
+The site positions mathematical consulting as a premium service ("Academic Boutique") and showcases academic works, books, and lecture notes.
 
-This contains everything you need to run your app locally.
+## 🚀 Tech Stack
 
-View your app in AI Studio: https://ai.studio/apps/drive/1M-lN7PuchmEUsFzwkCyzawzavo7JXY1O
+- **Core:** React, TypeScript
+- **Styling:** Tailwind CSS
+- **Icons:** Lucide React
+- **Routing:** React Router (SPA)
+- **Build Tool:** Vite / Next.js (depending on your setup)
 
-## Run Locally
+## 🛠 Features
 
-**Prerequisites:**  Node.js
+- **Multilingual Support:** Full English (EN) and Russian (RU) localization with context-based switching.
+- **Responsive Design:** Optimized for mobile, tablet, and desktop.
+- **Content Sections:**
+  - **Services:** Math consulting, AI logic, tutoring (SHAD/Uni).
+  - **Books:** Integration with Google Forms for waitlists, PDF downloads for lecture notes.
+  - **Portfolio:** Timeline of professional experience and academic degrees.
+  - **Lectures:** Anchor-based navigation to video content.
 
+## 📦 Installation & Setup
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+1. **Clone the repository**
+   ```bash
+   git clone [https://github.com/your-username/mathem.at.git](https://github.com/your-username/mathem.at.git)
+   cd mathem.at
