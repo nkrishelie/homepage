@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useLanguage } from '../LanguageContext';
-import { Header } from './Header'; // <--- 1. Импортируем нашу главную шапку
+import { Header } from './Header';
 import { Footer } from './Footer';
 import { BookChapterCard } from './BookChapterCard';
-import { ArrowLeft, Download, BookOpen, Image as ImageIcon, List, Star, Globe } from 'lucide-react';
+import { Download, BookOpen, Image as ImageIcon, List, Star } from 'lucide-react';
 
 export const BookDetails: React.FC = () => {
-  const { content, language, setLanguage } = useLanguage();
+  const { content, language } = useLanguage(); // setLanguage убрали, он в Хедере
   const b = content.bookPage;
   const PDF_LINK = "https://tinyurl.com/3j7z25k2"; 
 
@@ -17,32 +17,18 @@ export const BookDetails: React.FC = () => {
   return (
     <div className="min-h-screen bg-academic-50 text-academic-900 font-sans flex flex-col">
       
-      {/* 2. ВСТАВЛЯЕМ ГЛАВНУЮ НАВИГАЦИЮ САМЫМ ПЕРВЫМ ЭЛЕМЕНТОМ */}
+      {/* ГЛОБАЛЬНАЯ ШАПКА */}
       <Header />
 
       {/* HEADER КНИГИ (Hero Section) */}
-      <header className="bg-academic-900 text-white pt-12 pb-24 px-6 relative overflow-hidden">
+      <header className="bg-academic-900 text-white pt-32 pb-24 px-6 relative overflow-hidden">
+        {/* pt-32 (padding-top) увеличен, чтобы текст не лез под глобальное меню */}
+        
         {/* Фон */}
         <div className="absolute top-0 right-0 w-1/2 h-full bg-academic-800/20 skew-x-12 translate-x-20"></div>
 
         <div className="container mx-auto max-w-5xl relative z-10">
           
-          {/* Верхняя панель: Назад + Язык */}
-          {/* Мы оставим кнопку "Назад" для удобства, даже при наличии меню */}
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-             <a href="/" className="inline-flex items-center gap-2 text-academic-400 hover:text-white transition-colors">
-               <ArrowLeft size={20} /> {b.back}
-             </a>
-
-             <button 
-                onClick={() => setLanguage(language === 'ru' ? 'en' : 'ru')}
-                className="flex items-center gap-2 px-3 py-1 rounded border border-academic-600 hover:bg-academic-800 transition-colors text-sm"
-             >
-                <Globe size={16} />
-                {language === 'ru' ? 'English' : 'Русский'}
-             </button>
-          </div>
-
           <div className="flex flex-col md:flex-row gap-12 items-center md:items-start">
             
             {/* ОБЛОЖКА КНИГИ */}
