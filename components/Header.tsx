@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-//import { content } from '../data/content';
 import { Menu, X } from 'lucide-react';
 import { useLanguage } from '../LanguageContext';
 
@@ -7,14 +6,26 @@ export const Header: React.FC = () => {
   const { language, setLanguage, content } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isHome, setIsHome] = useState(true);
 
   useEffect(() => {
+    // Проверяем, на главной ли мы странице
+    setIsHome(window.location.pathname === '/');
+    
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Функция для "умных" ссылок
+  const getHref = (link: string) => {
+    if (!isHome && link.startsWith('#')) {
+      return '/' + link; // Превращаем #about в /#about
+    }
+    return link;
+  };
 
   return (
     <header 
@@ -25,8 +36,8 @@ export const Header: React.FC = () => {
       }`}
     >
       <div className="container mx-auto px-6 flex justify-between items-center">
-        {/* Logo */}
-        <a href="#" className="font-serif font-bold text-xl tracking-tight hover:text-academic-600 transition-colors">
+        {/* Logo - теперь всегда ведет на главную */}
+        <a href="/" className="font-serif font-bold text-xl tracking-tight hover:text-academic-600 transition-colors">
           {content.personal.logoText}
         </a>
 
@@ -35,7 +46,7 @@ export const Header: React.FC = () => {
           {content.navigation.map((item) => (
             <a 
               key={item.label}
-              href={item.href}
+              href={getHref(item.href)}
               className="text-sm font-medium text-academic-600 hover:text-black transition-colors uppercase tracking-wider"
             >
               {item.label}
@@ -43,13 +54,15 @@ export const Header: React.FC = () => {
           ))}
         </nav>
 
-        {/* Language Switcher */}
-        <button 
-            onClick={() => setLanguage(language === 'ru' ? 'en' : 'ru')}
-            className="mr-4 text-sm font-bold uppercase tracking-wider text-academic-500 hover:text-academic-900 transition-colors border border-academic-300 px-2 py-1 rounded-sm"
-        >
-            {language === 'ru' ? 'EN' : 'RU'}
-        </button>
+        <div className="hidden md:flex items-center">
+             {/* Language Switcher */}
+            <button 
+                onClick={() => setLanguage(language === 'ru' ? 'en' : 'ru')}
+                className="text-sm font-bold uppercase tracking-wider text-academic-500 hover:text-academic-900 transition-colors border border-academic-300 px-2 py-1 rounded-sm"
+            >
+                {language === 'ru' ? 'EN' : 'RU'}
+            </button>
+        </div>
         
         {/* Mobile Menu Toggle */}
         <button 
@@ -66,13 +79,23 @@ export const Header: React.FC = () => {
            {content.navigation.map((item) => (
             <a 
               key={item.label}
-              href={item.href}
+              href={getHref(item.href)}
               className="text-lg font-serif text-academic-800"
               onClick={() => setMobileMenuOpen(false)}
             >
               {item.label}
             </a>
           ))}
+          {/* Язык в мобильном меню */}
+           <button 
+                onClick={() => {
+                    setLanguage(language === 'ru' ? 'en' : 'ru');
+                    setMobileMenuOpen(false);
+                }}
+                className="text-left text-lg font-serif text-academic-800 mt-4 font-bold"
+            >
+                {language === 'ru' ? 'Switch to English' : 'Переключить на Русский'}
+            </button>
         </div>
       )}
     </header>
