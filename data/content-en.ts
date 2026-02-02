@@ -100,7 +100,7 @@ export const content: SiteContent = {
       year: "2022",
       description: "Co-authored with A.V. Savvateev. A guide based on the '100 Lessons of Mathematics' course.",
       coverImage: "/savvateev.png",
-      link: "https://tinyurl.com/mr28x2t2"
+      link: "/100_final.pdf"
     },
     {
       id: "springer",
