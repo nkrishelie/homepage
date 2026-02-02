@@ -8,7 +8,7 @@ import { Download, BookOpen, Image as ImageIcon, List, Star } from 'lucide-react
 export const BookDetails: React.FC = () => {
   const { content, language } = useLanguage(); 
   const b = content.bookPage;
-  const PDF_LINK = "https://tinyurl.com/3j7z25k2"; 
+  const PDF_LINK = "archetypeswithface.pdf"; 
 
   useEffect(() => {
     window.scrollTo(0, 0);
