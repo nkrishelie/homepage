@@ -1,20 +1,20 @@
-import React, { useEffect } from 'react'; // <--- 1. Добавили useEffect
+import React, { useEffect } from 'react';
 import { useLanguage } from '../LanguageContext';
+import { Header } from './Header'; // <--- 1. Импортируем Header
 import { Footer } from './Footer';
-import { Briefcase, Award, Code, GraduationCap, ArrowLeft, Globe, Download, Languages } from 'lucide-react';
+import { Briefcase, Award, Code, GraduationCap, Download, Languages, Globe } from 'lucide-react';
 
 export const Portfolio: React.FC = () => {
   const { content, language, setLanguage } = useLanguage();
   const p = content.portfolio;
 
-  // --- 2. ЛОГИКА АВТО-ПЕРЕКЛЮЧЕНИЯ ---
-  // При открытии этой страницы (монтировании компонента)
-  // мы принудительно ставим английский язык.
+  // ЛОГИКА АВТО-ПЕРЕКЛЮЧЕНИЯ
+  // Оставляем принудительный английский при входе, так как резюме чаще всего нужно на EN.
+  // Но теперь пользователь сможет переключить язык через верхнее меню, если захочет.
   useEffect(() => {
     setLanguage('en');
   }, [setLanguage]);
 
-  // Ссылка на PDF
   const CV_LINK = "https://docs.google.com/document/d/14eF1EOT46sqvChjIu2Z_rbAwE7jiInSrVZosBpb3OJY/edit?usp=sharing"; 
 
   const getLangPercent = (level: string) => {
@@ -29,38 +29,32 @@ export const Portfolio: React.FC = () => {
   return (
     <div className="min-h-screen bg-academic-50 text-academic-900 font-sans flex flex-col">
       
-      {/* Header */}
-      <header className="bg-academic-900 text-white py-12 px-6">
+      {/* 2. ВСТАВЛЯЕМ ГЛОБАЛЬНУЮ ШАПКУ */}
+      <Header />
+
+      {/* Hero Section (Header портфолио) */}
+      {/* Добавили pt-32, чтобы текст не заезжал под меню */}
+      <header className="bg-academic-900 text-white pt-32 pb-16 px-6">
         <div className="container mx-auto max-w-4xl">
           
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-            <a href="/" className="inline-flex items-center gap-2 text-academic-400 hover:text-white transition-colors">
-              <ArrowLeft size={20} /> {p.header.back}
-            </a>
-
-            <div className="flex gap-4">
-                <button 
-                    onClick={() => setLanguage(language === 'ru' ? 'en' : 'ru')}
-                    className="flex items-center gap-2 px-3 py-1 rounded border border-academic-600 hover:bg-academic-800 transition-colors text-sm"
-                >
-                    <Globe size={16} />
-                    {language === 'ru' ? 'English' : 'Русский'}
-                </button>
-                
-                <a 
-                    href={CV_LINK}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-1 bg-academic-100 text-academic-900 rounded font-bold hover:bg-white transition-colors text-sm"
-                >
-                    <Download size={16} />
-                    {p.header.download}
-                </a>
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div>
+                <h1 className="text-4xl md:text-5xl font-serif font-bold mb-3">{p.header.title}</h1>
+                <p className="text-xl text-academic-300 max-w-xl leading-relaxed">{p.header.subtitle}</p>
             </div>
+
+            {/* Кнопка скачивания CV теперь здесь, крупная и заметная */}
+            <a 
+                href={CV_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="shrink-0 flex items-center gap-3 px-6 py-3 bg-white text-academic-900 rounded font-bold hover:bg-academic-100 transition-transform hover:scale-105 shadow-lg"
+            >
+                <Download size={20} />
+                {p.header.download}
+            </a>
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4">{p.header.title}</h1>
-          <p className="text-xl text-academic-300">{p.header.subtitle}</p>
         </div>
       </header>
 
