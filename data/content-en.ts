@@ -109,7 +109,7 @@ export const content: SiteContent = {
       year: "Under Review",
       description: "In preparation. The book is dedicated to the language of mathematics and the methodology of thinking.",
       coverImage: "/MFL.png",
-      link: "#"
+      link: "https://forms.gle/KWzAHGCjdPVmkabE9"
     }
   ],
   lectures: [
