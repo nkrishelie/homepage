@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://mathem.at/sitemap.xml
+Host: https://mathem.at
