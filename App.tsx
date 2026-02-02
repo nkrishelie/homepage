@@ -11,16 +11,18 @@ import { Portfolio } from './components/Portfolio';
 import { BookDetails } from './components/BookDetails';
 
 const App: React.FC = () => {
-  // Состояние для хранения текущего пути URL
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
   const [scrollProgress, setScrollProgress] = useState(0);
 
+  // 1. СЛЕЖЕНИЕ ЗА URL (Back/Forward buttons)
   useEffect(() => {
-    // Функция для обновления пути при нажатии кнопок "Назад/Вперед" в браузере
     const handlePopState = () => setCurrentPath(window.location.pathname);
     window.addEventListener('popstate', handlePopState);
-    
-    // Функция для скролл-бара
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  // 2. SCROLL PROGRESS BAR
+  useEffect(() => {
     const handleScroll = () => {
       const totalScroll = document.documentElement.scrollTop;
       const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -28,16 +30,33 @@ const App: React.FC = () => {
       setScrollProgress(Number(scroll));
     };
     window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('popstate', handlePopState);
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // --- РОУТИНГ (Переключение страниц) ---
+  // --- 3. НОВОЕ: ИСПРАВЛЕНИЕ ЯКОРЕЙ (ANCHOR FIX) ---
+  useEffect(() => {
+    // Этот код сработает каждый раз, когда меняется путь (например, вернулись на главную)
+    if (currentPath === '/' && window.location.hash) {
+      const id = window.location.hash.replace('#', '');
+      const element = document.getElementById(id);
+      
+      if (element) {
+        // Если элемент уже есть - крутим сразу
+        element.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        // Если элемента нет (React еще рисует), ждем 100мс и пробуем снова
+        setTimeout(() => {
+          const el = document.getElementById(id);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 300); // 300мс задержки обычно хватает для отрисовки
+      }
+    }
+  }, [currentPath]); // Следим за изменением пути
+
+  // --- РОУТИНГ ---
   
-  // 1. Если адрес "/portfolio", показываем компонент портфолио
   if (currentPath === '/portfolio') {
     return <Portfolio />;
   }
@@ -45,10 +64,9 @@ const App: React.FC = () => {
     return <BookDetails />;
   }
 
-  // 2. Иначе показываем главную страницу (Academic Profile)
+  // ГЛАВНАЯ СТРАНИЦА
   return (
     <div className="min-h-screen flex flex-col font-sans">
-      {/* Полоска прогресса чтения сверху */}
       <div 
         className="fixed top-0 left-0 h-1 bg-academic-800 z-50 transition-all duration-100 ease-out"
         style={{ width: `${scrollProgress * 100}%` }}
