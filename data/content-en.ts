@@ -114,16 +114,16 @@ export const content: SiteContent = {
       link: "/book",
       type: "Monograph"
     },
-    {
-      id: "calculus",
-      title: "Lectures on Mathematical Analysis",
-      role: "Lecturer",
-      year: "2002",
-      description: "Full university calculus course. Limits, differentiation, integration, series. Fundamental basis for Data Science (in Russian).",
-      coverImage: "/calculus-cover.png",
-      link: "/mathan.pdf",
-      type: "University Course"
-    },
+//    {
+//      id: "calculus",
+//      title: "Lectures on Mathematical Analysis",
+//      role: "Lecturer",
+//      year: "2002",
+//      description: "Full university calculus course. Limits, differentiation, integration, series. Fundamental basis for Data Science (in Russian).",
+//      coverImage: "/calculus-cover.png",
+//      link: "/mathan.pdf",
+//      type: "University Course"
+//    },
     {
       id: "phd-thesis",
       title: "Galton-Watson Forests and Rabdom Permutations",
