@@ -131,7 +131,7 @@ export const content: SiteContent = {
       year: "2003",
       description: "Автореферат диссертации на соискание ученой степени кандидата физико-математических наук.",
       coverImage: "/thesis-cover.png",
-      link: "/phd_abstract.pdf",
+      link: "/kdar.pdf",
       type: "Автореферат диссертации"
     },
   ],
