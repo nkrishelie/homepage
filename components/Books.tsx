@@ -1,14 +1,21 @@
 import React from 'react';
 import { useLanguage } from '../LanguageContext';
-import { ExternalLink, Mail, FileText, Book } from 'lucide-react';
+import { ExternalLink, Mail, FileText, Book, GraduationCap } from 'lucide-react';
 
 export const Books: React.FC = () => {
   const { content } = useLanguage();
 
-  // Функция для иконки в зависимости от типа
+  // Улучшенная логика иконок
   const getTypeIcon = (type: string | undefined) => {
     if (!type) return <Book size={14} />;
-    if (type.includes('Dissertation') || type.includes('Lecture')) return <FileText size={14} />;
+    const lowerType = type.toLowerCase();
+    
+    if (lowerType.includes('dissertation') || lowerType.includes('диссертация') || lowerType.includes('автореферат')) {
+      return <GraduationCap size={16} />;
+    }
+    if (lowerType.includes('lecture') || lowerType.includes('лекции') || lowerType.includes('курс')) {
+      return <FileText size={14} />;
+    }
     return <Book size={14} />;
   };
 
@@ -27,7 +34,7 @@ export const Books: React.FC = () => {
               <div key={book.id} className="flex flex-col md:flex-row gap-8 items-start bg-white p-6 md:p-8 border border-academic-200 hover:shadow-sm transition-shadow">
                 
                 {/* ОБЛОЖКА */}
-                <div className="w-full md:w-48 shrink-0 aspect-[2/3] bg-academic-100 relative overflow-hidden group border border-academic-100">
+                <div className="w-full md:w-48 shrink-0 aspect-[2/3] bg-academic-100 relative overflow-hidden group border border-academic-100 self-start">
                    {book.coverImage ? (
                      <img 
                         src={book.coverImage} 
@@ -42,56 +49,66 @@ export const Books: React.FC = () => {
                    )}
                 </div>
 
-                <div className="flex-grow">
-                   {/* ВЕРХНЯЯ СТРОКА: ТИП И ГОД */}
+                <div className="flex-grow w-full">
+                   {/* ВЕРХНЯЯ СТРОКА: ТИП (слева) | РОЛЬ и ГОД (справа) */}
                    <div className="flex flex-wrap items-center justify-between gap-4 mb-3 border-b border-academic-100 pb-3">
-                      <div className="flex items-center gap-2 text-academic-500 text-xs font-bold uppercase tracking-widest">
+                      
+                      {/* ТИП (слева) */}
+                      <div className="flex items-center gap-2 text-academic-600 text-xs font-bold uppercase tracking-widest">
                           {getTypeIcon(book.type)}
                           {book.type || 'Book'}
                       </div>
-                      <span className="text-academic-400 text-sm font-serif italic">{book.year}</span>
+
+                      {/* РОЛЬ • ГОД (справа) */}
+                      <div className="flex items-center gap-3 text-sm">
+                          <span className="font-medium text-academic-800 bg-academic-50 px-2 py-0.5 rounded">
+                            {book.role}
+                          </span>
+                          <span className="text-academic-300">•</span>
+                          <span className="text-academic-500 font-serif italic">
+                            {book.year}
+                          </span>
+                      </div>
                    </div>
                    
                    {/* ЗАГОЛОВОК */}
-                   <h3 className="text-2xl font-serif font-bold text-academic-900 mb-2 leading-tight">
+                   <h3 className="text-2xl font-serif font-bold text-academic-900 mb-4 leading-tight">
                       {book.title}
                    </h3>
                    
-                   {/* РОЛЬ (Автор/Соавтор) */}
-                   <div className="text-sm text-academic-500 mb-4 font-medium">
-                      Role: <span className="text-academic-800">{book.role}</span>
-                   </div>
-
+                   {/* ОПИСАНИЕ */}
                    <p className="text-academic-600 mb-6 leading-relaxed max-w-2xl">
                       {book.description}
                    </p>
                    
                    {/* КНОПКИ */}
-                   {(!book.link || book.link === '#') ? (
-                      <div className="inline-flex items-center gap-2 text-academic-400 font-medium cursor-default bg-academic-50 px-3 py-1 rounded-sm border border-academic-100 text-sm">
-                          Under Review / Unavailable
-                      </div>
-                   ) : isWaitlist ? (
-                      <a 
-                          href={book.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 px-5 py-2 bg-academic-900 text-white font-medium rounded hover:bg-academic-700 transition-colors shadow-md text-sm"
-                      >
-                          <Mail size={16} />
-                          Join Waitlist
-                      </a>
-                   ) : (
-                      <a 
-                          href={book.link}
-                          target="_blank"
-                          rel="noopener noreferrer" 
-                          className="inline-flex items-center gap-2 text-academic-800 font-bold border-b-2 border-academic-200 hover:border-academic-800 transition-colors pb-0.5"
-                      >
-                          {content.ui.buttons.details || 'Read / Download'}
-                          <ExternalLink size={16} />
-                      </a>
-                   )}
+                   <div className="mt-auto">
+                    {(!book.link || book.link === '#') ? (
+                        <div className="inline-flex items-center gap-2 text-academic-400 font-medium cursor-default bg-academic-50 px-3 py-1 rounded-sm border border-academic-100 text-sm">
+                            Unavailable
+                        </div>
+                    ) : isWaitlist ? (
+                        <a 
+                            href={book.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 px-5 py-2 bg-academic-900 text-white font-medium rounded hover:bg-academic-700 transition-colors shadow-md text-sm"
+                        >
+                            <Mail size={16} />
+                            Waitlist
+                        </a>
+                    ) : (
+                        <a 
+                            href={book.link}
+                            target="_blank"
+                            rel="noopener noreferrer" 
+                            className="inline-flex items-center gap-2 text-academic-800 font-bold border-b-2 border-academic-200 hover:border-academic-800 transition-colors pb-0.5"
+                        >
+                            {content.ui.buttons.details || 'Read'}
+                            <ExternalLink size={16} />
+                        </a>
+                    )}
+                   </div>
 
                 </div>
               </div>
