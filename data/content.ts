@@ -114,16 +114,16 @@ export const content: SiteContent = {
       link: "/book",
       type: "Монография"
     },
-    {
-      id: "calculus",
-      title: "Математический анализ",
-      role: "Составитель/лектор",
-      year: "2002",
-      description: "Конспект лекций для первого курса специальности «физика».",
-      coverImage: "/calculus-cover.png",
-      link: "/mathan.pdf",
-      type: "Конспект"
-    },
+//    {
+//      id: "calculus",
+//      title: "Математический анализ",
+//      role: "Составитель/лектор",
+//      year: "2002",
+//      description: "Конспект лекций для первого курса специальности «физика».",
+//      coverImage: "/calculus-cover.png",
+//      link: "/mathan.pdf",
+//      type: "Конспект"
+//    },
     {
       id: "phd-thesis",
       title: "Леса Гальтона — Ватсона и случайные подстановки",
