@@ -116,10 +116,10 @@ export const content: SiteContent = {
     },
     {
       id: "calculus",
-      title: "Lectures on Mathematical Analysis",
-      role: "Lecturer",
+      title: "Математический анализ",
+      role: "Составитель/лектор",
       year: "2002",
-      description: "Full university calculus course. Limits, differentiation, integration, series. Fundamental basis for Data Science.",
+      description: "Конспект лекций для первого курса специальности «физика».",
       coverImage: "/calculus-cover.png",
       link: "/mathan.pdf",
       type: "Конспект"
