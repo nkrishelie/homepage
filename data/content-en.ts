@@ -85,31 +85,54 @@ export const content: SiteContent = {
   ],
   books: [
     {
+      id: "springer",
+      title: "Math as a Foreign Language",
+      role: "Author",
+      year: "Under Review",
+      description: "The architecture of mathematical thought. A treatise on mathematics as a linguistic system: from the syntax of formulas to the semantics of formal theories.",
+      coverImage: "/MFL.png",
+      link: "https://forms.gle/KWzAHGCjdPVmkabE9",
+      type: "Philosophical Monograph"
+    },
+    {
       id: "archetypes",
       title: "Archetypes of Mathematics",
       role: "Author",
       year: "2019",
       description: "Monograph: General methods, techniques, constructions, and ideas of mathematics and its foundations. (Moscow: Justicinform).",
       coverImage: "/archetypes.png",
-      link: "/book"
+      link: "/book",
+      type: "Monograph"
     },
     {
       id: "savvateev",
       title: "Introduction to Real Mathematics",
       role: "Co-author",
       year: "2022",
-      description: "Co-authored with A.V. Savvateev. A guide based on the '100 Lessons of Mathematics' course.",
+      description: "Co-authored with A.V. Savvateev. A guide based on the '100 Lessons of Mathematics' course (in Russian).",
       coverImage: "/savvateev.png",
-      link: "/100_final.pdf"
+      link: "/100_final.pdf",
+      type: "Best Selling Book"
     },
     {
-      id: "springer",
-      title: "Math as a Foreign Language",
-      role: "Author",
-      year: "Under Review",
-      description: "In preparation. The book is dedicated to the language of mathematics and the methodology of thinking.",
-      coverImage: "/MFL.png",
-      link: "https://forms.gle/KWzAHGCjdPVmkabE9"
+      id: "calculus",
+      title: "Lectures on Mathematical Analysis",
+      role: "Lecturer",
+      year: "2002",
+      description: "Full university calculus course. Limits, differentiation, integration, series. Fundamental basis for Data Science (in Russian).",
+      coverImage: "/calculus-cover.png",
+      link: "/mathan.pdf",
+      type: "University Course"
+    },
+    {
+      id: "phd-thesis",
+      title: "Galton-Watson Forests and Rabdom Permutations",
+      role: "PhD Thesis",
+      year: "2003",
+      description: "Abstract of the dissertation for the degree of Candidate of Physical and Mathematical Sciences (in Russian).",
+      coverImage: "/thesis-cover.png",
+      link: "/kdar.pdf",
+      type: "Dissertation Abstract"
     }
   ],
   lectures: [
