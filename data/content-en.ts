@@ -95,16 +95,6 @@ export const content: SiteContent = {
       type: "Philosophical Monograph"
     },
     {
-      id: "archetypes",
-      title: "Archetypes of Mathematics",
-      role: "Author",
-      year: "2019",
-      description: "Monograph: General methods, techniques, constructions, and ideas of mathematics and its foundations. (Moscow: Justicinform).",
-      coverImage: "/archetypes.png",
-      link: "/book",
-      type: "Monograph"
-    },
-    {
       id: "savvateev",
       title: "Introduction to Real Mathematics",
       role: "Co-author",
@@ -113,6 +103,16 @@ export const content: SiteContent = {
       coverImage: "/savvateev.png",
       link: "/100_final.pdf",
       type: "Best Selling Book"
+    },
+    {
+      id: "archetypes",
+      title: "Archetypes of Mathematics",
+      role: "Author",
+      year: "2019",
+      description: "Monograph: General methods, techniques, constructions, and ideas of mathematics and its foundations. (Moscow: Justicinform).",
+      coverImage: "/archetypes.png",
+      link: "/book",
+      type: "Monograph"
     },
     {
       id: "calculus",
