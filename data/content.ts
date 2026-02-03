@@ -85,13 +85,14 @@ export const content: SiteContent = {
   ],
   books: [
     {
-      id: "archetypes",
-      title: "Архетипы математики",
+      id: "springer",
+      title: "Математика как иностранный",
       role: "Автор",
-      year: "2019",
-      description: "Монография: общие методы, приемы, конструкции, идеи математики и ее оснований. (М.: Юстицинформ).",
-      coverImage: "/archetypes.png",
-      link: "/book"
+      year: "Under Review",
+      description: "Архитектура математической мысли. Фундаментальное исследование математики как языковой системы: от синтаксиса формул до семантики формальных теорий.",
+      coverImage: "/MFL.png",
+      link: "https://forms.gle/KWzAHGCjdPVmkabE9",
+      type: "Монография"
     },
     {
       id: "savvateev",
@@ -100,17 +101,39 @@ export const content: SiteContent = {
       year: "2022",
       description: "Совместно с А.В. Савватеевым. Пособие по мотивам курса «100 уроков математики».",
       coverImage: "/savvateev.png",
-      link: "/100_final.pdf"
+      link: "/100_final.pdf",
+      type: "Бестселлер"
     },
     {
-      id: "springer",
-      title: "Math as a Foreign Language",
+      id: "archetypes",
+      title: "Архетипы математики",
       role: "Автор",
-      year: "Under Review",
-      description: "Готовится к изданию. Книга посвящена языку математики и методологии мышления.",
-      coverImage: "/MFL.png",
-      link: "https://forms.gle/KWzAHGCjdPVmkabE9"
-    }
+      year: "2019",
+      description: "Монография: общие методы, приемы, конструкции, идеи математики и ее оснований. (М.: Юстицинформ).",
+      coverImage: "/archetypes.png",
+      link: "/book",
+      type: "Монография"
+    },
+    {
+      id: "calculus",
+      title: "Lectures on Mathematical Analysis",
+      role: "Lecturer",
+      year: "2002",
+      description: "Full university calculus course. Limits, differentiation, integration, series. Fundamental basis for Data Science.",
+      coverImage: "/calculus-cover.png",
+      link: "/mathan.pdf",
+      type: "Конспект"
+    },
+    {
+      id: "phd-thesis",
+      title: "Леса Гальтона — Ватсона и случайные подстановки",
+      role: "PhD Thesis",
+      year: "2003",
+      description: "Автореферат диссертации на соискание ученой степени кандидата физико-математических наук.",
+      coverImage: "/thesis-cover.png",
+      link: "/phd_abstract.pdf",
+      type: "Автореферат диссертации"
+    },
   ],
   lectures: [
     {
