@@ -10,84 +10,81 @@ export const Header: React.FC = () => {
 
   useEffect(() => {
     setIsHome(window.location.pathname === '/');
-    
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const getHref = (link: string) => {
-    if (!isHome && link.startsWith('#')) {
-      return '/' + link;
-    }
-    return link;
-  };
+  const getHref = (link: string) => (!isHome && link.startsWith('#') ? '/' + link : link);
 
   return (
     <header 
       className={`fixed w-full top-0 z-50 transition-all duration-300 ease-in-out border-b ${
         isScrolled 
           ? 'bg-white/95 backdrop-blur-md border-academic-200 py-3 shadow-sm' 
-          : 'bg-white border-transparent py-4 md:py-6'
+          : 'bg-white border-transparent py-4'
       }`}
     >
-      <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
+      <div className="container mx-auto px-4 lg:px-8 flex justify-between items-center h-10 md:h-12">
         
-        {/* 1. Логотип (Слева) */}
-        <a href="/" className="font-serif font-bold text-lg md:text-xl tracking-tight hover:text-academic-600 transition-colors shrink-0 mr-4">
+        {/* 1. Логотип (Всегда слева, не сжимается) */}
+        <a href="/" className="font-serif font-bold text-lg md:text-xl tracking-tight text-academic-900 shrink-0 z-50 relative">
           {content.personal?.logoText || "N. Kazimirov"}
         </a>
 
-        {/* 2. Правая часть (Навигация + Кнопки) */}
+        {/* 2. Правый блок: Меню ПК + Язык + Бургер */}
         <div className="flex items-center gap-3 md:gap-6">
           
-          {/* Desktop Nav (Скрыто на мобильных) */}
-          <nav className="hidden md:flex space-x-6">
+          {/* Меню ПК: Скрыто на Mobile и Tablet (< 1024px), Видно только на Desktop (lg) */}
+          <nav className="hidden lg:flex items-center space-x-6">
             {content.navigation.map((item) => (
               <a 
                 key={item.label}
                 href={getHref(item.href)}
-                className="text-sm font-medium text-academic-600 hover:text-black transition-colors uppercase tracking-wider"
+                className="text-sm font-medium text-academic-600 hover:text-black transition-colors uppercase tracking-wider whitespace-nowrap"
               >
                 {item.label}
               </a>
             ))}
           </nav>
 
-          {/* Язык (Всегда виден!) */}
+          {/* Переключатель языка: Виден ВСЕГДА */}
           <button 
             onClick={() => setLanguage(language === 'ru' ? 'en' : 'ru')}
-            className="shrink-0 text-xs font-bold uppercase tracking-wider text-academic-500 hover:text-academic-900 transition-colors border border-academic-300 px-2 py-1 rounded hover:bg-academic-50"
+            className="flex items-center justify-center w-10 h-8 text-xs font-bold uppercase tracking-wider text-academic-600 border border-academic-300 rounded hover:bg-academic-50 hover:text-black transition-colors shrink-0 z-50 relative"
           >
             {language === 'ru' ? 'EN' : 'RU'}
           </button>
           
-          {/* Mobile Menu Toggle (Только на мобильных) */}
+          {/* Бургер: Виден на Mobile и Tablet (< 1024px), Скрыт на Desktop */}
           <button 
-            className="md:hidden text-academic-800 p-1 shrink-0"
+            className="lg:hidden text-academic-900 p-1 shrink-0 z-50 relative focus:outline-none hover:bg-academic-50 rounded"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Menu"
           >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {mobileMenuOpen ? <X size={28} strokeWidth={2} /> : <Menu size={28} strokeWidth={2} />}
           </button>
+
         </div>
       </div>
 
-      {/* Выпадающее мобильное меню */}
+      {/* Выпадающее меню (Mobile & Tablet) */}
+      {/* Добавлен top-0 и pt-24, чтобы перекрыть весь экран, но оставить хедер видимым */}
       {mobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-white border-b border-academic-200 shadow-xl py-4 px-4 flex flex-col space-y-4 animate-in slide-in-from-top-2 duration-200">
+        <div className="fixed inset-0 top-0 left-0 w-full h-screen bg-white z-40 flex flex-col pt-24 px-6 gap-6 animate-in fade-in duration-200 lg:hidden">
            {content.navigation.map((item) => (
             <a 
               key={item.label}
               href={getHref(item.href)}
-              className="text-lg font-serif text-academic-800 py-2 border-b border-gray-50"
+              className="text-2xl font-serif font-bold text-academic-900 border-b border-academic-100 pb-4"
               onClick={() => setMobileMenuOpen(false)}
             >
               {item.label}
             </a>
           ))}
+          <div className="mt-auto mb-10 text-academic-400 text-sm">
+            © 2026 Nikolai Kazimirov
+          </div>
         </div>
       )}
     </header>
