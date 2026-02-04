@@ -1,103 +1,64 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import React from 'react';
 import { useLanguage } from '../LanguageContext';
+import { LanguageSwitch } from './LanguageSwitch';
 
 export const Header: React.FC = () => {
-  const { language, setLanguage, content } = useLanguage();
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isHome, setIsHome] = useState(true);
+  const { content } = useLanguage();
 
-  useEffect(() => {
-    // Проверяем, на главной ли мы странице
-    setIsHome(window.location.pathname === '/');
-    
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Функция для "умных" ссылок
-  const getHref = (link: string) => {
-    if (!isHome && link.startsWith('#')) {
-      return '/' + link; // Превращаем #about в /#about
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
     }
-    return link;
   };
 
   return (
-    <header 
-      className={`fixed w-full top-0 z-40 transition-all duration-300 ease-in-out border-b ${
-        isScrolled 
-          ? 'bg-white/90 backdrop-blur-md border-academic-200 py-3 shadow-sm' 
-          : 'bg-white border-transparent py-6'
-      }`}
-    >
-      <div className="container mx-auto px-6 flex justify-between items-center">
-        {/* Logo - теперь всегда ведет на главную */}
-        <a href="/" className="font-serif font-bold text-xl tracking-tight hover:text-academic-600 transition-colors">
-          {content.personal.logoText}
-        </a>
+    <header className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-md border-b border-academic-200 z-50">
+      <div className="container mx-auto px-4 md:px-6 max-w-6xl">
+        <div className="flex items-center justify-between h-16 md:h-20">
+          
+          {/* Логотип / Имя */}
+          <div className="font-serif font-bold text-lg md:text-xl text-academic-900 shrink-0">
+            N. Kazimirov
+          </div>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex space-x-8">
-          {content.navigation.map((item) => (
-            <a 
-              key={item.label}
-              href={getHref(item.href)}
-              className="text-sm font-medium text-academic-600 hover:text-black transition-colors uppercase tracking-wider"
-            >
-              {item.label}
-            </a>
-          ))}
-        </nav>
+          {/* Навигация и Переключатель */}
+          <div className="flex items-center gap-3 md:gap-8">
+            {/* Меню (скрываем на совсем маленьких экранах, если нужно, или уменьшаем шрифт) */}
+            <nav className="hidden sm:flex items-center gap-4 md:gap-8 text-sm font-medium text-academic-600">
+              <button 
+                onClick={() => scrollToSection('books')} 
+                className="hover:text-academic-900 transition-colors"
+              >
+                {content.ui.nav.books}
+              </button>
+              <button 
+                onClick={() => scrollToSection('about')} 
+                className="hover:text-academic-900 transition-colors"
+              >
+                {content.ui.nav.about}
+              </button>
+              <button 
+                onClick={() => scrollToSection('portfolio')} 
+                className="hover:text-academic-900 transition-colors"
+              >
+                {content.ui.nav.portfolio}
+              </button>
+            </nav>
 
-        <div className="hidden md:flex items-center">
-             {/* Language Switcher */}
-            <button 
-                onClick={() => setLanguage(language === 'ru' ? 'en' : 'ru')}
-                className="text-sm font-bold uppercase tracking-wider text-academic-500 hover:text-academic-900 transition-colors border border-academic-300 px-2 py-1 rounded-sm"
-            >
-                {language === 'ru' ? 'EN' : 'RU'}
-            </button>
+            {/* Разделитель (только на десктопе) */}
+            <div className="hidden sm:block w-px h-4 bg-academic-200"></div>
+
+            {/* Переключатель языка (Всегда виден) */}
+            <div className="shrink-0">
+                <LanguageSwitch />
+            </div>
+          </div>
         </div>
-        
-        {/* Mobile Menu Toggle */}
-        <button 
-          className="md:hidden text-academic-800"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
       </div>
-
-      {/* Mobile Nav Overlay */}
-      {mobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-white border-b border-academic-200 shadow-xl py-6 px-6 flex flex-col space-y-4">
-           {content.navigation.map((item) => (
-            <a 
-              key={item.label}
-              href={getHref(item.href)}
-              className="text-lg font-serif text-academic-800"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {item.label}
-            </a>
-          ))}
-          {/* Язык в мобильном меню */}
-           <button 
-                onClick={() => {
-                    setLanguage(language === 'ru' ? 'en' : 'ru');
-                    setMobileMenuOpen(false);
-                }}
-                className="text-left text-lg font-serif text-academic-800 mt-4 font-bold"
-            >
-                {language === 'ru' ? 'Switch to English' : 'Переключить на Русский'}
-            </button>
-        </div>
-      )}
+      
+      {/* Мобильное меню (снизу полоской, если ссылки не влезают в шапку) - ОПЦИОНАЛЬНО */}
+      {/* Если ссылок мало, они влезут и так. Если нет - лучше их скрыть на < sm */}
     </header>
   );
 };
