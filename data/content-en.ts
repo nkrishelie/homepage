@@ -54,16 +54,16 @@ export const content: SiteContent = {
     },
     {
       id: "school",
-      title: "Individual Mentorship",
-      targetAudience: "Personal Tutoring",
-      description: "A full educational dialogue. We analyze complex concepts, construct proofs, and develop mathematical intuition through live interaction.",
+      title: "Personal Mentorship",
+      targetAudience: "One-on-One Education",
+      description: "Cultivating mathematical thinking. We don't coach for tests; we build a foundation for solving non-standard research problems and rigorous reasoning.",
       details: [
-        "Live online sessions (Zoom/Meet)",
-        "Deep dive into theory and proofs",
-        "Code and LaTeX review",
-        "Direct support via Telegram/Email"
+        "Mathematical Logic & Model Theory",
+        "Foundations of Mathematics (ZFC) & Set Theory",
+        "Yandex SHAD / Masters Prep (Math Track)",
+        "Academic Style, LaTeX & Proof Writing"
       ],
-      cta: "Discuss Plan",
+      cta: "Discuss Goals",
       iconName: "GraduationCap"
     }
   ],
