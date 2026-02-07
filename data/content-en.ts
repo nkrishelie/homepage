@@ -73,14 +73,16 @@ export const content: SiteContent = {
       title: "Nexus Math",
       description: "An interactive 3D map of mathematical foundations. Visualizing connections between axiomatic systems, theorems, and definitions.",
       link: "https://nexus.mathem.at/",
-      techStack: "WebGL / 3D Graph"
+      techStack: "WebGL / 3D Graph",
+      vpnRequired: true
     },
     {
       id: "arxiv",
       title: "ArXiv Universe",
       description: "Interactive 3D visualization of the scientific landscape based on arXiv.org data. Disciplines are treated as massive planets with papers orbiting as satellites.",
       link: "https://arxiv.mathem.at/",
-      techStack: "Data Viz / Big Data"
+      techStack: "Data Viz / Big Data",
+      vpnRequired: true
     }
   ],
   books: [
