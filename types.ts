@@ -95,6 +95,7 @@ export interface ProjectItem {
   description: string;
   link: string;
   techStack?: string; // Например "Three.js, React"
+  vpnRequired?: boolean;
 }
 
 // 1. Добавьте новые интерфейсы для портфолио
