@@ -29,7 +29,10 @@ jobs:
       - name: Build
         run: |
           npm run build
-          cp dist/index.html dist/404.html
+          mkdir -p dist/book
+          mkdir -p dist/portfolio
+          cp dist/index.html dist/book/index.html
+          cp dist/index.html dist/portfolio/index.html
       - name: Copy files
         run: cp index.html dist/404.html
       - name: Upload artifact
