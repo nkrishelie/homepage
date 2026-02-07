@@ -1,9 +1,9 @@
 import React from 'react';
 import { useLanguage } from '../LanguageContext';
-import { ExternalLink, Cuboid } from 'lucide-react'; // Cuboid - иконка для 3D
+import { ExternalLink, Cuboid, Globe } from 'lucide-react'; // ← Globe добавлен
 
 export const Projects: React.FC = () => {
-  const { content } = useLanguage();
+  const { content, language } = useLanguage();
 
   return (
     <section id="projects" className="py-24 bg-academic-900 text-white">
@@ -46,6 +46,16 @@ export const Projects: React.FC = () => {
               <p className="text-academic-300 leading-relaxed group-hover:text-academic-100 transition-colors">
                 {project.description}
               </p>
+              
+              {/* ← НОВЫЙ БЛОК: Предупреждение VPN (только русская версия) */}
+              {project.vpnRequired && language === 'ru' && (
+                <div className="mt-4 flex items-start gap-2 text-amber-400/80 text-sm bg-amber-900/20 border border-amber-700/30 rounded-sm p-3">
+                  <Globe size={16} className="mt-0.5 shrink-0" />
+                  <span className="leading-snug">
+                    Для открытия из России может потребоваться VPN
+                  </span>
+                </div>
+              )}
               
               <div className="mt-6 text-sm font-bold text-academic-400 group-hover:text-white uppercase tracking-wider flex items-center gap-2">
                 {content.ui.buttons.viewProject}
