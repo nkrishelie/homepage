@@ -73,14 +73,16 @@ export const content: SiteContent = {
       title: "Nexus Math",
       description: "Интерактивная 3D-карта оснований математики. Визуализация связей между аксиоматическими системами, теоремами и определениями в виде графа.",
       link: "https://nexus.mathem.at/",
-      techStack: "WebGL / 3D Graph"
+      techStack: "WebGL / 3D Graph",
+      vpnRequired: true
     },
     {
       id: "arxiv",
       title: "ArXiv Universe",
       description: "3D-визуализация научного ландшафта на основе данных arXiv.org. Научные дисциплины представлены как планеты-гиганты, а отдельные статьи — как их спутники.",
       link: "https://arxiv.mathem.at/",
-      techStack: "Data Viz / Big Data"
+      techStack: "Data Viz / Big Data",
+      vpnRequired: true
     }
   ],
   books: [
