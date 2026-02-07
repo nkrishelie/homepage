@@ -57,10 +57,10 @@ const App: React.FC = () => {
 
   // --- РОУТИНГ ---
   
-  if (currentPath === '/portfolio') {
+  if (currentPath === '/portfolio' || currentPath === '/portfolio/') {
     return <Portfolio />;
   }
-  if (currentPath === '/book') {
+  if (currentPath === '/book' || currentPath === '/book/') {
     return <BookDetails />;
   }
 
