@@ -364,7 +364,7 @@ export const content: SiteContent = {
           "2. Аксиома выбора: полезная и странная",
           "3. Вычислимость и доказуемость"
         ],
-        icon: "ModusPonens.png"
+        icon: "/ModusPonens.png"
       },
       {
         id: "5",
@@ -377,7 +377,7 @@ export const content: SiteContent = {
           "4. Вероятности",
           "5. Несколько слов об общей картине"
         ],
-        icon: "Integral.png"
+        icon: "/Integral.png"
       },
       {
         id: "6",
@@ -388,7 +388,7 @@ export const content: SiteContent = {
           "2. Обычные графы",
           "3. Вероятности на графах"
         ],
-        icon: "Graph.png"
+        icon: "/Graph.png"
       }
     ]
   }
