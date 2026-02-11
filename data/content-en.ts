@@ -58,8 +58,8 @@ export const content: SiteContent = {
       targetAudience: "One-on-One Education",
       description: "Cultivating mathematical thinking. We don't coach for tests; we build a foundation for solving non-standard research problems and rigorous reasoning.",
       details: [
-        "Mathematical Logic & Model Theory",
-        "Foundations of Mathematics (ZFC) & Set Theory",
+        "Mathematical Logic, Set Theory, Model Theory",
+        "Linear Algebra, Group Theory, Probability Theory",
         "Yandex SHAD / Masters Prep (Math Track)",
         "Academic Style, LaTeX & Proof Writing"
       ],
