@@ -25,34 +25,26 @@ export const Books: React.FC = () => {
             {content.ui.headers.books}
         </h2>
 
-        <div className="grid gap-12">
+        <div className="grid grid-cols-1 gap-12" style={{ contain: 'layout' }}>
           {content.books.map((book) => {
             const isWaitlist = book.link && (book.link.includes('forms.gle') || book.link.includes('docs.google.com'));
             const hasLink = book.link && book.link !== '#';
 
-            // Компонент-обертка для кликабельных элементов (Картинка и Заголовок)
-            const LinkWrapper = ({ children, className }: { children: React.ReactNode, className?: string }) => {
-                if (hasLink) {
-                    return (
-                        <a 
-                            href={book.link} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className={`cursor-pointer ${className || ''}`}
-                        >
-                            {children}
-                        </a>
-                    );
-                }
-                return <div className={className}>{children}</div>;
-            };
-
             return (
-              <div key={book.id} className="flex flex-col md:flex-row gap-8 items-start bg-white p-6 md:p-8 border border-academic-200 hover:shadow-sm transition-shadow">
-                
+              <div
+                key={book.id}
+                className="flex flex-col md:flex-row gap-8 items-start bg-white p-6 md:p-8 border border-academic-200 hover:shadow-sm transition-shadow"
+                style={{ contain: 'layout paint' }}
+              >
                 {/* ОБЛОЖКА (Теперь кликабельна) */}
-                <div className="w-full md:w-48 shrink-0 self-start">
-                    <LinkWrapper className="block aspect-[2/3] bg-academic-100 relative overflow-hidden group border border-academic-100 transition-opacity hover:opacity-90">
+                <div className="w-full md:w-48 shrink-0 self-start min-h-0">
+                    {hasLink ? (
+                      <a
+                        href={book.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block aspect-[2/3] bg-academic-100 relative overflow-hidden group border border-academic-100 transition-opacity hover:opacity-90 cursor-pointer"
+                      >
                         {book.coverImage ? (
                             <img 
                                 src={book.coverImage} 
@@ -65,7 +57,23 @@ export const Books: React.FC = () => {
                                 <Book size={40} />
                             </div>
                         )}
-                    </LinkWrapper>
+                      </a>
+                    ) : (
+                      <div className="block aspect-[2/3] bg-academic-100 relative overflow-hidden group border border-academic-100">
+                        {book.coverImage ? (
+                            <img 
+                                src={book.coverImage} 
+                                alt={book.title}
+                                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                                loading="lazy"
+                            />
+                        ) : (
+                            <div className="w-full h-full flex items-center justify-center text-academic-300">
+                                <Book size={40} />
+                            </div>
+                        )}
+                      </div>
+                    )}
                 </div>
 
                 <div className="flex-grow w-full">
@@ -87,11 +95,17 @@ export const Books: React.FC = () => {
                    </div>
                    
                    {/* ЗАГОЛОВОК (Теперь кликабелен) */}
-                   <LinkWrapper className="group">
+                   {hasLink ? (
+                     <a href={book.link} target="_blank" rel="noopener noreferrer" className="group">
                         <h3 className="text-2xl font-serif font-bold text-academic-900 mb-4 leading-tight group-hover:text-academic-700 transition-colors">
                             {book.title}
                         </h3>
-                   </LinkWrapper>
+                     </a>
+                   ) : (
+                     <h3 className="text-2xl font-serif font-bold text-academic-900 mb-4 leading-tight">
+                        {book.title}
+                     </h3>
+                   )}
                    
                    {/* ОПИСАНИЕ */}
                    <p className="text-academic-600 mb-6 leading-relaxed max-w-2xl">
