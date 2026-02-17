@@ -7,7 +7,7 @@ export const Hero: React.FC = () => {
 
   return (
     // Добавил 'relative', чтобы позиционировать стрелку абсолютно
-    <section className="relative min-h-[90vh] flex items-center justify-center pt-20 pb-16 px-6 bg-academic-50 overflow-hidden">
+    <section className="relative min-h-[90vh] flex items-center justify-center pt-20 pb-16 px-6 bg-white overflow-hidden">
       
       <div className="max-w-4xl mx-auto text-center z-10">
         <h1 className="text-4xl md:text-6xl font-serif font-bold text-academic-900 mb-6 leading-tight">
@@ -23,14 +23,6 @@ export const Hero: React.FC = () => {
         </p>
       </div>
       
-      {/* Фоновая сетка */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.03]" 
-        style={{
-          backgroundImage: 'linear-gradient(#0f172a 1px, transparent 1px), linear-gradient(90deg, #0f172a 1px, transparent 1px)',
-          backgroundSize: '40px 40px'
-        }}
-      ></div>
-
       {/* НОВОЕ: Индикатор скролла */}
       <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
         <a href="#services" className="text-academic-400 hover:text-academic-900 transition-colors cursor-pointer" aria-label="Scroll down">
