@@ -34,8 +34,8 @@ export const BookDetails: React.FC = () => {
       {/* 1. ГЛОБАЛЬНАЯ ШАПКА */}
       <Header />
 
-      {/* 1.1 Хлебные крошки */}
-      <div className="bg-white border-b border-academic-100">
+      {/* 1.1 Хлебные крошки — pt-14 чтобы не перекрывались фиксированным Header */}
+      <div className="bg-white border-b border-academic-100 pt-14 md:pt-16">
         <div className="container mx-auto max-w-5xl px-6 py-3 text-xs text-academic-500">
           <a href="/" className="hover:text-academic-800 transition-colors">
             ← mathem.at
