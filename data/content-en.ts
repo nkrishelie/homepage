@@ -275,6 +275,7 @@ export const content: SiteContent = {
     title: "Archetypes of Mathematics",
     subtitle: "Monograph",
     description: "Using examples from logic, set theory, algebra, geometry, analysis, and graph theory, the book explores common characteristic techniques and methods for constructing mathematical objects — the so-called archetypes. The material is presented at both naive and rigorous levels. Special attention is paid to the Axiom of Choice, Goodstein's Theorem, and Fermat's Last Theorem for n=3, 4.",
+    authorBio: "Nikolai I. Kazimirov is a PhD mathematician specializing in the foundations of mathematics, model theory, and applied statistical methods. He graduated from the Faculty of Mathematics at PetrSU and completed his PhD at the Institute of Applied Mathematical Research of the Karelian Research Centre of the Russian Academy of Sciences. In addition to academic work, he builds data analytics ecosystems on Google Cloud Platform and popularizes mathematics through books and lectures.",
     downloadButton: "Download Book (PDF)",
     back: "Back to Home",
     ui: {
