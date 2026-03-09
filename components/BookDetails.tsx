@@ -18,7 +18,6 @@ export const BookDetails: React.FC = () => {
   const PDF_LINK = "/archetypeswithface.pdf"; 
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     document.title = "Archetypes of Mathematics — Nikolai Kazimirov";
 
     const ogDescription = document.querySelector('meta[property=\"og:description\"]');
