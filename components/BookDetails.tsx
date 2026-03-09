@@ -3,7 +3,7 @@ import { useLanguage } from '../LanguageContext';
 import { Header } from './Header'; // Импортируем нашу исправленную шапку
 import { Footer } from './Footer';
 import { BookChapterCard } from './BookChapterCard';
-import { Download, BookOpen, Image as ImageIcon, List, Star, Send, Youtube, GraduationCap } from 'lucide-react';
+import { Download, BookOpen, Image as ImageIcon, List, Star, Send, Youtube, Mail, Linkedin } from 'lucide-react';
 
 export const BookDetails: React.FC = () => {
   const { content, language } = useLanguage(); 
@@ -12,7 +12,9 @@ export const BookDetails: React.FC = () => {
 
   const telegram = socials.find((s) => s.label.toLowerCase().includes('telegram'));
   const youtube = socials.find((s) => s.label.toLowerCase().includes('youtube'));
-  const scholar = socials.find((s) => s.label.toLowerCase().includes('scholar'));
+  const email = socials.find((s) =>
+    s.label.toLowerCase().includes('email') || s.label.toLowerCase().includes('mail'));
+  const linkedin = socials.find((s) => s.label.toLowerCase().includes('linkedin'));
 
   const relatedBook = content.books.find((book) => book.id === 'savvateev');
   const PDF_LINK = "/archetypeswithface.pdf"; 
@@ -165,17 +167,30 @@ export const BookDetails: React.FC = () => {
                     <span>YouTube</span>
                   </a>
                 )}
-                {scholar && (
+                {email && (
                   <a
-                    href={scholar.href}
+                    href={email.href}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 hover:text-academic-900 transition-colors"
                   >
                     <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-academic-900 text-white">
-                      <GraduationCap size={14} />
+                      <Mail size={14} />
                     </span>
-                    <span>Google Scholar</span>
+                    <span>Email</span>
+                  </a>
+                )}
+                {linkedin && (
+                  <a
+                    href={linkedin.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 hover:text-academic-900 transition-colors"
+                  >
+                    <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#0A66C2] text-white">
+                      <Linkedin size={14} />
+                    </span>
+                    <span>LinkedIn</span>
                   </a>
                 )}
               </div>
