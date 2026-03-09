@@ -52,13 +52,38 @@ export const Header: React.FC = () => {
             ))}
           </nav>
 
-          {/* Язык */}
-          <button 
-            onClick={() => setLanguage(language === 'ru' ? 'en' : 'ru')}
-            className="flex items-center justify-center w-10 h-8 text-xs font-bold uppercase tracking-wider text-academic-600 border border-academic-300 rounded hover:bg-academic-50 hover:text-black transition-colors shrink-0 z-50 relative bg-white"
+          {/* Язык: две кнопки с флагами */}
+          <div
+            className="flex items-center gap-1 px-1 py-0.5 rounded-full bg-white/90 border border-academic-200 shadow-sm shrink-0 z-50 relative"
+            aria-label="Переключение языка"
           >
-            {language === 'ru' ? 'EN' : 'RU'}
-          </button>
+            <button
+              type="button"
+              onClick={() => setLanguage('ru')}
+              className={`flex items-center gap-1 px-2.5 py-1.5 text-[11px] font-semibold uppercase tracking-wider border rounded-full transition-colors ${
+                language === 'ru'
+                  ? 'bg-academic-900 text-white border-academic-900'
+                  : 'bg-white text-academic-700 border-academic-200 hover:border-academic-900 hover:text-academic-900'
+              }`}
+              aria-pressed={language === 'ru'}
+            >
+              <span className="text-lg leading-none">🇷🇺</span>
+              <span className="leading-none">RU</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setLanguage('en')}
+              className={`flex items-center gap-1 px-2.5 py-1.5 text-[11px] font-semibold uppercase tracking-wider border rounded-full transition-colors ${
+                language === 'en'
+                  ? 'bg-academic-900 text-white border-academic-900'
+                  : 'bg-white text-academic-700 border-academic-200 hover:border-academic-900 hover:text-academic-900'
+              }`}
+              aria-pressed={language === 'en'}
+            >
+              <span className="text-lg leading-none">🇬🇧</span>
+              <span className="leading-none">EN</span>
+            </button>
+          </div>
           
           {/* БУРГЕР: Виден на Mobile и Tablet (< 1024px) */}
           <button 

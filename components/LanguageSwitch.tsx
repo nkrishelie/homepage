@@ -1,22 +1,39 @@
 import React from 'react';
 import { useLanguage } from '../LanguageContext';
-import { Globe } from 'lucide-react';
 
 export const LanguageSwitch: React.FC = () => {
   const { language, setLanguage } = useLanguage();
 
-  const toggleLanguage = () => {
-    setLanguage(language === 'ru' ? 'en' : 'ru');
-  };
+  const baseButtonClasses =
+    'flex items-center gap-1 px-2.5 py-1.5 text-[11px] font-semibold uppercase tracking-wider border rounded-full transition-colors';
+
+  const activeClasses = 'bg-academic-900 text-white border-academic-900';
+  const inactiveClasses =
+    'bg-white text-academic-700 border-academic-200 hover:border-academic-900 hover:text-academic-900';
 
   return (
-    <button
-      onClick={toggleLanguage}
-      className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-academic-200 text-academic-600 hover:text-academic-900 hover:border-academic-900 transition-all text-xs font-bold tracking-wider uppercase bg-white"
-      aria-label="Switch language"
+    <div
+      className="inline-flex items-center gap-1 px-1 py-0.5 rounded-full bg-white/90 border border-academic-200 shadow-sm"
+      aria-label="Переключение языка"
     >
-      <Globe size={14} />
-      <span>{language}</span>
-    </button>
+      <button
+        type="button"
+        onClick={() => setLanguage('ru')}
+        className={`${baseButtonClasses} ${language === 'ru' ? activeClasses : inactiveClasses}`}
+        aria-pressed={language === 'ru'}
+      >
+        <span className="text-lg leading-none">🇷🇺</span>
+        <span className="leading-none">RU</span>
+      </button>
+      <button
+        type="button"
+        onClick={() => setLanguage('en')}
+        className={`${baseButtonClasses} ${language === 'en' ? activeClasses : inactiveClasses}`}
+        aria-pressed={language === 'en'}
+      >
+        <span className="text-lg leading-none">🇬🇧</span>
+        <span className="leading-none">EN</span>
+      </button>
+    </div>
   );
 };
