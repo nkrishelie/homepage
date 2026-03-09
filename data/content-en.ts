@@ -196,54 +196,32 @@ export const content: SiteContent = {
     },
     summary: {
       title: "About Me",
-      text: "As a mathematician, I take great pride in my diligent work with numbers and data, uncovering intricate patterns. With a dedicated focus on formulating and rigorously testing hypotheses, I utilize Python programming and the powerful BigQuery warehouse. My sincere goal is to advance my career in the fields of Data Science and Machine Learning, continuously enhancing my skills and expertise. I am committed to staying current with industry advancements, striving for excellence in all endeavors. OPEN TO RELOCATION."
+      text: "Data analytics leader with 7+ years of experience designing and implementing end-to-end analytics ecosystems on Google Cloud Platform (GCP). I build scalable BI solutions, automate ETL pipelines, and drive data-informed decision-making with tools such as Looker Studio and DataLens. I hold a PhD in Mathematics with a focus on applied statistical methods and mathematical logic, and I am comfortable translating rigorous models into actionable business insights. Open to relocation and Blue Card sponsorship."
     },
     experience: {
       title: "Work Experience",
       items: [
         {
-          role: "Senior Data Analyst",
-          company: "Softline (Ecommerce)",
-          period: "Sep 2019 – Present",
+          role: "Head of Analysis and Content Department",
+          company: "Softline (Digital solutions & services, 5000+ employees), Moscow",
+          period: "Mar 2014 – Present",
           description: [
-            "Key Metrics: Supported revenue up to $5M across 10 online shops in 9 countries.",
-            "Data Engineering: Orchestrated BI implementation on GCP, reducing manual ETL procedures by 50-70%.",
-            "Analytics: Constructed over 70 dashboards (Looker/DataLens) for comprehensive business insights.",
-            "Optimization: Implemented alert systems for shopping carts and conducted A/B testing using Python.",
-            "Tech Stack: Python, SQL, BigQuery, Looker, ETL pipelines."
-          ]
-        },
-        // 2. MIDDLE ROLE
-        {
-          role: "Head of Content Division / Product Owner",
-          company: "Softline",
-          period: "Apr 2016 – Sep 2019",
-          description: [
-            "Business Growth: Online sales revenue increased 3.5 times during this period (up to $3.5M).",
-            "Product Management: Designed and launched a new CMS (MCF system); led the development team as PO.",
-            "Scaling: Grew the catalog to 100,000 items across 4 countries.",
-            "Leadership: Managed a division of 15-20 people (content managers, translators)."
-          ]
-        },
-        // 3. EARLY ROLE
-        {
-          role: "E-Com Manager / Team Lead",
-          company: "Softline",
-          period: "Mar 2014 – Apr 2016",
-          description: [
-            "Zero to One: Increased catalog volume from 0 to 5,000 positions.",
-            "Team Building: Hired and trained the initial team of 3 content managers.",
-            "Operations: Managed 25 product categories of hardware and software."
+            "Piloted a self-hosted corporate AI platform (Open WebUI, LiteLLM, Dify, OpenRouter), replacing uncontrolled personal ChatGPT usage with a centralized solution featuring role-based access control, per-user cost tracking, and RAG integration for internal documentation.",
+            "Orchestrated the implementation of a Business Intelligence (BI) solution on Google Cloud Platform (GCP), leading to a 50–70% reduction in manual ETL procedures (including web scraping).",
+            "Constructed and configured 70+ dashboards in Looker Studio and DataLens to provide decision-makers with comprehensive eCommerce metrics.",
+            "Designed and implemented an alert system for early detection of issues in e-commerce shopping carts.",
+            "Led a cross-functional team of ~20 people (content managers and analysts), aligning their work with business goals.",
+            "Enhanced the internal Price and Product Management System (MCF), automating product matching and pricing logic across showcases.",
+            "Developed and deployed sales forecast dashboards for key product showcases using Python and Holt–Winters time-series models."
           ]
         },
         {
           role: "Lead Category Manager",
-          company: "Utinet (Marketplace)",
-          period: "2011 – 2013",
+          company: "Utinet (Marketplace, 500+ employees), Moscow",
+          period: "Jun 2011 – Nov 2013",
           description: [
-            "Established over 100 categories of computer hardware with detailed specifications, contributing to a diverse range exceeding 100,000 items.",
-            "Innovated search metrics based on technical characteristics, boosting conversion rates by 2-3 times.",
-            "Sales forecasting and product showcase management."
+            "Established and introduced over 100 categories of computer hardware with detailed specifications, contributing to a product range exceeding 100,000 items.",
+            "Designed and implemented hundreds of search metrics based on technical characteristics, significantly improving search relevance and boosting conversion by 2–3x."
           ]
         },
         {
@@ -254,15 +232,6 @@ export const content: SiteContent = {
             "Content Management: Managed product databases and technical specifications.",
             "Automation: Set up data processing and import workflows.",
             "Transitioned from academic research to the IT sector."
-          ]
-        },
-        {
-          role: "Researcher / Lecturer",
-          company: "KarRC RAS / PetrSU",
-          period: "1998 – 2003",
-          description: [
-            "PhD Thesis: Limit theorems for Galton-Watson random forests.",
-            "Research focus: Random Forests and Random Permutations."
           ]
         }
       ]
