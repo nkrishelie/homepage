@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLanguage } from '../LanguageContext';
-import { Brain, GraduationCap, CheckCircle2 } from 'lucide-react';
+import { Brain, GraduationCap, CheckCircle2, Mail, Send, Youtube, Linkedin } from 'lucide-react';
 
 const icons = {
   Brain,
@@ -10,6 +10,13 @@ const icons = {
 
 export const Services: React.FC = () => {
   const { content } = useLanguage();
+
+  const email = content.personal?.email;
+  const socials = content.about?.socials || [];
+
+  const telegram = socials.find((s) => s.label.toLowerCase().includes('telegram'))?.href;
+  const youtube = socials.find((s) => s.label.toLowerCase().includes('youtube'))?.href;
+  const linkedin = socials.find((s) => s.label.toLowerCase().includes('linkedin'))?.href;
 
   return (
     <section id="services" className="py-24 bg-white">
@@ -53,14 +60,71 @@ export const Services: React.FC = () => {
                   ))}
                 </ul>
                 
-                <a 
-                  href="https://t.me/mathreisender" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="inline-block text-academic-900 font-bold border-b-2 border-academic-900 hover:text-academic-600 hover:border-academic-600 transition-colors pb-1 cursor-pointer"
-                >
-                  {service.cta}
-                </a>
+                <div className="flex flex-col gap-3">
+                  <span className="text-xs font-semibold uppercase tracking-wide text-academic-500">
+                    {service.cta}
+                  </span>
+                  <div className="flex flex-wrap items-center gap-4">
+                    {email && (
+                      <a
+                        href={`mailto:${email}`}
+                        className="flex items-center gap-2 text-sm text-academic-700 hover:text-academic-900 transition-colors"
+                      >
+                        <span className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-academic-900 text-white">
+                          <Mail size={16} />
+                        </span>
+                        <span className="underline underline-offset-2 decoration-academic-400">
+                          Email
+                        </span>
+                      </a>
+                    )}
+                    {telegram && (
+                      <a
+                        href={telegram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-sm text-academic-700 hover:text-academic-900 transition-colors"
+                      >
+                        <span className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-[#229ED9] text-white">
+                          <Send size={16} />
+                        </span>
+                        <span className="underline underline-offset-2 decoration-academic-400">
+                          Telegram
+                        </span>
+                      </a>
+                    )}
+                    {youtube && (
+                      <a
+                        href={youtube}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-sm text-academic-700 hover:text-academic-900 transition-colors"
+                      >
+                        <span className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-[#FF0000] text-white">
+                          <Youtube size={16} />
+                        </span>
+                        <span className="underline underline-offset-2 decoration-academic-400">
+                          YouTube
+                        </span>
+                      </a>
+                    )}
+                    {linkedin && (
+                      <a
+                        href={linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-sm text-academic-700 hover:text-academic-900 transition-colors"
+                      >
+                        <span className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-[#0A66C2] text-white">
+                          <Linkedin size={16} />
+                        </span>
+                        <span className="underline underline-offset-2 decoration-academic-400">
+                          LinkedIn
+                        </span>
+                      </a>
+                    )}
+                  </div>
+                </div>
               </div>
             );
           })}
