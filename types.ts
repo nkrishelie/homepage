@@ -55,6 +55,7 @@ export interface BookPageContent {
     sources: string;
     archetypes: string;
   };
+  mentorship?: { title: string; text: string };
   chapters: BookChapter[];
 }
 

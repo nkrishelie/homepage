@@ -282,6 +282,74 @@ export const BookDetails: React.FC = () => {
         )}
       </main>
 
+      {/* MENTORSHIP */}
+      {b.mentorship && (
+        <section className="bg-white border-t border-b border-academic-200 py-12">
+          <div className="container mx-auto max-w-4xl px-6">
+            <h2 className="font-serif font-bold text-2xl text-academic-900 mb-4">
+              {b.mentorship.title}
+            </h2>
+            <p className="text-academic-600 leading-relaxed text-lg mb-6 max-w-2xl">
+              {b.mentorship.text}
+            </p>
+            <div className="flex flex-wrap gap-4 text-sm text-academic-700">
+              {telegram && (
+                <a
+                  href={telegram.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 hover:text-academic-900 transition-colors"
+                >
+                  <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#229ED9] text-white">
+                    <Send size={14} />
+                  </span>
+                  <span>Telegram</span>
+                </a>
+              )}
+              {youtube && (
+                <a
+                  href={youtube.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 hover:text-academic-900 transition-colors"
+                >
+                  <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#FF0000] text-white">
+                    <Youtube size={14} />
+                  </span>
+                  <span>YouTube</span>
+                </a>
+              )}
+              {email && (
+                <a
+                  href={email.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 hover:text-academic-900 transition-colors"
+                >
+                  <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-academic-900 text-white">
+                    <Mail size={14} />
+                  </span>
+                  <span>Email</span>
+                </a>
+              )}
+              {linkedin && (
+                <a
+                  href={linkedin.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 hover:text-academic-900 transition-colors"
+                >
+                  <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#0A66C2] text-white">
+                    <Linkedin size={14} />
+                  </span>
+                  <span>LinkedIn</span>
+                </a>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
       <Footer />
     </div>
   );
