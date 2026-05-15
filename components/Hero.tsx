@@ -1,9 +1,14 @@
 import React from 'react';
 import { useLanguage } from '../LanguageContext';
 import { ChevronDown } from 'lucide-react'; // Импортируем стрелку
+import { MATERIALS_ITEMS } from '../data/materials.generated';
 
 export const Hero: React.FC = () => {
-  const { content } = useLanguage();
+  const { content, language } = useLanguage();
+  const materialsLabel = content.ui.headers.materials;
+  const showMaterialsLink =
+    language === 'ru' &&
+    (MATERIALS_ITEMS.length > 0 || content.materials.practiceTests.length > 0);
 
   return (
     // Добавил 'relative', чтобы позиционировать стрелку абсолютно
@@ -18,9 +23,20 @@ export const Hero: React.FC = () => {
           {content.personal.headline}
         </h2>
         
-        <p className="text-lg md:text-xl text-academic-500 max-w-2xl mx-auto mb-12 leading-relaxed font-light">
+        <p className="text-lg md:text-xl text-academic-500 max-w-2xl mx-auto mb-8 leading-relaxed font-light">
           {content.personal.tagline}
         </p>
+
+        {showMaterialsLink ? (
+          <p className="mb-10 text-base text-academic-500">
+            <a
+              href="#materials"
+              className="font-medium text-academic-700 hover:text-academic-900 underline decoration-academic-200 underline-offset-[6px] transition-colors"
+            >
+              {materialsLabel}
+            </a>
+          </p>
+        ) : null}
       </div>
       
       {/* НОВОЕ: Индикатор скролла */}

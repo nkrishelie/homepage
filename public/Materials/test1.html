@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Теория множеств: Тест</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        h1, h2 { text-align: center; color: #2c3e50; }
+        .card {
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .setup-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        input[type="number"] {
+            width: 70px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: block;
+            margin: 0 auto;
+        }
+        button:hover { background-color: #2980b9; }
+        .question-block {
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .question-block:last-child { border-bottom: none; }
+        .prompt-text {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #2c3e50;
+            background: #e8f4f8;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        select {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 100%;
+            max-width: 100%;
+            background-color: #f9f9f9;
+        }
+        .result-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 4px;
+            background: #fafafa;
+            border-left: 5px solid #ccc;
+        }
+        .result-item.correct { border-left-color: #2ecc71; }
+        .result-item.incorrect { border-left-color: #e74c3c; }
+        .icon { font-weight: bold; margin-right: 10px; }
+        .icon.correct { color: #2ecc71; }
+        .icon.incorrect { color: #e74c3c; }
+        .correct-answer {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            display: block;
+            margin-top: 5px;
+            font-style: italic;
+        }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <h1>Теория множеств: Тест</h1>
+
+    <!-- Экран настройки -->
+    <div id="setup-view" class="card">
+        <h2>Настройка теста</h2>
+        <p style="text-align: center;">Выберите диапазон строк для тестирования (всего терминов: <span id="total-count">0</span>)</p>
+        <div class="setup-group">
+            <label>От: <input type="number" id="range-min" value="1" min="1"></label>
+            <label>До: <input type="number" id="range-max" value="25" min="1"></label>
+        </div>
+        <button onclick="startTest()">Начать</button>
+    </div>
+
+    <!-- Экран тестирования -->
+    <div id="test-view" class="card hidden">
+        <h2>Подберите соответствия</h2>
+        <div id="questions-container"></div>
+        <button onclick="submitTest()" style="margin-top: 20px;">ОК (Завершить)</button>
+    </div>
+
+    <!-- Экран результатов -->
+    <div id="results-view" class="card hidden">
+        <h2>Результаты</h2>
+        <p id="score-text" style="text-align: center; font-size: 1.2em; font-weight: bold;"></p>
+        <div id="results-container"></div>
+        <button onclick="resetToStart()" style="margin-top: 20px;">Начало</button>
+    </div>
+
+    <script>
+        // Данные из файла
+        const rawData = [
+            ["Пустое множество", "∅", "Множество, не содержащее ни одного элемента"],
+            ["A — подмножество B (A ⊆ B)", "∀x (x ∈ A → x ∈ B)", "Всякий элемент А есть элемент В"],
+            ["Бинарное отношение", "R ⊆ A × B", "Подмножество декартова произведения двух множеств."],
+            ["Рефлексивное отношение", "∀x ∈ A: xRx", "Отношение, при котором каждый элемент связан сам с собой."],
+            ["Иррефлексивное отношение", "∀x ∈ A: ¬(xRx)", "Отношение, при котором ни один элемент не связан сам с собой."],
+            ["Симметричное отношение", "∀x,y ∈ A: xRy → yRx", "Отношение, не зависящее от порядка элементов."],
+            ["Транзитивное отношение", "∀x,y,z ∈ A: xRy ∧ yRz → xRz", "Отношение, передающееся по цепочке."],
+            ["Антисимметричное отношение", "∀x,y ∈ A: xRy ∧ yRx → x=y", "Симметричность допускается только для равных элементов"],
+            ["Связное отношение", "∀x,y ∈ A: xRy ∨ yRx ∨ x=y", "Отношение, при котором любые два элемента сравнимы."],
+            ["Предпорядок", "Рефлексивное ∧ транзитивное", "Отношение, обладающее свойствами рефлексивности и транзитивности."],
+            ["Частичный порядок", "Антисимметричный предпорядок", "Отношение предпорядка, дополнительно обладающее свойством антисимметричности."],
+            ["Линейный порядок", "Связный частичный порядок", "Частичный порядок, при котором любые два элемента сравнимы."],
+            ["Строгий порядок", "x < y ⇔ x ≤ y ∧ x ≠ y", "Порядок, явно исключающий равенство элементов."],
+            ["Плотный линейный порядок", "< - строгий линейный порядок и ∀x,y (x < y ⇒ ∃z (x < z ∧ z < y))", "Между любыми двумя различными элементами найдется третий."],
+            ["Фундированный порядок", "∀X ⊆ A: X ≠ ∅ → ∃x ∈ X: ∀y ∈ X: x≤y", "Каждое непустое подмножество имеет минимум."],
+            ["Вполне упорядочение", "Фундированный линейный порядок", "Линейный порядок, при котором любое непустое подмножество имеет наименьший элемент."],
+            ["Максимальный элемент", "m ∈ P: ¬∃x ∈ P: m < x", "Элемент частично упорядоченного множества, для которого не существует строго большего элемента."],
+            ["Минимальный элемент", "m ∈ P: ¬∃x ∈ P: x < m", "Элемент частично упорядоченного множества, для которого не существует строго меньшего элемента."],
+            ["Максимум", "m ∈ P: ∀x ∈ P: x ≤ m", "Элемент множества, который больше или равен всем остальным его элементам."],
+            ["Минимум", "m ∈ P: ∀x ∈ P: m ≤ x", "Элемент множества, который меньше или равен всем остальным его элементам."],
+            ["Верхняя грань C в P", "u ∈ P: ∀x ∈ C: x ≤ u", "Элемент надмножества, который больше или равен всем элементам заданного множества (или цепи)."],
+            ["Нижняя грань C в P", "u ∈ P: ∀x ∈ C: u ≤ x", "Элемент надмножества, который больше или равен всем элементам заданного множества (или цепи)."],
+            ["Супремум (точная верхняя грань)", "sup X = min{u | X ≤ u}", "Минимум среди всех верхних граней"],
+            ["Инфимум (точная нижняя грань)", "inf X = max{u | u ≤ X}", "Максимум среди всех нижних граней"],
+            ["Функция", "f: A → B", "Отношение, сопоставляющее каждому элементу из области определения ровно один элемент из целевого множества."],
+            ["Инъекция", "∀x,z ∈ A: f(x)=f(z) → x=z", "Функция, переводящая разные элементы в разные значения."],
+            ["Сюръекция на B", "∀y ∈ B ∃x ∈ A: f(x)=y", "Функция, область значений которой совпадает со всем целевым множеством."],
+            ["Биекция", "Инъекция ∧ Сюръекция", "Взаимно однозначное соответствие между элементами двух множеств."],
+            ["Образ множества", "f[X] = {f(x) | x ∈ X}", "Результат действия функции f на множество X (подмножество области значений)."],
+            ["Прообраз множества", "f⁻¹[Y] = {x | f(x) ∈ Y}", "Всё, что f переводит в Y (подмножество области определения)."],
+            ["Обратная функция", "f(f⁻¹(y))=y ∧ f⁻¹(f(x))=x", "Функция, совершающая обратное преобразование для исходной биекции."],
+            ["Композиция функций", "(g ◦ f)(x) = z ⇔ ∃y ∈ B: f(x)=y ∧ g(y)=z", "Последовательное применение одной функции к результату другой."],
+            ["Ассоциативность", "(a ◦ b) ◦ c = a ◦ (b ◦ c)", "Свойство бинарной операции, позволяющее произвольно расставлять скобки."],
+            ["Нейтральный элемент", "a ◦ e = e ◦ a = a", "Выделенный элемент структуры, не изменяющий другие элементы при применении операции."],
+            ["Обратимость", "∀a ∃a⁻¹: a ◦ a⁻¹ = e = a⁻¹ ◦ a", "Свойство, гарантирующее наличие для каждого элемента обратного (или противоположного) ему."],
+            ["Коммутативность", "a ◦ b = b ◦ a", "Свойство бинарной операции, обеспечивающее независимость результата от порядка аргументов."],
+            ["Дистрибутивность", "a(b+c) = ab+ac ∧ (a+b)c = ac+bc", "Свойство, определяющее согласованность операции умножения относительно сложения."],
+            ["Группоид", "<M, ◦>", "Множество с одной определенной на нем замкнутой бинарной операцией без дополнительных аксиом."],
+            ["Полугруппа", "Группоид с ассоциативной операцией", "Группоид, операция которого ассоциативна."],
+            ["Моноид", "Полугруппа + нейтральный элемент", "Группоид с ассоциативной операцией и нейтральным элементом."],
+            ["Группа", "Моноид + обратимость", "Моноид, в котором для каждого элемента существует обратный."],
+            ["Абелева группа", "Группа + коммутативность", "Группа, в которой бинарная операция коммутативна."],
+            ["Кольцо с единицей (унитальное кольцо)", "<R, 0, 1, +, ·>", "Структура, являющаяся абелевой группой по сложению, моноидом по умножению и удовлетворяющая аксиоме дистрибутивности."],
+            ["Поле", "Коммутативное унитальное кольцо + обратимость ненулевых", "Кольцо, в котором все ненулевые элементы образуют абелеву группу по умножению."],
+            ["Упорядоченное кольцо", "Кольцо + линейный порядок <", "Кольцо с введенным на нем линейным порядком, согласованным с операциями сложения и умножения."],
+            ["Согласованность порядка и сложения", "a < b → a+c < b+c", "Сохранение строгого неравенства при прибавлении элемента к обеим частям."],
+            ["Согласованность порядка и умножения", "0 < a ∧ 0 < b → 0 < ab", "Правило, согласно которому произведение двух положительных элементов положительно."],
+            ["Предел последовательности", "(a_n → a) ⇔ ∀ε > 0 ∃N ∈ N ∀n ≥ N: |a_n - a|<ε", "a_n сколь угодно близко к a при достаточно больших n"],
+            ["Ограниченная последовательность", "∃M ∀n ≥ N (x_n<M)", "все x_n меньше некоторого фиксированного числа M"],
+            ["Фундаментальная последовательность", "∀ε > 0 ∃N ∀n,m ≥ N (|a_n - a_m| < ε)", "Члены последовательности с достаточно большими номерами сколь угодно близки."],
+            ["Непрерывность функции f в точке x₀", "∀ε > 0 ∃δ > 0 ∀x ≠ x₀: |x-x₀|<δ → |f(x)-f(x₀)|<ε", "Для любых достаточно близких к x₀ точек x значения f(x) сколь угодно близки к значению f(x₀)."],
+            ["Равномерная непрерывность функции f на множестве K", "∀ε > 0 ∃δ > 0 ∀x,y∈K: |x-y|<δ → |f(x)-f(y)|<ε", "Для любых одинаково достаточно близких друг к другу точек значения f в этих точках сколько угодно близки."]
+        ];
+
+        const COL_NAMES = ["Термин", "Формальное определение", "Словесное определение"];
+        let currentQuestions = [];
+
+        // Инициализация
+        document.getElementById('total-count').innerText = rawData.length;
+        document.getElementById('range-max').max = rawData.length;
+
+        // Вспомогательная функция перемешивания массива
+        function shuffle(array) {
+            let currentIndex = array.length, randomIndex;
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            }
+            return array;
+        }
+
+        function startTest() {
+            let min = parseInt(document.getElementById('range-min').value) - 1;
+            let max = parseInt(document.getElementById('range-max').value);
+            
+            if (min < 0) min = 0;
+            if (max > rawData.length) max = rawData.length;
+            if (min >= max) {
+                alert("Неверный диапазон!");
+                return;
+            }
+
+            // Выбираем диапазон и перемешиваем
+            let selectedData = rawData.slice(min, max).map((row, index) => ({ row, originalIndex: min + index }));
+            shuffle(selectedData);
+            
+            // Берем до 10 вопросов
+            let questionsData = selectedData.slice(0, 10);
+            
+            // Подготавливаем списки опций из выбранного юзером диапазона
+            let optionsPool = [[], [], []];
+            rawData.slice(min, max).forEach(row => {
+                optionsPool[0].push(row[0]);
+                optionsPool[1].push(row[1]);
+                optionsPool[2].push(row[2]);
+            });
+
+            currentQuestions = [];
+            const container = document.getElementById('questions-container');
+            container.innerHTML = '';
+
+            questionsData.forEach((qData, qIndex) => {
+                // Рандомно выбираем, какая колонка будет вопросом (0, 1 или 2)
+                let promptCol = Math.floor(Math.random() * 3);
+                let targetCols = [0, 1, 2].filter(c => c !== promptCol);
+
+                let qObj = {
+                    id: qIndex,
+                    promptText: qData.row[promptCol],
+                    promptColName: COL_NAMES[promptCol],
+                    targets: targetCols.map(colIdx => ({
+                        colIdx: colIdx,
+                        colName: COL_NAMES[colIdx],
+                        correctAnswer: qData.row[colIdx],
+                        // Перемешиваем пул ответов для селектора
+                        options: shuffle([...new Set(optionsPool[colIdx])]) 
+                    }))
+                };
+                currentQuestions.push(qObj);
+
+                // Отрисовка вопроса
+                let block = document.createElement('div');
+                block.className = 'question-block';
+                
+                let promptHTML = `<div class="prompt-text">${qObj.promptColName}: ${qObj.promptText}</div>`;
+                
+                let selectsHTML = qObj.targets.map((t, idx) => {
+                    let optionsHTML = `<option value="" disabled selected>Выберите ${t.colName}...</option>`;
+                    t.options.forEach(opt => {
+                        optionsHTML += `<option value="${opt.replace(/"/g, '&quot;')}">${opt}</option>`;
+                    });
+                    return `<select id="q${qIndex}_t${idx}">${optionsHTML}</select>`;
+                }).join('');
+
+                block.innerHTML = promptHTML + selectsHTML;
+                container.appendChild(block);
+            });
+
+            document.getElementById('setup-view').classList.add('hidden');
+            document.getElementById('test-view').classList.remove('hidden');
+        }
+
+        function submitTest() {
+            let resultsContainer = document.getElementById('results-container');
+            resultsContainer.innerHTML = '';
+            let correctCount = 0;
+            let totalTargets = currentQuestions.length * 2;
+
+            currentQuestions.forEach(q => {
+                let itemDiv = document.createElement('div');
+                itemDiv.className = 'result-item';
+
+                let title = document.createElement('strong');
+                title.innerText = q.promptText;
+                itemDiv.appendChild(title);
+
+                let isBlockCorrect = true;
+
+                q.targets.forEach((t, idx) => {
+                    let selectEl = document.getElementById(`q${q.id}_t${idx}`);
+                    let userAnswer = selectEl.value;
+                    let isCorrect = (userAnswer === t.correctAnswer);
+
+                    let resLine = document.createElement('div');
+                    resLine.style.marginTop = "8px";
+
+                    if (isCorrect) {
+                        correctCount++;
+                        resLine.innerHTML = `<span class="icon correct">✔</span> ${t.colName}: ${userAnswer}`;
+                    } else {
+                        isBlockCorrect = false;
+                        resLine.innerHTML = `<span class="icon incorrect">✘</span> ${t.colName}: ${userAnswer || '(нет ответа)'} 
+                                             <span class="correct-answer">(Правильно: ${t.correctAnswer})</span>`;
+                    }
+                    itemDiv.appendChild(resLine);
+                });
+
+                itemDiv.classList.add(isBlockCorrect ? 'correct' : 'incorrect');
+                resultsContainer.appendChild(itemDiv);
+            });
+
+            document.getElementById('score-text').innerText = `Ваш результат: ${Math.floor((correctCount/totalTargets)*100)}% (${correctCount} из ${totalTargets} верных выборов)`;
+
+            document.getElementById('test-view').classList.add('hidden');
+            document.getElementById('results-view').classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        function resetToStart() {
+            document.getElementById('results-view').classList.add('hidden');
+            document.getElementById('setup-view').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

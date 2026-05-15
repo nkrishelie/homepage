@@ -1,0 +1,38 @@
+{
+  "defaultCategory": "general",
+  "categoryOrder": [
+    "analysis",
+    "algebra",
+    "sets",
+    "foundations",
+    "general"
+  ],
+  "categories": {
+    "analysis": {
+      "ru": "Математический анализ",
+      "en": "Mathematical analysis"
+    },
+    "algebra": {
+      "ru": "Алгебра и структуры",
+      "en": "Algebra and structures"
+    },
+    "sets": {
+      "ru": "Теория множеств",
+      "en": "Set theory"
+    },
+    "foundations": {
+      "ru": "Основания, логика, вычислимость",
+      "en": "Foundations, logic, computability"
+    },
+    "general": {
+      "ru": "Прочие материалы",
+      "en": "Other materials"
+    }
+  },
+  "fileCategory": {
+    "math_analysis_levels.html": "analysis",
+    "algebra_structures_3_3_fixed.html": "algebra",
+    "test1.html": "sets",
+    "diagonal.html": "foundations"
+  }
+}

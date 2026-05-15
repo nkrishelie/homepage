@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { useLanguage } from '../LanguageContext';
+import { HeaderMaterials } from './HeaderMaterials';
 
 export const Header: React.FC = () => {
   const { language, setLanguage, content } = useLanguage();
@@ -41,15 +42,25 @@ export const Header: React.FC = () => {
           
           {/* Меню ПК: Только на больших экранах (lg+) */}
           <nav className="hidden lg:flex items-center space-x-6">
-            {content.navigation.map((item) => (
-              <a 
-                key={item.label}
-                href={getHref(item.href)}
-                className="text-sm font-medium text-academic-600 hover:text-black transition-colors uppercase tracking-wider whitespace-nowrap"
-              >
-                {item.label}
-              </a>
-            ))}
+            {content.navigation.map((item) =>
+              item.id === 'materials' ? (
+                <HeaderMaterials
+                  key={item.href}
+                  content={content}
+                  language={language}
+                  getHref={getHref}
+                  variant="desktop"
+                />
+              ) : (
+                <a 
+                  key={item.label}
+                  href={getHref(item.href)}
+                  className="text-sm font-medium text-academic-600 hover:text-black transition-colors uppercase tracking-wider whitespace-nowrap"
+                >
+                  {item.label}
+                </a>
+              ),
+            )}
           </nav>
 
           {/* Язык: две кнопки с флагами */}
@@ -100,16 +111,27 @@ export const Header: React.FC = () => {
       {/* Выпадающее меню */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 top-0 left-0 w-full h-screen bg-white z-40 flex flex-col pt-28 px-6 gap-6 animate-in fade-in duration-200 lg:hidden overflow-y-auto">
-           {content.navigation.map((item) => (
-            <a 
-              key={item.label}
-              href={getHref(item.href)}
-              className="text-2xl font-serif font-bold text-academic-900 border-b border-academic-100 pb-4"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {item.label}
-            </a>
-          ))}
+           {content.navigation.map((item) =>
+            item.id === 'materials' ? (
+              <HeaderMaterials
+                key={item.href}
+                content={content}
+                language={language}
+                getHref={getHref}
+                variant="mobile"
+                onNavigate={() => setMobileMenuOpen(false)}
+              />
+            ) : (
+              <a 
+                key={item.label}
+                href={getHref(item.href)}
+                className="text-2xl font-serif font-bold text-academic-900 border-b border-academic-100 pb-4"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {item.label}
+              </a>
+            ),
+          )}
           <div className="mt-auto mb-10 text-academic-400 text-sm">
             © 2026 Nikolai Kazimirov
           </div>

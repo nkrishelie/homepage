@@ -16,6 +16,7 @@ export const content: SiteContent = {
       projects: "Цифровые проекты",
       books: "Книги",
       lectures: "Избранные лекции",
+      materials: "Материалы",
       about: "Обо мне",
       interests: "Научные интересы",
       contacts: "Контакты",
@@ -35,6 +36,7 @@ export const content: SiteContent = {
     { label: "Проекты", href: "#projects" },
     { label: "Книги", href: "#books" },
     { label: "Лекции", href: "#lectures" },
+    { label: "Материалы", href: "#materials", id: "materials" },
     { label: "Обо мне", href: "#about" },
   ],
   services: [
@@ -367,5 +369,23 @@ export const content: SiteContent = {
         icon: "/Graph.png"
       }
     ]
-  }
+  },
+  materials: {
+    sectionTitle: "Материалы для работы над понятийным аппаратом",
+    sectionIntro:
+      "Подборка текстовых материалов и контрольных вопросов по основаниям и смежным темам: блоки ниже можно открывать как отдельные страницы, тесты — через Google Forms.",
+    menuOverview: "К обзору на странице",
+    linkOpensNewTabHint: "Откроется в новой вкладке",
+    practiceTestsHeading: "Тесты (Google Forms)",
+    practiceTests: [
+      {
+        title: "Основания математики, часть 1",
+        url: "https://docs.google.com/forms/d/e/1FAIpQLSfeSoL7Zm0Z6wDoyqMAIundY0SsmOrz8HXin74AWFpnjjF4lA/viewform?usp=dialog",
+      },
+      {
+        title: "Основания математики, часть 2",
+        url: "https://docs.google.com/forms/d/e/1FAIpQLSeBjYS3UzkJ_D8oXrf6AMFAkUanAlM5jmrClWYze1MnMrZGSg/viewform?usp=dialog",
+      },
+    ],
+  },
 };

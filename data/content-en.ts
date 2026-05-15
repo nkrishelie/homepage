@@ -16,6 +16,7 @@ export const content: SiteContent = {
       projects: "Digital Projects",
       books: "Books",
       lectures: "Selected Lectures",
+      materials: "Materials",
       about: "About Me",
       interests: "Research Interests",
       contacts: "Contact",
@@ -370,5 +371,23 @@ export const content: SiteContent = {
         icon: "/Graph.png"
       }
     ]
-  }
+  },
+  materials: {
+    sectionTitle: "Conceptual working notes",
+    sectionIntro:
+      "Texts and quizzes on foundations and nearby topics—the notes below open as separate pages; the quiz links lead to Google Forms.",
+    menuOverview: "Jump to section",
+    linkOpensNewTabHint: "Opens in a new tab",
+    practiceTestsHeading: "Quizzes (Google Forms)",
+    practiceTests: [
+      {
+        title: "Foundations of Mathematics, Part 1",
+        url: "https://docs.google.com/forms/d/e/1FAIpQLSfeSoL7Zm0Z6wDoyqMAIundY0SsmOrz8HXin74AWFpnjjF4lA/viewform?usp=dialog",
+      },
+      {
+        title: "Foundations of Mathematics, Part 2",
+        url: "https://docs.google.com/forms/d/e/1FAIpQLSeBjYS3UzkJ_D8oXrf6AMFAkUanAlM5jmrClWYze1MnMrZGSg/viewform?usp=dialog",
+      },
+    ],
+  },
 };

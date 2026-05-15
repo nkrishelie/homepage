@@ -1,6 +1,28 @@
 import path from 'path';
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'url';
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+function materialsManifestPlugin() {
+  return {
+    name: 'generate-materials-manifest',
+    buildStart() {
+      const scriptPath = path.resolve(__dirname, 'scripts/generate-materials-manifest.mjs');
+      const result = spawnSync(process.execPath, [scriptPath], {
+        cwd: __dirname,
+        stdio: 'inherit',
+        env: process.env,
+      });
+      if (result.error) throw result.error;
+      if (result.status !== 0) {
+        throw new Error(`generate-materials-manifest exited with ${result.status}`);
+      }
+    },
+  };
+}
 
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
@@ -10,7 +32,7 @@ export default defineConfig(({ mode }) => {
         port: 3000,
         host: '0.0.0.0',
       },
-      plugins: [react()],
+      plugins: [react(), materialsManifestPlugin()],
       define: {
         'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
         'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY)

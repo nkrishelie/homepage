@@ -3,6 +3,8 @@ import { LucideIcon } from 'lucide-react';
 export interface LinkItem {
   label: string;
   href: string;
+  /** Кастомная отрисовка в шапке (например, выпадающее меню) */
+  id?: 'materials';
 }
 
 export interface SocialLink extends LinkItem {
@@ -75,6 +77,7 @@ export interface UILabels {
     projects: string; // <--- НОВОЕ
     books: string;
     lectures: string;
+    materials: string;
     about: string;
     interests: string;
     contacts: string;
@@ -166,4 +169,14 @@ export interface SiteContent {
   };
   bookPage: BookPageContent;
   portfolio: PortfolioContent;
+  /** Тексты секции и меню статических материалов (папка public/Materials) */
+  materials: {
+    sectionTitle: string;
+    sectionIntro: string;
+    menuOverview: string;
+    /** Подпись ко ссылке (страницы и формы открываются в новой вкладке) */
+    linkOpensNewTabHint: string;
+    practiceTestsHeading: string;
+    practiceTests: { title: string; url: string }[];
+  };
 }

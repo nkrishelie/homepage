@@ -7,7 +7,7 @@ import { content as contentEn } from './data/content-en';
 // Если файла content-en.ts пока нет, используем русскую заглушку, чтобы код не ломался:
 // const contentEn = contentRu; 
 
-type Language = 'ru' | 'en';
+export type Language = 'ru' | 'en';
 
 interface LanguageContextType {
   language: Language;

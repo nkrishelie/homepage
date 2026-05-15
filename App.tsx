@@ -7,6 +7,7 @@ import { Books } from './components/Books';
 import { Lectures } from './components/Lectures';
 import { About } from './components/About';
 import { Footer } from './components/Footer';
+import { Materials } from './components/Materials';
 import { Portfolio } from './components/Portfolio';
 import { BookDetails } from './components/BookDetails';
 
@@ -80,6 +81,7 @@ const App: React.FC = () => {
         <Projects />
         <Books />
         <Lectures />
+        <Materials />
         <About />
       </main>
 

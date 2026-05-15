@@ -1,0 +1,1126 @@
+
+                        <!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+							<style>
+								body {
+									background-color: white; /* Ensure the iframe has a white background */
+								}
+
+								
+							</style>
+                        </head>
+                        <body>
+                            <!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вычисление неподвижной точки арифметической формулы</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        select, button, input {
+            padding: 10px 20px;
+            margin: 10px 5px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .formula-display {
+            font-size: 18px;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border-left: 4px solid #4CAF50;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            word-wrap: break-word;
+        }
+        .formula-display.sugar {
+            background-color: #f3e5f5;
+            border-left: 4px solid #9c27b0;
+        }
+        .code-display {
+            font-size: 16px;
+            padding: 10px;
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            word-wrap: break-word;
+        }
+        .verification {
+            padding: 15px;
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            margin: 10px 0;
+        }
+        .result {
+            display: none;
+        }
+        .label {
+            font-weight: bold;
+            color: #555;
+            margin-top: 10px;
+        }
+        .explanation {
+            background-color: #fff9c4;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        .step {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .error {
+            background-color: #ffebee;
+            color: #c62828;
+            padding: 10px;
+            border-left: 4px solid #c62828;
+            margin: 10px 0;
+        }
+        .success {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            padding: 10px;
+            border-left: 4px solid #2e7d32;
+            margin: 10px 0;
+        }
+        .progress {
+            background-color: #e3f2fd;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .info {
+            background-color: #e1f5fe;
+            padding: 10px;
+            border-left: 4px solid #0277bd;
+            margin: 10px 0;
+        }
+        input[type="number"], input[type="text"] {
+            width: 400px;
+        }
+        input[type="number"].small {
+            width: 100px;
+        }
+        .input-group {
+            margin: 15px 0;
+        }
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .tab-button {
+            padding: 10px 20px;
+            background-color: #e0e0e0;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px 4px 0 0;
+        }
+        .tab-button.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .hidden {
+            display: none;
+        }
+        .debug {
+            background-color: #fff3e0;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .quantifier-note {
+            font-size: 0.9em;
+            color: #666;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <h1>Вычисление неподвижной точки арифметической формулы φ(x)</h1>
+    
+    <!-- Секция 1: Таблица кодов -->
+    <div class="section">
+        <h2>1. Алфавит и коды символов</h2>
+        <p>Любая арифметическая формула представляется как десятичное число:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Символ</th>
+                    <th>∃ (exists)</th>
+                    <th>0</th>
+                    <th>S</th>
+                    <th>+</th>
+                    <th>=</th>
+                    <th>(</th>
+                    <th>)</th>
+                    <th>¬</th>
+                    <th>∧</th>
+                    <th>x</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Код</strong></td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                    <td>7</td>
+                    <td>8</td>
+                    <td>9</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="explanation">
+            <strong>Базовый синтаксис - примеры кодирования:</strong><br>
+            • Формула "x=0" → x(9) =(4) 0(1) → код: <strong>941</strong><br>
+            • Формула "0=0" → 0(1) =(4) 0(1) → код: <strong>141</strong> (замкнутая, истинная)<br>
+            • Формула "0=S0" → 0(1) =(4) S(2) 0(1) → код: <strong>1421</strong> (замкнутая, ложная)<br>
+            • Формула "SS0++SS0=SSSS0" (умножение 2*2=4) → код: <strong>221332214222221</strong><br><br>
+            
+            <strong>Синтаксический сахар (расширенный язык):</strong><br>
+            Для удобства ввода можно использовать:<br>
+            • <strong>Цифры 0-99</strong> автоматически заменяются на соответствующие термы S...S0<br>
+            &nbsp;&nbsp;Примеры: 0 → 0, 1 → S0, 3 → SSS0, 10 → SSSSSSSSSS0<br>
+            • <strong>* (звёздочка)</strong> автоматически заменяется на ++ (умножение)<br>
+            &nbsp;&nbsp;Примеры: 2*3 → SS0++SSS0<br>
+            • Примеры формул в расширенном синтаксисе: "2+3=5", "2*3=6", "x=141", "∃xx(x=xx*xx)"<br><br>
+            
+            <strong>Процесс обработки формулы:</strong><br>
+            1. <em>Расширенная формула</em> (с цифрами и *) → преобразование в базовый синтаксис<br>
+            2. <em>Базовая формула</em> (только символы из таблицы) → синтаксический разбор и проверка корректности<br>
+            3. <em>Код</em> (последовательность цифр 0-9) → вычисление истинностного значения<br><br>
+            
+            <strong>Важные замечания:</strong><br>
+            • x - свободная переменная (используется в формулах φ(x))<br>
+            • xx - связанная переменная (используется только под квантором ∃xx)<br>
+            • Замкнутые формулы - формулы без свободных переменных x<br>
+            • При подстановке конкретного значения x формула становится замкнутой и имеет определённое значение<br>
+            • ++ обозначает умножение (два плюса подряд кодируются как 33)<br>
+            • + обозначает сложение (кодируется как 3)<br>
+            • При вычислении квантора ∃xx проверяются значения от 0 до 1000<br>
+            • Если нужное значение не найдено в этом диапазоне, квантор считается ложным (с пометкой о пределе проверки)<br><br>
+            
+            <strong>Приоритеты операций (от высшего к низшему):</strong><br>
+            1. S (функция следования) - применяется первым<br>
+            2. ++ или * (умножение) - выше сложения<br>
+            3. + (сложение)<br>
+            4. = (равенство) - сравнение термов<br>
+            5. ¬ (отрицание) - логическая операция<br>
+            6. ∧ (конъюнкция) - логическая связка<br>
+            7. ∃ (квантор существования) - самый низкий приоритет
+        </div>
+    </div>
+
+    <!-- Секция 2: Проверка формул -->
+    <div class="section">
+        <h2>2. Проверка формул и кодов</h2>
+        <p>Проверьте, является ли текст корректной формулой или число корректным кодом:</p>
+        
+        <div class="tab-buttons">
+            <button class="tab-button active" onclick="switchTab('text')">Проверка текста</button>
+            <button class="tab-button" onclick="switchTab('code')">Проверка кода</button>
+        </div>
+
+        <!-- Вкладка: проверка текста -->
+        <div id="textTab" class="tab-content active">
+            <div class="input-group">
+                <label for="formulaText"><strong>Введите формулу:</strong></label><br>
+                <input type="text" id="formulaText" placeholder="Например: x=5 или 2*3=6 или ∃xx(x=xx*xx)">
+                <button onclick="checkFormulaText()">Проверить</button>
+            </div>
+            <div class="explanation">
+                <strong>Можно использовать синтаксический сахар:</strong><br>
+                • Цифры 0-99 (преобразуются в S...S0)<br>
+                • * для умножения (преобразуется в ++)<br>
+                • Примеры: x=5, 2*3=6, x=141, ∃xx(x=xx*xx), ¬(∃xx x=3*xx)
+            </div>
+            <div id="textResult"></div>
+            <div id="textEvalSection" class="hidden">
+                <div class="input-group">
+                    <label><strong>Вычислить значение формулы при x = </strong></label>
+                    <input type="number" id="textEvalX" class="small" value="0" min="0" max="10000000">
+                    <button onclick="evaluateTextFormula()">Вычислить</button>
+                </div>
+                <div id="textEvalResult"></div>
+            </div>
+        </div>
+
+        <!-- Вкладка: проверка кода -->
+        <div id="codeTab" class="tab-content">
+            <div class="input-group">
+                <label for="formulaCode"><strong>Введите код:</strong></label><br>
+                <input type="text" id="formulaCode" placeholder="Например: 941 или 141">
+                <button onclick="checkFormulaCode()">Проверить</button>
+            </div>
+            <div class="explanation">
+                <strong>Примечание:</strong> Код может содержать только цифры от 0 до 9.<br>
+                Умножение кодируется как 33 (два плюса подряд).
+            </div>
+            <div id="codeResult"></div>
+            <div id="codeEvalSection" class="hidden">
+                <div class="input-group">
+                    <label><strong>Вычислить значение формулы при x = </strong></label>
+                    <input type="number" id="codeEvalX" class="small" value="0" min="0" max="10000000">
+                    <button onclick="evaluateCodeFormula()">Вычислить</button>
+                </div>
+                <div id="codeEvalResult"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Секция 3: Выбор формулы -->
+    <div class="section">
+        <h2>3. Выбор формулы φ(x) для поиска неподвижной точки</h2>
+        
+        <div class="input-group">
+            <label><strong>Выберите пример или введите свою формулу:</strong></label><br>
+            <select id="formulaSelect" onchange="selectExample()">
+                <option value="">-- Выберите пример --</option>
+                <option value="x=0">x=0 (x равен нулю)</option>
+                <option value="x=1">x=1 (x равен единице)</option>
+                <option value="¬x=0">¬x=0 (x не равен нулю)</option>
+                <option value="x=0∧¬x=0">x=0∧¬x=0 (противоречие - всегда ложь)</option>
+                <option value="∃xx x=xx+xx">∃xx x=xx+xx (x - чётное число)</option>
+                <option value="¬(∃xx x=3*xx)">¬(∃xx x=3*xx) (x не делится на 3)</option>
+                <option value="∃xx x=xx*xx">∃xx x=xx*xx (x - полный квадрат)</option>
+                <option value="¬(∃xx x=3*xx)∧¬(∃xx x=10*xx+1)">¬(∃xx x=3*xx)∧¬(∃xx x=10*xx+1) (не делится на 3 И последняя цифра ≠ 1)</option>
+                <option value="¬(x=10*10+4*10+1)∧¬(x=2*10*10*10*10+10*10*10+4*10*10+2*10+1)">¬(x=10*10+4*10+1)∧¬(x=2*10*10*10*10+10*10*10+4*10*10+2*10+1) (x ≠ 141 И x ≠ 21421)</option>
+            </select>
+        </div>
+        
+        <div class="input-group">
+            <label for="phiInput"><strong>Формула φ(x):</strong></label><br>
+            <input type="text" id="phiInput" placeholder="Введите формулу с переменной x (можно использовать цифры и *)">
+            <button onclick="validatePhi()">Проверить формулу</button>
+        </div>
+
+        <div id="phiValidation"></div>
+        
+        <div id="searchControls" class="hidden">
+            <div class="explanation">
+                <strong>Алгоритм поиска неподвижной точки:</strong><br>
+                Генерируются замкнутые бескванторные формулы в порядке возрастания сложности.<br>
+                Для каждой сгенерированной формулы θ проверяется условие: значение(θ) = значение(φ(⌜θ⌝))<br>
+                где φ(⌜θ⌝) получается подстановкой кода формулы θ вместо переменной x в формулу φ.<br><br>
+                
+                <strong>Структура генерации:</strong><br>
+                1. Генерируются базовые термы - числа от 0 до N (в формате S...S0)<br>
+                2. Создаются атомарные формулы - все возможные равенства термов: терм₁=терм₂<br>
+                3. На каждом уровне глубины применяются логические операции:<br>
+                &nbsp;&nbsp;• Отрицание: ¬формула<br>
+                &nbsp;&nbsp;• Конъюнкция: формула₁∧формула₂<br><br>
+                
+                <strong>Примерное количество формул:</strong><br>
+                • При N=5, глубина 0: (5+1)² = 36 атомарных формул<br>
+                • При N=5, глубина 1: 36 + 36 отрицаний + 36² конъюнкций ≈ 1368 формул<br>
+                • При N=10, глубина 1: 121 + 121 + 14641 ≈ 14883 формул<br>
+                • При N=10, глубина 2: десятки тысяч формул (может быть медленно!)<br>
+                • Глубина 3 и выше - экспоненциальный рост, не рекомендуется
+            </div>
+            <div style="margin-top: 10px;">
+                <label>Максимальное число в термах (N): </label>
+                <input type="number" id="maxTermValue" class="small" value="5" min="1" max="20">
+                <span style="color: #666;">(генерируются числа 0, 1, 2, ..., N)</span>
+            </div>
+            <div style="margin-top: 10px;">
+                <label>Максимальная глубина формулы: </label>
+                <input type="number" id="maxDepth" class="small" value="2" min="0" max="4">
+                <span style="color: #666;">(0 - только атомы, 1 - с ¬ и ∧, 2+ - вложенные операции)</span>
+            </div>
+            <div style="margin-top: 10px;">
+                <label>
+                    <input type="checkbox" id="showDebug">
+                    Показать отладочную информацию (замедляет работу)
+                </label>
+            </div>
+            
+            <button id="calculateBtn" onclick="calculateFixedPoint()">Найти неподвижную точку</button>
+        </div>
+        
+        <div id="progressInfo"></div>
+        <div id="debugInfo" class="debug hidden"></div>
+    </div>
+
+    <!-- Секция 4: Результаты -->
+    <div id="resultSection" class="section result">
+        <h2>4. Неподвижная точка θ</h2>
+        
+        <div id="searchResults"></div>
+
+        <div class="label">Формула θ (базовый синтаксис):</div>
+        <div id="thetaFormula" class="formula-display"></div>
+        
+        <div class="label">Формула θ (расширенный синтаксис - читабельный):</div>
+        <div id="thetaFormulaSugar" class="formula-display sugar"></div>
+        
+        <div class="label">Код формулы θ:</div>
+        <div id="thetaCode" class="code-display"></div>
+        
+        <h3>Проверка свойства неподвижной точки</h3>
+        <div class="verification" id="verification"></div>
+    </div>
+
+    <script>
+        let currentPhiText = '', currentPhiCode = '', currentPhiTextOriginal = '';
+        let lastValidTextFormula = '', lastValidTextFormulaOriginal = '';
+        let lastValidCodeFormula = '';
+        let debugLog = [];
+
+        const QUANTIFIER_LIMIT = 1000;
+
+        const symbols = {
+            '∃': '0', '0': '1', 'S': '2', '+': '3', '=': '4',
+            '(': '5', ')': '6', '¬': '7', '∧': '8', 'x': '9'
+        };
+
+        const codes = {
+            '0': '∃', '1': '0', '2': 'S', '3': '+', '4': '=',
+            '5': '(', '6': ')', '7': '¬', '8': '∧', '9': 'x'
+        };
+
+        function desugar(text) {
+            let result = text.replace(/\*/g, '++');
+            let numbers = [];
+            result = result.replace(/\d+/g, (match) => {
+                let placeholder = `___NUM${numbers.length}___`;
+                numbers.push(parseInt(match));
+                return placeholder;
+            });
+            
+            for (let i = 0; i < numbers.length; i++) {
+                let num = numbers[i];
+                let term = num === 0 ? '0' : 'S'.repeat(num) + '0';
+                result = result.replace(`___NUM${i}___`, term);
+            }
+            return result;
+        }
+
+        function sugar(text) {
+            let result = text.replace(/\+\+/g, '*');
+            for (let i = 99; i >= 0; i--) {
+                let pattern = i === 0 ? '0' : 'S'.repeat(i) + '0';
+                let regex = new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
+                result = result.replace(regex, i.toString());
+            }
+            return result;
+        }
+
+        function codeToText(code) {
+            let text = '';
+            for (let digit of String(code)) {
+                if (codes[digit]) text += codes[digit];
+                else return null;
+            }
+            return text;
+        }
+
+        function textToCode(text) {
+            let code = '', i = 0;
+            while (i < text.length) {
+                if (text.substring(i, i+2) === 'xx') {
+                    code += '99'; i += 2;
+                } else if (symbols[text[i]]) {
+                    code += symbols[text[i]]; i++;
+                } else return null;
+            }
+            return code;
+        }
+
+        function addDebugLog(msg) {
+            debugLog.push(msg);
+            if (document.getElementById('showDebug')?.checked) {
+                document.getElementById('debugInfo').classList.remove('hidden');
+                document.getElementById('debugInfo').innerHTML = debugLog.slice(-100).join('<br>');
+                document.getElementById('debugInfo').scrollTop = document.getElementById('debugInfo').scrollHeight;
+            }
+        }
+
+        function hasFreeVariable(text) {
+            let pos = 0;
+            while (pos < text.length) {
+                if (text.substring(pos, pos+3) === '∃xx') { pos += 3; continue; }
+                if (text.substring(pos, pos+2) === 'xx') { pos += 2; continue; }
+                if (text[pos] === 'x') return true;
+                pos++;
+            }
+            return false;
+        }
+
+        class Parser {
+            constructor(text) { this.text = text.trim(); this.pos = 0; }
+            parseFormula() { return this.parseQuantifier(); }
+            parseQuantifier() {
+                if (this.peek() === '∃') {
+                    this.consume('∃');
+                    if (this.peek() !== 'x' || this.peekNext() !== 'x') return false;
+                    this.consume('x'); this.consume('x');
+                    while (this.peek() === ' ') this.pos++;
+                    if (this.peek() === '(') {
+                        this.consume('(');
+                        if (!this.parseConjunction()) return false;
+                        if (this.peek() !== ')') return false;
+                        this.consume(')');
+                        return true;
+                    }
+                    return this.parseConjunction();
+                }
+                return this.parseConjunction();
+            }
+            parseConjunction() {
+                if (!this.parseNegation()) return false;
+                while (this.peek() === '∧') {
+                    this.consume('∧');
+                    if (!this.parseNegation()) return false;
+                }
+                return true;
+            }
+            parseNegation() {
+                if (this.peek() === '¬') {
+                    this.consume('¬');
+                    return this.parseEquality();
+                }
+                return this.parseEquality();
+            }
+            parseEquality() {
+                if (this.peek() === '(') {
+                    let saved = this.pos;
+                    this.consume('(');
+                    if (this.parseFormula() && this.peek() === ')') {
+                        this.consume(')');
+                        return true;
+                    }
+                    this.pos = saved;
+                }
+                if (!this.parseTerm()) return false;
+                if (this.peek() === '=') {
+                    this.consume('=');
+                    return this.parseTerm();
+                }
+                return false;
+            }
+            parseTerm() { return this.parseAddition(); }
+            parseAddition() {
+                if (!this.parseMultiplication()) return false;
+                while (this.peek() === '+' && this.peekNext() !== '+') {
+                    this.consume('+');
+                    if (!this.parseMultiplication()) return false;
+                }
+                return true;
+            }
+            parseMultiplication() {
+                if (!this.parseSuccessor()) return false;
+                while (this.peek() === '+' && this.peekNext() === '+') {
+                    this.consume('+'); this.consume('+');
+                    if (!this.parseSuccessor()) return false;
+                }
+                return true;
+            }
+            parseSuccessor() {
+                if (this.peek() === 'S') {
+                    this.consume('S');
+                    return this.parseSuccessor();
+                }
+                return this.parseAtom();
+            }
+            parseAtom() {
+                if (this.peek() === '0') { this.consume('0'); return true; }
+                if (this.peek() === 'x' && this.peekNext() === 'x') {
+                    this.consume('x'); this.consume('x'); return true;
+                }
+                if (this.peek() === 'x') { this.consume('x'); return true; }
+                if (this.peek() === '(') {
+                    this.consume('(');
+                    if (!this.parseTerm()) return false;
+                    if (this.peek() !== ')') return false;
+                    this.consume(')');
+                    return true;
+                }
+                return false;
+            }
+            peek() { return this.pos >= this.text.length ? null : this.text[this.pos]; }
+            peekNext() { return this.pos + 1 >= this.text.length ? null : this.text[this.pos + 1]; }
+            consume(exp) {
+                if (this.peek() === exp) { this.pos++; return true; }
+                return false;
+            }
+        }
+
+        function isValidFormula(code) {
+            let text = codeToText(code);
+            if (!text) return false;
+            let parser = new Parser(text);
+            return parser.parseFormula() && parser.pos === text.length;
+        }
+
+        // ИСПРАВЛЕНО: итеративная версия numToTerm
+        function evalTerm(text, xValue, xxValue = null) {
+            function numToTerm(n) {
+                if (n === 0) return '0';
+                return 'S'.repeat(n) + '0'; // Итеративно!
+            }
+            
+            let result = text;
+            if (xxValue !== null) {
+                result = result.replace(/xx/g, '___XX___')
+                    .replace(/x/g, numToTerm(xValue))
+                    .replace(/___XX___/g, numToTerm(xxValue));
+            } else {
+                result = result.replace(/x/g, numToTerm(xValue));
+            }
+            
+            let pos = 0;
+            function parseAtom() {
+                if (result[pos] === '0') { pos++; return 0; }
+                if (result[pos] === '(') {
+                    pos++;
+                    let val = parseAddition();
+                    pos++;
+                    return val;
+                }
+                return 0;
+            }
+            function parseSuccessor() {
+                let count = 0;
+                while (pos < result.length && result[pos] === 'S') {
+                    count++; pos++;
+                }
+                return count + parseAtom();
+            }
+            function parseMultiplication() {
+                let left = parseSuccessor();
+                while (pos < result.length && result[pos] === '+' && result[pos+1] === '+') {
+                    pos += 2;
+                    left *= parseSuccessor();
+                }
+                return left;
+            }
+            function parseAddition() {
+                let left = parseMultiplication();
+                while (pos < result.length && result[pos] === '+' && result[pos+1] !== '+') {
+                    pos++;
+                    left += parseMultiplication();
+                }
+                return left;
+            }
+            return parseAddition();
+        }
+
+        function evalFormula(text, xValue) {
+            let globalPos = 0, maxQ = 0;
+            
+            function parseFormula(xxValue = null) { return parseConj(xxValue); }
+            function parseConj(xxValue) {
+                let r = parseNeg(xxValue);
+                while (globalPos < text.length && text[globalPos] === '∧') {
+                    globalPos++;
+                    r = r && parseNeg(xxValue);
+                }
+                return r;
+            }
+            function parseNeg(xxValue) {
+                if (globalPos < text.length && text[globalPos] === '¬') {
+                    globalPos++;
+                    return !parseAtomOrQ(xxValue);
+                }
+                return parseAtomOrQ(xxValue);
+            }
+            function parseAtomOrQ(xxValue) {
+                if (globalPos < text.length && text[globalPos] === '(') {
+                    globalPos++;
+                    if (text.substring(globalPos, globalPos+3) === '∃xx') {
+                        let r = parseQ(xxValue);
+                        if (text[globalPos] === ')') globalPos++;
+                        return r;
+                    } else {
+                        let r = parseFormula(xxValue);
+                        if (text[globalPos] === ')') globalPos++;
+                        return r;
+                    }
+                }
+                if (text.substring(globalPos, globalPos+3) === '∃xx') return parseQ(xxValue);
+                return parseEq(xxValue);
+            }
+            function parseQ(xxValue) {
+                globalPos += 3;
+                let hasPar = text[globalPos] === '(';
+                if (hasPar) globalPos++;
+                let start = globalPos;
+                
+                for (let val = 0; val <= QUANTIFIER_LIMIT; val++) {
+                    maxQ = Math.max(maxQ, val);
+                    globalPos = start;
+                    try {
+                        if (parseFormula(val)) {
+                            if (hasPar) {
+                                let d = 1;
+                                while (globalPos < text.length && d > 0) {
+                                    if (text[globalPos] === '(') d++;
+                                    if (text[globalPos] === ')') d--;
+                                    globalPos++;
+                                }
+                            }
+                            return true;
+                        }
+                    } catch (e) {}
+                }
+                globalPos = start;
+                if (hasPar) {
+                    let d = 1;
+                    while (globalPos < text.length && d > 0) {
+                        if (text[globalPos] === '(') d++;
+                        if (text[globalPos] === ')') d--;
+                        globalPos++;
+                    }
+                } else parseFormula(null);
+                return false;
+            }
+            function parseEq(xxValue) {
+                let start = globalPos, depth = 0;
+                while (globalPos < text.length) {
+                    if (text[globalPos] === '(') depth++;
+                    else if (text[globalPos] === ')') { if (depth === 0) break; depth--; }
+                    else if (text[globalPos] === '=' && depth === 0) break;
+                    else if ((text[globalPos] === '∧' || text[globalPos] === '¬') && depth === 0) break;
+                    globalPos++;
+                }
+                if (globalPos >= text.length || text[globalPos] !== '=') return true;
+                let left = text.substring(start, globalPos);
+                globalPos++;
+                start = globalPos; depth = 0;
+                while (globalPos < text.length) {
+                    if (text[globalPos] === '(') depth++;
+                    else if (text[globalPos] === ')') { if (depth === 0) break; depth--; }
+                    else if (text[globalPos] === '∧' && depth === 0) break;
+                    globalPos++;
+                }
+                let right = text.substring(start, globalPos);
+                return evalTerm(left, xValue, xxValue) === evalTerm(right, xValue, xxValue);
+            }
+            return { value: parseFormula(), quantifierLimit: maxQ };
+        }
+
+        class FormulaGenerator {
+            constructor(maxTermValue, maxDepth) {
+                this.maxTermValue = maxTermValue;
+                this.maxDepth = maxDepth;
+                this.terms = [];
+                this.atoms = [];
+            }
+
+            generateTerms() {
+                this.terms = [];
+                for (let num = 0; num <= this.maxTermValue; num++) {
+                    this.terms.push(num === 0 ? '0' : 'S'.repeat(num) + '0');
+                }
+            }
+
+            generateAtoms() {
+                this.atoms = [];
+                for (let i = 0; i < this.terms.length; i++) {
+                    for (let j = 0; j < this.terms.length; j++) {
+                        this.atoms.push(`${this.terms[i]}=${this.terms[j]}`);
+                    }
+                }
+            }
+
+            *generate() {
+                this.generateTerms();
+                this.generateAtoms();
+                
+                // Depth 0: все атомы
+                for (let atom of this.atoms) yield atom;
+                
+                if (this.maxDepth >= 1) {
+                    // Depth 1: отрицания атомов
+                    for (let atom of this.atoms) yield `¬${atom}`;
+                    
+                    // Depth 1: конъюнкции атомов
+                    for (let i = 0; i < this.atoms.length; i++) {
+                        for (let j = 0; j < this.atoms.length; j++) {
+                            yield `${this.atoms[i]}∧${this.atoms[j]}`;
+                        }
+                    }
+                }
+                
+                if (this.maxDepth >= 2) {
+                    let d1 = [];
+                    for (let atom of this.atoms) d1.push(`¬${atom}`);
+                    
+                    const lim = Math.min(this.atoms.length, 20);
+                    for (let i = 0; i < lim; i++) {
+                        for (let j = 0; j < lim; j++) {
+                            d1.push(`${this.atoms[i]}∧${this.atoms[j]}`);
+                        }
+                    }
+                    
+                    for (let f of d1) yield `¬${f}`;
+                    
+                    const lim2 = Math.min(d1.length, 20);
+                    for (let i = 0; i < lim2; i++) {
+                        for (let j = 0; j < lim2; j++) {
+                            yield `${d1[i]}∧${d1[j]}`;
+                        }
+                    }
+                }
+            }
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`.tab-button:nth-child(${tab === 'text' ? 1 : 2})`).classList.add('active');
+            document.getElementById(tab + 'Tab').classList.add('active');
+        }
+
+        function checkFormulaText() {
+            const text = document.getElementById('formulaText').value.trim();
+            const resultDiv = document.getElementById('textResult');
+            const evalSection = document.getElementById('textEvalSection');
+            
+            evalSection.classList.add('hidden');
+            
+            if (!text) {
+                resultDiv.innerHTML = '<div class="error">Введите текст формулы</div>';
+                return;
+            }
+
+            let orig = text.replace(/\s+/g, '');
+            let clean = desugar(orig);
+            const code = textToCode(clean);
+            
+            if (!code) {
+                resultDiv.innerHTML = `<div class="error"><strong>✗ Недопустимые символы</strong><br>После преобразования: ${clean}</div>`;
+                return;
+            }
+
+            const parser = new Parser(clean);
+            if (parser.parseFormula() && parser.pos === clean.length) {
+                lastValidTextFormula = clean;
+                lastValidTextFormulaOriginal = orig;
+                const isClosed = !hasFreeVariable(clean);
+                
+                let info = orig !== clean ? `
+                    <div class="label">Расширенный синтаксис (введённая формула):</div>
+                    <div class="formula-display sugar">${orig}</div>
+                    <div class="label">Базовый синтаксис (после преобразования):</div>
+                ` : '<div class="label">Формула:</div>';
+                
+                resultDiv.innerHTML = `
+                    <div class="success"><strong>✓ Это корректная формула!</strong></div>
+                    ${info}
+                    <div class="formula-display">${clean}</div>
+                    <div class="label">Код формулы:</div>
+                    <div class="code-display">${code}</div>
+                    <div class="${isClosed ? 'success' : 'info'}">
+                        ${isClosed ? '<strong>✓ Замкнутая формула</strong>' : '<strong>⚠ Формула со свободной переменной x</strong>'}
+                    </div>
+                `;
+                evalSection.classList.remove('hidden');
+            } else {
+                resultDiv.innerHTML = `<div class="error"><strong>✗ Некорректная формула</strong><br>Базовый: ${clean}</div>`;
+            }
+        }
+
+        function checkFormulaCode() {
+            const code = document.getElementById('formulaCode').value.trim();
+            const resultDiv = document.getElementById('codeResult');
+            const evalSection = document.getElementById('codeEvalSection');
+            
+            evalSection.classList.add('hidden');
+            
+            if (!code || !/^[0-9]+$/.test(code)) {
+                resultDiv.innerHTML = `<div class="error"><strong>✗ Некорректный код</strong></div>`;
+                return;
+            }
+
+            const text = codeToText(code);
+            if (isValidFormula(code)) {
+                lastValidCodeFormula = code;
+                resultDiv.innerHTML = `
+                    <div class="success"><strong>✓ Корректная формула!</strong></div>
+                    <div class="label">Код:</div>
+                    <div class="code-display">${code}</div>
+                    <div class="label">Базовый синтаксис:</div>
+                    <div class="formula-display">${text}</div>
+                    <div class="label">Расширенный синтаксис (читабельный):</div>
+                    <div class="formula-display sugar">${sugar(text)}</div>
+                `;
+                evalSection.classList.remove('hidden');
+            } else {
+                resultDiv.innerHTML = `<div class="error"><strong>✗ Некорректный код</strong></div>`;
+            }
+        }
+
+        function evaluateTextFormula() {
+            const x = parseInt(document.getElementById('textEvalX').value);
+            try {
+                const r = evalFormula(lastValidTextFormula, x);
+                let note = r.quantifierLimit > 0 ? `<br><span class="quantifier-note">(квантор проверен до xx = ${r.quantifierLimit})</span>` : '';
+                document.getElementById('textEvalResult').innerHTML = 
+                    `<div class="info"><strong>Результат при x = ${x}:</strong> <strong>${r.value ? 'ИСТИНА' : 'ЛОЖЬ'}</strong>${note}</div>`;
+            } catch (e) {
+                document.getElementById('textEvalResult').innerHTML = `<div class="error"><strong>Ошибка:</strong> ${e.message}</div>`;
+            }
+        }
+
+        function evaluateCodeFormula() {
+            const x = parseInt(document.getElementById('codeEvalX').value);
+            const formula = codeToText(lastValidCodeFormula);
+            try {
+                const r = evalFormula(formula, x);
+                let note = r.quantifierLimit > 0 ? `<br><span class="quantifier-note">(квантор проверен до xx = ${r.quantifierLimit})</span>` : '';
+                document.getElementById('codeEvalResult').innerHTML = 
+                    `<div class="info"><strong>Результат при x = ${x}:</strong> <strong>${r.value ? 'ИСТИНА' : 'ЛОЖЬ'}</strong>${note}</div>`;
+            } catch (e) {
+                document.getElementById('codeEvalResult').innerHTML = `<div class="error"><strong>Ошибка:</strong> ${e.message}</div>`;
+            }
+        }
+
+        function selectExample() {
+            document.getElementById('phiInput').value = document.getElementById('formulaSelect').value;
+            if (document.getElementById('formulaSelect').value) validatePhi();
+        }
+
+        function validatePhi() {
+            const text = document.getElementById('phiInput').value.trim();
+            const validationDiv = document.getElementById('phiValidation');
+            const searchControls = document.getElementById('searchControls');
+            const resultSection = document.getElementById('resultSection');
+            
+            resultSection.style.display = 'none';
+            searchControls.classList.add('hidden');
+            
+            if (!text) {
+                validationDiv.innerHTML = '<div class="error">Введите формулу</div>';
+                return;
+            }
+
+            let orig = text.replace(/\s+/g, '');
+            let clean = desugar(orig);
+            const code = textToCode(clean);
+            
+            if (!code) {
+                validationDiv.innerHTML = `<div class="error"><strong>✗ Недопустимые символы</strong><br>Базовый: ${clean}</div>`;
+                return;
+            }
+
+            const parser = new Parser(clean);
+            if (!parser.parseFormula() || parser.pos !== clean.length) {
+                validationDiv.innerHTML = `<div class="error"><strong>✗ Формула некорректна</strong><br>Базовый: ${clean}</div>`;
+                return;
+            }
+
+            currentPhiText = clean;
+            currentPhiCode = code;
+            currentPhiTextOriginal = orig;
+
+            let info = orig !== clean ? `
+                <div class="label">Расширенный синтаксис:</div>
+                <div class="formula-display sugar">${orig}</div>
+                <div class="label">Базовый синтаксис:</div>
+            ` : '<div class="label">Формула φ(x):</div>';
+
+            validationDiv.innerHTML = `
+                <div class="success"><strong>✓ Формула φ(x) корректна!</strong></div>
+                ${info}
+                <div class="formula-display">${clean}</div>
+                <div class="label">Код формулы:</div>
+                <div class="code-display">${code}</div>
+            `;
+            searchControls.classList.remove('hidden');
+        }
+
+        function findFixedPoint(phiText, maxTermValue, maxDepth) {
+            const gen = new FormulaGenerator(maxTermValue, maxDepth);
+            let count = 0;
+            debugLog = [];
+            
+            for (let formulaText of gen.generate()) {
+                count++;
+                if (count % 100 === 0) {
+                    document.getElementById('progressInfo').innerHTML = `<div class="progress">Проверено формул: ${count}...</div>`;
+                }
+                
+                try {
+                    let tr = evalFormula(formulaText, 0);
+                    let code = textToCode(formulaText);
+                    if (!code) continue;
+                    
+                    let pr = evalFormula(phiText, parseInt(code));
+                    addDebugLog(`θ="${sugar(formulaText)}" (код=${code}): θ=${tr.value}, φ(⌜θ⌝)=${pr.value}`);
+                    
+                    if (tr.value === pr.value) {
+                        return {
+                            formula: formulaText,
+                            code: code,
+                            value: tr.value,
+                            quantifierLimit: Math.max(tr.quantifierLimit, pr.quantifierLimit),
+                            totalChecked: count
+                        };
+                    }
+                } catch (e) {
+                    addDebugLog(`⚠ Ошибка: ${e.message}`);
+                    continue;
+                }
+            }
+            return { totalChecked: count };
+        }
+
+        function calculateFixedPoint() {
+            document.getElementById('calculateBtn').disabled = true;
+            document.getElementById('progressInfo').innerHTML = '<div class="progress">Начинаем поиск неподвижной точки...</div>';
+            document.getElementById('debugInfo').innerHTML = '';
+            document.getElementById('debugInfo').classList.add('hidden');
+            debugLog = [];
+
+            setTimeout(() => {
+                let result = findFixedPoint(
+                    currentPhiText,
+                    parseInt(document.getElementById('maxTermValue').value),
+                    parseInt(document.getElementById('maxDepth').value)
+                );
+                
+                document.getElementById('calculateBtn').disabled = false;
+                document.getElementById('progressInfo').innerHTML = '';
+
+                if (result.formula) {
+                    document.getElementById('searchResults').innerHTML = 
+                        `<div class="success">✓ Неподвижная точка найдена! Проверено формул: ${result.totalChecked}</div>`;
+                    
+                    document.getElementById('thetaFormula').textContent = result.formula;
+                    document.getElementById('thetaFormulaSugar').textContent = sugar(result.formula);
+                    document.getElementById('thetaCode').textContent = result.code;
+                    
+                    let note = result.quantifierLimit > 0 ? 
+                        `<br><span class="quantifier-note">(при проверке квантор проверен до xx = ${result.quantifierLimit})</span>` : '';
+                    
+                    document.getElementById('verification').innerHTML = `
+                        <p><strong>Проверяем свойство неподвижной точки:</strong></p>
+                        <div class="step">
+                            <strong>Формула φ(x) (расширенный синтаксис):</strong> ${currentPhiTextOriginal}<br>
+                            <strong>Формула φ(x) (базовый синтаксис):</strong> ${currentPhiText}<br>
+                            <strong>Код формулы φ:</strong> ${currentPhiCode}
+                        </div>
+                        <div class="step">
+                            <strong>Формула θ (базовый синтаксис):</strong> ${result.formula}<br>
+                            <strong>Формула θ (расширенный синтаксис):</strong> ${sugar(result.formula)}<br>
+                            <strong>Код ⌜θ⌝:</strong> ${result.code}<br>
+                            <strong>Значение θ:</strong> ${result.value ? 'ИСТИНА' : 'ЛОЖЬ'}
+                        </div>
+                        <div class="step">
+                            <strong>Формула φ(⌜θ⌝):</strong> φ с подстановкой x = ${result.code}<br>
+                            <strong>Значение φ(⌜θ⌝):</strong> ${result.value ? 'ИСТИНА' : 'ЛОЖЬ'}
+                        </div>
+                        <div class="success">
+                            <strong>✓ Свойство выполнено:</strong> Оба значения ${result.value ? 'истинны' : 'ложны'}!<br>
+                            Это означает, что θ ↔ φ(⌜θ⌝)${note}
+                        </div>
+                    `;
+                    
+                    document.getElementById('resultSection').style.display = 'block';
+                    document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    document.getElementById('searchResults').innerHTML = 
+                        `<div class="error">✗ Неподвижная точка не найдена среди ${result.totalChecked} проверенных формул. Попробуйте увеличить параметры поиска.</div>`;
+                    document.getElementById('resultSection').style.display = 'block';
+                }
+            }, 100);
+        }
+
+        // Обработчики событий
+        document.getElementById('formulaText').addEventListener('keypress', e => {
+            if (e.key === 'Enter') checkFormulaText();
+        });
+        
+        document.getElementById('formulaCode').addEventListener('keypress', e => {
+            if (e.key === 'Enter') checkFormulaCode();
+        });
+
+        document.getElementById('phiInput').addEventListener('input', () => {
+            document.getElementById('phiValidation').innerHTML = '';
+            document.getElementById('searchControls').classList.add('hidden');
+            document.getElementById('resultSection').style.display = 'none';
+        });
+
+        document.getElementById('phiInput').addEventListener('keypress', e => {
+            if (e.key === 'Enter') validatePhi();
+        });
+    </script>
+</body>
+</html>
+
+							<script>
+                            	
+							</script>
+                        </body>
+                        </html>
+                    

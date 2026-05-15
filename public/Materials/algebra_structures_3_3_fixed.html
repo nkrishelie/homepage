@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Алгебраические структуры · Теория решёток</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #171b26;
+    --surface2: #1e2332;
+    --border: #2a3050;
+    --border-light: #313860;
+    --text: #e2e8f0;
+    --text-muted: #6b7a9e;
+    --text-dim: #3d4a6b;
+    --check: #4ade80;
+    --check-derived: #2a5c3a;
+    --dash: #2a3050;
+    --accent: #7c9df7;
+    --accent-dim: #3a4a7a;
+    --first-bg: #1a2e1a;
+    --first-border: #3a6a3a;
+    --section-group-border: #2d5c3a;
+    --section-ring-border: #2d3a5c;
+    --section-field-border: #3a2d5c;
+    --label-group: #4ade80;
+    --label-ring: #7c9df7;
+    --label-field: #c084fc;
+    --label-lattice: #fb923c;
+    --font-main: 'IBM Plex Sans', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; overflow: hidden; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-main);
+    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Tabs (top bar) ── */
+  .tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+    background: var(--surface);
+  }
+
+  .tab-btn {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 10px 24px;
+    border: none;
+    border-right: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: color 0.15s, background 0.15s;
+  }
+
+  .tab-btn:hover { color: var(--text-muted); background: var(--surface2); }
+
+  .tab-btn.active {
+    background: var(--bg);
+    color: var(--text);
+    border-bottom: 2px solid var(--bg);
+    margin-bottom: -1px;
+  }
+
+  .tab-btn.active.tab-algebra { color: var(--label-ring); }
+  .tab-btn.active.tab-lattice { color: var(--label-lattice); }
+
+  /* ── Layout ── */
+  .layout { display: flex; flex: 1; overflow: hidden; min-height: 0; }
+  .tab-panel { display: none; flex: 1; overflow: hidden; min-height: 0; }
+  .tab-panel.active { display: flex; }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    width: 230px;
+    flex-shrink: 0;
+    border-right: 1px solid var(--border);
+    padding: 1.25rem 1rem;
+    overflow-y: auto;
+    background: var(--surface);
+  }
+
+  .sidebar h2 {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 0.9rem;
+  }
+
+  .filter-group { margin-bottom: 1.1rem; }
+
+  .filter-group-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.45rem;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .filter-group-label.g  { color: var(--label-group); }
+  .filter-group-label.r  { color: var(--label-ring); }
+  .filter-group-label.f  { color: var(--label-field); }
+  .filter-group-label.lo { color: var(--label-lattice); }
+  .filter-group-label.la { color: var(--label-field); }
+  .filter-group-label.ls { color: var(--text-muted); }
+
+  .filter-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    padding: 3px 0;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .filter-item input[type="checkbox"] {
+    appearance: none;
+    width: 13px; height: 13px; min-width: 13px;
+    border: 1px solid var(--border-light);
+    border-radius: 2px;
+    background: var(--surface2);
+    cursor: pointer;
+    position: relative;
+    margin-top: 1px;
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  .filter-item input[type="checkbox"]:checked {
+    background: var(--accent-dim);
+    border-color: var(--accent);
+  }
+
+  .filter-item input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 3px; top: 1px;
+    width: 5px; height: 8px;
+    border: 1.5px solid var(--accent);
+    border-top: none; border-left: none;
+    transform: rotate(40deg);
+  }
+
+  .filter-item span {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    line-height: 1.4;
+  }
+
+  .btn-row { display: flex; gap: 6px; margin-bottom: 1rem; }
+
+  .btn {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    padding: 4px 10px;
+    background: var(--surface2);
+    border: 1px solid var(--border-light);
+    color: var(--text-muted);
+    cursor: pointer;
+    border-radius: 2px;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .btn:hover { color: var(--text); border-color: var(--accent); }
+
+  /* ── Table area ── */
+  .table-wrap { flex: 1; overflow: auto; padding: 0 1.75rem 1.25rem; }
+
+  table { border-collapse: collapse; width: max-content; min-width: 100%; }
+
+  thead th {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    box-shadow: inset 0 0 0 1px var(--border);
+    padding: 8px 10px;
+    background: var(--surface);
+    background-clip: padding-box;
+    white-space: nowrap;
+    vertical-align: bottom;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  thead th.col-name {
+    text-align: left;
+    min-width: 215px;
+    position: sticky;
+    left: 0;
+    z-index: 15;
+    vertical-align: middle;
+  }
+
+  thead th .col-label {
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    display: inline-block;
+    max-height: 170px;
+    line-height: 1.3;
+  }
+
+  /* ── Body ── */
+  tbody tr td {
+    border: 1px solid var(--border);
+    padding: 7px 10px;
+    text-align: center;
+    background: var(--bg);
+    transition: background 0.1s;
+  }
+
+  tbody tr:hover td { background: var(--surface); }
+
+  td.col-name {
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    background: var(--bg);
+  }
+
+  tbody tr:hover td.col-name { background: var(--surface); }
+
+  /* ── Section rows ── */
+  .section-row td {
+    padding: 5px 10px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    background: var(--surface) !important;
+    vertical-align: middle;
+  }
+
+  .section-row td.col-name {
+    text-align: left;
+    border-left: none;
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    font-size: 9px;
+    font-weight: 400;
+  }
+
+  .section-row td.sec-blank { border: none; background: var(--surface) !important; }
+
+  .section-row.sg td { color: var(--label-group);   border-color: var(--section-group-border); }
+  .section-row.sr td { color: var(--label-ring);    border-color: var(--section-ring-border); }
+  .section-row.sf td { color: var(--label-field);   border-color: var(--section-field-border); }
+  .section-row.sl td { color: var(--label-lattice); border-color: #5a3010; }
+  .section-row.sb td { color: var(--label-field);   border-color: var(--section-field-border); }
+  .section-row.sc td { color: var(--text-muted);    border-color: #3a3a50; }
+
+  /* ── Tooltip ── */
+  td.col-name.has-def { cursor: help; }
+
+  .def-tooltip {
+    display: none;
+    position: fixed;
+    background: var(--surface2);
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-family: var(--font-main);
+    color: var(--text);
+    z-index: 1000;
+    max-width: 580px;
+    pointer-events: none;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    line-height: 1.6;
+  }
+  .def-tooltip.visible { display: block; }
+
+  .check-icon   { color: var(--check);         font-size: 14px; font-family: var(--font-mono); }
+  .derived-icon { color: var(--check-derived);  font-size: 14px; font-family: var(--font-mono); cursor: help; position: relative; }
+  .dash-icon    { color: var(--dash);           font-size: 12px; }
+
+  .derived-icon::after {
+    content: attr(data-tip);
+    display: none;
+    position: absolute;
+    bottom: 130%; left: 50%;
+    transform: translateX(-50%);
+    background: var(--surface2);
+    border: 1px solid var(--border-light);
+    color: var(--text-muted);
+    font-size: 10px;
+    white-space: nowrap;
+    padding: 4px 8px;
+    border-radius: 3px;
+    z-index: 100;
+    font-family: var(--font-mono);
+    letter-spacing: 0.03em;
+    pointer-events: none;
+  }
+  .derived-icon:hover::after { display: block; }
+
+  .cross-icon { color: #e05555; font-size: 13px; font-family: var(--font-mono); font-weight: 500; }
+
+  td.incompat { background: #1e1212 !important; }
+  tbody tr:hover td.incompat { background: #261616 !important; }
+
+  td.first-check {
+    background: var(--first-bg) !important;
+    border-color: var(--first-border) !important;
+    outline: 1px solid var(--first-border);
+    outline-offset: -1px;
+  }
+  tbody tr:hover td.first-check { background: #1f3520 !important; }
+
+  td.examples {
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    padding-left: 14px;
+    white-space: nowrap;
+    min-width: 240px;
+  }
+
+  .ex-tag {
+    display: inline-block;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 1px 6px;
+    margin: 1px 2px;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  /* ── Footer ── */
+  .legend {
+    padding: 0.55rem 1.5rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 1.4rem;
+    align-items: center;
+    background: var(--surface);
+    flex-wrap: wrap;
+    flex-shrink: 0;
+    justify-content: space-between;
+  }
+
+  .legend-left { display: flex; gap: 1.4rem; flex-wrap: wrap; align-items: center; }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.04em;
+  }
+
+  .legend-right {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    white-space: nowrap;
+    letter-spacing: 0.03em;
+  }
+
+  .legend-right a {
+    color: var(--text-dim);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .legend-right a:hover { color: var(--text-muted); border-color: var(--text-muted); }
+
+  .ls-c    { color: var(--check);         font-size: 13px; }
+  .ls-d    { color: var(--check-derived);  font-size: 13px; }
+  .ls-dash { color: var(--dash);           font-size: 12px; }
+  .ls-x    { color: #e05555;              font-size: 13px; }
+  .ls-fc   {
+    color: var(--check); font-size: 13px;
+    background: var(--first-bg);
+    border: 1px solid var(--first-border);
+    padding: 0 3px; border-radius: 2px;
+  }
+</style>
+</head>
+<body>
+
+<div class="tabs">
+  <button class="tab-btn tab-algebra active" onclick="switchTab('algebra')">Алгебраические структуры</button>
+  <button class="tab-btn tab-lattice" onclick="switchTab('lattice')">Теория решёток</button>
+</div>
+
+<div class="layout">
+
+  <!-- ══════ TAB 1: ALGEBRA ══════ -->
+  <div class="tab-panel active" id="panel-algebra">
+    <aside class="sidebar">
+      <h2>Фильтр столбцов</h2>
+      <div class="btn-row">
+        <button class="btn" onclick="checkAll('algebra')">Все</button>
+        <button class="btn" onclick="uncheckAll('algebra')">Сбросить</button>
+      </div>
+      <div class="filter-group">
+        <div class="filter-group-label g">Одна операция</div>
+        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="assoc"   onchange="render('algebra')"><span>Ассоциативность</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="neutral" onchange="render('algebra')"><span>Нейтральный эл-т</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="inverse" onchange="render('algebra')"><span>Обратный эл-т</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="comm"    onchange="render('algebra')"><span>Коммутативность</span></label>
+      </div>
+      <div class="filter-group">
+        <div class="filter-group-label r">Две операции</div>
+        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="addop"   onchange="render('algebra')"><span>Абелева группа по +</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="distr"   onchange="render('algebra')"><span>Дистрибутивность</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="nodiv"   onchange="render('algebra')"><span>Нет делителей нуля</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="idem"    onchange="render('algebra')"><span>Идемпотентность (·)</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="mxinv"   onchange="render('algebra')"><span>Обратимость ненул. эл-в</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="charpos" onchange="render('algebra')"><span>Характеристика > 0</span></label>
+      </div>
+      <div class="filter-group">
+        <div class="filter-group-label f">Порядок</div>
+        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="order"   onchange="render('algebra')"><span>Линейный порядок (≤)</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="dense"   onchange="render('algebra')"><span>Плотность порядка</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="discr"   onchange="render('algebra')"><span>Дискретность порядка</span></label>
+      </div>
+    </aside>
+    <div class="table-wrap">
+      <table id="table-algebra">
+        <thead>
+          <tr>
+            <th class="col-name">Структура</th>
+            <th data-col="assoc"><span class="col-label">Ассоциативность</span></th>
+            <th data-col="neutral"><span class="col-label">Нейтр. эл-т</span></th>
+            <th data-col="inverse"><span class="col-label">Обратный эл-т</span></th>
+            <th data-col="comm"><span class="col-label">Коммутативность</span></th>
+            <th data-col="addop"><span class="col-label">Абелева группа по +</span></th>
+            <th data-col="distr"><span class="col-label">Дистрибутивность</span></th>
+            <th data-col="nodiv"><span class="col-label">Нет делителей нуля</span></th>
+            <th data-col="idem"><span class="col-label">Идемпотентность (·)</span></th>
+            <th data-col="mxinv"><span class="col-label">Обратимость ненул. эл-в</span></th>
+            <th data-col="charpos"><span class="col-label">char &gt; 0</span></th>
+            <th data-col="order"><span class="col-label">Линейный порядок (≤)</span></th>
+            <th data-col="dense"><span class="col-label">Плотность порядка</span></th>
+            <th data-col="discr"><span class="col-label">Дискретность порядка</span></th>
+            <th data-col="aexamples" style="min-width:240px;text-align:left;padding-left:14px;vertical-align:middle;">Типовые примеры</th>
+          </tr>
+        </thead>
+        <tbody id="tbody-algebra"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══════ TAB 2: LATTICES ══════ -->
+  <div class="tab-panel" id="panel-lattice">
+    <aside class="sidebar">
+      <h2>Фильтр столбцов</h2>
+      <div class="btn-row">
+        <button class="btn" onclick="checkAll('lattice')">Все</button>
+        <button class="btn" onclick="uncheckAll('lattice')">Сбросить</button>
+      </div>
+      <div class="filter-group">
+        <div class="filter-group-label la">Алгебра (∧, ∨)</div>
+        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="lcomm"   onchange="render('lattice')"><span>Коммутативность (∧,∨)</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="lassoc"  onchange="render('lattice')"><span>Ассоциативность (∧,∨)</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="lidem"   onchange="render('lattice')"><span>Идемпотентность (∧,∨)</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="absorb"  onchange="render('lattice')"><span>Поглощение (∧,∨)</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="modular" onchange="render('lattice')"><span>Модулярность</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="ldistr"  onchange="render('lattice')"><span>Дистрибутивность</span></label>
+      </div>
+      <div class="filter-group">
+        <div class="filter-group-label ls">Спец. элементы</div>
+        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="bounded"     onchange="render('lattice')"><span>Ограниченность (0, 1)</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="compl"       onchange="render('lattice')"><span>Дополнение (a')</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="uniquecompl" onchange="render('lattice')"><span>Единственность a'</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="complete"    onchange="render('lattice')"><span>Полнота (⋀S, ⋁S)</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="atomic"      onchange="render('lattice')"><span>Атомарность</span></label>
+      </div>
+      <div class="filter-group">
+        <div class="filter-group-label lo">Порядок (производный)</div>
+        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="poset"  onchange="render('lattice')"><span>Частичный порядок (≤)</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="linear" onchange="render('lattice')"><span>Линейность (цепь)</span></label>
+      </div>
+    </aside>
+    <div class="table-wrap">
+      <table id="table-lattice">
+        <thead>
+          <tr>
+            <th class="col-name">Структура</th>
+            <th data-col="lcomm"><span class="col-label">Коммутативность (∧,∨)</span></th>
+            <th data-col="lassoc"><span class="col-label">Ассоциативность (∧,∨)</span></th>
+            <th data-col="lidem"><span class="col-label">Идемпотентность (∧,∨)</span></th>
+            <th data-col="absorb"><span class="col-label">Поглощение (∧,∨)</span></th>
+            <th data-col="modular"><span class="col-label">Модулярность</span></th>
+            <th data-col="ldistr"><span class="col-label">Дистрибутивность</span></th>
+            <th data-col="bounded"><span class="col-label">Ограниченность (0,1)</span></th>
+            <th data-col="compl"><span class="col-label">Дополнение (a')</span></th>
+            <th data-col="uniquecompl"><span class="col-label">Единственность a'</span></th>
+            <th data-col="complete"><span class="col-label">Полнота (⋀S,⋁S)</span></th>
+            <th data-col="atomic"><span class="col-label">Атомарность</span></th>
+            <th data-col="poset"><span class="col-label">Частичный порядок (≤)</span></th>
+            <th data-col="linear"><span class="col-label">Линейность (цепь)</span></th>
+            <th data-col="lexamples" style="min-width:260px;text-align:left;padding-left:14px;vertical-align:middle;">Типовые примеры</th>
+          </tr>
+        </thead>
+        <tbody id="tbody-lattice"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<footer class="legend">
+  <div class="legend-left">
+    <div class="legend-item"><span class="ls-c">✓</span>&nbsp;— определяющее свойство</div>
+    <div class="legend-item"><span class="ls-fc">✓</span>&nbsp;— первое появление в иерархии</div>
+    <div class="legend-item"><span class="ls-d">✓</span>&nbsp;— выводится из других (при наведении — подсказка)</div>
+    <div class="legend-item"><span class="ls-x">✗</span>&nbsp;— несовместимо</div>
+    <div class="legend-item"><span class="ls-dash">—</span>&nbsp;— не требуется</div>
+  </div>
+  <div class="legend-right">
+    v3.3 &nbsp;·&nbsp; © Nikolai Kazimirov &nbsp;·&nbsp; <a href="https://mathem.at" target="_blank">mathem.at</a>
+  </div>
+</footer>
+
+<div id="def-tooltip" class="def-tooltip"></div>
+
+<script>
+var C='C', D='D', N='N', X='X';
+
+/* ── Tab switch ── */
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelector('.tab-btn.tab-'+tab).classList.add('active');
+  document.getElementById('panel-'+tab).classList.add('active');
+}
+
+/* ══════════════════════════════════════════════
+   ALGEBRA DATA
+   cols: assoc(0) neutral(1) inverse(2) comm(3)
+         addop(4) distr(5) nodiv(6) idem(7) mxinv(8) charpos(9)
+         order(10) dense(11) discr(12)
+══════════════════════════════════════════════ */
+var A_COLS = ['assoc','neutral','inverse','comm','addop','distr','nodiv','idem','mxinv','charpos','order','dense','discr'];
+
+var A = [
+  { section:'Полугруппы и группы', cls:'sg' },
+  { name:'Группоид (магма)',      def:'S \\text{ с операцией } {\\cdot}\\colon S\\times S\\to S',
+    props:[N,N,N,N, N,N,N,N,N,N, N,N,N], tip:{}, examples:['(S,∘)'] },
+  { name:'Полугруппа',            def:'\\text{Группоид} + (a b)c = a(b c)',
+    props:[C,N,N,N, N,N,N,N,N,N, N,N,N], tip:{}, examples:['(ℕ⁺,+)','(ℕ⁺,·)','(Σ*,·)'] },
+  { name:'Моноид',                def:'\\text{Полугруппа} + \\exists e\\colon ea=ae=a',
+    props:[C,C,N,N, N,N,N,N,N,N, N,N,N], tip:{}, examples:['(ℕ,·)','End(X)'] },
+  { name:'Группа',                def:'\\text{Моноид} + \\forall a\\; \\exists a^{-1}',
+    props:[C,C,C,N, N,N,N,N,N,N, N,N,N], tip:{}, examples:['GL(n,ℝ)','Sₙ','(ℤ,+)'] },
+  { name:'Абелева группа',        def:'\\text{Группа} + ab=ba',
+    props:[C,C,C,C, N,N,N,N,N,N, N,N,N], tip:{}, examples:['(ℤ,+)','(ℚ,+)','ℤ/nℤ'] },
+
+  { section:'Кольца', cls:'sr' },
+  { name:'Кольцо',                def:'\\text{Аб. гр. }(R,+) + \\text{ассоц.}\\cdot + \\text{дистр.}',
+    props:[C,N,N,N, C,C,N,N,N,N, N,N,N], tip:{}, examples:['2ℤ','M(n,ℝ)'] },
+  { name:'Унитальное кольцо',     def:'\\text{Кольцо} + \\exists 1',
+    props:[C,C,N,N, C,C,N,N,N,N, N,N,N], tip:{}, examples:['M(n,ℝ)','ℤ/nℤ','ℤ'] },
+  { name:'Коммут. унит. кольцо',  def:'\\text{Унит. кольцо} + ab=ba',
+    props:[C,C,N,C, C,C,N,N,N,N, N,N,N], tip:{}, examples:['ℤ','ℤ[x]','ℝ[x]'] },
+  { name:'Булево кольцо',         def:'\\text{Ком. унит. кольцо} + a^2=a',
+    props:[C,C,N,C, C,C,N,C,N,D, X,X,X],
+    tip:{ charpos:'char=2 следует из a²=a' }, examples:['𝔽₂','𝒫(X) с Δ,∩'] },
+  { name:'Область целостности',   def:'\\text{Ком. унит. кольцо} + (ab=0\\Rightarrow a=0\\vee b=0)',
+    props:[C,C,N,C, C,C,C,N,N,N, N,N,N], tip:{}, examples:['ℤ','ℤ[x]','K[x]'] },
+  { name:'Упорядоченное кольцо',  def:'\\text{Ком. унит. кольцо} + {\\leq}\\text{ согл. с }+,{\\cdot}',
+    props:[C,C,N,C, C,C,D,X,N,X, C,N,N],
+    tip:{ nodiv:'следует из согласованности порядка с ·' }, examples:['ℤ','ℚ','ℝ'] },
+  { name:'Плотно упоряд. кольцо', def:'\\text{Упор. кольцо} + \\forall a<b\\;\\exists c\\colon a<c<b',
+    props:[C,C,N,C, C,C,D,X,N,X, C,C,X],
+    tip:{ nodiv:'следует из согласованности порядка с ·' }, examples:['ℚ','ℝ'] },
+  { name:'Дискретное кольцо',     def:'\\text{Упор. кольцо} + \\nexists x\\colon a<x<a{+}1',
+    props:[C,C,N,C, C,C,D,X,N,X, C,X,C],
+    tip:{ nodiv:'следует из согласованности порядка с ·' }, examples:['ℤ'] },
+
+  { section:'Поля', cls:'sf' },
+  { name:'Тело (скевфилд)',       def:'\\text{Унит. кольцо} + \\forall a\\neq0\\;\\exists a^{-1}',
+    props:[C,C,C,N, C,C,D,N,C,N, N,N,N],
+    tip:{ nodiv:'следует из обратимости ненулевых' }, examples:['ℍ'] },
+  { name:'Поле',                  def:'\\text{Тело} + ab=ba',
+    props:[C,C,C,C, C,C,D,N,C,N, N,N,N],
+    tip:{ nodiv:'следует из обратимости ненулевых' }, examples:['ℚ','ℝ','ℂ','K(x)'] },
+  { name:'Упорядоченное поле',    def:'\\text{Поле} + {\\leq}\\text{ согл. с }+,{\\cdot}',
+    props:[C,C,C,C, C,C,D,X,C,X, C,N,X],
+    tip:{ nodiv:'следует из обратимости ненулевых' }, examples:['ℚ','ℝ'] },
+  { name:'Плотно упоряд. поле',   def:'\\text{Упор. поле} + \\forall a<b\\;\\exists c\\colon a<c<b',
+    props:[C,C,C,C, C,C,D,X,C,X, C,C,X],
+    tip:{ nodiv:'следует из обратимости ненулевых' }, examples:['ℚ','ℝ'] },
+  { name:'Конечное поле (Галуа)', def:'\\text{Поле} + |F|<\\infty',
+    props:[C,C,C,C, C,C,D,N,C,C, X,X,X],
+    tip:{ nodiv:'следует из обратимости ненулевых' }, examples:['GF(p)','GF(pⁿ)','ℤ/pℤ'] }
+];
+
+/* ══════════════════════════════════════════════
+   LATTICE DATA  — алгебраический подход
+   cols: lcomm(0) lassoc(1) lidem(2) absorb(3)
+         modular(4) ldistr(5)
+         bounded(6) compl(7) uniquecompl(8)
+         complete(9) atomic(10)
+         poset(11) linear(12)
+══════════════════════════════════════════════ */
+var L_COLS = ['lcomm','lassoc','lidem','absorb','modular','ldistr','bounded','compl','uniquecompl','complete','atomic','poset','linear'];
+
+var dDistr = 'дистрибутивность ⟹ модулярность';
+var dOrdTip = 'a ≤ b ⟺ a∧b=a ⟺ a∨b=b  (теорема об эквивалентности определений)';
+
+// Все переносы строк — через \begin{array}{l}...\end{array}, без \\
+function def2(line1, line2) {
+  return '\\begin{array}{l}' + line1 + '\\\\' + line2 + '\\end{array}';
+}
+function def3(l1, l2, l3) {
+  return '\\begin{array}{l}' + l1 + '\\\\' + l2 + '\\\\' + l3 + '\\end{array}';
+}
+function def4(l1, l2, l3, l4) {
+  return '\\begin{array}{l}' + l1 + '\\\\' + l2 + '\\\\' + l3 + '\\\\' + l4 + '\\end{array}';
+}
+
+var L = [
+  /* ── Полурешётки ── */
+  { section:'Полурешётки', cls:'sl' },
+  {
+    name:'Meet-полурешётка (по ∧)',
+    def: '(L,\\wedge):\\quad a\\wedge b=b\\wedge a,\\quad (a\\wedge b)\\wedge c=a\\wedge(b\\wedge c),\\quad a\\wedge a=a',
+    props:[C,C,C,N, N,N, N,N,N, N,N, D,N],
+    tip:{ poset: dOrdTip },
+    examples:['(𝒫(X),∩)','(ℕ⁺,НОД)']
+  },
+  {
+    name:'Join-полурешётка (по ∨)',
+    def: '(L,\\vee):\\quad a\\vee b=b\\vee a,\\quad (a\\vee b)\\vee c=a\\vee(b\\vee c),\\quad a\\vee a=a',
+    props:[C,C,C,N, N,N, N,N,N, N,N, D,N],
+    tip:{ poset: dOrdTip },
+    examples:['(𝒫(X),∪)','(ℕ⁺,НОК)']
+  },
+
+  /* ── Решётки ── */
+  { section:'Решётки', cls:'sl' },
+  {
+    name:'Решётка',
+    def: def4(
+      '(L,\\wedge,\\vee) +\\; a\\wedge b=b\\wedge a,\\; a\\vee b=b\\vee a',
+      '\\phantom{(L,\\wedge,\\vee)} +\\; (a\\wedge b)\\wedge c=a\\wedge(b\\wedge c),\\; (a\\vee b)\\vee c=a\\vee(b\\vee c)',
+      '\\phantom{(L,\\wedge,\\vee)} +\\; a\\wedge a=a,\\; a\\vee a=a',
+      '\\phantom{(L,\\wedge,\\vee)} +\\; a\\wedge(a\\vee b)=a,\\; a\\vee(a\\wedge b)=a'
+    ),
+    props:[C,C,C,C, N,N, N,N,N, N,N, D,N],
+    tip:{ poset: dOrdTip },
+    examples:['(𝒫(X),∩,∪)','(ℕ⁺,НОД,НОК)','Подпространства Vec']
+  },
+
+  /* ── Упорядоченные решётки (сразу после базовой решётки) ── */
+  { section:'Порядок как производная структура', cls:'sc' },
+  {
+    name:'Ч.у.м. (poset)',
+    def: def3(
+      '(P,{\\leq}):\\quad a\\leq a',
+      '\\phantom{(P,{\\leq}):\\quad} a\\leq b\\leq a\\Rightarrow a=b',
+      '\\phantom{(P,{\\leq}):\\quad} a\\leq b,\\; b\\leq c\\Rightarrow a\\leq c'
+    ),
+    props:[N,N,N,N, N,N, N,N,N, N,N, C,N],
+    tip:{},
+    examples:['(𝒫(X),⊆)','(ℕ⁺,|)','(ℝ,≤)']
+  },
+  {
+    name:'Решётка (порядковое определение)',
+    def: def2(
+      '\\text{Ч.у.м.} +\\; \\forall a,b\\;\\exists\\,\\inf\\{a,b\\}=a\\wedge b,\\;\\sup\\{a,b\\}=a\\vee b',
+      '\\Leftrightarrow\\text{ алгебр. определению через }\\; a{\\leq}b\\Leftrightarrow a{\\wedge}b{=}a'
+    ),
+    props:[D,D,D,D, N,N, N,N,N, N,N, C,N],
+    tip:{ lcomm: dOrdTip, lassoc: dOrdTip, lidem: dOrdTip, absorb: dOrdTip },
+    examples:['≡ алгебраическому определению']
+  },
+  {
+    name:'Цепь (линейно упорядоченная решётка)',
+    def: def2(
+      '\\text{Решётка} +\\; \\forall a,b\\colon a\\leq b\\;\\vee\\; b\\leq a',
+      '\\Rightarrow a\\wedge b=\\min(a,b),\\; a\\vee b=\\max(a,b)'
+    ),
+    props:[D,D,D,D, D,D, N,N,N, N,N, C,C],
+    tip:{
+      lcomm: dOrdTip, lassoc: dOrdTip, lidem: dOrdTip, absorb: dOrdTip,
+      modular: 'дистрибутивность ⟹ модулярность',
+      ldistr: 'a∧(b∨c) = min(a,max(b,c)) = max(min(a,b),min(a,c)) — прямая проверка'
+    },
+    examples:['(ℝ,≤)','(ℚ,≤)','(ℤ,≤)']
+  },
+
+  /* ── Модулярные и дистрибутивные ── */
+  { section:'Модулярные и дистрибутивные решётки', cls:'sl' },
+  {
+    name:'Модулярная решётка',
+    def: def2(
+      '\\text{Решётка} +\\; a\\vee(b\\wedge(a\\vee c))=(a\\vee b)\\wedge(a\\vee c)',
+      '\\text{(эквив.: } a\\leq c\\Rightarrow a\\vee(b\\wedge c)=(a\\vee b)\\wedge c\\text{)}'
+    ),
+    props:[C,C,C,C, C,N, N,N,N, N,N, D,N],
+    tip:{ poset: dOrdTip },
+    examples:['Подгруппы группы (т. Дедекинда)','Подмодули','Подпростр. Vec']
+  },
+  {
+    name:'Дистрибутивная решётка',
+    def: def2(
+      '\\text{Решётка} +\\; a\\wedge(b\\vee c)=(a\\wedge b)\\vee(a\\wedge c)',
+      '\\text{(эквив.: }a\\vee(b\\wedge c)=(a\\vee b)\\wedge(a\\vee c)\\text{)}'
+    ),
+    props:[C,C,C,C, D,C, N,N,N, N,N, D,N],
+    tip:{ modular: dDistr, poset: dOrdTip },
+    examples:['(𝒫(X),∩,∪)','(ℕ⁺,НОД,НОК)','(ℝ,min,max)']
+  },
+
+  /* ── Ограниченные и дополненные ── */
+  { section:'Ограниченные и дополненные решётки', cls:'sb' },
+  {
+    name:'Ограниченная решётка',
+    def: '\\text{Решётка} +\\; \\exists\\,0,1\\colon\\; 0\\wedge a=0,\\; 1\\vee a=1\\quad\\forall a\\in L',
+    props:[C,C,C,C, N,N, C,N,N, N,N, D,N],
+    tip:{ poset: dOrdTip },
+    examples:['[0,1]⊆ℝ','𝒫(X)','Конечные решётки']
+  },
+  {
+    name:'Дополненная решётка',
+    def: '\\text{Огр. решётка} +\\; \\forall a\\;\\exists a\'\\colon\\; a\\wedge a\'=0,\\; a\\vee a\'=1',
+    props:[C,C,C,C, N,N, C,C,N, N,N, D,N],
+    tip:{ poset: dOrdTip },
+    examples:['𝒫(X)','Некот. решётки подпространств']
+  },
+  {
+    name:'Ортомодулярная решётка (OML)',
+    def: def2(
+      '\\text{Дополн. решётка} +\\; \\text{модулярность}',
+      '+\\; a\\vee(a\'\\wedge(a\\vee b))=a\\vee b\\quad\\text{(ортомодул. тождество)}'
+    ),
+    props:[C,C,C,C, C,N, C,C,N, N,N, D,N],
+    tip:{ poset: dOrdTip },
+    examples:['Замкн. подпростр. гильберт. пр-ва','Квантовая логика']
+  },
+  {
+    name:'Булева алгебра',
+    def: def2(
+      '\\text{Дополн. решётка} +\\; a\\wedge(b\\vee c)=(a\\wedge b)\\vee(a\\wedge c)',
+      '\\Rightarrow a\'\\text{ единственно (следует из дистрибутивности)}'
+    ),
+    props:[C,C,C,C, D,C, C,C,D, N,N, D,N],
+    tip:{
+      modular: dDistr,
+      uniquecompl: 'a∧x=0 и a∨x=1 ⟹ x=a′ единственно — из дистрибутивности',
+      poset: dOrdTip
+    },
+    examples:['𝒫(X)','𝔽₂ⁿ','Алгебра Линденбаума']
+  },
+  {
+    name:'Атомная булева алгебра',
+    def: def2(
+      '\\text{Булева алгебра} +\\; \\forall a>0\\;\\exists p\\leq a\\colon p\\text{ — атом}',
+      '\\text{(атом: }p>0\\text{ и }\\nexists x\\colon 0<x<p\\text{)}'
+    ),
+    props:[C,C,C,C, D,C, C,C,D, N,C, D,N],
+    tip:{
+      modular: dDistr,
+      uniquecompl: 'следует из дистрибутивности',
+      poset: dOrdTip
+    },
+    examples:['𝒫(X) при конечном X','Конечные булевы алгебры']
+  },
+
+  /* ── Полные решётки ── */
+  { section:'Полные решётки', cls:'sl' },
+  {
+    name:'Полная решётка',
+    def: def2(
+      '\\text{Решётка} +\\; \\forall S\\subseteq L\\;\\exists\\,\\bigwedge S,\\;\\bigvee S',
+      '\\Rightarrow 0=\\bigwedge L,\\; 1=\\bigvee L\\text{ (следуют из полноты)}'
+    ),
+    props:[C,C,C,C, N,N, D,N,N, C,N, D,N],
+    tip:{ bounded: '0=⋀L, 1=⋁L следуют из полноты', poset: dOrdTip },
+    examples:['𝒫(X)','[0,1]','Замкн. мн-ва топол. пр-ва']
+  },
+  {
+    name:'Полная дистрибутивная решётка',
+    def: def2(
+      '\\text{Полная решётка} +\\; a\\wedge\\bigvee_{s\\in S} s = \\bigvee_{s\\in S}(a\\wedge s)',
+      '\\text{(бесконечная дистрибутивность)}'
+    ),
+    props:[C,C,C,C, D,C, D,N,N, C,N, D,N],
+    tip:{ modular: dDistr, bounded: '0=⋀L, 1=⋁L следуют из полноты', poset: dOrdTip },
+    examples:['𝒫(X)','Фреймы топологий','Топос Ω']
+  },
+  {
+    name:'Полная булева алгебра',
+    def: def2(
+      '\\text{Полная решётка} + \\text{булева алгебра}',
+      '\\text{(дополнение + дистрибутивность + полнота)}'
+    ),
+    props:[C,C,C,C, D,C, D,C,D, C,N, D,N],
+    tip:{
+      modular: dDistr,
+      bounded: '0=⋀L, 1=⋁L следуют из полноты',
+      uniquecompl: 'следует из дистрибутивности',
+      poset: dOrdTip
+    },
+    examples:['𝒫(X)','Алгебра Линденбаума-Тарского','σ-алгебра mod нулевые мн-ва']
+  }
+];
+
+/* ══════════════════════════════════════════════
+   ALGEBRA LOGIC
+══════════════════════════════════════════════ */
+var A_DEPS = { nodiv:['mxinv','order'], charpos:['idem'] };
+
+function aActive() {
+  var s=new Set();
+  document.querySelectorAll('[data-tab="algebra"][data-col]').forEach(function(cb){ if(cb.checked) s.add(cb.dataset.col); });
+  return s;
+}
+
+function aShouldHide(s, active) {
+  for (var ci=0; ci<A_COLS.length; ci++) {
+    var col=A_COLS[ci];
+    if (active.has(col)) continue;
+    var val=s.props[ci];
+    if (val===C) return true;
+    if (val===D) {
+      var srcs=A_DEPS[col]||[];
+      var any=srcs.some(function(src){
+        if (!active.has(src)) return false;
+        var si=A_COLS.indexOf(src);
+        return si!==-1 && (s.props[si]===C||s.props[si]===D);
+      });
+      if (!any) return true;
+    }
+  }
+  return false;
+}
+
+function aFirstCheck(active) {
+  var f={}; A_COLS.forEach(function(c){ f[c]=-1; });
+  A.forEach(function(s,i){
+    if (s.section||aShouldHide(s,active)) return;
+    s.props.forEach(function(v,ci){ var c=A_COLS[ci]; if(v===C&&f[c]===-1) f[c]=i; });
+  });
+  return f;
+}
+
+/* ══════════════════════════════════════════════
+   LATTICE LOGIC
+══════════════════════════════════════════════ */
+function lActive() {
+  var s=new Set();
+  document.querySelectorAll('[data-tab="lattice"][data-col]').forEach(function(cb){ if(cb.checked) s.add(cb.dataset.col); });
+  return s;
+}
+
+function lShouldHide(s, active) {
+  for (var ci=0; ci<L_COLS.length; ci++) {
+    var col=L_COLS[ci];
+    if (active.has(col)) continue;
+    if (s.props[ci]===C) return true;
+  }
+  return false;
+}
+
+function lFirstCheck(active) {
+  var f={}; L_COLS.forEach(function(c){ f[c]=-1; });
+  L.forEach(function(s,i){
+    if (s.section||lShouldHide(s,active)) return;
+    s.props.forEach(function(v,ci){ var c=L_COLS[ci]; if(v===C&&f[c]===-1) f[c]=i; });
+  });
+  return f;
+}
+
+/* ══════════════════════════════════════════════
+   SHARED RENDER
+══════════════════════════════════════════════ */
+function makeNameCell(s) {
+  var td=document.createElement('td');
+  td.className='col-name';
+  td.textContent=s.name;
+  if (s.def) {
+    td.classList.add('has-def');
+    (function(def){
+      td.addEventListener('mouseenter',function(e){
+        var tt=document.getElementById('def-tooltip');
+        tt.innerHTML='';
+        try { katex.render(def,tt,{throwOnError:false,displayMode:true}); }
+        catch(e) { tt.textContent=def; }
+        tt.classList.add('visible');
+        posTooltip(tt,e);
+      });
+      td.addEventListener('mousemove',function(e){ posTooltip(document.getElementById('def-tooltip'),e); });
+      td.addEventListener('mouseleave',function(){ document.getElementById('def-tooltip').classList.remove('visible'); });
+    })(s.def);
+  }
+  return td;
+}
+
+function renderCells(tr, s, cols, active, first, idx) {
+  cols.forEach(function(col,ci){
+    if (!active.has(col)) return;
+    var val=s.props[ci];
+    var td=document.createElement('td');
+    if (val===C) {
+      if (first[col]===idx) td.classList.add('first-check');
+      td.innerHTML='<span class="check-icon">&#10003;</span>';
+    } else if (val===D) {
+      var tip=(s.tip&&s.tip[col])?s.tip[col]:'выводится из других свойств';
+      td.innerHTML='<span class="derived-icon" data-tip="'+tip+'">&#10003;</span>';
+    } else if (val===X) {
+      td.classList.add('incompat');
+      td.innerHTML='<span class="cross-icon">&#10007;</span>';
+    } else {
+      td.innerHTML='<span class="dash-icon">&#8212;</span>';
+    }
+    tr.appendChild(td);
+  });
+}
+
+function renderSection(tbody, s, cols, active) {
+  var tr=document.createElement('tr');
+  tr.className='section-row '+s.cls;
+  var tdN=document.createElement('td');
+  tdN.className='col-name';
+  tdN.textContent=s.section;
+  tr.appendChild(tdN);
+  var v=cols.filter(function(c){ return active.has(c); }).length;
+  var tdS=document.createElement('td');
+  tdS.colSpan=v+1; tdS.style.padding='5px 10px';
+  tr.appendChild(tdS);
+  tbody.appendChild(tr);
+}
+
+function renderExamples(s) {
+  var td=document.createElement('td');
+  td.className='examples';
+  td.innerHTML=(s.examples||[]).map(function(e){ return '<span class="ex-tag">'+e+'</span>'; }).join('');
+  return td;
+}
+
+function render(tab) {
+  if (tab==='algebra') {
+    var active=aActive(), first=aFirstCheck(active);
+    var tbody=document.getElementById('tbody-algebra');
+    tbody.innerHTML='';
+    A_COLS.forEach(function(col){
+      var th=document.querySelector('#table-algebra thead th[data-col="'+col+'"]');
+      if(th) th.style.display=active.has(col)?'':'none';
+    });
+    A.forEach(function(s,i){
+      if (s.section) { renderSection(tbody,s,A_COLS,active); return; }
+      if (aShouldHide(s,active)) return;
+      var tr=document.createElement('tr');
+      tr.appendChild(makeNameCell(s));
+      renderCells(tr,s,A_COLS,active,first,i);
+      tr.appendChild(renderExamples(s));
+      tbody.appendChild(tr);
+    });
+  } else {
+    var active=lActive(), first=lFirstCheck(active);
+    var tbody=document.getElementById('tbody-lattice');
+    tbody.innerHTML='';
+    L_COLS.forEach(function(col){
+      var th=document.querySelector('#table-lattice thead th[data-col="'+col+'"]');
+      if(th) th.style.display=active.has(col)?'':'none';
+    });
+    L.forEach(function(s,i){
+      if (s.section) { renderSection(tbody,s,L_COLS,active); return; }
+      if (lShouldHide(s,active)) return;
+      var tr=document.createElement('tr');
+      tr.appendChild(makeNameCell(s));
+      renderCells(tr,s,L_COLS,active,first,i);
+      tr.appendChild(renderExamples(s));
+      tbody.appendChild(tr);
+    });
+  }
+}
+
+function checkAll(tab){
+  document.querySelectorAll('[data-tab="'+tab+'"]').forEach(function(cb){ cb.checked=true; });
+  render(tab);
+}
+
+function uncheckAll(tab){
+  document.querySelectorAll('[data-tab="'+tab+'"]').forEach(function(cb){ cb.checked=false; });
+  render(tab);
+}
+
+function posTooltip(tt,e){
+  var x=e.clientX+16, y=e.clientY+16;
+  if (x+580>window.innerWidth)  x=e.clientX-580;
+  if (y+80 >window.innerHeight) y=e.clientY-80;
+  tt.style.left=x+'px'; tt.style.top=y+'px';
+}
+
+document.addEventListener('DOMContentLoaded',function(){ render('algebra'); render('lattice'); });
+if (document.readyState!=='loading'){ render('algebra'); render('lattice'); }
+</script>
+</body>
+</html>
