@@ -57,7 +57,7 @@ const App: React.FC = () => {
   }, [currentPath]); // Следим за изменением пути
 
   // --- РОУТИНГ ---
-  
+
   if (currentPath === '/portfolio' || currentPath === '/portfolio/') {
     return <Portfolio />;
   }

@@ -375,7 +375,7 @@ export const content: SiteContent = {
   materials: {
     sectionTitle: "Conceptual working notes",
     sectionIntro:
-      "Texts and quizzes on foundations and nearby topics—the notes below open as separate pages; the quiz links lead to Google Forms.",
+      "Texts and quizzes on foundations and nearby topics—the notes open on their own pages; quiz links use Google Forms.",
     menuOverview: "Jump to section",
     linkOpensNewTabHint: "Opens in a new tab",
     practiceTestsHeading: "Quizzes (Google Forms)",
