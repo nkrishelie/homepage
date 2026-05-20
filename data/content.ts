@@ -94,7 +94,7 @@ export const content: SiteContent = {
       role: "Автор",
       year: "Under Review",
       description: "Архитектура математической мысли. Фундаментальное исследование математики как языковой системы: от синтаксиса формул до семантики формальных теорий.",
-      coverImage: "/MFL.png",
+      coverImage: "/Springer_cover.png",
       link: "https://forms.gle/KWzAHGCjdPVmkabE9",
       type: "Монография"
     },

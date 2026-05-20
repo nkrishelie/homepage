@@ -93,7 +93,7 @@ export const content: SiteContent = {
       role: "Author",
       year: "Under Review",
       description: "The architecture of mathematical thought. A treatise on mathematics as a linguistic system: from the syntax of formulas to the semantics of formal theories.",
-      coverImage: "/MFL.png",
+      coverImage: "/Springer_cover.png",
       link: "https://forms.gle/KWzAHGCjdPVmkabE9",
       type: "Philosophical Monograph"
     },
