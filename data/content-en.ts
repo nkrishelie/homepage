@@ -92,7 +92,7 @@ export const content: SiteContent = {
       title: "Math as a Foreign Language",
       role: "Author",
       year: "Under Review",
-      description: "The architecture of mathematical thought. A treatise on mathematics as a linguistic system: from the syntax of formulas to the semantics of formal theories.",
+      description: "The architecture of mathematical thought. A treatise on mathematics as a linguistic system: from the syntax of formulas to the semantics of formal theories. Expected to be published in late summer 2026.",
       coverImage: "/Springer_cover.png",
       link: "https://forms.gle/KWzAHGCjdPVmkabE9",
       type: "Philosophical Monograph"
