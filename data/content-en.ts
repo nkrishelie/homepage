@@ -91,7 +91,7 @@ export const content: SiteContent = {
       id: "springer",
       title: "Mathematics as a Foreign Language",
       role: "Author",
-      year: "Under Review",
+      year: "Forthcoming, 2026",
       description: "The architecture of mathematical thought. A treatise on mathematics as a linguistic system: from the syntax of formulas to the semantics of formal theories.\nExpected to be published in late summer 2026.",
       coverImage: "/Springer_cover.png",
       link: "https://forms.gle/KWzAHGCjdPVmkabE9",
