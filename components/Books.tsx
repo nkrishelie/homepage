@@ -108,9 +108,9 @@ export const Books: React.FC = () => {
                    )}
                    
                    {/* ОПИСАНИЕ */}
-                   <p className="text-academic-600 mb-6 leading-relaxed max-w-2xl">
-                      {book.description}
-                   </p>
+                  <p className="text-academic-600 mb-6 leading-relaxed max-w-2xl" style={{ whiteSpace: 'pre-line' }}>
+                     {book.description}
+                  </p>
                    
                    {/* КНОПКИ */}
                    <div className="mt-auto">
