@@ -129,10 +129,10 @@ export const content: SiteContent = {
 //    },
     {
       id: "phd-thesis",
-      title: "Galton-Watson Forests and Rabdom Permutations",
+      title: "Galton-Watson Forests and Random Permutations",
       role: "PhD Thesis",
       year: "2003",
-      description: "Abstract of the dissertation for the degree of Candidate of Physical and Mathematical Sciences (in Russian).",
+      description: "PhD Dissertation Abstract (in Russian).",
       coverImage: "/thesis-cover.png",
       link: "/kdar.pdf",
       type: "Dissertation Abstract"
@@ -166,7 +166,7 @@ export const content: SiteContent = {
   ],
   about: {
     // Упрощено: Ph.D. in Mathematics, без кодов ВАК
-    bio: "Ph.D. in Mathematics. Graduated from the Faculty of Mathematics at PetrSU and postgraduate studies at KarRC RAS. In 2024–2025, I lived and worked in Austria (Graz), where my experience learning German at TU Graz inspired me to write the book 'Math as a Foreign Language' (Springer, under review). I specialize in foundations of mathematics, model theory, and scientific popularization.",
+    bio: "Ph.D. in Mathematics. Graduated from the Faculty of Mathematics at PetrSU and postgraduate studies at KarRC RAS. In 2024–2025, I lived and worked in Austria (Graz), where my experience learning German at TU Graz inspired me to write the book 'Mathematics as a Foreign Language' (Springer). I specialize in foundations of mathematics, model theory, and scientific popularization.",
     interests: [
       "Mathematical Logic",
       "Set Theory",
