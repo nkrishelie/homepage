@@ -95,7 +95,7 @@ export const content: SiteContent = {
       description: "The architecture of mathematical thought. A treatise on mathematics as a linguistic system: from the syntax of formulas to the semantics of formal theories.\nExpected to be published in late summer 2026.",
       coverImage: "/Springer_cover.png",
       link: "https://forms.gle/KWzAHGCjdPVmkabE9",
-      type: "Philosophical Monograph"
+      type: "Monograph"
     },
     {
       id: "savvateev",
