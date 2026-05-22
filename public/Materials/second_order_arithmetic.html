@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Иерархия теорий арифметики второго порядка</title>
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPs6jPC90ZXh0Pjwvc3ZnPg==" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false})"></script>
+<style>
+:root {
+  --bg:#faf9f6; --bg2:#f2f0eb; --ink:#1a1917; --ink2:#5a5750; --ink3:#8a8680; --border:#dcd9d2;
+  --blue-bg:#e8eef7;  --blue-acc:#3a5f9e;
+  --rust-bg:#f0ebe8;  --rust-acc:#8c4a32;
+  --sage-bg:#e8f0eb;  --sage-acc:#2e6645;
+  --amber-bg:#fdf3e0; --amber-fg:#7a4f0d;
+  --green-bg:#edf4e8; --green-fg:#2d6a1f;
+  --red-bg:#faeae6;   --red-fg:#9b2f1a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Georgia,serif;font-size:19px;line-height:1.65;min-height:100vh}
+.page{max-width:900px;margin:0 auto;padding:3rem 2.5rem 5rem}
+
+/* ── Header ── */
+header{margin-bottom:2.5rem;border-bottom:1.5px solid var(--ink);padding-bottom:1.5rem}
+.kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:.6rem}
+h1{font-size:clamp(22px,2.6vw,36px);font-weight:500;line-height:1.2;color:var(--ink);margin-bottom:.5rem}
+.desc{font-size:16px;color:var(--ink2);font-style:italic;max-width:720px}
+
+/* ── Sections ── */
+.section{margin-bottom:2.4rem}
+.section-num{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:.35rem}
+h2{font-size:clamp(17px,1.8vw,22px);font-weight:500;line-height:1.25;color:var(--ink);margin-bottom:.85rem;padding-bottom:.5rem;border-bottom:0.5px solid var(--border)}
+p{margin-bottom:1rem;color:var(--ink2)}
+p:last-child{margin-bottom:0}
+
+/* ── Display math block ── */
+.math-block{margin:1.2rem 0;padding:.9rem 1.2rem;background:var(--bg2);border-left:2.5px solid var(--border);border-radius:0 4px 4px 0;overflow-x:auto}
+.math-block .katex-display{margin:0!important}
+
+/* ── Divider ── */
+.section-rule{border:none;border-top:1.5px solid var(--ink);margin:2.5rem 0 2rem}
+
+/* ── Comparison table ── */
+.tbl-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:.8rem}
+.tbl-wrap{overflow-x:auto;margin-bottom:1.5rem}
+table{width:100%;border-collapse:collapse;min-width:640px;border:0.5px solid var(--border);border-top:2px solid var(--ink)}
+thead th{padding:9px 13px;vertical-align:bottom;border-bottom:1.5px solid var(--ink);border-right:0.5px solid var(--border);font-size:13px;font-weight:500;font-family:'JetBrains Mono',monospace;letter-spacing:.04em;text-transform:uppercase;background:var(--bg2);color:var(--ink2)}
+thead th:first-child{background:var(--bg);color:var(--ink);text-align:left;font-family:'EB Garamond',Georgia,serif;font-style:italic;text-transform:none;letter-spacing:0;font-size:14px}
+thead th:last-child{border-right:none}
+tbody tr{border-bottom:0.5px solid var(--border)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover td{background:rgba(0,0,0,.018)}
+tbody td{padding:10px 13px;vertical-align:top;border-right:0.5px solid var(--border);font-size:15px;color:var(--ink2);line-height:1.55}
+tbody td:last-child{border-right:none}
+tbody td:first-child{color:var(--ink);font-weight:500;font-size:15.5px;white-space:nowrap}
+.tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:2px;margin-top:3px}
+.tag-blue{background:rgba(58,95,158,.1);color:var(--blue-acc)}
+.tag-rust{background:rgba(140,74,50,.1);color:var(--rust-acc)}
+.tag-sage{background:rgba(46,102,69,.1);color:var(--sage-acc)}
+.tag-amber{background:rgba(122,79,13,.1);color:var(--amber-fg)}
+.tag-neutral{background:var(--bg2);color:var(--ink3)}
+.cell-note{font-size:13px;color:var(--ink3);font-style:italic;margin-top:3px;display:block}
+
+/* ── Footer ── */
+.page-copy{margin-top:2.75rem;padding-top:1.1rem;border-top:0.5px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.04em;color:var(--ink3);text-align:center;line-height:1.5}
+.page-copy a{color:var(--ink3);text-decoration:none;border-bottom:1px solid rgba(138,134,128,.35)}
+.page-copy a:hover{color:var(--ink2);border-bottom-color:var(--ink2)}
+
+.katex{font-size:1em}
+
+/* ── Mobile ── */
+@media(max-width:640px){
+  body{font-size:17px}
+  .page{padding:1.5rem 1rem 3rem}
+  tbody td:first-child{white-space:normal}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="kicker">Основания математики · Рабочие заметки</div>
+    <h1>Иерархия теорий арифметики второго порядка</h1>
+    <p class="desc">От первопорядковой $PA$ через предикативную $ACA_0$ и импредикативную $Z_2$ к теоретико-множественной $ZFA$: язык, модели, выразительная сила.</p>
+  </header>
+
+  <!-- 1 -->
+  <div class="section">
+    <span class="section-num">§ 1</span>
+    <h2>Расширение языка и иерархия формул</h2>
+    <p>Построение второпорядковой теории начинается с фиксации первопорядковой базы. К стандартному языку добавляется второй сорт переменных — переменные по множествам индивидной области ($X, Y, Z, \dots$). В сигнатуру вводится предикат принадлежности $x \in X$, где $x$ — индивид, а $X$ — множество. Также автоматически постулируется аксиома экстенсиональности (равенства) для множеств.</p>
+    <p>Такое расширение языка порождает строгую иерархию формул. На нижнем уровне находятся чисто первопорядковые формулы. База расширяется классом арифметических формул (классы $\Sigma^1_0$ и $\Pi^1_0$): они могут содержать переменные-множества в качестве параметров, но не допускают квантификации по множествам. Выше располагается аналитическая иерархия — собственно второпорядковые формулы с кванторами по множествам.</p>
+  </div>
+
+  <!-- 2 -->
+  <div class="section">
+    <span class="section-num">§ 2</span>
+    <h2>Предикативность и теория $ACA_0$</h2>
+    <p>Фундаментальный шаг в построении теории — добавление схемы свертывания, гарантирующей существование множеств, заданных формулами. Если ограничить эту схему только арифметическими формулами с параметрами, мы получим предикативную теорию. Предикативной она называется потому, что для определения множества не требуется перебирать весь универсум множеств, к которому принадлежит и само определяемое множество.</p>
+    <p>На этом этапе мы уходим от первопорядковой схемы индукции и добавляем единую аксиому индукции по множествам:</p>
+    <div class="math-block">
+      $$(0 \in X \land \forall n\;(n \in X \to S(n) \in X)) \to \forall n\;(n \in X)$$
+    </div>
+    <p>Благодаря наличию схемы свертывания для $\Pi^1_0$-формул, эта единственная аксиома автоматически влечет за собой выполнимость индукции для всех арифметических формул. Так осуществляется переход от $PA$ к теории $ACA_0$.</p>
+  </div>
+
+  <!-- 3 -->
+  <div class="section">
+    <span class="section-num">§ 3</span>
+    <h2>Импредикативность и формальная $Z_2$</h2>
+    <p>Схему свертывания можно расширить на вообще все формулы языка второго порядка, перейдя к импредикативной теории второго порядка $Z_2$. Важно отметить, что на данном этапе всё это по сути остается теорией первого порядка, но с двумя сортами переменных и предикатом принадлежности.</p>
+    <p>Будучи формальной системой, $Z_2$ в полной мере наследует «родовые пятна» арифметики: для нее справедливы теоремы о неполноте Гёделя и теорема Лёвенгейма — Скулема о существовании счетных нестандартных моделей.</p>
+  </div>
+
+  <!-- 4 -->
+  <div class="section">
+    <span class="section-num">§ 4</span>
+    <h2>Теоретико-модельная арифметика и категоричность</h2>
+    <p>Принципиальный концептуальный сдвиг происходит при переходе к рассмотрению моделей. Мы можем наряду с формальной $Z_2$ рассматривать класс ее стандартных моделей, в которых переменные по множествам интерпретируются элементами настоящего булеана натурального ряда $\mathcal{P}(\mathbb{N})$. Такая комбинация теории и ограничения на класс моделей является теоретико-модельной второпорядковой арифметикой.</p>
+    <p>Формальный дедуктивный аппарат у этих двух подходов общий, поэтому множество выводимых конечными доказательствами теорем совпадает. Однако в рамках $ZF$ стандартная модель уникальна с точностью до изоморфизма (тотальная категоричность). Фиксация стандартной модели порождает полное, но неперечислимое множество истинных утверждений — элементарную теорию стандартной модели $\mathrm{Th}_2(\mathbb{N})$. Человек способен выявлять истины, невыводимые формально в $Z_2$, исключительно за счет выхода за пределы языка и использования внешних методов более сильных метатеорий (например, $ZFC$).</p>
+  </div>
+
+  <!-- 5 -->
+  <div class="section">
+    <span class="section-num">§ 5</span>
+    <h2>Выразительная сила и высшие порядки ($PA_n$)</h2>
+    <p>Выразительных способностей $Z_2$ достаточно, чтобы оперировать вещественными числами, борелевскими множествами и непрерывными функциями (весь классический анализ). Однако их недостаточно, чтобы квантовать по ним, говорить о функциональных пространствах и работать с теорией меры Лебега в полном объеме.</p>
+    <p>Для этих целей язык надстраивается более высокими порядками переменных и соответствующими схемами свертывания, порождая теории $PA_n$. Как и $Z_2$, их можно рассматривать в формальном (дедуктивном) или теоретико-модельном ключе.</p>
+  </div>
+
+  <!-- 6 -->
+  <div class="section">
+    <span class="section-num">§ 6</span>
+    <h2>Кумулятивная иерархия и $ZFA$</h2>
+    <p>Глобальной альтернативой наращиванию порядков является переход к теории с урэлементами ($ZFA$). В этом случае $\mathbb{N}$ берется как множество урэлементов, и над ним строится стандартная кумулятивная иерархия множеств. Это обеспечивает полную свободу для формулировок и доказательств любых фактов функционального анализа и топологии.</p>
+    <p>Атомарность базовой теории нужна здесь исключительно для того, чтобы заблокировать синтаксическую возможность писать $x \in \alpha$, где $\alpha$ — урэлемент (натуральное или вещественное число). Таким образом теория отвязывается от специфики конкретного способа теоретико-множественного конструирования чисел.</p>
+  </div>
+
+  <hr class="section-rule">
+
+  <!-- Comparison table -->
+  <div class="tbl-label">Сравнительная таблица теорий</div>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Тип теории</th>
+          <th>Объекты и язык</th>
+          <th>Семантика и модели</th>
+          <th>Полнота / выводимость</th>
+          <th>Выразительная сила</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Первопорядковая ($PA$)</td>
+          <td>1 сорт переменных (числа)</td>
+          <td>Модели первого порядка; нестандартные модели существуют<span class="cell-note">семантика Тарского</span></td>
+          <td><span class="tag tag-rust">Неполна</span><br><span class="tag tag-sage">Перечислима</span></td>
+          <td>Арифметика, рекурсивные функции, конечные объекты</td>
+        </tr>
+        <tr>
+          <td>Формальная второпорядковая ($Z_2$ / $ACA_0$)</td>
+          <td>2 сорта (числа + множества)</td>
+          <td>Семантика Хенкина; нестандартные модели допустимы<span class="cell-note">по Гёделю / Лёвенгейму–Скулему</span></td>
+          <td><span class="tag tag-rust">Неполна</span><br><span class="tag tag-sage">Перечислима</span></td>
+          <td>Вещественные числа, непрерывные функции, борелевские множества</td>
+        </tr>
+        <tr>
+          <td>Модельная второпорядковая</td>
+          <td>2 сорта; квантификация по полному булеану $\mathcal{P}(\mathbb{N})$</td>
+          <td>Стандартная семантика; модель категорична с точностью до изоморфизма</td>
+          <td><span class="tag tag-blue">Полна</span><br><span class="tag tag-rust">Не перечислима</span><span class="cell-note">совпадает с $\mathrm{Th}_2(\mathbb{N})$</span></td>
+          <td>Истинная арифметика и классический анализ</td>
+        </tr>
+        <tr>
+          <td>$n$-порядковая арифметика ($PA_n$)</td>
+          <td>$n$ сортов переменных</td>
+          <td>Итерированный булеан $\mathcal{P}(\cdots\mathcal{P}(\mathbb{N})\cdots)$</td>
+          <td><span class="tag tag-blue">Полна</span><br><span class="tag tag-rust">Не перечислима</span></td>
+          <td>Произвольные функции, общая топология, функциональные пространства</td>
+        </tr>
+        <tr>
+          <td>$ZFA$ (с урэлементами)</td>
+          <td>Урэлементы ($\mathbb{N}$) + кумулятивная иерархия</td>
+          <td>Модели теории множеств с атомами</td>
+          <td><span class="tag tag-rust">Неполна</span><br><span class="tag tag-sage">Перечислима</span><span class="cell-note">зависит от аксиоматики</span></td>
+          <td>Современная математика без привязки к конструкции чисел</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="page-copy">
+    <a href="/">mathem.at</a> · Н.&nbsp;И.&nbsp;Казимиров
+  </p>
+
+</div>
+</body>
+</html>

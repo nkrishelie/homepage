@@ -59,6 +59,12 @@ export const MATERIALS_ITEMS: MaterialItem[] = [
     "category": "analysis"
   },
   {
+    "filename": "second_order_arithmetic.html",
+    "href": "/Materials/second_order_arithmetic.html",
+    "title": "Иерархия теорий арифметики второго порядка",
+    "category": "foundations"
+  },
+  {
     "filename": "test1.html",
     "href": "/Materials/test1.html",
     "title": "Теория множеств: Тест",
