@@ -1,20 +1,19 @@
 import React from 'react';
 import { ClipboardList, ExternalLink, FileText } from 'lucide-react';
 import { useLanguage } from '../LanguageContext';
-import { MATERIALS_ITEMS } from '../data/materials.generated';
-import { getMaterialsGroups } from '../data/materialsGroup';
+import { getMaterialsForLang, getMaterialsGroups } from '../data/materialsGroup';
 
 export const Materials: React.FC = () => {
   const { language, content } = useLanguage();
 
   const practiceTests = content.materials.practiceTests;
-  const hasStaticMaterials = MATERIALS_ITEMS.length > 0;
+  const langItems = getMaterialsForLang(language);
+  const hasStaticMaterials = langItems.length > 0;
   const hasPracticeTests = practiceTests.length > 0;
 
-  if (language !== 'ru') return null;
   if (!hasStaticMaterials && !hasPracticeTests) return null;
 
-  const groups = hasStaticMaterials ? getMaterialsGroups('ru') : [];
+  const groups = hasStaticMaterials ? getMaterialsGroups(language) : [];
 
   return (
     <section

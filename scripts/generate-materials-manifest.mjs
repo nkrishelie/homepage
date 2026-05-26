@@ -16,6 +16,14 @@ function extractTitle(html) {
   return m ? m[1].replace(/\s+/g, ' ').trim() : null;
 }
 
+function inferLanguage(filename, html, taxonomy) {
+  if (taxonomy.fileLanguage?.[filename]) return taxonomy.fileLanguage[filename];
+  if (/_en\.html$/i.test(filename)) return 'en';
+  const m = html.match(/<html[^>]*\blang=["']([a-z]{2})/i);
+  if (m?.[1] === 'en') return 'en';
+  return 'ru';
+}
+
 function loadTaxonomy() {
   const taxonomyPath = path.join(materialsDir, '_taxonomy.json');
   const base = {
@@ -25,6 +33,7 @@ function loadTaxonomy() {
       general: { ru: 'Рабочие материалы', en: 'Working materials' },
     },
     fileCategory: {},
+    fileLanguage: {},
   };
   if (!fs.existsSync(taxonomyPath)) return base;
   try {
@@ -34,6 +43,7 @@ function loadTaxonomy() {
       ...raw,
       categories: { ...base.categories, ...(raw.categories || {}) },
       fileCategory: { ...base.fileCategory, ...(raw.fileCategory || {}) },
+      fileLanguage: { ...base.fileLanguage, ...(raw.fileLanguage || {}) },
     };
   } catch (e) {
     console.warn('[materials] Invalid _taxonomy.json, using defaults:', e.message);
@@ -50,6 +60,7 @@ export interface MaterialItem {
   href: string;
   title: string;
   category: string;
+  lang: 'ru' | 'en';
 }
 
 export interface MaterialCategoryLabels {
@@ -81,8 +92,9 @@ export const MATERIALS_ITEMS: MaterialItem[] = [];
     const title = extractTitle(html) || filename.replace(/\.html$/i, '').replace(/_/g, ' ');
     const category =
       taxonomy.fileCategory[filename] || taxonomy.defaultCategory || 'general';
+    const lang = inferLanguage(filename, html, taxonomy);
     const href = `/Materials/${filename}`;
-    return { filename, href, title, category };
+    return { filename, href, title, category, lang };
   });
 
   const categoryOrder =
@@ -101,6 +113,7 @@ export interface MaterialItem {
   href: string;
   title: string;
   category: string;
+  lang: 'ru' | 'en';
 }
 
 export interface MaterialCategoryLabels {

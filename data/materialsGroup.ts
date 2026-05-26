@@ -11,9 +11,14 @@ export interface MaterialsGroup {
   items: MaterialItem[];
 }
 
+export function getMaterialsForLang(lang: 'ru' | 'en'): MaterialItem[] {
+  return MATERIALS_ITEMS.filter((item) => item.lang === lang);
+}
+
 export function getMaterialsGroups(lang: 'ru' | 'en'): MaterialsGroup[] {
+  const items = getMaterialsForLang(lang);
   const by = new Map<string, MaterialItem[]>();
-  for (const item of MATERIALS_ITEMS) {
+  for (const item of items) {
     const list = by.get(item.category) ?? [];
     list.push(item);
     by.set(item.category, list);

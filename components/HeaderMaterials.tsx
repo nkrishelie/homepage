@@ -2,8 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import type { SiteContent } from '../types';
 import type { Language } from '../LanguageContext';
-import { MATERIALS_ITEMS } from '../data/materials.generated';
-import { getMaterialsGroups } from '../data/materialsGroup';
+import { getMaterialsForLang, getMaterialsGroups } from '../data/materialsGroup';
 
 type Props = {
   content: SiteContent;
@@ -39,13 +38,12 @@ export const HeaderMaterials: React.FC<Props> = ({
     };
   }, [open]);
 
-  if (language !== 'ru') return null;
-
-  const groups = getMaterialsGroups('ru');
+  const groups = getMaterialsGroups(language);
   const label = content.ui.headers.materials;
 
   const practiceTests = content.materials.practiceTests;
-  const hasStaticMaterials = MATERIALS_ITEMS.length > 0;
+  const langItems = getMaterialsForLang(language);
+  const hasStaticMaterials = langItems.length > 0;
   const hasPracticeTests = practiceTests.length > 0;
 
   if (!hasStaticMaterials && !hasPracticeTests) {

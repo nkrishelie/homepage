@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hierarchy of Second-Order Arithmetic Theories</title>
+<link rel="alternate" hreflang="ru" href="/Materials/second_order_arithmetic.html">
+<link rel="alternate" hreflang="en" href="/Materials/second_order_arithmetic_en.html">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPs6jPC90ZXh0Pjwvc3ZnPg==" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false})"></script>
+<style>
+:root {
+  --bg:#faf9f6; --bg2:#f2f0eb; --ink:#1a1917; --ink2:#5a5750; --ink3:#8a8680; --border:#dcd9d2;
+  --blue-bg:#e8eef7;  --blue-acc:#3a5f9e;
+  --rust-bg:#f0ebe8;  --rust-acc:#8c4a32;
+  --sage-bg:#e8f0eb;  --sage-acc:#2e6645;
+  --amber-bg:#fdf3e0; --amber-fg:#7a4f0d;
+  --green-bg:#edf4e8; --green-fg:#2d6a1f;
+  --red-bg:#faeae6;   --red-fg:#9b2f1a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Georgia,serif;font-size:19px;line-height:1.65;min-height:100vh}
+.page{max-width:900px;margin:0 auto;padding:3rem 2.5rem 5rem}
+
+/* ── Header ── */
+header{margin-bottom:2.5rem;border-bottom:1.5px solid var(--ink);padding-bottom:1.5rem}
+.kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:.6rem}
+h1{font-size:clamp(22px,2.6vw,36px);font-weight:500;line-height:1.2;color:var(--ink);margin-bottom:.5rem}
+.desc{font-size:16px;color:var(--ink2);font-style:italic;max-width:720px}
+
+/* ── Sections ── */
+.section{margin-bottom:2.4rem}
+.section-num{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:.35rem}
+h2{font-size:clamp(17px,1.8vw,22px);font-weight:500;line-height:1.25;color:var(--ink);margin-bottom:.85rem;padding-bottom:.5rem;border-bottom:0.5px solid var(--border)}
+p{margin-bottom:1rem;color:var(--ink2)}
+p:last-child{margin-bottom:0}
+
+/* ── Display math block ── */
+.math-block{margin:1.2rem 0;padding:.9rem 1.2rem;background:var(--bg2);border-left:2.5px solid var(--border);border-radius:0 4px 4px 0;overflow-x:auto}
+.math-block .katex-display{margin:0!important}
+
+/* ── Divider ── */
+.section-rule{border:none;border-top:1.5px solid var(--ink);margin:2.5rem 0 2rem}
+
+/* ── Comparison table ── */
+.tbl-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:.8rem}
+.tbl-note{font-size:14px;color:var(--ink2);line-height:1.6;margin-bottom:1.1rem;padding:.75rem 1rem;background:var(--bg2);border-left:2.5px solid var(--border)}
+.tbl-wrap{overflow-x:auto;margin-bottom:1.5rem}
+table{width:100%;border-collapse:collapse;min-width:640px;border:0.5px solid var(--border);border-top:2px solid var(--ink)}
+thead th{padding:9px 13px;vertical-align:bottom;border-bottom:1.5px solid var(--ink);border-right:0.5px solid var(--border);font-size:13px;font-weight:500;font-family:'JetBrains Mono',monospace;letter-spacing:.04em;text-transform:uppercase;background:var(--bg2);color:var(--ink2)}
+thead th:first-child{background:var(--bg);color:var(--ink);text-align:left;font-family:'EB Garamond',Georgia,serif;font-style:italic;text-transform:none;letter-spacing:0;font-size:14px}
+thead th:last-child{border-right:none}
+tbody tr{border-bottom:0.5px solid var(--border)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover td{background:rgba(0,0,0,.018)}
+tbody td{padding:10px 13px;vertical-align:top;border-right:0.5px solid var(--border);font-size:15px;color:var(--ink2);line-height:1.55}
+tbody td:last-child{border-right:none}
+tbody td:first-child{color:var(--ink);font-weight:500;font-size:15.5px;white-space:nowrap}
+.tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:2px;margin-top:3px}
+.tag-blue{background:rgba(58,95,158,.1);color:var(--blue-acc)}
+.tag-rust{background:rgba(140,74,50,.1);color:var(--rust-acc)}
+.tag-sage{background:rgba(46,102,69,.1);color:var(--sage-acc)}
+.tag-amber{background:rgba(122,79,13,.1);color:var(--amber-fg)}
+.tag-neutral{background:var(--bg2);color:var(--ink3)}
+.cell-note{font-size:13px;color:var(--ink3);font-style:italic;margin-top:3px;display:block}
+
+/* ── Footer ── */
+.page-copy{margin-top:2.75rem;padding-top:1.1rem;border-top:0.5px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.04em;color:var(--ink3);text-align:center;line-height:1.5}
+.page-copy a{color:var(--ink3);text-decoration:none;border-bottom:1px solid rgba(138,134,128,.35)}
+.page-copy a:hover{color:var(--ink2);border-bottom-color:var(--ink2)}
+.lang-switch{margin-top:.5rem;font-size:10px}
+
+.katex{font-size:1em}
+
+/* ── Mobile ── */
+@media(max-width:640px){
+  body{font-size:17px}
+  .page{padding:1.5rem 1rem 3rem}
+  tbody td:first-child{white-space:normal}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="kicker">Foundations of Mathematics · Working Notes</div>
+    <h1>Hierarchy of Second-Order Arithmetic Theories</h1>
+    <p class="desc">From first-order $PA$ through $ACA_0$ and impredicative $Z_2$ to set-theoretic $ZFA$: language, models, and expressive power.</p>
+  </header>
+
+  <!-- 1 -->
+  <div class="section">
+    <span class="section-num">§ 1</span>
+    <h2>Extending the language and the formula hierarchy</h2>
+    <p>Building a second-order theory begins with fixing a first-order base. A second sort of variables is added to the standard language — variables ranging over subsets of the domain of individuals ($X, Y, Z, \dots$). The signature includes a membership predicate $x \in X$, where $x$ is an individual and $X$ is a set. Extensionality for sets is postulated as well.</p>
+    <p>This extension yields a strict hierarchy of formulas. At the bottom lie purely first-order formulas. The base is extended by the class of <em>arithmetical</em> formulas — in the notation of the arithmetical hierarchy, the classes $\Sigma^0_k$ and $\Pi^0_k$ (not to be confused with $\Sigma^1_k$ of the analytical hierarchy): they may contain set variables as parameters, but do not allow quantification over sets. Above this sits the analytical hierarchy — genuinely second-order formulas with quantifiers over sets ($\Sigma^1_k$, $\Pi^1_k$, …).</p>
+  </div>
+
+  <!-- 2 -->
+  <div class="section">
+    <span class="section-num">§ 2</span>
+    <h2>Arithmetical comprehension and $ACA_0$</h2>
+    <p>A fundamental step is adding a comprehension scheme guaranteeing the existence of sets defined by formulas. Restricting this scheme to arithmetical formulas yields the theory $ACA_0$. Comprehension here is <em>narrowly</em> predicative: defining a set does not rely on quantifiers over sets and does not require “searching through” the universe to which the set being defined itself belongs.</p>
+    <p>In the broader sense of predicative mathematics (Weyl, Feferman, Schütte), admissible systems extend up to $ATR_0$ (proof-theoretic ordinal $\Gamma_0$) — substantially stronger than $ACA_0$ (ordinal $\varepsilon_0$). $ACA_0$ is only the lower rung of this range, though it often serves as the entry point to reverse mathematics.</p>
+    <p>At this stage we move away from the first-order induction scheme and add a single induction axiom for sets:</p>
+    <div class="math-block">
+      $$(0 \in X \land \forall n\;(n \in X \to S(n) \in X)) \to \forall n\;(n \in X)$$
+    </div>
+    <p>Thanks to arithmetical comprehension, this single axiom automatically entails induction for all arithmetical formulas. This is the transition from $PA$ to $ACA_0$.</p>
+  </div>
+
+  <!-- 3 -->
+  <div class="section">
+    <span class="section-num">§ 3</span>
+    <h2>Impredicativity and formal $Z_2$</h2>
+    <p>The comprehension scheme can be extended to all formulas of the second-order language, yielding the impredicative second-order theory $Z_2$. It is important to note that at this stage everything remains, in essence, a first-order theory — but with two sorts of variables and a membership predicate.</p>
+    <p>As a formal system, $Z_2$ fully inherits the “generic blemishes” of first-order arithmetic: Gödel’s incompleteness theorems and the Löwenheim–Skolem theorem on the existence of countable nonstandard models apply to it as well.</p>
+  </div>
+
+  <!-- 4 -->
+  <div class="section">
+    <span class="section-num">§ 4</span>
+    <h2>Model-theoretic arithmetic and categoricity</h2>
+    <p>A principled conceptual shift occurs when one turns to models. Alongside formal $Z_2$, we may consider the class of its standard models, in which set variables are interpreted as elements of the genuine power set of the natural numbers, $\mathcal{P}(\mathbb{N})$. This combination of theory and a restriction on the class of models is model-theoretic second-order arithmetic.</p>
+    <p>The formal deductive apparatus is the same in both approaches, so the set of theorems provable by finite proofs coincides. Within $ZF$, however, the standard model is unique up to isomorphism (total categoricity). Fixing the standard model yields a complete but non-enumerable set of true statements — the elementary theory of the standard model, $\mathrm{Th}_2(\mathbb{N})$. Humans can identify truths not formally provable in $Z_2$ only by stepping outside the language and using external methods from stronger metatheories (e.g. $ZFC$).</p>
+  </div>
+
+  <!-- 5 -->
+  <div class="section">
+    <span class="section-num">§ 5</span>
+    <h2>Expressive power and higher orders ($PA_n$)</h2>
+    <p>In $Z_2$, real numbers are coded as sets of naturals (Dedekind cuts in $\mathbb{Q}$, Cauchy sequences, etc.), so second-order quantifiers over sets are precisely quantifiers “for every real $x$” ($\forall X\;(IsReal(X) \to \dots)$). Classical analysis — continuous functions, convergence, Borel sets — is formalizable in $Z_2$ without moving to higher orders.</p>
+    <p>The limitation of $Z_2$ is different: the theory cannot directly quantify over <em>sets</em> of real numbers (elements of $\mathcal{P}^2(\mathbb{N})$). For arbitrary families of subsets of $\mathbb{R}$, function spaces in full generality, and genuine third-order semantics, one needs theories $PA_n$ with $n \ge 3$. Basic Lebesgue measure theory on $\mathbb{R}$ (including countable additivity) is already formalizable in weak subsystems such as $WWKL_0$, below $ACA_0$; $Z_2$ is more than adequate for this.</p>
+    <p>Like $Z_2$, the theories $PA_n$ can be studied in a formal (deductive) or model-theoretic setting.</p>
+  </div>
+
+  <!-- 6 -->
+  <div class="section">
+    <span class="section-num">§ 6</span>
+    <h2>The cumulative hierarchy and $ZFA$</h2>
+    <p>A global alternative to stacking orders is to move to a theory with urelements ($ZFA$). Here $\mathbb{N}$ is taken as the set of urelements, and the standard cumulative hierarchy of sets is built above it. This provides full freedom to state and prove facts from functional analysis and topology.</p>
+    <p>The atomic base theory is needed here solely to block the syntactic possibility of writing $x \in \alpha$, where $\alpha$ is a urelement. The theory is thereby detached from the specifics of any particular set-theoretic construction of numbers.</p>
+  </div>
+
+  <hr class="section-rule">
+
+  <!-- Comparison table -->
+  <div class="tbl-label">Comparative table of theories</div>
+  <p class="tbl-note">The column “axiomatics / theory” uses two distinct notions of completeness. <strong>Axiomatic incompleteness</strong> (Gödel): a formal system has undecidable sentences. <strong>Semantic completeness of a theory</strong>: every sentence is either true or false in the standard model — this is trivial for any fixed structure and follows from categoricity, not from an achievement of the theory. No recursive axiomatization coincides with $\mathrm{Th}_2(\mathbb{N})$ — hence for the model-theoretic rows the key property is “not axiomatizable.”</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Theory type</th>
+          <th>Objects and language</th>
+          <th>Semantics and models</th>
+          <th>Axiomatics / theory</th>
+          <th>Expressive power</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>First-order ($PA$)</td>
+          <td>1 sort (numbers)</td>
+          <td>First-order models; nonstandard models exist (Löwenheim–Skolem)</td>
+          <td><span class="tag tag-rust">Incomplete (Gödel)</span><br><span class="tag tag-sage">Enumerable</span></td>
+          <td>Arithmetic, recursive functions, finite objects</td>
+        </tr>
+        <tr>
+          <td>$ACA_0$</td>
+          <td>2 sorts; comprehension for arithmetical ($\Sigma^0_k$) formulas; induction axiom (one)</td>
+          <td>Henkin semantics; nonstandard models exist<span class="cell-note">by Gödel / Löwenheim–Skolem</span></td>
+          <td><span class="tag tag-rust">Incomplete (Gödel)</span><br><span class="tag tag-sage">Enumerable</span><span class="cell-note">proof strength = $PA$, ordinal $\varepsilon_0$; narrowly predicative; full predicative range up to $ATR_0$ ($\Gamma_0$)</span></td>
+          <td>Real numbers, continuous functions, Borel sets; Bolzano–Weierstrass, monotone convergence, and related theorems are equivalent to $ACA_0$ over $RCA_0$</td>
+        </tr>
+        <tr>
+          <td>Impredicative ($Z_2$)</td>
+          <td>2 sorts; full comprehension (any formula); full induction scheme</td>
+          <td>Henkin semantics; nonstandard models exist</td>
+          <td><span class="tag tag-rust">Incomplete (Gödel)</span><br><span class="tag tag-sage">Enumerable</span></td>
+          <td>Projective hierarchy, descriptive set theory; quantifiers over individual reals, but not over families of them</td>
+        </tr>
+        <tr>
+          <td>Model-theoretic ($\mathrm{Th}_2(\mathbb{N})$)</td>
+          <td>2 sorts; full quantification over $\mathcal{P}(\mathbb{N})$</td>
+          <td>Standard semantics (full Boolean algebra); unique up to isomorphism (categorical)</td>
+          <td><span class="tag tag-rust">Not axiomatizable</span><br><span class="tag tag-neutral">Categorical → theory complete</span><span class="cell-note">every sentence decided in $\mathbb{N}$; no recursive theory equals $\mathrm{Th}_2(\mathbb{N})$</span></td>
+          <td>True arithmetic + classical analysis</td>
+        </tr>
+        <tr>
+          <td>$n$-th order ($\mathrm{Th}_n(\mathbb{N})$)</td>
+          <td>$n$ sorts (numbers, sets, sets of sets, …)</td>
+          <td>$\mathcal{P}^n(\mathbb{N})$; categorical for each fixed $n$</td>
+          <td><span class="tag tag-rust">Not axiomatizable</span><br><span class="tag tag-neutral">Categorical → theory complete</span><span class="cell-note">as for $\mathrm{Th}_2(\mathbb{N})$</span></td>
+          <td>Quantifiers over families of subsets of $\mathbb{R}$, function spaces, general topology</td>
+        </tr>
+        <tr>
+          <td>$ZFA$ (with urelements)</td>
+          <td>Urelements ($\mathbb{N}$) + cumulative hierarchy</td>
+          <td>Models of set theory with atoms</td>
+          <td><span class="tag tag-rust">Incomplete (Gödel)</span><br><span class="tag tag-sage">Enumerable</span><span class="cell-note">depends on axiomatization</span></td>
+          <td>Modern mathematics without commitment to a particular construction of numbers</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="tbl-note"><strong>On $ACA$ and $ACA_0$.</strong> The subscript 0 denotes restricted induction (Simpson 2009): $ACA_0$ has only the induction axiom (a single formula in the second-order language), whereas $ACA$ (no subscript) — the historically earlier system (Feferman, 1977) — adds the full second-order induction scheme. Systems without the subscript have substantially larger proof-theoretic ordinals for the same comprehension scheme. In reverse mathematics (Stillwell, Simpson), the subscript-0 variants are standard.</p>
+
+  <p class="page-copy">
+    <a href="/">mathem.at</a> · N.&nbsp;I.&nbsp;Kazimirov<br>
+    <span class="lang-switch"><a href="/Materials/second_order_arithmetic.html">Русская версия</a></span>
+  </p>
+
+</div>
+</body>
+</html>

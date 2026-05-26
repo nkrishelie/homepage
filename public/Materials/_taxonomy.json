@@ -34,6 +34,10 @@
     "algebra_structures_3_3_fixed.html": "algebra",
     "test1.html": "sets",
     "diagonal.html": "foundations",
-    "second_order_arithmetic.html": "foundations"
+    "second_order_arithmetic.html": "foundations",
+    "second_order_arithmetic_en.html": "foundations"
+  },
+  "fileLanguage": {
+    "diagonal.html": "ru"
   }
 }

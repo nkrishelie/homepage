@@ -5,6 +5,7 @@ export interface MaterialItem {
   href: string;
   title: string;
   category: string;
+  lang: 'ru' | 'en';
 }
 
 export interface MaterialCategoryLabels {
@@ -44,30 +45,42 @@ export const MATERIALS_ITEMS: MaterialItem[] = [
     "filename": "algebra_structures_3_3_fixed.html",
     "href": "/Materials/algebra_structures_3_3_fixed.html",
     "title": "Алгебраические структуры · Теория решёток",
-    "category": "algebra"
+    "category": "algebra",
+    "lang": "ru"
   },
   {
     "filename": "diagonal.html",
     "href": "/Materials/diagonal.html",
     "title": "Вычисление неподвижной точки арифметической формулы",
-    "category": "foundations"
+    "category": "foundations",
+    "lang": "ru"
   },
   {
     "filename": "math_analysis_levels.html",
     "href": "/Materials/math_analysis_levels.html",
     "title": "Уровни формализации математического анализа",
-    "category": "analysis"
+    "category": "analysis",
+    "lang": "ru"
+  },
+  {
+    "filename": "second_order_arithmetic_en.html",
+    "href": "/Materials/second_order_arithmetic_en.html",
+    "title": "Hierarchy of Second-Order Arithmetic Theories",
+    "category": "foundations",
+    "lang": "en"
   },
   {
     "filename": "second_order_arithmetic.html",
     "href": "/Materials/second_order_arithmetic.html",
     "title": "Иерархия теорий арифметики второго порядка",
-    "category": "foundations"
+    "category": "foundations",
+    "lang": "ru"
   },
   {
     "filename": "test1.html",
     "href": "/Materials/test1.html",
     "title": "Теория множеств: Тест",
-    "category": "sets"
+    "category": "sets",
+    "lang": "ru"
   }
 ];

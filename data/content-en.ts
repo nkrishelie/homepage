@@ -36,6 +36,7 @@ export const content: SiteContent = {
     { label: "Projects", href: "#projects" },
     { label: "Books", href: "#books" },
     { label: "Lectures", href: "#lectures" },
+    { label: "Materials", href: "#materials", id: "materials" },
     { label: "About", href: "#about" },
   ],
   services: [
