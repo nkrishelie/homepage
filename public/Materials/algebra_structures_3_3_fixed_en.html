@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Алгебраические структуры · Теория решёток</title>
+<title>Algebraic Structures · Lattice Theory</title>
 <link rel="alternate" hreflang="ru" href="/Materials/algebra_structures_3_3_fixed.html">
 <link rel="alternate" hreflang="en" href="/Materials/algebra_structures_3_3_fixed_en.html">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -415,8 +415,8 @@
 <body>
 
 <div class="tabs">
-  <button class="tab-btn tab-algebra active" onclick="switchTab('algebra')">Алгебраические структуры</button>
-  <button class="tab-btn tab-lattice" onclick="switchTab('lattice')">Теория решёток</button>
+  <button class="tab-btn tab-algebra active" onclick="switchTab('algebra')">Algebraic Structures</button>
+  <button class="tab-btn tab-lattice" onclick="switchTab('lattice')">Lattice Theory</button>
 </div>
 
 <div class="layout">
@@ -424,53 +424,53 @@
   <!-- ══════ TAB 1: ALGEBRA ══════ -->
   <div class="tab-panel active" id="panel-algebra">
     <aside class="sidebar">
-      <h2>Фильтр столбцов</h2>
+      <h2>Column filter</h2>
       <div class="btn-row">
-        <button class="btn" onclick="checkAll('algebra')">Все</button>
-        <button class="btn" onclick="uncheckAll('algebra')">Сбросить</button>
+        <button class="btn" onclick="checkAll('algebra')">All</button>
+        <button class="btn" onclick="uncheckAll('algebra')">Reset</button>
       </div>
       <div class="filter-group">
-        <div class="filter-group-label g">Одна операция</div>
-        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="assoc"   onchange="render('algebra')"><span>Ассоциативность</span></label>
-        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="neutral" onchange="render('algebra')"><span>Нейтральный эл-т</span></label>
-        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="inverse" onchange="render('algebra')"><span>Обратный эл-т</span></label>
-        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="comm"    onchange="render('algebra')"><span>Коммутативность</span></label>
+        <div class="filter-group-label g">Single operation</div>
+        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="assoc"   onchange="render('algebra')"><span>Associativity</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="neutral" onchange="render('algebra')"><span>Identity element</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="inverse" onchange="render('algebra')"><span>Inverse element</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="comm"    onchange="render('algebra')"><span>Commutativity</span></label>
       </div>
       <div class="filter-group">
-        <div class="filter-group-label r">Две операции</div>
-        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="addop"   onchange="render('algebra')"><span>Абелева группа по +</span></label>
-        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="distr"   onchange="render('algebra')"><span>Дистрибутивность</span></label>
-        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="nodiv"   onchange="render('algebra')"><span>Нет делителей нуля</span></label>
-        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="idem"    onchange="render('algebra')"><span>Идемпотентность (·)</span></label>
-        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="mxinv"   onchange="render('algebra')"><span>Обратимость ненул. эл-в</span></label>
-        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="charpos" onchange="render('algebra')"><span>Характеристика > 0</span></label>
+        <div class="filter-group-label r">Two operations</div>
+        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="addop"   onchange="render('algebra')"><span>Abelian group under +</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="distr"   onchange="render('algebra')"><span>Distributivity</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="nodiv"   onchange="render('algebra')"><span>No zero divisors</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="idem"    onchange="render('algebra')"><span>Idempotence (·)</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="mxinv"   onchange="render('algebra')"><span>Invertibility of nonzero elements</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="charpos" onchange="render('algebra')"><span>Characteristic &gt; 0</span></label>
       </div>
       <div class="filter-group">
-        <div class="filter-group-label f">Порядок</div>
-        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="order"   onchange="render('algebra')"><span>Линейный порядок (≤)</span></label>
-        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="dense"   onchange="render('algebra')"><span>Плотность порядка</span></label>
-        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="discr"   onchange="render('algebra')"><span>Дискретность порядка</span></label>
+        <div class="filter-group-label f">Order</div>
+        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="order"   onchange="render('algebra')"><span>Total order (≤)</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="dense"   onchange="render('algebra')"><span>Dense order</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="algebra" data-col="discr"   onchange="render('algebra')"><span>Discrete order</span></label>
       </div>
     </aside>
     <div class="table-wrap">
       <table id="table-algebra">
         <thead>
           <tr>
-            <th class="col-name">Структура</th>
-            <th data-col="assoc"><span class="col-label">Ассоциативность</span></th>
-            <th data-col="neutral"><span class="col-label">Нейтр. эл-т</span></th>
-            <th data-col="inverse"><span class="col-label">Обратный эл-т</span></th>
-            <th data-col="comm"><span class="col-label">Коммутативность</span></th>
-            <th data-col="addop"><span class="col-label">Абелева группа по +</span></th>
-            <th data-col="distr"><span class="col-label">Дистрибутивность</span></th>
-            <th data-col="nodiv"><span class="col-label">Нет делителей нуля</span></th>
-            <th data-col="idem"><span class="col-label">Идемпотентность (·)</span></th>
-            <th data-col="mxinv"><span class="col-label">Обратимость ненул. эл-в</span></th>
+            <th class="col-name">Structure</th>
+            <th data-col="assoc"><span class="col-label">Associativity</span></th>
+            <th data-col="neutral"><span class="col-label">Identity</span></th>
+            <th data-col="inverse"><span class="col-label">Inverse</span></th>
+            <th data-col="comm"><span class="col-label">Commutativity</span></th>
+            <th data-col="addop"><span class="col-label">Abelian group under +</span></th>
+            <th data-col="distr"><span class="col-label">Distributivity</span></th>
+            <th data-col="nodiv"><span class="col-label">No zero divisors</span></th>
+            <th data-col="idem"><span class="col-label">Idempotence (·)</span></th>
+            <th data-col="mxinv"><span class="col-label">Invertibility of nonzero elements</span></th>
             <th data-col="charpos"><span class="col-label">char &gt; 0</span></th>
-            <th data-col="order"><span class="col-label">Линейный порядок (≤)</span></th>
-            <th data-col="dense"><span class="col-label">Плотность порядка</span></th>
-            <th data-col="discr"><span class="col-label">Дискретность порядка</span></th>
-            <th data-col="aexamples" style="min-width:240px;text-align:left;padding-left:14px;vertical-align:middle;">Типовые примеры</th>
+            <th data-col="order"><span class="col-label">Total order (≤)</span></th>
+            <th data-col="dense"><span class="col-label">Dense order</span></th>
+            <th data-col="discr"><span class="col-label">Discrete order</span></th>
+            <th data-col="aexamples" style="min-width:240px;text-align:left;padding-left:14px;vertical-align:middle;">Typical examples</th>
           </tr>
         </thead>
         <tbody id="tbody-algebra"></tbody>
@@ -481,53 +481,53 @@
   <!-- ══════ TAB 2: LATTICES ══════ -->
   <div class="tab-panel" id="panel-lattice">
     <aside class="sidebar">
-      <h2>Фильтр столбцов</h2>
+      <h2>Column filter</h2>
       <div class="btn-row">
-        <button class="btn" onclick="checkAll('lattice')">Все</button>
-        <button class="btn" onclick="uncheckAll('lattice')">Сбросить</button>
+        <button class="btn" onclick="checkAll('lattice')">All</button>
+        <button class="btn" onclick="uncheckAll('lattice')">Reset</button>
       </div>
       <div class="filter-group">
-        <div class="filter-group-label la">Алгебра (∧, ∨)</div>
-        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="lcomm"   onchange="render('lattice')"><span>Коммутативность (∧,∨)</span></label>
-        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="lassoc"  onchange="render('lattice')"><span>Ассоциативность (∧,∨)</span></label>
-        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="lidem"   onchange="render('lattice')"><span>Идемпотентность (∧,∨)</span></label>
-        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="absorb"  onchange="render('lattice')"><span>Поглощение (∧,∨)</span></label>
-        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="modular" onchange="render('lattice')"><span>Модулярность</span></label>
-        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="ldistr"  onchange="render('lattice')"><span>Дистрибутивность</span></label>
+        <div class="filter-group-label la">Algebra (∧, ∨)</div>
+        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="lcomm"   onchange="render('lattice')"><span>Commutativity (∧,∨)</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="lassoc"  onchange="render('lattice')"><span>Associativity (∧,∨)</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="lidem"   onchange="render('lattice')"><span>Idempotence (∧,∨)</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="absorb"  onchange="render('lattice')"><span>Absorption (∧,∨)</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="modular" onchange="render('lattice')"><span>Modularity</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="ldistr"  onchange="render('lattice')"><span>Distributivity</span></label>
       </div>
       <div class="filter-group">
-        <div class="filter-group-label ls">Спец. элементы</div>
-        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="bounded"     onchange="render('lattice')"><span>Ограниченность (0, 1)</span></label>
-        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="compl"       onchange="render('lattice')"><span>Дополнение (a')</span></label>
-        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="uniquecompl" onchange="render('lattice')"><span>Единственность a'</span></label>
-        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="complete"    onchange="render('lattice')"><span>Полнота (⋀S, ⋁S)</span></label>
-        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="atomic"      onchange="render('lattice')"><span>Атомарность</span></label>
+        <div class="filter-group-label ls">Special elements</div>
+        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="bounded"     onchange="render('lattice')"><span>Boundedness (0, 1)</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="compl"       onchange="render('lattice')"><span>Complement (a')</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="uniquecompl" onchange="render('lattice')"><span>Uniqueness of a'</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="complete"    onchange="render('lattice')"><span>Completeness (⋀S, ⋁S)</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="atomic"      onchange="render('lattice')"><span>Atomicity</span></label>
       </div>
       <div class="filter-group">
-        <div class="filter-group-label lo">Порядок (производный)</div>
-        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="poset"  onchange="render('lattice')"><span>Частичный порядок (≤)</span></label>
-        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="linear" onchange="render('lattice')"><span>Линейность (цепь)</span></label>
+        <div class="filter-group-label lo">Order (derived)</div>
+        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="poset"  onchange="render('lattice')"><span>Partial order (≤)</span></label>
+        <label class="filter-item"><input type="checkbox" checked data-tab="lattice" data-col="linear" onchange="render('lattice')"><span>Linearity (chain)</span></label>
       </div>
     </aside>
     <div class="table-wrap">
       <table id="table-lattice">
         <thead>
           <tr>
-            <th class="col-name">Структура</th>
-            <th data-col="lcomm"><span class="col-label">Коммутативность (∧,∨)</span></th>
-            <th data-col="lassoc"><span class="col-label">Ассоциативность (∧,∨)</span></th>
-            <th data-col="lidem"><span class="col-label">Идемпотентность (∧,∨)</span></th>
-            <th data-col="absorb"><span class="col-label">Поглощение (∧,∨)</span></th>
-            <th data-col="modular"><span class="col-label">Модулярность</span></th>
-            <th data-col="ldistr"><span class="col-label">Дистрибутивность</span></th>
-            <th data-col="bounded"><span class="col-label">Ограниченность (0,1)</span></th>
-            <th data-col="compl"><span class="col-label">Дополнение (a')</span></th>
-            <th data-col="uniquecompl"><span class="col-label">Единственность a'</span></th>
-            <th data-col="complete"><span class="col-label">Полнота (⋀S,⋁S)</span></th>
-            <th data-col="atomic"><span class="col-label">Атомарность</span></th>
-            <th data-col="poset"><span class="col-label">Частичный порядок (≤)</span></th>
-            <th data-col="linear"><span class="col-label">Линейность (цепь)</span></th>
-            <th data-col="lexamples" style="min-width:260px;text-align:left;padding-left:14px;vertical-align:middle;">Типовые примеры</th>
+            <th class="col-name">Structure</th>
+            <th data-col="lcomm"><span class="col-label">Commutativity (∧,∨)</span></th>
+            <th data-col="lassoc"><span class="col-label">Associativity (∧,∨)</span></th>
+            <th data-col="lidem"><span class="col-label">Idempotence (∧,∨)</span></th>
+            <th data-col="absorb"><span class="col-label">Absorption (∧,∨)</span></th>
+            <th data-col="modular"><span class="col-label">Modularity</span></th>
+            <th data-col="ldistr"><span class="col-label">Distributivity</span></th>
+            <th data-col="bounded"><span class="col-label">Boundedness (0,1)</span></th>
+            <th data-col="compl"><span class="col-label">Complement (a')</span></th>
+            <th data-col="uniquecompl"><span class="col-label">Uniqueness of a'</span></th>
+            <th data-col="complete"><span class="col-label">Completeness (⋀S,⋁S)</span></th>
+            <th data-col="atomic"><span class="col-label">Atomicity</span></th>
+            <th data-col="poset"><span class="col-label">Partial order (≤)</span></th>
+            <th data-col="linear"><span class="col-label">Linearity (chain)</span></th>
+            <th data-col="lexamples" style="min-width:260px;text-align:left;padding-left:14px;vertical-align:middle;">Typical examples</th>
           </tr>
         </thead>
         <tbody id="tbody-lattice"></tbody>
@@ -539,15 +539,15 @@
 
 <footer class="legend">
   <div class="legend-left">
-    <div class="legend-item"><span class="ls-c">✓</span>&nbsp;— определяющее свойство</div>
-    <div class="legend-item"><span class="ls-fc">✓</span>&nbsp;— первое появление в иерархии</div>
-    <div class="legend-item"><span class="ls-d">✓</span>&nbsp;— выводится из других (при наведении — подсказка)</div>
-    <div class="legend-item"><span class="ls-x">✗</span>&nbsp;— несовместимо</div>
-    <div class="legend-item"><span class="ls-dash">—</span>&nbsp;— не требуется</div>
+    <div class="legend-item"><span class="ls-c">✓</span>&nbsp;— defining property</div>
+    <div class="legend-item"><span class="ls-fc">✓</span>&nbsp;— first appearance in the hierarchy</div>
+    <div class="legend-item"><span class="ls-d">✓</span>&nbsp;— derived from others (hover for hint)</div>
+    <div class="legend-item"><span class="ls-x">✗</span>&nbsp;— incompatible</div>
+    <div class="legend-item"><span class="ls-dash">—</span>&nbsp;— not required</div>
   </div>
   <div class="legend-right">
     v3.3 &nbsp;·&nbsp; © Nikolai Kazimirov &nbsp;·&nbsp; <a href="https://mathem.at" target="_blank">mathem.at</a>
-    &nbsp;·&nbsp; <a href="/Materials/algebra_structures_3_3_fixed_en.html">English version</a>
+    &nbsp;·&nbsp; <a href="/Materials/algebra_structures_3_3_fixed.html">Русская версия</a>
   </div>
 </footer>
 
@@ -573,60 +573,60 @@ function switchTab(tab) {
 var A_COLS = ['assoc','neutral','inverse','comm','addop','distr','nodiv','idem','mxinv','charpos','order','dense','discr'];
 
 var A = [
-  { section:'Полугруппы и группы', cls:'sg' },
-  { name:'Группоид (магма)',      def:'S \\text{ с операцией } {\\cdot}\\colon S\\times S\\to S',
+  { section:'Semigroups and groups', cls:'sg' },
+  { name:'Magma',                 def:'S \\text{ with a binary operation } {\\cdot}\\colon S\\times S\\to S',
     props:[N,N,N,N, N,N,N,N,N,N, N,N,N], tip:{}, examples:['(S,∘)'] },
-  { name:'Полугруппа',            def:'\\text{Группоид} + (a b)c = a(b c)',
+  { name:'Semigroup',             def:'\\text{Magma} + (a b)c = a(b c)',
     props:[C,N,N,N, N,N,N,N,N,N, N,N,N], tip:{}, examples:['(ℕ⁺,+)','(ℕ⁺,·)','(Σ*,·)'] },
-  { name:'Моноид',                def:'\\text{Полугруппа} + \\exists e\\colon ea=ae=a',
+  { name:'Monoid',                def:'\\text{Semigroup} + \\exists e\\colon ea=ae=a',
     props:[C,C,N,N, N,N,N,N,N,N, N,N,N], tip:{}, examples:['(ℕ,·)','End(X)'] },
-  { name:'Группа',                def:'\\text{Моноид} + \\forall a\\; \\exists a^{-1}',
+  { name:'Group',                 def:'\\text{Monoid} + \\forall a\\; \\exists a^{-1}',
     props:[C,C,C,N, N,N,N,N,N,N, N,N,N], tip:{}, examples:['GL(n,ℝ)','Sₙ','(ℤ,+)'] },
-  { name:'Абелева группа',        def:'\\text{Группа} + ab=ba',
+  { name:'Abelian group',         def:'\\text{Group} + ab=ba',
     props:[C,C,C,C, N,N,N,N,N,N, N,N,N], tip:{}, examples:['(ℤ,+)','(ℚ,+)','ℤ/nℤ'] },
 
-  { section:'Кольца', cls:'sr' },
-  { name:'Кольцо',                def:'\\text{Аб. гр. }(R,+) + \\text{ассоц.}\\cdot + \\text{дистр.}',
+  { section:'Rings', cls:'sr' },
+  { name:'Ring',                  def:'\\text{Abelian group }(R,+) + \\text{associative }\\cdot + \\text{distributivity}',
     props:[C,N,N,N, C,C,N,N,N,N, N,N,N], tip:{}, examples:['2ℤ','M(n,ℝ)'] },
-  { name:'Унитальное кольцо',     def:'\\text{Кольцо} + \\exists 1',
+  { name:'Ring with unity',       def:'\\text{Ring} + \\exists 1',
     props:[C,C,N,N, C,C,N,N,N,N, N,N,N], tip:{}, examples:['M(n,ℝ)','ℤ/nℤ','ℤ'] },
-  { name:'Коммут. унит. кольцо',  def:'\\text{Унит. кольцо} + ab=ba',
+  { name:'Commutative ring with unity', def:'\\text{Ring with unity} + ab=ba',
     props:[C,C,N,C, C,C,N,N,N,N, N,N,N], tip:{}, examples:['ℤ','ℤ[x]','ℝ[x]'] },
-  { name:'Булево кольцо',         def:'\\text{Ком. унит. кольцо} + a^2=a',
+  { name:'Boolean ring',          def:'\\text{Commutative ring with unity} + a^2=a',
     props:[C,C,N,C, C,C,N,C,N,D, X,X,X],
-    tip:{ charpos:'char=2 следует из a²=a' }, examples:['𝔽₂','𝒫(X) с Δ,∩'] },
-  { name:'Область целостности',   def:'\\text{Ком. унит. кольцо} + (ab=0\\Rightarrow a=0\\vee b=0)',
+    tip:{ charpos:'char=2 follows from a²=a' }, examples:['𝔽₂','𝒫(X) with Δ,∩'] },
+  { name:'Integral domain',       def:'\\text{Commutative ring with unity} + (ab=0\\Rightarrow a=0\\vee b=0)',
     props:[C,C,N,C, C,C,C,N,N,N, N,N,N], tip:{}, examples:['ℤ','ℤ[x]','K[x]'] },
-  { name:'Упорядоченное кольцо',  def:'\\text{Ком. унит. кольцо} + {\\leq}\\text{ согл. с }+,{\\cdot}',
+  { name:'Ordered ring',          def:'\\text{Commutative ring with unity} + {\\leq}\\text{ compatible with }+,{\\cdot}',
     props:[C,C,N,C, C,C,D,X,N,X, C,N,N],
-    tip:{ nodiv:'следует из согласованности порядка с ·' }, examples:['ℤ','ℚ','ℝ'] },
-  { name:'Плотно упоряд. кольцо', def:'\\text{Упор. кольцо} + \\forall a<b\\;\\exists c\\colon a<c<b',
+    tip:{ nodiv:'follows from order compatibility with ·' }, examples:['ℤ','ℚ','ℝ'] },
+  { name:'Densely ordered ring',  def:'\\text{Ordered ring} + \\forall a<b\\;\\exists c\\colon a<c<b',
     props:[C,C,N,C, C,C,D,X,N,X, C,C,X],
-    tip:{ nodiv:'следует из согласованности порядка с ·' }, examples:['ℚ','ℝ'] },
-  { name:'Дискретное кольцо',     def:'\\text{Упор. кольцо} + \\nexists x\\colon a<x<a{+}1',
+    tip:{ nodiv:'follows from order compatibility with ·' }, examples:['ℚ','ℝ'] },
+  { name:'Discrete ordered ring', def:'\\text{Ordered ring} + \\nexists x\\colon a<x<a{+}1',
     props:[C,C,N,C, C,C,D,X,N,X, C,X,C],
-    tip:{ nodiv:'следует из согласованности порядка с ·' }, examples:['ℤ'] },
+    tip:{ nodiv:'follows from order compatibility with ·' }, examples:['ℤ'] },
 
-  { section:'Поля', cls:'sf' },
-  { name:'Тело (скевфилд)',       def:'\\text{Унит. кольцо} + \\forall a\\neq0\\;\\exists a^{-1}',
+  { section:'Fields', cls:'sf' },
+  { name:'Division ring (skew field)', def:'\\text{Ring with unity} + \\forall a\\neq0\\;\\exists a^{-1}',
     props:[C,C,C,N, C,C,D,N,C,N, N,N,N],
-    tip:{ nodiv:'следует из обратимости ненулевых' }, examples:['ℍ'] },
-  { name:'Поле',                  def:'\\text{Тело} + ab=ba',
+    tip:{ nodiv:'follows from invertibility of nonzero elements' }, examples:['ℍ'] },
+  { name:'Field',                 def:'\\text{Division ring} + ab=ba',
     props:[C,C,C,C, C,C,D,N,C,N, N,N,N],
-    tip:{ nodiv:'следует из обратимости ненулевых' }, examples:['ℚ','ℝ','ℂ','K(x)'] },
-  { name:'Упорядоченное поле',    def:'\\text{Поле} + {\\leq}\\text{ согл. с }+,{\\cdot}',
+    tip:{ nodiv:'follows from invertibility of nonzero elements' }, examples:['ℚ','ℝ','ℂ','K(x)'] },
+  { name:'Ordered field',         def:'\\text{Field} + {\\leq}\\text{ compatible with }+,{\\cdot}',
     props:[C,C,C,C, C,C,D,X,C,X, C,N,X],
-    tip:{ nodiv:'следует из обратимости ненулевых' }, examples:['ℚ','ℝ'] },
-  { name:'Плотно упоряд. поле',   def:'\\text{Упор. поле} + \\forall a<b\\;\\exists c\\colon a<c<b',
+    tip:{ nodiv:'follows from invertibility of nonzero elements' }, examples:['ℚ','ℝ'] },
+  { name:'Densely ordered field', def:'\\text{Ordered field} + \\forall a<b\\;\\exists c\\colon a<c<b',
     props:[C,C,C,C, C,C,D,X,C,X, C,C,X],
-    tip:{ nodiv:'следует из обратимости ненулевых' }, examples:['ℚ','ℝ'] },
-  { name:'Конечное поле (Галуа)', def:'\\text{Поле} + |F|<\\infty',
+    tip:{ nodiv:'follows from invertibility of nonzero elements' }, examples:['ℚ','ℝ'] },
+  { name:'Finite field (Galois field)', def:'\\text{Field} + |F|<\\infty',
     props:[C,C,C,C, C,C,D,N,C,C, X,X,X],
-    tip:{ nodiv:'следует из обратимости ненулевых' }, examples:['GF(p)','GF(pⁿ)','ℤ/pℤ'] }
+    tip:{ nodiv:'follows from invertibility of nonzero elements' }, examples:['GF(p)','GF(pⁿ)','ℤ/pℤ'] }
 ];
 
 /* ══════════════════════════════════════════════
-   LATTICE DATA  — алгебраический подход
+   LATTICE DATA  — algebraic approach
    cols: lcomm(0) lassoc(1) lidem(2) absorb(3)
          modular(4) ldistr(5)
          bounded(6) compl(7) uniquecompl(8)
@@ -635,10 +635,10 @@ var A = [
 ══════════════════════════════════════════════ */
 var L_COLS = ['lcomm','lassoc','lidem','absorb','modular','ldistr','bounded','compl','uniquecompl','complete','atomic','poset','linear'];
 
-var dDistr = 'дистрибутивность ⟹ модулярность';
-var dOrdTip = 'a ≤ b ⟺ a∧b=a ⟺ a∨b=b  (теорема об эквивалентности определений)';
+var dDistr = 'distributivity ⟹ modularity';
+var dOrdTip = 'a ≤ b ⟺ a∧b=a ⟺ a∨b=b  (equivalence of definitions theorem)';
 
-// Все переносы строк — через \begin{array}{l}...\end{array}, без \\
+// Line breaks via \begin{array}{l}...\end{array}, not \\
 function def2(line1, line2) {
   return '\\begin{array}{l}' + line1 + '\\\\' + line2 + '\\end{array}';
 }
@@ -650,27 +650,27 @@ function def4(l1, l2, l3, l4) {
 }
 
 var L = [
-  /* ── Полурешётки ── */
-  { section:'Полурешётки', cls:'sl' },
+  /* ── Semilattices ── */
+  { section:'Semilattices', cls:'sl' },
   {
-    name:'Meet-полурешётка (по ∧)',
+    name:'Meet-semilattice (∧)',
     def: '(L,\\wedge):\\quad a\\wedge b=b\\wedge a,\\quad (a\\wedge b)\\wedge c=a\\wedge(b\\wedge c),\\quad a\\wedge a=a',
     props:[C,C,C,N, N,N, N,N,N, N,N, D,N],
     tip:{ poset: dOrdTip },
-    examples:['(𝒫(X),∩)','(ℕ⁺,НОД)']
+    examples:['(𝒫(X),∩)','(ℕ⁺, gcd)']
   },
   {
-    name:'Join-полурешётка (по ∨)',
+    name:'Join-semilattice (∨)',
     def: '(L,\\vee):\\quad a\\vee b=b\\vee a,\\quad (a\\vee b)\\vee c=a\\vee(b\\vee c),\\quad a\\vee a=a',
     props:[C,C,C,N, N,N, N,N,N, N,N, D,N],
     tip:{ poset: dOrdTip },
-    examples:['(𝒫(X),∪)','(ℕ⁺,НОК)']
+    examples:['(𝒫(X),∪)','(ℕ⁺, lcm)']
   },
 
-  /* ── Решётки ── */
-  { section:'Решётки', cls:'sl' },
+  /* ── Lattices ── */
+  { section:'Lattices', cls:'sl' },
   {
-    name:'Решётка',
+    name:'Lattice',
     def: def4(
       '(L,\\wedge,\\vee) +\\; a\\wedge b=b\\wedge a,\\; a\\vee b=b\\vee a',
       '\\phantom{(L,\\wedge,\\vee)} +\\; (a\\wedge b)\\wedge c=a\\wedge(b\\wedge c),\\; (a\\vee b)\\vee c=a\\vee(b\\vee c)',
@@ -679,13 +679,13 @@ var L = [
     ),
     props:[C,C,C,C, N,N, N,N,N, N,N, D,N],
     tip:{ poset: dOrdTip },
-    examples:['(𝒫(X),∩,∪)','(ℕ⁺,НОД,НОК)','Подпространства Vec']
+    examples:['(𝒫(X),∩,∪)','(ℕ⁺, gcd, lcm)','Subspaces of Vec']
   },
 
-  /* ── Упорядоченные решётки (сразу после базовой решётки) ── */
-  { section:'Порядок как производная структура', cls:'sc' },
+  /* ── Order-theoretic lattices ── */
+  { section:'Order as a derived structure', cls:'sc' },
   {
-    name:'Ч.у.м. (poset)',
+    name:'Partially ordered set (poset)',
     def: def3(
       '(P,{\\leq}):\\quad a\\leq a',
       '\\phantom{(P,{\\leq}):\\quad} a\\leq b\\leq a\\Rightarrow a=b',
@@ -696,144 +696,144 @@ var L = [
     examples:['(𝒫(X),⊆)','(ℕ⁺,|)','(ℝ,≤)']
   },
   {
-    name:'Решётка (порядковое определение)',
+    name:'Lattice (order-theoretic definition)',
     def: def2(
-      '\\text{Ч.у.м.} +\\; \\forall a,b\\;\\exists\\,\\inf\\{a,b\\}=a\\wedge b,\\;\\sup\\{a,b\\}=a\\vee b',
-      '\\Leftrightarrow\\text{ алгебр. определению через }\\; a{\\leq}b\\Leftrightarrow a{\\wedge}b{=}a'
+      '\\text{Poset} +\\; \\forall a,b\\;\\exists\\,\\inf\\{a,b\\}=a\\wedge b,\\;\\sup\\{a,b\\}=a\\vee b',
+      '\\Leftrightarrow\\text{ the algebraic definition via }\\; a{\\leq}b\\Leftrightarrow a{\\wedge}b{=}a'
     ),
     props:[D,D,D,D, N,N, N,N,N, N,N, C,N],
     tip:{ lcomm: dOrdTip, lassoc: dOrdTip, lidem: dOrdTip, absorb: dOrdTip },
-    examples:['≡ алгебраическому определению']
+    examples:['≡ algebraic definition']
   },
   {
-    name:'Цепь (линейно упорядоченная решётка)',
+    name:'Chain (linearly ordered lattice)',
     def: def2(
-      '\\text{Решётка} +\\; \\forall a,b\\colon a\\leq b\\;\\vee\\; b\\leq a',
+      '\\text{Lattice} +\\; \\forall a,b\\colon a\\leq b\\;\\vee\\; b\\leq a',
       '\\Rightarrow a\\wedge b=\\min(a,b),\\; a\\vee b=\\max(a,b)'
     ),
     props:[D,D,D,D, D,D, N,N,N, N,N, C,C],
     tip:{
       lcomm: dOrdTip, lassoc: dOrdTip, lidem: dOrdTip, absorb: dOrdTip,
-      modular: 'дистрибутивность ⟹ модулярность',
-      ldistr: 'a∧(b∨c) = min(a,max(b,c)) = max(min(a,b),min(a,c)) — прямая проверка'
+      modular: 'distributivity ⟹ modularity',
+      ldistr: 'a∧(b∨c) = min(a,max(b,c)) = max(min(a,b),min(a,c)) — direct verification'
     },
     examples:['(ℝ,≤)','(ℚ,≤)','(ℤ,≤)']
   },
 
-  /* ── Модулярные и дистрибутивные ── */
-  { section:'Модулярные и дистрибутивные решётки', cls:'sl' },
+  /* ── Modular and distributive ── */
+  { section:'Modular and distributive lattices', cls:'sl' },
   {
-    name:'Модулярная решётка',
+    name:'Modular lattice',
     def: def2(
-      '\\text{Решётка} +\\; a\\vee(b\\wedge(a\\vee c))=(a\\vee b)\\wedge(a\\vee c)',
-      '\\text{(эквив.: } a\\leq c\\Rightarrow a\\vee(b\\wedge c)=(a\\vee b)\\wedge c\\text{)}'
+      '\\text{Lattice} +\\; a\\vee(b\\wedge(a\\vee c))=(a\\vee b)\\wedge(a\\vee c)',
+      '\\text{(equiv.: } a\\leq c\\Rightarrow a\\vee(b\\wedge c)=(a\\vee b)\\wedge c\\text{)}'
     ),
     props:[C,C,C,C, C,N, N,N,N, N,N, D,N],
     tip:{ poset: dOrdTip },
-    examples:['Подгруппы группы (т. Дедекинда)','Подмодули','Подпростр. Vec']
+    examples:['Subgroups of a group (Dedekind\'s theorem)','Submodules','Subspaces of Vec']
   },
   {
-    name:'Дистрибутивная решётка',
+    name:'Distributive lattice',
     def: def2(
-      '\\text{Решётка} +\\; a\\wedge(b\\vee c)=(a\\wedge b)\\vee(a\\wedge c)',
-      '\\text{(эквив.: }a\\vee(b\\wedge c)=(a\\vee b)\\wedge(a\\vee c)\\text{)}'
+      '\\text{Lattice} +\\; a\\wedge(b\\vee c)=(a\\wedge b)\\vee(a\\wedge c)',
+      '\\text{(equiv.: }a\\vee(b\\wedge c)=(a\\vee b)\\wedge(a\\vee c)\\text{)}'
     ),
     props:[C,C,C,C, D,C, N,N,N, N,N, D,N],
     tip:{ modular: dDistr, poset: dOrdTip },
-    examples:['(𝒫(X),∩,∪)','(ℕ⁺,НОД,НОК)','(ℝ,min,max)']
+    examples:['(𝒫(X),∩,∪)','(ℕ⁺, gcd, lcm)','(ℝ,min,max)']
   },
 
-  /* ── Ограниченные и дополненные ── */
-  { section:'Ограниченные и дополненные решётки', cls:'sb' },
+  /* ── Bounded and complemented ── */
+  { section:'Bounded and complemented lattices', cls:'sb' },
   {
-    name:'Ограниченная решётка',
-    def: '\\text{Решётка} +\\; \\exists\\,0,1\\colon\\; 0\\wedge a=0,\\; 1\\vee a=1\\quad\\forall a\\in L',
+    name:'Bounded lattice',
+    def: '\\text{Lattice} +\\; \\exists\\,0,1\\colon\\; 0\\wedge a=0,\\; 1\\vee a=1\\quad\\forall a\\in L',
     props:[C,C,C,C, N,N, C,N,N, N,N, D,N],
     tip:{ poset: dOrdTip },
-    examples:['[0,1]⊆ℝ','𝒫(X)','Конечные решётки']
+    examples:['[0,1]⊆ℝ','𝒫(X)','Finite lattices']
   },
   {
-    name:'Дополненная решётка',
-    def: '\\text{Огр. решётка} +\\; \\forall a\\;\\exists a\'\\colon\\; a\\wedge a\'=0,\\; a\\vee a\'=1',
+    name:'Complemented lattice',
+    def: '\\text{Bounded lattice} +\\; \\forall a\\;\\exists a\'\\colon\\; a\\wedge a\'=0,\\; a\\vee a\'=1',
     props:[C,C,C,C, N,N, C,C,N, N,N, D,N],
     tip:{ poset: dOrdTip },
-    examples:['𝒫(X)','Некот. решётки подпространств']
+    examples:['𝒫(X)','Some lattices of subspaces']
   },
   {
-    name:'Ортомодулярная решётка (OML)',
+    name:'Orthomodular lattice (OML)',
     def: def2(
-      '\\text{Дополн. решётка} +\\; \\text{модулярность}',
-      '+\\; a\\vee(a\'\\wedge(a\\vee b))=a\\vee b\\quad\\text{(ортомодул. тождество)}'
+      '\\text{Complemented lattice} +\\; \\text{modularity}',
+      '+\\; a\\vee(a\'\\wedge(a\\vee b))=a\\vee b\\quad\\text{(orthomodular identity)}'
     ),
     props:[C,C,C,C, C,N, C,C,N, N,N, D,N],
     tip:{ poset: dOrdTip },
-    examples:['Замкн. подпростр. гильберт. пр-ва','Квантовая логика']
+    examples:['Closed subspaces of a Hilbert space','Quantum logic']
   },
   {
-    name:'Булева алгебра',
+    name:'Boolean algebra',
     def: def2(
-      '\\text{Дополн. решётка} +\\; a\\wedge(b\\vee c)=(a\\wedge b)\\vee(a\\wedge c)',
-      '\\Rightarrow a\'\\text{ единственно (следует из дистрибутивности)}'
+      '\\text{Complemented lattice} +\\; a\\wedge(b\\vee c)=(a\\wedge b)\\vee(a\\wedge c)',
+      '\\Rightarrow a\'\\text{ is unique (follows from distributivity)}'
     ),
     props:[C,C,C,C, D,C, C,C,D, N,N, D,N],
     tip:{
       modular: dDistr,
-      uniquecompl: 'a∧x=0 и a∨x=1 ⟹ x=a′ единственно — из дистрибутивности',
+      uniquecompl: 'a∧x=0 and a∨x=1 ⟹ x=a′ is unique — from distributivity',
       poset: dOrdTip
     },
-    examples:['𝒫(X)','𝔽₂ⁿ','Алгебра Линденбаума']
+    examples:['𝒫(X)','𝔽₂ⁿ','Lindenbaum algebra']
   },
   {
-    name:'Атомная булева алгебра',
+    name:'Atomic Boolean algebra',
     def: def2(
-      '\\text{Булева алгебра} +\\; \\forall a>0\\;\\exists p\\leq a\\colon p\\text{ — атом}',
-      '\\text{(атом: }p>0\\text{ и }\\nexists x\\colon 0<x<p\\text{)}'
+      '\\text{Boolean algebra} +\\; \\forall a>0\\;\\exists p\\leq a\\colon p\\text{ is an atom}',
+      '\\text{(atom: }p>0\\text{ and }\\nexists x\\colon 0<x<p\\text{)}'
     ),
     props:[C,C,C,C, D,C, C,C,D, N,C, D,N],
     tip:{
       modular: dDistr,
-      uniquecompl: 'следует из дистрибутивности',
+      uniquecompl: 'follows from distributivity',
       poset: dOrdTip
     },
-    examples:['𝒫(X) при конечном X','Конечные булевы алгебры']
+    examples:['𝒫(X) for finite X','Finite Boolean algebras']
   },
 
-  /* ── Полные решётки ── */
-  { section:'Полные решётки', cls:'sl' },
+  /* ── Complete lattices ── */
+  { section:'Complete lattices', cls:'sl' },
   {
-    name:'Полная решётка',
+    name:'Complete lattice',
     def: def2(
-      '\\text{Решётка} +\\; \\forall S\\subseteq L\\;\\exists\\,\\bigwedge S,\\;\\bigvee S',
-      '\\Rightarrow 0=\\bigwedge L,\\; 1=\\bigvee L\\text{ (следуют из полноты)}'
+      '\\text{Lattice} +\\; \\forall S\\subseteq L\\;\\exists\\,\\bigwedge S,\\;\\bigvee S',
+      '\\Rightarrow 0=\\bigwedge L,\\; 1=\\bigvee L\\text{ (follow from completeness)}'
     ),
     props:[C,C,C,C, N,N, D,N,N, C,N, D,N],
-    tip:{ bounded: '0=⋀L, 1=⋁L следуют из полноты', poset: dOrdTip },
-    examples:['𝒫(X)','[0,1]','Замкн. мн-ва топол. пр-ва']
+    tip:{ bounded: '0=⋀L, 1=⋁L follow from completeness', poset: dOrdTip },
+    examples:['𝒫(X)','[0,1]','Closed subsets of a topological space']
   },
   {
-    name:'Полная дистрибутивная решётка',
+    name:'Complete distributive lattice',
     def: def2(
-      '\\text{Полная решётка} +\\; a\\wedge\\bigvee_{s\\in S} s = \\bigvee_{s\\in S}(a\\wedge s)',
-      '\\text{(бесконечная дистрибутивность)}'
+      '\\text{Complete lattice} +\\; a\\wedge\\bigvee_{s\\in S} s = \\bigvee_{s\\in S}(a\\wedge s)',
+      '\\text{(infinite distributivity)}'
     ),
     props:[C,C,C,C, D,C, D,N,N, C,N, D,N],
-    tip:{ modular: dDistr, bounded: '0=⋀L, 1=⋁L следуют из полноты', poset: dOrdTip },
-    examples:['𝒫(X)','Фреймы топологий','Топос Ω']
+    tip:{ modular: dDistr, bounded: '0=⋀L, 1=⋁L follow from completeness', poset: dOrdTip },
+    examples:['𝒫(X)','Frames of topologies','Topos Ω']
   },
   {
-    name:'Полная булева алгебра',
+    name:'Complete Boolean algebra',
     def: def2(
-      '\\text{Полная решётка} + \\text{булева алгебра}',
-      '\\text{(дополнение + дистрибутивность + полнота)}'
+      '\\text{Complete lattice} + \\text{Boolean algebra}',
+      '\\text{(complementation + distributivity + completeness)}'
     ),
     props:[C,C,C,C, D,C, D,C,D, C,N, D,N],
     tip:{
       modular: dDistr,
-      bounded: '0=⋀L, 1=⋁L следуют из полноты',
-      uniquecompl: 'следует из дистрибутивности',
+      bounded: '0=⋀L, 1=⋁L follow from completeness',
+      uniquecompl: 'follows from distributivity',
       poset: dOrdTip
     },
-    examples:['𝒫(X)','Алгебра Линденбаума-Тарского','σ-алгебра mod нулевые мн-ва']
+    examples:['𝒫(X)','Lindenbaum–Tarski algebra','σ-algebra mod null sets']
   }
 ];
 
@@ -937,7 +937,7 @@ function renderCells(tr, s, cols, active, first, idx) {
       if (first[col]===idx) td.classList.add('first-check');
       td.innerHTML='<span class="check-icon">&#10003;</span>';
     } else if (val===D) {
-      var tip=(s.tip&&s.tip[col])?s.tip[col]:'выводится из других свойств';
+      var tip=(s.tip&&s.tip[col])?s.tip[col]:'follows from other properties';
       td.innerHTML='<span class="derived-icon" data-tip="'+tip+'">&#10003;</span>';
     } else if (val===X) {
       td.classList.add('incompat');

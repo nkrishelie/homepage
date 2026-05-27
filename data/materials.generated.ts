@@ -42,6 +42,13 @@ export const MATERIAL_CATEGORY_ORDER: readonly string[] = ["analysis","algebra",
 
 export const MATERIALS_ITEMS: MaterialItem[] = [
   {
+    "filename": "algebra_structures_3_3_fixed_en.html",
+    "href": "/Materials/algebra_structures_3_3_fixed_en.html",
+    "title": "Algebraic Structures · Lattice Theory",
+    "category": "algebra",
+    "lang": "en"
+  },
+  {
     "filename": "algebra_structures_3_3_fixed.html",
     "href": "/Materials/algebra_structures_3_3_fixed.html",
     "title": "Алгебраические структуры · Теория решёток",
