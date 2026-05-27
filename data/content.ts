@@ -94,7 +94,7 @@ export const content: SiteContent = {
       role: "Автор",
       year: "Under Review",
       description: "Архитектура математической мысли. Фундаментальное исследование математики как языковой системы: от синтаксиса формул до семантики формальных теорий. Выход книги ожидается в конце лета 2026 года.",
-      coverImage: "/Springer_cover.png",
+      coverImage: "/Springer_cover.webp",
       link: "https://link.springer.com/book/9783032307200",
       type: "Монография"
     },
