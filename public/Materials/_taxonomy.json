@@ -33,12 +33,14 @@
     "math_analysis_levels.html": "analysis",
     "algebra_structures_3_3_fixed.html": "algebra",
     "algebra_structures_3_3_fixed_en.html": "algebra",
+    "math_structures.html": "algebra",
     "test1.html": "sets",
     "diagonal.html": "foundations",
     "second_order_arithmetic.html": "foundations",
     "second_order_arithmetic_en.html": "foundations"
   },
   "fileLanguage": {
-    "diagonal.html": "ru"
+    "diagonal.html": "ru",
+    "math_structures.html": "ru"
   }
 }

@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Как конструируются математические структуры</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --bg: #f8f7f4;
+    --surface: #ffffff;
+    --border: #ddd8ce;
+    --text: #1a1a1a;
+    --text-muted: #5a5550;
+    --accent-blue: #1a3a6b;
+    --accent-teal: #006b6b;
+    --accent-red: #8a1500;
+    --accent-green: #2d6a2d;
+    --accent-violet: #4a0070;
+    --accent-amber: #7a4800;
+
+    --layer-set-bg: #eef3fc;
+    --layer-set-border: #3a6abf;
+    --layer-alg-bg: #fffbe8;
+    --layer-alg-border: #c48a00;
+    --layer-top-bg: #fff3e8;
+    --layer-top-border: #c46000;
+    --layer-met-bg: #feeef0;
+    --layer-met-border: #b02030;
+
+    --font-body: 'Georgia', 'Times New Roman', serif;
+    --font-code: 'Courier New', monospace;
+    --font-ui: system-ui, -apple-system, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--accent-blue);
+    color: #e8ecf5;
+    padding: 3rem 2rem 2.5rem;
+    text-align: center;
+    border-bottom: 4px solid #c8a84b;
+  }
+  header h1 {
+    font-family: var(--font-ui);
+    font-size: 1.9rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: .5rem;
+  }
+  header p.subtitle {
+    font-size: .95rem;
+    opacity: .75;
+    font-style: italic;
+    font-family: var(--font-body);
+  }
+  .section-label {
+    display: inline-block;
+    background: rgba(200,168,75,.2);
+    border: 1px solid #c8a84b;
+    color: #c8a84b;
+    font-size: .75rem;
+    font-family: var(--font-ui);
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: .2em .7em;
+    border-radius: 3px;
+    margin-bottom: 1rem;
+  }
+
+  /* ── LAYOUT ── */
+  main {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+  }
+
+  section.block {
+    margin-bottom: 3.5rem;
+  }
+
+  h2.section-title {
+    font-family: var(--font-ui);
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--accent-blue);
+    border-bottom: 2px solid var(--accent-blue);
+    padding-bottom: .4rem;
+    margin-bottom: 1.4rem;
+    display: flex;
+    align-items: baseline;
+    gap: .6rem;
+  }
+  h2.section-title .num {
+    font-size: .95rem;
+    color: #c8a84b;
+    font-weight: 600;
+  }
+
+  h3.sub-title {
+    font-family: var(--font-ui);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--accent-teal);
+    margin: 1.6rem 0 .7rem;
+  }
+
+  p { margin-bottom: .8rem; }
+
+  /* ── DEFINITION BOX ── */
+  .def-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent-teal);
+    border-radius: 4px;
+    padding: 1.1rem 1.3rem;
+    margin: 1.2rem 0;
+  }
+  .def-box .def-head {
+    font-family: var(--font-ui);
+    font-size: .8rem;
+    font-weight: 700;
+    color: var(--accent-teal);
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    margin-bottom: .55rem;
+  }
+
+  /* ── CONSTRUCTION CARDS ── */
+  .constructions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 1rem;
+    margin-top: 1.2rem;
+  }
+  .constr-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem 1.1rem;
+    border-top: 3px solid var(--accent-blue);
+  }
+  .constr-card h4 {
+    font-family: var(--font-ui);
+    font-size: .88rem;
+    font-weight: 700;
+    color: var(--accent-blue);
+    margin-bottom: .5rem;
+  }
+  .constr-card .prop-tag {
+    display: inline-block;
+    background: #eef3fc;
+    color: var(--accent-blue);
+    font-size: .72rem;
+    font-family: var(--font-ui);
+    font-weight: 600;
+    padding: .15em .55em;
+    border-radius: 3px;
+    margin-bottom: .5rem;
+  }
+  .constr-card p { font-size: .9rem; margin-bottom: .4rem; }
+  .constr-card .example-note {
+    font-size: .82rem;
+    color: var(--text-muted);
+    font-style: italic;
+    border-top: 1px dashed var(--border);
+    padding-top: .45rem;
+    margin-top: .45rem;
+  }
+
+  /* ── RELATIONS TABLE ── */
+  .rel-table-wrap {
+    overflow-x: auto;
+    margin: 1.2rem 0;
+  }
+  .rel-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .88rem;
+  }
+  .rel-table th {
+    background: var(--accent-blue);
+    color: #e8ecf5;
+    font-family: var(--font-ui);
+    font-weight: 600;
+    font-size: .78rem;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    padding: .55rem .8rem;
+    text-align: left;
+  }
+  .rel-table td {
+    padding: .5rem .8rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .rel-table tr:nth-child(even) td { background: #f4f2ee; }
+  .rel-table td:first-child {
+    font-family: var(--font-ui);
+    font-weight: 600;
+    color: var(--accent-blue);
+    white-space: nowrap;
+  }
+  .rel-table td.formula {
+    white-space: nowrap;
+    color: var(--accent-red);
+    font-size: .85rem;
+  }
+
+  /* ── STACK DIAGRAM ── */
+  .stack-diagram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    margin: 1.8rem auto;
+    max-width: 640px;
+  }
+  .stack-layer {
+    width: 100%;
+    border-radius: 6px;
+    padding: 1rem 1.4rem;
+    position: relative;
+    transition: transform .15s, box-shadow .15s;
+    cursor: default;
+  }
+  .stack-layer:hover {
+    transform: translateX(4px);
+    box-shadow: -4px 0 0 0 currentColor;
+  }
+  .stack-arrow {
+    font-size: 1.4rem;
+    color: #888;
+    line-height: 1;
+    user-select: none;
+    margin: 2px 0;
+  }
+  .stack-layer h4 {
+    font-family: var(--font-ui);
+    font-size: .92rem;
+    font-weight: 700;
+    margin-bottom: .3rem;
+  }
+  .stack-layer p { font-size: .84rem; margin-bottom: 0; }
+
+  .sl-domain  { background: var(--layer-set-bg); border: 2px solid var(--layer-set-border); color: var(--layer-set-border); }
+  .sl-algebra { background: var(--layer-alg-bg); border: 2px solid var(--layer-alg-border); color: var(--layer-alg-border); }
+  .sl-topo    { background: var(--layer-top-bg); border: 2px solid var(--layer-top-border); color: var(--layer-top-border); }
+  .sl-metric  { background: var(--layer-met-bg); border: 2px solid var(--layer-met-border); color: var(--layer-met-border); }
+
+  /* ── LAYERS TABLE ── */
+  .layers-table-wrap {
+    overflow-x: auto;
+    margin: 1.4rem 0;
+  }
+  .layers-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: .88rem;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+  }
+  .layers-table thead tr th {
+    padding: .65rem .9rem;
+    font-family: var(--font-ui);
+    font-size: .76rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    text-align: left;
+    color: #fff;
+  }
+  .layers-table thead th:nth-child(1) { background: #2a4a8a; }
+  .layers-table thead th:nth-child(2) { background: #2a5a8a; }
+  .layers-table thead th:nth-child(3) { background: #1a4a7a; }
+  .layers-table thead th:nth-child(4) { background: #2a4a8a; }
+  .layers-table tbody tr td {
+    padding: .75rem .9rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .layers-table tbody tr:last-child td { border-bottom: none; }
+
+  /* Row accent colors per layer */
+  .row-domain  td:first-child { border-left: 4px solid var(--layer-set-border); }
+  .row-algebra td:first-child { border-left: 4px solid var(--layer-alg-border); }
+  .row-topo    td:first-child { border-left: 4px solid var(--layer-top-border); }
+  .row-metric  td:first-child { border-left: 4px solid var(--layer-met-border); }
+
+  .row-domain  { background: #f5f8ff; }
+  .row-algebra { background: #fffdf0; }
+  .row-topo    { background: #fff9f5; }
+  .row-metric  { background: #fff5f6; }
+
+  .layers-table td:first-child {
+    font-family: var(--font-ui);
+    font-weight: 700;
+    font-size: .85rem;
+    white-space: nowrap;
+  }
+  .tag {
+    display: inline-block;
+    font-family: var(--font-ui);
+    font-size: .7rem;
+    font-weight: 600;
+    padding: .1em .5em;
+    border-radius: 3px;
+    margin-bottom: .3rem;
+  }
+  .tag-set    { background: #dce8ff; color: #1a3a8a; }
+  .tag-alg    { background: #fff3cc; color: #7a5000; }
+  .tag-top    { background: #ffe8d5; color: #8a4000; }
+  .tag-met    { background: #ffdde0; color: #8a1520; }
+
+  .pill-list { list-style: none; padding: 0; margin: 0; }
+  .pill-list li {
+    display: inline-block;
+    background: rgba(0,0,0,.05);
+    border: 1px solid rgba(0,0,0,.1);
+    border-radius: 12px;
+    font-size: .78rem;
+    font-family: var(--font-ui);
+    padding: .15em .65em;
+    margin: .15em .15em .15em 0;
+  }
+
+  /* ── EXAMPLE BOX ── */
+  .example-box {
+    background: #f0f8f0;
+    border: 1px solid #8abf8a;
+    border-left: 4px solid var(--accent-green);
+    border-radius: 4px;
+    padding: 1rem 1.3rem;
+    margin: 1.2rem 0;
+  }
+  .example-box .ex-head {
+    font-family: var(--font-ui);
+    font-size: .78rem;
+    font-weight: 700;
+    color: var(--accent-green);
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    margin-bottom: .5rem;
+  }
+  .example-box p { font-size: .9rem; }
+
+  /* ── REMARK BOX ── */
+  .remark-box {
+    background: #f8f5ff;
+    border: 1px solid #c0a0e0;
+    border-left: 4px solid var(--accent-violet);
+    border-radius: 4px;
+    padding: .9rem 1.2rem;
+    margin: 1.2rem 0;
+  }
+  .remark-box .rem-head {
+    font-family: var(--font-ui);
+    font-size: .78rem;
+    font-weight: 700;
+    color: var(--accent-violet);
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    margin-bottom: .5rem;
+  }
+  .remark-box p { font-size: .88rem; font-style: italic; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .constructions-grid { grid-template-columns: 1fr; }
+    header h1 { font-size: 1.45rem; }
+    .layers-table { font-size: .8rem; }
+    .layers-table thead tr th { font-size: .68rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="section-label">Математические структуры</div>
+  <h1>Как конструируются математические структуры</h1>
+  <p class="subtitle">От голого множества к аналитической структуре: домен, алгебра, топология, метрика</p>
+</header>
+
+<main>
+
+<!-- ══════════════════════════════════════════════
+     1. БАЗОВЫЕ КОНСТРУКЦИИ
+     ══════════════════════════════════════════════ -->
+<section class="block" id="base">
+  <h2 class="section-title"><span class="num">§1</span> Базовые теоретико-множественные конструкции</h2>
+
+  <p>Все математические структуры строятся из нескольких фундаментальных кирпичиков теории множеств. Перечислим их справочно.</p>
+
+  <div class="constructions-grid">
+
+    <div class="constr-card">
+      <h4>Упорядоченная пара</h4>
+      <span class="prop-tag">Ключевое свойство</span>
+      <p>\(\langle x, y \rangle \stackrel{\rm def}{=} \{\{x\},\{x,y\}\}\)</p>
+      <p style="font-size:.85rem">Главное свойство: \(\langle a,b\rangle = \langle c,d\rangle \Leftrightarrow a=c \wedge b=d\)</p>
+      <p class="example-note">Основа для декартовых произведений и всех отношений</p>
+    </div>
+
+    <div class="constr-card">
+      <h4>Декартово произведение</h4>
+      <span class="prop-tag">Конструкция</span>
+      <p>\(A \times B \stackrel{\rm def}{=} \{\langle x,y\rangle \mid x\in A,\; y\in B\}\)</p>
+      <p style="font-size:.85rem">\(n\)-арное: \(A_1 \times \cdots \times A_n\); однородное \(A^n\)</p>
+      <p class="example-note">Строит «координатные» пространства, графики функций</p>
+    </div>
+
+    <div class="constr-card">
+      <h4>Функция</h4>
+      <span class="prop-tag">Отображение</span>
+      <p>Всюду определённое однозначное отношение \(f \subseteq A\times B\)</p>
+      <p style="font-size:.85rem"><strong>Биекция</strong> = инъекция + сюръекция</p>
+      <p class="example-note">Образ \(f[X]\), прообраз \(f^{-1}[Y]\), композиция \(g\circ f\)</p>
+    </div>
+
+    <div class="constr-card">
+      <h4>Отношение эквивалентности</h4>
+      <span class="prop-tag">Разбиение</span>
+      <p>Рефлексивное + симметричное + транзитивное</p>
+      <p style="font-size:.85rem">Класс: \([x]_{\sim} = \{y\in X \mid x\sim y\}\)</p>
+      <p>Фактор-множество: \(X/{\sim} = \{[x]_\sim \mid x\in X\}\)</p>
+      <p class="example-note">Строит \(\mathbb{Z}, \mathbb{Q}, \mathbb{R}\) через классы эквивалентности</p>
+    </div>
+
+    <div class="constr-card">
+      <h4>Звезда Клини</h4>
+      <span class="prop-tag">Бесконечное объединение</span>
+      <p>\(X^* = \bigcup_{n=0}^{\infty} X^n = X^0 \cup X \cup X^2 \cup \cdots\)</p>
+      <p style="font-size:.85rem">Множество всех конечных слов над алфавитом \(X\)</p>
+      <p class="example-note">Тексты: \(\Sigma^*\); многочлены: \(K[x]\) на носителе \(K^*\)</p>
+    </div>
+
+    <div class="constr-card">
+      <h4>Порядки</h4>
+      <span class="prop-tag">Иерархия</span>
+      <p style="font-size:.85rem">
+        <strong>Предпорядок:</strong> рефл. + транз.<br>
+        <strong>Частичный порядок:</strong> антисимм. предпорядок<br>
+        <strong>Линейный порядок:</strong> связный ч.п.<br>
+        <strong>Вполне упорядоченное:</strong> \(\forall X\neq\emptyset\;\exists\text{min}\)
+      </p>
+      <p class="example-note">Ординалы: \(\omega, \omega^2, \varepsilon_0,\ldots\)</p>
+    </div>
+
+  </div><!-- /.constructions-grid -->
+
+  <h3 class="sub-title">Свойства бинарных отношений</h3>
+  <div class="rel-table-wrap">
+    <table class="rel-table">
+      <thead>
+        <tr>
+          <th>Свойство</th>
+          <th>Формула</th>
+          <th>Пример</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Рефлексивность</td>
+          <td class="formula">\(\forall x:\; xRx\)</td>
+          <td>\(\leq\) на \(\mathbb{R}\)</td>
+        </tr>
+        <tr>
+          <td>Симметричность</td>
+          <td class="formula">\(xRy \to yRx\)</td>
+          <td>\(=\), \(\sim\)</td>
+        </tr>
+        <tr>
+          <td>Транзитивность</td>
+          <td class="formula">\(xRy \wedge yRz \to xRz\)</td>
+          <td>\(<\), делимость</td>
+        </tr>
+        <tr>
+          <td>Антисимметричность</td>
+          <td class="formula">\(xRy \wedge yRx \to x=y\)</td>
+          <td>\(\subseteq\) на \(\mathcal{P}(X)\)</td>
+        </tr>
+        <tr>
+          <td>Связность</td>
+          <td class="formula">\(\forall x,y:\; xRy \vee yRx \vee x=y\)</td>
+          <td>\(\leq\) на \(\mathbb{Z}\)</td>
+        </tr>
+        <tr>
+          <td>Однозначность</td>
+          <td class="formula">\(xRy \wedge xRz \to y=z\)</td>
+          <td>Функция \(f\)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════════
+     2. АНАЛИТИЧЕСКАЯ СТРУКТУРА — СТЕК
+     ══════════════════════════════════════════════ -->
+<section class="block" id="analytic">
+  <h2 class="section-title"><span class="num">§2</span> Аналитическая структура</h2>
+
+  <p>Само по себе множество (носитель) аморфно. Чтобы превратить его в математическое пространство, на него <em>навешивается структура</em> — слоями, снизу вверх.</p>
+
+  <div class="def-box">
+    <div class="def-head">Определение — Аналитическая структура</div>
+    <p>Аналитическая структура — это кортеж
+    \[\mathcal{M} = \langle M,\; \Sigma,\; \mathcal{T},\; \Phi \rangle,\]
+    где \(M\) — <strong>домен</strong> (носитель), \(\Sigma\) — <strong>алгебраическая сигнатура</strong>, \(\mathcal{T}\) — <strong>топологический слой</strong> (системы подмножеств), \(\Phi\) — <strong>метрический слой</strong> (функционалы в числовое поле).</p>
+  </div>
+
+  <div class="stack-diagram" role="img" aria-label="Диаграмма слоёв структуры снизу вверх">
+
+    <div class="stack-layer sl-domain">
+      <h4>0. Домен \(M\)</h4>
+      <p>Исходное множество — носитель структуры. Сам по себе аморфен.</p>
+    </div>
+
+    <div class="stack-arrow">↑</div>
+
+    <div class="stack-layer sl-algebra">
+      <h4>1. Алгебраический слой \(\Sigma\)</h4>
+      <p>Внутренние операции \(f:M^n\to M\), внешние операции \(R\times M\to M\), отношения \(P\subseteq M^n\), константы.</p>
+    </div>
+
+    <div class="stack-arrow">↑</div>
+
+    <div class="stack-layer sl-topo">
+      <h4>2. Топологический слой \(\mathcal{T}\)</h4>
+      <p>Системы подмножеств \(\mathcal{T}\subseteq\mathcal{P}(M)\): топология \(\tau\), \(\sigma\)-алгебра, фильтры.</p>
+    </div>
+
+    <div class="stack-arrow">↑</div>
+
+    <div class="stack-layer sl-metric">
+      <h4>3. Метрический слой \(\Phi\)</h4>
+      <p>Функционалы \(F:X\to\mathbb{K}\) (\(\mathbb{R}\) или \(\mathbb{C}\)): метрика, норма, мера, скалярное произведение.</p>
+    </div>
+
+  </div><!-- /.stack-diagram -->
+
+  <div class="example-box">
+    <div class="ex-head">Пример — Евклидово пространство \(\mathbb{R}^3\)</div>
+    <p><strong>Как алгебраическая структура:</strong> векторное пространство \(\langle\mathbb{R}^3,+,\cdot\rangle\). Есть только векторы и операции над ними — ни близости, ни длины.</p>
+    <p><strong>Как аналитическая структура:</strong> банахово пространство \(\langle\mathbb{R}^3,+,\cdot,\|\cdot\|\rangle\). Добавление нормы порождает метрику, а с ней — непрерывность, дифференцируемость, интегрируемость.</p>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════════
+     3. ТАБЛИЦА СЛОЁВ
+     ══════════════════════════════════════════════ -->
+<section class="block" id="layers-table">
+  <h2 class="section-title"><span class="num">§3</span> Аналитические слои: сравнительная таблица</h2>
+
+  <p>Каждый слой добавляет новую «семантику» поверх предыдущих. Таблица показывает тип объекта, ключевые свойства и характерные примеры.</p>
+
+  <div class="layers-table-wrap">
+    <table class="layers-table">
+      <thead>
+        <tr>
+          <th>Слой</th>
+          <th>Тип объекта</th>
+          <th>Ключевые свойства / понятия</th>
+          <th>Характерные примеры</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- DOMAIN -->
+        <tr class="row-domain">
+          <td>
+            <span class="tag tag-set">Множественный</span><br>
+            Домен \(M\)
+          </td>
+          <td>Просто множество — носитель</td>
+          <td>
+            <ul class="pill-list">
+              <li>Элементы</li>
+              <li>Равенство \(=\)</li>
+              <li>Вхождение \(\in\)</li>
+              <li>Подмножества</li>
+              <li>Мощность \(|M|\)</li>
+            </ul>
+            <p style="margin-top:.5rem;font-size:.82rem">Само по себе аморфно: нет операций, нет близости, нет измерений.</p>
+          </td>
+          <td>
+            \(\mathbb{R}\), \(\mathbb{Z}\), \(\{0,1\}^\omega\),<br>
+            \(\mathcal{P}(X)\),<br>
+            Слова \(\Sigma^*\)
+          </td>
+        </tr>
+
+        <!-- ALGEBRA -->
+        <tr class="row-algebra">
+          <td>
+            <span class="tag tag-alg">Алгебраический</span><br>
+            Сигнатура \(\Sigma\)
+          </td>
+          <td>
+            <strong>Внутренние операции:</strong> \(f: M^n \to M\)<br><br>
+            <strong>Внешние операции:</strong> \(R\times M\to M\)<br><br>
+            <strong>Отношения:</strong> \(P\subseteq M^n\)<br><br>
+            <strong>Константы:</strong> \(c\in M\)
+          </td>
+          <td>
+            <ul class="pill-list">
+              <li>Замкнутость</li>
+              <li>Ассоциативность</li>
+              <li>Коммутативность</li>
+              <li>Дистрибутивность</li>
+              <li>Нейтральный элемент</li>
+              <li>Обратный элемент</li>
+              <li>Порядок \(\leq\)</li>
+            </ul>
+            <p style="margin-top:.5rem;font-size:.82rem">Динамика: элементы порождают новые элементы того же домена. Внешние операции связывают структуру с числовой «шкалой».</p>
+          </td>
+          <td>
+            <strong>Группа:</strong> \((G,\cdot)\)<br>
+            <strong>Кольцо:</strong> \((\mathbb{Z},+,\cdot)\)<br>
+            <strong>Вект. пространство:</strong> \((V,+,\cdot_\mathbb{R})\)<br>
+            <strong>Решётка:</strong> \((\mathcal{P}(X),\cup,\cap)\)<br>
+            <strong>Алгебра Линд.–Тарск.:</strong> \((\mathcal{B}/{\sim},\wedge,\vee,\neg)\)
+          </td>
+        </tr>
+
+        <!-- TOPOLOGY -->
+        <tr class="row-topo">
+          <td>
+            <span class="tag tag-top">Топологический</span><br>
+            \(\mathcal{T}\subseteq\mathcal{P}(M)\)
+          </td>
+          <td>
+            <strong>Топология \(\tau\):</strong> откр. мн-ва<br><br>
+            <strong>\(\sigma\)-алгебра:</strong> измер. мн-ва<br><br>
+            <strong>Фильтр \(\mathcal{F}\):</strong> «большинство»<br><br>
+            <strong>Ультрафильтр:</strong> факторизация
+          </td>
+          <td>
+            <ul class="pill-list">
+              <li>Открытость / замкнутость</li>
+              <li>Компактность</li>
+              <li>Связность</li>
+              <li>Непрерывность</li>
+              <li>Предел / сходимость</li>
+              <li>Измеримость</li>
+              <li>Локальность</li>
+            </ul>
+            <p style="margin-top:.5rem;font-size:.82rem">«Текстура» пространства — близость без линейки. Топология задаётся системой подмножеств, а не числом.</p>
+          </td>
+          <td>
+            <strong>Метрич. топол.:</strong> открытые шары \(B(x,\varepsilon)\)<br>
+            <strong>Дискретная:</strong> \(\tau=\mathcal{P}(M)\)<br>
+            <strong>Антидискретная:</strong> \(\tau=\{\emptyset,M\}\)<br>
+            <strong>Проб. пространство:</strong> \(\sigma\)-алгебра событий \(\mathcal{F}\)<br>
+            <strong>Стоун:</strong> ультрафильтры как точки \(\beta\mathbb{N}\)
+          </td>
+        </tr>
+
+        <!-- METRIC -->
+        <tr class="row-metric">
+          <td>
+            <span class="tag tag-met">Метрический</span><br>
+            \(\Phi: X\to\mathbb{K}\)
+          </td>
+          <td>
+            <strong>Метрика:</strong> \(d:M^2\to\mathbb{R}_{\geq 0}\)<br><br>
+            <strong>Норма:</strong> \(\|{\cdot}\|:M\to\mathbb{R}_{\geq 0}\)<br><br>
+            <strong>Скал. произведение:</strong> \(\langle{\cdot,\cdot}\rangle:M^2\to\mathbb{K}\)<br><br>
+            <strong>Мера:</strong> \(\mu:\mathcal{T}\to\overline{\mathbb{R}}_{\geq 0}\)
+          </td>
+          <td>
+            <ul class="pill-list">
+              <li>Неотрицательность</li>
+              <li>Симметрия</li>
+              <li>Неравенство треугольника</li>
+              <li>Полнота (Коши)</li>
+              <li>Сепарабельность</li>
+              <li>\(\sigma\)-аддитивность (мера)</li>
+              <li>Линейность (функционал)</li>
+            </ul>
+            <p style="margin-top:.5rem;font-size:.82rem">Проецирует структуру на числовую шкалу: расстояние, объём, вероятность, энергия.</p>
+          </td>
+          <td>
+            <strong>Метрич. пр-во:</strong> \((\mathbb{R}^n, d_{\rm eucl})\)<br>
+            <strong>Банахово:</strong> \((C[0,1],\|f\|_\infty)\)<br>
+            <strong>Гильбертово:</strong> \((L^2,\langle f,g\rangle)\)<br>
+            <strong>Мера Лебега:</strong> \(\lambda:\mathcal{B}(\mathbb{R})\to\overline{\mathbb{R}}\)<br>
+            <strong>Вероятность:</strong> \(\mathbb{P}:\mathcal{F}\to[0,1]\)
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <div class="remark-box">
+    <div class="rem-head">Замечание — Синтез слоёв</div>
+    <p>Реальные математические модели сочетают все четыре слоя. <strong>Гильбертово пространство</strong> \(L^2\): носитель — классы эквивалентности функций (факторизация); алгебра — сложение (вект. пр-во); функционал — скалярное произведение \(\langle f,g\rangle\); топология — порождена нормой \(\|f\| = \sqrt{\langle f,f\rangle}\).</p>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════════
+     4. ПРИМЕР ПУТЕЙ
+     ══════════════════════════════════════════════ -->
+<section class="block" id="path-example">
+  <h2 class="section-title"><span class="num">§4</span> Взаимодействие слоёв: пример</h2>
+
+  <p>Слои — не изолированные полки, а взаимосвязанные механизмы. Проследим, как объект одного слоя порождает новые объекты в другом, на примере понятия <em>пути</em>.</p>
+
+  <div class="example-box">
+    <div class="ex-head">Пример — Путь как связующий объект</div>
+    <p>Рассмотрим <strong>путь</strong> — непрерывное движение точки \(\gamma:[0,1]\to M\).</p>
+    <ul style="margin:.6rem 0 .6rem 1.4rem; font-size:.9rem; line-height:1.8">
+      <li><strong>Топологический слой</strong> \(\mathcal{T}\): задаёт само понятие непрерывности \(\gamma\) — без него путь просто не существует как математический объект.</li>
+      <li><strong>Реляционный слой</strong> \(\Sigma\): отождествляет перепараметризованные пути \(\gamma \sim \gamma\circ\varphi\) — даёт геометрическую форму (траекторию), независимую от скорости движения.</li>
+      <li><strong>Метрический слой</strong> \(\Phi\): измеряет длину пути \(\ell(\gamma) = \int_0^1 \|\dot\gamma(t)\|\,dt\).</li>
+      <li><strong>Алгебраический слой</strong> \(\Sigma\): классы деформируемых петель образуют <strong>фундаментальную группу</strong> \(\pi_1(X,x_0)\) — пространство само стало алгебраической структурой.</li>
+    </ul>
+    <p style="font-size:.85rem; font-style:italic; color:#3a6a3a">Слои порождают друг друга: топологический объект порождает алгебраическую надструктуру.</p>
+  </div>
+
+  <div class="remark-box">
+    <div class="rem-head">Связка: функционалы + предикаты = вариационные принципы</div>
+    <p>В теоретической механике и теории поля: слой <strong>функционалов</strong> задаёт действие \(S[\gamma]\), а слой <strong>предикатов</strong> формулирует закон природы как \(\delta S[\gamma] = 0\). Физический закон — предикат, наложенный на функционал: природа выбирает экстремальные траектории.</p>
+  </div>
+
+</section>
+
+</main>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: "\\[", right: "\\]", display: true},
+        {left: "\\(", right: "\\)", display: false},
+        {left: "$$", right: "$$", display: true},
+        {left: "$", right: "$", display: false}
+      ],
+      throwOnError: false
+    });
+  });
+</script>
+
+</body>
+</html>

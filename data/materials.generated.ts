@@ -56,6 +56,13 @@ export const MATERIALS_ITEMS: MaterialItem[] = [
     "lang": "ru"
   },
   {
+    "filename": "math_structures.html",
+    "href": "/Materials/math_structures.html",
+    "title": "Как конструируются математические структуры",
+    "category": "algebra",
+    "lang": "ru"
+  },
+  {
     "filename": "diagonal.html",
     "href": "/Materials/diagonal.html",
     "title": "Вычисление неподвижной точки арифметической формулы",
