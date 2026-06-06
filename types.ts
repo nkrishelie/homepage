@@ -178,5 +178,6 @@ export interface SiteContent {
     linkOpensNewTabHint: string;
     practiceTestsHeading: string;
     practiceTests: { title: string; url: string }[];
+    seeMoreInRussian?: string;
   };
 }

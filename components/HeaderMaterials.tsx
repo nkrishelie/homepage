@@ -124,6 +124,18 @@ export const HeaderMaterials: React.FC<Props> = ({
           ))
         : null}
 
+      {hasStaticMaterials && language === 'en' ? (
+        <div
+          className={
+            variant === 'desktop'
+              ? 'px-4 py-2 text-xs text-academic-600 bg-academic-50 italic'
+              : 'px-4 py-2 text-sm text-academic-600 bg-academic-50 italic border-t border-academic-50 mt-2'
+          }
+        >
+          {content.materials.seeMoreInRussian}
+        </div>
+      ) : null}
+
       {hasPracticeTests ? (
         <>
           {hasStaticMaterials ? divider : null}
