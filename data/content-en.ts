@@ -381,6 +381,6 @@ export const content: SiteContent = {
     linkOpensNewTabHint: "Opens in a new tab",
     practiceTestsHeading: "Quizzes (Google Forms)",
     practiceTests: [],
-    seeMoreInRussian: "More materials available in <a href='/Materials/' target='_blank' rel='noopener' class='underline text-academic-700 hover:text-academic-900'>Russian version</a>",
+    seeMoreInRussian: "More materials available in Russian version!",
   },
 };
