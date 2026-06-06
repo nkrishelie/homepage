@@ -1,5 +1,5 @@
 import React from 'react';
-import { ClipboardList, ExternalLink, CheckCircle2 } from 'lucide-react';
+import { ClipboardList, ExternalLink, CheckCircle2, GraduationCap } from 'lucide-react';
 import { useLanguage } from '../LanguageContext';
 import { getMaterialsForLang, getMaterialsGroups } from '../data/materialsGroup';
 
@@ -55,7 +55,7 @@ export const Materials: React.FC = () => {
                         foundations: '⊢',
                       };
                       return (
-                        <span style={{ font: 'italic 24px Georgia, "Times New Roman", serif', lineHeight: '1' }}>
+                        <span style={{ font: 'normal 24px Georgia, "Times New Roman", serif', lineHeight: '1' }}>
                           {categories[group.categoryId] || 'Σ'}
                         </span>
                       );
@@ -95,7 +95,7 @@ export const Materials: React.FC = () => {
           {hasPracticeTests ? (
             <div className="group border border-academic-200 p-8 hover:border-academic-400 transition-colors bg-academic-50/50">
               <div className="mb-6 inline-flex items-center justify-center w-12 h-12 bg-academic-100 rounded-sm text-academic-800 group-hover:bg-academic-800 group-hover:text-white transition-colors">
-                <span style={{ font: 'italic 24px Georgia, "Times New Roman", serif', lineHeight: '1' }}>🎓</span>
+                <GraduationCap size={20} strokeWidth={1.5} />
               </div>
 
               <h3 className="text-2xl font-serif font-bold text-academic-900 mb-6">
