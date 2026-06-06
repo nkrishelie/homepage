@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ChevronDown, ArrowUpRight } from 'lucide-react';
+import { ChevronDown, ExternalLink } from 'lucide-react';
 import type { SiteContent } from '../types';
 import type { Language } from '../LanguageContext';
 import { getMaterialsForLang, getMaterialsGroups } from '../data/materialsGroup';
@@ -104,9 +104,9 @@ export const HeaderMaterials: React.FC<Props> = ({
                 <div key={item.filename} className="flex items-center gap-2">
                   {variant === 'desktop' ? (
                     <>
-                      <ArrowUpRight
+                      <ExternalLink
                         size={14}
-                        className="text-academic-400 shrink-0"
+                        className="text-academic-600 shrink-0"
                         aria-hidden
                       />
                       <a
@@ -182,9 +182,9 @@ export const HeaderMaterials: React.FC<Props> = ({
             <div className="flex items-center gap-2">
               {variant === 'desktop' ? (
                 <>
-                  <ArrowUpRight
+                  <ExternalLink
                     size={14}
-                    className="text-academic-400 shrink-0"
+                    className="text-academic-600 shrink-0"
                     aria-hidden
                   />
                   <a

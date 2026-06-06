@@ -1,5 +1,5 @@
 import React from 'react';
-import { ClipboardList, ExternalLink, FileText, ArrowUpRight } from 'lucide-react';
+import { ClipboardList, ExternalLink, CheckCircle2 } from 'lucide-react';
 import { useLanguage } from '../LanguageContext';
 import { getMaterialsForLang, getMaterialsGroups } from '../data/materialsGroup';
 
@@ -46,20 +46,34 @@ export const Materials: React.FC = () => {
                   key={group.categoryId}
                   className="group border border-academic-200 p-8 hover:border-academic-400 transition-colors bg-academic-50/50"
                 >
-                  <div className="mb-6 inline-flex items-center justify-center w-12 h-12 bg-academic-100 rounded-sm text-academic-800 group-hover:bg-academic-800 group-hover:text-white transition-colors">
-                    <FileText size={24} strokeWidth={1.5} />
+                  <div className="mb-4 inline-flex items-center justify-center w-12 h-12 bg-academic-100 rounded-sm text-academic-800 group-hover:bg-academic-800 group-hover:text-white transition-colors">
+                    {(() => {
+                      const categories: Record<string, string> = {
+                        analysis: '∫',
+                        algebra: '±×÷',
+                        sets: '∅',
+                        foundations: '⊢',
+                      };
+                      return (
+                        <span style={{ font: 'italic 24px Georgia, "Times New Roman", serif', lineHeight: '1' }}>
+                          {categories[group.categoryId] || 'Σ'}
+                        </span>
+                      );
+                    })()}
                   </div>
 
                   <h3 className="text-2xl font-serif font-bold text-academic-900 mb-6">
                     {group.label}
                   </h3>
 
+                  <div className="mb-6 h-1 w-12 bg-academic-300 rounded group-hover:bg-academic-800 transition-colors"></div>
+
                   <ul className="space-y-3">
                     {group.items.map((item) => (
                       <li key={item.filename} className="flex items-start gap-3 text-academic-700">
-                        <ArrowUpRight
-                          size={20}
-                          className="mt-0.5 text-academic-600 shrink-0"
+                        <ExternalLink
+                          size={18}
+                          className="mt-1 text-academic-600 shrink-0"
                           aria-hidden
                         />
                         <a
@@ -81,19 +95,21 @@ export const Materials: React.FC = () => {
           {hasPracticeTests ? (
             <div className="group border border-academic-200 p-8 hover:border-academic-400 transition-colors bg-academic-50/50">
               <div className="mb-6 inline-flex items-center justify-center w-12 h-12 bg-academic-100 rounded-sm text-academic-800 group-hover:bg-academic-800 group-hover:text-white transition-colors">
-                <ClipboardList size={24} strokeWidth={1.5} />
+                <span style={{ font: 'italic 24px Georgia, "Times New Roman", serif', lineHeight: '1' }}>🎓</span>
               </div>
 
               <h3 className="text-2xl font-serif font-bold text-academic-900 mb-6">
                 {content.materials.practiceTestsHeading}
               </h3>
 
+              <div className="mb-4 h-1 w-12 bg-academic-300 rounded"></div>
+
               <ul className="space-y-3">
                 {practiceTests.map((quiz) => (
                   <li key={quiz.url} className="flex items-start gap-3 text-academic-700">
-                    <ArrowUpRight
-                      size={20}
-                      className="mt-0.5 text-academic-600 shrink-0"
+                    <ExternalLink
+                      size={18}
+                      className="mt-1 text-academic-600 shrink-0"
                       aria-hidden
                     />
                     <a
