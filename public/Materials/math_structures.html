@@ -83,9 +83,10 @@
 
   /* ── LAYOUT ── */
   main {
-    max-width: 980px;
+    max-width: 1280px;
+    width: 100%;
     margin: 0 auto;
-    padding: 2.5rem 1.5rem 4rem;
+    padding: 2.5rem clamp(.75rem, 4vw, 3rem) 4rem;
   }
 
   section.block {
@@ -527,30 +528,30 @@
 
   <div class="stack-diagram" role="img" aria-label="Диаграмма слоёв структуры снизу вверх">
 
-    <div class="stack-layer sl-domain">
-      <h4>0. Домен \(M\)</h4>
-      <p>Исходное множество — носитель структуры. Сам по себе аморфен.</p>
+    <div class="stack-layer sl-metric">
+      <h4>3. Метрический слой \(\Phi\)</h4>
+      <p>Функционалы \(F:X\to\mathbb{K}\) (\(\mathbb{R}\) или \(\mathbb{C}\)): метрика, норма, мера, скалярное произведение.</p>
     </div>
 
-    <div class="stack-arrow">↑</div>
-
-    <div class="stack-layer sl-algebra">
-      <h4>1. Алгебраический слой \(\Sigma\)</h4>
-      <p>Внутренние операции \(f:M^n\to M\), внешние операции \(R\times M\to M\), отношения \(P\subseteq M^n\), константы.</p>
-    </div>
-
-    <div class="stack-arrow">↑</div>
+    <div class="stack-arrow">↓</div>
 
     <div class="stack-layer sl-topo">
       <h4>2. Топологический слой \(\mathcal{T}\)</h4>
       <p>Системы подмножеств \(\mathcal{T}\subseteq\mathcal{P}(M)\): топология \(\tau\), \(\sigma\)-алгебра, фильтры.</p>
     </div>
 
-    <div class="stack-arrow">↑</div>
+    <div class="stack-arrow">↓</div>
 
-    <div class="stack-layer sl-metric">
-      <h4>3. Метрический слой \(\Phi\)</h4>
-      <p>Функционалы \(F:X\to\mathbb{K}\) (\(\mathbb{R}\) или \(\mathbb{C}\)): метрика, норма, мера, скалярное произведение.</p>
+    <div class="stack-layer sl-algebra">
+      <h4>1. Алгебраический слой \(\Sigma\)</h4>
+      <p>Внутренние операции \(f:M^n\to M\), внешние операции \(R\times M\to M\), отношения \(P\subseteq M^n\), константы.</p>
+    </div>
+
+    <div class="stack-arrow">↓</div>
+
+    <div class="stack-layer sl-domain">
+      <h4>0. Домен \(M\)</h4>
+      <p>Исходное множество — носитель структуры. Сам по себе аморфен.</p>
     </div>
 
   </div><!-- /.stack-diagram -->
@@ -731,7 +732,7 @@
     <ul style="margin:.6rem 0 .6rem 1.4rem; font-size:.9rem; line-height:1.8">
       <li><strong>Топологический слой</strong> \(\mathcal{T}\): задаёт само понятие непрерывности \(\gamma\) — без него путь просто не существует как математический объект.</li>
       <li><strong>Реляционный слой</strong> \(\Sigma\): отождествляет перепараметризованные пути \(\gamma \sim \gamma\circ\varphi\) — даёт геометрическую форму (траекторию), независимую от скорости движения.</li>
-      <li><strong>Метрический слой</strong> \(\Phi\): измеряет длину пути \(\ell(\gamma) = \int_0^1 \|\dot\gamma(t)\|\,dt\).</li>
+      <li><strong>Метрический слой</strong> \(\Phi\): измеряет длину пути \(\ell(\gamma) = \int_\gamma ds\).</li>
       <li><strong>Алгебраический слой</strong> \(\Sigma\): классы деформируемых петель образуют <strong>фундаментальную группу</strong> \(\pi_1(X,x_0)\) — пространство само стало алгебраической структурой.</li>
     </ul>
     <p style="font-size:.85rem; font-style:italic; color:#3a6a3a">Слои порождают друг друга: топологический объект порождает алгебраическую надструктуру.</p>
