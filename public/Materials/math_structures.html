@@ -528,16 +528,9 @@
 
   <div class="stack-diagram" role="img" aria-label="Диаграмма слоёв структуры снизу вверх">
 
-    <div class="stack-layer sl-metric">
-      <h4>3. Метрический слой \(\Phi\)</h4>
-      <p>Функционалы \(F:X\to\mathbb{K}\) (\(\mathbb{R}\) или \(\mathbb{C}\)): метрика, норма, мера, скалярное произведение.</p>
-    </div>
-
-    <div class="stack-arrow">↓</div>
-
-    <div class="stack-layer sl-topo">
-      <h4>2. Топологический слой \(\mathcal{T}\)</h4>
-      <p>Системы подмножеств \(\mathcal{T}\subseteq\mathcal{P}(M)\): топология \(\tau\), \(\sigma\)-алгебра, фильтры.</p>
+    <div class="stack-layer sl-domain">
+      <h4>0. Домен \(M\)</h4>
+      <p>Исходное множество — носитель структуры. Сам по себе аморфен.</p>
     </div>
 
     <div class="stack-arrow">↓</div>
@@ -549,9 +542,16 @@
 
     <div class="stack-arrow">↓</div>
 
-    <div class="stack-layer sl-domain">
-      <h4>0. Домен \(M\)</h4>
-      <p>Исходное множество — носитель структуры. Сам по себе аморфен.</p>
+    <div class="stack-layer sl-topo">
+      <h4>2. Топологический слой \(\mathcal{T}\)</h4>
+      <p>Системы подмножеств \(\mathcal{T}\subseteq\mathcal{P}(M)\): топология \(\tau\), \(\sigma\)-алгебра, фильтры.</p>
+    </div>
+
+    <div class="stack-arrow">↓</div>
+
+    <div class="stack-layer sl-metric">
+      <h4>3. Метрический слой \(\Phi\)</h4>
+      <p>Функционалы \(F:X\to\mathbb{K}\) (\(\mathbb{R}\) или \(\mathbb{C}\)): метрика, норма, мера, скалярное произведение.</p>
     </div>
 
   </div><!-- /.stack-diagram -->
