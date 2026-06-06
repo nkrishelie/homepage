@@ -37,6 +37,11 @@
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
+  html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+
   body {
     background: var(--bg);
     color: var(--text);
@@ -45,11 +50,18 @@
     line-height: 1.7;
   }
 
+  /* KaTeX display math: scroll instead of overflow */
+  .katex-display {
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-width: 100%;
+  }
+
   /* ── HEADER ── */
   header {
     background: var(--accent-blue);
     color: #e8ecf5;
-    padding: 3rem 2rem 2.5rem;
+    padding: 3rem clamp(.75rem, 4vw, 2rem) 2.5rem;
     text-align: center;
     border-bottom: 4px solid #c8a84b;
   }
@@ -83,10 +95,10 @@
 
   /* ── LAYOUT ── */
   main {
-    max-width: 1280px;
+    max-width: 980px;
     width: 100%;
     margin: 0 auto;
-    padding: 2.5rem clamp(.75rem, 4vw, 3rem) 4rem;
+    padding: 2.5rem clamp(.75rem, 4vw, 2rem) clamp(.75rem, 4vw, 3rem);
   }
 
   section.block {
@@ -213,10 +225,8 @@
     font-family: var(--font-ui);
     font-weight: 600;
     color: var(--accent-blue);
-    white-space: nowrap;
   }
   .rel-table td.formula {
-    white-space: nowrap;
     color: var(--accent-red);
     font-size: .85rem;
   }
@@ -312,7 +322,6 @@
     font-family: var(--font-ui);
     font-weight: 700;
     font-size: .85rem;
-    white-space: nowrap;
   }
   .tag {
     display: inline-block;
@@ -380,12 +389,46 @@
   }
   .remark-box p { font-size: .88rem; font-style: italic; }
 
+  /* ── FOOTER ── */
+  .page-footer {
+    border-top: 2px solid var(--border);
+    padding: 1.8rem 1.4rem;
+    margin-top: 3rem;
+    text-align: center;
+  }
+  .page-footer .copy-text {
+    font-family: var(--font-ui);
+    font-size: .82rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .page-footer a {
+    color: var(--accent-blue);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .page-footer a:hover {
+    text-decoration: underline;
+  }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 640px) {
     .constructions-grid { grid-template-columns: 1fr; }
     header h1 { font-size: 1.45rem; }
-    .layers-table { font-size: .8rem; }
-    .layers-table thead tr th { font-size: .68rem; }
+    .layers-table { font-size: .78rem; }
+    .layers-table thead tr th { font-size: .66rem; padding: .5rem .5rem; }
+    .layers-table tbody tr td { padding: .6rem .5rem; }
+    .rel-table { font-size: .82rem; }
+    .rel-table th, .rel-table td { padding: .4rem .5rem; }
+    .stack-diagram { max-width: 100%; }
+    .stack-layer { padding: .8rem 1rem; }
+    .constructions-grid { min-width: 0; }
+    .constr-card { min-width: 0; }
+    main { padding: 2rem 1rem 3rem; }
+  }
+
+  @media (min-width: 641px) and (max-width: 1024px) {
+    main { padding: 2.5rem 2rem 3.5rem; }
   }
 </style>
 </head>
@@ -746,6 +789,15 @@
 </section>
 
 </main>
+
+<footer class="page-footer">
+  <p class="copy-text" style="margin-bottom:.6rem">
+    © 2026 <strong>Nikolai Kazimirov</strong> · <a href="/" target="_blank" rel="noopener">mathem.at</a>
+  </p>
+  <p class="copy-text" style="font-size:.78rem; opacity:.75">
+    Материалы по математическому анализу, алгебре и основаниям
+  </p>
+</footer>
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
