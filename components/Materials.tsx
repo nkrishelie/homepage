@@ -1,5 +1,5 @@
 import React from 'react';
-import { ClipboardList, ExternalLink, FileText } from 'lucide-react';
+import { ClipboardList, ExternalLink, FileText, ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '../LanguageContext';
 import { getMaterialsForLang, getMaterialsGroups } from '../data/materialsGroup';
 
@@ -57,9 +57,9 @@ export const Materials: React.FC = () => {
                   <ul className="space-y-3">
                     {group.items.map((item) => (
                       <li key={item.filename} className="flex items-start gap-3 text-academic-700">
-                        <ExternalLink
-                          size={18}
-                          className="mt-1 text-academic-400 shrink-0"
+                        <ArrowUpRight
+                          size={20}
+                          className="mt-0.5 text-academic-600 shrink-0"
                           aria-hidden
                         />
                         <a
@@ -67,7 +67,7 @@ export const Materials: React.FC = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                           title={content.materials.linkOpensNewTabHint}
-                          className="leading-relaxed hover:text-academic-900 underline-offset-4 decoration-academic-300 hover:underline"
+                          className="leading-relaxed hover:text-academic-900 underline-offset-4 decoration-academic-600 hover:underline"
                         >
                           {item.title}
                         </a>
@@ -91,9 +91,9 @@ export const Materials: React.FC = () => {
               <ul className="space-y-3">
                 {practiceTests.map((quiz) => (
                   <li key={quiz.url} className="flex items-start gap-3 text-academic-700">
-                    <ExternalLink
-                      size={18}
-                      className="mt-1 text-academic-400 shrink-0"
+                    <ArrowUpRight
+                      size={20}
+                      className="mt-0.5 text-academic-600 shrink-0"
                       aria-hidden
                     />
                     <a
@@ -101,7 +101,7 @@ export const Materials: React.FC = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       title={content.materials.linkOpensNewTabHint}
-                      className="leading-relaxed hover:text-academic-900 underline-offset-4 decoration-academic-300 hover:underline"
+                      className="leading-relaxed hover:text-academic-900 underline-offset-4 decoration-academic-600 hover:underline"
                     >
                       {quiz.title}
                     </a>

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, ArrowUpRight } from 'lucide-react';
 import type { SiteContent } from '../types';
 import type { Language } from '../LanguageContext';
 import { getMaterialsForLang, getMaterialsGroups } from '../data/materialsGroup';
@@ -101,24 +101,54 @@ export const HeaderMaterials: React.FC<Props> = ({
                 {group.label}
               </div>
               {group.items.map((item) => (
-                <a
-                  key={item.filename}
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title={content.materials.linkOpensNewTabHint}
-                  className={
-                    variant === 'desktop'
-                      ? 'block px-4 py-2 text-sm text-academic-600 hover:bg-academic-50 hover:text-academic-900 transition-colors leading-snug'
-                      : 'block pl-4 pr-2 py-2 text-base text-academic-700 hover:text-black border-b border-academic-50 last:border-b-0'
-                  }
-                  onClick={() => {
-                    setOpen(false);
-                    onNavigate?.();
-                  }}
-                >
-                  {item.title}
-                </a>
+                <div key={item.filename} className="flex items-center gap-2">
+                  {variant === 'desktop' ? (
+                    <>
+                      <ArrowUpRight
+                        size={14}
+                        className="text-academic-400 shrink-0"
+                        aria-hidden
+                      />
+                      <a
+                        key={item.filename}
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title={content.materials.linkOpensNewTabHint}
+                        className={
+                          variant === 'desktop'
+                            ? 'block px-4 py-2 text-sm text-academic-800 hover:bg-academic-50 hover:text-academic-900 transition-colors leading-snug'
+                            : 'block pl-4 pr-2 py-2 text-base text-academic-700 hover:text-black border-b border-academic-50 last:border-b-0'
+                        }
+                        onClick={() => {
+                          setOpen(false);
+                          onNavigate?.();
+                        }}
+                      >
+                        {item.title}
+                      </a>
+                    </>
+                  ) : (
+                    <a
+                      key={item.filename}
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title={content.materials.linkOpensNewTabHint}
+                      className={
+                        variant === 'desktop'
+                          ? 'block px-4 py-2 text-sm text-academic-600 hover:bg-academic-50 hover:text-academic-900 transition-colors leading-snug'
+                          : 'block pl-4 pr-2 py-2 text-base text-academic-700 hover:text-black border-b border-academic-50 last:border-b-0'
+                      }
+                      onClick={() => {
+                        setOpen(false);
+                        onNavigate?.();
+                      }}
+                    >
+                      {item.title}
+                    </a>
+                  )}
+                </div>
               ))}
             </div>
           ))
@@ -149,24 +179,54 @@ export const HeaderMaterials: React.FC<Props> = ({
             {content.materials.practiceTestsHeading}
           </div>
           {practiceTests.map((quiz) => (
-            <a
-              key={quiz.url}
-              href={quiz.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              title={content.materials.linkOpensNewTabHint}
-              className={
-                variant === 'desktop'
-                  ? 'block px-4 py-2 text-sm text-academic-600 hover:bg-academic-50 hover:text-academic-900 transition-colors leading-snug'
-                  : 'block pl-4 pr-2 py-2 text-base text-academic-700 hover:text-black border-b border-academic-50 last:border-b-0'
-              }
-              onClick={() => {
-                setOpen(false);
-                onNavigate?.();
-              }}
-            >
-              {quiz.title}
-            </a>
+            <div className="flex items-center gap-2">
+              {variant === 'desktop' ? (
+                <>
+                  <ArrowUpRight
+                    size={14}
+                    className="text-academic-400 shrink-0"
+                    aria-hidden
+                  />
+                  <a
+                    key={quiz.url}
+                    href={quiz.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title={content.materials.linkOpensNewTabHint}
+                    className={
+                      variant === 'desktop'
+                        ? 'block px-4 py-2 text-sm text-academic-800 hover:bg-academic-50 hover:text-academic-900 transition-colors leading-snug'
+                        : 'block pl-4 pr-2 py-2 text-base text-academic-700 hover:text-black border-b border-academic-50 last:border-b-0'
+                    }
+                    onClick={() => {
+                      setOpen(false);
+                      onNavigate?.();
+                    }}
+                  >
+                    {quiz.title}
+                  </a>
+                </>
+              ) : (
+                <a
+                  key={quiz.url}
+                  href={quiz.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={content.materials.linkOpensNewTabHint}
+                  className={
+                    variant === 'desktop'
+                      ? 'block px-4 py-2 text-sm text-academic-600 hover:bg-academic-50 hover:text-academic-900 transition-colors leading-snug'
+                      : 'block pl-4 pr-2 py-2 text-base text-academic-700 hover:text-black border-b border-academic-50 last:border-b-0'
+                  }
+                  onClick={() => {
+                    setOpen(false);
+                    onNavigate?.();
+                  }}
+                >
+                  {quiz.title}
+                </a>
+              )}
+            </div>
           ))}
         </>
       ) : null}
