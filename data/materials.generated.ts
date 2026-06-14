@@ -34,11 +34,15 @@ export const MATERIAL_CATEGORY_LABELS: Record<string, MaterialCategoryLabels> = 
   "foundations": {
     "ru": "Основания, логика, вычислимость",
     "en": "Foundations, logic, computability"
+  },
+  "probability": {
+    "ru": "Теория вероятностей и статистика",
+    "en": "Probability theory and statistics"
   }
 };
 
 /** Preferred ordering of category ids for menus and sections */
-export const MATERIAL_CATEGORY_ORDER: readonly string[] = ["analysis","algebra","sets","foundations","general"];
+export const MATERIAL_CATEGORY_ORDER: readonly string[] = ["analysis","algebra","sets","foundations","probability","general"];
 
 export const MATERIALS_ITEMS: MaterialItem[] = [
   {
@@ -56,13 +60,6 @@ export const MATERIALS_ITEMS: MaterialItem[] = [
     "lang": "ru"
   },
   {
-    "filename": "math_structures.html",
-    "href": "/Materials/math_structures.html",
-    "title": "Как конструируются математические структуры",
-    "category": "algebra",
-    "lang": "ru"
-  },
-  {
     "filename": "diagonal.html",
     "href": "/Materials/diagonal.html",
     "title": "Вычисление неподвижной точки арифметической формулы",
@@ -70,10 +67,24 @@ export const MATERIALS_ITEMS: MaterialItem[] = [
     "lang": "ru"
   },
   {
+    "filename": "galton_watson_process.html",
+    "href": "/Materials/galton_watson_process.html",
+    "title": "Процесс Гальтона–Ватсона",
+    "category": "probability",
+    "lang": "ru"
+  },
+  {
     "filename": "math_analysis_levels.html",
     "href": "/Materials/math_analysis_levels.html",
     "title": "Уровни формализации математического анализа",
     "category": "analysis",
+    "lang": "ru"
+  },
+  {
+    "filename": "math_structures.html",
+    "href": "/Materials/math_structures.html",
+    "title": "Как конструируются математические структуры",
+    "category": "algebra",
     "lang": "ru"
   },
   {

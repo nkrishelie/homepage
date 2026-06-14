@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Процесс Гальтона–Ватсона</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+:root {
+  --bg:      #0e1118;
+  --bg2:     #161b27;
+  --bg3:     #1e2535;
+  --border:  rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.14);
+  --text:    #e8eaf0;
+  --text2:   #8892a4;
+  --text3:   #4e5870;
+  --accent:  #5b8dee;
+  --accent2: #3d6fd4;
+  --green:   #3ecf8e;
+  --amber:   #f5a623;
+  --red:     #ef5b5b;
+  --sidebar: 290px;
+  --topbar:  48px;
+  --footer:  44px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  height: 100%; overflow: hidden;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px; line-height: 1.6;
+  background: var(--bg); color: var(--text);
+}
+
+/* ── top bar ── */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: var(--topbar);
+  background: var(--bg2); border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; padding: 0 24px; gap: 10px;
+}
+.topbar .logo { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--accent); text-decoration: none; }
+.topbar .sep  { color: var(--border2); }
+.topbar .crumb { font-size: 12px; color: var(--text2); }
+
+/* ── two-column body ── */
+.body-wrap {
+  position: fixed;
+  top: var(--topbar); bottom: var(--footer);
+  left: 0; right: 0;
+  display: flex;
+}
+
+/* ── sidebar ── */
+.sidebar {
+  width: var(--sidebar); flex-shrink: 0;
+  background: var(--bg2); border-right: 1px solid var(--border);
+  overflow-y: auto; overflow-x: visible;
+  padding: 20px 18px 28px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+
+/* ── main scroll area ── */
+.main {
+  flex: 1; min-width: 0;
+  overflow-y: auto; overflow-x: hidden;
+  padding: 24px 28px 32px;
+  display: flex; flex-direction: column; gap: 20px;
+}
+
+/* ── footer ── */
+footer {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+  height: var(--footer);
+  background: var(--bg2); border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: var(--text3); gap: 8px;
+}
+footer a { color: var(--accent); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+/* ── section label ── */
+.sec-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text3); padding-bottom: 8px; border-bottom: 1px solid var(--border);
+}
+
+/* ── control rows ── */
+.ctrl-row { display: flex; flex-direction: column; gap: 4px; }
+.ctrl-head { display: flex; justify-content: space-between; align-items: center; }
+.ctrl-name { font-size: 12px; color: var(--text2); display: flex; align-items: center; gap: 5px; }
+.ctrl-val  { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent); font-weight: 500; }
+
+input[type=range] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 3px; background: var(--bg3); border-radius: 2px;
+  outline: none; cursor: pointer;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 13px; height: 13px; border-radius: 50%;
+  background: var(--accent); cursor: pointer;
+  border: 2px solid var(--bg2); box-shadow: 0 0 0 1px var(--accent);
+}
+
+/* ── mean box ── */
+.mean-box {
+  background: var(--bg3); border: 1px solid var(--border2);
+  border-radius: 8px; padding: 12px 14px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.mean-box .mlabel {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3);
+}
+.mean-big {
+  font-family: 'JetBrains Mono', monospace; font-size: 30px; font-weight: 500;
+  color: var(--accent); line-height: 1; transition: color 0.3s;
+}
+.mean-big.sub  { color: var(--red); }
+.mean-big.crit { color: var(--amber); }
+.mean-big.sup  { color: var(--green); }
+.mean-formula  { font-size: 12px; color: var(--text2); overflow-x: auto; }
+.mean-formula .katex { font-size: 1em; }
+
+/* ── mode badge ── */
+.mode-badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 500;
+  border: 1px solid; transition: all 0.3s; width: 100%; justify-content: center;
+}
+.mode-badge .dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.mode-sub  { background: rgba(239,91,91,0.1);  border-color: rgba(239,91,91,0.3);  color: var(--red); }
+.mode-sub  .dot { background: var(--red); }
+.mode-crit { background: rgba(245,166,35,0.1); border-color: rgba(245,166,35,0.3); color: var(--amber); }
+.mode-crit .dot { background: var(--amber); }
+.mode-sup  { background: rgba(62,207,142,0.1); border-color: rgba(62,207,142,0.3); color: var(--green); }
+.mode-sup  .dot { background: var(--green); }
+
+/* ── ext-prob mini block ── */
+.ext-box {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 8px; padding: 10px 14px;
+}
+.ext-box .elabel {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3);
+  display: flex; align-items: center; gap: 5px; margin-bottom: 4px;
+}
+.ext-box .enum {
+  font-family: 'JetBrains Mono', monospace; font-size: 20px; font-weight: 500;
+  color: var(--text); line-height: 1;
+}
+.ext-box .eform { font-size: 11px; color: var(--text3); margin-top: 2px; }
+
+/* ── run button ── */
+.btn-rerun {
+  width: 100%; padding: 9px 0;
+  background: var(--accent2); color: #fff;
+  border: none; border-radius: 6px;
+  font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
+  cursor: pointer; transition: background 0.15s, transform 0.1s;
+}
+.btn-rerun:hover  { background: var(--accent); }
+.btn-rerun:active { transform: scale(0.98); }
+
+/* ── tooltip ── */
+.tip-wrap {
+  position: relative; display: inline-flex; align-items: center;
+}
+.tip-icon {
+  width: 13px; height: 13px; border-radius: 50%;
+  border: 1px solid var(--text3);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 8px; color: var(--text3); cursor: help; flex-shrink: 0;
+  transition: border-color 0.15s, color 0.15s; user-select: none;
+}
+.tip-icon:hover { border-color: var(--accent); color: var(--accent); }
+.tip-box {
+  display: none;
+  position: fixed;        /* fixed so it is never clipped by overflow:hidden parents */
+  z-index: 9999;
+  background: #1a2035; border: 1px solid var(--border2);
+  border-radius: 10px; padding: 14px 16px;
+  width: 280px; font-size: 12px; color: var(--text2); line-height: 1.7;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  pointer-events: none;
+}
+/* JS will position via inline style.top/left */
+.tip-wrap:hover .tip-box { display: block; }
+.tip-box .tit { font-weight: 600; color: var(--text); margin-bottom: 8px; font-size: 13px; }
+.tip-box .katex-display { margin: 8px 0; overflow-x: auto; font-size: 0.9em; }
+.tip-box .katex { font-size: 1em; }
+
+/* ── hero ── */
+.hero {
+  border: 1px solid var(--border2); border-radius: 10px;
+  background: linear-gradient(140deg, var(--bg2) 55%, #171f38 100%);
+  padding: 24px 28px; position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; top: -80px; right: -80px;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(91,141,238,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 0.12em; color: var(--accent); text-transform: uppercase; margin-bottom: 8px;
+}
+.hero h1 {
+  font-family: 'Lora', serif; font-size: 26px; font-weight: 600;
+  line-height: 1.25; margin-bottom: 12px; color: #fff;
+}
+.hero h1 em { font-style: italic; color: var(--accent); }
+.hero p     { font-size: 13px; color: var(--text2); line-height: 1.75; max-width: 860px; }
+.hero p + p { margin-top: 8px; }
+/* KaTeX inside hero prose */
+.hero .katex { font-size: 1em; }
+.hero .katex-display { margin: 6px 0; }
+
+/* ── ref box (info panel) ── */
+.ref-box {
+  display: flex; gap: 12px;
+  background: rgba(91,141,238,0.06); border: 1px solid rgba(91,141,238,0.25);
+  border-radius: 10px; padding: 14px 16px;
+}
+.ref-icon {
+  font-size: 18px; flex-shrink: 0; margin-top: -2px;
+}
+.ref-content {
+  display: flex; flex-direction: column; gap: 6px;
+}
+.ref-title {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);
+  font-weight: 600;
+}
+.ref-text {
+  font-size: 12px; color: var(--text2); line-height: 1.7;
+}
+.ref-text .katex { font-size: 1em; }
+
+/* ── stats ── */
+.stats-row {
+  display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px;
+}
+.stat-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 10px 12px;
+}
+.stat-card .slbl {
+  font-size: 9px; font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.07em; text-transform: uppercase; color: var(--text3);
+  display: flex; align-items: center; gap: 4px;
+}
+.stat-card .snum {
+  font-family: 'JetBrains Mono', monospace; font-size: 20px; font-weight: 500;
+  color: var(--text); margin-top: 4px; line-height: 1;
+}
+
+/* ── panels ── */
+.panels-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+}
+.panel {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px 16px;
+}
+.panel.full { grid-column: 1 / -1; }
+.panel-title {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  letter-spacing: 0.09em; text-transform: uppercase; color: var(--text3);
+  margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
+}
+
+/* ── forest ── */
+#forestCanvas { display: block; width: 100%; border-radius: 6px; background: #080b11; }
+.forest-legend { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.leg-item { display: flex; align-items: center; gap: 4px; font-size: 10px; color: var(--text2); font-family: 'JetBrains Mono', monospace; }
+.leg-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+/* scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="https://mathem.at/" class="logo">mathem.at</a>
+  <span class="sep">/</span>
+  <span class="crumb">Случайные процессы</span>
+  <span class="sep">/</span>
+  <span class="crumb">Процесс Гальтона–Ватсона</span>
+</header>
+
+<div class="body-wrap">
+
+<!-- ══ SIDEBAR ══ -->
+<aside class="sidebar">
+
+  <div class="sec-label">Параметры модели</div>
+
+  <div class="ctrl-row">
+    <div class="ctrl-head">
+      <span class="ctrl-name">
+        Параметр λ (Пуассон)
+        <span class="tip-wrap" data-tip="tip-lambda">
+          <span class="tip-icon" tabindex="0">?</span>
+          <div class="tip-box" id="tip-lambda">
+            <div class="tit">Распределение Пуассона</div>
+            Число потомков одной частицы:
+            \[P(\xi = k) = \frac{\lambda^k e^{-\lambda}}{k!}, \quad k = 0,1,2,\ldots\]
+            Среднее \(\mathbb{E}[\xi] = \lambda\), дисперсия \(\mathrm{Var}(\xi) = \lambda\).<br>
+            Производящая функция: \(f(s) = e^{\lambda(s-1)}\).
+          </div>
+        </span>
+      </span>
+      <span class="ctrl-val" id="lambdaVal">1.00</span>
+    </div>
+    <input type="range" id="lambdaSlider" min="0.10" max="1.50" step="0.05" value="1.00">
+  </div>
+
+  <div class="ctrl-row">
+    <div class="ctrl-head">
+      <span class="ctrl-name">
+        Стартовых частиц N₀
+        <span class="tip-wrap" data-tip="tip-n0">
+          <span class="tip-icon" tabindex="0">?</span>
+          <div class="tip-box" id="tip-n0">
+            <div class="tit">Начальная популяция</div>
+            Процесс стартует с \(N_0\) независимых частиц поколения 0. Каждая порождает
+            независимое дерево потомков. На лесу деревья окрашены разными цветами.
+          </div>
+        </span>
+      </span>
+      <span class="ctrl-val" id="n0Val">8</span>
+    </div>
+    <input type="range" id="n0Slider" min="3" max="10" step="1" value="8">
+  </div>
+
+  <div class="ctrl-row">
+    <div class="ctrl-head">
+      <span class="ctrl-name">
+        Поколений T
+        <span class="tip-wrap" data-tip="tip-gens">
+          <span class="tip-icon" tabindex="0">?</span>
+          <div class="tip-box" id="tip-gens">
+            <div class="tit">Глубина процесса</div>
+            \(T\) — число шагов эволюции. \(Z_n\) — число живых частиц поколения \(n\).
+            При докритическом режиме \(Z_n \to 0\) п.н., при надкритическом \(Z_n \to \infty\)
+            на событии выживания.
+          </div>
+        </span>
+      </span>
+      <span class="ctrl-val" id="genVal">20</span>
+    </div>
+    <input type="range" id="genSlider" min="3" max="20" step="1" value="20">
+  </div>
+
+  <!-- mean display -->
+  <div class="mean-box">
+    <div class="mlabel">Матожидание числа потомков</div>
+    <div class="mean-big" id="mNum">1.00</div>
+    <div class="mean-formula" id="meanKatex"></div>
+  </div>
+
+  <!-- mode badge -->
+  <div id="modeBadge" class="mode-badge mode-sub">
+    <span class="dot"></span>
+    <span id="modeText">Докритический  (m &lt; 1)</span>
+  </div>
+
+  <!-- ext prob -->
+  <div class="ext-box">
+    <div class="elabel">
+      P(вырождения) q
+      <span class="tip-wrap" data-tip="tip-q">
+        <span class="tip-icon" tabindex="0">?</span>
+        <div class="tip-box" id="tip-q">
+          <div class="tit">Вероятность вырождения</div>
+          Наименьший неотрицательный корень уравнения \(q = f(q)\), где \(f\) — производящая функция числа потомков.<br>
+          Для Пуассона: \(f(s) = e^{\lambda(s-1)}\).<br>
+          При \(\lambda \le 1\): \(q=1\). При \(\lambda > 1\): \(q < 1\) — единственный корень \(q = e^{\lambda(q-1)}\) в \((0,1)\).
+        </div>
+      </span>
+    </div>
+    <div class="enum" id="extProb">1.000</div>
+    <div class="eform" id="extFormula"></div>
+  </div>
+
+  <button class="btn-rerun" id="rerunBtn">↻ Новая реализация</button>
+
+  <div style="margin-top:auto; font-size:11px; color:var(--text3); line-height:1.6; padding-top:8px;">
+    Каждый запуск — независимая реализация того же распределения.
+  </div>
+
+</aside>
+
+<!-- ══ MAIN ══ -->
+<main class="main">
+
+  <!-- hero -->
+  <div class="hero">
+    <div class="hero-eyebrow">Математическая статистика · Случайные ветвящиеся процессы</div>
+    <h1>Процесс <em>Гальтона–Ватсона</em></h1>
+    <p id="heroP1"></p>
+    <p id="heroP2"></p>
+    <p id="heroP3"></p>
+  </div>
+
+  <!-- reference box -->
+  <div class="ref-box">
+    <div class="ref-icon">ℹ️</div>
+    <div class="ref-content">
+      <div class="ref-title">Справка</div>
+      <div class="ref-text">
+        Процесс Гальтона–Ватсона — это вероятностная модель ветвящейся популяции.
+        Каждая частица независимо порождает случайное число потомков согласно
+        одному и тому же распределению. Ключевой параметр — математическое ожидание
+        числа потомков \(m = \mathbb{E}[\xi]\). При \(m < 1\) популяция гарантированно вымирает,
+        при \(m > 1\) с вероятностью \(1-q > 0\) она может расти неограниченно.
+      </div>
+    </div>
+  </div>
+
+  <!-- stats -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="slbl">Живых в поколении T</div>
+      <div class="snum" id="sTotal">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="slbl">
+        Вымерших деревьев
+        <span class="tip-wrap" data-tip="tip-ext">
+          <span class="tip-icon" tabindex="0">?</span>
+          <div class="tip-box" id="tip-ext">
+            <div class="tit">Вымершее дерево</div>
+            Дерево стартовой частицы с объёмом 1 (только корень).
+            В докритическом режиме все деревья вырождаются с вероятностью 1.
+          </div>
+        </span>
+      </div>
+      <div class="snum" id="sExt">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="slbl">
+        Доля доминирующего дерева
+        <span class="tip-wrap" data-tip="tip-dom">
+          <span class="tip-icon" tabindex="0">?</span>
+          <div class="tip-box" id="tip-dom">
+            <div class="tit">Гигантская компонента</div>
+            Эффект гигантской компоненты заключается в том, что с ростом номера поколения доля числа потомков какой-то одной частицы стремится к 100%.            
+          </div>
+        </span>
+      </div>
+      <div class="snum" id="sDom">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="slbl">q теоретическое</div>
+      <div class="snum" id="sQtheo">—</div>
+    </div>
+  </div>
+
+  <!-- charts -->
+  <div class="panels-grid">
+
+    <div class="panel">
+      <div class="panel-title">
+        Распределение числа потомков ξ
+        <span class="tip-wrap" data-tip="tip-pgf">
+          <span class="tip-icon" tabindex="0">?</span>
+          <div class="tip-box" id="tip-pgf">
+            <div class="tit">Производящая функция</div>
+            \[f(s) = \mathbb{E}[s^\xi] = e^{\lambda(s-1)}\]
+            Вероятность вырождения — наименьший корень \(f(q)=q\) в \([0,1]\).
+          </div>
+        </span>
+      </div>
+      <div style="position:relative; height:190px;">
+        <canvas id="distChart" role="img" aria-label="Распределение Пуассона числа потомков"></canvas>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">
+        Распределение объемов деревьев процесса (поколение <span id="lastGenLbl">T</span>)
+        <span class="tip-wrap" data-tip="tip-hist">
+          <span class="tip-icon" tabindex="0">?</span>
+          <div class="tip-box" id="tip-hist">
+            <div class="tit">Дерево стартовой частицы</div>
+            Все потомки одной стартовой частицы образуют её дерево.
+            Гистограмма показывает размер каждого дерева в поколении \(T\).
+          </div>
+        </span>
+      </div>
+      <div style="position:relative; height:190px;">
+        <canvas id="histChart" role="img" aria-label="Размер клонов в поколении T"></canvas>
+      </div>
+    </div>
+
+    <div class="panel full">
+      <div class="panel-title">Лес процесса — деревья окрашены по стартовой частице</div>
+      <div class="forest-legend" id="forestLegend"></div>
+      <canvas id="forestCanvas" role="img" aria-label="Лес деревьев процесса Гальтона–Ватсона"></canvas>
+    </div>
+
+  </div>
+
+</main>
+</div>
+
+<footer>
+  <span>© 2026 Nikolai Kazimirov</span>
+  <span style="color:var(--border2)">·</span>
+  <a href="https://mathem.at/">mathem.at</a>
+</footer>
+
+<script>
+/* ─── Пуассон: семплирование через инверсию CDF ─── */
+function poissonSample(lambda) {
+  const L = Math.exp(-lambda);
+  let k = 0, p = 1;
+  do { k++; p *= Math.random(); } while (p > L);
+  return k - 1;
+}
+
+/* ─── Вероятность вырождения для Пуассон(λ) ─── */
+function extinctionProb(lambda) {
+  if (lambda <= 1) return 1.0;
+  let q = 0.5;
+  for (let i = 0; i < 200; i++) q = Math.exp(lambda * (q - 1));
+  return q;
+}
+
+const PALETTE = [
+  '#5b8dee','#3ecf8e','#f5a623','#ef5b5b','#38bdf8',
+  '#a78bfa','#f472b6','#34d399','#fb923c','#60a5fa',
+  '#e879f9','#4ade80','#facc15','#f87171','#22d3ee',
+  '#c084fc','#86efac','#fde68a','#fca5a5','#93c5fd'
+];
+
+let lambda = 1.00, N0 = 8, GENS = 20;
+let distChartInst = null, histChartInst = null, simData = null;
+
+/* ─── Симуляция ─── */
+function simulate() {
+  const trees = [];
+  for (let i = 0; i < N0; i++) {
+    const nodes = [];
+    nodes.push({ id: 0, gen: 0, parent: -1 });
+    let alive = [0], nextId = 1;
+    for (let g = 1; g < GENS; g++) {
+      const next = [];
+      for (const pid of alive) {
+        const nc = poissonSample(lambda);
+        for (let c = 0; c < nc; c++) {
+          nodes.push({ id: nextId, gen: g, parent: pid });
+          next.push(nextId++);
+        }
+      }
+      alive = next;
+      if (alive.length === 0) break;
+      /*if (alive.length > 1500) alive = alive.slice(0, 1500);*/
+    }
+    trees.push({ nodes, size: nodes.length });
+  }
+  return trees;
+}
+
+/* ─── График распределения ─── */
+function drawDistChart() {
+  const kmax = Math.max(8, Math.ceil(lambda * 3 + 5));
+  const labels = [], data = [];
+  let lf = 1;
+  for (let k = 0; k <= kmax; k++) {
+    if (k > 0) lf *= k;
+    labels.push(k);
+    data.push(Math.exp(-lambda) * Math.pow(lambda, k) / lf);
+  }
+  const ctx = document.getElementById('distChart').getContext('2d');
+  if (distChartInst) distChartInst.destroy();
+  distChartInst = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        data,
+        borderColor: '#5b8dee',
+        borderWidth: 1.5,
+        pointBackgroundColor: '#5b8dee',
+        pointRadius: 3,
+        pointHoverRadius: 5,
+        fill: true,
+        backgroundColor: 'rgba(91,141,238,0.07)',
+        tension: 0
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false },
+        tooltip: { callbacks: { label: v => `P = ${v.raw.toFixed(4)}` } } },
+      scales: {
+        x: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#4e5870', font: { size: 10 } },
+          title: { display: true, text: 'k', color: '#4e5870', font: { size: 10 } } },
+        y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#4e5870', font: { size: 10 } },
+          title: { display: true, text: 'P(ξ = k)', color: '#4e5870', font: { size: 10 } } }
+      }
+    }
+  });
+}
+
+/* ─── Гистограмма клонов ─── */
+function drawHistChart(trees) {
+  document.getElementById('lastGenLbl').textContent = GENS;
+  const labels = trees.map((_, i) => `P${i + 1}`);
+  const data   = trees.map(t => t.size);
+  const colors = trees.map((_, i) => PALETTE[i % PALETTE.length]);
+  const ctx = document.getElementById('histChart').getContext('2d');
+  if (histChartInst) histChartInst.destroy();
+  histChartInst = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{ data, backgroundColor: colors.map(c => c + 'bb'),
+        borderColor: colors, borderWidth: 1 }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#4e5870', font: { size: 10 } } },
+        y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#4e5870', font: { size: 10 } },
+          title: { display: true, text: 'Объём дерева', color: '#4e5870', font: { size: 10 } } }
+      }
+    }
+  });
+}
+
+/* ─── Лес ─── */
+function drawForest(trees) {
+  const canvas = document.getElementById('forestCanvas');
+  const W = canvas.parentElement.clientWidth - 32;
+  const forestH = Math.max(280, GENS * 28 + 30);
+  canvas.width = W; canvas.height = forestH;
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, W, forestH);
+  const treeW = W / N0;
+  const genH  = (forestH - 20) / GENS;
+
+  const legend = [];
+  trees.forEach((tree, ti) => {
+    const col = PALETTE[ti % PALETTE.length];
+    legend.push({ col, label: `P${ti + 1} (${tree.leafCount})` });
+    const pos = {};
+    const gg  = {};
+    tree.nodes.forEach(n => { (gg[n.gen] = gg[n.gen] || []).push(n.id); });
+    Object.keys(gg).sort((a,b)=>+a-+b).forEach(g => {
+      const ids = gg[g];
+      ids.forEach((id, idx) => {
+        pos[id] = {
+          x: treeW * ti + treeW * (idx + 1) / (ids.length + 1),
+          y: 10 + (+g) * genH
+        };
+      });
+    });
+    // edges
+    tree.nodes.forEach(n => {
+      if (n.parent >= 0 && pos[n.id] && pos[n.parent]) {
+        ctx.beginPath();
+        ctx.moveTo(pos[n.parent].x, pos[n.parent].y);
+        ctx.lineTo(pos[n.id].x, pos[n.id].y);
+        ctx.strokeStyle = col + '22';
+        ctx.lineWidth = 0.7;
+        ctx.stroke();
+      }
+    });
+    // nodes
+    const maxInGen = Math.max(...Object.values(gg).map(a=>a.length), 1);
+    const r = Math.max(1.5, Math.min(4, treeW / (maxInGen * 3)));
+    tree.nodes.forEach(n => {
+      if (!pos[n.id]) return;
+      ctx.beginPath();
+      ctx.arc(pos[n.id].x, pos[n.id].y, r, 0, Math.PI*2);
+      ctx.fillStyle = col + 'cc';
+      ctx.fill();
+    });
+  });
+  // dividers
+  ctx.strokeStyle = 'rgba(255,255,255,0.04)'; ctx.lineWidth = 0.5;
+  for (let i = 1; i < N0; i++) {
+    ctx.beginPath(); ctx.moveTo(treeW*i, 0); ctx.lineTo(treeW*i, forestH); ctx.stroke();
+  }
+  // legend
+  document.getElementById('forestLegend').innerHTML =
+    legend.map(l => `<span class="leg-item"><span class="leg-dot" style="background:${l.col}"></span>${l.label}</span>`).join('');
+}
+
+/* ─── Статистика ─── */
+function updateStats(trees) {
+  const total = trees.reduce((s,t) => s + t.size, 0);
+  const ext   = trees.filter(t => t.size === 1).length;  // вымершие = только корень
+  const dom   = trees.reduce((a,b) => b.size > a.size ? b : a, trees[0]);
+  const domPct = total > 0 ? (dom.size/total*100).toFixed(1)+'%' : '—';
+  const q = extinctionProb(lambda);
+  document.getElementById('sTotal').textContent  = total;
+  document.getElementById('sExt').textContent    = `${ext} / ${N0}`;
+  document.getElementById('sDom').textContent    = domPct;
+  document.getElementById('sQtheo').textContent  = q.toFixed(3);
+}
+
+/* ─── Обновление режима / параметров ─── */
+function updateMode() {
+  const m = lambda;  // E[Poisson(λ)] = λ
+  document.getElementById('mNum').textContent = m.toFixed(2);
+  const numEl = document.getElementById('mNum');
+  const badge = document.getElementById('modeBadge');
+  let cls, txt;
+  if (m < 0.999)      { cls='sub';  txt='Докритический  (m < 1)'; numEl.className='mean-big sub'; }
+  else if (m<=1.001)  { cls='crit'; txt='Критический  (m = 1)';   numEl.className='mean-big crit'; }
+  else                { cls='sup';  txt='Надкритический  (m > 1)'; numEl.className='mean-big sup'; }
+  badge.className = `mode-badge mode-${cls}`;
+  document.getElementById('modeText').textContent = txt;
+
+  // mean formula
+  katex.render(`m = \\mathbb{E}[\\xi] = \\lambda = ${m.toFixed(2)}`, document.getElementById('meanKatex'),
+    { throwOnError: false, displayMode: false });
+
+  // ext prob
+  const q = extinctionProb(lambda);
+  document.getElementById('extProb').textContent = q.toFixed(3);
+  const fEl = document.getElementById('extFormula');
+  if (m > 1) {
+    katex.render('q: \\; q = e^{\\lambda(q-1)}', fEl, { throwOnError: false, displayMode: false });
+  } else {
+    katex.render('q = 1', fEl, { throwOnError: false, displayMode: false });
+  }
+}
+
+/* ─── Hero text (KaTeX) ─── */
+function buildHero() {
+  const texts = [
+    `Процесс Гальтона–Ватсона — простейшая вероятностная модель размножения популяций.
+     Каждая частица поколения \\(n\\) независимо порождает случайное число потомков \\(\\xi\\)
+     с одним и тем же законом распределения, образуя поколение \\(n+1\\).
+     Ключевой параметр модели — математическое ожидание числа потомков \\(m = \\mathbb{E}[\\xi]\\).`,
+
+    `Если \\(m < 1\\) (докритический режим), процесс вырождается с вероятностью 1:
+     популяция рано или поздно обнуляется.
+     Если \\(m = 1\\) (критический), вырождение тоже неизбежно, но происходит значительно медленнее.
+     При \\(m > 1\\) (надкритический) существует ненулевая вероятность выживания \\(1 - q > 0\\),
+     где \\(q\\) — вероятность вырождения, определяемая как наименьший корень \\(q = f(q)\\)
+     (\\(f\\) — производящая функция).`,
+
+    `При больших \\(m\\) быстро возникает <strong>гигантская компонента</strong>:
+     один из стартовых клонов захватывает подавляющую долю всей популяции уже за
+     \\(10{-}15\\) поколений. На этой странице используется распределение Пуассона
+     \\(\\xi \\sim \\mathrm{Pois}(\\lambda)\\), у которого \\(m = \\lambda\\),
+     производящая функция \\(f(s) = e^{\\lambda(s-1)}\\),
+     а вероятность вырождения — единственный корень \\(q = e^{\\lambda(q-1)}\\) в \\((0,1)\\)
+     при \\(\\lambda > 1\\).`
+  ];
+  ['heroP1','heroP2','heroP3'].forEach((id, i) => {
+    const el = document.getElementById(id);
+    el.innerHTML = texts[i];
+    renderMathInElement(el, {
+      delimiters: [
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      throwOnError: false
+    });
+  });
+}
+
+/* ─── Tooltip: позиционирование через fixed ─── */
+function initTooltips() {
+  document.querySelectorAll('.tip-wrap').forEach(wrap => {
+    const icon = wrap.querySelector('.tip-icon');
+    const box  = wrap.querySelector('.tip-box');
+    if (!icon || !box) return;
+
+    // render KaTeX inside each tooltip
+    renderMathInElement(box, {
+      delimiters: [
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      throwOnError: false
+    });
+
+    wrap.addEventListener('mouseenter', () => {
+      const r = icon.getBoundingClientRect();
+      // default: appear to the right of the icon
+      let left = r.right + 10;
+      let top  = r.top - 6;
+      // if too close to right edge, flip left
+      if (left + 290 > window.innerWidth - 10) {
+        left = r.left - 300;
+      }
+      // if too close to bottom, shift up
+      const boxH = 260; // estimate
+      if (top + boxH > window.innerHeight - 10) {
+        top = window.innerHeight - boxH - 10;
+      }
+      box.style.left = left + 'px';
+      box.style.top  = top  + 'px';
+    });
+  });
+}
+
+/* ─── Главный запуск ─── */
+function run() {
+  updateMode();
+  drawDistChart();
+  simData = simulate();
+  drawHistChart(simData);
+  updateStats(simData);
+  drawForest(simData);
+}
+
+/* ─── Слушатели ─── */
+document.getElementById('lambdaSlider').addEventListener('input', function () {
+  lambda = +this.value;
+  document.getElementById('lambdaVal').textContent = lambda.toFixed(2);
+  run();
+});
+document.getElementById('n0Slider').addEventListener('input', function () {
+  N0 = +this.value;
+  document.getElementById('n0Val').textContent = N0;
+  run();
+});
+document.getElementById('genSlider').addEventListener('input', function () {
+  GENS = +this.value;
+  document.getElementById('genVal').textContent = GENS;
+  run();
+});
+document.getElementById('rerunBtn').addEventListener('click', run);
+window.addEventListener('resize', () => { if (simData) drawForest(simData); });
+
+/* ─── Инициализация ─── */
+buildHero();
+initTooltips();
+
+// Render KaTeX in reference box
+function renderRefBox() {
+  const el = document.querySelector('.ref-text');
+  if (el) {
+    renderMathInElement(el, {
+      delimiters: [
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      throwOnError: false
+    });
+  }
+}
+renderRefBox();
+run();
+</script>
+</body>
+</html>

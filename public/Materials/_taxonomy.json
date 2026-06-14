@@ -5,6 +5,7 @@
     "algebra",
     "sets",
     "foundations",
+    "probability",
     "general"
   ],
   "categories": {
@@ -24,6 +25,10 @@
       "ru": "Основания, логика, вычислимость",
       "en": "Foundations, logic, computability"
     },
+    "probability": {
+      "ru": "Теория вероятностей и статистика",
+      "en": "Probability theory and statistics"
+    },
     "general": {
       "ru": "Прочие материалы",
       "en": "Other materials"
@@ -37,7 +42,8 @@
     "test1.html": "sets",
     "diagonal.html": "foundations",
     "second_order_arithmetic.html": "foundations",
-    "second_order_arithmetic_en.html": "foundations"
+    "second_order_arithmetic_en.html": "foundations",
+    "galton_watson_process.html": "probability"
   },
   "fileLanguage": {
     "diagonal.html": "ru",
