@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Конструкция Хенкина — интерактивная демонстрация</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="initPage()"></script>
+<style>
+:root {
+  --bg: #fafaf8;
+  --surface: #ffffff;
+  --surface2: #f4f3ef;
+  --border: #e2e0d8;
+  --border2: #ccc9bc;
+  --text: #1a1916;
+  --muted: #6b6860;
+  --faint: #9c998e;
+  --blue: #1a4f8a;
+  --blue-bg: #eaf1fa;
+  --blue-mid: #3a7bd5;
+  --teal: #0f6e56;
+  --teal-bg: #e6f5ef;
+  --amber: #7a4f0a;
+  --amber-bg: #fdf3e0;
+  --coral: #8a2e1a;
+  --coral-bg: #fdeee9;
+  --purple: #4a3a9a;
+  --purple-bg: #eeedfb;
+  --mono: 'JetBrains Mono', 'Fira Mono', 'Cascadia Code', monospace;
+  --sans: 'Inter', system-ui, sans-serif;
+  --serif: 'Georgia', 'Times New Roman', serif;
+  --radius: 8px;
+  --radius-sm: 4px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141412;
+    --surface: #1e1d1a;
+    --surface2: #252320;
+    --border: #2e2c28;
+    --border2: #3d3a34;
+    --text: #e8e6df;
+    --muted: #9c998e;
+    --faint: #6b6860;
+    --blue: #7ab2f5;
+    --blue-bg: #0e1f35;
+    --blue-mid: #4a8fe0;
+    --teal: #4cc9a0;
+    --teal-bg: #0b2a20;
+    --amber: #f0b855;
+    --amber-bg: #2a1e08;
+    --coral: #f08070;
+    --coral-bg: #2a1008;
+    --purple: #a090f5;
+    --purple-bg: #1e1a3a;
+  }
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.6;
+  padding: 2rem 1rem 4rem;
+}
+
+.page { max-width: 900px; margin: 0 auto; }
+
+header {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.75rem;
+}
+
+h1 {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: normal;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.35rem;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.katex { font-size: 1em; }
+.katex-display { font-size: 1em; }
+
+/* ── Controls ── */
+.controls {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.25rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 600px) { .controls { grid-template-columns: 1fr; } }
+
+.ctrl-group { display: flex; flex-direction: column; gap: 6px; }
+
+.ctrl-label {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 500;
+  text-transform: lowercase;
+  letter-spacing: 0.04em;
+}
+
+.ctrl-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+input[type=range] {
+  flex: 1;
+  accent-color: var(--blue-mid);
+  cursor: pointer;
+  height: 4px;
+}
+
+.ctrl-val {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--blue);
+  min-width: 18px;
+  text-align: right;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--muted);
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox-row input[type=checkbox] {
+  width: 15px; height: 15px;
+  accent-color: var(--coral-bg);
+  cursor: pointer;
+}
+
+.checkbox-row.active { color: var(--coral); }
+
+/* ── Grid ── */
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 640px) { .grid2 { grid-template-columns: 1fr; } }
+
+/* ── Panel ── */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+}
+
+.panel + .panel { margin-top: 0; }
+
+.panel-title {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--faint);
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── Tags / badges ── */
+.tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  padding: 2px 7px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.tag-base   { background: var(--surface2); color: var(--muted); border-color: var(--border); }
+.tag-henkin { background: var(--teal-bg); color: var(--teal); }
+.tag-ord    { background: var(--blue-bg); color: var(--blue); }
+.tag-finite { background: var(--coral-bg); color: var(--coral); }
+.tag-elem   { background: var(--purple-bg); color: var(--purple); }
+
+/* ── Axiom list ── */
+.axiom-list { display: flex; flex-direction: column; gap: 4px; }
+
+.axiom-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  padding: 5px 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+}
+
+.axiom-row.kind-eq     { background: var(--surface2); color: var(--muted); }
+.axiom-row.kind-ord    { background: var(--blue-bg); color: var(--blue); }
+.axiom-row.kind-zero   { background: var(--purple-bg); color: var(--purple); }
+.axiom-row.kind-finite { background: var(--coral-bg); color: var(--coral); }
+.axiom-row.kind-henkin { background: var(--teal-bg); color: var(--teal); }
+
+.axiom-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.6;
+  flex-shrink: 0;
+  padding-top: 2px;
+  min-width: 48px;
+}
+
+/* ── Lindenbaum steps ── */
+.lind-list { display: flex; flex-direction: column; gap: 5px; }
+
+.lind-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  font-size: 13px;
+  transition: background 0.15s;
+}
+
+.lind-row.in    { background: var(--teal-bg); border-color: transparent; }
+.lind-row.out   { background: var(--coral-bg); border-color: transparent; }
+
+.lind-num {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  min-width: 20px;
+  text-align: center;
+  padding-top: 2px;
+  opacity: 0.5;
+}
+
+.lind-icon { font-size: 14px; flex-shrink: 0; padding-top: 1px; }
+.lind-in  .lind-icon { color: var(--teal); }
+.lind-out .lind-icon::before { content: "✗"; color: var(--coral); }
+.lind-in  .lind-icon::before { content: "✓"; }
+
+.lind-formula { flex: 1; }
+.lind-why { font-size: 11px; color: var(--faint); margin-top: 2px; }
+.lind-in  .lind-why { color: var(--teal); opacity: 0.7; }
+.lind-out .lind-why { color: var(--coral); opacity: 0.7; }
+
+/* ── Model panel ── */
+.model-visual {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.model-row-label {
+  font-size: 11px;
+  color: var(--faint);
+  margin-bottom: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.order-line {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.order-elem {
+  display: flex;
+  align-items: center;
+}
+
+.elem-box {
+  background: var(--purple-bg);
+  color: var(--purple);
+  border-radius: var(--radius-sm);
+  padding: 4px 10px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+
+.elem-box.base { background: var(--blue-bg); color: var(--blue); }
+.elem-box.finite-collapse { background: var(--amber-bg); color: var(--amber); }
+
+.order-arrow {
+  color: var(--faint);
+  font-size: 15px;
+  padding: 0 4px;
+  flex-shrink: 0;
+}
+
+.pred-fact {
+  font-size: 12px;
+  color: var(--muted);
+  background: var(--surface2);
+  border-radius: var(--radius-sm);
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+}
+
+.empty-note {
+  font-size: 12px;
+  color: var(--faint);
+  font-style: italic;
+}
+
+.note-box {
+  background: var(--amber-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+  font-size: 12px;
+  color: var(--amber);
+  line-height: 1.5;
+}
+
+/* ── Section full-width ── */
+.panel-wide { margin-bottom: 1rem; }
+
+/* ── Gamma header ── */
+.gamma-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.gamma-sym {
+  font-family: var(--serif);
+  font-size: 16px;
+  color: var(--muted);
+  margin-right: 4px;
+}
+
+/* ── Intro ── */
+.intro {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.intro h2 {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 0.6rem;
+  color: var(--text);
+}
+
+.intro p {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.intro strong { color: var(--text); font-weight: 500; }
+
+.intro-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.intro-step {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.intro-num {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--blue-bg);
+  color: var(--blue);
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.intro-note {
+  background: var(--surface2);
+  border-left: 3px solid var(--border2);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 8px 12px;
+  font-size: 13px !important;
+  color: var(--muted) !important;
+  margin-bottom: 0 !important;
+}
+
+/* ── footer ── */
+.page-footer {
+  margin-top: 3rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--faint);
+}
+.page-footer a { color: var(--blue-mid); text-decoration: none; }
+.page-footer a:hover { text-decoration: underline; }
+
+/* ── pdf link ── */
+.pdf-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 0.85rem;
+  font-size: 13px;
+  color: var(--blue);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+.pdf-link:hover { border-bottom-color: var(--blue); }
+
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <h1>Конструкция Хенкина: пошаговая демонстрация</h1>
+  <p class="subtitle">Интерактивная иллюстрация к доказательству теоремы Гёделя о полноте исчисления предикатов первого порядка.</p>
+</header>
+
+<div class="intro">
+  <h2>Что здесь происходит</h2>
+  <p>
+    <strong>Теорема Гёделя о полноте</strong> утверждает: если множество формул \(\Gamma\) непротиворечиво,
+    то у него есть модель. Доказательство конструктивно строит эту модель в три шага.
+  </p>
+
+  <div class="intro-steps">
+    <div class="intro-step">
+      <div class="intro-num">1</div>
+      <div>
+        <strong>Расширение языка.</strong>
+        Для каждой формулы \(\exists x\,\varphi(x)\) вводится новая константа-«свидетель» \(c\)
+        и аксиома \(\exists x\,\varphi(x) \to \varphi(c)\). Поскольку добавление констант порождает
+        новые экзистенциальные формулы, процедура итерируется:
+        \(\mathcal{L}_0 \subseteq \mathcal{L}_1 \subseteq \cdots \subseteq \mathcal{L}_\omega\).
+        Это <em>константы Хенкина</em>.
+      </div>
+    </div>
+    <div class="intro-step">
+      <div class="intro-num">2</div>
+      <div>
+        <strong>Лемма Линденбаума.</strong>
+        Перечислим все замкнутые формулы расширенного языка \(\mathcal{L}_\omega\).
+        На каждом шаге добавляем очередную формулу \(\varphi_k\) к теории, если это не создаёт противоречия,
+        иначе добавляем \(\lnot\varphi_k\). В итоге получаем <em>полное непротиворечивое множество</em> \(\Delta\):
+        для каждой формулы в \(\Delta\) лежит ровно одна из \(\varphi, \lnot\varphi\).
+      </div>
+    </div>
+    <div class="intro-step">
+      <div class="intro-num">3</div>
+      <div>
+        <strong>Термовая модель.</strong>
+        Носитель модели — классы эквивалентности замкнутых термов по \((s \sim t) \iff (s{=}t) \in \Delta\).
+        Предикат \({<}\) интерпретируется по определению: \([s] < [t]\) iff \((s{<}t)\in\Delta\).
+        Лемма об истинности (индукция по формуле) гарантирует, что модель удовлетворяет \(\Gamma\).
+      </div>
+    </div>
+  </div>
+
+  <p class="intro-note">
+    <strong>Пример на этой странице.</strong>
+    Язык \(\mathcal{L} = \{=,\,{<},\,0\}\) с теорией линейного порядка и аксиомой минимальности
+    \(\forall x\,(0{=}x \vee 0{<}x)\). Константа \(0\) даёт первый замкнутый терм, поэтому
+    конструкция Хенкина стартует сразу: уже в \(\mathcal{L}_0\) осмыслена формула \(\exists x\,(0{<}x)\).
+    Ползунок <em>n</em> управляет числом итераций расширения языка, ползунок <em>k</em> — числом шагов Линденбаума.
+  </p>
+  <a class="pdf-link" href="/Materials/godel_completeness.pdf" target="_blank" rel="noopener noreferrer">
+    ↓ Полный текст доказательства теоремы Гёделя о полноте (PDF)
+  </a>
+</div>
+
+<!-- Controls -->
+<div class="controls">
+  <div class="ctrl-group">
+    <div class="ctrl-label">итерация языка &mdash; \(n\)</div>
+    <div class="ctrl-row">
+      <input type="range" id="sl-lang" min="0" max="3" value="0" step="1">
+      <span class="ctrl-val" id="vl-lang">0</span>
+    </div>
+    <div class="ctrl-label" style="margin-top:4px">
+      \(\mathcal{L}_0 \subseteq \mathcal{L}_1 \subseteq \mathcal{L}_2 \subseteq \mathcal{L}_3 = \mathcal{L}_\omega\)
+    </div>
+  </div>
+  <div class="ctrl-group">
+    <div class="ctrl-label">шаг Линденбаума &mdash; \(k\)</div>
+    <div class="ctrl-row">
+      <input type="range" id="sl-lind" min="0" max="12" value="0" step="1">
+      <span class="ctrl-val" id="vl-lind">0</span>
+    </div>
+    <label class="checkbox-row" id="finite-label">
+      <input type="checkbox" id="cb-finite">
+      <span>добавить аксиому \(\forall x\,\forall y\,\forall z\;(x{=}y \vee y{=}z \vee z{=}x)\)</span>
+    </label>
+  </div>
+</div>
+
+<!-- Gamma -->
+<div class="panel panel-wide" id="gamma-panel">
+  <div class="panel-title">исходная теория \(\Gamma\)</div>
+  <div id="gamma-body"></div>
+</div>
+
+<!-- Language + Henkin axioms -->
+<div class="grid2">
+  <div class="panel">
+    <div class="panel-title">язык \(\mathcal{L}_n\)</div>
+    <div id="lang-panel"></div>
+  </div>
+  <div class="panel">
+    <div class="panel-title">аксиомы Хенкина \(H\)</div>
+    <div id="henkin-panel"></div>
+  </div>
+</div>
+
+<!-- Lindenbaum -->
+<div class="panel panel-wide">
+  <div class="panel-title">ПН-множество \(\Delta\) — первые \(k\) шагов Линденбаума</div>
+  <div id="lind-panel"></div>
+</div>
+
+<!-- Model -->
+<div class="panel panel-wide">
+  <div class="panel-title">термовая модель \(\mathfrak{M} = T/{\sim}\)</div>
+  <div id="model-panel"></div>
+</div>
+
+  <div class="page-footer">
+    <span>© 2026 Nikolai Kazimirov</span>
+    <span style="opacity:0.4">·</span>
+    <a href="https://mathem.at/">mathem.at</a>
+  </div>
+
+</div><!-- .page -->
+
+<script>
+/* ── Data ──
+   Язык L = {=, <, 0} — два предиката и одна константа.
+   Аксиома минимальности: ∀x (0 ≤ x), т.е. ∀x (0=x ∨ 0<x).
+   Первый замкнутый терм — сама константа 0.
+   Экзистенциальные предложения L0: ∃x(0<x), ∃x∃y(0<x ∧ x<y), ...
+*/
+const AXIOMS = [
+  { kind:"eq",  short:"рефл.",     tex:"\\forall x\\;(x = x)" },
+  { kind:"eq",  short:"замена",    tex:"\\forall x\\,\\forall y\\;(x{=}y \\to (x{<}z \\leftrightarrow y{<}z))" },
+  { kind:"ord", short:"антисимм.", tex:"\\forall x\\,\\forall y\\;(x{<}y \\to \\lnot\\, y{<}x)" },
+  { kind:"ord", short:"транзит.",  tex:"\\forall x\\,\\forall y\\,\\forall z\\;(x{<}y \\wedge y{<}z \\to x{<}z)" },
+  { kind:"ord", short:"линейн.",   tex:"\\forall x\\,\\forall y\\;(x{<}y \\vee y{<}x \\vee x{=}y)" },
+  { kind:"zero", short:"миним.",   tex:"\\forall x\\;(0 = x \\vee 0 {<} x)" },
+];
+const AXIOM_FIN = {
+  kind:"finite", short:"мощн.\u22642",
+  tex:"\\forall x\\,\\forall y\\,\\forall z\\;(x{=}y \\vee y{=}z \\vee z{=}x)"
+};
+
+/* Henkin axioms.
+   L0 = {=, <, 0} — замкнутые термы: только 0.
+   Замкнутые ∃-формулы L0: ∃x(0<x), ∃x(0=x∨0<x) — последняя тривиальна (0 сам свидетель).
+   Нетривиальная: ∃x(0<x) → вводим c_{0,0} со свидетельством 0 < c_{0,0}.
+   L1 добавляет c_{0,0}: новые ∃-формулы: ∃x(c_{0,0}<x), ∃x(0<x∧x<c_{0,0}), ...
+*/
+const HENKIN = [
+  /* n=0→1: L0 уже содержит 0 — первая нетривиальная ∃-формула */
+  { step:0, ex:"\\exists x\\;(0 < x)",
+    wit:"c_{0,0}", psi:"0 < c_{0,0}",
+    note:"первый элемент выше 0" },
+  { step:0, ex:"\\exists x\\;(0 < x \\wedge \\exists y\\,(x < y))",
+    wit:"c_{0,1}", psi:"c_{0,0} < c_{0,1}",
+    note:"элемент выше c_{0,0}" },
+  /* n=1→2: L1 = {=,<,0,c_{0,0},c_{0,1}} */
+  { step:1, ex:"\\exists x\\;(c_{0,0} < x \\wedge x < c_{0,1})",
+    wit:"c_{1,0}", psi:"c_{0,0} < c_{1,0} \\wedge c_{1,0} < c_{0,1}",
+    note:"элемент между c_{0,0} и c_{0,1}" },
+  { step:1, ex:"\\exists x\\;(c_{0,1} < x)",
+    wit:"c_{1,1}", psi:"c_{0,1} < c_{1,1}",
+    note:"элемент выше c_{0,1}" },
+  { step:1, ex:"\\exists x\\;(0 < x \\wedge x < c_{0,0})",
+    wit:"c_{1,2}", psi:"0 < c_{1,2} \\wedge c_{1,2} < c_{0,0}",
+    note:"элемент между 0 и c_{0,0}" },
+  /* n=2→3 */
+  { step:2, ex:"\\exists x\\;(c_{1,1} < x)",
+    wit:"c_{2,0}", psi:"c_{1,1} < c_{2,0}",
+    note:"ещё выше c_{1,1}" },
+  { step:2, ex:"\\exists x\\;(c_{0,0} < x \\wedge x < c_{1,0})",
+    wit:"c_{2,1}", psi:"c_{0,0} < c_{2,1} \\wedge c_{2,1} < c_{1,0}",
+    note:"между c_{0,0} и c_{1,0}" },
+];
+
+/* Lindenbaum steps */
+const LIND_STEPS = [
+  { phi:"0 < c_{0,0}",
+    ind:true,  why:"аксиома Хенкина n=0: свидетель \\exists x(0<x)" },
+  { phi:"c_{0,0} < c_{0,1}",
+    ind:true,  why:"аксиома Хенкина n=0" },
+  { phi:"c_{0,0} < 0",
+    ind:false, why:"противоречит аксиоме минимальности: 0 = c_{0,0} \\vee 0 < c_{0,0}" },
+  { phi:"0 = c_{0,0}",
+    ind:false, why:"противоречит 0 < c_{0,0} \\in \\Delta \\;(антисимм.)" },
+  { phi:"c_{0,1} < c_{0,0}",
+    ind:false, why:"противоречит c_{0,0} < c_{0,1} \\in \\Delta \\;(антисимм.)" },
+  { phi:"0 < c_{0,1}",
+    ind:true,  why:"транзит.: 0 < c_{0,0} < c_{0,1}" },
+  { phi:"c_{0,0} < c_{1,0} \\wedge c_{1,0} < c_{0,1}",
+    ind:true,  why:"аксиома Хенкина n=1: свидетель между c_{0,0} и c_{0,1}" },
+  { phi:"c_{0,1} < c_{1,1}",
+    ind:true,  why:"аксиома Хенкина n=1: свидетель выше c_{0,1}" },
+  { phi:"0 < c_{1,2} \\wedge c_{1,2} < c_{0,0}",
+    ind:true,  why:"аксиома Хенкина n=1: свидетель между 0 и c_{0,0}" },
+  { phi:"c_{1,2} < c_{1,0}",
+    ind:true,  why:"транзит.: c_{1,2} < c_{0,0} < c_{1,0}" },
+  { phi:"c_{1,1} < c_{2,0}",
+    ind:true,  why:"аксиома Хенкина n=2: свидетель выше c_{1,1}" },
+  { phi:"c_{1,0} = c_{2,1}",
+    ind:false, why:"c_{2,1} \\in (c_{0,0}, c_{1,0}) \\Rightarrow c_{2,1} \\neq c_{1,0}" },
+  { phi:"0 = c_{1,2}",
+    ind:false, why:"противоречит 0 < c_{1,2} \\in \\Delta" },
+];
+
+function modelElems(langN, lindK, finite) {
+  /* носитель — классы эквивалентности замкнутых термов */
+  if (finite) return ["[0]", "[c_{0,0}]"];
+  /* видимый порядок растёт с шагами */
+  if (langN === 0 && lindK === 0) return ["[0]"];
+  if (lindK < 2)  return ["[0]", "[c_{0,0}]"];
+  if (lindK < 7)  return ["[0]", "[c_{0,0}]", "[c_{0,1}]"];
+  if (lindK < 9)  return ["[0]", "[c_{0,0}]", "[c_{1,0}]", "[c_{0,1}]", "[c_{1,1}]"];
+  if (lindK < 11) return ["[0]", "[c_{1,2}]", "[c_{0,0}]", "[c_{1,0}]", "[c_{0,1}]", "[c_{1,1}]"];
+  return ["[0]", "[c_{1,2}]", "[c_{0,0}]", "[c_{2,1}]", "[c_{1,0}]", "[c_{0,1}]", "[c_{1,1}]", "[c_{2,0}]"];
+}
+
+/* ── Render ── */
+function K(tex, display) {
+  try {
+    return katex.renderToString(tex, { throwOnError:false, displayMode:!!display });
+  } catch(e) { return tex; }
+}
+
+function render() {
+  const n    = parseInt(document.getElementById("sl-lang").value);
+  const k    = parseInt(document.getElementById("sl-lind").value);
+  const fin  = document.getElementById("cb-finite").checked;
+
+  document.getElementById("vl-lang").textContent = n;
+  document.getElementById("vl-lind").textContent = k;
+  document.getElementById("finite-label").className = "checkbox-row" + (fin ? " active" : "");
+
+  /* Gamma */
+  const axs = [...AXIOMS, ...(fin ? [AXIOM_FIN] : [])];
+  document.getElementById("gamma-body").innerHTML =
+    `<div class="axiom-list">${axs.map(a =>
+      `<div class="axiom-row kind-${a.kind}">
+         <span class="axiom-label">${a.short}</span>
+         <span>${K(a.tex)}</span>
+       </div>`
+    ).join("")}</div>`;
+
+  /* Language */
+  const hConsts = [];
+  for (let i = 0; i < n; i++)
+    for (let j = 0; j <= 2; j++) hConsts.push(`c_{${i},${j}}`);
+
+  document.getElementById("lang-panel").innerHTML =
+    `<div style="margin-bottom:8px">
+       <div class="model-row-label">предикаты и константа базового языка ${K("\\mathcal{L}_0")}</div>
+       <div class="tags">
+         <span class="tag tag-base">${K("=")}</span>
+         <span class="tag tag-base">${K("<")}</span>
+         <span class="tag tag-ord">${K("0")}</span>
+         <span style="font-size:11px;color:var(--faint);align-self:center;margin-left:2px">минимальный элемент</span>
+       </div>
+     </div>` +
+    (hConsts.length
+      ? `<div><div class="model-row-label">константы Хенкина (уровни 0…${n-1})</div>
+         <div class="tags">${hConsts.map(c =>
+           `<span class="tag tag-henkin">${K(c)}</span>`).join("")}</div></div>`
+      : `<div style="margin-top:6px;font-size:12px;color:var(--faint)">константы Хенкина появятся при ${K("n \\ge 1")}</div>`);
+
+  /* Henkin axioms */
+  const hAxs = HENKIN.filter(h => h.step < n);
+  document.getElementById("henkin-panel").innerHTML = hAxs.length === 0
+    ? `<div style="font-size:12px;color:var(--faint)">
+        В ${K("\\mathcal{L}_0")} уже есть замкнутый терм ${K("0")}, но аксиомы Хенкина
+        добавляются при ${K("n \\ge 1")}. Первая нетривиальная: свидетель для
+        ${K("\\exists x\\,(0 < x)")}.
+       </div>`
+    : `<div class="axiom-list">${hAxs.map(h =>
+        `<div class="axiom-row kind-henkin">
+           <span class="axiom-label">n=${h.step}</span>
+           <span>${K(h.ex + " \\;\\to\\; " + h.psi)}
+             ${h.note ? `<div style="font-size:11px;opacity:0.65;margin-top:2px">${h.note}</div>` : ""}
+           </span>
+         </div>`
+      ).join("")}</div>`;
+
+  /* Lindenbaum */
+  const steps = LIND_STEPS.slice(0, k);
+  document.getElementById("lind-panel").innerHTML = steps.length === 0
+    ? `<span class="empty-note">${K("\\Delta = \\Gamma^*")} — ни одной формулы ещё не рассмотрено</span>`
+    : `<div class="lind-list">${steps.map((s, i) => {
+        const cls = s.ind ? "in" : "out";
+        const verdict = s.ind
+          ? K("\\varphi_{"+(i+1)+"} \\in \\Delta")
+          : K("\\lnot\\,\\varphi_{"+(i+1)+"} \\in \\Delta");
+        return `<div class="lind-row ${cls}">
+          <span class="lind-num">${i+1}</span>
+          <span class="lind-icon"></span>
+          <span class="lind-formula">
+            ${K(s.phi)}
+            <span style="font-size:11px;opacity:0.7;margin-left:6px">${verdict}</span>
+            <div class="lind-why">${K(s.why)}</div>
+          </span>
+        </div>`;
+      }).join("")}</div>`;
+
+  /* Model */
+  const elems = modelElems(n, k, fin);
+
+  let modelHTML = "";
+
+  if (fin) {
+    modelHTML += `<div class="note-box" style="margin-bottom:10px">
+      Аксиома ограничения мощности вынуждает ${K("c_{0,0}")} быть единственным элементом выше ${K("0")}
+      — все прочие константы Хенкина отождествляются с ${K("0")} или ${K("c_{0,0}")} по ${K("\\sim")}.
+    </div>`;
+  }
+
+  modelHTML += `<div class="model-visual">`;
+  modelHTML += `<div><div class="model-row-label">носитель ${K("T/{\\sim}")} — элементы в порядке ${K("{<}^{\\mathfrak{M}}")}</div>`;
+
+  modelHTML += `<div class="order-line">`;
+  elems.forEach((e, i) => {
+    const isZero = e === "[0]";
+    const cls = fin ? "finite-collapse" : (isZero ? "base" : "");
+    modelHTML += `<div class="order-elem">
+      <div class="elem-box ${cls}">${K(e)}</div>
+      ${i < elems.length-1 ? `<div class="order-arrow">&lt;</div>` : ""}
+    </div>`;
+  });
+  modelHTML += `</div></div>`;
+
+  modelHTML += `<div>
+    <div class="model-row-label">интерпретация предиката</div>
+    <div class="pred-fact">
+      ${K("P_{<}^{\\mathfrak{M}}([s],[t]) = \\top \\;\\iff\\; (s < t)\\in\\Delta")}
+      &nbsp;&mdash; значение задаётся <em>по определению</em> через принадлежность ${K("\\Delta")}
+    </div>
+  </div>`;
+
+  if (!fin && n >= 1) {
+    modelHTML += `<div>
+      <div class="model-row-label">пример: значение предиката на константе Хенкина</div>
+      <div class="pred-fact">
+        ${K("P_{<}^{\\mathfrak{M}}([0],[c_{0,0}])")} = ?
+        &nbsp;Лежит ли ${K("0 < c_{0,0}")} в ${K("\\Delta")}?
+        ${k >= 1
+          ? `<strong style="color:var(--teal)">Да</strong> — шаг 1 Линденбаума.`
+          : `Пока ${K("k = 0")} — Линденбаум ещё не дошёл до этой формулы.`}
+      </div>
+    </div>`;
+  }
+
+  modelHTML += `</div>`;
+  document.getElementById("model-panel").innerHTML = modelHTML;
+
+  /* re-render KaTeX in dynamic content */
+  renderMathInElement(document.getElementById("gamma-body"), opts);
+  renderMathInElement(document.getElementById("lang-panel"), opts);
+  renderMathInElement(document.getElementById("henkin-panel"), opts);
+  renderMathInElement(document.getElementById("lind-panel"), opts);
+  renderMathInElement(document.getElementById("model-panel"), opts);
+}
+
+const opts = {
+  delimiters:[
+    {left:"\\(",right:"\\)",display:false},
+    {left:"\\[",right:"\\]",display:true},
+  ],
+  throwOnError:false
+};
+
+function initPage(){
+  renderMathInElement(document.body, opts);
+  document.getElementById("sl-lang").addEventListener("input", render);
+  document.getElementById("sl-lind").addEventListener("input", render);
+  document.getElementById("cb-finite").addEventListener("change", render);
+  render();
+}
+</script>
+</body>
+</html>

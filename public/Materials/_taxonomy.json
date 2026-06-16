@@ -41,12 +41,14 @@
     "math_structures.html": "algebra",
     "test1.html": "sets",
     "diagonal.html": "foundations",
+    "henkin_construction.html": "foundations",
     "second_order_arithmetic.html": "foundations",
     "second_order_arithmetic_en.html": "foundations",
     "galton_watson_process.html": "probability"
   },
   "fileLanguage": {
     "diagonal.html": "ru",
+    "henkin_construction.html": "ru",
     "math_structures.html": "ru"
   }
 }

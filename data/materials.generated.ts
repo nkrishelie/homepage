@@ -74,6 +74,13 @@ export const MATERIALS_ITEMS: MaterialItem[] = [
     "lang": "ru"
   },
   {
+    "filename": "henkin_construction.html",
+    "href": "/Materials/henkin_construction.html",
+    "title": "Конструкция Хенкина — интерактивная демонстрация",
+    "category": "foundations",
+    "lang": "ru"
+  },
+  {
     "filename": "math_analysis_levels.html",
     "href": "/Materials/math_analysis_levels.html",
     "title": "Уровни формализации математического анализа",
