@@ -175,7 +175,7 @@ export const HeaderMaterials: React.FC<Props> = ({
 
   if (variant === 'mobile') {
     return (
-      <div className="border-b border-academic-100 pb-4">
+      <div ref={rootRef} className="border-b border-academic-100 pb-4">
         <button
           type="button"
           className="flex w-full items-center justify-between text-2xl font-serif font-bold text-academic-900 text-left"
