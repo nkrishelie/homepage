@@ -456,7 +456,7 @@ input[type=range]::-webkit-slider-thumb {
           <span class="tip-icon" tabindex="0">?</span>
           <div class="tip-box" id="tip-ext">
             <div class="tit">Вымершее дерево</div>
-            Дерево стартовой частицы с объёмом 1 (только корень).
+            Дерево, которое не дожило до последнего поколения \(T\).
             В докритическом режиме все деревья вырождаются с вероятностью 1.
           </div>
         </span>
@@ -719,7 +719,7 @@ function drawForest(trees) {
 /* ─── Статистика ─── */
 function updateStats(trees) {
   const total = trees.reduce((s,t) => s + t.size, 0);
-  const ext   = trees.filter(t => t.size === 1).length;  // вымершие = только корень
+  const ext   = trees.filter(t => t.nodes[t.nodes.length - 1].gen < GENS - 1).length;  // вымершие = не дожили до поколения T
   const dom   = trees.reduce((a,b) => b.size > a.size ? b : a, trees[0]);
   const domPct = total > 0 ? (dom.size/total*100).toFixed(1)+'%' : '—';
   const q = extinctionProb(lambda);
