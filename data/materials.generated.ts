@@ -81,6 +81,13 @@ export const MATERIALS_ITEMS: MaterialItem[] = [
     "lang": "ru"
   },
   {
+    "filename": "induction.html",
+    "href": "/Materials/induction.html",
+    "title": "О математической индукции",
+    "category": "foundations",
+    "lang": "ru"
+  },
+  {
     "filename": "math_analysis_levels.html",
     "href": "/Materials/math_analysis_levels.html",
     "title": "Уровни формализации математического анализа",

@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>О математической индукции</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, KATEX_OPTS)"></script>
+<style>
+:root {
+  --bg:#faf9f6; --bg2:#f2f0eb; --ink:#1a1917; --ink2:#5a5750; --ink3:#8a8680; --border:#dcd9d2;
+  --blue-bg:#e8eef7;  --blue-acc:#3a5f9e;
+  --rust-bg:#f0ebe8;  --rust-acc:#8c4a32;
+  --sage-bg:#e8f0eb;  --sage-acc:#2e6645;
+  --teal-bg:#e6f5ef;  --teal-acc:#0f6e56;
+  --amber-bg:#fdf3e0;  --amber-acc:#7a4f0d;
+  --coral-bg:#faeae6;  --coral-acc:#9b2f1a;
+  --purple-bg:#eeedfb; --purple-acc:#4a3a9a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Georgia,serif;font-size:22px;line-height:1.65;min-height:100vh}
+.page{max-width:1320px;margin:0 auto;padding:3rem 2.5rem 5rem}
+
+header{margin-bottom:2.5rem;border-bottom:1.5px solid var(--ink);padding-bottom:1.5rem}
+.kicker{font-family:'JetBrains Mono',monospace;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:.6rem}
+h1{font-size:clamp(28px,3.2vw,44px);font-weight:500;line-height:1.15;color:var(--ink);margin-bottom:.5rem}
+.desc{font-size:19px;color:var(--ink2);font-style:italic;max-width:820px}
+
+.pdf-banner{
+  display:flex; align-items:center; gap:10px; margin-top:1.1rem;
+  background:var(--bg2); border:1px solid var(--border); border-radius:6px;
+  padding:.8rem 1.1rem; font-size:17px; color:var(--ink2);
+}
+.pdf-banner a{color:var(--blue-acc); text-decoration:none; border-bottom:1px solid rgba(58,95,158,.35); font-weight:500}
+.pdf-banner a:hover{border-bottom-color:var(--blue-acc)}
+
+section{margin-bottom:2.75rem}
+h2{font-size:27px;font-weight:500;margin-bottom:.9rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+h3{font-size:21px;font-weight:500;margin:1.4rem 0 .7rem;color:var(--ink)}
+p{margin-bottom:.9rem;color:var(--ink2)}
+p.lead{color:var(--ink);}
+strong{color:var(--ink);font-weight:500}
+em{color:var(--ink)}
+.katex{font-size:1.05em}
+.katex-display{margin:.6em 0!important}
+
+/* ── cards ── */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:0.5px solid var(--border);margin-bottom:1.3rem}
+@media(max-width:960px){.cards{grid-template-columns:1fr}}
+.card{background:var(--bg);padding:1.4rem 1.5rem;display:flex;flex-direction:column;gap:.6rem}
+.card.blue{background:var(--blue-bg)} .card.rust{background:var(--rust-bg)} .card.sage{background:var(--sage-bg)}
+.card-num{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.1em;text-transform:uppercase}
+.blue .card-num{color:var(--blue-acc)} .rust .card-num{color:var(--rust-acc)} .sage .card-num{color:var(--sage-acc)}
+.card-name{font-size:19px;font-weight:500;color:var(--ink);padding-bottom:.5rem;border-bottom:1px solid rgba(0,0,0,.08)}
+.card-body{font-size:17.5px;color:var(--ink2);line-height:1.6}
+.card-formula{margin:.4rem 0;font-size:17px;overflow-x:auto}
+
+/* ── bullet lists ── */
+ul.plain{padding-left:1.3rem;margin-bottom:1rem;color:var(--ink2)}
+ul.plain li{margin-bottom:.55rem;line-height:1.6}
+ul.plain li::marker{color:var(--ink3)}
+
+/* ── definition rows ── */
+.def-box{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1.1rem 1.3rem;margin-bottom:1.1rem;font-size:18px}
+.def-row{display:flex;gap:.6rem;margin-bottom:.45rem;flex-wrap:wrap}
+.def-row:last-child{margin-bottom:0}
+.def-name{font-family:'JetBrains Mono',monospace;font-size:15.5px;color:var(--ink3);min-width:70px;padding-top:2px}
+
+/* ── principle rows ── */
+.principle-list{display:flex;flex-direction:column;gap:8px;margin-bottom:1.1rem}
+.principle{display:flex;gap:14px;align-items:flex-start;padding:.8rem 1.05rem;border-radius:6px;font-size:18px}
+.principle.c1{background:var(--blue-bg)} .principle.c2{background:var(--teal-bg)}
+.principle.c3{background:var(--sage-bg)} .principle.c4{background:var(--amber-bg)}
+.principle.c5{background:var(--purple-bg)}
+.p-tag{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;min-width:30px;padding-top:2px}
+.principle.c1 .p-tag{color:var(--blue-acc)} .principle.c2 .p-tag{color:var(--teal-acc)}
+.principle.c3 .p-tag{color:var(--sage-acc)} .principle.c4 .p-tag{color:var(--amber-acc)}
+.principle.c5 .p-tag{color:var(--purple-acc)}
+.p-body{flex:1}
+.p-name{font-size:15.5px;color:var(--ink2);margin-bottom:3px}
+.p-formula{overflow-x:auto}
+
+/* ── implication diagram ── */
+.diagram-wrap{overflow-x:auto;margin:1.2rem 0}
+.diagram{display:flex;align-items:center;gap:0;min-width:640px;padding:1.2rem;background:var(--bg2);border:1px solid var(--border);border-radius:6px}
+.dbox{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:.85rem 1.2rem;border-radius:6px;font-size:18px;text-align:center;flex-shrink:0;
+}
+.dbox.d1{background:var(--blue-bg);color:var(--blue-acc);border:1.5px solid var(--blue-acc)}
+.dbox.d2{background:var(--rust-bg);color:var(--rust-acc);border:1.5px solid var(--rust-acc)}
+.dbox.d3{background:var(--purple-bg);color:var(--purple-acc);border:1.5px solid var(--purple-acc)}
+.darrows{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;padding:0 .7rem;min-width:130px}
+.darrow-row{display:flex;align-items:center;gap:4px;font-size:14.5px;color:var(--ink3);width:100%;justify-content:center}
+.darrow-line{flex:1;height:0;border-top:1.5px solid var(--ink3);position:relative;min-width:20px}
+.darrow-label{font-family:'JetBrains Mono',monospace;font-size:13.5px;white-space:nowrap;color:var(--ink2)}
+
+/* ── axiom chips ── */
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin:.5rem 0 1rem}
+.chip{font-family:'JetBrains Mono',monospace;font-size:15px;padding:5px 10px;border-radius:4px;background:var(--bg2);border:1px solid var(--border);color:var(--ink2)}
+
+/* ── proof details ── */
+details.proof{background:var(--bg2);border:1px solid var(--border);border-radius:6px;margin:.9rem 0;padding:0}
+details.proof summary{
+  cursor:pointer;padding:.75rem 1.1rem;font-family:'JetBrains Mono',monospace;font-size:15px;
+  letter-spacing:.03em;text-transform:uppercase;color:var(--ink2);list-style:none;
+  display:flex;align-items:center;gap:8px;
+}
+details.proof summary::-webkit-details-marker{display:none}
+details.proof summary::before{content:'▶';font-size:11px;color:var(--ink3);transition:transform .15s}
+details.proof[open] summary::before{transform:rotate(90deg)}
+details.proof .proof-body{padding:0 1.2rem 1.1rem;font-size:17.5px;color:var(--ink2);line-height:1.65}
+details.proof .proof-body p{margin-bottom:.7rem}
+details.proof .proof-body p:last-child{margin-bottom:0}
+
+/* ── order-line model visual ── */
+.model-visual{margin:1rem 0}
+.model-chain-label{font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px}
+.order-line{display:flex;align-items:center;overflow-x:auto;padding-bottom:6px;flex-wrap:nowrap}
+.order-elem{display:flex;align-items:center;flex-shrink:0}
+.elem-box{
+  background:var(--sage-bg);color:var(--sage-acc);border-radius:5px;padding:6px 13px;
+  font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:600;white-space:nowrap;
+}
+.elem-box.zero{background:var(--blue-bg);color:var(--blue-acc)}
+.elem-box.break{background:var(--coral-bg);color:var(--coral-acc);border:1.5px solid var(--coral-acc)}
+.order-arrow{color:var(--ink3);font-size:16px;padding:0 7px;flex-shrink:0;font-family:'JetBrains Mono',monospace}
+.order-arrow.break-arrow{color:var(--coral-acc);font-weight:700}
+.model-note{font-size:16px;color:var(--ink3);margin-top:7px;font-style:italic}
+
+/* ── table ── */
+.tbl-wrap{overflow-x:auto;margin-bottom:.6rem}
+table{width:100%;border-collapse:collapse;min-width:780px;border:0.5px solid var(--border);border-top:2px solid var(--ink)}
+thead th{padding:12px 16px;vertical-align:bottom;border-bottom:1.5px solid var(--ink);border-right:0.5px solid var(--border);font-size:17px;font-weight:500;text-align:left}
+thead th:last-child{border-right:none}
+col.c-stmt{width:46%}
+tbody tr{border-bottom:0.5px solid var(--border)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover td{background:rgba(0,0,0,.02)}
+tbody td{padding:12px 16px;vertical-align:top;border-right:0.5px solid var(--border);font-size:17.5px}
+tbody td:last-child{border-right:none}
+.stmt-col{color:var(--ink)}
+.stmt-sub{display:block;font-size:15px;color:var(--ink3);margin-top:4px;font-style:italic}
+.status-col{color:var(--ink2)}
+.sys-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:14px;padding:2px 8px;border-radius:3px;background:var(--rust-bg);color:var(--rust-acc);white-space:nowrap;margin-right:4px;margin-bottom:2px}
+.sys-tag.neg{background:var(--coral-bg);color:var(--coral-acc)}
+.sys-tag.pos{background:var(--teal-bg);color:var(--teal-acc)}
+
+/* ── glossary ── */
+.glossary{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:.5rem 2rem;font-size:17px}
+.gloss-item{display:flex;gap:.6rem;padding:.45rem 0;border-bottom:1px solid var(--border)}
+.gloss-term{font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--ink3);min-width:74px;flex-shrink:0}
+.gloss-def{color:var(--ink2)}
+
+.page-footer{margin-top:2.75rem;padding-top:1.1rem;border-top:0.5px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.04em;color:var(--ink3);text-align:center;line-height:1.5}
+.page-footer a{color:var(--ink3);text-decoration:none;border-bottom:1px solid rgba(138,134,128,.35)}
+.page-footer a:hover{color:var(--ink2);border-bottom-color:var(--ink2)}
+
+@media(max-width:700px){
+  body{font-size:19px}
+  .page{padding:1.5rem 1rem 3rem}
+  .diagram{flex-direction:column;min-width:0}
+  .darrows{flex-direction:row;min-width:0;padding:.6rem 0}
+}
+</style>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js', 'ym');
+    ym(94010841, 'init', {webvisor:true, clickmap:true, referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<!-- /Yandex.Metrika counter -->
+</head>
+<body>
+<div class="page">
+
+<header>
+  <p class="kicker">Логика · Арифметика · Теория доказательств</p>
+  <h1>О математической индукции</h1>
+  <p class="desc">Один и тот же принцип — «доказано для базы и для шага ⇒ доказано для всех» — принимает
+  существенно разные логические формы в зависимости от языка и базовой теории: счётную схему аксиом
+  в арифметике Пеано, единственную аксиому второго порядка в анализе, теорему в теории множеств.
+  Здесь — путеводитель по этим формам, их взаимосвязям и границам; полные формулировки и доказательства — в PDF.</p>
+  <div class="pdf-banner">
+    📄 Все доказательства этой страницы (включая теорему о равносильности и её метаматематические тонкости) —
+    <a href="/Materials/induction.pdf" target="_blank" rel="noopener noreferrer">полный текст «О математической индукции» (PDF)</a>
+  </div>
+</header>
+
+<!-- ══════════════════ §1 ══════════════════ -->
+<section>
+  <h2>1. Формы индукции: от языка к языку</h2>
+  <p class="lead">
+    Индукция выглядит по-разному не потому, что математики каждый раз придумывают что-то новое,
+    а потому, что выразительные возможности языка меняются: там, где нельзя квантифицировать по множествам,
+    приходится довольствоваться схемой аксиом &mdash; отдельной аксиомой на каждую формулу.
+  </p>
+
+  <div class="cards">
+    <div class="card blue">
+      <span class="card-num">Арифметика Пеано</span>
+      <span class="card-name">\(\mathsf{PA}\) — счётная схема</span>
+      <div class="card-body">
+        Квантификации по множествам в языке нет: для каждой формулы \(\varphi(a)\) (с параметрами) —
+        своя аксиома.
+        <div class="card-formula">\[\varphi[a/0] \land \forall x\,(\varphi[a/x]\to\varphi[a/Sx]) \to \forall y\,\varphi[a/y]\]</div>
+        Привычнее записывать её через объём формулы \(X=\{x\mid\varphi(x)\}\) — но запись \(\forall X(\ldots)\)
+        здесь лишь <em>метазапись</em> схемы, а не квантор второго порядка.
+      </div>
+    </div>
+    <div class="card rust">
+      <span class="card-num">Анализ второго порядка</span>
+      <span class="card-name">\(\mathsf{Z}_2\) — единая аксиома</span>
+      <div class="card-body">
+        Квантификация по множествам разрешена языком напрямую, поэтому схема сворачивается в одну формулу:
+        <div class="card-formula">\[\forall X\bigl(0\in X\land\forall x(x\in X\to Sx\in X)\to\forall y(y\in X)\bigr)\]</div>
+        Мощность теории задаётся не самой этой аксиомой, а <em>схемой свёртывания</em>: чем шире класс
+        формул \(\varphi\), для которых гарантировано существование \(X=\{x\mid\varphi(x)\}\), тем на больший
+        запас множеств распространяется индукция.
+      </div>
+    </div>
+    <div class="card sage">
+      <span class="card-num">Теория множеств</span>
+      <span class="card-name">\(\mathsf{ZFC}\) — следствие бесконечности</span>
+      <div class="card-body">
+        Индукция по \(\mathbb N\) — следствие аксиомы бесконечности (существование индуктивного \(\omega\)):
+        <div class="card-formula">\[\exists X\bigl(\emptyset\in X\land\forall x\in X(x\cup\{x\}\in X)\bigr)\]</div>
+        <em>Трансфинитная индукция</em> обобщает принцип на все ординалы:
+        <div class="card-formula">\[\forall\alpha\bigl((\forall\beta{<}\alpha\;\varphi(\beta))\to\varphi(\alpha)\bigr)\to\forall\gamma\,\varphi(\gamma)\]</div>
+        В \(\mathsf{ZFC}\) это уже теорема, а не аксиома — она следует из фундированности (регулярности) и схемы выделения.
+      </div>
+    </div>
+  </div>
+
+  <h3>Разновидности по сложности формул и параметрам</h3>
+  <ul class="plain">
+    <li><strong>Иерархия по кванторной сложности (\(I\Sigma_n\), \(I\Pi_n\)).</strong>
+      Ограничение того, какие формулы \(\varphi\) допускаются в схеме индукции, порождает строгую дедуктивную
+      иерархию. Например, \(I\Sigma_1\) уже доказывает тотальность всех примитивно рекурсивных функций,
+      а \(I\Delta_0\) (индукция лишь по формулам с ограниченными кванторами) — не может доказать даже
+      тотальность экспоненты.</li>
+    <li><strong>Индукция с параметрами и без.</strong> В полной \(\mathsf{PA}\) наличие свободных переменных
+      в формуле не увеличивает силу теории. Но в ограниченных фрагментах \(I\Sigma_n^-\) (без параметров)
+      теория строго слабее, чем \(I\Sigma_n\) (с параметрами).</li>
+    <li><strong>Индукция вдоль произвольных вполне упорядоченных множеств</strong> — обобщение локального шага
+      с \(\mathbb N\) на любое фундированное отношение (см. трансфинитную индукцию выше).</li>
+  </ul>
+</section>
+
+<!-- ══════════════════ §2 ══════════════════ -->
+<section>
+  <h2>2. Пять равносильных принципов — и где равносильность ломается</h2>
+  <p class="lead">
+    В первопорядковом языке арифметики можно сформулировать пять на первый взгляд разных принципов.
+    Часть из них равносильна друг другу уже в чистой логике, без единой арифметической аксиомы;
+    другая часть требует минимальных фактов о последователе; связь с последним принципом — самая тонкая
+    и метаматематически глубокая. Три сокращения, на которых всё держится:
+  </p>
+
+  <div class="def-box">
+    <div class="def-row"><span class="def-name">\(\mathrm{Ind}(X)\)</span><span>\(0\in X \,\land\, \forall x\,(x\in X\to Sx\in X)\) — <em>индуктивность</em>: условие локального шага</span></div>
+    <div class="def-row"><span class="def-name">\(\mathrm{Prog}(X)\)</span><span>\(\forall x\,([0,x)\subseteq X\to x\in X)\) — <em>прогрессивность</em>: замкнутость относительно начальных интервалов</span></div>
+    <div class="def-row"><span class="def-name">\(\mathrm{Tot}(X)\)</span><span>\(\forall x\,(x\in X)\) — <em>тотальность</em>: \(X\) содержит вообще всё</span></div>
+  </div>
+
+  <div class="principle-list">
+    <div class="principle c1"><span class="p-tag">I</span><div class="p-body">
+      <div class="p-name">Локальная индукция</div>
+      <div class="p-formula">\(\forall X\bigl(\mathrm{Ind}(X)\to\mathrm{Tot}(X)\bigr)\)</div></div></div>
+    <div class="principle c2"><span class="p-tag">I*</span><div class="p-body">
+      <div class="p-name">Возвратная (полная, course-of-values) индукция</div>
+      <div class="p-formula">\(\forall X\bigl(\mathrm{Prog}(X)\to\mathrm{Tot}(X)\bigr)\)</div></div></div>
+    <div class="principle c3"><span class="p-tag">L</span><div class="p-body">
+      <div class="p-name">Принцип наименьшего элемента</div>
+      <div class="p-formula">\(\forall X\bigl(X\ne\varnothing\to\exists x\in X\,\forall y\in X\,(x\leqslant y)\bigr)\)</div></div></div>
+    <div class="principle c4"><span class="p-tag">D</span><div class="p-body">
+      <div class="p-name">Принцип бесконечного спуска</div>
+      <div class="p-formula">\(\forall X\bigl(X\ne\varnothing\to\lnot(\forall x\in X\,\exists y\in X\,(y{<}x))\bigr)\)</div></div></div>
+    <div class="principle c5"><span class="p-tag">B</span><div class="p-body">
+      <div class="p-name">Схема коллекции (по двуместному отношению \(\varphi(x,y)\), не через \(X\))</div>
+      <div class="p-formula">\(\forall a\bigl(\forall x{<}a\,\exists y\,\varphi(x,y)\to\exists z\,\forall x{<}a\,\exists y{<}z\,\varphi(x,y)\bigr)\)</div></div></div>
+  </div>
+
+  <h3>Диаграмма связей</h3>
+  <div class="diagram-wrap">
+    <div class="diagram">
+      <div class="dbox d1">\(I^*\Leftrightarrow L\Leftrightarrow D\)</div>
+      <div class="darrows">
+        <div class="darrow-row"><span class="darrow-label">(O1),(O2),(O3)</span></div>
+        <div class="darrow-row"><span class="darrow-line"></span><span style="font-size:16px">⇄</span><span class="darrow-line"></span></div>
+        <div class="darrow-row"><span class="darrow-label">(O1),(O2)</span></div>
+      </div>
+      <div class="dbox d2">\(I\)</div>
+      <div class="darrows">
+        <div class="darrow-row"><span class="darrow-label">\(I\Delta_0\)</span></div>
+        <div class="darrow-row"><span class="darrow-line"></span><span style="font-size:16px">⇄</span><span class="darrow-line"></span></div>
+        <div class="darrow-row"><span class="darrow-label">\(I\Delta_0\)</span></div>
+      </div>
+      <div class="dbox d3">\(B\)</div>
+    </div>
+  </div>
+  <p style="font-size:16.5px;color:var(--ink3)">
+    Три горизонтальные группы диаграммы устроены принципиально по-разному: левая пара стрелок —
+    факт чистой логики (с точностью до трихотомии порядка); средняя пара использует лишь минимальные
+    факты о последователе \(S\); правая пара опирается уже на индукцию \(I\Delta_0\) и доказывается заметно
+    сложнее (Paris&ndash;Kirby). Подробности каждого перехода — ниже и в PDF.
+  </p>
+
+  <h3>\(I^*\Leftrightarrow L\Leftrightarrow D\) — факт чистой логики</h3>
+  <p>
+    Ключевое наблюдение: эти три принципа равносильны друг другу уже в чистом исчислении предикатов —
+    без единой арифметической аксиомы, — если только \(<\) — строгий линейный порядок (нужна лишь
+    <strong>трихотомия</strong>: для любых \(x,y\) верно ровно одно из \(x{<}y\), \(x{=}y\), \(y{<}x\)).
+  </p>
+  <details class="proof">
+    <summary>Набросок доказательства \(I^*\Leftrightarrow L\Leftrightarrow D\)</summary>
+    <div class="proof-body">
+      <p><strong>(a) \(I^*_{\lnot\varphi}\iff D_\varphi\).</strong> Схема \(I^*\) для формулы \(\lnot\varphi\)
+      имеет вид \(A\to B\), где \(A\equiv\forall x(\forall y{<}x\,\lnot\varphi(y)\to\lnot\varphi(x))\),
+      \(B\equiv\forall x\,\lnot\varphi(x)\). По закону контрапозиции \(A\to B\iff\lnot B\to\lnot A\) —
+      чистая тавтология. Раскрывая отрицания по де Моргану и двойственности кванторов, \(\lnot B\) — это
+      \(X\ne\varnothing\), а \(\lnot A\) после ещё одной контрапозиции внутри — это в точности
+      \(\lnot(\forall x\in X\,\exists y\in X\,(y{<}x))\), то есть заключение \(D_\varphi\).</p>
+      <p><strong>(b) \(D_\varphi\iff L_\varphi\)</strong> — при трихотомии \(\lnot(y{<}x)\) означает
+      «\(y{=}x\) или \(x{<}y\)», то есть ровно \(x\leqslant y\); формулы \(D\) и \(L\) после раскрытия
+      внутреннего отрицания совпадают буквально.</p>
+      <p>Поскольку класс формул замкнут относительно \(\varphi\mapsto\lnot\varphi\), отсюда следует
+      равносильность полных схем \(I^*\iff D\iff L\). Ни число \(0\), ни операция \(+1\) в доказательстве
+      не используются — только линейность \(<\).</p>
+    </div>
+  </details>
+
+  <h3>\(I\Leftrightarrow I^*\) — роль минимальной арифметики последователя</h3>
+  <p>
+    Связь \(I\) с тройкой \(I^*,L,D\) устроена иначе: она неотделима от последователя \(S\) и потому
+    не может быть чисто логическим фактом. Нужны три элементарных аксиомы о согласовании \(<\) и \(S\)
+    (обозначим их (O1)&ndash;(O3); вместе с рекурсивными уравнениями для \(+,\times,S\) они образуют теорию
+    \(\mathsf{PA}^{\mathrm{rec}}_-\) — арифметику Робинсона в исходной рекурсивной форме):
+  </p>
+  <div class="chips">
+    <span class="chip">(O1) ¬(x&lt;0) — 0 наименьший</span>
+    <span class="chip">(O2) y&lt;Sx ↔ y⩽x</span>
+    <span class="chip">(O3) x≠0 → ∃y(x=Sy)</span>
+  </div>
+
+  <details class="proof">
+    <summary>Набросок доказательства: (O1)–(O3) ⇒ \(I^*\Rightarrow I\); (O1)–(O2) ⇒ \(I\Rightarrow I^*\)</summary>
+    <div class="proof-body">
+      <p><strong>Лемма.</strong> Из (O1)&ndash;(O3): \(\mathrm{Ind}(X)\to\mathrm{Prog}(X)\).
+      Пусть \([0,x)\subseteq X\). По (O3) либо \(x{=}0\) (тогда \(x\in X\) по первому конъюнкту
+      \(\mathrm{Ind}(X)\)), либо \(x{=}Sz\): тогда по (O2) \(z{<}Sz{=}x\), значит \(z\in[0,x)\subseteq X\),
+      и по второму конъюнкту \(\mathrm{Ind}(X)\) получаем \(Sz{=}x\in X\).</p>
+      <p><strong>\(I^*\Rightarrow I\).</strong> Из \(\mathrm{Ind}(X)\) по Лемме получаем \(\mathrm{Prog}(X)\);
+      применяя \(I^*\), получаем \(\mathrm{Tot}(X)\). Аксиома (O3) используется здесь единственный раз —
+      в разборе «\(x\) есть \(0\) или последователь».</p>
+      <p><strong>\(I\Rightarrow I^*\)</strong> (без (O3)!). Пусть \(\mathrm{Prog}(X)\). Определим
+      \(Y=\{x\mid[0,x)\subseteq X\}\) — максимальный начальный интервал внутри \(X\). Тогда \(Y\subseteq X\)
+      сразу по определению \(\mathrm{Prog}(X)\). Далее \(\mathrm{Ind}(Y)\): база \(0\in Y\) — по (O1)
+      \([0,0)=\varnothing\subseteq X\); шаг — если \(z\in Y\), то \(z\in X\) (по \(Y\subseteq X\)), и по (O2)
+      \([0,Sz)=[0,z)\cup\{z\}\subseteq X\), то есть \(Sz\in Y\). Применяя \(I\) к \(Y\), получаем
+      \(\mathrm{Tot}(Y)\), а вместе с \(Y\subseteq X\) — искомое \(\mathrm{Tot}(X)\).</p>
+    </div>
+  </details>
+
+  <p>
+    Асимметрия здесь содержательна: направление \(I^*\Rightarrow I\) существенно использует все три
+    аксиомы, причём именно (O3) — в разборе случаев; направление \(I\Rightarrow I^*\) обходится (O1)&ndash;(O2)
+    и вовсе не использует (O3). Модель ниже показывает, что это не случайность.
+  </p>
+
+  <h3>Модель, где (O3) ломается: \(I^*\) есть, а \(I\) — нет</h3>
+  <p>
+    Возьмём носителем ординал \(\omega+\omega\) — две последовательные копии \(\mathbb N\) с обычным
+    порядком, но последователь определим <em>отдельно внутри каждой копии</em>: \(S(n)=n{+}1\) в первой,
+    \(S(\omega{+}n)=\omega{+}n{+}1\) во второй. Функция \(S\) всюду определена и инъективна, (O1)&ndash;(O2)
+    выполнены — но элемент \(\omega\) не есть \(S(y)\) ни для какого \(y\): это ровно то место, где ломается (O3).
+  </p>
+  <div class="model-visual">
+    <div class="model-chain-label">Первая копия ℕ</div>
+    <div class="order-line">
+      <div class="order-elem"><div class="elem-box zero">0</div><div class="order-arrow">S→</div></div>
+      <div class="order-elem"><div class="elem-box">1</div><div class="order-arrow">S→</div></div>
+      <div class="order-elem"><div class="elem-box">2</div><div class="order-arrow">S→</div></div>
+      <div class="order-elem"><div class="elem-box">3</div><div class="order-arrow">···</div></div>
+    </div>
+    <div class="model-chain-label" style="margin-top:10px">Вторая копия ℕ — ω не является S(y) ни для какого y</div>
+    <div class="order-line">
+      <div class="order-elem"><div class="elem-box break">ω</div><div class="order-arrow break-arrow">S→</div></div>
+      <div class="order-elem"><div class="elem-box">ω+1</div><div class="order-arrow">S→</div></div>
+      <div class="order-elem"><div class="elem-box">ω+2</div><div class="order-arrow">···</div></div>
+    </div>
+    <p class="model-note">
+      Множество \(X\) = «первая копия \(\mathbb N\)» удовлетворяет \(\mathrm{Ind}(X)\) (содержит 0, замкнуто
+      относительно \(S\)), но \(X\ne\omega{+}\omega\) — значит \(I\) для этого \(X\) не выполнено.
+      При этом \(\omega+\omega\) — честный ординал (вполне упорядоченное множество), так что трансфинитная
+      индукция верна в нём для <em>произвольных</em> подмножеств носителя — а значит \(I^*\) (и вместе с ним
+      \(L\), \(D\)) здесь выполняются, причём в подлинно втором порядке, без всяких оговорок про схему.
+    </p>
+  </div>
+  <details class="proof">
+    <summary>Осторожному читателю: не значит ли это, что индукция навязывает модели быть вполне упорядоченной?</summary>
+    <div class="proof-body">
+      <p>Нет: существуют нестандартные модели \(\mathsf{PA}\), в которых полная схема \(I\) (а с ней и
+      \(I^*,L,D\) как схемы) выполнена, но сама модель, если смотреть на неё <em>извне</em>, вполне
+      упорядоченной не является — в ней есть (неопределимые в языке \(\mathsf{PA}\)) подмножества без
+      наименьшего элемента. Противоречия нет: как схема аксиом, \(I^*\) гарантирует наименьший элемент лишь
+      для подмножеств, <em>определимых формулой</em> языка \(\mathsf{PA}\); на «неправильные» подмножества
+      нестандартной модели схема просто не распространяется. В примере выше \(I^*\) законно потребована для
+      абсолютно всех подмножеств именно потому, что \(\omega+\omega\) по построению стандартна.</p>
+    </div>
+  </details>
+
+  <h3>Схема коллекции \(B\) — самая тонкая связь</h3>
+  <p>
+    Связь \(B\) с \(I\) не сводится ни к чистой логике, ни к минимальной арифметике последователя. Внутри
+    слабой базовой теории \(\mathsf{PA}^-\) (аксиомы дискретного упорядоченного полукольца без индукции)
+    схема \(B\) сама по себе <strong>не влечёт</strong> \(I\). Но относительно базовой индукции \(I\Delta_0\)
+    связь восстанавливается и образует строгую иерархию (Paris&ndash;Kirby, 1978):
+  </p>
+  <div class="card-formula" style="margin:.6rem 0 1rem">\[I\Sigma_n \;\to\; B\Sigma_n \;\to\; I\Sigma_{n-1}\qquad(n\ge1)\]</div>
+  <p>а на уровне полных схем — \(I\iff B\) относительно базы \(I\Delta_0\). Доказательство этого перехода
+    заметно сложнее двух предыдущих и не приводится здесь целиком — полностью оно разобрано в PDF.</p>
+</section>
+
+<!-- ══════════════════ §3 ══════════════════ -->
+<section>
+  <h2>3. Что даёт индукция — и где она заканчивается</h2>
+  <p class="lead">
+    Ниже — набор утверждений, чья доказуемость существенно завязана на силу индукции: одни требуют лишь
+    самой слабой её формы, другие независимы от полной схемы \(I\) арифметики Пеано. Статус указан в
+    терминах подсистем арифметики (\(I\Sigma_n\), \(I\Delta_0\)) и обратной математики
+    (\(\mathsf{RCA}_0\), \(\mathsf{WKL}_0\), \(\mathsf{ACA}_0\), \(\mathsf{ATR}_0\)).
+  </p>
+
+  <div class="tbl-wrap">
+  <table>
+    <colgroup><col class="c-stmt"><col></colgroup>
+    <thead><tr><th>Утверждение</th><th>Статус доказуемости</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="stmt-col">Принцип Дирихле (Pigeonhole)
+          <span class="stmt-sub">|A|&gt;|B| ⇒ нет инъекции A→B</span></td>
+        <td class="status-col"><span class="sys-tag neg">не в \(I\Delta_0\)</span>
+          Paris&ndash;Wilkie&ndash;Woods, Ajtai (1988): не доказуем даже для \(\Delta_0\)-определимых функций —
+          демонстрирует крайнюю слабость \(I\Delta_0\).</td>
+      </tr>
+      <tr>
+        <td class="stmt-col">Лемма Кёнига о бесконечном пути
+          <span class="stmt-sub">бесконечное конечно-ветвящееся дерево содержит бесконечный путь</span></td>
+        <td class="status-col">
+          <span class="sys-tag pos">≡ \(\mathsf{WKL}_0\)</span> для бинарных деревьев (⇔ компактность отрезка);
+          <span class="sys-tag">≡ \(\mathsf{ACA}_0\)</span> для произвольных — строго сильнее.
+          Разница возникает не из индукции (схема одна и та же в обеих системах), а из схемы свёртывания.</td>
+      </tr>
+      <tr>
+        <td class="stmt-col">Коммутативность и ассоциативность \(+\), \(\times\)</td>
+        <td class="status-col">Доказуемы в \(\mathsf{PA}\) индукцией. Без неё (в \(\mathsf{PA}^{\mathrm{rec}}_-\))
+          существуют нестандартные модели с некоммутативным сложением — как и в арифметике ординалов,
+          где \(\omega{+}1\ne1{+}\omega\).</td>
+      </tr>
+      <tr>
+        <td class="stmt-col">Конечные множества по Дедекинду
+          <span class="stmt-sub">B⊊A конечно ⇒ |B|&lt;|A|; станд. конечно ⇔ дед.-конечно</span></td>
+        <td class="status-col">Первое — прямое следствие индукции. Направление «станд. конечно ⇒
+          дед.-конечно» — тоже. Обратное требует счётного выбора \(\mathsf{AC}_\omega\) (лишь следствие, не
+          равносильность); без выбора в \(\mathsf{ZF}\) — недоказуемо (модели Френкеля&ndash;Мостовского,
+          первая модель Коэна дают бесконечные дед.-конечные множества).</td>
+      </tr>
+      <tr>
+        <td class="stmt-col">Теорема Рамсея \(RT^2_2\)
+          <span class="stmt-sub">конечный случай — «теорема о вечеринке», R(k,m); бесконечный — RT²₂</span></td>
+        <td class="status-col">Конечный случай — индукция по \(k{+}m\). Бесконечный — прямое следствие
+          принципа \(L\); точная сила <span class="sys-tag pos">\(\mathsf{RCA}_0{+}I\Sigma_2\)</span>,
+          но сам \(RT^2_2\) не влечёт \(I\Sigma_2\) (Cholak&ndash;Jockusch&ndash;Slaman, 2001).</td>
+      </tr>
+      <tr>
+        <td class="stmt-col">Тотальность функции Аккермана</td>
+        <td class="status-col"><span class="sys-tag neg">не в \(I\Sigma_1\)</span> (теорема Парсонса:
+          \(I\Sigma_1\)-доказуемо-рекурсивные функции = примитивно рекурсивные) →
+          <span class="sys-tag pos">доказуема в \(I\Sigma_2\)</span> — соответствует месту функции Аккермана
+          на уровне \(\omega\) быстрорастущей иерархии.</td>
+      </tr>
+      <tr>
+        <td class="stmt-col">Теорема Гудстейна (1944) и принцип Пэриса&ndash;Харрингтона (1977)
+          <span class="stmt-sub">истинные \(\Pi_2\)- и комбинаторные предложения языка \(\mathsf{PA}\)</span></td>
+        <td class="status-col"><span class="sys-tag neg">не в \(\mathsf{PA}\)</span> (Kirby&ndash;Paris, 1982;
+          Paris&ndash;Harrington, 1977) — но доказуемы уже трансфинитной индукцией вдоль \(\varepsilon_0\)
+          в <span class="sys-tag pos">\(\mathsf{ATR}_0\)</span>. Ординал \(\varepsilon_0\) — доказательно-теоретический
+          ординал \(\mathsf{PA}\) (Генцен, 1936): граница, которую схема \(I\) не может формализовать сама по себе.</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <p style="font-size:16.5px;color:var(--ink3)">
+    Последняя строка отмечает <strong>предел мощности</strong> локальной/возвратной индукции \(I\iff I^*\):
+    при всей продемонстрированной выше силе, они не замкнуты относительно всех истинных арифметических
+    утверждений. Принцип Пэриса&ndash;Харрингтона примечателен ещё и тем, что стал первым примером
+    <em>натуральной</em> (не метаматематической по формулировке) теоремы, чья независимость от \(\mathsf{PA}\)
+    была обнаружена одновременно с самой теоремой.
+  </p>
+</section>
+
+<!-- ══════════════════ Глоссарий ══════════════════ -->
+<section>
+  <h2>Список обозначений</h2>
+  <div class="glossary">
+    <div class="gloss-item"><span class="gloss-term">\(\mathsf{PA}\)</span><span class="gloss-def">Арифметика Пеано (1-й порядок, полная схема \(I\))</span></div>
+    <div class="gloss-item"><span class="gloss-term">\(\mathsf{Z}_2\)</span><span class="gloss-def">Арифметика второго порядка (анализ)</span></div>
+    <div class="gloss-item"><span class="gloss-term">\(\mathsf{ZFC}\)</span><span class="gloss-def">Теория множеств Цермело–Френкеля с выбором</span></div>
+    <div class="gloss-item"><span class="gloss-term">\(\mathsf{PA}^-\)</span><span class="gloss-def">Дискретное упорядоченное полукольцо без индукции (Kaye)</span></div>
+    <div class="gloss-item"><span class="gloss-term">\(\mathsf{PA}^{\mathrm{rec}}_-\)</span><span class="gloss-def">Арифметика Робинсона в рекурсивной форме + (O1)–(O3), без индукции</span></div>
+    <div class="gloss-item"><span class="gloss-term">S, &lt;, ⩽</span><span class="gloss-def">Последователь; строгий и нестрогий порядок</span></div>
+    <div class="gloss-item"><span class="gloss-term">[0,x)</span><span class="gloss-def">Начальный интервал \(\{y\mid y{<}x\}\)</span></div>
+    <div class="gloss-item"><span class="gloss-term">I, I*</span><span class="gloss-def">Локальная и возвратная индукция</span></div>
+    <div class="gloss-item"><span class="gloss-term">L, D</span><span class="gloss-def">Наименьший элемент; бесконечный спуск</span></div>
+    <div class="gloss-item"><span class="gloss-term">B</span><span class="gloss-def">Схема коллекции</span></div>
+    <div class="gloss-item"><span class="gloss-term">IΣₙ, BΣₙ, IΔ₀</span><span class="gloss-def">Индукция/коллекция ограниченной сложности</span></div>
+    <div class="gloss-item"><span class="gloss-term">RCA₀, WKL₀, ACA₀, ATR₀</span><span class="gloss-def">Подсистемы обратной математики возрастающей силы</span></div>
+    <div class="gloss-item"><span class="gloss-term">ε₀</span><span class="gloss-def">Доказательно-теоретический ординал \(\mathsf{PA}\) (Генцен, 1936)</span></div>
+    <div class="gloss-item"><span class="gloss-term">RT²₂</span><span class="gloss-def">Теорема Рамсея для пар и двух цветов</span></div>
+  </div>
+</section>
+
+<p class="page-footer">© Nikolai Kazimirov · <a href="https://mathem.at" rel="noopener">mathem.at</a></p>
+
+</div><!-- .page -->
+
+<script>
+const KATEX_OPTS = {
+  delimiters:[
+    {left:"\\(",right:"\\)",display:false},
+    {left:"\\[",right:"\\]",display:true},
+  ],
+  throwOnError:false
+};
+</script>
+</body>
+</html>

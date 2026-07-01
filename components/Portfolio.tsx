@@ -162,12 +162,12 @@ export const Portfolio: React.FC = () => {
              </h2>
              <div className="space-y-4">
                 <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
-                    <span className="font-bold text-academic-900 text-lg">PhD in Mathematics</span>
+                    <span className="font-bold text-academic-900 text-lg">{language === 'ru' ? 'Кандидат физико-математических наук' : 'PhD in Mathematics'}</span>
                     <span className="hidden md:inline text-academic-300">•</span>
                     <span className="text-academic-700">{language === 'ru' ? 'КарНЦ РАН' : 'KarRC RAS'} (2003)</span>
                 </div>
                 <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
-                    <span className="font-bold text-academic-900 text-lg">Master's Degree in Math</span>
+                    <span className="font-bold text-academic-900 text-lg">{language === 'ru' ? 'Магистр математики' : "Master's Degree in Math"}</span>
                     <span className="hidden md:inline text-academic-300">•</span>
                     <span className="text-academic-700">{language === 'ru' ? 'ПетрГУ' : 'PetrSU'} (2000)</span>
                 </div>
