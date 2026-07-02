@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>28x + 37y = N — задача о новогодних подарках</title>
+<style>
+  :root {
+    --ink: #1d2333;
+    --ink-soft: #5a6172;
+    --ink-faint: #9299ab;
+    --paper: #fbfaf7;
+    --card: #ffffff;
+    --line: #e3e1d9;
+    --accent: #2b3a8f;
+    --accent-soft: #e8ebf9;
+    --blue-pt: #185fa5;
+    --gray-pt: #6b6f7a;
+    --good: #1d7a4f;
+    --good-bg: #e4f3ea;
+    --warn: #9a5b12;
+    --warn-bg: #faefdc;
+    --bad: #a33131;
+    --bad-bg: #f9e8e8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 18px/1.65 Georgia, "Times New Roman", serif;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 32px 24px 64px; }
+  header h1 {
+    font-size: 27px; font-weight: normal; margin: 0 0 4px;
+    letter-spacing: 0.2px;
+  }
+  header .eq {
+    font-size: 21px; color: var(--accent); margin: 2px 0 6px;
+    font-style: italic;
+  }
+  header p.sub { margin: 0; color: var(--ink-soft); font-size: 17px; }
+  .task {
+    background: var(--card); border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0; padding: 12px 18px; margin: 14px 0 16px;
+    font-size: 17.5px;
+  }
+  .task p { margin: 6px 0; }
+  .task .task-no {
+    font: 600 14.5px system-ui, -apple-system, sans-serif;
+    letter-spacing: 0.8px; text-transform: uppercase;
+    color: var(--accent); margin: 0 0 4px;
+  }
+  .task .task-no a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(43, 58, 143, 0.35); }
+  .task .task-no a:hover { border-bottom-color: var(--accent); }
+
+  .panel {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 10px; padding: 18px 20px; margin-top: 20px;
+  }
+  .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+  .controls label { font-size: 17px; color: var(--ink-soft); }
+  input[type="range"] { flex: 1; min-width: 160px; accent-color: var(--accent); }
+  input[type="number"] {
+    width: 96px; padding: 6px 8px; font: 18px Georgia, serif;
+    border: 1px solid var(--line); border-radius: 6px; color: var(--ink);
+  }
+  .presets-cap {
+    margin: 14px 0 0; font: 15px system-ui, -apple-system, sans-serif;
+    color: var(--ink-soft);
+  }
+  .presets { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 7px; }
+  .presets button {
+    font: 15.5px/1 system-ui, -apple-system, sans-serif;
+    padding: 7px 12px; border: 1px solid var(--line); border-radius: 999px;
+    background: #fff; color: var(--ink); cursor: pointer;
+    box-shadow: 0 1px 2px rgba(29, 35, 51, 0.08);
+    transition: background 0.12s, border-color 0.12s;
+  }
+  .presets button:hover { background: var(--accent-soft); border-color: var(--accent); }
+  .presets button:active { transform: translateY(1px); }
+  .presets button.on {
+    background: var(--accent); border-color: var(--accent); color: #fff;
+    box-shadow: none;
+  }
+  .presets button.on b { color: #fff; }
+  .presets button b { color: var(--accent); font-weight: 600; }
+  .toggles { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 12px;
+    font: 16px system-ui, -apple-system, sans-serif; color: var(--ink-soft); }
+  .toggles label { display: flex; align-items: center; gap: 7px; cursor: pointer; }
+  .toggles input { accent-color: var(--accent); width: 15px; height: 15px; }
+
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 12px; margin-top: 16px; }
+  .stat { background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 14px 16px; }
+  .stat .lbl { font: 15px system-ui, sans-serif; color: var(--ink-soft); margin: 0 0 2px; }
+  .stat .val { font-size: 32px; margin: 0; line-height: 1.2; }
+  .stat .badge { display: inline-block; margin-top: 7px; padding: 3px 10px;
+    border-radius: 999px; font: 14px system-ui, sans-serif; }
+  .b-good { background: var(--good-bg); color: var(--good); }
+  .b-warn { background: var(--warn-bg); color: var(--warn); }
+  .b-bad  { background: var(--bad-bg);  color: var(--bad); }
+
+  .param { font-size: 18.5px; margin: 14px 2px 0; color: var(--ink); }
+  .param .t { color: var(--accent); }
+
+  figure { margin: 18px 0 0; }
+  svg text { font: 14.5px system-ui, -apple-system, sans-serif; fill: var(--ink-soft); }
+  svg .ptlab { font-size: 15px; fill: var(--ink); }
+  svg .steplab { font-size: 14px; fill: var(--accent); font-style: italic; }
+  svg .halo { paint-order: stroke; stroke: var(--paper); stroke-width: 4px; stroke-linejoin: round; }
+  svg .tlab { fill: var(--good); font-size: 14.5px; }
+  svg .eqlab { fill: var(--accent); font-size: 15.5px; font-weight: 600; }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 10px;
+    font: 15.5px system-ui, sans-serif; color: var(--ink-soft); }
+  .legend span { display: flex; align-items: center; gap: 6px; }
+  .dot { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+
+  .sol-list { margin-top: 14px; font-size: 17.5px; }
+  .sol-list ul { margin: 6px 0 0; padding-left: 22px; }
+  .sol-list li { margin: 3px 0; }
+  .sol-list .mark { color: var(--blue-pt); font-weight: bold; }
+
+  details { margin-top: 26px; border-top: 1px solid var(--line); padding-top: 14px; }
+  summary { cursor: pointer; color: var(--accent); font-size: 18px; }
+  details p { color: var(--ink); }
+  details i { color: var(--accent); font-style: italic; }
+  .page-footer {
+    margin-top: 2.75rem; padding-top: 1.1rem; border-top: 0.5px solid var(--line);
+    font: 15px system-ui, -apple-system, sans-serif; letter-spacing: 0.04em;
+    color: var(--ink-faint); text-align: center; line-height: 1.6;
+  }
+  .page-footer a { color: var(--ink-faint); text-decoration: none; border-bottom: 1px solid rgba(146, 153, 171, 0.35); }
+  .page-footer a:hover { color: var(--ink-soft); border-bottom-color: var(--ink-soft); }
+  @media (max-width: 560px) {
+    header h1 { font-size: 22px; }
+    .stat .val { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Задача о новогодних подарках</h1>
+    <div class="task">
+      <p class="task-no">Задача 8.4 из книги «<a href="/100_final.pdf" target="_blank" rel="noopener">Введение в настоящую математику</a>»</p>
+      <p><b>а)</b> В фирме 28 служащих с большим стажем и 37 — с маленьким. Хозяин фирмы
+      выделил некую сумму для подарков служащим на Новый год. Бухгалтер подсчитал, что есть
+      только один способ разделить деньги так, чтобы все служащие с большим стажем получили
+      поровну и все с маленьким — тоже поровну (все получают целое число рублей, большее 0).
+      Какую наименьшую и какую наибольшую сумму мог выделить хозяин на подарки?</p>
+      <p><b>b<sup>*</sup>)</b> А если ещё требуется, чтобы служащий с большим стажем получил
+      больше денег, чем служащий с маленьким стажем?</p>
+    </div>
+    <p class="eq">28·x + 37·y = N,&nbsp;&nbsp; x, y — целые, x ≥ 1, y ≥ 1</p>
+    <p class="sub">Здесь x — сумма для сотрудника с большим стажем, y — с маленьким,
+    N — выделенная хозяином сумма. Двигайте N и смотрите, сколько целых точек прямой
+    попадает в положительную четверть.</p>
+  </header>
+
+  <div class="panel">
+    <div class="controls">
+      <label for="nr">N&nbsp;=</label>
+      <input type="range" id="nr" min="1" max="4200" step="1" value="1101">
+      <input type="number" id="nn" min="1" max="4200" step="1" value="1101" aria-label="Значение N">
+    </div>
+    <p class="presets-cap">Типовые значения N — нажмите, чтобы установить на шкале:</p>
+    <div class="presets" id="presets">
+      <button data-n="65" onclick="setN(65)"><b>65</b> — min, пункт а)</button>
+      <button data-n="2072" onclick="setN(2072)"><b>2072</b> — max, пункт а)</button>
+      <button data-n="93" onclick="setN(93)"><b>93</b> — min, пункт b)</button>
+      <button data-n="3640" onclick="setN(3640)"><b>3640</b> — max, пункт b)</button>
+      <button data-n="1101" onclick="setN(1101)"><b>1101</b> — два решения</button>
+      <button data-n="700" onclick="setN(700)"><b>700</b> — решений нет</button>
+    </div>
+    <div class="toggles">
+      <label><input type="checkbox" id="tg-rect"> прямоугольник единственности {1…37}×{1…28}</label>
+      <label><input type="checkbox" id="tg-diag" checked> прямая y = x (условие пункта b)</label>
+      <label><input type="checkbox" id="tg-step" checked> шаг между решениями (+37, −28)</label>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <p class="lbl">решений с x, y ≥ 1 (пункт а)</p>
+      <p class="val" id="cA">—</p>
+      <span class="badge" id="bA"></span>
+    </div>
+    <div class="stat">
+      <p class="lbl">из них с x &gt; y (пункт b)</p>
+      <p class="val" id="cB">—</p>
+      <span class="badge" id="bB"></span>
+    </div>
+  </div>
+
+  <p class="param" id="param"></p>
+
+  <figure>
+    <svg id="plot" width="100%" viewBox="0 0 840 480" role="img" aria-label="Прямая 28x+37y=N и целые точки на ней"></svg>
+    <div class="legend">
+      <span><span class="dot" style="background:var(--blue-pt)"></span>решение, причём x &gt; y</span>
+      <span><span class="dot" style="background:var(--gray-pt)"></span>решение с x ≤ y</span>
+      <span><span class="dot" style="background:#fff;border:1.5px solid var(--ink-faint)"></span>целая точка прямой вне четверти</span>
+    </div>
+  </figure>
+
+  <div class="sol-list" id="sols"></div>
+
+  <details>
+    <summary>Как читать картинку</summary>
+    <p>Все решения уравнения в целых числах лежат на одной прямой и идут с постоянным шагом:
+    следующая точка получается из предыдущей сдвигом <i>x → x + 37, y → y − 28</i>
+    (это следствие того, что НОД(28, 37) = 1). Поэтому вопрос «сколько решений с x, y ≥ 1»
+    — это вопрос «сколько точек этой цепочки помещается в положительной четверти».</p>
+    <p>Решение единственно ровно тогда, когда его точка лежит в прямоугольнике
+    <i>{1…37} × {1…28}</i> (включите галочку выше): шаг вправо-вниз тогда выбрасывает y за ноль,
+    а шаг влево-вверх выбрасывает x. Минимум и максимум линейной функции
+    <i>N = 28x + 37y</i> на этом прямоугольнике достигаются в его углах:
+    N<sub>min</sub> = 28 + 37 = 65 в точке (1, 1) и N<sub>max</sub> = 28·37 + 37·28 = 2072
+    в точке (37, 28).</p>
+    <p>В пункте b) добавляется условие x &gt; y (точка должна лежать ниже пунктирной прямой y = x).
+    Замена d = x − y превращает задачу в такое же уравнение 28d + 65y = N, и тот же приём
+    даёт N<sub>min</sub> = 28 + 65 = 93 (решение x = 2, y = 1)
+    и N<sub>max</sub> = 2·28·65 = 3640 (решение x = 93, y = 28).</p>
+  </details>
+
+  <p class="page-footer">© 2026 Nikolai Kazimirov · <a href="https://mathem.at/" rel="noopener">mathem.at</a></p>
+</div>
+
+<script>
+"use strict";
+
+function computeState(N) {
+  let x1 = (4 * N) % 37;
+  if (x1 <= 0) x1 += 37;
+  const y1 = (N - 28 * x1) / 37;
+  const K = Math.floor((y1 - 1) / 28);
+  const kMax = Math.max(K + 1, 1);
+  const points = [];
+  for (let k = -1; k <= kMax; k++) {
+    const x = x1 + 37 * k;
+    const y = y1 - 28 * k;
+    const feasible = x >= 1 && y >= 1;
+    points.push({ k, x, y, feasible, gtY: feasible && x > y });
+  }
+  return {
+    x1, y1, points,
+    cA: points.filter(p => p.feasible).length,
+    cB: points.filter(p => p.gtY).length,
+    xInt: N / 28, yInt: N / 37
+  };
+}
+
+function niceStep(span) {
+  const raw = span / 6;
+  const pow = Math.pow(10, Math.floor(Math.log10(raw)));
+  for (const m of [1, 2, 5, 10]) if (m * pow >= raw) return m * pow;
+  return 10 * pow;
+}
+
+function badge(el, n) {
+  if (n === 1) { el.textContent = "единственное решение"; el.className = "badge b-good"; }
+  else if (n === 0) { el.textContent = "решений нет"; el.className = "badge b-bad"; }
+  else { el.textContent = n + " решения — не подходит"; el.className = "badge b-warn"; }
+}
+
+function esc(s) { return String(s); }
+
+function render() {
+  const N = parseInt(document.getElementById("nr").value, 10);
+  const st = computeState(N);
+  const showRect = document.getElementById("tg-rect").checked;
+  const showDiag = document.getElementById("tg-diag").checked;
+  const showStep = document.getElementById("tg-step").checked;
+
+  document.getElementById("cA").textContent = st.cA;
+  document.getElementById("cB").textContent = st.cB;
+  badge(document.getElementById("bA"), st.cA);
+  badge(document.getElementById("bB"), st.cB);
+
+  const pr = document.getElementById("presets");
+  if (pr && pr.querySelectorAll) {
+    pr.querySelectorAll("button").forEach(btn =>
+      btn.classList.toggle("on", parseInt(btn.dataset.n, 10) === N));
+  }
+
+  document.getElementById("param").innerHTML =
+    "Все целые решения: <span class='t'>x = " + st.x1 + " + 37t,&nbsp; y = " +
+    st.y1 + " − 28t</span>,&nbsp; t ∈ ℤ";
+
+  const feas = st.points.filter(p => p.feasible);
+  const solEl = document.getElementById("sols");
+  if (feas.length === 0) {
+    solEl.innerHTML = "<b>Решений в натуральных числах нет:</b> прямая проходит мимо всех целых точек положительной четверти.";
+  } else {
+    solEl.innerHTML = "<b>Решения (x, y):</b><ul>" + feas.map(p =>
+      "<li>(" + p.x + ", " + p.y + ")" +
+      (p.gtY ? " — <span class='mark'>x &gt; y ✓</span>" : " — x ≤ y") + "</li>"
+    ).join("") + "</ul>";
+  }
+
+  const xsAll = st.points.map(p => p.x).concat([0, st.xInt]);
+  const ysAll = st.points.map(p => p.y).concat([0, st.yInt]);
+  if (showRect) { xsAll.push(37); ysAll.push(28); }
+  let xMin = Math.min(...xsAll), xMax = Math.max(...xsAll);
+  let yMin = Math.min(...ysAll), yMax = Math.max(...ysAll);
+  const padX = Math.max((xMax - xMin) * 0.09, 3);
+  const padY = Math.max((yMax - yMin) * 0.09, 3);
+  xMin -= padX; xMax += padX; yMin -= padY; yMax += padY;
+
+  const L = 62, R = 816, T = 22, B = 432;
+  const sx = x => L + (x - xMin) / (xMax - xMin) * (R - L);
+  const sy = y => B - (y - yMin) / (yMax - yMin) * (B - T);
+
+  const out = [];
+
+  const stepX = niceStep(xMax - xMin), stepY = niceStep(yMax - yMin);
+  for (let gx = Math.ceil(xMin / stepX) * stepX; gx <= xMax; gx += stepX) {
+    out.push('<line x1="' + sx(gx) + '" y1="' + T + '" x2="' + sx(gx) + '" y2="' + B +
+      '" stroke="#eeece4" stroke-width="1"/>');
+    out.push('<text x="' + sx(gx) + '" y="' + (B + 16) + '" text-anchor="middle">' + Math.round(gx) + '</text>');
+  }
+  for (let gy = Math.ceil(yMin / stepY) * stepY; gy <= yMax; gy += stepY) {
+    out.push('<line x1="' + L + '" y1="' + sy(gy) + '" x2="' + R + '" y2="' + sy(gy) +
+      '" stroke="#eeece4" stroke-width="1"/>');
+    out.push('<text x="' + (L - 8) + '" y="' + (sy(gy) + 4) + '" text-anchor="end">' + Math.round(gy) + '</text>');
+  }
+
+  const qx = sx(Math.max(1, xMin)), qy = sy(Math.max(1, yMin));
+  out.push('<rect x="' + qx + '" y="' + sy(yMax) + '" width="' + Math.max(sx(xMax) - qx, 0) +
+    '" height="' + Math.max(qy - sy(yMax), 0) + '" fill="#2b3a8f" opacity="0.045"/>');
+
+  if (showRect) {
+    const rx = sx(1), ry = sy(28), rw = sx(37) - sx(1), rh = sy(1) - sy(28);
+    out.push('<rect x="' + rx + '" y="' + ry + '" width="' + rw + '" height="' + rh +
+      '" fill="#1d7a4f" opacity="0.08" stroke="#1d7a4f" stroke-width="1.2" stroke-dasharray="6 4"/>');
+    out.push('<text x="' + (rx + 8) + '" y="' + (ry + 18) + '" fill="#1d7a4f">зона единственности</text>');
+  }
+
+  if (xMin < 0 && xMax > 0)
+    out.push('<line x1="' + sx(0) + '" y1="' + T + '" x2="' + sx(0) + '" y2="' + B +
+      '" stroke="#9299ab" stroke-width="1.4"/>');
+  if (yMin < 0 && yMax > 0)
+    out.push('<line x1="' + L + '" y1="' + sy(0) + '" x2="' + R + '" y2="' + sy(0) +
+      '" stroke="#9299ab" stroke-width="1.4"/>');
+  out.push('<text x="' + (R - 10) + '" y="' + (sy(0) - 8) + '" text-anchor="end">x</text>');
+  out.push('<text x="' + (sx(0) + 10) + '" y="' + (T + 12) + '">y</text>');
+
+  if (showDiag) {
+    const lo = Math.max(xMin, yMin), hi = Math.min(xMax, yMax);
+    if (lo < hi) {
+      out.push('<line x1="' + sx(lo) + '" y1="' + sy(lo) + '" x2="' + sx(hi) + '" y2="' + sy(hi) +
+        '" stroke="#b3874a" stroke-width="1.3" stroke-dasharray="5 5"/>');
+      out.push('<text x="' + (sx(hi) - 44) + '" y="' + (sy(hi) - 8) + '" fill="#b3874a">y = x</text>');
+    }
+  }
+
+  const yA = (N - 28 * xMin) / 37, yBv = (N - 28 * xMax) / 37;
+  out.push('<line x1="' + sx(xMin) + '" y1="' + sy(yA) + '" x2="' + sx(xMax) + '" y2="' + sy(yBv) +
+    '" stroke="#2b3a8f" stroke-width="2"/>');
+  const lab = [];
+  const cxMid = (L + R) / 2;
+  lab.push('<text class="eqlab halo" x="' + cxMid + '" y="' + (T + 14) +
+    '" text-anchor="middle">28x + 37y = ' + N + '</text>');
+
+  if (showStep) {
+    for (let i = 0; i + 1 < st.points.length; i++) {
+      const p = st.points[i], q = st.points[i + 1];
+      if (!p.feasible && !q.feasible) continue;
+      out.push('<path d="M' + sx(p.x) + ' ' + sy(p.y) + ' L' + sx(q.x) + ' ' + sy(p.y) +
+        ' L' + sx(q.x) + ' ' + sy(q.y) + '" fill="none" stroke="#2b3a8f" stroke-width="1" ' +
+        'stroke-dasharray="3 4" opacity="0.55"/>');
+      if (p.feasible && q.feasible) {
+        lab.push('<text class="steplab halo" x="' + ((sx(p.x) + sx(q.x)) / 2) + '" y="' + (sy(p.y) - 7) +
+          '" text-anchor="middle">+37</text>');
+        lab.push('<text class="steplab halo" x="' + (sx(q.x) + 8) + '" y="' + ((sy(p.y) + sy(q.y)) / 2 + 4) +
+          '">−28</text>');
+      }
+    }
+  }
+
+  st.points.forEach(p => {
+    const px = sx(p.x), py = sy(p.y);
+    if (!p.feasible) {
+      out.push('<circle cx="' + px + '" cy="' + py + '" r="4.5" fill="#fff" stroke="#9299ab" stroke-width="1.5"/>');
+      lab.push('<text class="tlab halo" x="' + px + '" y="' + (py - 10) + '" text-anchor="middle">t = ' + p.k + '</text>');
+    } else {
+      const col = p.gtY ? "#185fa5" : "#6b6f7a";
+      out.push('<circle cx="' + px + '" cy="' + py + '" r="6.5" fill="' + col + '" stroke="#fff" stroke-width="2"/>');
+      const lx = px + 11, anchor = "start";
+      lab.push('<text class="ptlab halo" x="' + lx + '" y="' + (py - 9) + '" text-anchor="' + anchor +
+        '" font-weight="600">(' + p.x + ', ' + p.y + ')</text>');
+      lab.push('<text class="tlab halo" x="' + lx + '" y="' + (py + 17) + '" text-anchor="' + anchor + '">t = ' + p.k + '</text>');
+    }
+  });
+
+  document.getElementById("plot").innerHTML = out.join("") + lab.join("");
+}
+
+function setN(v) {
+  document.getElementById("nr").value = v;
+  document.getElementById("nn").value = v;
+  render();
+}
+
+document.getElementById("nr").addEventListener("input", function () {
+  document.getElementById("nn").value = this.value; render();
+});
+document.getElementById("nn").addEventListener("input", function () {
+  let v = parseInt(this.value, 10);
+  if (isNaN(v)) return;
+  v = Math.max(1, Math.min(4200, v));
+  document.getElementById("nr").value = v; render();
+});
+["tg-rect", "tg-diag", "tg-step"].forEach(id =>
+  document.getElementById(id).addEventListener("change", render));
+
+render();
+</script>
+</body>
+</html>
