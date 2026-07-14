@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useLanguage } from '../LanguageContext';
 import { Header } from './Header'; // <--- 1. Импортируем Header
 import { Footer } from './Footer';
-import { Briefcase, Award, Code, GraduationCap, Download, Languages, Globe } from 'lucide-react';
+import { Briefcase, Award, Code, GraduationCap, Download, Languages, Globe, ExternalLink } from 'lucide-react';
 
 export const Portfolio: React.FC = () => {
   const { content, language, setLanguage } = useLanguage();
@@ -143,15 +143,25 @@ export const Portfolio: React.FC = () => {
              <Award className="text-academic-600" /> {p.certs.title}
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-             {p.certs.items.map((cert, idx) => (
-                 <div key={idx} className="bg-white border border-academic-200 p-5 rounded-lg hover:shadow-md transition-all group">
-                    <div className="text-xs font-bold text-academic-400 uppercase tracking-wider mb-2">{cert.issuer}</div>
+             {p.certs.items.map((cert, idx) => {
+                 const CertTag = cert.url ? 'a' : 'div';
+                 return (
+                 <CertTag
+                    key={idx}
+                    {...(cert.url ? { href: cert.url, target: "_blank", rel: "noopener noreferrer" } : {})}
+                    className="bg-white border border-academic-200 p-5 rounded-lg hover:shadow-md transition-all group block"
+                 >
+                    <div className="flex items-start justify-between gap-2 mb-2">
+                        <div className="text-xs font-bold text-academic-400 uppercase tracking-wider">{cert.issuer}</div>
+                        {cert.url && <ExternalLink size={14} className="text-academic-400 group-hover:text-academic-600 transition-colors shrink-0" />}
+                    </div>
                     <h3 className="font-bold text-academic-900 leading-snug group-hover:text-academic-700 transition-colors">
                         {cert.title}
                     </h3>
                     <div className="mt-3 text-sm text-academic-500">{cert.year}</div>
-                 </div>
-             ))}
+                 </CertTag>
+                 );
+             })}
           </div>
         </section>
 

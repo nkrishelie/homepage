@@ -67,6 +67,13 @@ export const MATERIALS_ITEMS: MaterialItem[] = [
     "lang": "ru"
   },
   {
+    "filename": "diophant_28_37.html",
+    "href": "/Materials/diophant_28_37.html",
+    "title": "28x + 37y = N — задача о новогодних подарках",
+    "category": "general",
+    "lang": "ru"
+  },
+  {
     "filename": "galton_watson_process.html",
     "href": "/Materials/galton_watson_process.html",
     "title": "Процесс Гальтона–Ватсона",

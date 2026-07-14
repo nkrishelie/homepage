@@ -259,11 +259,11 @@ export const content: SiteContent = {
     certs: {
       title: "Сертификаты и курсы",
       items: [
-        { title: "Google Cloud Data Engineering Specialization", issuer: "Coursera / Google Cloud", year: "2023" },
-        { title: "Building Batch Data Pipelines on Google Cloud", issuer: "Coursera", year: "2023" },
-        { title: "Analyzing and Visualizing Data in Looker", issuer: "Coursera / Google Cloud", year: "2023" },
-        { title: "Data Scientist with Python", issuer: "DataCamp", year: "2023" },
-        { title: "Data Analyst", issuer: "DataCamp", year: "2023" },
+        { title: "Google Cloud Data Engineering Specialization", issuer: "Coursera / Google Cloud", year: "2023", url: "https://www.coursera.org/account/accomplishments/professional-cert/DGXKMB8HYXT6" },
+        { title: "Building Batch Data Pipelines on Google Cloud", issuer: "Coursera", year: "2023", url: "https://www.coursera.org/account/accomplishments/verify/SLK3DSJBCSKZ" },
+        { title: "Analyzing and Visualizing Data in Looker", issuer: "Coursera / Google Cloud", year: "2023", url: "https://www.coursera.org/account/accomplishments/verify/KMVE5LPZAJ3P" },
+        { title: "Data Scientist with Python", issuer: "DataCamp", year: "2023", url: "https://www.datacamp.com/statement-of-accomplishment/track/821d7d61d9fe513b92eedc295d00da14db13a624" },
+        { title: "Data Analyst", issuer: "DataCamp", year: "2023", url: "https://www.datacamp.com/statement-of-accomplishment/track/a0c70a9453e60b9a639132b3acc2276b2524dc03" },
         { title: "Introduction to Tableau", issuer: "DataCamp", year: "2022" }
       ]
     }

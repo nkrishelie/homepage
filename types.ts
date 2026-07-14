@@ -114,6 +114,7 @@ export interface PortfolioCertificate {
   title: string;
   issuer: string;
   year: string;
+  url?: string;
 }
 
 export interface PortfolioContent {
