@@ -99,7 +99,7 @@ export const content: SiteContent = {
       link: "/Materials/maglish_index.html",
       type: "Монография",
       preorder: {
-        label: "Купить",
+        label: "Скоро на площадках",
         links: [
           { label: "ЛитРес", href: "#", disabled: true },
           { label: "Ozon", href: "#", disabled: true },
