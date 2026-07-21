@@ -28,7 +28,7 @@ export const Books: React.FC = () => {
         <div className="grid grid-cols-1 gap-12" style={{ contain: 'layout' }}>
           {content.books.map((book) => {
             const isWaitlist = book.link && (book.link.includes('forms.gle') || book.link.includes('docs.google.com'));
-            const hasLink = book.link && book.link !== '#';
+            const hasLink = !!book.link;
 
             return (
               <div
@@ -108,13 +108,50 @@ export const Books: React.FC = () => {
                    )}
                    
                    {/* ОПИСАНИЕ */}
-                  <p className="text-academic-600 mb-6 leading-relaxed max-w-2xl" style={{ whiteSpace: 'pre-line' }}>
+                  <p className="text-academic-600 mb-2 leading-relaxed max-w-2xl" style={{ whiteSpace: 'pre-line' }}>
                      {book.description}
                   </p>
-                   
+
+                   {/* ПОЯСНИТЕЛЬНАЯ ЗАМЕТКА */}
+                   {book.note && (
+                     <p className="text-sm text-academic-500 italic mb-6 max-w-2xl">
+                        {book.note}
+                     </p>
+                   )}
+
                    {/* КНОПКИ */}
                    <div className="mt-auto">
-                    {!hasLink ? (
+                    {book.preorder ? (
+                      <div>
+                        <div className="text-xs font-bold uppercase tracking-widest text-academic-500 mb-3">
+                          {book.preorder.label}
+                        </div>
+                        <div className="flex flex-wrap gap-3">
+                          {book.preorder.links.map((pl) => (
+                            pl.disabled ? (
+                              <button
+                                key={pl.label}
+                                type="button"
+                                disabled
+                                className="inline-flex items-center gap-2 px-4 py-2 bg-academic-50 text-academic-400 font-medium rounded border border-academic-200 text-sm cursor-not-allowed"
+                              >
+                                {pl.label}
+                              </button>
+                            ) : (
+                              <a
+                                key={pl.label}
+                                href={pl.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 px-4 py-2 bg-academic-900 text-white font-medium rounded hover:bg-academic-700 transition-colors shadow-md text-sm"
+                              >
+                                {pl.label}
+                              </a>
+                            )
+                          ))}
+                        </div>
+                      </div>
+                    ) : !hasLink ? (
                         <div className="inline-flex items-center gap-2 text-academic-400 font-medium cursor-default bg-academic-50 px-3 py-1 rounded-sm border border-academic-100 text-sm">
                             Unavailable
                         </div>

@@ -19,6 +19,10 @@ export const MATERIAL_CATEGORY_LABELS: Record<string, MaterialCategoryLabels> = 
     "ru": "Прочие материалы",
     "en": "Other materials"
   },
+  "maglish": {
+    "ru": "Математика как иностранный",
+    "en": "Mathematics as a Foreign Language"
+  },
   "analysis": {
     "ru": "Математический анализ",
     "en": "Mathematical analysis"
@@ -42,7 +46,7 @@ export const MATERIAL_CATEGORY_LABELS: Record<string, MaterialCategoryLabels> = 
 };
 
 /** Preferred ordering of category ids for menus and sections */
-export const MATERIAL_CATEGORY_ORDER: readonly string[] = ["analysis","algebra","sets","foundations","probability","general"];
+export const MATERIAL_CATEGORY_ORDER: readonly string[] = ["maglish","analysis","algebra","sets","foundations","probability","general"];
 
 export const MATERIALS_ITEMS: MaterialItem[] = [
   {
@@ -92,6 +96,20 @@ export const MATERIALS_ITEMS: MaterialItem[] = [
     "href": "/Materials/induction.html",
     "title": "О математической индукции",
     "category": "foundations",
+    "lang": "ru"
+  },
+  {
+    "filename": "maglish_index_en.html",
+    "href": "/Materials/maglish_index_en.html",
+    "title": "Mathematics as a Foreign Language — Book Overview",
+    "category": "maglish",
+    "lang": "en"
+  },
+  {
+    "filename": "maglish_index.html",
+    "href": "/Materials/maglish_index.html",
+    "title": "Математика как иностранный — краткое содержание книги",
+    "category": "maglish",
     "lang": "ru"
   },
   {

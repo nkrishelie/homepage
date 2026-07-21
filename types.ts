@@ -21,6 +21,17 @@ export interface ServiceItem {
   iconName: 'Brain' | 'GraduationCap' | 'Scroll';
 }
 
+export interface BookPreorderLink {
+  label: string;
+  href: string;
+  disabled?: boolean;
+}
+
+export interface BookPreorder {
+  label: string;
+  links: BookPreorderLink[];
+}
+
 export interface BookItem {
   id: string;
   title: string;
@@ -29,6 +40,11 @@ export interface BookItem {
   coverImage: string;
   link: string;
   year: string;
+  type?: string;
+  /** Пояснительный текст под описанием (например, про исходную вёрстку) */
+  note?: string;
+  /** Группа кнопок предзаказа/покупки у разных дистрибьюторов */
+  preorder?: BookPreorder;
 }
 
 // 1. Интерфейс для одной главы

@@ -92,11 +92,20 @@ export const content: SiteContent = {
       id: "springer",
       title: "Математика как иностранный",
       role: "Автор",
-      year: "Under Review",
-      description: "Архитектура математической мысли. Фундаментальное исследование математики как языковой системы: от синтаксиса формул до семантики формальных теорий. Выход книги ожидается в конце лета 2026 года.",
-      coverImage: "/Springer_cover.webp",
-      link: "https://link.springer.com/book/9783032307200",
-      type: "Монография"
+      year: "2026",
+      description: "Архитектура математической мысли. Фундаментальное исследование математики как языковой системы: от синтаксиса формул до семантики формальных теорий. Релиз книги в издательстве Springer (английская версия) — 17 сентября 2026 года.",
+      note: "Оригинальная авторская версия в исходной LaTeX-верстке.",
+      coverImage: "/litres_cover.png",
+      link: "#",
+      type: "Монография",
+      preorder: {
+        label: "Купить",
+        links: [
+          { label: "ЛитРес", href: "#", disabled: true },
+          { label: "Ozon", href: "#", disabled: true },
+          { label: "Wildberries", href: "#", disabled: true }
+        ]
+      }
     },
     {
       id: "savvateev",
@@ -166,7 +175,7 @@ export const content: SiteContent = {
     }
   ],
   about: {
-    bio: "Кандидат физико-математических наук. Окончил матфак ПетрГУ и аспирантуру КарНЦ РАН. В 2024–2025 годах жил и работал в Австрии (Грац), где опыт изучения немецкого языка в TU Graz вдохновил меня на написание книги «Math as a Foreign Language» (Springer, under review). Специализируюсь на основаниях математики, теории моделей и популяризации науки.",
+    bio: "Кандидат физико-математических наук. Окончил матфак ПетрГУ и аспирантуру КарНЦ РАН. Опыт изучения немецкого языка в TU Graz (Austria) вдохновил меня на написание книги «Math as a Foreign Language» (Springer, under review). Специализируюсь на основаниях математики, теории моделей и популяризации науки.",
     interests: [
       "Математическая логика",
       "Теория множеств",
@@ -182,7 +191,7 @@ export const content: SiteContent = {
       // Добавляем новые пункты для баланса:
       { label: "LinkedIn", href: "https://www.linkedin.com/in/nikolai-kazimirov/" },
       { label: "GitHub", href: "https://github.com/nkrishelie" }, // Если есть
-      { label: "Google Scholar", href: "https://scholar.google.com/citations?user=GiQpW8MAAAAJ&hl=ru" } // Если есть
+      { label: "ORCID", href: "https://orcid.org/0000-0002-1784-2293" }
     ],
     location: "Москва, Россия"
   },

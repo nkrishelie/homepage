@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Level A2 — At the Threshold of Logic | Mathematics as a Foreign Language</title>
+<meta name="description" content="Chapter digest: Level A2 'At the Threshold of Logic' from Mathematics as a Foreign Language (Springer, 2026) — mathematical concepts, propositional formulas, the logic/set-theory correspondence, and relations & functions.">
+<link rel="canonical" href="https://mathem.at/Materials/maglish_a2_logic_en.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Level A2 — At the Threshold of Logic | Mathematics as a Foreign Language">
+<meta property="og:description" content="Mathematical concepts, the logic/set-theory correspondence, and a rigorous take on relations and functions — the second chapter of Mathematics as a Foreign Language.">
+<meta property="og:url" content="https://mathem.at/Materials/maglish_a2_logic_en.html">
+<meta property="og:image" content="https://mathem.at/Springer_cover.webp">
+<meta property="og:locale" content="en_US">
+<meta name="author" content="Nikolai I. Kazimirov">
+<meta name="robots" content="index, follow">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Level A2 — At the Threshold of Logic | Mathematics as a Foreign Language">
+<meta name="twitter:description" content="Mathematical concepts, the logic/set-theory correspondence, and a rigorous take on relations and functions — the second chapter of Mathematics as a Foreign Language.">
+<meta name="twitter:image" content="https://mathem.at/Springer_cover.webp">
+<link rel="alternate" hreflang="en" href="https://mathem.at/Materials/maglish_a2_logic_en.html">
+<link rel="alternate" hreflang="ru" href="https://mathem.at/Materials/maglish_a2_logic.html">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPs6jPC90ZXh0Pjwvc3ZnPg==" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, KATEX_OPTS)"></script>
+<style>
+:root {
+  --bg:#faf9f6; --bg2:#f2f0eb; --ink:#1a1917; --ink2:#5a5750; --ink3:#8a8680; --border:#dcd9d2;
+  --blue-bg:#e8eef7;  --blue-acc:#3a5f9e;
+  --rust-bg:#f0ebe8;  --rust-acc:#8c4a32;
+  --sage-bg:#e8f0eb;  --sage-acc:#2e6645;
+  --amber-bg:#fdf3e0;  --amber-acc:#7a4f0d;
+  --coral-bg:#faeae6;  --coral-acc:#9b2f1a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Georgia,serif;font-size:20px;line-height:1.65}
+.page{max-width:900px;margin:0 auto;padding:2.2rem 2.5rem 5rem}
+
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.6rem}
+.crumbs{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink3)}
+.crumbs a{color:var(--ink3);text-decoration:none}
+.crumbs a:hover{color:var(--ink)}
+.lang-pills{display:flex;gap:8px}
+.lang-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;
+  font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  text-decoration:none;border:1px solid var(--border);color:var(--ink2);transition:.15s}
+.lang-pill.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.lang-pill:not(.active):hover{border-color:var(--ink)}
+
+header.chapter-head{margin-bottom:2.4rem;border-bottom:1.5px solid var(--ink);padding-bottom:1.5rem}
+.level-badge{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:13px;
+  font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-acc,#0f6e56);background:var(--sage-bg);
+  padding:4px 11px;border-radius:4px;margin-bottom:.9rem}
+h1{font-size:clamp(28px,3.4vw,44px);font-weight:500;line-height:1.15;color:var(--ink);margin-bottom:.7rem}
+.epigraph{font-style:italic;color:var(--ink3);font-size:16.5px;border-left:2px solid var(--border);padding-left:1rem;margin:1rem 0}
+.epigraph cite{display:block;font-style:normal;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink3);margin-top:.3rem;text-transform:uppercase;letter-spacing:.06em}
+.desc{font-size:19px;color:var(--ink2);max-width:760px}
+
+section{margin-bottom:2.6rem}
+h2{font-size:25px;font-weight:500;margin-bottom:.9rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+h3{font-size:19.5px;font-weight:500;margin:1.2rem 0 .6rem}
+p{margin-bottom:.9rem;color:var(--ink2)}
+p.lead{color:var(--ink)}
+strong{color:var(--ink);font-weight:500}
+em{color:var(--ink)}
+.katex{font-size:1.03em}
+.katex-display{margin:.6em 0!important}
+
+.learn-list{list-style:none;display:flex;flex-direction:column;gap:.6rem;margin-bottom:1rem}
+.learn-list li{display:flex;gap:.7rem;align-items:flex-start;font-size:17.5px;color:var(--ink2)}
+.learn-list .dash{color:var(--sage-acc,#2e6645);font-weight:700;flex-shrink:0}
+.learn-list .learn-text{flex:1;min-width:0}
+
+.story-box{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1.3rem 1.5rem;font-size:18px;color:var(--ink2);line-height:1.7}
+.story-box p:last-child{margin-bottom:0}
+
+.concept-box{background:var(--sage-bg);border-radius:6px;padding:1.3rem 1.5rem;margin:1rem 0}
+.concept-box .card-num{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--sage-acc,#2e6645);display:block;margin-bottom:.5rem}
+.concept-box p{color:var(--ink2)}
+.concept-formula{margin:.6rem 0;font-size:17px;overflow-x:auto}
+
+.corr-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:.5px solid var(--border);margin:1rem 0}
+@media(max-width:700px){.corr-grid{grid-template-columns:repeat(2,1fr)}}
+.corr-cell{background:var(--bg);padding:.9rem 1rem;text-align:center}
+.corr-cell .l{font-size:19px;color:var(--blue-acc)}
+.corr-cell .s{font-size:19px;color:var(--rust-acc);margin-top:.3rem}
+.corr-cell .name{font-size:12.5px;color:var(--ink3);margin-top:.4rem;font-family:'JetBrains Mono',monospace;letter-spacing:.03em}
+
+.self-check{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1.1rem 1.3rem}
+.self-check ol{padding-left:1.3rem;color:var(--ink2)}
+.self-check li{margin-bottom:.9rem;font-size:17.5px}
+.self-check li:last-child{margin-bottom:0}
+.self-check .sub{margin-top:.4rem;padding-left:1.2rem;font-size:16px;color:var(--ink3)}
+.self-check .sub li{margin-bottom:.3rem;font-size:16px;color:var(--ink3)}
+.self-check-note{font-size:15.5px;color:var(--ink3);margin-top:.9rem;padding-top:.8rem;border-top:1px solid var(--border)}
+
+.cta-banner{background:linear-gradient(160deg,#0f172a 0%,#1e293b 100%);color:#fff;border-radius:8px;padding:1.7rem 1.9rem;margin-top:.5rem}
+.cta-banner h3{color:#fff;margin-top:0;font-size:20px}
+.cta-banner p{color:#c7cedb;font-size:16.5px}
+.cta-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:.8rem}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:.65rem 1.15rem;border-radius:5px;font-size:15px;font-weight:500;
+  text-decoration:none;font-family:'EB Garamond',Georgia,serif}
+.btn-primary{background:#fff;color:#0f172a}
+.btn-primary:hover{background:#c9a44c}
+.btn-ghost{border:1px solid rgba(255,255,255,.35);color:#fff}
+.btn-ghost:hover{border-color:#fff}
+
+.chapter-nav{display:flex;justify-content:space-between;align-items:center;margin-top:2.6rem;padding-top:1.2rem;border-top:1px solid var(--border);font-size:15px}
+.chapter-nav a{color:var(--ink2);text-decoration:none;border-bottom:1px solid var(--border)}
+.chapter-nav a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+.chapter-nav .next-soon{color:var(--ink3);font-style:italic}
+
+.page-footer{margin-top:2.5rem;padding-top:1.1rem;border-top:0.5px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.04em;color:var(--ink3);text-align:center;line-height:1.5}
+.page-footer a{color:var(--ink3);text-decoration:none;border-bottom:1px solid rgba(138,134,128,.35)}
+.page-footer a:hover{color:var(--ink2);border-bottom-color:var(--ink2)}
+
+@media(max-width:700px){
+  body{font-size:18px}
+  .page{padding:1.5rem 1.2rem 3rem}
+}
+</style>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js', 'ym');
+    ym(94010841, 'init', {webvisor:true, clickmap:true, referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<!-- /Yandex.Metrika counter -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Chapter",
+  "name": "At the Threshold of Logic",
+  "alternateName": "Level A2",
+  "position": 2,
+  "isPartOf": {
+    "@type": "Book",
+    "name": "Mathematics as a Foreign Language",
+    "url": "https://mathem.at/Materials/maglish_index_en.html"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Nikolai I. Kazimirov",
+    "sameAs": "https://orcid.org/0000-0002-1784-2293"
+  },
+  "description": "Mathematical concepts, the logic/set-theory correspondence, and a rigorous take on relations and functions — the second chapter of Mathematics as a Foreign Language.",
+  "image": "https://mathem.at/Springer_cover.webp",
+  "url": "https://mathem.at/Materials/maglish_a2_logic_en.html",
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "educationalLevel": "A2",
+  "learningResourceType": "Chapter summary"
+}
+</script>
+</head>
+<body>
+<div class="page">
+
+<div class="topbar">
+  <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> / <a href="/Materials/maglish_index_en.html">Mathematics as a Foreign Language</a> / Level A2</div>
+  <div class="lang-pills">
+    <a class="lang-pill active" href="/Materials/maglish_a2_logic_en.html">🇬🇧 EN</a>
+    <a class="lang-pill" href="/Materials/maglish_a2_logic.html">🇷🇺 RU</a>
+  </div>
+</div>
+
+<header class="chapter-head">
+  <div class="level-badge">Level A2 · Pre-Intermediate</div>
+  <h1>At the Threshold of Logic</h1>
+  <blockquote class="epigraph">
+    "You uttered your words as if you do not recognize shadows, or evil either. But would you be so good as to reflect on the question: what would your good do if evil did not exist, and what would the earth look like if shadows disappeared from it?"
+    <cite>M. Bulgakov, "The Master and Margarita"</cite>
+  </blockquote>
+  <p class="desc">
+    If the world couldn't be divided into classes, we couldn't tell objects, events or relations apart at all —
+    the universe would collapse into a single point. Level A2 builds the machinery for that division: what a
+    mathematical concept actually is, how logic and naive set theory turn out to be two sides of one coin, and
+    how relations sharpen into orders, equivalences and functions.
+  </p>
+</header>
+
+<!-- WHAT YOU'LL LEARN -->
+<section>
+  <h2>What you'll learn</h2>
+  <ul class="learn-list">
+    <li><span class="dash">—</span><span class="learn-text">What a <strong>mathematical concept</strong> is, precisely: an <strong>extension</strong>, a <strong>definition</strong>, a <strong>designation</strong>, and an optional <strong>notation</strong> — and why "mathematical concept" itself isn't one.</span></li>
+    <li><span class="dash">—</span><span class="learn-text">How <strong>propositional formulas</strong> are built from logical connectives, and why that's already enough to call them a mathematical concept in their own right.</span></li>
+    <li><span class="dash">—</span><span class="learn-text">The exact correspondence between logical connectives and set-theoretic operations — $\land$ and $\cap$, $\lor$ and $\cup$, $\neg$ and complement, $\to$ and a more subtle one.</span></li>
+    <li><span class="dash">—</span><span class="learn-text">How natural-language AND/OR/NOT differ from their mathematical namesakes, and why material implication is true whenever its premise is false.</span></li>
+    <li><span class="dash">—</span><span class="learn-text">Relations as sets of tuples: reflexivity, symmetry, transitivity, and how they combine into <strong>equivalence relations</strong>, <strong>orders</strong>, and finally <strong>functions</strong>.</span></li>
+  </ul>
+</section>
+
+<!-- HOOK -->
+<section>
+  <h2>1. Why divide the world at all?</h2>
+  <div class="story-box">
+    <p>
+      The chapter opens with Woland's rebuke to a character in Bulgakov who wants good without evil, light
+      without shadow — and uses it to make a formal point: if everything we could possibly describe couldn't be
+      split into at least two classes, we could never tell objects, events, or relations apart. <strong>Logic</strong>,
+      in the broadest sense used here, is exactly the complex of rules that lets us draw those distinctions —
+      separate the essential from the accidental, and find structure in a body of knowledge.
+    </p>
+    <p>
+      But a naive "correct lexemes are true, everything else is false" logic of syntax alone isn't enough: it can
+      recognize well-formed expressions but says nothing about the world they describe. What's needed is a
+      four-stage recipe — build a language fragment, define its terms and formulas, fix rules of inference, and
+      declare a starting set of axioms — the same scheme the rest of the book keeps re-applying to new subject
+      domains.
+    </p>
+  </div>
+</section>
+
+<!-- WORKED CONCEPT -->
+<section>
+  <h2>2. Logic and sets are the same coin</h2>
+  <p class="lead">
+    Once truth and falsity are pinned to the satisfaction of a predicate, a striking pattern falls out: every
+    logical connective used to define a new concept corresponds exactly to a set-theoretic operation on its
+    extension.
+  </p>
+  <div class="corr-grid">
+    <div class="corr-cell"><div class="l">$\land$</div><div class="s">$\cap$</div><div class="name">AND / intersection</div></div>
+    <div class="corr-cell"><div class="l">$\lor$</div><div class="s">$\cup$</div><div class="name">OR / union</div></div>
+    <div class="corr-cell"><div class="l">$\neg$</div><div class="s">$\mathcal U\setminus V$</div><div class="name">NOT / complement</div></div>
+    <div class="corr-cell"><div class="l">$\to$</div><div class="s">$(\mathcal U\setminus V_1)\cup V_2$</div><div class="name">implies / (a subtler union)</div></div>
+  </div>
+  <p>
+    The first three are immediate: define a concept as "$a$ satisfies $\mathcal D_1$ <em>and</em> $\mathcal D_2$" and
+    its extension is exactly $V_1\cap V_2$; swap <em>and</em> for <em>or</em> and intersection becomes union.
+    Implication is the interesting case, precisely because mathematics defines it so differently from everyday
+    speech: the formula $\mathcal D_1(a)\to\mathcal D_2(a)$ is true not only when both properties hold, but also
+    for every $a$ that simply fails $\mathcal D_1$ — vacuously true, the way "if it rains, the ground is wet" is
+    trivially true on a sunny day. Work out the extension carefully and implication corresponds to
+    $(\mathcal U\setminus V_1)\cup V_2$; only in the special case where the implication is a tautology does it
+    collapse to plain inclusion, $V_1\subseteq V_2$.
+  </p>
+  <p>
+    That correspondence is why the chapter can introduce a full toolkit of <strong>relations</strong> almost for
+    free. A relation is just a set of tuples $\langle x,y\rangle$ satisfying some property, and depending on which
+    of reflexivity, symmetry, transitivity and antisymmetry it has, it earns a name: an <strong>equivalence
+    relation</strong> (all three of the first) partitions a universe into classes — "having the same father" splits
+    people into sibling groups; a reflexive, antisymmetric, transitive relation is a <strong>partial order</strong>;
+    add connexity and it's a <strong>linear order</strong>. A relation that is total and single-valued is simply a
+    <strong>function</strong> — the familiar $f:A\to B$ is just a very disciplined kind of set.
+  </p>
+</section>
+
+<!-- SELF CHECK -->
+<section>
+  <h2>3. Try it yourself</h2>
+  <p>The first five exercises from the chapter's problem set, from the English edition.</p>
+  <div class="self-check">
+    <ol>
+      <li>Classify the following expressions into three categories: True proposition, False proposition, or Predicate (truth depends on the value of variables).
+        <ul class="sub">
+          <li>$2 + 2 = 5$</li>
+          <li>$x + 1 = 5$</li>
+          <li>All prime numbers are odd.</li>
+          <li>$5 > 3$</li>
+        </ul>
+      </li>
+      <li>Write the negation of the following statements (without just adding "It is not true that..."):
+        <ul class="sub">
+          <li>All cats are black.</li>
+          <li>Some students like mathematics.</li>
+          <li>If it rains, the ground is wet.</li>
+        </ul>
+      </li>
+      <li>Let $A = \{1, 2, 3\}$ and $B = \{2, 3, 4\}$. Determine the truth value of the following formulas:
+        <ul class="sub">
+          <li>$\forall x \in A\ (x < 4)$</li>
+          <li>$\exists x \in B\ (x \text{ is even})$</li>
+          <li>$\forall x \in A \cap B\ (x \ge 2)$</li>
+        </ul>
+      </li>
+      <li>Determine whether the "if... then..." construction is a <em>material implication</em> or a <em>relevance implication</em>. Does the consequent logically or semantically follow from the antecedent, usually sharing a common variable?
+        <ul class="sub">
+          <li>If a number $n$ is divisible by 6, then $n$ is divisible by 3.</li>
+          <li>If the Eiffel Tower is in Paris, then snow is white.</li>
+          <li>If a person is a grandmother, then she is female.</li>
+        </ul>
+      </li>
+      <li>Check if the following logical inference is valid using a Venn diagram or logical reasoning: "All squares are rectangles. All rectangles are quadrilaterals. Therefore, all squares are quadrilaterals."</li>
+    </ol>
+    <p class="self-check-note">Level A2 has 22 exercises in total, each with a full worked solution in the book's appendix.</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="cta-banner">
+    <h3>The rest of Level A2 — and three more levels</h3>
+    <p>
+      This digest skips the full treatment of concept extension and Venn-style reasoning, the complete rules for
+      building quantified formulas, Hasse diagrams for visualizing orders, and a careful dissection of why
+      material implication differs from the "relevance" implication of ordinary speech. Levels B1 through C1 take
+      this same rigor from formal propositional and predicate logic all the way to the Axiom of Choice.
+    </p>
+    <div class="cta-btns">
+      <a class="btn btn-primary" href="https://link.springer.com/book/9783032307200" target="_blank" rel="noopener noreferrer">Pre-order on Springer</a>
+      <a class="btn btn-ghost" href="/Materials/maglish_index_en.html">Back to the book overview</a>
+    </div>
+  </div>
+</section>
+
+<div class="chapter-nav">
+  <a href="/Materials/maglish_a1_survival_en.html">← Level A1 — Survival</a>
+  <a href="/Materials/maglish_b1_formal_logic_en.html">Level B1 — Formal Logic →</a>
+</div>
+
+<p class="page-footer">© Nikolai Kazimirov · <a href="https://mathem.at" rel="noopener">mathem.at</a> · <a href="/Materials/maglish_a2_logic.html">Русская версия</a></p>
+
+</div>
+<script>
+const KATEX_OPTS = {
+  delimiters:[
+    {left:"\\(",right:"\\)",display:false},
+    {left:"\\[",right:"\\]",display:true},
+    {left:"$$",right:"$$",display:true},
+    {left:"$",right:"$",display:false}
+  ],
+  macros:{"\\Math":"\\mathfrak{Math}"},
+  throwOnError:false
+};
+</script>
+</body>
+</html>

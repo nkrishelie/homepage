@@ -12,7 +12,7 @@ export const About: React.FC = () => {
     if (l.includes('email') || l.includes('mail')) return <Mail size={18} />;
     if (l.includes('linkedin')) return <Linkedin size={18} />;
     if (l.includes('github') || l.includes('git')) return <Github size={18} />;
-    if (l.includes('scholar') || l.includes('publication')) return <GraduationCap size={18} />;
+    if (l.includes('scholar') || l.includes('publication') || l.includes('orcid')) return <GraduationCap size={18} />;
     return <ExternalLink size={18} />;
   };
 

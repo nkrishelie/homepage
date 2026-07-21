@@ -92,11 +92,19 @@ export const content: SiteContent = {
       id: "springer",
       title: "Mathematics as a Foreign Language",
       role: "Author",
-      year: "Forthcoming, 2026",
-      description: "The architecture of mathematical thought. A treatise on mathematics as a linguistic system: from the syntax of formulas to the semantics of formal theories.\nExpected to be published in late summer 2026.",
+      year: "2026",
+      description: "The architecture of mathematical thought. A treatise on mathematics as a linguistic system: from the syntax of formulas to the semantics of formal theories.\nRelease date: September 17, 2026.",
       coverImage: "/Springer_cover.webp",
       link: "https://link.springer.com/book/9783032307200",
-      type: "Monograph"
+      type: "Monograph",
+      preorder: {
+        label: "Pre-order",
+        links: [
+          { label: "Springer", href: "https://link.springer.com/book/9783032307200" },
+          { label: "Barnes & Noble", href: "https://www.barnesandnoble.com/w/mathematics-as-a-foreign-language-nikolay-i-kazimirov/1150255362" },
+          { label: "Amazon", href: "#", disabled: true }
+        ]
+      }
     },
     {
       id: "savvateev",
@@ -167,7 +175,7 @@ export const content: SiteContent = {
   ],
   about: {
     // Упрощено: Ph.D. in Mathematics, без кодов ВАК
-    bio: "Ph.D. in Mathematics. Graduated from the Faculty of Mathematics at PetrSU and postgraduate studies at KarRC RAS. In 2024–2025, I lived and worked in Austria (Graz), where my experience learning German at TU Graz inspired me to write the book 'Mathematics as a Foreign Language' (Springer). I specialize in foundations of mathematics, model theory, and scientific popularization.",
+    bio: "Ph.D. in Mathematics. Graduated from the Faculty of Mathematics at PetrSU and postgraduate studies at KarRC RAS. Learning German at TU Graz (Austria) inspired me to write the book 'Mathematics as a Foreign Language' (Springer). I specialize in foundations of mathematics, model theory, and scientific popularization.",
     interests: [
       "Mathematical Logic",
       "Set Theory",
@@ -183,7 +191,7 @@ export const content: SiteContent = {
       // Добавляем новые пункты для баланса:
       { label: "LinkedIn", href: "https://www.linkedin.com/in/nikolai-kazimirov/" },
       { label: "GitHub", href: "https://github.com/nkrishelie" }, // Если есть
-      { label: "Google Scholar", href: "https://scholar.google.com/citations?user=GiQpW8MAAAAJ&hl=en" } // Если есть
+      { label: "ORCID", href: "https://orcid.org/0000-0002-1784-2293" }
     ],
     location: "Moscow, Russia"
   },

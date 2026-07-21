@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Level B2 — The Foundations of Mathematics | Mathematics as a Foreign Language</title>
+<meta name="description" content="Chapter digest: Level B2 'The Foundations of Mathematics' from Mathematics as a Foreign Language (Springer, 2026) — Peano Arithmetic axiom by axiom, naive set theory's paradoxes, and hereditarily finite sets.">
+<link rel="canonical" href="https://mathem.at/Materials/maglish_b2_foundations_en.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Level B2 — The Foundations of Mathematics | Mathematics as a Foreign Language">
+<meta property="og:description" content="Peano Arithmetic, Cantor's naive set theory and Russell's paradox, and hereditarily finite sets as a sufficiently rich finitary universe — the fourth chapter of Mathematics as a Foreign Language.">
+<meta property="og:url" content="https://mathem.at/Materials/maglish_b2_foundations_en.html">
+<meta property="og:image" content="https://mathem.at/Springer_cover.webp">
+<meta property="og:locale" content="en_US">
+<meta name="author" content="Nikolai I. Kazimirov">
+<meta name="robots" content="index, follow">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Level B2 — The Foundations of Mathematics | Mathematics as a Foreign Language">
+<meta name="twitter:description" content="Peano Arithmetic, Cantor's naive set theory and Russell's paradox, and hereditarily finite sets as a sufficiently rich finitary universe — the fourth chapter of Mathematics as a Foreign Language.">
+<meta name="twitter:image" content="https://mathem.at/Springer_cover.webp">
+<link rel="alternate" hreflang="en" href="https://mathem.at/Materials/maglish_b2_foundations_en.html">
+<link rel="alternate" hreflang="ru" href="https://mathem.at/Materials/maglish_b2_foundations.html">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPs6jPC90ZXh0Pjwvc3ZnPg==" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, KATEX_OPTS)"></script>
+<style>
+:root {
+  --bg:#faf9f6; --bg2:#f2f0eb; --ink:#1a1917; --ink2:#5a5750; --ink3:#8a8680; --border:#dcd9d2;
+  --blue-bg:#e8eef7;  --blue-acc:#3a5f9e;
+  --rust-bg:#f0ebe8;  --rust-acc:#8c4a32;
+  --sage-bg:#e8f0eb;  --sage-acc:#2e6645;
+  --amber-bg:#fdf3e0;  --amber-acc:#7a4f0d;
+  --coral-bg:#faeae6;  --coral-acc:#9b2f1a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Georgia,serif;font-size:20px;line-height:1.65}
+.page{max-width:900px;margin:0 auto;padding:2.2rem 2.5rem 5rem}
+
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.6rem}
+.crumbs{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink3)}
+.crumbs a{color:var(--ink3);text-decoration:none}
+.crumbs a:hover{color:var(--ink)}
+.lang-pills{display:flex;gap:8px}
+.lang-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;
+  font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  text-decoration:none;border:1px solid var(--border);color:var(--ink2);transition:.15s}
+.lang-pill.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.lang-pill:not(.active):hover{border-color:var(--ink)}
+
+header.chapter-head{margin-bottom:2.4rem;border-bottom:1.5px solid var(--ink);padding-bottom:1.5rem}
+.level-badge{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:13px;
+  font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber-acc);background:var(--amber-bg);
+  padding:4px 11px;border-radius:4px;margin-bottom:.9rem}
+h1{font-size:clamp(28px,3.4vw,44px);font-weight:500;line-height:1.15;color:var(--ink);margin-bottom:.7rem}
+.epigraph{font-style:italic;color:var(--ink3);font-size:16.5px;border-left:2px solid var(--border);padding-left:1rem;margin:1rem 0}
+.epigraph cite{display:block;font-style:normal;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink3);margin-top:.3rem;text-transform:uppercase;letter-spacing:.06em}
+.desc{font-size:19px;color:var(--ink2);max-width:760px}
+
+section{margin-bottom:2.6rem}
+h2{font-size:25px;font-weight:500;margin-bottom:.9rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+h3{font-size:19.5px;font-weight:500;margin:1.2rem 0 .6rem}
+p{margin-bottom:.9rem;color:var(--ink2)}
+p.lead{color:var(--ink)}
+strong{color:var(--ink);font-weight:500}
+em{color:var(--ink)}
+.katex{font-size:1.03em}
+.katex-display{margin:.6em 0!important}
+
+.learn-list{list-style:none;display:flex;flex-direction:column;gap:.6rem;margin-bottom:1rem}
+.learn-list li{display:flex;gap:.7rem;align-items:flex-start;font-size:17.5px;color:var(--ink2)}
+.learn-list .dash{color:var(--amber-acc);font-weight:700;flex-shrink:0}
+.learn-list .learn-text{flex:1;min-width:0}
+
+.story-box{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1.3rem 1.5rem;font-size:18px;color:var(--ink2);line-height:1.7}
+.story-box p:last-child{margin-bottom:0}
+
+.concept-box{background:var(--amber-bg);border-radius:6px;padding:1.3rem 1.5rem;margin:1rem 0}
+.concept-box .card-num{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber-acc);display:block;margin-bottom:.5rem}
+.concept-box p{color:var(--ink2)}
+.concept-formula{margin:.6rem 0;font-size:17px;overflow-x:auto}
+
+.axiom-list{display:flex;flex-direction:column;gap:6px;margin:1rem 0}
+.axiom-row{display:flex;gap:12px;align-items:baseline;background:var(--bg2);border-radius:6px;padding:.65rem 1rem}
+.axiom-row .tag{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:var(--amber-acc);min-width:38px}
+.axiom-row .f{font-size:16.5px;color:var(--ink2)}
+
+.self-check{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1.1rem 1.3rem}
+.self-check ol{padding-left:1.3rem;color:var(--ink2)}
+.self-check li{margin-bottom:.9rem;font-size:17.5px}
+.self-check li:last-child{margin-bottom:0}
+.self-check .sub{margin-top:.4rem;padding-left:1.2rem;font-size:16px;color:var(--ink3)}
+.self-check .sub li{margin-bottom:.3rem;font-size:16px;color:var(--ink3)}
+.self-check-note{font-size:15.5px;color:var(--ink3);margin-top:.9rem;padding-top:.8rem;border-top:1px solid var(--border)}
+
+.cta-banner{background:linear-gradient(160deg,#0f172a 0%,#1e293b 100%);color:#fff;border-radius:8px;padding:1.7rem 1.9rem;margin-top:.5rem}
+.cta-banner h3{color:#fff;margin-top:0;font-size:20px}
+.cta-banner p{color:#c7cedb;font-size:16.5px}
+.cta-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:.8rem}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:.65rem 1.15rem;border-radius:5px;font-size:15px;font-weight:500;
+  text-decoration:none;font-family:'EB Garamond',Georgia,serif}
+.btn-primary{background:#fff;color:#0f172a}
+.btn-primary:hover{background:#c9a44c}
+.btn-ghost{border:1px solid rgba(255,255,255,.35);color:#fff}
+.btn-ghost:hover{border-color:#fff}
+
+.chapter-nav{display:flex;justify-content:space-between;align-items:center;margin-top:2.6rem;padding-top:1.2rem;border-top:1px solid var(--border);font-size:15px}
+.chapter-nav a{color:var(--ink2);text-decoration:none;border-bottom:1px solid var(--border)}
+.chapter-nav a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+.chapter-nav .next-soon{color:var(--ink3);font-style:italic}
+
+.page-footer{margin-top:2.5rem;padding-top:1.1rem;border-top:0.5px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.04em;color:var(--ink3);text-align:center;line-height:1.5}
+.page-footer a{color:var(--ink3);text-decoration:none;border-bottom:1px solid rgba(138,134,128,.35)}
+.page-footer a:hover{color:var(--ink2);border-bottom-color:var(--ink2)}
+
+@media(max-width:700px){
+  body{font-size:18px}
+  .page{padding:1.5rem 1.2rem 3rem}
+}
+</style>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js', 'ym');
+    ym(94010841, 'init', {webvisor:true, clickmap:true, referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<!-- /Yandex.Metrika counter -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Chapter",
+  "name": "The Foundations of Mathematics",
+  "alternateName": "Level B2",
+  "position": 4,
+  "isPartOf": {
+    "@type": "Book",
+    "name": "Mathematics as a Foreign Language",
+    "url": "https://mathem.at/Materials/maglish_index_en.html"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Nikolai I. Kazimirov",
+    "sameAs": "https://orcid.org/0000-0002-1784-2293"
+  },
+  "description": "Peano Arithmetic, Cantor's naive set theory and Russell's paradox, and hereditarily finite sets as a sufficiently rich finitary universe — the fourth chapter of Mathematics as a Foreign Language.",
+  "image": "https://mathem.at/Springer_cover.webp",
+  "url": "https://mathem.at/Materials/maglish_b2_foundations_en.html",
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "educationalLevel": "B2",
+  "learningResourceType": "Chapter summary"
+}
+</script>
+</head>
+<body>
+<div class="page">
+
+<div class="topbar">
+  <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> / <a href="/Materials/maglish_index_en.html">Mathematics as a Foreign Language</a> / Level B2</div>
+  <div class="lang-pills">
+    <a class="lang-pill active" href="/Materials/maglish_b2_foundations_en.html">🇬🇧 EN</a>
+    <a class="lang-pill" href="/Materials/maglish_b2_foundations.html">🇷🇺 RU</a>
+  </div>
+</div>
+
+<header class="chapter-head">
+  <div class="level-badge">Level B2 · Upper-Intermediate</div>
+  <h1>The Foundations of Mathematics</h1>
+  <blockquote class="epigraph">
+    "God made the natural numbers; all else is the work of man."
+    <cite>Leopold Kronecker</cite>
+  </blockquote>
+  <p class="desc">
+    Level B2 crosses a real threshold: formulas replace words. Peano's axioms turn "number" from an intuition
+    into nine precise lines; Cantor's naive set theory turns "collection" into a paradise — though, as an old
+    anonymous saying about set theory goes, it's "a paradise with plenty of dark cellars," and Russell's paradox
+    is the darkest of them. The chapter's answer is hereditarily finite sets: a sufficiently rich, paradox-free
+    universe built from nothing but $\emptyset$.
+  </p>
+</header>
+
+<!-- WHAT YOU'LL LEARN -->
+<section>
+  <h2>What you'll learn</h2>
+  <ul class="learn-list">
+    <li><span class="dash">—</span><span class="learn-text">First-order <strong>Peano Arithmetic</strong> ($\mathsf{PA}$) axiom by axiom: equality, successor, addition, multiplication, order, and the induction schema.</span></li>
+    <li><span class="dash">—</span><span class="learn-text">Why induction is a <em>schema</em> — one axiom per formula — not a single second-order sentence, and what that costs in strength.</span></li>
+    <li><span class="dash">—</span><span class="learn-text">Cantor's naive comprehension principle, why it's so seductive, and exactly how <strong>Russell's paradox</strong> breaks it.</span></li>
+    <li><span class="dash">—</span><span class="learn-text">How restricting comprehension to a single primitive predicate ($\in$) and a short axiom list yields <strong>hereditarily finite sets</strong> ($\mathsf{HF}$) — paradox-free by construction.</span></li>
+    <li><span class="dash">—</span><span class="learn-text">Why $\mathsf{HF}$ and $\mathsf{PA}$ turn out to be mutually interpretable — two languages for exactly the same finitary mathematics.</span></li>
+  </ul>
+</section>
+
+<!-- HOOK -->
+<section>
+  <h2>1. From words to formulas</h2>
+  <div class="story-box">
+    <p>
+      In the late 19th century, mathematics needed a rigorous foundation for something everyone thought they
+      already understood — the natural numbers. Giuseppe Peano's answer, in 1889, was to name the smallest set of
+      undefined primitives that could carry the whole edifice: zero, and the operation "successor of." Everything
+      else — addition, multiplication, order — gets defined recursively on top, and proved correct from the axioms
+      alone, never from what a number "obviously" is.
+    </p>
+    <p>
+      Cantor's set theory, roughly contemporary, took the opposite gamble: instead of a minimal primitive
+      vocabulary, it started from one maximally generous principle — <em>every property defines a set</em> — and
+      built the arithmetic of the infinite on top of it. Both projects are the same instinct as Level A1's alphabet
+      and Level A2's mathematical concept, just aimed at bigger game: define the undefined terms as narrowly and
+      as explicitly as the subject allows.
+    </p>
+  </div>
+</section>
+
+<!-- WORKED CONCEPT -->
+<section>
+  <h2>2. A paradise, its cellars, and a way out</h2>
+  <p class="lead">
+    Peano Arithmetic's axioms are short enough to read in one sitting — and the last one is doing almost all the
+    work:
+  </p>
+  <div class="axiom-list">
+    <div class="axiom-row"><span class="tag">PA1–7</span><span class="f">Equality, successor injectivity, $S(a)\ne 0$, and the recursive laws for $+,\cdot,<$.</span></div>
+    <div class="axiom-row"><span class="tag">PA8</span><span class="f">$\varphi[a/0]\land\forall x\,(\varphi[a/x]\to\varphi[a/Sx])\to\forall y\,\varphi[a/y]$ — induction, <em>one axiom per formula $\varphi$</em>.</span></div>
+  </div>
+  <p>
+    That last clause is a <em>schema</em>, not a single sentence, precisely because first-order logic can't quantify
+    over "all properties" the way second-order logic can — a limitation with real teeth, since it's exactly why
+    $\mathsf{PA}$ has nonstandard models and can't pin down $\mathbb N$ up to isomorphism the way its second-order
+    cousin can.
+  </p>
+  <p>
+    For a closer look at that whole ladder of theories — from first-order $\mathsf{PA}$ up through $\mathsf{ACA}_0$
+    and $\mathsf{Z}_2$ to the set-theoretic $\mathsf{ZFA}$ — see
+    <a href="/Materials/second_order_arithmetic_en.html" style="text-decoration:none;border-bottom:1px solid rgba(58,95,158,.35)">Hierarchy of Second-Order Arithmetic Theories</a>.
+  </p>
+  <p>
+    Cantor's naive set theory has no such restraint: <em>any</em> property $\mathcal A(a)$ defines a set
+    $\{x\mid\mathcal A(x)\}$. That freedom is what let him build the arithmetic of transfinite cardinals — and
+    it's also what breaks. Define $R=\{x\mid x\notin x\}$. Is $R\in R$? If yes, then by definition $R\notin R$; if
+    no, then $R$ satisfies its own defining property, so $R\in R$. Either way, contradiction — Russell's paradox.
+  </p>
+  <p>
+    The fix isn't cleverness, it's restraint: stop asking "which property defines a set?" and start asking
+    "starting from a set I already have, which new sets am I allowed to build?" $\mathsf{HF}$, hereditarily finite
+    sets, answers with a short axiom list — pairing, union, power set, separation, regularity — plus, crucially,
+    the <em>negation</em> of the axiom of infinity. The result is a universe where every set is finite, every
+    element of a set is itself finite, and Russell's $R$ simply cannot be built. And because every such set can be
+    coded as a natural number and vice versa, $\mathsf{HF}$ and $\mathsf{PA}$ turn out to describe the very same
+    mathematics in two different dialects.
+  </p>
+</section>
+
+<!-- SELF CHECK -->
+<section>
+  <h2>3. Try it yourself</h2>
+  <p>The first five exercises from the chapter's problem set, from the English edition.</p>
+  <div class="self-check">
+    <ol>
+      <li>Express the statement "Every natural number is either zero or a successor" in the language of $\PA$.</li>
+      <li>Formalize the definition of a "square number" using only multiplication.</li>
+      <li>Express the following arithmetic concepts in the language of $\PA$:
+        <ul class="sub">
+          <li>"$x$ is an even number".</li>
+          <li>"$x$ is a divisor of $y$" ($x \mid y$).</li>
+          <li>"$x$ is a prime number".</li>
+          <li>The Goldbach conjecture: "Every even integer greater than 2 is the sum of two primes".</li>
+        </ul>
+      </li>
+      <li>Write a definition of a prime number using <em>only</em> the divisibility predicate ($x \mid y$) and the predicate of being invertible (a unit) $Inv(x) \leftrightarrow \exists y\,(xy=1)$.</li>
+      <li>Express the "Twin Prime Conjecture": there are infinitely many pairs of primes $p, q$ such that $q = S(S(p))$.</li>
+    </ol>
+    <p class="self-check-note">Level B2 has 22 exercises in total, each with a full worked solution in the book's appendix.</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="cta-banner">
+    <h3>The rest of Level B2 — and one more level</h3>
+    <p>
+      This digest skips the full derivation of arithmetic's basic properties from the axioms alone, the precise
+      difference between weak and strong order, why truth for all naturals differs from formal provability of a
+      universal statement, and the tree-shaped representation that makes "hereditarily finite" visual. Level C1
+      takes the full $\mathsf{ZFC}$ axioms, the Axiom of Choice, and the von Neumann universe all the way to the
+      edge of set-theoretic paradise.
+    </p>
+    <div class="cta-btns">
+      <a class="btn btn-primary" href="https://link.springer.com/book/9783032307200" target="_blank" rel="noopener noreferrer">Pre-order on Springer</a>
+      <a class="btn btn-ghost" href="/Materials/maglish_index_en.html">Back to the book overview</a>
+    </div>
+  </div>
+</section>
+
+<div class="chapter-nav">
+  <a href="/Materials/maglish_b1_formal_logic_en.html">← Level B1 — Formal Logic</a>
+  <a href="/Materials/maglish_c1_paradise_en.html">Level C1 — A Mathematician's Paradise →</a>
+</div>
+
+<p class="page-footer">© Nikolai Kazimirov · <a href="https://mathem.at" rel="noopener">mathem.at</a> · <a href="/Materials/maglish_b2_foundations.html">Русская версия</a></p>
+
+</div>
+<script>
+const KATEX_OPTS = {
+  delimiters:[
+    {left:"\\(",right:"\\)",display:false},
+    {left:"\\[",right:"\\]",display:true},
+    {left:"$$",right:"$$",display:true},
+    {left:"$",right:"$",display:false}
+  ],
+  macros:{"\\Math":"\\mathfrak{Math}","\\HF":"\\mathsf{HF}","\\PA":"\\mathsf{PA}"},
+  throwOnError:false
+};
+</script>
+</body>
+</html>

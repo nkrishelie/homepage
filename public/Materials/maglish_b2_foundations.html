@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Уровень B2 — Фундамент математики | Математика как иностранный</title>
+<meta name="description" content="Конспект главы: уровень B2 «Фундамент математики» из книги «Математика как иностранный» (Springer, 2026) — арифметика Пеано аксиома за аксиомой, парадоксы наивной теории множеств и наследственно-конечные множества.">
+<link rel="canonical" href="https://mathem.at/Materials/maglish_b2_foundations.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Уровень B2 — Фундамент математики | Математика как иностранный">
+<meta property="og:description" content="Арифметика Пеано, наивная теория множеств Кантора и парадокс Рассела, наследственно-конечные множества как достаточно богатая финитная вселенная — четвёртая глава книги «Математика как иностранный».">
+<meta property="og:url" content="https://mathem.at/Materials/maglish_b2_foundations.html">
+<meta property="og:image" content="https://mathem.at/litres_cover.png">
+<meta property="og:locale" content="ru_RU">
+<meta name="author" content="Nikolai I. Kazimirov">
+<meta name="robots" content="index, follow">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Уровень B2 — Фундамент математики | Математика как иностранный">
+<meta name="twitter:description" content="Арифметика Пеано, наивная теория множеств Кантора и парадокс Рассела, наследственно-конечные множества как достаточно богатая финитная вселенная — четвёртая глава книги «Математика как иностранный».">
+<meta name="twitter:image" content="https://mathem.at/litres_cover.png">
+<link rel="alternate" hreflang="ru" href="https://mathem.at/Materials/maglish_b2_foundations.html">
+<link rel="alternate" hreflang="en" href="https://mathem.at/Materials/maglish_b2_foundations_en.html">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPs6jPC90ZXh0Pjwvc3ZnPg==" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, KATEX_OPTS)"></script>
+<style>
+:root {
+  --bg:#faf9f6; --bg2:#f2f0eb; --ink:#1a1917; --ink2:#5a5750; --ink3:#8a8680; --border:#dcd9d2;
+  --blue-bg:#e8eef7;  --blue-acc:#3a5f9e;
+  --rust-bg:#f0ebe8;  --rust-acc:#8c4a32;
+  --sage-bg:#e8f0eb;  --sage-acc:#2e6645;
+  --amber-bg:#fdf3e0;  --amber-acc:#7a4f0d;
+  --coral-bg:#faeae6;  --coral-acc:#9b2f1a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Georgia,serif;font-size:20px;line-height:1.65}
+.page{max-width:900px;margin:0 auto;padding:2.2rem 2.5rem 5rem}
+
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.6rem}
+.crumbs{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink3)}
+.crumbs a{color:var(--ink3);text-decoration:none}
+.crumbs a:hover{color:var(--ink)}
+.lang-pills{display:flex;gap:8px}
+.lang-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;
+  font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  text-decoration:none;border:1px solid var(--border);color:var(--ink2);transition:.15s}
+.lang-pill.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.lang-pill:not(.active):hover{border-color:var(--ink)}
+
+header.chapter-head{margin-bottom:2.4rem;border-bottom:1.5px solid var(--ink);padding-bottom:1.5rem}
+.level-badge{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:13px;
+  font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber-acc);background:var(--amber-bg);
+  padding:4px 11px;border-radius:4px;margin-bottom:.9rem}
+h1{font-size:clamp(28px,3.4vw,44px);font-weight:500;line-height:1.15;color:var(--ink);margin-bottom:.7rem}
+.epigraph{font-style:italic;color:var(--ink3);font-size:16.5px;border-left:2px solid var(--border);padding-left:1rem;margin:1rem 0}
+.epigraph cite{display:block;font-style:normal;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink3);margin-top:.3rem;text-transform:uppercase;letter-spacing:.06em}
+.desc{font-size:19px;color:var(--ink2);max-width:760px}
+
+section{margin-bottom:2.6rem}
+h2{font-size:25px;font-weight:500;margin-bottom:.9rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+h3{font-size:19.5px;font-weight:500;margin:1.2rem 0 .6rem}
+p{margin-bottom:.9rem;color:var(--ink2)}
+p.lead{color:var(--ink)}
+strong{color:var(--ink);font-weight:500}
+em{color:var(--ink)}
+.katex{font-size:1.03em}
+.katex-display{margin:.6em 0!important}
+
+.learn-list{list-style:none;display:flex;flex-direction:column;gap:.6rem;margin-bottom:1rem}
+.learn-list li{display:flex;gap:.7rem;align-items:flex-start;font-size:17.5px;color:var(--ink2)}
+.learn-list .dash{color:var(--amber-acc);font-weight:700;flex-shrink:0}
+.learn-list .learn-text{flex:1;min-width:0}
+
+.story-box{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1.3rem 1.5rem;font-size:18px;color:var(--ink2);line-height:1.7}
+.story-box p:last-child{margin-bottom:0}
+
+.concept-box{background:var(--amber-bg);border-radius:6px;padding:1.3rem 1.5rem;margin:1rem 0}
+.concept-box .card-num{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber-acc);display:block;margin-bottom:.5rem}
+.concept-box p{color:var(--ink2)}
+.concept-formula{margin:.6rem 0;font-size:17px;overflow-x:auto}
+
+.axiom-list{display:flex;flex-direction:column;gap:6px;margin:1rem 0}
+.axiom-row{display:flex;gap:12px;align-items:baseline;background:var(--bg2);border-radius:6px;padding:.65rem 1rem}
+.axiom-row .tag{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:var(--amber-acc);min-width:38px}
+.axiom-row .f{font-size:16.5px;color:var(--ink2)}
+
+.self-check{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1.1rem 1.3rem}
+.self-check ol{padding-left:1.3rem;color:var(--ink2)}
+.self-check li{margin-bottom:.9rem;font-size:17.5px}
+.self-check li:last-child{margin-bottom:0}
+.self-check .sub{margin-top:.4rem;padding-left:1.2rem;font-size:16px;color:var(--ink3)}
+.self-check .sub li{margin-bottom:.3rem;font-size:16px;color:var(--ink3)}
+.self-check-note{font-size:15.5px;color:var(--ink3);margin-top:.9rem;padding-top:.8rem;border-top:1px solid var(--border)}
+
+.cta-banner{background:linear-gradient(160deg,#0f172a 0%,#1e293b 100%);color:#fff;border-radius:8px;padding:1.7rem 1.9rem;margin-top:.5rem}
+.cta-banner h3{color:#fff;margin-top:0;font-size:20px}
+.cta-banner p{color:#c7cedb;font-size:16.5px}
+.cta-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:.8rem}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:.65rem 1.15rem;border-radius:5px;font-size:15px;font-weight:500;
+  text-decoration:none;font-family:'EB Garamond',Georgia,serif}
+.btn-primary{background:#fff;color:#0f172a}
+.btn-primary:hover{background:#c9a44c}
+.btn-ghost{border:1px solid rgba(255,255,255,.35);color:#fff}
+.btn-ghost:hover{border-color:#fff}
+
+.chapter-nav{display:flex;justify-content:space-between;align-items:center;margin-top:2.6rem;padding-top:1.2rem;border-top:1px solid var(--border);font-size:15px}
+.chapter-nav a{color:var(--ink2);text-decoration:none;border-bottom:1px solid var(--border)}
+.chapter-nav a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+.chapter-nav .next-soon{color:var(--ink3);font-style:italic}
+
+.page-footer{margin-top:2.5rem;padding-top:1.1rem;border-top:0.5px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.04em;color:var(--ink3);text-align:center;line-height:1.5}
+.page-footer a{color:var(--ink3);text-decoration:none;border-bottom:1px solid rgba(138,134,128,.35)}
+.page-footer a:hover{color:var(--ink2);border-bottom-color:var(--ink2)}
+
+@media(max-width:700px){
+  body{font-size:18px}
+  .page{padding:1.5rem 1.2rem 3rem}
+}
+</style>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js', 'ym');
+    ym(94010841, 'init', {webvisor:true, clickmap:true, referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<!-- /Yandex.Metrika counter -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Chapter",
+  "name": "Фундамент математики",
+  "alternateName": "Уровень B2",
+  "position": 4,
+  "isPartOf": {
+    "@type": "Book",
+    "name": "Математика как иностранный",
+    "url": "https://mathem.at/Materials/maglish_index.html"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Николай И. Казимиров",
+    "alternateName": "Nikolai I. Kazimirov",
+    "sameAs": "https://orcid.org/0000-0002-1784-2293"
+  },
+  "description": "Арифметика Пеано, наивная теория множеств Кантора и парадокс Рассела, наследственно-конечные множества как достаточно богатая финитная вселенная — четвёртая глава книги «Математика как иностранный».",
+  "image": "https://mathem.at/litres_cover.png",
+  "url": "https://mathem.at/Materials/maglish_b2_foundations.html",
+  "inLanguage": "ru",
+  "isAccessibleForFree": true,
+  "educationalLevel": "B2",
+  "learningResourceType": "Chapter summary"
+}
+</script>
+</head>
+<body>
+<div class="page">
+
+<div class="topbar">
+  <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> / <a href="/Materials/maglish_index.html">Математика как иностранный</a> / Уровень B2</div>
+  <div class="lang-pills">
+    <a class="lang-pill" href="/Materials/maglish_b2_foundations_en.html">🇬🇧 EN</a>
+    <a class="lang-pill active" href="/Materials/maglish_b2_foundations.html">🇷🇺 RU</a>
+  </div>
+</div>
+
+<header class="chapter-head">
+  <div class="level-badge">Уровень B2 · Upper-Intermediate</div>
+  <h1>Фундамент математики</h1>
+  <blockquote class="epigraph">
+    «Бог создал натуральные числа, всё остальное — дело рук человеческих».
+    <cite>Леопольд Кронекер</cite>
+  </blockquote>
+  <p class="desc">
+    Уровень B2 пересекает настоящий порог: формулы приходят на смену словам. Аксиомы Пеано превращают «число» из
+    интуиции в девять точных строк; наивная теория множеств Кантора превращает «совокупность» в рай — хотя, как
+    гласит старая анонимная поговорка о теории множеств, это «рай с кучей тёмных подвалов», и парадокс Рассела —
+    самый тёмный из них. Ответ главы — наследственно-конечные множества: достаточно богатая, свободная от
+    парадоксов вселенная, построенная из одного лишь $\emptyset$.
+  </p>
+</header>
+
+<!-- ЧТО ВЫ УЗНАЕТЕ -->
+<section>
+  <h2>Что вы узнаете</h2>
+  <ul class="learn-list">
+    <li><span class="dash">—</span><span class="learn-text">Первопорядковую <strong>арифметику Пеано</strong> ($\mathsf{PA}$) аксиома за аксиомой: равенство, последователь, сложение, умножение, порядок и схема индукции.</span></li>
+    <li><span class="dash">—</span><span class="learn-text">Почему индукция — это <em>схема</em>, по одной аксиоме на формулу, а не единое второпорядковое предложение, и чем это оборачивается по силе теории.</span></li>
+    <li><span class="dash">—</span><span class="learn-text">Наивный принцип свёртывания Кантора, почему он так соблазнителен и как именно его ломает <strong>парадокс Рассела</strong>.</span></li>
+    <li><span class="dash">—</span><span class="learn-text">Как ограничение свёртывания одним примитивным предикатом ($\in$) и коротким списком аксиом даёт <strong>наследственно-конечные множества</strong> ($\mathsf{HF}$) — свободные от парадоксов по построению.</span></li>
+    <li><span class="dash">—</span><span class="learn-text">Почему $\mathsf{HF}$ и $\mathsf{PA}$ оказываются взаимно интерпретируемыми — два языка для одной и той же финитной математики.</span></li>
+  </ul>
+</section>
+
+<!-- ХУК -->
+<section>
+  <h2>1. От слов к формулам</h2>
+  <div class="story-box">
+    <p>
+      В конце XIX века математике потребовалось строгое основание для того, что все и так вроде бы понимали, —
+      натуральных чисел. Ответ Джузеппе Пеано в 1889 году — назвать минимальный набор неопределяемых терминов,
+      способных удержать всё здание: ноль и операцию «следующий за». Всё остальное — сложение, умножение, порядок
+      — определяется поверх этого рекурсивно и доказывается из одних лишь аксиом, а не из того, чем число
+      «очевидно» является.
+    </p>
+    <p>
+      Теория множеств Кантора, примерно современная аксиомам Пеано, сделала противоположную ставку: вместо
+      минимального набора примитивов она взяла один максимально щедрый принцип — <em>любое свойство задаёт
+      множество</em> — и построила поверх него арифметику бесконечного. Оба проекта — тот же инстинкт, что алфавит
+      уровня A1 и математическое понятие уровня A2, только нацеленный на более крупную дичь: определить
+      неопределяемые термины настолько узко и явно, насколько это позволяет предмет.
+    </p>
+  </div>
+</section>
+
+<!-- РАЗБОР ПОНЯТИЯ -->
+<section>
+  <h2>2. Рай, его подвалы и выход из положения</h2>
+  <p class="lead">
+    Аксиомы арифметики Пеано достаточно коротки, чтобы прочесть их за один присест, — и последняя из них делает
+    почти всю работу:
+  </p>
+  <div class="axiom-list">
+    <div class="axiom-row"><span class="tag">PA1–7</span><span class="f">Равенство, инъективность последователя, $S(a)\ne 0$, рекурсивные законы для $+,\cdot,<$.</span></div>
+    <div class="axiom-row"><span class="tag">PA8</span><span class="f">$\varphi[a/0]\land\forall x\,(\varphi[a/x]\to\varphi[a/Sx])\to\forall y\,\varphi[a/y]$ — индукция, <em>по одной аксиоме на формулу $\varphi$</em>.</span></div>
+  </div>
+  <p>
+    Последний пункт — именно <em>схема</em>, а не единое предложение, потому что логика первого порядка не умеет
+    квантифицировать по «всем свойствам», как это делает логика второго порядка, — ограничение с реальными
+    последствиями: именно из-за него у $\mathsf{PA}$ есть нестандартные модели, и она не может однозначно
+    зафиксировать $\mathbb N$ с точностью до изоморфизма так, как это умеет её второпорядковый аналог.
+  </p>
+  <p>
+    Подробный обзор всей этой лестницы теорий — от первопорядковой $\mathsf{PA}$ через $\mathsf{ACA}_0$ и
+    $\mathsf{Z}_2$ до теоретико-множественной $\mathsf{ZFA}$ — см. в материале
+    <a href="/Materials/second_order_arithmetic.html" style="text-decoration:none;border-bottom:1px solid rgba(58,95,158,.35)">«Иерархия теорий арифметики второго порядка»</a>.
+  </p>
+  <p>
+    У наивной теории множеств Кантора такого ограничения нет: <em>любое</em> свойство $\mathcal A(a)$ задаёт
+    множество $\{x\mid\mathcal A(x)\}$. Именно эта свобода позволила ему построить арифметику трансфинитных
+    кардиналов — и именно она же ломается. Определим $R=\{x\mid x\notin x\}$. Верно ли $R\in R$? Если да, то по
+    определению $R\notin R$; если нет, то $R$ удовлетворяет собственному определяющему свойству, значит $R\in R$.
+    В любом случае — противоречие, парадокс Рассела.
+  </p>
+  <p>
+    Исправление — не в изобретательности, а в сдержанности: перестать спрашивать «какое свойство задаёт
+    множество?» и начать спрашивать «отталкиваясь от уже имеющегося множества, какие новые множества мне
+    позволено построить?». $\mathsf{HF}$, наследственно-конечные множества, отвечает коротким списком аксиом —
+    пара, объединение, булеан, выделение, регулярность — и, что решающе важно, <em>отрицанием</em> аксиомы
+    бесконечности. Результат — вселенная, где любое множество конечно, любой элемент множества сам конечен, и
+    расселовское $R$ просто невозможно построить. А поскольку любое такое множество можно закодировать натуральным
+    числом и обратно, $\mathsf{HF}$ и $\mathsf{PA}$ оказываются описанием одной и той же математики на двух разных
+    диалектах.
+  </p>
+</section>
+
+<!-- САМОПРОВЕРКА -->
+<section>
+  <h2>3. Проверьте себя</h2>
+  <p>Первые пять упражнений из блока задач главы, из русского издания.</p>
+  <div class="self-check">
+    <ol>
+      <li>Выразите утверждение «Каждое натуральное число является либо нулём, либо последователем» на языке $\PA$.</li>
+      <li>Формализуйте определение «квадратного числа» (полного квадрата), используя только умножение.</li>
+      <li>Выразите следующие арифметические понятия на языке $\PA$:
+        <ul class="sub">
+          <li>«$x$ — чётное число».</li>
+          <li>«$x$ является делителем $y$» ($x \mid y$).</li>
+          <li>«$x$ — простое число».</li>
+          <li>Гипотеза Гольдбаха: «Каждое чётное целое число, большее 2, является суммой двух простых чисел».</li>
+        </ul>
+      </li>
+      <li>Запишите определение простого числа, используя <em>только</em> предикат делимости ($x \mid y$) и предикат обратимости (быть делителем единицы) $Inv(x) \leftrightarrow \exists y\,(xy=1)$.</li>
+      <li>Выразите «Гипотезу о числах-близнецах»: существует бесконечно много пар простых чисел $p, q$, таких что $q = S(S(p))$.</li>
+    </ol>
+    <p class="self-check-note">Всего в уровне B2 — 21 упражнение, каждое с полным разобранным решением в приложении книги.</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="cta-banner">
+    <h3>Остальная часть уровня B2 — и ещё один уровень</h3>
+    <p>
+      Этот конспект пропускает полный вывод базовых свойств арифметики из одних лишь аксиом, точное различие
+      слабого и сильного порядка, разницу между истинностью для всех натуральных чисел и формальной доказуемостью
+      универсального утверждения, а также древовидное представление, делающее «наследственную конечность»
+      наглядной. Уровень C1 доводит полную аксиоматику $\mathsf{ZFC}$, аксиому выбора и универсум фон Неймана до
+      самого края теоретико-множественного рая.
+    </p>
+    <div class="cta-btns">
+      <a class="btn btn-primary" href="https://mathem.at/#books" target="_blank" rel="noopener noreferrer">Все способы купить</a>
+      <a class="btn btn-ghost" href="/Materials/maglish_index.html">К обзору книги</a>
+    </div>
+  </div>
+</section>
+
+<div class="chapter-nav">
+  <a href="/Materials/maglish_b1_formal_logic.html">← Уровень B1 — Формальная логика</a>
+  <a href="/Materials/maglish_c1_paradise.html">Уровень C1 — Рай для математиков →</a>
+</div>
+
+<p class="page-footer">© Николай Казимиров · <a href="https://mathem.at" rel="noopener">mathem.at</a> · <a href="/Materials/maglish_b2_foundations_en.html">English version</a></p>
+
+</div>
+<script>
+const KATEX_OPTS = {
+  delimiters:[
+    {left:"\\(",right:"\\)",display:false},
+    {left:"\\[",right:"\\]",display:true},
+    {left:"$$",right:"$$",display:true},
+    {left:"$",right:"$",display:false}
+  ],
+  macros:{"\\Math":"\\mathfrak{Math}","\\HF":"\\mathsf{HF}","\\PA":"\\mathsf{PA}"},
+  throwOnError:false
+};
+</script>
+</body>
+</html>

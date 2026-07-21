@@ -34,6 +34,7 @@ function loadTaxonomy() {
     },
     fileCategory: {},
     fileLanguage: {},
+    hiddenFiles: [],
   };
   if (!fs.existsSync(taxonomyPath)) return base;
   try {
@@ -44,6 +45,7 @@ function loadTaxonomy() {
       categories: { ...base.categories, ...(raw.categories || {}) },
       fileCategory: { ...base.fileCategory, ...(raw.fileCategory || {}) },
       fileLanguage: { ...base.fileLanguage, ...(raw.fileLanguage || {}) },
+      hiddenFiles: raw.hiddenFiles || base.hiddenFiles,
     };
   } catch (e) {
     console.warn('[materials] Invalid _taxonomy.json, using defaults:', e.message);
@@ -81,9 +83,10 @@ export const MATERIALS_ITEMS: MaterialItem[] = [];
   }
 
   const taxonomy = loadTaxonomy();
+  const hidden = new Set(taxonomy.hiddenFiles || []);
   const files = fs
     .readdirSync(materialsDir)
-    .filter((f) => f.endsWith('.html') && !f.startsWith('_'))
+    .filter((f) => f.endsWith('.html') && !f.startsWith('_') && !hidden.has(f))
     .sort((a, b) => a.localeCompare(b));
 
   const items = files.map((filename) => {

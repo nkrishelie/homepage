@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Level B1 — Formal Logic | Mathematics as a Foreign Language</title>
+<meta name="description" content="Chapter digest: Level B1 'Formal Logic' from Mathematics as a Foreign Language (Springer, 2026) — propositional and predicate calculus, models, Gödel's completeness and incompleteness theorems.">
+<link rel="canonical" href="https://mathem.at/Materials/maglish_b1_formal_logic_en.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Level B1 — Formal Logic | Mathematics as a Foreign Language">
+<meta property="og:description" content="Propositional and predicate calculus, models and interpretation, and Gödel's completeness and incompleteness theorems — the third chapter of Mathematics as a Foreign Language.">
+<meta property="og:url" content="https://mathem.at/Materials/maglish_b1_formal_logic_en.html">
+<meta property="og:image" content="https://mathem.at/Springer_cover.webp">
+<meta property="og:locale" content="en_US">
+<meta name="author" content="Nikolai I. Kazimirov">
+<meta name="robots" content="index, follow">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Level B1 — Formal Logic | Mathematics as a Foreign Language">
+<meta name="twitter:description" content="Propositional and predicate calculus, models and interpretation, and Gödel's completeness and incompleteness theorems — the third chapter of Mathematics as a Foreign Language.">
+<meta name="twitter:image" content="https://mathem.at/Springer_cover.webp">
+<link rel="alternate" hreflang="en" href="https://mathem.at/Materials/maglish_b1_formal_logic_en.html">
+<link rel="alternate" hreflang="ru" href="https://mathem.at/Materials/maglish_b1_formal_logic.html">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPs6jPC90ZXh0Pjwvc3ZnPg==" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, KATEX_OPTS)"></script>
+<style>
+:root {
+  --bg:#faf9f6; --bg2:#f2f0eb; --ink:#1a1917; --ink2:#5a5750; --ink3:#8a8680; --border:#dcd9d2;
+  --blue-bg:#e8eef7;  --blue-acc:#3a5f9e;
+  --rust-bg:#f0ebe8;  --rust-acc:#8c4a32;
+  --sage-bg:#e8f0eb;  --sage-acc:#2e6645;
+  --amber-bg:#fdf3e0;  --amber-acc:#7a4f0d;
+  --coral-bg:#faeae6;  --coral-acc:#9b2f1a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Georgia,serif;font-size:20px;line-height:1.65}
+.page{max-width:900px;margin:0 auto;padding:2.2rem 2.5rem 5rem}
+
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.6rem}
+.crumbs{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink3)}
+.crumbs a{color:var(--ink3);text-decoration:none}
+.crumbs a:hover{color:var(--ink)}
+.lang-pills{display:flex;gap:8px}
+.lang-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;
+  font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  text-decoration:none;border:1px solid var(--border);color:var(--ink2);transition:.15s}
+.lang-pill.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.lang-pill:not(.active):hover{border-color:var(--ink)}
+
+header.chapter-head{margin-bottom:2.4rem;border-bottom:1.5px solid var(--ink);padding-bottom:1.5rem}
+.level-badge{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:13px;
+  font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--rust-acc);background:var(--rust-bg);
+  padding:4px 11px;border-radius:4px;margin-bottom:.9rem}
+h1{font-size:clamp(28px,3.4vw,44px);font-weight:500;line-height:1.15;color:var(--ink);margin-bottom:.7rem}
+.epigraph{font-style:italic;color:var(--ink3);font-size:16.5px;border-left:2px solid var(--border);padding-left:1rem;margin:1rem 0}
+.epigraph cite{display:block;font-style:normal;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink3);margin-top:.3rem;text-transform:uppercase;letter-spacing:.06em}
+.desc{font-size:19px;color:var(--ink2);max-width:760px}
+
+section{margin-bottom:2.6rem}
+h2{font-size:25px;font-weight:500;margin-bottom:.9rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+h3{font-size:19.5px;font-weight:500;margin:1.2rem 0 .6rem}
+p{margin-bottom:.9rem;color:var(--ink2)}
+p.lead{color:var(--ink)}
+strong{color:var(--ink);font-weight:500}
+em{color:var(--ink)}
+.katex{font-size:1.03em}
+.katex-display{margin:.6em 0!important}
+
+.learn-list{list-style:none;display:flex;flex-direction:column;gap:.6rem;margin-bottom:1rem}
+.learn-list li{display:flex;gap:.7rem;align-items:flex-start;font-size:17.5px;color:var(--ink2)}
+.learn-list .dash{color:var(--rust-acc);font-weight:700;flex-shrink:0}
+.learn-list .learn-text{flex:1;min-width:0}
+
+.story-box{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1.3rem 1.5rem;font-size:18px;color:var(--ink2);line-height:1.7}
+.story-box p:last-child{margin-bottom:0}
+
+.concept-box{background:var(--rust-bg);border-radius:6px;padding:1.3rem 1.5rem;margin:1rem 0}
+.concept-box .card-num{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--rust-acc);display:block;margin-bottom:.5rem}
+.concept-box p{color:var(--ink2)}
+.concept-formula{margin:.6rem 0;font-size:17px;overflow-x:auto}
+
+.thm-list{display:flex;flex-direction:column;gap:8px;margin:1rem 0}
+.thm-row{background:var(--bg2);border-radius:6px;padding:.8rem 1.05rem}
+.thm-row .k{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--rust-acc);text-transform:uppercase;letter-spacing:.05em}
+.thm-row .b{font-size:16.5px;color:var(--ink2);margin-top:.3rem}
+
+.self-check{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1.1rem 1.3rem}
+.self-check ol{padding-left:1.3rem;color:var(--ink2)}
+.self-check li{margin-bottom:.9rem;font-size:17.5px}
+.self-check li:last-child{margin-bottom:0}
+.self-check .sub{margin-top:.4rem;padding-left:1.2rem;font-size:16px;color:var(--ink3)}
+.self-check .sub li{margin-bottom:.3rem;font-size:16px;color:var(--ink3)}
+.self-check-note{font-size:15.5px;color:var(--ink3);margin-top:.9rem;padding-top:.8rem;border-top:1px solid var(--border)}
+
+.cta-banner{background:linear-gradient(160deg,#0f172a 0%,#1e293b 100%);color:#fff;border-radius:8px;padding:1.7rem 1.9rem;margin-top:.5rem}
+.cta-banner h3{color:#fff;margin-top:0;font-size:20px}
+.cta-banner p{color:#c7cedb;font-size:16.5px}
+.cta-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:.8rem}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:.65rem 1.15rem;border-radius:5px;font-size:15px;font-weight:500;
+  text-decoration:none;font-family:'EB Garamond',Georgia,serif}
+.btn-primary{background:#fff;color:#0f172a}
+.btn-primary:hover{background:#c9a44c}
+.btn-ghost{border:1px solid rgba(255,255,255,.35);color:#fff}
+.btn-ghost:hover{border-color:#fff}
+
+.chapter-nav{display:flex;justify-content:space-between;align-items:center;margin-top:2.6rem;padding-top:1.2rem;border-top:1px solid var(--border);font-size:15px}
+.chapter-nav a{color:var(--ink2);text-decoration:none;border-bottom:1px solid var(--border)}
+.chapter-nav a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+.chapter-nav .next-soon{color:var(--ink3);font-style:italic}
+
+.page-footer{margin-top:2.5rem;padding-top:1.1rem;border-top:0.5px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.04em;color:var(--ink3);text-align:center;line-height:1.5}
+.page-footer a{color:var(--ink3);text-decoration:none;border-bottom:1px solid rgba(138,134,128,.35)}
+.page-footer a:hover{color:var(--ink2);border-bottom-color:var(--ink2)}
+
+@media(max-width:700px){
+  body{font-size:18px}
+  .page{padding:1.5rem 1.2rem 3rem}
+}
+</style>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js', 'ym');
+    ym(94010841, 'init', {webvisor:true, clickmap:true, referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<!-- /Yandex.Metrika counter -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Chapter",
+  "name": "Formal Logic",
+  "alternateName": "Level B1",
+  "position": 3,
+  "isPartOf": {
+    "@type": "Book",
+    "name": "Mathematics as a Foreign Language",
+    "url": "https://mathem.at/Materials/maglish_index_en.html"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Nikolai I. Kazimirov",
+    "sameAs": "https://orcid.org/0000-0002-1784-2293"
+  },
+  "description": "Propositional and predicate calculus, models and interpretation, and Gödel's completeness and incompleteness theorems — the third chapter of Mathematics as a Foreign Language.",
+  "image": "https://mathem.at/Springer_cover.webp",
+  "url": "https://mathem.at/Materials/maglish_b1_formal_logic_en.html",
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "educationalLevel": "B1",
+  "learningResourceType": "Chapter summary"
+}
+</script>
+</head>
+<body>
+<div class="page">
+
+<div class="topbar">
+  <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> / <a href="/Materials/maglish_index_en.html">Mathematics as a Foreign Language</a> / Level B1</div>
+  <div class="lang-pills">
+    <a class="lang-pill active" href="/Materials/maglish_b1_formal_logic_en.html">🇬🇧 EN</a>
+    <a class="lang-pill" href="/Materials/maglish_b1_formal_logic.html">🇷🇺 RU</a>
+  </div>
+</div>
+
+<header class="chapter-head">
+  <div class="level-badge">Level B1 · Intermediate</div>
+  <h1>Formal Logic</h1>
+  <blockquote class="epigraph">
+    "God, grant me the serenity to accept the things I cannot change, courage to change the things I can, and wisdom to know the difference."
+    <cite>The Serenity Prayer, Reinhold Niebuhr</cite>
+  </blockquote>
+  <p class="desc">
+    Level B1 is where the language stops being descriptive and becomes a tool for competent thought: propositional
+    and predicate logic get built rigorously, symbol by symbol, and models turn syntax into something that can be
+    checked against a semantics — culminating in Gödel's two most famous theorems.
+  </p>
+</header>
+
+<!-- WHAT YOU'LL LEARN -->
+<section>
+  <h2>What you'll learn</h2>
+  <ul class="learn-list">
+    <li><span class="dash">—</span><span class="learn-text">The language of <strong>propositional formulas</strong> from three generation rules, and how <strong>Modus Ponens</strong> plus a substitution rule drive derivation.</span></li>
+    <li><span class="dash">—</span><span class="learn-text">First-order <strong>predicate logic</strong>: terms, formulas, quantifiers, and the axioms of equality and congruence that make substitution safe.</span></li>
+    <li><span class="dash">—</span><span class="learn-text"><strong>Interpretation</strong> and <strong>models</strong>: what it means for a formula to be true "in" a structure, and how that connects to <strong>consistency</strong> and <strong>satisfiability</strong> of a theory.</span></li>
+    <li><span class="dash">—</span><span class="learn-text"><strong>Gödel's Completeness Theorem</strong> as a criterion: consistent ⟺ has a model — Gödel's direct proof of one direction, and why the other follows trivially from soundness.</span></li>
+    <li><span class="dash">—</span><span class="learn-text"><strong>Gödel's Incompleteness Theorems</strong>: why any consistent, recursively enumerable theory strong enough to interpret arithmetic must leave some true sentence unprovable.</span></li>
+  </ul>
+</section>
+
+<!-- HOOK -->
+<section>
+  <h2>1. From speaking to thinking</h2>
+  <div class="story-box">
+    <p>
+      The formalization of logic itself — turning it into an object of mathematical study — was a defining project
+      at the turn of the 20th century: Frege, Russell and Whitehead's <em>Principia Mathematica</em>, and Hilbert's
+      program, all aimed at rigorous axiomatic systems for logic strong enough to rebuild the whole of mathematics.
+      At Level B1, the book follows the same path: propositional formulas are defined by exactly three rules
+      (every variable is a formula; combinations under $\neg,\land,\lor,\to$ are formulas; nothing else is), and
+      everything from there — derivability, soundness, completeness — is built strictly on top of that syntax.
+    </p>
+    <p>
+      The payoff is a genuine shift in what the language can do. Up through Level A2, $\Math$ described things.
+      Now it can certify <em>that a description follows from other descriptions</em> — the difference between
+      being able to speak a language and being able to reason competently in it.
+    </p>
+  </div>
+</section>
+
+<!-- WORKED CONCEPT -->
+<section>
+  <h2>2. Consistent if and only if it has a model</h2>
+  <p class="lead">
+    A theory is <strong>consistent</strong> if no formula and its negation are both derivable from it; it is
+    <strong>satisfiable</strong> if it has a model — some structure in which all of its theorems come out true.
+    These sound like different properties: one is about proofs, the other about semantics. Gödel's Completeness
+    Theorem for predicate logic says they're the same property, stated as a single criterion.
+  </p>
+  <div class="thm-list">
+    <div class="thm-row"><div class="k">Gödel's Completeness Theorem (as a criterion)</div><div class="b">A theory is consistent if and only if it is satisfiable (has a model).</div></div>
+  </div>
+  <p>
+    The two directions of this criterion have very different weights. Gödel proved the substantial one,
+    left-to-right — consistent $\Rightarrow$ satisfiable — by building a model out of nothing but the language's
+    own terms: every constant symbol goes into the universe, and every true existential formula contributes a
+    "witness" term expressible in the language itself. The converse, right-to-left, is comparatively trivial: it
+    follows directly from the <strong>soundness</strong> of predicate calculus with respect to models — if every
+    axiom of a theory is true in some structure, then by induction on the length of a derivation, every formula
+    derivable from those axioms is true there too, so a theory with a model can never derive both $\varphi$ and
+    $\neg\varphi$.
+  </p>
+  <p>
+    An equivalent formulation of the same criterion: $\Gamma\Vdash\varphi$ is equivalent to $\Gamma\vdash\varphi$
+    — semantic consequence and syntactic derivability turn out to be exactly the same relation in classical
+    predicate logic.
+  </p>
+  <p>
+    Incompleteness then draws the boundary: pure predicate logic, the theory of orders, of equality, of groups —
+    all consistent and complete relative to the metatheory. The moment a theory can talk about its own
+    provability (as Peano Arithmetic can, via Gödel numbering), completeness is lost — a fact independent formulas
+    like the Axiom of Choice relative to $\mathsf{ZF}$, or Euclid's fifth postulate relative to absolute geometry,
+    turn out to instantiate again and again.
+  </p>
+</section>
+
+<!-- SELF CHECK -->
+<section>
+  <h2>3. Try it yourself</h2>
+  <p>The first five exercises from the chapter's problem set, from the English edition.</p>
+  <div class="self-check">
+    <ol>
+      <li>Determine which of the following are tautologies (always true):
+        <ol type="a" class="sub">
+          <li>$(A \to B) \to (\neg B \to \neg A)$;</li>
+          <li>$((A \to B) \to A) \to A$ (Peirce's Law);</li>
+          <li>$(A \to B) \lor (B \to A)$ (Linearity of implication);</li>
+          <li>$(A \land B) \to (A \lor B)$.</li>
+        </ol>
+      </li>
+      <li>Find a valuation (assignment of $0/1$ to $A, B, C$) that makes the following formulas false:
+        <ol type="a" class="sub">
+          <li>$(A \lor B) \to (A \land B)$;</li>
+          <li>$(A \to B) \to A$;</li>
+          <li>$(A \lor B) \land C \to A \land (B \lor C)$.</li>
+        </ol>
+      </li>
+      <li>Using De Morgan's laws and double negation, simplify:
+        <ol type="a" class="sub">
+          <li>$\neg(A \lor \neg B)$;</li>
+          <li>$\neg(A \to (B \land \neg C))$;</li>
+          <li>$\neg(\forall x \exists y (\varphi(x, y) \to \neg \psi(x)))$.</li>
+        </ol>
+      </li>
+      <li>Following the book's convention, free variables (parameters) are denoted by letters $a, b, c$, and bound variables by $x, y, z$. Rewrite the following "raw" formulas to comply with this convention:
+        <ol type="a" class="sub">
+          <li>$\forall k (P(k) \to Q(m))$;</li>
+          <li>$(\forall x P(x)) \land Q(x)$ (hint: the second $x$ is free);</li>
+          <li>$\exists z (u < z \to \forall u (u = z))$ (hint: resolve the collision of $u$);</li>
+          <li>$\int_0^x t^2\,dt$ (interpret the upper limit as a parameter).</li>
+        </ol>
+      </li>
+      <li>Let $\varphi = \exists y (a < y)$ (where $a$ is free).
+        <ol type="a" class="sub">
+          <li>Perform the substitution $\varphi[a/b]$.</li>
+          <li>Perform the substitution $\varphi[a/S(b)]$.</li>
+          <li>Explain why the substitution $\varphi[a/y]$ is forbidden (invalid) in our logic.</li>
+        </ol>
+      </li>
+    </ol>
+    <p class="self-check-note">Level B1 has 20 exercises in total, each with a full worked solution in the book's appendix.</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="cta-banner">
+    <h3>The rest of Level B1 — and two more levels</h3>
+    <p>
+      This digest skips the full construction of the propositional and predicate languages with parenthesis-
+      reduction rules, the deduction theorem, the axioms of equality and congruence, the recipe for building a
+      formal theory from scratch, and worked examples — theories of orders, equality, semigroups and groups.
+      Levels B2 and C1 apply this exact machinery to Peano Arithmetic and then to the full universe of sets.
+    </p>
+    <div class="cta-btns">
+      <a class="btn btn-primary" href="https://link.springer.com/book/9783032307200" target="_blank" rel="noopener noreferrer">Pre-order on Springer</a>
+      <a class="btn btn-ghost" href="/Materials/maglish_index_en.html">Back to the book overview</a>
+    </div>
+  </div>
+</section>
+
+<div class="chapter-nav">
+  <a href="/Materials/maglish_a2_logic_en.html">← Level A2 — At the Threshold of Logic</a>
+  <a href="/Materials/maglish_b2_foundations_en.html">Level B2 — The Foundations of Mathematics →</a>
+</div>
+
+<p class="page-footer">© Nikolai Kazimirov · <a href="https://mathem.at" rel="noopener">mathem.at</a> · <a href="/Materials/maglish_b1_formal_logic.html">Русская версия</a></p>
+
+</div>
+<script>
+const KATEX_OPTS = {
+  delimiters:[
+    {left:"\\(",right:"\\)",display:false},
+    {left:"\\[",right:"\\]",display:true},
+    {left:"$$",right:"$$",display:true},
+    {left:"$",right:"$",display:false}
+  ],
+  macros:{"\\Math":"\\mathfrak{Math}"},
+  throwOnError:false
+};
+</script>
+</body>
+</html>

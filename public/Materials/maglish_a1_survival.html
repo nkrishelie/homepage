@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Уровень A1 — Выживание | Математика как иностранный</title>
+<meta name="description" content="Конспект главы: уровень A1 «Выживание» из книги «Математика как иностранный» (Springer, 2026) — принцип матрешки, деревья разбора, синтаксис vs. семантика и почему формальные системы способны «забывать», что они описывают.">
+<link rel="canonical" href="https://mathem.at/Materials/maglish_a1_survival.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Уровень A1 — Выживание | Математика как иностранный">
+<meta property="og:description" content="Алфавит математики: графемы, лексемы, принцип матрешки и деревья разбора — первая глава книги «Математика как иностранный».">
+<meta property="og:url" content="https://mathem.at/Materials/maglish_a1_survival.html">
+<meta property="og:image" content="https://mathem.at/litres_cover.png">
+<meta property="og:locale" content="ru_RU">
+<meta name="author" content="Nikolai I. Kazimirov">
+<meta name="robots" content="index, follow">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Уровень A1 — Выживание | Математика как иностранный">
+<meta name="twitter:description" content="Алфавит математики: графемы, лексемы, принцип матрешки и деревья разбора — первая глава книги «Математика как иностранный».">
+<meta name="twitter:image" content="https://mathem.at/litres_cover.png">
+<link rel="alternate" hreflang="ru" href="https://mathem.at/Materials/maglish_a1_survival.html">
+<link rel="alternate" hreflang="en" href="https://mathem.at/Materials/maglish_a1_survival_en.html">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPs6jPC90ZXh0Pjwvc3ZnPg==" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, KATEX_OPTS)"></script>
+<style>
+:root {
+  --bg:#faf9f6; --bg2:#f2f0eb; --ink:#1a1917; --ink2:#5a5750; --ink3:#8a8680; --border:#dcd9d2;
+  --blue-bg:#e8eef7;  --blue-acc:#3a5f9e;
+  --rust-bg:#f0ebe8;  --rust-acc:#8c4a32;
+  --sage-bg:#e8f0eb;  --sage-acc:#2e6645;
+  --amber-bg:#fdf3e0;  --amber-acc:#7a4f0d;
+  --coral-bg:#faeae6;  --coral-acc:#9b2f1a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Georgia,serif;font-size:20px;line-height:1.65}
+.page{max-width:900px;margin:0 auto;padding:2.2rem 2.5rem 5rem}
+
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.6rem}
+.crumbs{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink3)}
+.crumbs a{color:var(--ink3);text-decoration:none}
+.crumbs a:hover{color:var(--ink)}
+.lang-pills{display:flex;gap:8px}
+.lang-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;
+  font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  text-decoration:none;border:1px solid var(--border);color:var(--ink2);transition:.15s}
+.lang-pill.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.lang-pill:not(.active):hover{border-color:var(--ink)}
+
+header.chapter-head{margin-bottom:2.4rem;border-bottom:1.5px solid var(--ink);padding-bottom:1.5rem}
+.level-badge{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:13px;
+  font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-acc);background:var(--blue-bg);
+  padding:4px 11px;border-radius:4px;margin-bottom:.9rem}
+h1{font-size:clamp(28px,3.4vw,44px);font-weight:500;line-height:1.15;color:var(--ink);margin-bottom:.7rem}
+.epigraph{font-style:italic;color:var(--ink3);font-size:17.5px;border-left:2px solid var(--border);padding-left:1rem;margin:1rem 0}
+.epigraph cite{display:block;font-style:normal;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink3);margin-top:.3rem;text-transform:uppercase;letter-spacing:.06em}
+.desc{font-size:19px;color:var(--ink2);max-width:760px}
+
+section{margin-bottom:2.6rem}
+h2{font-size:25px;font-weight:500;margin-bottom:.9rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+h3{font-size:19.5px;font-weight:500;margin:1.2rem 0 .6rem}
+p{margin-bottom:.9rem;color:var(--ink2)}
+p.lead{color:var(--ink)}
+strong{color:var(--ink);font-weight:500}
+em{color:var(--ink)}
+.katex{font-size:1.03em}
+.katex-display{margin:.6em 0!important}
+
+.learn-list{list-style:none;display:flex;flex-direction:column;gap:.6rem;margin-bottom:1rem}
+.learn-list li{display:flex;gap:.7rem;align-items:flex-start;font-size:17.5px;color:var(--ink2)}
+.learn-list .dash{color:var(--blue-acc);font-weight:700;flex-shrink:0}
+.learn-list .learn-text{flex:1;min-width:0}
+
+.story-box{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1.3rem 1.5rem;font-size:18px;color:var(--ink2);line-height:1.7}
+.story-box p:last-child{margin-bottom:0}
+
+.concept-box{background:var(--blue-bg);border-radius:6px;padding:1.3rem 1.5rem;margin:1rem 0}
+.concept-box .card-num{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-acc);display:block;margin-bottom:.5rem}
+.concept-box p{color:var(--ink2)}
+.concept-formula{margin:.6rem 0;font-size:17px;overflow-x:auto}
+
+.self-check{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1.1rem 1.3rem}
+.self-check ol{padding-left:1.3rem;color:var(--ink2)}
+.self-check li{margin-bottom:.9rem;font-size:17.5px}
+.self-check li:last-child{margin-bottom:0}
+.self-check .sub{margin-top:.4rem;padding-left:1.2rem;font-size:16px;color:var(--ink3)}
+.self-check .sub li{margin-bottom:.3rem;font-size:16px;color:var(--ink3)}
+.self-check-note{font-size:15.5px;color:var(--ink3);margin-top:.9rem;padding-top:.8rem;border-top:1px solid var(--border)}
+
+.cta-banner{background:linear-gradient(160deg,#0f172a 0%,#1e293b 100%);color:#fff;border-radius:8px;padding:1.7rem 1.9rem;margin-top:.5rem}
+.cta-banner h3{color:#fff;margin-top:0;font-size:20px}
+.cta-banner p{color:#c7cedb;font-size:16.5px}
+.cta-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:.8rem}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:.65rem 1.15rem;border-radius:5px;font-size:15px;font-weight:500;
+  text-decoration:none;font-family:'EB Garamond',Georgia,serif}
+.btn-primary{background:#fff;color:#0f172a}
+.btn-primary:hover{background:#c9a44c}
+.btn-ghost{border:1px solid rgba(255,255,255,.35);color:#fff}
+.btn-ghost:hover{border-color:#fff}
+
+.chapter-nav{display:flex;justify-content:space-between;align-items:center;margin-top:2.6rem;padding-top:1.2rem;border-top:1px solid var(--border);font-size:15px}
+.chapter-nav a{color:var(--ink2);text-decoration:none;border-bottom:1px solid var(--border)}
+.chapter-nav a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+.chapter-nav .next-soon{color:var(--ink3);font-style:italic}
+
+.page-footer{margin-top:2.5rem;padding-top:1.1rem;border-top:0.5px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.04em;color:var(--ink3);text-align:center;line-height:1.5}
+.page-footer a{color:var(--ink3);text-decoration:none;border-bottom:1px solid rgba(138,134,128,.35)}
+.page-footer a:hover{color:var(--ink2);border-bottom-color:var(--ink2)}
+
+@media(max-width:700px){
+  body{font-size:18px}
+  .page{padding:1.5rem 1.2rem 3rem}
+}
+</style>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js', 'ym');
+    ym(94010841, 'init', {webvisor:true, clickmap:true, referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<!-- /Yandex.Metrika counter -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Chapter",
+  "name": "Выживание",
+  "alternateName": "Уровень A1",
+  "position": 1,
+  "isPartOf": {
+    "@type": "Book",
+    "name": "Математика как иностранный",
+    "url": "https://mathem.at/Materials/maglish_index.html"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Николай И. Казимиров",
+    "alternateName": "Nikolai I. Kazimirov",
+    "sameAs": "https://orcid.org/0000-0002-1784-2293"
+  },
+  "description": "Алфавит математики: графемы, лексемы, принцип матрешки и деревья разбора — первая глава книги «Математика как иностранный».",
+  "image": "https://mathem.at/litres_cover.png",
+  "url": "https://mathem.at/Materials/maglish_a1_survival.html",
+  "inLanguage": "ru",
+  "isAccessibleForFree": true,
+  "educationalLevel": "A1",
+  "learningResourceType": "Chapter summary"
+}
+</script>
+</head>
+<body>
+<div class="page">
+
+<div class="topbar">
+  <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> / <a href="/Materials/maglish_index.html">Математика как иностранный</a> / Уровень A1</div>
+  <div class="lang-pills">
+    <a class="lang-pill" href="/Materials/maglish_a1_survival_en.html">🇬🇧 EN</a>
+    <a class="lang-pill active" href="/Materials/maglish_a1_survival.html">🇷🇺 RU</a>
+  </div>
+</div>
+
+<header class="chapter-head">
+  <div class="level-badge">Уровень A1 · Elementary</div>
+  <h1>Выживание</h1>
+  <blockquote class="epigraph">
+    «Самое непостижимое в этом мире — то, что он постижим».
+    <cite>Альберт Эйнштейн</cite>
+  </blockquote>
+  <p class="desc">
+    Прежде чем читать математический текст, нужен алфавит — и правило, по которому его символы складываются во
+    всё более сложные выражения. Уровень A1 и есть этот алфавит: он учит видеть внутреннюю архитектуру любой
+    формулы независимо от того, понимаете ли вы уже, что она означает.
+  </p>
+</header>
+
+<!-- ЧТО ВЫ УЗНАЕТЕ -->
+<section>
+  <h2>Что вы узнаете</h2>
+  <ul class="learn-list">
+    <li><span class="dash">—</span><span class="learn-text">Почему язык математики $\Math$ одновременно алфавитен и идеографичен, и чем <strong>графемы</strong> отличаются от <strong>жёстких графем</strong>.</span></li>
+    <li><span class="dash">—</span><span class="learn-text"><strong>Принцип матрешки</strong>: как любая лексема строится вложением более простых лексем в места-заполнители зависимой графемы — и как обратить этот процесс с помощью <strong>дерева разбора</strong>.</span></li>
+    <li><span class="dash">—</span><span class="learn-text">Почему <strong>синтаксис</strong> и <strong>семантика</strong> — разные уровни, и как одна и та же формальная система может обслуживать совершенно разные предметные области без единого изменения в символах.</span></li>
+    <li><span class="dash">—</span><span class="learn-text">Что такое <strong>рефлексия</strong>, почему она порождает такие парадоксы, как парадокс несамоприменимых прилагательных, и как Гёдель превратил тот же механизм в метод доказательства.</span></li>
+    <li><span class="dash">—</span><span class="learn-text">Разница между <strong>термином</strong> (названием из естественного языка) и <strong>термом</strong>, а также то, как <strong>связанные</strong> и <strong>свободные</strong> переменные не дают формулам стать неоднозначными.</span></li>
+  </ul>
+</section>
+
+<!-- ПРИТЧА -->
+<section>
+  <h2>1. Иллюстративная сказка</h2>
+  <div class="story-box">
+    <p>
+      Глава открывается мысленным экспериментом: оснащённый ИИ зонд садится на экзопланету, населённую
+      «математянами», которые общаются посредством замысловатых символов, рисуемых прямо в воздухе. Задача
+      зонда — восстановить их язык с нуля: без словаря, без Розеттского камня, имея лишь наблюдаемые тексты.
+    </p>
+    <p>
+      Сначала он замечает, что язык одновременно алфавитен и идеографичен: одни символы повторяются постоянно,
+      другие редки, но почти всегда раскладываются на более длинные алфавитные последовательности. Затем —
+      кое-что важнее: у каждого сложного выражения внутренняя структура вложенной матрешки — простые символы
+      встают в шаблоны, шаблоны встают в более крупные шаблоны, и потолка глубины не видно. Разобравшись со
+      структурой, зонд переходит к семантике: предлагает интерпретации, проверяет их на непротиворечивость и
+      строит переводчик в обе стороны — тот же маршрут, которым дальше глава ведёт читателя, символ за символом,
+      уже на настоящей математической записи.
+    </p>
+  </div>
+</section>
+
+<!-- РАЗБОР ПОНЯТИЯ -->
+<section>
+  <h2>2. Принцип матрешки — точно</h2>
+  <p class="lead">
+    <strong>Лексема</strong> языка $\Math$ определяется рекурсивно, ровно двумя пунктами:
+  </p>
+  <div class="concept-box">
+    <span class="card-num">Определение</span>
+    <p>(i) любая независимая графема — в том числе символы алфавита — есть лексема; и</p>
+    <p>(ii) результат подстановки лексем в места-заполнители зависимой графемы есть лексема.</p>
+  </div>
+  <p>
+    Посмотрим, как это работает. Возьмём знак сложения — зависимую графему с двумя числовыми
+    местами-заполнителями — и подставим алфавитные символы $a$ и $b$:
+  </p>
+  <div class="concept-formula">\[a + b\]</div>
+  <p>То же самое с умножением даёт $c\cdot d$. Теперь возьмём знак сложения <em>снова</em> и подставим в его места-заполнители уже построенные лексемы:</p>
+  <div class="concept-formula">\[(a+b) + (c\cdot d)\]</div>
+  <p>
+    Это и есть принцип матрешки: сложность растёт исключительно за счёт вложения, без верхней границы — тот же
+    механизм позволяет писать пятиэтажную башню степеней $5^{4^{3^{2^1}}}$ или формулу Кардано для кубического
+    уравнения, и при этом любое выражение однозначно разбирается обратно в дерево породивших его шаблонов. Эта
+    однозначность — не просто удобство: именно из-за неё компилятор — или, сегодня, языковая модель, вынужденная
+    восстанавливать синтаксис неявно, по статистике, — вообще способен восстановить структуру формулы.
+  </p>
+  <p>
+    Глава также проводит границу между <strong>предикатом</strong> (лексемой, обозначающей отношение — «$k$ имеет
+    цвет $c$») и <strong>термом</strong> (лексемой, обозначающей объект — арифметическим выражением), а затем
+    показывает, как одна и та же формула, не изменившись ни на символ, может описывать крокодилов озера Лох-Несс
+    или нейтронные звёзды Млечного Пути. Родившись из какой-то конкретной семантики, формальная система от неё
+    отделяется — именно поэтому одна и та же теорема, доказанная один раз, остаётся истинной всюду, где выполнены
+    её аксиомы.
+  </p>
+</section>
+
+<!-- САМОПРОВЕРКА -->
+<section>
+  <h2>3. Проверьте себя</h2>
+  <p>Первые пять упражнений из блока задач главы, из русского издания.</p>
+  <div class="self-check">
+    <ol>
+      <li>Постройте дерево разбора для формулы корней квадратного уравнения: $x = \dfrac{-b + \sqrt{b^2 - 4ac}}{2a}$. Укажите иерархию используемых шаблонов (дробь, сложение, вычитание, квадратный корень, возведение в степень, умножение).</li>
+      <li>В математике скобки часто опускаются на основе приоритета операций. Восстановите все опущенные скобки в следующих выражениях, чтобы сделать структуру однозначной:
+        <ol type="a" class="sub">
+          <li>$a \cdot b + c \cdot d$;</li>
+          <li>$x^2 + 2xy + y^2$;</li>
+          <li>$a / b / c$ (предполагая стандартную левоассоциативность);</li>
+          <li>$e^{x^2 + y}$.</li>
+        </ol>
+      </li>
+      <li>Нарисуйте (или опишите) дерево разбора для тождества Эйлера, определив иерархию используемых шаблонов: $e^{i\pi} + 1 = 0$.</li>
+      <li>Декомпозируйте следующее вложенное выражение по слоям. Что является самым внешним шаблоном, и каковы внутренние компоненты? $\sqrt{1 + \sqrt{1 + \sqrt{1 + x}}}$</li>
+      <li>В выражении ниже определите, какие символы выступают как объекты (существительные/переменные/константы), а какие как действия/отношения (глаголы/операторы): $\dfrac{d}{dx}(x^3 + 3x) = 3x^2 + 3$</li>
+    </ol>
+    <p class="self-check-note">Всего в уровне A1 — 16 упражнений, каждое с полным разобранным решением в приложении книги.</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="cta-banner">
+    <h3>Остальная часть уровня A1 — и ещё четыре уровня</h3>
+    <p>
+      Этот конспект охватывает лишь часть главы: рефлексию и парадоксы лжеца, брадобрея и самоприменимости
+      прилагательных, полный разбор терминов и обозначений, связывание переменных с примерами от свёртки до
+      надписи над входом в Академию Платона, семь именованных особенностей, отличающих $\Math$ от естественного
+      языка, и шестнадцать упражнений с полными решениями. Уровни A2–C1 держат ту же строгость вплоть до аксиомы
+      выбора и универсума фон Неймана.
+    </p>
+    <div class="cta-btns">
+      <a class="btn btn-primary" href="https://mathem.at/#books" target="_blank" rel="noopener noreferrer">Все способы купить</a>
+      <a class="btn btn-ghost" href="/Materials/maglish_index.html">К обзору книги</a>
+    </div>
+  </div>
+</section>
+
+<div class="chapter-nav">
+  <a href="/Materials/maglish_index.html">← Обзор книги</a>
+  <a href="/Materials/maglish_a2_logic.html">Уровень A2 — У чертога логики →</a>
+</div>
+
+<p class="page-footer">© Николай Казимиров · <a href="https://mathem.at" rel="noopener">mathem.at</a> · <a href="/Materials/maglish_a1_survival_en.html">English version</a></p>
+
+</div>
+<script>
+const KATEX_OPTS = {
+  delimiters:[
+    {left:"\\(",right:"\\)",display:false},
+    {left:"\\[",right:"\\]",display:true},
+    {left:"$$",right:"$$",display:true},
+    {left:"$",right:"$",display:false}
+  ],
+  macros:{"\\Math":"\\mathfrak{Math}"},
+  throwOnError:false
+};
+</script>
+</body>
+</html>

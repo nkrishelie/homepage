@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mathematics as a Foreign Language — Book Overview</title>
+<meta name="description" content="A guide to Mathematics as a Foreign Language (Springer, 2026): the book's CEFR-style A1–C1 structure, table of contents, key theorems, notation list, and bilingual glossary — with free chapter digests.">
+<link rel="canonical" href="https://mathem.at/Materials/maglish_index_en.html">
+<meta property="og:type" content="book">
+<meta property="og:title" content="Mathematics as a Foreign Language — Nikolai Kazimirov">
+<meta property="og:description" content="A treatise on mathematics as a linguistic system, structured like a language course: A1 Survival → C1 A Mathematician's Paradise. Springer, 2026.">
+<meta property="og:url" content="https://mathem.at/Materials/maglish_index_en.html">
+<meta property="og:image" content="https://mathem.at/Springer_cover.webp">
+<meta property="og:locale" content="en_US">
+<meta name="author" content="Nikolai I. Kazimirov">
+<meta name="robots" content="index, follow">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mathematics as a Foreign Language — Nikolai Kazimirov">
+<meta name="twitter:description" content="A treatise on mathematics as a linguistic system, structured like a language course: A1 Survival → C1 A Mathematician's Paradise. Springer, 2026.">
+<meta name="twitter:image" content="https://mathem.at/Springer_cover.webp">
+<link rel="alternate" hreflang="en" href="https://mathem.at/Materials/maglish_index_en.html">
+<link rel="alternate" hreflang="ru" href="https://mathem.at/Materials/maglish_index.html">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPs6jPC90ZXh0Pjwvc3ZnPg==" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, KATEX_OPTS)"></script>
+<style>
+:root {
+  --bg:#faf9f6; --bg2:#f2f0eb; --ink:#1a1917; --ink2:#5a5750; --ink3:#8a8680; --border:#dcd9d2;
+  --hero:#0f172a; --hero2:#1e293b; --hero-line:rgba(255,255,255,.12); --hero-ink2:#a9b3c4;
+  --gold:#c9a44c;
+  --blue-bg:#e8eef7;  --blue-acc:#3a5f9e;
+  --rust-bg:#f0ebe8;  --rust-acc:#8c4a32;
+  --sage-bg:#e8f0eb;  --sage-acc:#2e6645;
+  --teal-bg:#e6f5ef;  --teal-acc:#0f6e56;
+  --amber-bg:#fdf3e0;  --amber-acc:#7a4f0d;
+  --purple-bg:#eeedfb; --purple-acc:#4a3a9a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Georgia,serif;font-size:20px;line-height:1.65}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 2.5rem}
+.page{max-width:1180px;margin:0 auto;padding:3.5rem 2.5rem 5rem}
+
+/* ── lang pills ── */
+.lang-pills{display:flex;gap:8px}
+.lang-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;
+  font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  text-decoration:none;border:1px solid rgba(255,255,255,.25);color:#cfd6e2;transition:.15s}
+.lang-pill.active{background:#fff;color:var(--hero);border-color:#fff}
+.lang-pill:not(.active):hover{border-color:#fff;color:#fff}
+
+/* ── hero ── */
+.hero{background:linear-gradient(160deg,var(--hero) 0%,var(--hero2) 100%);color:#fff;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;top:0;right:0;width:45%;height:100%;background:rgba(255,255,255,.03);transform:skewX(-12deg) translateX(60px)}
+.hero-top{display:flex;justify-content:space-between;align-items:center;padding:1.4rem 0;position:relative;z-index:2}
+.crumbs{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--hero-ink2)}
+.crumbs a{text-decoration:none;color:var(--hero-ink2)}
+.crumbs a:hover{color:#fff}
+.hero-body{display:flex;gap:3.2rem;align-items:flex-start;padding:1.5rem 0 3.5rem;position:relative;z-index:2;flex-wrap:wrap}
+.hero-cover{flex-shrink:0;width:230px}
+.hero-cover img{width:100%;display:block;box-shadow:0 24px 60px rgba(0,0,0,.5);border:4px solid rgba(255,255,255,.08);
+  transform:rotate(-1.4deg);transition:transform .4s}
+.hero-cover img:hover{transform:rotate(0)}
+.hero-text{flex:1;min-width:280px}
+.kicker{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:.7rem;font-weight:700}
+.hero-text h1{font-size:clamp(30px,4vw,46px);font-weight:500;line-height:1.14;margin-bottom:.6rem}
+.hero-sub{font-size:19px;font-style:italic;color:var(--hero-ink2);margin-bottom:1.1rem}
+.hero-desc{font-size:17.5px;color:#dfe4ec;max-width:640px;margin-bottom:1.6rem;line-height:1.65}
+.hero-desc strong{color:#fff;font-weight:700}
+.hero-cta-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--hero-ink2);margin-bottom:.6rem}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px}
+.btn-disabled{background:rgba(255,255,255,.06);color:rgba(255,255,255,.35);cursor:not-allowed}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:.75rem 1.3rem;border-radius:5px;font-size:15.5px;font-weight:500;
+  text-decoration:none;font-family:'EB Garamond',Georgia,serif;transition:.15s}
+.btn-primary{background:#fff;color:var(--hero)}
+.btn-primary:hover{background:var(--gold);color:#231a05}
+.btn-ghost{border:1px solid rgba(255,255,255,.35);color:#fff}
+.btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+.hero-note{margin-top:.9rem;font-size:13.5px;color:var(--hero-ink2)}
+
+/* ── stats strip ── */
+.stats{background:var(--hero2);border-top:1px solid var(--hero-line)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);padding:1.8rem 0}
+.stat{text-align:center;padding:0 1rem}
+.stat-num{font-size:30px;font-weight:500;color:#fff;font-family:'EB Garamond',Georgia,serif}
+.stat-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--hero-ink2);margin-top:3px}
+
+/* ── sections ── */
+section{margin-bottom:3.4rem}
+.sec-head{display:flex;align-items:baseline;gap:.7rem;margin-bottom:1.2rem;padding-bottom:.6rem;border-bottom:1.5px solid var(--ink)}
+.sec-num{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--ink3)}
+h2{font-size:27px;font-weight:500}
+h3{font-size:20px;font-weight:500;margin:1.3rem 0 .6rem}
+p{margin-bottom:.9rem;color:var(--ink2)}
+p.lead{color:var(--ink);font-size:19px}
+strong{color:var(--ink);font-weight:500}
+em{color:var(--ink)}
+.katex-display{margin:.6em 0!important}
+
+/* ── about ── */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.2rem}
+@media(max-width:860px){.about-grid{grid-template-columns:1fr}}
+.callout{background:var(--bg2);border-left:2.5px solid var(--gold);border-radius:0 6px 6px 0;padding:1rem 1.3rem;font-size:17px;color:var(--ink2);margin-top:.4rem}
+
+/* ── TOC ── */
+.toc-part{margin-bottom:1.4rem}
+.toc-part-title{font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:.6rem}
+.toc-level{border-top:1px solid var(--border);padding:.85rem 0}
+.toc-level:last-child{border-bottom:1px solid var(--border)}
+.toc-level-head{display:flex;align-items:baseline;gap:.7rem;margin-bottom:.35rem}
+.toc-badge{font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:700;padding:2px 8px;border-radius:3px;background:var(--blue-bg);color:var(--blue-acc)}
+.toc-level-title{font-size:19px;color:var(--ink)}
+.toc-level-title a{text-decoration:none;border-bottom:1px solid rgba(58,95,158,.35)}
+.toc-level-title a:hover{border-bottom-color:var(--blue-acc)}
+.toc-sections{font-size:15.5px;color:var(--ink3);padding-left:2px}
+.toc-sections span{margin-right:2px}
+.toc-sections span:not(:last-child)::after{content:'·';margin:0 6px;color:var(--border)}
+
+/* ── chapter cards ── */
+.chapters{display:flex;flex-direction:column;gap:1px;background:var(--border);border:.5px solid var(--border)}
+.chcard{background:var(--bg);padding:1.4rem 1.6rem;display:flex;gap:1.3rem;align-items:flex-start}
+.chcard-badge{flex-shrink:0;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-weight:700;font-size:16px;background:var(--blue-bg);color:var(--blue-acc)}
+.chcard-body{flex:1}
+.chcard-title{font-size:20px;color:var(--ink);margin-bottom:.3rem;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+.chcard-title a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(58,95,158,.35)}
+.chcard-title a:hover{border-bottom-color:var(--blue-acc)}
+.chcard-desc{font-size:16.5px;color:var(--ink2);line-height:1.55;margin-bottom:.6rem}
+.chcard-body .toc-sections{margin-top:0}
+.chcard.ref .chcard-badge.ref-badge{background:var(--rust-bg);color:var(--rust-acc)}
+
+/* ── theorem cards ── */
+.thm-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:.5px solid var(--border)}
+@media(max-width:760px){.thm-grid{grid-template-columns:1fr}}
+.thm-card{background:var(--bg);padding:1.3rem 1.5rem;display:block;text-decoration:none;color:inherit;transition:background .15s}
+.thm-card:hover{background:var(--bg2)}
+.thm-kicker{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--sage-acc);margin-bottom:.4rem}
+.thm-title{font-size:18.5px;color:var(--ink);margin-bottom:.5rem;font-weight:500}
+.thm-body{font-size:15.5px;color:var(--ink2);line-height:1.55}
+.thm-formula{margin:.5rem 0;font-size:16px;overflow-x:auto}
+
+/* ── notation / glossary grids ── */
+.notation-group{margin-bottom:1.2rem}
+.notation-group-title{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--rust-acc);margin-bottom:.5rem}
+.glossary{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:.4rem 2rem;font-size:16px}
+.gloss-item{display:flex;gap:.6rem;padding:.4rem 0;border-bottom:1px solid var(--border)}
+.gloss-term{font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--rust-acc);min-width:110px;flex-shrink:0}
+.gloss-def{color:var(--ink2)}
+
+.term-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:.3rem 2rem;font-size:16px}
+.term-item{display:grid;grid-template-columns:1fr 1fr;gap:.4rem 1rem;padding:.4rem 0;border-bottom:1px solid var(--border)}
+.term-en{color:var(--ink)}
+.term-ru{color:var(--ink3);font-style:italic}
+
+/* ── ladder infographic ── */
+.ladder-wrap{overflow-x:auto;padding-bottom:6px}
+.ladder{display:flex;align-items:stretch;gap:0;min-width:760px}
+.rung{flex:1;background:var(--bg2);border:1px solid var(--border);padding:1rem 1.1rem;position:relative;display:block;text-decoration:none;color:inherit;transition:background .15s,border-color .15s}
+.rung:hover{background:var(--bg);border-color:var(--ink3)}
+.rung:not(:last-child){margin-right:22px}
+.rung:not(:last-child)::after{content:'→';position:absolute;right:-24px;top:50%;transform:translateY(-50%);color:var(--ink3);font-size:18px}
+.rung-badge{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:14px;margin-bottom:.4rem}
+.rung:nth-child(1) .rung-badge{color:var(--blue-acc)} .rung:nth-child(2) .rung-badge{color:var(--teal-acc)}
+.rung:nth-child(3) .rung-badge{color:var(--sage-acc)} .rung:nth-child(4) .rung-badge{color:var(--amber-acc)}
+.rung:nth-child(5) .rung-badge{color:var(--purple-acc)}
+.rung-title{font-size:16px;color:var(--ink);margin-bottom:.3rem}
+.rung-desc{font-size:13.5px;color:var(--ink3);line-height:1.5}
+
+/* ── author ── */
+.author-box{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1.4rem 1.6rem;display:flex;gap:1.4rem;align-items:flex-start}
+.author-photo{width:76px;height:76px;border-radius:50%;overflow:hidden;flex-shrink:0;border:1px solid var(--border)}
+.author-photo img{width:100%;height:100%;object-fit:cover;object-position:top;filter:grayscale(1)}
+.author-name{font-size:18px;color:var(--ink);margin-bottom:.3rem}
+.author-bio{font-size:16px;color:var(--ink2);line-height:1.55;margin-bottom:.7rem}
+.social-row{display:flex;flex-wrap:wrap;gap:1rem;font-size:14.5px}
+.social-row a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ink2)}
+.social-row a:hover{color:var(--ink)}
+.dot{width:22px;height:22px;border-radius:50%;background:var(--ink3);display:inline-block}
+
+/* ── companion ── */
+.companion{background:var(--hero);color:#fff;border-radius:8px;padding:1.8rem 2rem}
+.companion h2{color:#fff;border:none;padding:0}
+.companion p{color:var(--hero-ink2)}
+.companion a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(201,164,76,.4)}
+.companion a:hover{border-bottom-color:var(--gold)}
+
+.page-footer{margin-top:3rem;padding-top:1.1rem;border-top:0.5px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.04em;color:var(--ink3);text-align:center;line-height:1.5}
+.page-footer a{color:var(--ink3);text-decoration:none;border-bottom:1px solid rgba(138,134,128,.35)}
+.page-footer a:hover{color:var(--ink2);border-bottom-color:var(--ink2)}
+
+@media(max-width:700px){
+  body{font-size:18px}
+  .wrap,.page{padding-left:1.2rem;padding-right:1.2rem}
+  .stats-grid{grid-template-columns:repeat(2,1fr);row-gap:1.2rem}
+  .hero-body{gap:1.6rem}
+  .about-grid{gap:1rem}
+}
+</style>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js', 'ym');
+    ym(94010841, 'init', {webvisor:true, clickmap:true, referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<!-- /Yandex.Metrika counter -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Book",
+  "name": "Mathematics as a Foreign Language",
+  "author": {
+    "@type": "Person",
+    "name": "Nikolai I. Kazimirov",
+    "sameAs": "https://orcid.org/0000-0002-1784-2293"
+  },
+  "description": "A treatise on mathematics as a linguistic system, structured like a language course: A1 Survival → C1 A Mathematician's Paradise. Springer, 2026.",
+  "image": "https://mathem.at/Springer_cover.webp",
+  "url": "https://mathem.at/Materials/maglish_index_en.html",
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "genre": "Mathematics / Mathematical Logic",
+  "sameAs": [
+    "https://link.springer.com/book/9783032307200",
+    "https://mathem.at/Materials/maglish_index.html"
+  ],
+  "hasPart": [
+    {
+      "@type": "Chapter",
+      "name": "Survival",
+      "alternateName": "Level A1",
+      "position": 1,
+      "url": "https://mathem.at/Materials/maglish_a1_survival_en.html",
+      "educationalLevel": "A1"
+    },
+    {
+      "@type": "Chapter",
+      "name": "At the Threshold of Logic",
+      "alternateName": "Level A2",
+      "position": 2,
+      "url": "https://mathem.at/Materials/maglish_a2_logic_en.html",
+      "educationalLevel": "A2"
+    },
+    {
+      "@type": "Chapter",
+      "name": "Formal Logic",
+      "alternateName": "Level B1",
+      "position": 3,
+      "url": "https://mathem.at/Materials/maglish_b1_formal_logic_en.html",
+      "educationalLevel": "B1"
+    },
+    {
+      "@type": "Chapter",
+      "name": "The Foundations of Mathematics",
+      "alternateName": "Level B2",
+      "position": 4,
+      "url": "https://mathem.at/Materials/maglish_b2_foundations_en.html",
+      "educationalLevel": "B2"
+    },
+    {
+      "@type": "Chapter",
+      "name": "A Mathematician's Paradise",
+      "alternateName": "Level C1",
+      "position": 5,
+      "url": "https://mathem.at/Materials/maglish_c1_paradise_en.html",
+      "educationalLevel": "C1"
+    }
+  ],
+  "publisher": {
+    "@type": "Organization",
+    "name": "Springer"
+  },
+  "datePublished": "2026-09-17"
+}
+</script>
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="hero-top">
+      <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> <span style="opacity:.5">/</span> Materials</div>
+      <div class="lang-pills">
+        <a class="lang-pill active" href="/Materials/maglish_index_en.html">🇬🇧 EN</a>
+        <a class="lang-pill" href="/Materials/maglish_index.html">🇷🇺 RU</a>
+      </div>
+    </div>
+    <div class="hero-body">
+      <div class="hero-cover">
+        <img src="/Springer_cover.webp" alt="Mathematics as a Foreign Language — book cover">
+      </div>
+      <div class="hero-text">
+        <div class="kicker">Springer · Monograph · 2026</div>
+        <h1>Mathematics as a Foreign Language</h1>
+        <p class="hero-sub">The architecture of mathematical thought, taught like a language course.</p>
+        <p class="hero-desc">
+          A treatise on mathematics as a linguistic system — from the syntax of formulas to the semantics of formal
+          theories — structured around five proficiency levels borrowed straight from language pedagogy: from
+          <strong>A1 Survival</strong> to <strong>C1 A Mathematician's Paradise</strong>. This page indexes the
+          book's structure, key results, notation, and terminology, with free digests of individual chapters.
+        </p>
+        <div class="hero-cta-label">Pre-order</div>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="https://link.springer.com/book/9783032307200" target="_blank" rel="noopener noreferrer">Springer</a>
+          <a class="btn btn-primary" href="https://www.barnesandnoble.com/w/mathematics-as-a-foreign-language-nikolay-i-kazimirov/1150255362" target="_blank" rel="noopener noreferrer">Barnes &amp; Noble</a>
+          <span class="btn btn-disabled" aria-disabled="true">Amazon</span>
+        </div>
+        <div class="hero-note">Release date: September 17, 2026 · Author's original LaTeX typesetting available separately.</div>
+      </div>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="wrap">
+      <div class="stats-grid">
+        <div class="stat"><div class="stat-num">454</div><div class="stat-label">Pages (English edition)</div></div>
+        <div class="stat"><div class="stat-num">~190</div><div class="stat-label">Exercises, with solutions</div></div>
+        <div class="stat"><div class="stat-num">5</div><div class="stat-label">CEFR-style levels, A1–C1</div></div>
+        <div class="stat"><div class="stat-num">22</div><div class="stat-label">Illustrations &amp; portraits</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="page">
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="sec-head"><span class="sec-num">§1</span><h2>About the book</h2></div>
+    <div class="about-grid">
+      <div>
+        <p class="lead">
+          This text presents a distinctive pedagogical approach to the foundations of mathematics by treating the
+          subject as a formal language to be learned. Its central thesis is that mastery of modern mathematics,
+          logic, and computer science requires fluency in a precise and structured mode of thinking — an
+          "architecture of thought" grounded in a rigorous and expressive language.
+        </p>
+        <p>
+          The book develops a method for learning mathematical language in a way aligned with contemporary foreign
+          language pedagogy. It bridges the gap between intuitive understanding and formal rigor, complementing
+          standard courses in logic, set theory, algebra, and philosophy.
+        </p>
+        <p>
+          Undergraduate students in mathematics, computer science, philosophy, and linguistics — as well as
+          graduate students seeking a clear and structured review of foundational concepts — will find the book a
+          valuable contribution to their understanding of mathematical formalism.
+        </p>
+      </div>
+      <div>
+        <p>
+          The text explicitly connects the formal language of mathematics with the operational logic of artificial
+          intelligence. It includes approximately 190 exercises of varying difficulty, each accompanied by detailed
+          solutions to support independent study.
+        </p>
+        <div class="callout">
+          "The algorithms controlling robots, neural networks analyzing data, and large language models generating
+          text are all built upon the strict laws of logic and algebra that constitute the grammar of mathematics."
+          — from the Preface.
+        </div>
+        <p style="margin-top:.9rem">
+          A companion project, <strong>MathLogic Nexus</strong>, extends the book into an interactive 3D map of how
+          definitions, theorems and theories connect across model theory, topology and computability — see the
+          related <a href="https://nexus.mathem.at/" target="_blank" rel="noopener noreferrer" style="text-decoration:none;border-bottom:1px solid rgba(58,95,158,.35)">Nexus Math</a> project.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTERS + CONTENTS (merged) -->
+  <section id="chapters">
+    <div class="sec-head"><span class="sec-num">§2</span><h2>Chapters &amp; contents</h2></div>
+    <p style="margin-top:-.4rem">Free digests of each level in Part I, <em>The Ascent</em> — start anywhere, like a language course, and skip what you already know. Part II, <em>Proof-Theoretical Basis</em>, is the book's topic-organized reference section: it doesn't get separate digests, but its structure is listed below for completeness.</p>
+
+    <div class="toc-part-title">Part I, The Ascent — the level course</div>
+    <div class="chapters">
+      <div class="chcard">
+        <div class="chcard-badge">A1</div>
+        <div class="chcard-body">
+          <div class="chcard-title"><a href="/Materials/maglish_a1_survival_en.html">Survival</a></div>
+          <div class="chcard-desc">The alphabet of $\Math$: graphemes, the Matryoshka principle of lexeme construction, parse trees, predicates and terms, and why formal systems can "forget" their original semantics.</div>
+          <div class="toc-sections"><span>An Illustrative Tale</span><span>The Matryoshka Principle</span><span>Semantics vs. Syntax</span><span>Reflection</span><span>Terminology</span><span>Variables and Bindings</span><span>Features of the Mathematical Language</span></div>
+        </div>
+      </div>
+      <div class="chcard">
+        <div class="chcard-badge">A2</div>
+        <div class="chcard-body">
+          <div class="chcard-title"><a href="/Materials/maglish_a2_logic_en.html">At the Threshold of Logic</a></div>
+          <div class="chcard-desc">Concepts and their extensions, the birth of semantics, logic's relationship to naive set theory, valid inference, and a first rigorous look at relations and functions.</div>
+          <div class="toc-sections"><span>Concept</span><span>"Truth" and "Falsity"</span><span>Logic and Sets</span><span>Logic and Semantics via Concept Extension</span><span>Logical Reasoning</span><span>Constructing Inferences</span><span>On Relations and Functions</span></div>
+        </div>
+      </div>
+      <div class="chcard">
+        <div class="chcard-badge">B1</div>
+        <div class="chcard-body">
+          <div class="chcard-title"><a href="/Materials/maglish_b1_formal_logic_en.html">Formal Logic</a></div>
+          <div class="chcard-desc">Propositional and predicate calculus properly formalized, model theory, interpretation, consistency and completeness, and the machinery of equality and congruence.</div>
+          <div class="toc-sections"><span>Propositional Logic</span><span>Predicate Logic</span></div>
+        </div>
+      </div>
+      <div class="chcard">
+        <div class="chcard-badge">B2</div>
+        <div class="chcard-body">
+          <div class="chcard-title"><a href="/Materials/maglish_b2_foundations_en.html">The Foundations of Mathematics</a></div>
+          <div class="chcard-desc">First-order Peano Arithmetic axiom by axiom, the first steps of set theory, and hereditarily finite sets as a sufficiently rich, self-contained finitary universe.</div>
+          <div class="toc-sections"><span>Peano Arithmetic</span><span>Prolegomena to Set Theory</span><span>Hereditarily Finite Sets</span></div>
+        </div>
+      </div>
+      <div class="chcard">
+        <div class="chcard-badge">C1</div>
+        <div class="chcard-body">
+          <div class="chcard-title"><a href="/Materials/maglish_c1_paradise_en.html">A Mathematician's Paradise</a></div>
+          <div class="chcard-desc">Zermelo–Fraenkel set theory in full, the Axiom of Choice and its equivalents, the von Neumann cumulative universe, and how mathematical structures get built.</div>
+          <div class="toc-sections"><span>Zermelo–Fraenkel Set Theory</span><span>The Axiom of Choice</span><span>The von Neumann Universe</span><span>Constructions</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toc-part-title" style="margin-top:1.7rem">Part II, Proof-Theoretical Basis (reference chapters, no separate digests)</div>
+    <div class="chapters">
+      <div class="chcard ref">
+        <div class="chcard-badge ref-badge">D1</div>
+        <div class="chcard-body">
+          <div class="chcard-title">Language</div>
+          <div class="toc-sections"><span>Elementary Particles of Language</span><span>Lexemes</span><span>Syntactic Analysis</span><span>Simplifications</span><span>Graphics</span><span>Variables</span></div>
+        </div>
+      </div>
+      <div class="chcard ref">
+        <div class="chcard-badge ref-badge">D2</div>
+        <div class="chcard-body">
+          <div class="chcard-title">Logic</div>
+          <div class="toc-sections"><span>Propositional Logic</span><span>Predicate Logic</span></div>
+        </div>
+      </div>
+      <div class="chcard ref">
+        <div class="chcard-badge ref-badge">D3</div>
+        <div class="chcard-body">
+          <div class="chcard-title">Arithmetic</div>
+          <div class="toc-sections"><span>Basic Properties</span><span>Induction</span><span>Elementary Theory of Divisibility</span><span>Sequence Coding</span><span>Toward Gödel's and Tarski's Theorems</span></div>
+        </div>
+      </div>
+      <div class="chcard ref">
+        <div class="chcard-badge ref-badge">D4</div>
+        <div class="chcard-body">
+          <div class="chcard-title">Set Theory</div>
+          <div class="toc-sections"><span>Basic Properties</span><span>Finite and Infinite Sets</span><span>Ordinals and Cardinals</span><span>The Axiom of Choice</span><span>On the Interconnection of Formal Theories</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="toc-level" style="border-bottom:1px solid var(--border);margin-top:1px">
+      <div class="toc-level-head"><span class="toc-level-title" style="padding-left:0">Appendix — Solutions to all ~190 exercises</span></div>
+    </div>
+  </section>
+
+  <!-- KEY THEOREMS -->
+  <section id="theorems">
+    <div class="sec-head"><span class="sec-num">§3</span><h2>Key results across the book</h2></div>
+    <div class="thm-grid">
+      <a class="thm-card" href="/Materials/maglish_a1_survival_en.html">
+        <div class="thm-kicker">Level A1 · the book's core idea</div>
+        <div class="thm-title">The Matryoshka Principle</div>
+        <div class="thm-body">A lexeme of $\Math$ is, first, any independent grapheme; second, the result of
+          substituting lexemes into a dependent grapheme's placeholders.
+          <div class="thm-formula">\[(a+b)+(c\cdot d)\]</div>
+          Every well-formed expression, however deeply nested, is assembled this way — and can be unambiguously
+          parsed back down.</div>
+      </a>
+      <a class="thm-card" href="/Materials/maglish_a1_survival_en.html">
+        <div class="thm-kicker">Level A1 · reflection</div>
+        <div class="thm-title">A language that can describe itself</div>
+        <div class="thm-body">$\Math$ can talk about its own lexemes and formulas via a metalanguage — the same
+          capacity for reflection that, applied to arithmetic through Gödel numbering, produces sentences that speak
+          about their own provability, and ultimately the Incompleteness Theorems.</div>
+      </a>
+      <a class="thm-card" href="/Materials/maglish_a2_logic_en.html">
+        <div class="thm-kicker">Level A2 · logic and sets</div>
+        <div class="thm-title">Logic and sets are the same coin</div>
+        <div class="thm-body">Every logical connective used to define a concept corresponds exactly to a
+          set-theoretic operation on its extension: $\land$ and $\cap$, $\lor$ and $\cup$, $\neg$ and complement —
+          and, more subtly, $\to$ corresponds to $(\mathcal U\setminus V_1)\cup V_2$.</div>
+      </a>
+      <a class="thm-card" href="/Materials/maglish_b1_formal_logic_en.html">
+        <div class="thm-kicker">Level B1 · completeness of predicate logic</div>
+        <div class="thm-title">Consistent, exactly when satisfiable</div>
+        <div class="thm-body">Gödel's Completeness Theorem as a single criterion: a theory is consistent if and
+          only if it has a model. Gödel proved the substantial direction, consistent $\Rightarrow$ satisfiable, by
+          building a model from the language's own terms; the converse follows trivially from soundness.</div>
+      </a>
+      <a class="thm-card" href="/Materials/maglish_b2_foundations_en.html">
+        <div class="thm-kicker">Level B2 · Peano Arithmetic</div>
+        <div class="thm-title">The Axiom of Induction</div>
+        <div class="thm-body">The last and strongest of the $\PA$ axioms:
+          <div class="thm-formula">\[\varphi[a/0]\land\forall x\,(\varphi[a/x]\to\varphi[a/Sx])\to\forall y\,\varphi[a/y]\]</div>
+          Everything else in the theory — commutativity, order, divisibility — is derived from this schema plus six
+          short lines about $0$, $S$, $+$, $\cdot$ and $<$.</div>
+      </a>
+      <a class="thm-card" href="/Materials/maglish_b2_foundations_en.html">
+        <div class="thm-kicker">Level B2 · hereditarily finite sets</div>
+        <div class="thm-title">A whole universe from three axioms</div>
+        <div class="thm-body">On top of extensionality, $\HF$ needs only pairing, union and power set to exist:
+          <div class="thm-formula">\[\exists X\,(X=\{a,b\}),\quad \exists U\,(U={\textstyle\bigcup} a),\quad \exists P\,(P=\Pcal(a))\]</div>
+          — and from these, every finite mathematical structure can be coded as a set built from $\emptyset$ alone.</div>
+      </a>
+      <a class="thm-card" href="/Materials/maglish_c1_paradise_en.html">
+        <div class="thm-kicker">Level C1 · the Axiom of Choice</div>
+        <div class="thm-title">Three faces of one axiom</div>
+        <div class="thm-body">In $\ZF$, the following are provably equivalent: (1) the Axiom of Choice; (2) Zermelo's
+          theorem — every set can be well-ordered; (3) Zorn's Lemma — a poset in which every chain has an upper
+          bound has a maximal element. Same content, three completely different intuitions.</div>
+      </a>
+      <a class="thm-card" href="/Materials/maglish_c1_paradise_en.html">
+        <div class="thm-kicker">Level C1 · ordinals</div>
+        <div class="thm-title">Membership <em>is</em> order</div>
+        <div class="thm-body">For ordinals, $\in$ and $\subsetneq$ coincide:
+          <div class="thm-formula">\[\forall\alpha,\beta\,\bigl(\alpha\in\beta\leftrightarrow\alpha\varsubsetneq\beta\bigr)\]</div>
+          which is why the class $\Ord$ is well-ordered by $\in$ — and why transfinite induction and recursion along
+          $\Ord$ come for free.</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- NOTATION -->
+  <section id="notation">
+    <div class="sec-head"><span class="sec-num">§4</span><h2>List of notations</h2></div>
+    <p style="margin-top:-.4rem">A selection from the book's ~103 registered symbols; the full list ships with the printed edition.</p>
+    <div class="notation-group">
+      <div class="notation-group-title">Logic &amp; quantifiers</div>
+      <div class="glossary">
+        <div class="gloss-item"><span class="gloss-term">\(\neg\ph\)</span><span class="gloss-def">Negation</span></div>
+        <div class="gloss-item"><span class="gloss-term">\(\ph\land\psi\)</span><span class="gloss-def">Conjunction (AND)</span></div>
+        <div class="gloss-item"><span class="gloss-term">\(\ph\lor\psi\)</span><span class="gloss-def">Disjunction (OR)</span></div>
+        <div class="gloss-item"><span class="gloss-term">\(\ph\to\psi\)</span><span class="gloss-def">Implication</span></div>
+        <div class="gloss-item"><span class="gloss-term">\(\forall x\;\ph(x)\)</span><span class="gloss-def">Universal quantifier</span></div>
+        <div class="gloss-item"><span class="gloss-term">\(\exists x\;\ph(x)\)</span><span class="gloss-def">Existential quantifier</span></div>
+        <div class="gloss-item" id="notation-vdash"><span class="gloss-term">\(\vdash\)</span><span class="gloss-def">Syntactic derivability</span></div>
+        <div class="gloss-item" id="notation-Vdash"><span class="gloss-term">\(\Vdash\)</span><span class="gloss-def">Logical (semantic) consequence</span></div>
+        <div class="gloss-item"><span class="gloss-term">\(\models\)</span><span class="gloss-def">Truth in a model</span></div>
+      </div>
+    </div>
+    <div class="notation-group">
+      <div class="notation-group-title">Theories</div>
+      <div class="glossary">
+        <div class="gloss-item"><span class="gloss-term">\(\mathsf{PA}\)</span><span class="gloss-def">Peano Arithmetic</span></div>
+        <div class="gloss-item"><span class="gloss-term">\(\mathsf{ZF},\ \mathsf{ZFC}\)</span><span class="gloss-def">Zermelo–Fraenkel set theory, with Choice</span></div>
+        <div class="gloss-item"><span class="gloss-term">\(\mathsf{HF}\)</span><span class="gloss-def">Hereditarily finite sets</span></div>
+        <div class="gloss-item"><span class="gloss-term">\(\mathsf{AC}\)</span><span class="gloss-def">Axiom of Choice</span></div>
+        <div class="gloss-item"><span class="gloss-term">\(\mathsf{CH}\)</span><span class="gloss-def">Continuum Hypothesis</span></div>
+      </div>
+    </div>
+    <div class="notation-group">
+      <div class="notation-group-title">Sets, ordinals &amp; cardinals</div>
+      <div class="glossary">
+        <div class="gloss-item"><span class="gloss-term">\(\{x\mid\ph(x)\}\)</span><span class="gloss-def">Set comprehension</span></div>
+        <div class="gloss-item"><span class="gloss-term">\(\Pcal(A)\)</span><span class="gloss-def">Power set of \(A\)</span></div>
+        <div class="gloss-item"><span class="gloss-term">\(\langle a,b\rangle\)</span><span class="gloss-def">Ordered pair</span></div>
+        <div class="gloss-item"><span class="gloss-term">\(\om,\ \aleph_0\)</span><span class="gloss-def">First infinite ordinal</span></div>
+        <div class="gloss-item"><span class="gloss-term">\(\Ord\)</span><span class="gloss-def">Class of all ordinals</span></div>
+        <div class="gloss-item"><span class="gloss-term">\(\vert A\vert\)</span><span class="gloss-def">Cardinality of \(A\)</span></div>
+      </div>
+    </div>
+    <div class="notation-group">
+      <div class="notation-group-title">Relations &amp; functions</div>
+      <div class="glossary">
+        <div class="gloss-item"><span class="gloss-term">\(f:A\to B\)</span><span class="gloss-def">Function from \(A\) to \(B\)</span></div>
+        <div class="gloss-item"><span class="gloss-term">\(\dom(f),\ \ran(f)\)</span><span class="gloss-def">Domain, range of \(f\)</span></div>
+        <div class="gloss-item"><span class="gloss-term">\([a]_R\)</span><span class="gloss-def">Equivalence class of \(a\) under \(R\)</span></div>
+        <div class="gloss-item"><span class="gloss-term">\(\Agot\isom\Bgot\)</span><span class="gloss-def">Structures \(\Agot,\Bgot\) are isomorphic</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GLOSSARY -->
+  <section id="glossary">
+    <div class="sec-head"><span class="sec-num">§5</span><h2>Bilingual terms glossary</h2></div>
+    <p style="margin-top:-.4rem">Because the book treats mathematical vocabulary as vocabulary, here is a sample of it in both languages the site is published in.</p>
+    <div class="term-grid">
+      <div class="term-item"><span class="term-en">Grapheme</span><span class="term-ru">графема</span></div>
+      <div class="term-item"><span class="term-en">Lexeme</span><span class="term-ru">лексема</span></div>
+      <div class="term-item"><span class="term-en">Matryoshka principle</span><span class="term-ru">принцип матрёшки</span></div>
+      <div class="term-item"><span class="term-en">Parse tree</span><span class="term-ru">дерево разбора</span></div>
+      <div class="term-item"><span class="term-en">Syntax / Semantics</span><span class="term-ru">синтаксис / семантика</span></div>
+      <div class="term-item"><span class="term-en">Reflection</span><span class="term-ru">рефлексия</span></div>
+      <div class="term-item"><span class="term-en">Metalanguage</span><span class="term-ru">метаязык</span></div>
+      <div class="term-item"><span class="term-en">Concept, extension of</span><span class="term-ru">объём понятия</span></div>
+      <div class="term-item"><span class="term-en">Propositional logic</span><span class="term-ru">логика высказываний</span></div>
+      <div class="term-item"><span class="term-en">Modus Ponens</span><span class="term-ru">правило Modus Ponens</span></div>
+      <div class="term-item"><span class="term-en">Deduction Theorem</span><span class="term-ru">теорема о дедукции</span></div>
+      <div class="term-item"><span class="term-en">Gödel's completeness theorem</span><span class="term-ru">теорема Гёделя о полноте</span></div>
+      <div class="term-item"><span class="term-en">Model of a theory</span><span class="term-ru">модель теории</span></div>
+      <div class="term-item"><span class="term-en">Congruence</span><span class="term-ru">конгруэнтность</span></div>
+      <div class="term-item"><span class="term-en">Peano Arithmetic</span><span class="term-ru">арифметика Пеано</span></div>
+      <div class="term-item"><span class="term-en">Hereditarily finite sets</span><span class="term-ru">наследственно конечные множества</span></div>
+      <div class="term-item"><span class="term-en">Axiom of Choice</span><span class="term-ru">аксиома выбора</span></div>
+      <div class="term-item"><span class="term-en">Zorn's Lemma</span><span class="term-ru">лемма Цорна</span></div>
+      <div class="term-item"><span class="term-en">Well-ordering</span><span class="term-ru">вполне упорядочение</span></div>
+      <div class="term-item"><span class="term-en">von Neumann natural numbers</span><span class="term-ru">натуральные числа фон Неймана</span></div>
+      <div class="term-item"><span class="term-en">Ordinal</span><span class="term-ru">ординал</span></div>
+      <div class="term-item"><span class="term-en">Cardinality</span><span class="term-ru">кардинальность</span></div>
+    </div>
+  </section>
+
+  <!-- LADDER -->
+  <section id="ladder">
+    <div class="sec-head"><span class="sec-num">§6</span><h2>The A1 → C1 ladder</h2></div>
+    <div class="ladder-wrap">
+      <div class="ladder">
+        <a class="rung" href="/Materials/maglish_a1_survival_en.html"><div class="rung-badge">A1</div><div class="rung-title">Survival</div><div class="rung-desc">Alphabet, lexemes, parse trees, syntax vs. semantics</div></a>
+        <a class="rung" href="/Materials/maglish_a2_logic_en.html"><div class="rung-badge">A2</div><div class="rung-title">Threshold of Logic</div><div class="rung-desc">Concepts, naive sets, valid inference, relations &amp; functions</div></a>
+        <a class="rung" href="/Materials/maglish_b1_formal_logic_en.html"><div class="rung-badge">B1</div><div class="rung-title">Formal Logic</div><div class="rung-desc">Propositional &amp; predicate calculus, model theory</div></a>
+        <a class="rung" href="/Materials/maglish_b2_foundations_en.html"><div class="rung-badge">B2</div><div class="rung-title">Foundations</div><div class="rung-desc">Peano Arithmetic, hereditarily finite sets</div></a>
+        <a class="rung" href="/Materials/maglish_c1_paradise_en.html"><div class="rung-badge">C1</div><div class="rung-title">Mathematician's Paradise</div><div class="rung-desc">ZFC, Choice, the von Neumann universe</div></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPANION -->
+  <section id="companion">
+    <div class="companion">
+      <h2>Digital companion</h2>
+      <p>MathLogic Nexus is an interactive 3D visualization of the logical dependencies between definitions,
+      theorems and theories referenced in the book — a live map of the "architecture" of mathematical thought,
+      connecting it to model theory, topology and computability.
+      Explore it at <a href="https://nexus.mathem.at/" target="_blank" rel="noopener noreferrer">nexus.mathem.at</a>.</p>
+    </div>
+  </section>
+
+  <!-- AUTHOR -->
+  <section id="author">
+    <div class="sec-head"><span class="sec-num">§7</span><h2>About the author</h2></div>
+    <div class="author-box">
+      <div class="author-photo"><img src="/profile.jpg" alt="Nikolai I. Kazimirov" loading="lazy"></div>
+      <div>
+        <div class="author-name">Nikolai I. Kazimirov, Ph.D.</div>
+        <div class="author-bio">Ph.D. in Mathematics. Graduated from the Faculty of Mathematics at Petrozavodsk
+          State University and postgraduate studies at the Karelian Research Centre RAS. Learning German at TU
+          Graz (Austria) inspired him to write this book. He specializes in foundations of mathematics, model
+          theory, and the popularization of science.</div>
+        <div class="social-row">
+          <a href="https://t.me/mathreisender" target="_blank" rel="noopener noreferrer">Telegram</a>
+          <a href="https://www.youtube.com/@reisedurchdiemathe" target="_blank" rel="noopener noreferrer">YouTube</a>
+          <a href="mailto:ngoogstein@gmail.com">Email</a>
+          <a href="https://www.linkedin.com/in/nikolai-kazimirov/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://github.com/nkrishelie" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://orcid.org/0000-0002-1784-2293" target="_blank" rel="noopener noreferrer">ORCID</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="wrap">
+  <p class="page-footer">© Nikolai Kazimirov · <a href="https://mathem.at" rel="noopener">mathem.at</a> · <a href="/Materials/maglish_index.html">Русская версия</a></p>
+</div>
+
+<script>
+const KATEX_OPTS = {
+  delimiters:[
+    {left:"\\(",right:"\\)",display:false},
+    {left:"\\[",right:"\\]",display:true},
+    {left:"$$",right:"$$",display:true},
+    {left:"$",right:"$",display:false}
+  ],
+  macros:{
+    "\\Math":"\\mathfrak{Math}","\\ph":"\\varphi","\\Pcal":"\\mathcal{P}","\\Ord":"\\mathrm{Ord}",
+    "\\om":"\\omega","\\isom":"\\cong","\\Agot":"\\mathfrak{A}","\\Bgot":"\\mathfrak{B}",
+    "\\dom":"\\operatorname{dom}","\\ran":"\\operatorname{ran}","\\HF":"\\mathsf{HF}",
+    "\\PA":"\\mathsf{PA}","\\ZF":"\\mathsf{ZF}"
+  },
+  throwOnError:false
+};
+</script>
+</body>
+</html>
