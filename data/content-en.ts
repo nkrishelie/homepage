@@ -95,7 +95,7 @@ export const content: SiteContent = {
       year: "2026",
       description: "The architecture of mathematical thought. A treatise on mathematics as a linguistic system: from the syntax of formulas to the semantics of formal theories.\nRelease date: September 17, 2026.",
       coverImage: "/Springer_cover.webp",
-      link: "https://link.springer.com/book/9783032307200",
+      link: "/Materials/maglish_index_en.html",
       type: "Monograph",
       preorder: {
         label: "Pre-order",
