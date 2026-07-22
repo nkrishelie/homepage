@@ -177,12 +177,49 @@ em{color:var(--ink)}
 .page-footer a{color:var(--ink3);text-decoration:none;border-bottom:1px solid rgba(138,134,128,.35)}
 .page-footer a:hover{color:var(--ink2);border-bottom-color:var(--ink2)}
 
+.hero-cta-main{margin-bottom:1.6rem}
+
+/* Ознакомительный фрагмент */
+.sample-lead{margin-bottom:1.5rem}
+.sample-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem;margin-bottom:1.7rem}
+.sample-thumb{display:block;padding:0;border:1px solid var(--border);background:#fff;font:inherit;
+  color:inherit;cursor:zoom-in;transition:.18s}
+.sample-thumb:hover{border-color:var(--ink3);box-shadow:0 10px 26px rgba(0,0,0,.10);transform:translateY(-2px)}
+.sample-thumb img{width:100%;height:auto;display:block}
+.sample-cap{display:block;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink3);padding:.55rem .3rem;border-top:1px solid var(--border)}
+.sample-actions{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap}
+.sample-dl{display:inline-flex;align-items:center;gap:.55rem;padding:.75rem 1.4rem;border-radius:5px;
+  background:var(--hero);color:#fff;text-decoration:none;font-size:16.5px;transition:.15s}
+.sample-dl:hover{background:var(--rust-acc)}
+.sample-meta{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--ink3)}
+
+/* Лайтбокс для превью-страниц */
+.lb{position:fixed;inset:0;z-index:99;background:rgba(15,23,42,.94);display:none;
+  align-items:center;justify-content:center;padding:2.5rem 1rem}
+.lb.open{display:flex}
+.lb-img{max-width:min(94vw,720px);max-height:90vh;background:#fff;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.lb-close,.lb-nav{position:absolute;background:none;border:0;color:rgba(255,255,255,.6);cursor:pointer;
+  font-family:'EB Garamond',Georgia,serif;line-height:1;transition:.15s}
+.lb-close{top:1rem;right:1.3rem;font-size:34px}
+.lb-nav{top:50%;transform:translateY(-50%);font-size:42px;padding:1rem}
+.lb-prev{left:.4rem}
+.lb-next{right:.4rem}
+.lb-close:hover,.lb-nav:hover{color:#fff}
+.lb-cap{position:absolute;bottom:1.2rem;left:0;right:0;text-align:center;
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:rgba(255,255,255,.55)}
+
 @media(max-width:700px){
   body{font-size:18px}
   .wrap,.page{padding-left:1.2rem;padding-right:1.2rem}
   .stats-grid{grid-template-columns:repeat(2,1fr);row-gap:1.2rem}
   .hero-body{gap:1.6rem}
   .about-grid{gap:1rem}
+  .sample-grid{grid-template-columns:repeat(2,1fr);gap:.8rem}
+  .lb-nav{font-size:30px;padding:.5rem}
+  .lb{padding:1.5rem .5rem}
 }
 </style>
 <!-- Yandex.Metrika counter -->
@@ -288,20 +325,23 @@ em{color:var(--ink)}
           страница — путеводитель по структуре книги, её ключевым результатам, обозначениям и терминологии, с
           бесплатными конспектами отдельных глав.
         </p>
+        <div class="hero-cta hero-cta-main">
+          <a class="btn btn-primary" href="#sample">Читать ознакомительный фрагмент</a>
+        </div>
         <div class="hero-cta-label">Скоро на площадках</div>
         <div class="hero-cta">
           <span class="btn btn-disabled" aria-disabled="true">ЛитРес</span>
           <span class="btn btn-disabled" aria-disabled="true">Ozon</span>
           <span class="btn btn-disabled" aria-disabled="true">Wildberries</span>
         </div>
-        <div class="hero-note">Релиз английского издания в <a href="https://link.springer.com/book/9783032307200" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline">Springer</a> — 17 сентября 2026 года. Оригинальная авторская вёрстка доступна отдельно.</div>
+        <div class="hero-note">Релиз английского издания в <a href="https://link.springer.com/book/9783032307200" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline">Springer</a> — 19 сентября 2026 года. Оригинальная авторская вёрстка доступна отдельно.</div>
       </div>
     </div>
   </div>
   <div class="stats">
     <div class="wrap">
       <div class="stats-grid">
-        <div class="stat"><div class="stat-num">358</div><div class="stat-label">Страниц (русское издание)</div></div>
+        <div class="stat"><div class="stat-num">354</div><div class="stat-label">Страниц (русское издание)</div></div>
         <div class="stat"><div class="stat-num">~190</div><div class="stat-label">Упражнений, с решениями</div></div>
         <div class="stat"><div class="stat-num">5</div><div class="stat-label">Уровней по типу CEFR, A1–C1</div></div>
         <div class="stat"><div class="stat-num">22</div><div class="stat-label">Иллюстраций и портретов</div></div>
@@ -440,9 +480,45 @@ em{color:var(--ink)}
     </div>
   </section>
 
+  <!-- ОЗНАКОМИТЕЛЬНЫЙ ФРАГМЕНТ -->
+  <section id="sample">
+    <div class="sec-head"><span class="sec-num">§3</span><h2>Ознакомительный фрагмент</h2></div>
+    <p class="lead sample-lead">Первые 43 страницы книги целиком — содержание, ключевые теоремы,
+      предисловие и уровень A1 «Выживание», — а следом полный список обозначений из конца книги.
+      Оригинальная авторская вёрстка, без изменений.</p>
+    <div class="sample-grid">
+      <button class="sample-thumb" type="button">
+        <img src="/Materials/sample/p01_title.webp" width="1000" height="1334" loading="lazy"
+             alt="Титульный лист книги «Математика как иностранный»">
+        <span class="sample-cap">Титул</span>
+      </button>
+      <button class="sample-thumb" type="button">
+        <img src="/Materials/sample/p03_toc.webp" width="1000" height="1334" loading="lazy"
+             alt="Страница содержания: уровни A1–C1 и главы доказательной базы">
+        <span class="sample-cap">Содержание</span>
+      </button>
+      <button class="sample-thumb" type="button">
+        <img src="/Materials/sample/p18_matroska.webp" width="1000" height="1334" loading="lazy"
+             alt="Страница 18: раздел A1.2 «Принцип матрешки»">
+        <span class="sample-cap">Принцип матрёшки</span>
+      </button>
+      <button class="sample-thumb" type="button">
+        <img src="/Materials/sample/p45_notation.webp" width="1000" height="1334" loading="lazy"
+             alt="Список обозначений: Math, отрицание, выводимость, ZFC">
+        <span class="sample-cap">Обозначения</span>
+      </button>
+    </div>
+    <div class="sample-actions">
+      <a class="sample-dl" href="/maglish_fragment_ru.pdf" target="_blank" rel="noopener">
+        <span aria-hidden="true">↓</span> Скачать фрагмент
+      </a>
+      <span class="sample-meta">PDF · 49 страниц · 0,7 МБ</span>
+    </div>
+  </section>
+
   <!-- КЛЮЧЕВЫЕ ТЕОРЕМЫ -->
   <section id="theorems">
-    <div class="sec-head"><span class="sec-num">§3</span><h2>Ключевые результаты книги</h2></div>
+    <div class="sec-head"><span class="sec-num">§4</span><h2>Ключевые результаты книги</h2></div>
     <div class="thm-grid">
       <a class="thm-card" href="/Materials/maglish_a1_survival.html">
         <div class="thm-kicker">Уровень A1 · центральная идея книги</div>
@@ -512,7 +588,7 @@ em{color:var(--ink)}
 
   <!-- ОБОЗНАЧЕНИЯ -->
   <section id="notation">
-    <div class="sec-head"><span class="sec-num">§4</span><h2>Список обозначений</h2></div>
+    <div class="sec-head"><span class="sec-num">§5</span><h2>Список обозначений</h2></div>
     <p style="margin-top:-.4rem">Выборка из ~103 зарегистрированных символов книги; полный список — в печатном издании.</p>
     <div class="notation-group">
       <div class="notation-group-title">Логика и кванторы</div>
@@ -562,7 +638,7 @@ em{color:var(--ink)}
 
   <!-- ГЛОССАРИЙ -->
   <section id="glossary">
-    <div class="sec-head"><span class="sec-num">§5</span><h2>Двуязычный глоссарий терминов</h2></div>
+    <div class="sec-head"><span class="sec-num">§6</span><h2>Двуязычный глоссарий терминов</h2></div>
     <p style="margin-top:-.4rem">Раз книга обращается с математической лексикой как с лексикой, вот её выборка на обоих языках сайта.</p>
     <div class="term-grid">
       <div class="term-item"><span class="term-ru">Графема</span><span class="term-en">grapheme</span></div>
@@ -592,7 +668,7 @@ em{color:var(--ink)}
 
   <!-- ЛЕСТНИЦА -->
   <section id="ladder">
-    <div class="sec-head"><span class="sec-num">§6</span><h2>Лестница от A1 до C1</h2></div>
+    <div class="sec-head"><span class="sec-num">§7</span><h2>Лестница от A1 до C1</h2></div>
     <div class="ladder-wrap">
       <div class="ladder">
         <a class="rung" href="/Materials/maglish_a1_survival.html"><div class="rung-badge">A1</div><div class="rung-title">Выживание</div><div class="rung-desc">Алфавит, лексемы, деревья разбора, синтаксис vs. семантика</div></a>
@@ -617,7 +693,7 @@ em{color:var(--ink)}
 
   <!-- АВТОР -->
   <section id="author">
-    <div class="sec-head"><span class="sec-num">§7</span><h2>Об авторе</h2></div>
+    <div class="sec-head"><span class="sec-num">§8</span><h2>Об авторе</h2></div>
     <div class="author-box">
       <div class="author-photo"><img src="/profile.jpg" alt="Николай И. Казимиров" loading="lazy"></div>
       <div>
@@ -643,7 +719,51 @@ em{color:var(--ink)}
   <p class="page-footer">© Николай Казимиров · <a href="https://mathem.at" rel="noopener">mathem.at</a> · <a href="/Materials/maglish_index_en.html">English version</a></p>
 </div>
 
+<!-- Лайтбокс превью-страниц -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Просмотр страницы фрагмента">
+  <button class="lb-close" type="button" aria-label="Закрыть">&times;</button>
+  <button class="lb-nav lb-prev" type="button" aria-label="Предыдущая">&lsaquo;</button>
+  <img class="lb-img" src="" alt="">
+  <button class="lb-nav lb-next" type="button" aria-label="Следующая">&rsaquo;</button>
+  <div class="lb-cap"></div>
+</div>
+
 <script>
+/* Лайтбокс: клик по миниатюре открывает страницу целиком.
+   Esc и клик по фону закрывают, стрелки листают. */
+(function(){
+  const thumbs = Array.from(document.querySelectorAll('.sample-thumb'));
+  const lb = document.getElementById('lb');
+  if (!thumbs.length || !lb) return;
+
+  const img = lb.querySelector('.lb-img');
+  const cap = lb.querySelector('.lb-cap');
+  let i = 0;
+
+  function show(n){
+    i = (n + thumbs.length) % thumbs.length;
+    const src = thumbs[i].querySelector('img');
+    img.src = src.src;
+    img.alt = src.alt;
+    cap.textContent = thumbs[i].querySelector('.sample-cap').textContent +
+                      ' · ' + (i + 1) + ' из ' + thumbs.length;
+  }
+  function open(n){ show(n); lb.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function close(){ lb.classList.remove('open'); document.body.style.overflow = ''; }
+
+  thumbs.forEach((t, n) => t.addEventListener('click', () => open(n)));
+  lb.addEventListener('click', e => { if (e.target === lb) close(); });
+  lb.querySelector('.lb-close').addEventListener('click', close);
+  lb.querySelector('.lb-prev').addEventListener('click', () => show(i - 1));
+  lb.querySelector('.lb-next').addEventListener('click', () => show(i + 1));
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape')     close();
+    if (e.key === 'ArrowLeft')  show(i - 1);
+    if (e.key === 'ArrowRight') show(i + 1);
+  });
+})();
+
 const KATEX_OPTS = {
   delimiters:[
     {left:"\\(",right:"\\)",display:false},
