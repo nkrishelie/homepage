@@ -121,12 +121,13 @@ figure{margin:1.4rem 0}
 .fig-title{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);margin-bottom:.15rem}
 .fig-claim{font-size:17px;color:var(--ink2);margin-bottom:.5rem;line-height:1.45}
 .fig-panel svg{display:block;width:100%;height:auto}
-.fig-legend{display:flex;align-items:center;gap:8px;margin-top:.5rem;font-size:15.5px;color:var(--ink2);line-height:1.4}
+.fig-legend{display:flex;flex-direction:column;align-items:flex-start;gap:.4rem;margin-top:.7rem;font-size:15.5px;color:var(--ink2);line-height:1.4}
+.fig-legend .legend-row{display:flex;align-items:center;gap:8px}
 .swatch{width:13px;height:13px;border-radius:50%;flex-shrink:0}
 .swatch.ring{border:2px solid var(--purple-acc)}
 .swatch.dot{background:var(--purple-acc)}
 figcaption{font-size:16.5px;color:var(--ink3);margin-top:.6rem;line-height:1.55;font-style:italic}
-.svg-label{font-family:'JetBrains Mono',monospace;font-size:15px}
+.svg-label{font-family:'JetBrains Mono',monospace;font-size:15px;fill:var(--ink2)}
 
 details{background:var(--bg2);border:1px solid var(--border);border-radius:6px;margin:1.2rem 0;padding:0}
 details summary{
@@ -226,7 +227,7 @@ table.basic tbody td.nm{color:var(--ink)}
             <span class="matrix-cell-title">Вложения и представления</span>
             <ul class="matrix-list">
               <li><a href="#ex-2a-i" class="matrix-link" title="Перейти к примеру"><span class="dim">I</span> Формализм → Формализм</a><br><span style="font-size:15px">(Взаимная интерпретируемость)</span></li>
-              <li><a href="#ex-2a-ii" class="matrix-link" title="Перейти к примеру"><span class="dim">II</span> Семантика → Семантика</a><br><span style="font-size:15px">(Точные представления, Действия групп)</span></li>
+              <li><a href="#ex-2a-ii" class="matrix-link" title="Перейти к примеру"><span class="dim">II</span> Семантика → Семантика</a><br><span style="font-size:15px">(Точные представления, Действия групп, Графы Кэли)</span></li>
               <li><a href="#ex-2a-iii" class="matrix-link" title="Перейти к примеру"><span class="dim">III</span> Формализм → Семантика</a><br><span style="font-size:15px">(Свободные алгебры, Модели Хенкина)</span></li>
             </ul>
           </td>
@@ -358,14 +359,17 @@ table.basic tbody td.nm{color:var(--ink)}
   <p>Мы остаемся в рамках текста аксиом, но обращаем порядок. Каждое истинное утверждение переписывается в двойственное.</p>
   <ul class="plain">
     <li><strong>Булев принцип (Де Морган).</strong> Отображение \(x\mapsto\neg x\) меняет местами \(0\) и \(1\), \(\land\) и \(\lor\). Список аксиом булевой алгебры переходит в себя. Законы Де Моргана и взаимовыразимость кванторов (\(\forall x\,\varphi\leftrightarrow\neg\exists x\,\neg\varphi\)) — прямое следствие.</li>
+    <li><strong>Аксиомы проективной плоскости.</strong> «Две точки задают прямую» ↔ «две прямые пересекаются в точке» — список аксиом самодвойствен точно так же, как булева алгебра, только роль отрицания играет полярность относительно фиксированной коники.</li>
   </ul>
-  
+
+  <p>Полярность относительно самой коники переводит точку \(P\) на конике в касательную \(t_P\) в этой точке, а конику — снова в конику. Поэтому вписанный шестиугольник переходит в описанный, сторона \(P_iP_{i+1}\) — в вершину \(Q_i=t_i\cap t_{i+1}\), точка пересечения противоположных сторон — в диагональ, соединяющую противоположные вершины, а «три точки лежат на одной прямой» — в «три прямые проходят через одну точку».</p>
+
   <figure>
     <div class="fig-panels">
       <div class="fig-panel">
         <div class="fig-title">Паскаль · 1640</div>
         <div class="fig-claim">Шестиугольник вписан в конику ⇒ три точки пересечения противоположных сторон лежат на одной прямой.</div>
-        <svg viewBox="-265 -145 530 350" role="img" aria-label="Вписанный шестиугольник и прямая Паскаля">
+        <svg viewBox="-272 -160 544 385" role="img" aria-label="Вписанный шестиугольник P1…P6, прямая Паскаля через точки X, Y, Z и полюс этой прямой">
           <circle cx="0" cy="0" r="100" fill="none" stroke="#8a8680" stroke-width="1.6"/>
           <polygon points="15.7,-98.76 -98.01,19.86 -64,76.83 -4.8,99.88 48.25,87.59 98.92,14.68" fill="rgba(58,95,158,.06)" stroke="#1a1917" stroke-width="1.3"/>
           <g fill="none" stroke-width="1.2" stroke-dasharray="5 4">
@@ -387,12 +391,24 @@ table.basic tbody td.nm{color:var(--ink)}
             <circle cx="227.87" cy="190.47" r="5"/>
           </g>
           <circle cx="-5.2" cy="58.72" r="4.5" fill="none" stroke="#4a3a9a" stroke-width="2"/>
+          <g class="svg-label">
+            <text x="18.7" y="-117.5" text-anchor="middle">P1</text>
+            <text x="-116.6" y="23.6" text-anchor="end">P2</text>
+            <text x="-76.2" y="91.4" text-anchor="end">P3</text>
+            <text x="-5.7" y="118.9" text-anchor="middle">P4</text>
+            <text x="57.4" y="104.2" text-anchor="start">P5</text>
+            <text x="117.7" y="17.5" text-anchor="start">P6</text>
+            <text x="-223.2" y="136.5" text-anchor="middle" fill="#8c4a32">X</text>
+            <text x="-8.7" y="155.5" text-anchor="middle" fill="#8c4a32">Y</text>
+            <text x="227.9" y="176.5" text-anchor="middle" fill="#8c4a32">Z</text>
+            <text x="-250" y="172" text-anchor="start" fill="#8c4a32">прямая Паскаля</text>
+          </g>
         </svg>
       </div>
       <div class="fig-panel">
         <div class="fig-title">Брианшон · 1806</div>
         <div class="fig-claim">Шестиугольник описан около коники ⇒ три диагонали, соединяющие противоположные вершины, проходят через одну точку.</div>
-        <svg viewBox="-265 -145 530 350" role="img" aria-label="Описанный шестиугольник и точка Брианшона">
+        <svg viewBox="-272 -160 544 385" role="img" aria-label="Описанный шестиугольник Q1…Q6 и точка Брианшона">
           <circle cx="0" cy="0" r="100" fill="none" stroke="#8a8680" stroke-width="1.6"/>
           <polygon points="-126.62,-121.38 -91.03,54.32 -38.26,98.28 23.46,101.24 91.64,63.69 113.45,-83.23" fill="rgba(58,95,158,.06)" stroke="#1a1917" stroke-width="1.3"/>
           <g fill="none" stroke-width="1.9">
@@ -406,10 +422,22 @@ table.basic tbody td.nm{color:var(--ink)}
             <circle cx="48.25" cy="87.59" r="3.4"/><circle cx="98.92" cy="14.68" r="3.4"/>
           </g>
           <circle cx="-5.2" cy="58.72" r="5.5" fill="#4a3a9a"/>
+          <g class="svg-label">
+            <text x="-138.9" y="-133.1" text-anchor="end">Q1</text>
+            <text x="-105.6" y="63.0" text-anchor="end">Q2</text>
+            <text x="-44.4" y="114.1" text-anchor="end">Q3</text>
+            <text x="27.3" y="117.8" text-anchor="start">Q4</text>
+            <text x="105.6" y="73.4" text-anchor="start">Q5</text>
+            <text x="127.2" y="-93.3" text-anchor="start">Q6</text>
+          </g>
         </svg>
       </div>
     </div>
-    <figcaption><strong>Проективная двойственность.</strong> Аксиомы проективной плоскости самодвойственны («две точки задают прямую» ↔ «две прямые пересекаются в точке»). Полярность переводит картинку Паскаля в Брианшона, а прямую Паскаля — в точку Брианшона без новых вычислений.</figcaption>
+    <div class="fig-legend">
+      <span class="legend-row"><span class="swatch ring"></span>полюс прямой Паскаля относительно окружности: (−0.052; −0.587)</span>
+      <span class="legend-row"><span class="swatch dot"></span>точка Брианшона: (−0.052; −0.587) — та же самая</span>
+    </div>
+    <figcaption>Обе панели построены по одним и тем же шести точкам единичной окружности и нарисованы в одной системе координат. Слева — вписанный шестиугольник \(P_1\ldots P_6\); справа — описанный, образованный касательными в тех же шести точках. Стороны \(P_iP_{i+1}\) слева отвечают вершинам \(Q_i\) справа, точки \(X,Y,Z\) — диагоналям \(Q_1Q_4\), \(Q_2Q_5\), \(Q_3Q_6\). Фиолетовая отметка стоит в обеих панелях в одном и том же месте — и это не совпадение, а сама двойственность: полярность относительно окружности переводит левую картинку в правую целиком, а прямую Паскаля — в точку Брианшона.</figcaption>
   </figure>
 
   <div class="tag-block" id="ex-1b-ii">
@@ -457,6 +485,7 @@ table.basic tbody td.nm{color:var(--ink)}
   <p>Абстрактное реализуется конкретно. Перевод переносит информацию в более осязаемую среду, но добавляет к объекту «строительные леса» (базис, координаты, специфику множества).</p>
   <ul class="plain">
     <li><strong>Теорема Кэли.</strong> Всякая группа (семантический объект, заданный аксиомами) вкладывается в группу подстановок \(\operatorname{Sym}(G)\) левыми сдвигами. То же касается линейных представлений (вложение в матрицы). Абстрактное становится конкретным.</li>
+    <li><strong>Граф Кэли.</strong> Та же группа \(G\) с фиксированным набором образующих \(S\) становится размеченным графом: вершины — элементы \(G\), рёбра — умножение на образующие. Алгебра превращается в геометрию — на группе появляется метрика, можно изучать её рост или строить из неё экспандеры. Перевод зависит от выбора \(S\) — та же «лишняя» структура, что и в теореме Кэли выше.</li>
   </ul>
 
   <div class="tag-block" id="ex-2a-iii">
@@ -476,7 +505,7 @@ table.basic tbody td.nm{color:var(--ink)}
   <p>Антитонные переводы на одном онтологическом этаже.</p>
   <ul class="plain">
     <li><strong>Соответствие Галуа для полей.</strong> Отображения между промежуточными полями \(K \subset M \subset L\) и подгруппами \(\operatorname{Gal}(L/K)\). Чем больше поле, тем меньше группа автоморфизмов, оставляющих его неподвижным.</li>
-    <li><strong>Лемма Краснера (Группы автоморфизмов).</strong> Чем больше у структуры симметрий (автоморфизмов), тем меньше предикатов (решеток определимости) можно на ней задать без параметров.</li>
+    <li><strong>Соответствие Краснера (Группы автоморфизмов).</strong> Чем больше у структуры симметрий (автоморфизмов), тем меньше предикатов (решеток определимости) можно на ней задать без параметров.</li>
   </ul>
 
   <div class="tag-block" id="ex-2b-iii">
@@ -512,7 +541,7 @@ table.basic tbody td.nm{color:var(--ink)}
   </div>
   <p>Звучит парадоксально (сжимаем информацию, но стрелки разворачиваются), однако за этим стоит геометрическая идея: <strong>наблюдение через функции</strong>.</p>
   <ul class="plain">
-    <li><strong>Когомологии и сужение функций.</strong> Если пространство \(X\) вложено в сферу \(Y\) (\(X \subset Y\)), любую функцию на всем \(Y\) можно <em>сузить</em> на \(X\). Вложение пространств порождает отображение алгебр функций <em>в обратную сторону</em> (\(F(Y) \to F(X)\)). Когомологии де Рама интегрируют дифференциальные формы ("функции") по циклам: пространство сжимается до алгебраического инварианта, но стрелки морфизмов разворачиваются.</li>
+    <li><strong>Когомологии и сужение функций.</strong> Если пространство \(X\) вложено в объемлющее пространство \(Y\) (\(X \subset Y\)), любую функцию на всем \(Y\) можно <em>сузить</em> на \(X\). Вложение пространств порождает отображение алгебр функций <em>в обратную сторону</em> (\(F(Y) \to F(X)\)). Когомологии де Рама интегрируют дифференциальные формы ("функции") по циклам: пространство сжимается до алгебраического инварианта, но стрелки морфизмов разворачиваются.</li>
   </ul>
 </section>
 
