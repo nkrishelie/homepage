@@ -78,6 +78,13 @@ export const MATERIALS_ITEMS: MaterialItem[] = [
     "lang": "ru"
   },
   {
+    "filename": "duality.html",
+    "href": "/Materials/duality.html",
+    "title": "Один объект — разные языки",
+    "category": "algebra",
+    "lang": "ru"
+  },
+  {
     "filename": "galton_watson_process.html",
     "href": "/Materials/galton_watson_process.html",
     "title": "Процесс Гальтона–Ватсона",

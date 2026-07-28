@@ -56,8 +56,18 @@ const App: React.FC = () => {
     }
   }, [currentPath]); // Следим за изменением пути
 
+  // --- РЕДИРЕКТЫ (короткие ссылки) ---
+  useEffect(() => {
+    if (currentPath === '/explain' || currentPath === '/explain/') {
+      window.location.replace('/#materials');
+    }
+  }, [currentPath]);
+
   // --- РОУТИНГ ---
 
+  if (currentPath === '/explain' || currentPath === '/explain/') {
+    return null;
+  }
   if (currentPath === '/portfolio' || currentPath === '/portfolio/') {
     return <Portfolio />;
   }

@@ -36,6 +36,11 @@
       <priority>0.6</priority>
    </url>
    <url>
+      <loc>https://mathem.at/Materials/duality.html</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.6</priority>
+   </url>
+   <url>
       <loc>https://mathem.at/Materials/diagonal.html</loc>
       <changefreq>monthly</changefreq>
       <priority>0.6</priority>

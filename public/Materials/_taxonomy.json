@@ -50,6 +50,7 @@
     "algebra_structures_3_3_fixed.html": "algebra",
     "algebra_structures_3_3_fixed_en.html": "algebra",
     "math_structures.html": "algebra",
+    "duality.html": "algebra",
     "test1.html": "sets",
     "diagonal.html": "foundations",
     "henkin_construction.html": "foundations",
@@ -72,6 +73,7 @@
     "henkin_construction.html": "ru",
     "induction.html": "ru",
     "math_structures.html": "ru",
+    "duality.html": "ru",
     "maglish_b1_formal_logic.html": "ru",
     "maglish_b2_foundations.html": "ru",
     "maglish_c1_paradise.html": "ru"

@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ru" style="scroll-behavior: smooth;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Один объект — разные языки</title>
+<meta name="description" content="Алгебра математических переводов: периодическая таблица связей между теориями — от изоморфизмов до инвариантов.">
+<link rel="canonical" href="https://mathem.at/Materials/duality.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Один объект — разные языки">
+<meta property="og:description" content="Алгебра математических переводов: периодическая таблица связей между теориями. Как переносить задачи между геометрией, алгеброй и логикой.">
+<meta property="og:url" content="https://mathem.at/Materials/duality.html">
+<meta property="og:image" content="https://mathem.at/archetypes.png">
+<meta property="og:locale" content="ru_RU">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\]', display: true}, {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}], throwOnError: false})"></script>
+<style>
+:root {
+  --bg:#faf9f6; --bg2:#f2f0eb; --ink:#1a1917; --ink2:#5a5750; --ink3:#8a8680; --border:#dcd9d2;
+  --blue-bg:#e8eef7;  --blue-acc:#3a5f9e;
+  --rust-bg:#f0ebe8;  --rust-acc:#8c4a32;
+  --sage-bg:#e8f0eb;  --sage-acc:#2e6645;
+  --teal-bg:#e6f5ef;  --teal-acc:#0f6e56;
+  --amber-bg:#fdf3e0; --amber-acc:#7a4f0d;
+  --coral-bg:#faeae6; --coral-acc:#9b2f1a;
+  --purple-bg:#eeedfb; --purple-acc:#4a3a9a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Georgia,serif;font-size:22px;line-height:1.65;min-height:100vh}
+.page{max-width:1320px;margin:0 auto;padding:3rem 2.5rem 5rem}
+
+header{margin-bottom:2.5rem;border-bottom:1.5px solid var(--ink);padding-bottom:1.5rem}
+.kicker{font-family:'JetBrains Mono',monospace;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:.6rem}
+h1{font-size:clamp(28px,3.2vw,44px);font-weight:500;line-height:1.15;color:var(--ink);margin-bottom:.5rem}
+.desc{font-size:19px;color:var(--ink2);font-style:italic;max-width:900px}
+
+section{margin-bottom:3.5rem}
+h2{font-size:28px;font-weight:500;margin-bottom:1.2rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+h3{font-size:22px;font-weight:500;margin:1.8rem 0 .8rem;color:var(--ink)}
+h4{font-size:19px;font-weight:500;margin:1.2rem 0 .5rem;color:var(--ink)}
+p{margin-bottom:.9rem;color:var(--ink2)}
+p.lead{color:var(--ink)}
+strong{color:var(--ink);font-weight:500}
+em{color:var(--ink)}
+.katex{font-size:1.05em}
+.katex-display{margin:.6em 0!important;overflow-x:auto;overflow-y:hidden}
+
+ul.plain{padding-left:1.3rem;margin-bottom:1rem;color:var(--ink2)}
+ul.plain li{margin-bottom:.55rem;line-height:1.6}
+ul.plain li::marker{color:var(--ink3)}
+
+.matrix-wrap{overflow-x:auto;margin:1.5rem 0}
+.matrix-table{width:100%;min-width:760px;border-collapse:collapse;position:relative;overflow:hidden;background:var(--bg)}
+.matrix-table th, .matrix-table td{padding:1.4rem;border:1px solid var(--border);position:relative;z-index:1;vertical-align:top}
+.matrix-table th{background:var(--bg2);font-weight:500;color:var(--ink);text-align:left;font-size:19px}
+.matrix-table th.col-head{text-align:center;padding:1rem}
+.matrix-table th.row-head{text-align:right;width:24%;padding-right:1.5rem}
+.matrix-coord{display:block;font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--blue-acc);font-weight:700;margin-bottom:0.4rem;letter-spacing:0.04em}
+.matrix-cell-title{font-size:19px;font-weight:500;color:var(--ink);margin-bottom:.5rem;display:block}
+.matrix-list{list-style:none;padding:0;font-size:17.5px;color:var(--ink2);line-height:1.5}
+.matrix-list li{margin-bottom:.4rem;position:relative;padding-left:1.4rem}
+.matrix-list li::before{content:'';position:absolute;left:0;top:10px;width:14px;height:2px;background:var(--border)}
+.matrix-list li .dim{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:var(--ink3);margin-right:6px}
+
+/* Интерактивные ссылки внутри таблицы */
+.matrix-link{color:inherit;text-decoration:none;border-bottom:1px dashed var(--ink3);transition:color 0.15s, border-color 0.15s; cursor:pointer;}
+.matrix-link:hover{color:var(--blue-acc);border-bottom-color:var(--blue-acc);}
+.matrix-table td:hover::before{content:"";position:absolute;left:0;right:0;top:-5000px;bottom:-5000px;background-color:rgba(58, 95, 158, 0.05);z-index:-1}
+.matrix-table tr:hover td{background-color:rgba(58, 95, 158, 0.05)}
+
+.pipeline-wrap{overflow-x:auto;margin:1.3rem 0}
+.pipeline{display:flex;align-items:stretch;gap:0;min-width:760px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1.5rem 1.4rem}
+.pipe-step{display:flex;flex-direction:column;align-items:center;flex:1 1 0;min-width:150px}
+.pipe-box{border:1.5px solid var(--ink3);border-radius:6px;padding:.75rem 1rem;font-size:17.5px;text-align:center;background:var(--bg);width:100%}
+.pipe-box.hard{border-color:var(--coral-acc);background:var(--coral-bg);color:var(--coral-acc)}
+.pipe-box.mid{border-color:var(--teal-acc);background:var(--teal-bg);color:var(--teal-acc)}
+.pipe-box.done{border-color:var(--blue-acc);background:var(--blue-bg);color:var(--blue-acc)}
+.pipe-cap{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);margin-bottom:.5rem}
+.pipe-sub{font-size:13.5px;color:var(--ink3);text-align:center;line-height:1.4;margin-top:.5rem;max-width:170px}
+.pipe-arrow{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:1.65rem;flex:0 0 auto;width:110px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--ink2);text-align:center;line-height:1.4}
+.pipe-arrow .glyph{font-size:22px;color:var(--ink3);line-height:1;margin-bottom:.3rem}
+@media(max-width:820px){
+  .pipeline{min-width:0;flex-direction:column;padding:1.2rem 1rem}
+  .pipe-step{min-width:0;width:100%}
+  .pipe-sub{max-width:none}
+  .pipe-arrow{flex-direction:row;width:100%;padding:.5rem 0;justify-content:center;gap:8px}
+  .pipe-arrow .glyph{transform:rotate(90deg);margin-bottom:0}
+}
+
+.tag-block{display:flex;align-items:center;gap:12px;margin-bottom:.5rem;margin-top:2.5rem; scroll-margin-top: 2rem;}
+.coord-tag{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;padding:3px 10px;border-radius:4px;background:var(--blue-bg);color:var(--blue-acc);letter-spacing:0.04em}
+.tag-block h3{margin:0}
+
+.dual{border:1px solid var(--border);border-radius:6px;background:var(--bg2);margin:1.1rem 0;overflow:hidden}
+.dual-head{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:.8rem;padding:1rem 1.2rem;background:var(--bg);border-bottom:1px solid var(--border)}
+.dual-side{font-size:18px;color:var(--ink);line-height:1.4}
+.dual-side .side-tag{display:block;font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);margin-bottom:3px}
+.dual-side.right{text-align:right}
+.dual-link{font-family:'JetBrains Mono',monospace;font-size:22px;color:var(--ink3);line-height:1}
+.dual-rows{padding:.9rem 1.2rem 1rem}
+.drow{display:flex;gap:.75rem;padding:.5rem 0;border-bottom:1px solid var(--border);font-size:17.5px;color:var(--ink2)}
+.drow:last-child{border-bottom:none;padding-bottom:0}
+.dkey{font-family:'JetBrains Mono',monospace;font-size:13.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink3);min-width:132px;flex-shrink:0;padding-top:4px}
+.dval{flex:1;min-width:0}
+.dval .katex-display{margin:.35em 0!important}
+@media(max-width:820px){
+  .dual-head{grid-template-columns:1fr;gap:.35rem}
+  .dual-side.right{text-align:left}
+  .dual-link{transform:rotate(90deg);width:22px}
+  .drow{flex-direction:column;gap:.15rem}
+  .dkey{min-width:0}
+}
+
+figure{margin:1.4rem 0}
+.fig-panels{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden}
+@media(max-width:900px){.fig-panels{grid-template-columns:1fr}}
+.fig-panel{background:var(--bg);padding:.9rem 1rem 1.1rem}
+.fig-title{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);margin-bottom:.15rem}
+.fig-claim{font-size:17px;color:var(--ink2);margin-bottom:.5rem;line-height:1.45}
+.fig-panel svg{display:block;width:100%;height:auto}
+.fig-legend{display:flex;align-items:center;gap:8px;margin-top:.5rem;font-size:15.5px;color:var(--ink2);line-height:1.4}
+.swatch{width:13px;height:13px;border-radius:50%;flex-shrink:0}
+.swatch.ring{border:2px solid var(--purple-acc)}
+.swatch.dot{background:var(--purple-acc)}
+figcaption{font-size:16.5px;color:var(--ink3);margin-top:.6rem;line-height:1.55;font-style:italic}
+.svg-label{font-family:'JetBrains Mono',monospace;font-size:15px}
+
+details{background:var(--bg2);border:1px solid var(--border);border-radius:6px;margin:1.2rem 0;padding:0}
+details summary{
+  cursor:pointer;padding:.85rem 1.1rem;font-family:'JetBrains Mono',monospace;font-size:14.5px;
+  letter-spacing:.03em;text-transform:uppercase;color:var(--ink2);list-style:none;
+  display:flex;align-items:center;gap:8px;
+}
+details summary::-webkit-details-marker{display:none}
+details summary::before{content:'▶';font-size:11px;color:var(--ink3);transition:transform .15s}
+details[open] summary::before{transform:rotate(90deg)}
+details .details-body{padding:0 1.2rem 1.1rem;font-size:17.5px;color:var(--ink2);line-height:1.65}
+details .details-body h4{font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--ink);letter-spacing:0.04em;text-transform:uppercase;margin:1rem 0 .4rem}
+details .details-body h4:first-child{margin-top:0}
+details .details-body p{margin-bottom:.7rem}
+details .details-body p:last-child{margin-bottom:0}
+
+.note{border-left:3px solid var(--rust-acc);background:var(--rust-bg);border-radius:0 6px 6px 0;padding:.8rem 1.1rem;margin:1rem 0;font-size:17.5px;color:var(--ink2)}
+.note .note-head{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--rust-acc);margin-bottom:.35rem}
+.note p{margin-bottom:.55rem;color:var(--ink2)}
+.note p:last-child{margin-bottom:0}
+
+/* Таблицы */
+.tbl-wrap{overflow-x:auto;margin-bottom:.6rem}
+table.basic{width:100%;border-collapse:collapse;min-width:760px;border:0.5px solid var(--border);border-top:2px solid var(--ink)}
+table.basic thead th{padding:12px 16px;vertical-align:bottom;border-bottom:1.5px solid var(--ink);border-right:0.5px solid var(--border);font-size:17px;font-weight:500;text-align:left}
+table.basic thead th:last-child{border-right:none}
+table.basic tbody tr{border-bottom:0.5px solid var(--border)}
+table.basic tbody tr:last-child{border-bottom:none}
+table.basic tbody tr:hover td{background:rgba(0,0,0,.02)}
+table.basic tbody td{padding:12px 16px;vertical-align:top;border-right:0.5px solid var(--border);font-size:17.5px;color:var(--ink2)}
+table.basic tbody td:last-child{border-right:none}
+table.basic tbody td.nm{color:var(--ink)}
+.tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:13.5px;padding:2px 8px;border-radius:3px;background:var(--blue-bg);color:var(--blue-acc);white-space:nowrap}
+.tag.neg{background:var(--coral-bg);color:var(--coral-acc)}
+
+.page-footer{margin-top:2.75rem;padding-top:1.1rem;border-top:0.5px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.04em;color:var(--ink3);text-align:center;line-height:1.5}
+.page-footer a{color:var(--ink3);text-decoration:none;border-bottom:1px solid rgba(138,134,128,.35)}
+.page-footer a:hover{color:var(--ink2);border-bottom-color:var(--ink2)}
+
+@media(max-width:700px){
+  body{font-size:19px}
+  .page{padding:1.5rem 1rem 3rem}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <p class="kicker">Категории · Алгебра · Геометрия · Логика</p>
+  <h1>Один объект — разные языки</h1>
+  <p class="desc">Математический объект редко задаётся одним-единственным «истинным» способом. Вещественные числа, булевы алгебры, графы — все они живут сразу в нескольких теориях. Истинная природа объекта — это инвариант, то, что сохраняется при переходе от одного языка к другому. Но сами переходы бывают совершенно разными по силе и структуре. Ниже мы построим «периодическую таблицу» таких переводов, разберем базовый метод работы с ними и посмотрим на классические примеры.</p>
+</header>
+
+<section>
+  <h2>1. Алгебра переводов: Периодическая таблица</h2>
+  <p class="lead">
+    Любой перевод между математическими теориями характеризуется двумя главными координатами: 
+    <strong>сохранением информации</strong> (строки 1, 2, 3) и <strong>направлением стрелок</strong> 
+    (столбцы A, B). Внутри каждой ячейки возникает третье измерение (I, II, III) — то, с чем именно мы работаем: 
+    с формализмом (уравнениями, аксиомами) или с семантикой (пространствами, реальностью объекта).
+  </p>
+
+  <div class="matrix-wrap">
+    <table class="matrix-table">
+      <thead>
+        <tr>
+          <th style="border:none;background:var(--bg)"></th>
+          <th class="col-head">A. Ковариантный перевод<br><span style="font-size:15.5px;color:var(--ink3);font-weight:400">(Порядок сохраняется)</span></th>
+          <th class="col-head">B. Контравариантный перевод<br><span style="font-size:15.5px;color:var(--ink3);font-weight:400">(Порядок обращается)</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th class="row-head">1. Строгая обратимость<br><span style="font-size:15.5px;color:var(--ink3);font-weight:400">(Биекция / Изоморфизм)</span></th>
+          <td>
+            <span class="matrix-coord">1A</span>
+            <span class="matrix-cell-title">Эквивалентности</span>
+            <ul class="matrix-list">
+              <li><a href="#ex-1a-i" class="matrix-link" title="Перейти к примеру"><span class="dim">I</span> Формализм ↔ Формализм</a><br><span style="font-size:15px">(Бинтерпретируемость)</span></li>
+              <li><a href="#ex-1a-ii" class="matrix-link" title="Перейти к примеру"><span class="dim">II</span> Семантика ↔ Семантика</a><br><span style="font-size:15px">(Изоморфизм, Деф. эквивалентность)</span></li>
+            </ul>
+          </td>
+          <td>
+            <span class="matrix-coord">1B</span>
+            <span class="matrix-cell-title">Строгие двойственности</span>
+            <ul class="matrix-list">
+              <li><a href="#ex-1b-i" class="matrix-link" title="Перейти к примеру"><span class="dim">I</span> Формализм ↔ Формализм</a><br><span style="font-size:15px">(Самодвойственность теорий)</span></li>
+              <li><a href="#ex-1b-ii" class="matrix-link" title="Перейти к примеру"><span class="dim">II</span> Семантика ↔ Семантика</a><br><span style="font-size:15px">(Двойственности Стоуна, Гельфанда)</span></li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <th class="row-head">2. Вложение и Приближение<br><span style="font-size:15.5px;color:var(--ink3);font-weight:400">(Инъекция / Связь Галуа)</span></th>
+          <td>
+            <span class="matrix-coord">2A</span>
+            <span class="matrix-cell-title">Вложения и представления</span>
+            <ul class="matrix-list">
+              <li><a href="#ex-2a-i" class="matrix-link" title="Перейти к примеру"><span class="dim">I</span> Формализм → Формализм</a><br><span style="font-size:15px">(Взаимная интерпретируемость)</span></li>
+              <li><a href="#ex-2a-ii" class="matrix-link" title="Перейти к примеру"><span class="dim">II</span> Семантика → Семантика</a><br><span style="font-size:15px">(Точные представления, Действия групп)</span></li>
+              <li><a href="#ex-2a-iii" class="matrix-link" title="Перейти к примеру"><span class="dim">III</span> Формализм → Семантика</a><br><span style="font-size:15px">(Свободные алгебры, Модели Хенкина)</span></li>
+            </ul>
+          </td>
+          <td>
+            <span class="matrix-coord">2B</span>
+            <span class="matrix-cell-title">Связи Галуа</span>
+            <ul class="matrix-list">
+              <li><a href="#ex-2b-ii" class="matrix-link" title="Перейти к примеру"><span class="dim">II</span> Семантика ↔ Семантика</a><br><span style="font-size:15px">(Соответствие полей и групп)</span></li>
+              <li><a href="#ex-2b-iii" class="matrix-link" title="Перейти к примеру"><span class="dim">III</span> Формализм ↔ Семантика</a><br><span style="font-size:15px">(Nullstellensatz, Th/Mod)</span></li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <th class="row-head">3. Сжатие<br><span style="font-size:15.5px;color:var(--ink3);font-weight:400">(Проекция / Инвариант)</span></th>
+          <td>
+            <span class="matrix-coord">3A</span>
+            <span class="matrix-cell-title">Ковариантные инварианты</span>
+            <ul class="matrix-list">
+              <li><a href="#ex-3a-ii" class="matrix-link" title="Перейти к примеру"><span class="dim">II</span> Семантика → Семантика</a><br><span style="font-size:15px">(Гомологии, Эйлерова характеристика, \(\pi_1\))</span></li>
+              <li><a href="#ex-3a-iii" class="matrix-link" title="Перейти к примеру"><span class="dim">III</span> Формализм → Семантика</a><br><span style="font-size:15px">(Ординалы теорий)</span></li>
+            </ul>
+          </td>
+          <td>
+            <span class="matrix-coord">3B</span>
+            <span class="matrix-cell-title">Контравариантные инварианты</span>
+            <ul class="matrix-list">
+              <li><a href="#ex-3b-ii" class="matrix-link" title="Перейти к примеру"><span class="dim">II</span> Семантика → Семантика</a><br><span style="font-size:15px">(Когомологии пространств)</span></li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <details>
+    <summary>Оси, третье измерение и потерянное четвёртое (подробно)</summary>
+    <div class="details-body">
+      <h4>Строки: Сохранение информации</h4>
+      <p>Определяет, теряем ли мы данные при переходе. <strong>Строка 1</strong> — биекция: переводится абсолютно всё, потерь нет. <strong>Строка 2</strong> — инъекция или замыкание: мы вкладываем объект в более широкий контекст (где появляется лишняя непереводимая структура) или находим его наилучшее приближение. <strong>Строка 3</strong> — проекция (сжатие): информация необратимо теряется, мы отбрасываем детали, оставляя только «ядро» (инвариант).</p>
+      
+      <h4>Столбцы: Направление стрелок</h4>
+      <p><strong>Столбец A (Ковариантность):</strong> структура переходит в структуру, подмножество — в подмножество, порядок сохраняется. <strong>Столбец B (Контравариантность):</strong> самое интересное свойство математики. Порядок обращается: подструктуре на одной стороне отвечает фактор-структура (или ортогональное дополнение) на другой. Большое становится маленьким.</p>
+      
+      <h4>Третье измерение (Римские цифры): Уровень абстракции</h4>
+      <p>Ось, пронизывающая всю математику, от логики до алгебраической геометрии. <strong>Формализм</strong> (синтаксис) — это формулы, уравнения, аксиомы, идеалы многочленов, то есть сам язык. <strong>Семантика</strong> (онтология) — это модели, пространства, многообразия корней, конкретные алгебры, то есть реальность, стоящая за языком. Самые мощные теоремы (например, Гильберта о нулях) — это переводы типа III (Формализм ↔ Семантика).</p>
+      
+      <h4>Четвёртое измерение: Каноничность (Оговорка)</h4>
+      <p>В этой таблице мы предполагаем, что перевод <em>канонический</em> (естественный, не зависящий от нашего выбора). Если разрешить неканонические переводы (требующие выбора базиса или Аксиомы Выбора), появятся «экзотические» ячейки. Например, изоморфизм \(V \cong V^*\) для конечномерных пространств или изоморфизм полей \(\mathbb C \cong \mathbb C_p\). Такие переводы существуют абстрактно, но ломаются при смене базиса и бесполезны для сквозных вычислений.</p>
+    </div>
+  </details>
+</section>
+
+<section>
+  <h2>2. Метод перевода (Пайплайн)</h2>
+  
+  <p class="lead">Любая координата из таблицы выше применяется для переноса задач между теориями. Рабочая схема состоит из четырёх шагов:</p>
+
+  <div class="pipeline-wrap">
+    <div class="pipeline">
+      <div class="pipe-step">
+        <div class="pipe-cap">1 · формулировка</div>
+        <div class="pipe-box hard">задача<br>на языке \(\mathcal C\)</div>
+        <div class="pipe-sub">трудна или нерешаема прямо здесь</div>
+      </div>
+      <div class="pipe-arrow"><span class="glyph">⟶</span><span>\(F\)<br>перевод</span></div>
+      <div class="pipe-step">
+        <div class="pipe-cap">2 · перевод</div>
+        <div class="pipe-box mid">та же задача<br>на языке \(\mathcal D\)</div>
+        <div class="pipe-sub">формулировка не изменилась — изменился язык</div>
+      </div>
+      <div class="pipe-arrow"><span class="glyph">⟶</span><span>решаем<br>в \(\mathcal D\)</span></div>
+      <div class="pipe-step">
+        <div class="pipe-cap">3 · решение</div>
+        <div class="pipe-box mid">ответ<br>на языке \(\mathcal D\)</div>
+        <div class="pipe-sub">здесь это было легко или вообще известно</div>
+      </div>
+      <div class="pipe-arrow"><span class="glyph">⟶</span><span>\(G\)<br>обратный перевод</span></div>
+      <div class="pipe-step">
+        <div class="pipe-cap">4 · обратный перевод</div>
+        <div class="pipe-box done">ответ<br>на языке \(\mathcal C\)</div>
+        <div class="pipe-sub">то, что искали с самого начала</div>
+      </div>
+    </div>
+  </div>
+
+  <p>
+    Эта 4-шаговая схема — идеал. Её уязвимое место — <strong>шаг 4 (обратный перевод)</strong>. Чтобы он сработал, 
+    язык \(\mathcal D\) не должен забывать то, что было сказано на языке \(\mathcal C\). В первых трёх типах 
+    перевода (строка 1: биекции, эквивалентности, двойственности) обратимость гарантирована, и схема работает безупречно. 
+    Но по мере спуска по списку потерь становится больше: при вложении в конкретный класс (строка 2) появляется непереводимая 
+    «лишняя» структура, а на уровне инвариантов (строка 3) шаг 4 исчезает полностью — отбросив структуру, вернуться назад 
+    уже невозможно.
+  </p>
+</section>
+
+<section>
+  <h2>3. Каталог переводов (Примеры)</h2>
+  <p class="lead">Ниже — разбор классических математических результатов с точным указанием их координат в Периодической таблице.</p>
+
+  <div class="tag-block" id="ex-1a-i">
+    <span class="coord-tag">1A-I</span>
+    <h3>Синтаксические эквивалентности</h3>
+  </div>
+  <ul class="plain">
+    <li><strong>Арифметизация синтаксиса</strong> (Гёдель, 1931). Формулы, выводы и правила кодируются числами; метаматематика становится арифметикой, и \(\mathsf{PA}\) получает возможность говорить о самой себе.</li>
+    <li><strong>Арифметика и конечная теория множеств.</strong> Пусть \(\mathsf{HF}\) — теория наследственно конечных множеств (без аксиомы бесконечности, но с транзитивным замыканием). Множества кодируются числами по Аккерману (через двоичные разряды), а числа — ординалами. Теории <strong>бинтерпретируемы</strong>: композиция переводов внутри теории доказуемо изоморфна тождеству. Это буквально один объект на двух языках.</li>
+  </ul>
+
+  <div class="tag-block" id="ex-1a-ii">
+    <span class="coord-tag">1A-II</span>
+    <h3>Изоморфизмы и Дефиниционные эквивалентности</h3>
+  </div>
+  <p>Объекты разной природы оказываются одним объектом (изоморфизм), либо одна структура задаётся двумя словарями (дефиниционная эквивалентность).</p>
+  <div class="dual">
+    <div class="dual-head">
+      <div class="dual-side"><span class="side-tag">Порядок</span>Предпорядки \((X,\leqslant)\)<br><span style="font-size:16px;color:var(--ink3)">монотонные отображения</span></div>
+      <div class="dual-link">⟷</div>
+      <div class="dual-side right"><span class="side-tag">Топология</span>Александровские пространства<br><span style="font-size:16px;color:var(--ink3)">непрерывные отображения</span></div>
+    </div>
+    <div class="dual-rows">
+      <div class="drow"><span class="dkey">Точная форма</span><span class="dval">Класс предпорядков и класс александровских пространств (где <em>любое</em> пересечение открытых множеств открыто) — <strong>один и тот же класс структур</strong>. Открытые множества — это в точности верхние множества (замкнутые вверх по порядку). Обратно: предпорядок специализации \(x\leqslant y\iff x\in\overline{\{y\}}\). Порядок не обращается, мы просто меняем словарь, перенося инструменты топологии на предпорядки.</span></div>
+    </div>
+  </div>
+
+  <div class="tag-block" id="ex-1b-i">
+    <span class="coord-tag">1B-I</span>
+    <h3>Самодвойственность (Формализм)</h3>
+  </div>
+  <p>Мы остаемся в рамках текста аксиом, но обращаем порядок. Каждое истинное утверждение переписывается в двойственное.</p>
+  <ul class="plain">
+    <li><strong>Булев принцип (Де Морган).</strong> Отображение \(x\mapsto\neg x\) меняет местами \(0\) и \(1\), \(\land\) и \(\lor\). Список аксиом булевой алгебры переходит в себя. Законы Де Моргана и взаимовыразимость кванторов (\(\forall x\,\varphi\leftrightarrow\neg\exists x\,\neg\varphi\)) — прямое следствие.</li>
+  </ul>
+  
+  <figure>
+    <div class="fig-panels">
+      <div class="fig-panel">
+        <div class="fig-title">Паскаль · 1640</div>
+        <div class="fig-claim">Шестиугольник вписан в конику ⇒ три точки пересечения противоположных сторон лежат на одной прямой.</div>
+        <svg viewBox="-265 -145 530 350" role="img" aria-label="Вписанный шестиугольник и прямая Паскаля">
+          <circle cx="0" cy="0" r="100" fill="none" stroke="#8a8680" stroke-width="1.6"/>
+          <polygon points="15.7,-98.76 -98.01,19.86 -64,76.83 -4.8,99.88 48.25,87.59 98.92,14.68" fill="rgba(58,95,158,.06)" stroke="#1a1917" stroke-width="1.3"/>
+          <g fill="none" stroke-width="1.2" stroke-dasharray="5 4">
+            <path d="M -98.01,19.86 L -223.25,150.51" stroke="#3a5f9e"/>
+            <path d="M -4.8,99.88 L -223.25,150.51" stroke="#3a5f9e"/>
+            <path d="M -64,76.83 L -8.69,169.52" stroke="#0f6e56"/>
+            <path d="M 48.25,87.59 L -8.69,169.52" stroke="#0f6e56"/>
+            <path d="M -4.8,99.88 L 227.87,190.47" stroke="#7a4f0d"/>
+            <path d="M 98.92,14.68 L 227.87,190.47" stroke="#7a4f0d"/>
+          </g>
+          <path d="M -250,148.14 L 250,192.43" fill="none" stroke="#8c4a32" stroke-width="2.4"/>
+          <g fill="#1a1917">
+            <circle cx="15.7" cy="-98.76" r="4"/><circle cx="-98.01" cy="19.86" r="4"/>
+            <circle cx="-64" cy="76.83" r="4"/><circle cx="-4.8" cy="99.88" r="4"/>
+            <circle cx="48.25" cy="87.59" r="4"/><circle cx="98.92" cy="14.68" r="4"/>
+          </g>
+          <g fill="#8c4a32">
+            <circle cx="-223.25" cy="150.51" r="5"/><circle cx="-8.69" cy="169.52" r="5"/>
+            <circle cx="227.87" cy="190.47" r="5"/>
+          </g>
+          <circle cx="-5.2" cy="58.72" r="4.5" fill="none" stroke="#4a3a9a" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="fig-panel">
+        <div class="fig-title">Брианшон · 1806</div>
+        <div class="fig-claim">Шестиугольник описан около коники ⇒ три диагонали, соединяющие противоположные вершины, проходят через одну точку.</div>
+        <svg viewBox="-265 -145 530 350" role="img" aria-label="Описанный шестиугольник и точка Брианшона">
+          <circle cx="0" cy="0" r="100" fill="none" stroke="#8a8680" stroke-width="1.6"/>
+          <polygon points="-126.62,-121.38 -91.03,54.32 -38.26,98.28 23.46,101.24 91.64,63.69 113.45,-83.23" fill="rgba(58,95,158,.06)" stroke="#1a1917" stroke-width="1.3"/>
+          <g fill="none" stroke-width="1.9">
+            <path d="M -126.62,-121.38 L 23.46,101.24" stroke="#3a5f9e"/>
+            <path d="M -91.03,54.32 L 91.64,63.69" stroke="#0f6e56"/>
+            <path d="M -38.26,98.28 L 113.45,-83.23" stroke="#7a4f0d"/>
+          </g>
+          <g fill="#1a1917">
+            <circle cx="15.7" cy="-98.76" r="3.4"/><circle cx="-98.01" cy="19.86" r="3.4"/>
+            <circle cx="-64" cy="76.83" r="3.4"/><circle cx="-4.8" cy="99.88" r="3.4"/>
+            <circle cx="48.25" cy="87.59" r="3.4"/><circle cx="98.92" cy="14.68" r="3.4"/>
+          </g>
+          <circle cx="-5.2" cy="58.72" r="5.5" fill="#4a3a9a"/>
+        </svg>
+      </div>
+    </div>
+    <figcaption><strong>Проективная двойственность.</strong> Аксиомы проективной плоскости самодвойственны («две точки задают прямую» ↔ «две прямые пересекаются в точке»). Полярность переводит картинку Паскаля в Брианшона, а прямую Паскаля — в точку Брианшона без новых вычислений.</figcaption>
+  </figure>
+
+  <div class="tag-block" id="ex-1b-ii">
+    <span class="coord-tag">1B-II</span>
+    <h3>Строгие двойственности (Семантика)</h3>
+  </div>
+  <p>Высший пилотаж переводов. Структуры разной природы связываются функториально, с точным обращением порядка.</p>
+  
+  <div class="dual">
+    <div class="dual-head">
+      <div class="dual-side"><span class="side-tag">Алгебра</span>Булевы алгебры<br><span style="font-size:16px;color:var(--ink3)">гомоморфизмы</span></div>
+      <div class="dual-link">⟷</div>
+      <div class="dual-side right"><span class="side-tag">Топология</span>Стоуновские пространства<br><span style="font-size:16px;color:var(--ink3)">непрерывные отображения</span></div>
+    </div>
+    <div class="dual-rows">
+      <div class="drow"><span class="dkey">Точная форма</span><span class="dval">Конструкции \(B\mapsto S(B)\) и \(X\mapsto\mathrm{Clop}(X)\) канонические и взаимно обратны. Булевой алгебре \(B\) сопоставляется компактное нульмерное пространство \(S(B)\) её ультрафильтров; обратно пространству \(X\) сопоставляется булева алгебра \(\mathrm{Clop}(X)\) его открыто-замкнутых подмножеств.</span></div>
+      <div class="drow"><span class="dkey">Обращение</span><span class="dval">Гомоморфизму \(h\colon B\to B'\) отвечает непрерывное \(h^*\colon S(B')\to S(B)\); подалгебрам \(B\) отвечают факторпространства \(S(B)\), фактор-алгебрам — замкнутые подпространства. Чем больше структура на одной стороне, тем меньше объект на другой.</span></div>
+    </div>
+  </div>
+
+  <div class="dual">
+    <div class="dual-head">
+      <div class="dual-side"><span class="side-tag">Алгебра</span>Коммутативные \(C^*\)-алгебры</div>
+      <div class="dual-link">⟷</div>
+      <div class="dual-side right"><span class="side-tag">Топология</span>Компактные пространства</div>
+    </div>
+    <div class="dual-rows">
+      <div class="drow"><span class="dkey">Точная форма</span><span class="dval">Двойственность Гельфанда. Каждая коммутативная унитальная \(C^*\)-алгебра \(A\) канонически определяет компакт \(X\) своих характеров (максимальных идеалов), и \(A\cong C(X)\). \(*\)-гомоморфизму отвечает непрерывное отображение в обратную сторону. Двойственность Стоуна — просто «нульмерный» случай гельфандовой двойственности.</span></div>
+    </div>
+  </div>
+
+  <div class="tag-block" id="ex-2a-i">
+    <span class="coord-tag">2A-I</span>
+    <h3>Взаимная интерпретируемость (без бинтерпретируемости)</h3>
+  </div>
+  <p>Формализм вкладывается в формализм, сохраняя выводимость, но без возможности строгого возврата к оригиналу.</p>
+  <ul class="plain">
+    <li><strong>\(\mathsf{ZF}\) и \(\mathsf{ZFC}\).</strong> Аксиоматика Цермело — Френкеля (без выбора) и она же с выбором взаимно интерпретируемы. \(\mathsf{ZFC}\) интерпретирует \(\mathsf{ZF}\) тривиально, а \(\mathsf{ZF}\) интерпретирует \(\mathsf{ZFC}\) внутри себя через конструируемый универсум Гёделя \(L\). Однако они <strong>не бинтерпретируемы</strong> (Али Энаят, 2016). Второй перевод возвращает нас в суженную «очищенную» копию исходной теории (\(L\)), а не в оригинальный универсум множеств.</li>
+  </ul>
+
+  <div class="tag-block" id="ex-2a-ii">
+    <span class="coord-tag">2A-II</span>
+    <h3>Представления и действия групп</h3>
+  </div>
+  <p>Абстрактное реализуется конкретно. Перевод переносит информацию в более осязаемую среду, но добавляет к объекту «строительные леса» (базис, координаты, специфику множества).</p>
+  <ul class="plain">
+    <li><strong>Теорема Кэли.</strong> Всякая группа (семантический объект, заданный аксиомами) вкладывается в группу подстановок \(\operatorname{Sym}(G)\) левыми сдвигами. То же касается линейных представлений (вложение в матрицы). Абстрактное становится конкретным.</li>
+  </ul>
+
+  <div class="tag-block" id="ex-2a-iii">
+    <span class="coord-tag">2A-III</span>
+    <h3>Синтаксис как онтология</h3>
+  </div>
+  <p>Слова становятся объектами. Мы берем формализм и превращаем его в семантический объект.</p>
+  <ul class="plain">
+    <li><strong>Свободные алгебры.</strong> Мы берем чистый формализм (буквы алфавита и символы операций, из которых собираем «слова»-термы) и смотрим на них как на математические объекты — деревья. Если их факторизовать по нужным аксиомам, получается свободная алгебра.</li>
+    <li><strong>Хенкиновские модели.</strong> Апофеоз этого подхода в логике. При доказательстве теоремы о полноте элементами модели объявляются сами замкнутые термы формального языка, а предикаты задаются их доказуемостью. Синтаксис буквально превращается в семантику.</li>
+  </ul>
+
+  <div class="tag-block" id="ex-2b-ii">
+    <span class="coord-tag">2B-II</span>
+    <h3>Связи Галуа (Семантика ↔ Семантика)</h3>
+  </div>
+  <p>Антитонные переводы на одном онтологическом этаже.</p>
+  <ul class="plain">
+    <li><strong>Соответствие Галуа для полей.</strong> Отображения между промежуточными полями \(K \subset M \subset L\) и подгруппами \(\operatorname{Gal}(L/K)\). Чем больше поле, тем меньше группа автоморфизмов, оставляющих его неподвижным.</li>
+    <li><strong>Лемма Краснера (Группы автоморфизмов).</strong> Чем больше у структуры симметрий (автоморфизмов), тем меньше предикатов (решеток определимости) можно на ней задать без параметров.</li>
+  </ul>
+
+  <div class="tag-block" id="ex-2b-iii">
+    <span class="coord-tag">2B-III</span>
+    <h3>Связи Галуа (Формализм ↔ Семантика)</h3>
+  </div>
+  <ul class="plain">
+    <li><strong>Синтаксис и модели (\(\mathrm{Th}\) и \(\mathrm{Mod}\)).</strong> Больше аксиом — меньше моделей. Замкнутые элементы слева — дедуктивно замкнутые теории, справа — аксиоматизируемые классы моделей.</li>
+    <li><strong>Nullstellensatz (Теорема о нулях).</strong> Геометрический двойник Th/Mod: связь Галуа между идеалами многочленов (формализм) и алгебраическими множествами (семантика) над алгебраически замкнутым полем.</li>
+  </ul>
+
+  <div class="tag-block" id="ex-3a-ii">
+    <span class="coord-tag">3A-II</span>
+    <h3>Ковариантные инварианты (Сжатие)</h3>
+  </div>
+  <p>Потеря информации как рабочий метод. Сопоставление не обратимо, зато отброшенное не мешает вычислениям.</p>
+  <ul class="plain">
+    <li><strong>Фундаментальная группа \(\pi_1(X)\) и гомологии.</strong> Топологический инвариант отбрасывает всю метрическую информацию, оставляя алгебраическую "тень" пространства. Обратный перевод невозможен (пространства с одинаковой \(\pi_1\) могут быть не гомеоморфны), но если группы разные — пространства гарантированно не гомеоморфны. <strong>Эйлерова характеристика</strong> сжимает саму группу гомологий до одного числа.</li>
+  </ul>
+
+  <div class="tag-block" id="ex-3a-iii">
+    <span class="coord-tag">3A-III</span>
+    <h3>От языка к семантическому инварианту</h3>
+  </div>
+  <p>Сжатие формализма в математический объект-меру.</p>
+  <ul class="plain">
+    <li><strong>Теоретико-доказательственные ординалы.</strong> Каждой формальной теории можно сопоставить ординал (для арифметики Пеано это \(\epsilon_0\)). Мы отбрасываем всё дедуктивное богатство теории, оставляя только её семантическую «тень», измеряющую её силу. Перевод с колоссальной потерей информации (существуют разные теории с одинаковым ординалом), но если ординал \(T\) строго меньше ординала \(S\), то \(T\) не может доказать непротиворечивость \(S\).</li>
+  </ul>
+
+  <div class="tag-block" id="ex-3b-ii">
+    <span class="coord-tag">3B-II</span>
+    <h3>Контравариантные инварианты</h3>
+  </div>
+  <p>Звучит парадоксально (сжимаем информацию, но стрелки разворачиваются), однако за этим стоит геометрическая идея: <strong>наблюдение через функции</strong>.</p>
+  <ul class="plain">
+    <li><strong>Когомологии и сужение функций.</strong> Если пространство \(X\) вложено в сферу \(Y\) (\(X \subset Y\)), любую функцию на всем \(Y\) можно <em>сузить</em> на \(X\). Вложение пространств порождает отображение алгебр функций <em>в обратную сторону</em> (\(F(Y) \to F(X)\)). Когомологии де Рама интегрируют дифференциальные формы ("функции") по циклам: пространство сжимается до алгебраического инварианта, но стрелки морфизмов разворачиваются.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>4. Многослойность: Фурье, Лаплас и ряды</h2>
+  <p class="lead">Самые мощные инженерные и математические инструменты работают потому, что пробивают сразу несколько ячеек нашей таблицы одновременно.</p>
+
+  <p>Почему производящие функции, ряды Фурье и преобразование Лапласа так эффективны? Во всех этих переводах инвариантное ядро одно: <strong>свёртка переходит в поточечное умножение</strong>, а дифференцирование — в умножение на переменную. Дифференциальное уравнение становится алгебраическим, решается делением, и обратный перевод (Шаг 4) возвращает ответ.</p>
+
+  <p>Этот приём — слоёный пирог из трёх переводов Периодической таблицы:</p>
+  <ul class="plain">
+    <li><span class="coord-tag">1A-II</span> <strong>Алгебраический слой (Изоморфизм).</strong> Кольцо формальных рядов <em>по определению</em> использует свёртку. Переход от последовательности к ряду — это переобозначение. Сила в том, что со свёрткой никто не умеет работать руками, а с многочленами умеют все.</li>
+    <li><span class="coord-tag">1B-II</span> <strong>Двойственный слой.</strong> Ряд Фурье работает, потому что опирается на двойственность Понтрягина между функцией на окружности \(\mathbb T\) и последовательностью на \(\mathbb Z\).</li>
+    <li><span class="coord-tag">2A-II</span> <strong>Семантическое представление.</strong> Пространство со свёрткой — это банахова алгебра. Её гельфандово представление (перевод абстрактного элемента в функцию на спектре) и есть преобразование Фурье! «Свёртка стала умножением» просто потому, что гельфандово представление сохраняет операции.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Где перевод ломается</h2>
+  <p class="lead">Сводка гипотез, которые чаще всего выпадают из формулировок. Каждая строка — место, где перевод перестаёт работать, если условие снять.</p>
+
+  <div class="tbl-wrap">
+  <table class="basic">
+    <thead><tr><th style="width:26%">Инструмент</th><th style="width:32%">Необходимая гипотеза</th><th>Что происходит без неё</th></tr></thead>
+    <tbody>
+      <tr><td class="nm">Теорема Стоуна</td>
+        <td>Булева теорема о простом идеале \(\mathsf{BPI}\)</td>
+        <td>В \(\mathsf{ZF}\) без \(\mathsf{BPI}\) ультрафильтров может не хватить. \(\mathsf{BPI}\) строго слабее \(\mathsf{AC}\).</td></tr>
+      <tr><td class="nm">Соответствие Галуа</td>
+        <td>Конечность + нормальность + сепарабельность</td>
+        <td>Для бесконечных расширений нужна топология Крулля и перевод работает <span class="tag">только для замкнутых подгрупп</span>.</td></tr>
+      <tr><td class="nm">Принцип двойственности</td>
+        <td>Самодвойственность списка аксиом</td>
+        <td>В интуиционистской логике \(\neg\neg x\ne x\), симметрия рушится.</td></tr>
+      <tr><td class="nm">Гельфанд, неунитальный случай</td>
+        <td>Собственные непрерывные отображения</td>
+        <td>Произвольное непрерывное \(X\to Y\) не индуцирует гомоморфизм в обратную сторону — согласованность ломается.</td></tr>
+      <tr><td class="nm">Категоричность \(\mathbb R\)</td>
+        <td>Аксиома полноты второго порядка</td>
+        <td>Первопорядковая теория вещественно замкнутых полей не категорична (Лёвенгейм — Скулем): возникают нестандартные <span class="tag">неархимедовы</span> модели.</td></tr>
+      <tr><td class="nm">Бинтерпретируемость</td>
+        <td>Обратимость переводов</td>
+        <td>\(\mathsf{ZF}\) и \(\mathsf{ZFC}\) взаимно интерпретируемы, но <span class="tag neg">не бинтерпретируемы</span>: равенство по силе не есть тождество теорий.</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<p class="page-footer">© Nikolai Kazimirov · <a href="https://mathem.at" rel="noopener">mathem.at</a></p>
+
+</div><!-- .page -->
+</body>
+</html>
