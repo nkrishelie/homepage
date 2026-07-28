@@ -78,6 +78,13 @@ export const MATERIALS_ITEMS: MaterialItem[] = [
     "lang": "ru"
   },
   {
+    "filename": "duality_en.html",
+    "href": "/Materials/duality_en.html",
+    "title": "One Object, Many Languages",
+    "category": "algebra",
+    "lang": "en"
+  },
+  {
     "filename": "duality.html",
     "href": "/Materials/duality.html",
     "title": "Один объект — разные языки",
