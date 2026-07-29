@@ -12,6 +12,7 @@
 <meta property="og:url" content="https://mathem.at/Materials/duality.html">
 <meta property="og:image" content="https://mathem.at/archetypes.png">
 <meta property="og:locale" content="ru_RU">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPsKxw5fDtzwvdGV4dD48L3N2Zz4=" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -31,6 +32,15 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Georgia,serif;font-size:22px;line-height:1.65;min-height:100vh}
 .page{max-width:1320px;margin:0 auto;padding:3rem 2.5rem 5rem}
+
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.8rem}
+.crumbs{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink3)}
+.crumbs a{color:var(--ink3);text-decoration:none}
+.crumbs a:hover{color:var(--ink)}
+.lang-pills{display:flex;gap:8px}
+.lang-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border:1px solid var(--border);color:var(--ink2);transition:.15s}
+.lang-pill.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.lang-pill:not(.active):hover{border-color:var(--ink)}
 
 header{margin-bottom:2.5rem;border-bottom:1.5px solid var(--ink);padding-bottom:1.5rem}
 .kicker{font-family:'JetBrains Mono',monospace;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:.6rem}
@@ -175,6 +185,14 @@ table.basic tbody td.nm{color:var(--ink)}
 </head>
 <body>
 <div class="page">
+
+<div class="topbar">
+  <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> / <a href="/#materials">Материалы</a></div>
+  <div class="lang-pills">
+    <a class="lang-pill" href="/Materials/duality_en.html">🇬🇧 EN</a>
+    <a class="lang-pill active" href="/Materials/duality.html">🇷🇺 RU</a>
+  </div>
+</div>
 
 <header>
   <p class="kicker">Категории · Алгебра · Геометрия · Логика</p>

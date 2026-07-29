@@ -12,34 +12,37 @@
 <meta property="og:url" content="https://mathem.at/Materials/henkin_construction.html">
 <meta property="og:image" content="https://mathem.at/archetypes.png">
 <meta property="og:locale" content="ru_RU">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPuKKojwvdGV4dD48L3N2Zz4=" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
   onload="initPage()"></script>
 <style>
 :root {
-  --bg: #fafaf8;
+  --bg: #faf9f6;
   --surface: #ffffff;
-  --surface2: #f4f3ef;
-  --border: #e2e0d8;
-  --border2: #ccc9bc;
-  --text: #1a1916;
-  --muted: #6b6860;
-  --faint: #9c998e;
-  --blue: #1a4f8a;
-  --blue-bg: #eaf1fa;
-  --blue-mid: #3a7bd5;
+  --surface2: #f2f0eb;
+  --border: #dcd9d2;
+  --border2: #c5c1b7;
+  --text: #1a1917;
+  --muted: #5a5750;
+  --faint: #8a8680;
+  --blue: #3a5f9e;
+  --blue-bg: #e8eef7;
+  --blue-mid: #3a5f9e;
   --teal: #0f6e56;
   --teal-bg: #e6f5ef;
-  --amber: #7a4f0a;
+  --amber: #7a4f0d;
   --amber-bg: #fdf3e0;
-  --coral: #8a2e1a;
-  --coral-bg: #fdeee9;
+  --coral: #9b2f1a;
+  --coral-bg: #faeae6;
   --purple: #4a3a9a;
   --purple-bg: #eeedfb;
   --mono: 'JetBrains Mono', 'Fira Mono', 'Cascadia Code', monospace;
-  --sans: 'Inter', system-ui, sans-serif;
-  --serif: 'Georgia', 'Times New Roman', serif;
+  --sans: 'EB Garamond', Georgia, serif;
+  --serif: 'EB Garamond', Georgia, 'Times New Roman', serif;
   --radius: 8px;
   --radius-sm: 4px;
 }
@@ -458,8 +461,13 @@ input[type=range] {
   font-size: 12px;
   color: var(--faint);
 }
-.page-footer a { color: var(--blue-mid); text-decoration: none; }
-.page-footer a:hover { text-decoration: underline; }
+.page-footer a { color: var(--faint); text-decoration: none; border-bottom: 1px solid var(--border2); }
+.page-footer a:hover { color: var(--muted); border-bottom-color: var(--muted); }
+
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.6rem}
+.crumbs{font-family:var(--mono);font-size:12.5px;color:var(--faint)}
+.crumbs a{color:var(--faint);text-decoration:none}
+.crumbs a:hover{color:var(--text)}
 
 /* ── pdf link ── */
 .pdf-link {
@@ -489,6 +497,10 @@ input[type=range] {
 </head>
 <body>
 <div class="page">
+
+<div class="topbar">
+  <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> / <a href="/#materials">Материалы</a></div>
+</div>
 
 <header>
   <h1>Конструкция Хенкина: пошаговая демонстрация</h1>

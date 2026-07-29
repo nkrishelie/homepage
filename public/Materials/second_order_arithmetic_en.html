@@ -14,7 +14,7 @@
 <meta property="og:locale" content="en_US">
 <link rel="alternate" hreflang="ru" href="/Materials/second_order_arithmetic.html">
 <link rel="alternate" hreflang="en" href="/Materials/second_order_arithmetic_en.html">
-<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPs6jPC90ZXh0Pjwvc3ZnPg==" type="image/svg+xml">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPuKKojwvdGV4dD48L3N2Zz4=" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
@@ -81,7 +81,15 @@ tbody td:first-child{color:var(--ink);font-weight:500;font-size:15.5px;white-spa
 .page-copy{margin-top:2.75rem;padding-top:1.1rem;border-top:0.5px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.04em;color:var(--ink3);text-align:center;line-height:1.5}
 .page-copy a{color:var(--ink3);text-decoration:none;border-bottom:1px solid rgba(138,134,128,.35)}
 .page-copy a:hover{color:var(--ink2);border-bottom-color:var(--ink2)}
-.lang-switch{margin-top:.5rem;font-size:10px}
+
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.8rem}
+.crumbs{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink3)}
+.crumbs a{color:var(--ink3);text-decoration:none}
+.crumbs a:hover{color:var(--ink)}
+.lang-pills{display:flex;gap:8px}
+.lang-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border:1px solid var(--border);color:var(--ink2);transition:.15s}
+.lang-pill.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.lang-pill:not(.active):hover{border-color:var(--ink)}
 
 .katex{font-size:1em}
 
@@ -106,6 +114,14 @@ tbody td:first-child{color:var(--ink);font-weight:500;font-size:15.5px;white-spa
 </head>
 <body>
 <div class="page">
+
+<div class="topbar">
+  <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> / <a href="/#materials">Materials</a></div>
+  <div class="lang-pills">
+    <a class="lang-pill active" href="/Materials/second_order_arithmetic_en.html">🇬🇧 EN</a>
+    <a class="lang-pill" href="/Materials/second_order_arithmetic.html">🇷🇺 RU</a>
+  </div>
+</div>
 
   <header>
     <div class="kicker">Foundations of Mathematics · Working Notes</div>
@@ -232,8 +248,7 @@ tbody td:first-child{color:var(--ink);font-weight:500;font-size:15.5px;white-spa
   <p class="tbl-note"><strong>On $ACA$ and $ACA_0$.</strong> The subscript 0 denotes restricted induction (Simpson 2009): $ACA_0$ has only the induction axiom (a single formula in the second-order language), whereas $ACA$ (no subscript) — the historically earlier system (Feferman, 1977) — adds the full second-order induction scheme. Systems without the subscript have substantially larger proof-theoretic ordinals for the same comprehension scheme. In reverse mathematics (Stillwell, Simpson), the subscript-0 variants are standard.</p>
 
   <p class="page-copy">
-    <a href="/">mathem.at</a> · N.&nbsp;I.&nbsp;Kazimirov<br>
-    <span class="lang-switch"><a href="/Materials/second_order_arithmetic.html">Русская версия</a></span>
+    <a href="https://mathem.at">mathem.at</a> · N.&nbsp;I.&nbsp;Kazimirov
   </p>
 
 </div>

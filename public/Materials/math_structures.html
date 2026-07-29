@@ -12,35 +12,38 @@
 <meta property="og:url" content="https://mathem.at/Materials/math_structures.html">
 <meta property="og:image" content="https://mathem.at/archetypes.png">
 <meta property="og:locale" content="ru_RU">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPsKxw5fDtzwvdGV4dD48L3N2Zz4=" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
 <style>
   :root {
-    --bg: #f8f7f4;
+    --bg: #faf9f6;
     --surface: #ffffff;
-    --border: #ddd8ce;
-    --text: #1a1a1a;
-    --text-muted: #5a5550;
-    --accent-blue: #1a3a6b;
-    --accent-teal: #006b6b;
-    --accent-red: #8a1500;
-    --accent-green: #2d6a2d;
-    --accent-violet: #4a0070;
-    --accent-amber: #7a4800;
+    --border: #dcd9d2;
+    --text: #1a1917;
+    --text-muted: #5a5750;
+    --accent-blue: #3a5f9e;
+    --accent-teal: #0f6e56;
+    --accent-red: #9b2f1a;
+    --accent-green: #2e6645;
+    --accent-violet: #4a3a9a;
+    --accent-amber: #7a4f0d;
 
-    --layer-set-bg: #eef3fc;
-    --layer-set-border: #3a6abf;
-    --layer-alg-bg: #fffbe8;
-    --layer-alg-border: #c48a00;
-    --layer-top-bg: #fff3e8;
-    --layer-top-border: #c46000;
-    --layer-met-bg: #feeef0;
-    --layer-met-border: #b02030;
+    --layer-set-bg: #e8eef7;
+    --layer-set-border: #3a5f9e;
+    --layer-alg-bg: #fdf3e0;
+    --layer-alg-border: #7a4f0d;
+    --layer-top-bg: #f0ebe8;
+    --layer-top-border: #8c4a32;
+    --layer-met-bg: #faeae6;
+    --layer-met-border: #9b2f1a;
 
-    --font-body: 'Georgia', 'Times New Roman', serif;
-    --font-code: 'Courier New', monospace;
-    --font-ui: system-ui, -apple-system, sans-serif;
+    --font-body: 'EB Garamond', Georgia, 'Times New Roman', serif;
+    --font-code: 'JetBrains Mono', 'Courier New', monospace;
+    --font-ui: 'JetBrains Mono', monospace;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -66,39 +69,44 @@
   }
 
   /* ── HEADER ── */
+  .topbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin:1.6rem clamp(.75rem,4vw,2rem) 0}
+  .crumbs{font-family:var(--font-ui);font-size:12.5px;color:var(--text-muted)}
+  .crumbs a{color:var(--text-muted);text-decoration:none}
+  .crumbs a:hover{color:var(--text)}
   header {
-    background: var(--accent-blue);
-    color: #e8ecf5;
-    padding: 3rem clamp(.75rem, 4vw, 2rem) 2.5rem;
-    text-align: center;
-    border-bottom: 4px solid #c8a84b;
+    padding: 1.6rem clamp(.75rem, 4vw, 2rem) 2.5rem;
+    border-bottom: 1.5px solid var(--text);
   }
   header h1 {
-    font-family: var(--font-ui);
-    font-size: 1.9rem;
-    font-weight: 700;
+    font-family: var(--font-body);
+    font-size: clamp(1.7rem, 3.2vw, 2.4rem);
+    font-weight: 500;
     letter-spacing: -0.01em;
+    line-height: 1.15;
+    color: var(--text);
     margin-bottom: .5rem;
   }
   header p.subtitle {
-    font-size: .95rem;
-    opacity: .75;
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    opacity: 1;
     font-style: italic;
     font-family: var(--font-body);
+    max-width: 760px;
   }
   .section-label {
     display: inline-block;
-    background: rgba(200,168,75,.2);
-    border: 1px solid #c8a84b;
-    color: #c8a84b;
+    background: none;
+    border: none;
+    color: var(--text-muted);
     font-size: .75rem;
     font-family: var(--font-ui);
     font-weight: 600;
-    letter-spacing: .08em;
+    letter-spacing: .1em;
     text-transform: uppercase;
-    padding: .2em .7em;
-    border-radius: 3px;
-    margin-bottom: 1rem;
+    padding: 0;
+    border-radius: 0;
+    margin-bottom: .6rem;
   }
 
   /* ── LAYOUT ── */
@@ -454,6 +462,10 @@
 <!-- /Yandex.Metrika counter -->
 </head>
 <body>
+
+<div class="topbar">
+  <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> / <a href="/#materials">Материалы</a></div>
+</div>
 
 <header>
   <div class="section-label">Математические структуры</div>

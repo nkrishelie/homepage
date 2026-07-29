@@ -4,31 +4,37 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>28x + 37y = N — задача о новогодних подарках</title>
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPs6jPC90ZXh0Pjwvc3ZnPg==" type="image/svg+xml">
+<link rel="canonical" href="https://mathem.at/Materials/diophant_28_37.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink: #1d2333;
-    --ink-soft: #5a6172;
-    --ink-faint: #9299ab;
-    --paper: #fbfaf7;
+    --ink: #1a1917;
+    --ink-soft: #5a5750;
+    --ink-faint: #8a8680;
+    --paper: #faf9f6;
     --card: #ffffff;
-    --line: #e3e1d9;
-    --accent: #2b3a8f;
-    --accent-soft: #e8ebf9;
+    --line: #dcd9d2;
+    --accent: #3a5f9e;
+    --accent-soft: #e8eef7;
     --blue-pt: #185fa5;
-    --gray-pt: #6b6f7a;
-    --good: #1d7a4f;
-    --good-bg: #e4f3ea;
-    --warn: #9a5b12;
-    --warn-bg: #faefdc;
-    --bad: #a33131;
-    --bad-bg: #f9e8e8;
+    --gray-pt: #8a8680;
+    --good: #2e6645;
+    --good-bg: #e8f0eb;
+    --warn: #7a4f0d;
+    --warn-bg: #fdf3e0;
+    --bad: #9b2f1a;
+    --bad-bg: #faeae6;
   }
   * { box-sizing: border-box; }
   body {
     margin: 0;
     background: var(--paper);
     color: var(--ink);
-    font: 18px/1.65 Georgia, "Times New Roman", serif;
+    font-family: 'EB Garamond', Georgia, "Times New Roman", serif;
+    font-size: 20px;
+    line-height: 1.65;
   }
   .wrap { max-width: 1180px; margin: 0 auto; padding: 32px 24px 64px; }
   header h1 {
@@ -47,8 +53,8 @@
   }
   .task p { margin: 6px 0; }
   .task .task-no {
-    font: 600 14.5px system-ui, -apple-system, sans-serif;
-    letter-spacing: 0.8px; text-transform: uppercase;
+    font: 600 13px 'JetBrains Mono', monospace;
+    letter-spacing: 0.06em; text-transform: uppercase;
     color: var(--accent); margin: 0 0 4px;
   }
   .task .task-no a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(43, 58, 143, 0.35); }
@@ -66,12 +72,12 @@
     border: 1px solid var(--line); border-radius: 6px; color: var(--ink);
   }
   .presets-cap {
-    margin: 14px 0 0; font: 15px system-ui, -apple-system, sans-serif;
+    margin: 14px 0 0; font: 13px 'JetBrains Mono', monospace;
     color: var(--ink-soft);
   }
   .presets { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 7px; }
   .presets button {
-    font: 15.5px/1 system-ui, -apple-system, sans-serif;
+    font: 13.5px/1 'JetBrains Mono', monospace;
     padding: 7px 12px; border: 1px solid var(--line); border-radius: 999px;
     background: #fff; color: var(--ink); cursor: pointer;
     box-shadow: 0 1px 2px rgba(29, 35, 51, 0.08);
@@ -86,7 +92,7 @@
   .presets button.on b { color: #fff; }
   .presets button b { color: var(--accent); font-weight: 600; }
   .toggles { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 12px;
-    font: 16px system-ui, -apple-system, sans-serif; color: var(--ink-soft); }
+    font: 16px 'EB Garamond', Georgia, serif; color: var(--ink-soft); }
   .toggles label { display: flex; align-items: center; gap: 7px; cursor: pointer; }
   .toggles input { accent-color: var(--accent); width: 15px; height: 15px; }
 
@@ -94,10 +100,10 @@
     gap: 12px; margin-top: 16px; }
   .stat { background: var(--card); border: 1px solid var(--line); border-radius: 10px;
     padding: 14px 16px; }
-  .stat .lbl { font: 15px system-ui, sans-serif; color: var(--ink-soft); margin: 0 0 2px; }
+  .stat .lbl { font: 13px 'JetBrains Mono', monospace; color: var(--ink-soft); margin: 0 0 2px; }
   .stat .val { font-size: 32px; margin: 0; line-height: 1.2; }
   .stat .badge { display: inline-block; margin-top: 7px; padding: 3px 10px;
-    border-radius: 999px; font: 14px system-ui, sans-serif; }
+    border-radius: 999px; font: 12px 'JetBrains Mono', monospace; }
   .b-good { background: var(--good-bg); color: var(--good); }
   .b-warn { background: var(--warn-bg); color: var(--warn); }
   .b-bad  { background: var(--bad-bg);  color: var(--bad); }
@@ -106,7 +112,7 @@
   .param .t { color: var(--accent); }
 
   figure { margin: 18px 0 0; }
-  svg text { font: 14.5px system-ui, -apple-system, sans-serif; fill: var(--ink-soft); }
+  svg text { font: 13px 'JetBrains Mono', monospace; fill: var(--ink-soft); }
   svg .ptlab { font-size: 15px; fill: var(--ink); }
   svg .steplab { font-size: 14px; fill: var(--accent); font-style: italic; }
   svg .halo { paint-order: stroke; stroke: var(--paper); stroke-width: 4px; stroke-linejoin: round; }
@@ -114,7 +120,7 @@
   svg .eqlab { fill: var(--accent); font-size: 15.5px; font-weight: 600; }
 
   .legend { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 10px;
-    font: 15.5px system-ui, sans-serif; color: var(--ink-soft); }
+    font: 15px 'EB Garamond', Georgia, serif; color: var(--ink-soft); }
   .legend span { display: flex; align-items: center; gap: 6px; }
   .dot { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
 
@@ -129,11 +135,16 @@
   details i { color: var(--accent); font-style: italic; }
   .page-footer {
     margin-top: 2.75rem; padding-top: 1.1rem; border-top: 0.5px solid var(--line);
-    font: 15px system-ui, -apple-system, sans-serif; letter-spacing: 0.04em;
+    font: 13px 'JetBrains Mono', monospace; letter-spacing: 0.04em;
     color: var(--ink-faint); text-align: center; line-height: 1.6;
   }
-  .page-footer a { color: var(--ink-faint); text-decoration: none; border-bottom: 1px solid rgba(146, 153, 171, 0.35); }
+  .page-footer a { color: var(--ink-faint); text-decoration: none; border-bottom: 1px solid rgba(138, 134, 128, 0.35); }
   .page-footer a:hover { color: var(--ink-soft); border-bottom-color: var(--ink-soft); }
+
+  .topbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.4rem}
+  .crumbs{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink-faint)}
+  .crumbs a{color:var(--ink-faint);text-decoration:none}
+  .crumbs a:hover{color:var(--ink)}
   @media (max-width: 560px) {
     header h1 { font-size: 22px; }
     .stat .val { font-size: 26px; }
@@ -142,6 +153,9 @@
 </head>
 <body>
 <div class="wrap">
+  <div class="topbar">
+    <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> / <a href="/#materials">Материалы</a></div>
+  </div>
   <header>
     <h1>Задача о новогодних подарках</h1>
     <div class="task">
