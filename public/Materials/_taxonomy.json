@@ -57,6 +57,7 @@
     "test1.html": "sets",
     "diagonal.html": "foundations",
     "henkin_construction.html": "foundations",
+    "henkin_construction_en.html": "foundations",
     "induction.html": "foundations",
     "induction_en.html": "foundations",
     "second_order_arithmetic.html": "foundations",

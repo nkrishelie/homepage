@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Конструкция Хенкина — интерактивная демонстрация</title>
-<meta name="description" content="Пошаговая интерактивная демонстрация конструкции Хенкина — доказательства теоремы Гёделя о полноте исчисления предикатов: расширение языка, лемма Линденбаума, термовая модель.">
-<link rel="canonical" href="https://mathem.at/Materials/henkin_construction.html">
+<title>The Henkin Construction — An Interactive Demonstration</title>
+<meta name="description" content="A step-by-step interactive demonstration of the Henkin construction — the proof of Gödel's completeness theorem for predicate calculus: extending the language, Lindenbaum's lemma, the term model.">
+<link rel="canonical" href="https://mathem.at/Materials/henkin_construction_en.html">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Конструкция Хенкина — интерактивная демонстрация">
-<meta property="og:description" content="Пошаговая интерактивная демонстрация конструкции Хенкина — доказательства теоремы Гёделя о полноте исчисления предикатов: расширение языка, лемма Линденбаума, термовая модель.">
-<meta property="og:url" content="https://mathem.at/Materials/henkin_construction.html">
+<meta property="og:title" content="The Henkin Construction — An Interactive Demonstration">
+<meta property="og:description" content="A step-by-step interactive demonstration of the Henkin construction — the proof of Gödel's completeness theorem for predicate calculus: extending the language, Lindenbaum's lemma, the term model.">
+<meta property="og:url" content="https://mathem.at/Materials/henkin_construction_en.html">
 <meta property="og:image" content="https://mathem.at/archetypes.png">
-<meta property="og:locale" content="ru_RU">
+<meta property="og:locale" content="en_US">
 <link rel="alternate" hreflang="ru" href="/Materials/henkin_construction.html">
 <link rel="alternate" hreflang="en" href="/Materials/henkin_construction_en.html">
 <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPuKKojwvdGV4dD48L3N2Zz4=" type="image/svg+xml">
@@ -505,74 +505,74 @@ input[type=range] {
 <div class="page">
 
 <div class="topbar">
-  <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> / <a href="/#materials">Материалы</a></div>
+  <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> / <a href="/#materials">Materials</a></div>
   <div class="lang-pills">
-    <a class="lang-pill" href="/Materials/henkin_construction_en.html">🇬🇧 EN</a>
-    <a class="lang-pill active" href="/Materials/henkin_construction.html">🇷🇺 RU</a>
+    <a class="lang-pill active" href="/Materials/henkin_construction_en.html">🇬🇧 EN</a>
+    <a class="lang-pill" href="/Materials/henkin_construction.html">🇷🇺 RU</a>
   </div>
 </div>
 
 <header>
-  <h1>Конструкция Хенкина: пошаговая демонстрация</h1>
-  <p class="subtitle">Интерактивная иллюстрация к доказательству теоремы Гёделя о полноте исчисления предикатов первого порядка.</p>
+  <h1>The Henkin Construction: A Step-by-Step Demonstration</h1>
+  <p class="subtitle">An interactive illustration of the proof of Gödel's completeness theorem for first-order predicate calculus.</p>
 </header>
 
 <div class="intro">
-  <h2>Что здесь происходит</h2>
+  <h2>What's Going On Here</h2>
   <p>
-    <strong>Теорема Гёделя о полноте</strong> утверждает: если множество формул \(\Gamma\) непротиворечиво,
-    то у него есть модель. Доказательство конструктивно строит эту модель в три шага.
+    <strong>Gödel's completeness theorem</strong> states: if a set of formulas \(\Gamma\) is consistent,
+    then it has a model. The proof constructively builds this model in three steps.
   </p>
 
   <div class="intro-steps">
     <div class="intro-step">
       <div class="intro-num">1</div>
       <div>
-        <strong>Расширение языка.</strong>
-        Для каждой формулы \(\exists x\,\varphi(x)\) вводится новая константа-«свидетель» \(c\)
-        и аксиома \(\exists x\,\varphi(x) \to \varphi(c)\). Поскольку добавление констант порождает
-        новые экзистенциальные формулы, процедура итерируется:
+        <strong>Extending the language.</strong>
+        For each formula \(\exists x\,\varphi(x)\) we introduce a new "witness" constant \(c\)
+        and the axiom \(\exists x\,\varphi(x) \to \varphi(c)\). Since adding constants generates
+        new existential formulas, the procedure is iterated:
         \(\mathcal{L}_0 \subseteq \mathcal{L}_1 \subseteq \cdots \subseteq \mathcal{L}_\omega\).
-        Это <em>константы Хенкина</em>.
+        These are the <em>Henkin constants</em>.
       </div>
     </div>
     <div class="intro-step">
       <div class="intro-num">2</div>
       <div>
-        <strong>Лемма Линденбаума.</strong>
-        Перечислим все замкнутые формулы расширенного языка \(\mathcal{L}_\omega\).
-        На каждом шаге добавляем очередную формулу \(\varphi_k\) к теории, если это не создаёт противоречия,
-        иначе добавляем \(\lnot\varphi_k\). В итоге получаем <em>полное непротиворечивое множество</em> \(\Delta\):
-        для каждой формулы в \(\Delta\) лежит ровно одна из \(\varphi, \lnot\varphi\).
+        <strong>Lindenbaum's lemma.</strong>
+        Enumerate all the closed formulas of the extended language \(\mathcal{L}_\omega\).
+        At each step we add the next formula \(\varphi_k\) to the theory if this creates no contradiction,
+        otherwise we add \(\lnot\varphi_k\). In the end we get a <em>complete consistent set</em> \(\Delta\):
+        for each formula, exactly one of \(\varphi, \lnot\varphi\) lies in \(\Delta\).
       </div>
     </div>
     <div class="intro-step">
       <div class="intro-num">3</div>
       <div>
-        <strong>Термовая модель.</strong>
-        Носитель модели — классы эквивалентности замкнутых термов по \((s \sim t) \iff (s{=}t) \in \Delta\).
-        Предикат \({<}\) интерпретируется по определению: \([s] < [t]\) iff \((s{<}t)\in\Delta\).
-        Лемма об истинности (индукция по формуле) гарантирует, что модель удовлетворяет \(\Gamma\).
+        <strong>The term model.</strong>
+        The carrier of the model is the set of equivalence classes of closed terms under \((s \sim t) \iff (s{=}t) \in \Delta\).
+        The predicate \({<}\) is interpreted by definition: \([s] < [t]\) iff \((s{<}t)\in\Delta\).
+        The truth lemma (induction on the formula) guarantees that the model satisfies \(\Gamma\).
       </div>
     </div>
   </div>
 
   <p class="intro-note">
-    <strong>Пример на этой странице.</strong>
-    Язык \(\mathcal{L} = \{=,\,{<},\,0\}\) с теорией линейного порядка и аксиомой минимальности
-    \(\forall x\,(0{=}x \vee 0{<}x)\). Константа \(0\) даёт первый замкнутый терм, поэтому
-    конструкция Хенкина стартует сразу: уже в \(\mathcal{L}_0\) осмыслена формула \(\exists x\,(0{<}x)\).
-    Ползунок <em>n</em> управляет числом итераций расширения языка, ползунок <em>k</em> — числом шагов Линденбаума.
+    <strong>The example on this page.</strong>
+    The language \(\mathcal{L} = \{=,\,{<},\,0\}\) with the theory of a linear order and the minimality axiom
+    \(\forall x\,(0{=}x \vee 0{<}x)\). The constant \(0\) gives the first closed term, so
+    the Henkin construction starts right away: already in \(\mathcal{L}_0\) the formula \(\exists x\,(0{<}x)\) makes sense.
+    The slider <em>n</em> controls the number of iterations of the language extension, the slider <em>k</em> — the number of Lindenbaum steps.
   </p>
-  <a class="pdf-link" href="/Materials/godel_completeness.pdf" target="_blank" rel="noopener noreferrer">
-    ↓ Полный текст доказательства теоремы Гёделя о полноте (PDF)
+  <a class="pdf-link" href="/Materials/godel_completeness_en.pdf" target="_blank" rel="noopener noreferrer">
+    ↓ Full text of the proof of Gödel's completeness theorem (PDF)
   </a>
 </div>
 
 <!-- Controls -->
 <div class="controls">
   <div class="ctrl-group">
-    <div class="ctrl-label">итерация языка &mdash; \(n\)</div>
+    <div class="ctrl-label">language iteration &mdash; \(n\)</div>
     <div class="ctrl-row">
       <input type="range" id="sl-lang" min="0" max="3" value="0" step="1">
       <span class="ctrl-val" id="vl-lang">0</span>
@@ -582,45 +582,45 @@ input[type=range] {
     </div>
   </div>
   <div class="ctrl-group">
-    <div class="ctrl-label">шаг Линденбаума &mdash; \(k\)</div>
+    <div class="ctrl-label">Lindenbaum step &mdash; \(k\)</div>
     <div class="ctrl-row">
       <input type="range" id="sl-lind" min="0" max="12" value="0" step="1">
       <span class="ctrl-val" id="vl-lind">0</span>
     </div>
     <label class="checkbox-row" id="finite-label">
       <input type="checkbox" id="cb-finite">
-      <span>добавить аксиому \(\forall x\,\forall y\,\forall z\;(x{=}y \vee y{=}z \vee z{=}x)\)</span>
+      <span>add the axiom \(\forall x\,\forall y\,\forall z\;(x{=}y \vee y{=}z \vee z{=}x)\)</span>
     </label>
   </div>
 </div>
 
 <!-- Gamma -->
 <div class="panel panel-wide" id="gamma-panel">
-  <div class="panel-title">исходная теория \(\Gamma\)</div>
+  <div class="panel-title">initial theory \(\Gamma\)</div>
   <div id="gamma-body"></div>
 </div>
 
 <!-- Language + Henkin axioms -->
 <div class="grid2">
   <div class="panel">
-    <div class="panel-title">язык \(\mathcal{L}_n\)</div>
+    <div class="panel-title">language \(\mathcal{L}_n\)</div>
     <div id="lang-panel"></div>
   </div>
   <div class="panel">
-    <div class="panel-title">аксиомы Хенкина \(H\)</div>
+    <div class="panel-title">Henkin axioms \(H\)</div>
     <div id="henkin-panel"></div>
   </div>
 </div>
 
 <!-- Lindenbaum -->
 <div class="panel panel-wide">
-  <div class="panel-title">ПН-множество \(\Delta\) — первые \(k\) шагов Линденбаума</div>
+  <div class="panel-title">CC-set \(\Delta\) — first \(k\) Lindenbaum steps</div>
   <div id="lind-panel"></div>
 </div>
 
 <!-- Model -->
 <div class="panel panel-wide">
-  <div class="panel-title">термовая модель \(\mathfrak{M} = T/{\sim}\)</div>
+  <div class="panel-title">term model \(\mathfrak{M} = T/{\sim}\)</div>
   <div id="model-panel"></div>
 </div>
 
@@ -634,91 +634,91 @@ input[type=range] {
 
 <script>
 /* ── Data ──
-   Язык L = {=, <, 0} — два предиката и одна константа.
-   Аксиома минимальности: ∀x (0 ≤ x), т.е. ∀x (0=x ∨ 0<x).
-   Первый замкнутый терм — сама константа 0.
-   Экзистенциальные предложения L0: ∃x(0<x), ∃x∃y(0<x ∧ x<y), ...
+   Language L = {=, <, 0} — two predicates and one constant.
+   Minimality axiom: ∀x (0 ≤ x), i.e., ∀x (0=x ∨ 0<x).
+   The first closed term is the constant 0 itself.
+   Existential sentences of L0: ∃x(0<x), ∃x∃y(0<x ∧ x<y), ...
 */
 const AXIOMS = [
-  { kind:"eq",  short:"рефл.",     tex:"\\forall x\\;(x = x)" },
-  { kind:"eq",  short:"конгр.",    tex:"\\forall x\\,\\forall y\\,\\forall z\\;\\bigl(x{=}y \\to (x{<}z \\leftrightarrow y{<}z) \\wedge (z{<}x \\leftrightarrow z{<}y)\\bigr)" },
-  { kind:"ord", short:"антисимм.", tex:"\\forall x\\,\\forall y\\;(x{<}y \\to \\lnot\\, y{<}x)" },
-  { kind:"ord", short:"транзит.",  tex:"\\forall x\\,\\forall y\\,\\forall z\\;(x{<}y \\wedge y{<}z \\to x{<}z)" },
-  { kind:"ord", short:"линейн.",   tex:"\\forall x\\,\\forall y\\;(x{<}y \\vee y{<}x \\vee x{=}y)" },
-  { kind:"zero", short:"миним.",   tex:"\\forall x\\;(0 = x \\vee 0 {<} x)" },
+  { kind:"eq",  short:"refl.",     tex:"\\forall x\\;(x = x)" },
+  { kind:"eq",  short:"congr.",    tex:"\\forall x\\,\\forall y\\,\\forall z\\;\\bigl(x{=}y \\to (x{<}z \\leftrightarrow y{<}z) \\wedge (z{<}x \\leftrightarrow z{<}y)\\bigr)" },
+  { kind:"ord", short:"antisymm.", tex:"\\forall x\\,\\forall y\\;(x{<}y \\to \\lnot\\, y{<}x)" },
+  { kind:"ord", short:"transit.",  tex:"\\forall x\\,\\forall y\\,\\forall z\\;(x{<}y \\wedge y{<}z \\to x{<}z)" },
+  { kind:"ord", short:"linear",    tex:"\\forall x\\,\\forall y\\;(x{<}y \\vee y{<}x \\vee x{=}y)" },
+  { kind:"zero", short:"minim.",   tex:"\\forall x\\;(0 = x \\vee 0 {<} x)" },
 ];
 const AXIOM_FIN = {
-  kind:"finite", short:"мощн.\u22642",
+  kind:"finite", short:"card.\u22642",
   tex:"\\forall x\\,\\forall y\\,\\forall z\\;(x{=}y \\vee y{=}z \\vee z{=}x)"
 };
 
 /* Henkin axioms.
-   L0 = {=, <, 0} — замкнутые термы: только 0.
-   Замкнутые ∃-формулы L0: ∃x(0<x), ∃x(0=x∨0<x) — последняя тривиальна (0 сам свидетель).
-   Нетривиальная: ∃x(0<x) → вводим c_{0,0} со свидетельством 0 < c_{0,0}.
-   L1 добавляет c_{0,0}: новые ∃-формулы: ∃x(c_{0,0}<x), ∃x(0<x∧x<c_{0,0}), ...
+   L0 = {=, <, 0} — closed terms: only 0.
+   Closed ∃-formulas of L0: ∃x(0<x), ∃x(0=x∨0<x) — the latter is trivial (0 is its own witness).
+   Nontrivial: ∃x(0<x) → introduce c_{0,0} witnessing 0 < c_{0,0}.
+   L1 adds c_{0,0}: new ∃-formulas: ∃x(c_{0,0}<x), ∃x(0<x∧x<c_{0,0}), ...
 */
 const HENKIN = [
-  /* n=0→1: L0 уже содержит 0 — первая нетривиальная ∃-формула */
+  /* n=0→1: L0 already contains 0 — the first nontrivial ∃-formula */
   { step:0, ex:"\\exists x\\;(0 < x)",
     wit:"c_{0,0}", psi:"0 < c_{0,0}",
-    note:"первый элемент выше 0" },
+    note:"first element above 0" },
   { step:0, ex:"\\exists y\\,(c_{0,0} < y)",
     wit:"c_{0,1}", psi:"c_{0,0} < c_{0,1}",
-    note:"элемент выше c_{0,0}" },
+    note:"element above c_{0,0}" },
   /* n=1→2: L1 = {=,<,0,c_{0,0},c_{0,1}} */
   { step:1, ex:"\\exists x\\;(c_{0,0} < x \\wedge x < c_{0,1})",
     wit:"c_{1,0}", psi:"c_{0,0} < c_{1,0} \\wedge c_{1,0} < c_{0,1}",
-    note:"элемент между c_{0,0} и c_{0,1}" },
+    note:"element between c_{0,0} and c_{0,1}" },
   { step:1, ex:"\\exists x\\;(c_{0,1} < x)",
     wit:"c_{1,1}", psi:"c_{0,1} < c_{1,1}",
-    note:"элемент выше c_{0,1}" },
+    note:"element above c_{0,1}" },
   { step:1, ex:"\\exists x\\;(0 < x \\wedge x < c_{0,0})",
     wit:"c_{1,2}", psi:"0 < c_{1,2} \\wedge c_{1,2} < c_{0,0}",
-    note:"элемент между 0 и c_{0,0}" },
+    note:"element between 0 and c_{0,0}" },
   /* n=2→3 */
   { step:2, ex:"\\exists x\\;(c_{1,1} < x)",
     wit:"c_{2,0}", psi:"c_{1,1} < c_{2,0}",
-    note:"ещё выше c_{1,1}" },
+    note:"further above c_{1,1}" },
   { step:2, ex:"\\exists x\\;(c_{0,0} < x \\wedge x < c_{1,0})",
     wit:"c_{2,1}", psi:"c_{0,0} < c_{2,1} \\wedge c_{2,1} < c_{1,0}",
-    note:"между c_{0,0} и c_{1,0}" },
+    note:"between c_{0,0} and c_{1,0}" },
 ];
 
 /* Lindenbaum steps */
 const LIND_STEPS = [
   { phi:"0 < c_{0,0}",
-    ind:true,  why:"аксиома Хенкина n=0: свидетель \\exists x(0<x)" },
+    ind:true,  why:"Henkin axiom n=0: witness for \\exists x(0<x)" },
   { phi:"c_{0,0} < c_{0,1}",
-    ind:true,  why:"аксиома Хенкина n=0" },
+    ind:true,  why:"Henkin axiom n=0" },
   { phi:"c_{0,0} < 0",
-    ind:false, why:"противоречит аксиоме минимальности: 0 = c_{0,0} \\vee 0 < c_{0,0}" },
+    ind:false, why:"contradicts the minimality axiom: 0 = c_{0,0} \\vee 0 < c_{0,0}" },
   { phi:"0 = c_{0,0}",
-    ind:false, why:"противоречит 0 < c_{0,0} \\in \\Delta \\;(антисимм.)" },
+    ind:false, why:"contradicts 0 < c_{0,0} \\in \\Delta \\;(antisymm.)" },
   { phi:"c_{0,1} < c_{0,0}",
-    ind:false, why:"противоречит c_{0,0} < c_{0,1} \\in \\Delta \\;(антисимм.)" },
+    ind:false, why:"contradicts c_{0,0} < c_{0,1} \\in \\Delta \\;(antisymm.)" },
   { phi:"0 < c_{0,1}",
-    ind:true,  why:"транзит.: 0 < c_{0,0} < c_{0,1}" },
+    ind:true,  why:"transit.: 0 < c_{0,0} < c_{0,1}" },
   { phi:"c_{0,0} < c_{1,0} \\wedge c_{1,0} < c_{0,1}",
-    ind:true,  why:"аксиома Хенкина n=1: свидетель между c_{0,0} и c_{0,1}" },
+    ind:true,  why:"Henkin axiom n=1: witness between c_{0,0} and c_{0,1}" },
   { phi:"c_{0,1} < c_{1,1}",
-    ind:true,  why:"аксиома Хенкина n=1: свидетель выше c_{0,1}" },
+    ind:true,  why:"Henkin axiom n=1: witness above c_{0,1}" },
   { phi:"0 < c_{1,2} \\wedge c_{1,2} < c_{0,0}",
-    ind:true,  why:"аксиома Хенкина n=1: свидетель между 0 и c_{0,0}" },
+    ind:true,  why:"Henkin axiom n=1: witness between 0 and c_{0,0}" },
   { phi:"c_{1,2} < c_{1,0}",
-    ind:true,  why:"транзит.: c_{1,2} < c_{0,0} < c_{1,0}" },
+    ind:true,  why:"transit.: c_{1,2} < c_{0,0} < c_{1,0}" },
   { phi:"c_{1,1} < c_{2,0}",
-    ind:true,  why:"аксиома Хенкина n=2: свидетель выше c_{1,1}" },
+    ind:true,  why:"Henkin axiom n=2: witness above c_{1,1}" },
   { phi:"c_{1,0} = c_{2,1}",
     ind:false, why:"c_{2,1} \\in (c_{0,0}, c_{1,0}) \\Rightarrow c_{2,1} \\neq c_{1,0}" },
   { phi:"0 = c_{1,2}",
-    ind:false, why:"противоречит 0 < c_{1,2} \\in \\Delta" },
+    ind:false, why:"contradicts 0 < c_{1,2} \\in \\Delta" },
 ];
 
 function modelElems(langN, lindK, finite) {
-  /* носитель — классы эквивалентности замкнутых термов */
+  /* carrier — equivalence classes of closed terms */
   if (finite) return ["[0]", "[c_{0,0}]"];
-  /* видимый порядок растёт с шагами */
+  /* the visible order grows with the steps */
   if (langN === 0 && lindK === 0) return ["[0]"];
   if (lindK < 2)  return ["[0]", "[c_{0,0}]"];
   if (lindK < 7)  return ["[0]", "[c_{0,0}]", "[c_{0,1}]"];
@@ -760,26 +760,26 @@ function render() {
 
   document.getElementById("lang-panel").innerHTML =
     `<div style="margin-bottom:8px">
-       <div class="model-row-label">предикаты и константа базового языка ${K("\\mathcal{L}_0")}</div>
+       <div class="model-row-label">predicates and constant of the base language ${K("\\mathcal{L}_0")}</div>
        <div class="tags">
          <span class="tag tag-base">${K("=")}</span>
          <span class="tag tag-base">${K("<")}</span>
          <span class="tag tag-ord">${K("0")}</span>
-         <span style="font-size:11px;color:var(--faint);align-self:center;margin-left:2px">минимальный элемент</span>
+         <span style="font-size:11px;color:var(--faint);align-self:center;margin-left:2px">minimal element</span>
        </div>
      </div>` +
     (hConsts.length
-      ? `<div><div class="model-row-label">константы Хенкина (уровни 0…${n-1})</div>
+      ? `<div><div class="model-row-label">Henkin constants (levels 0…${n-1})</div>
          <div class="tags">${hConsts.map(c =>
            `<span class="tag tag-henkin">${K(c)}</span>`).join("")}</div></div>`
-      : `<div style="margin-top:6px;font-size:12px;color:var(--faint)">константы Хенкина появятся при ${K("n \\ge 1")}</div>`);
+      : `<div style="margin-top:6px;font-size:12px;color:var(--faint)">Henkin constants will appear when ${K("n \\ge 1")}</div>`);
 
   /* Henkin axioms */
   const hAxs = HENKIN.filter(h => h.step < n);
   document.getElementById("henkin-panel").innerHTML = hAxs.length === 0
     ? `<div style="font-size:12px;color:var(--faint)">
-        В ${K("\\mathcal{L}_0")} уже есть замкнутый терм ${K("0")}, но аксиомы Хенкина
-        добавляются при ${K("n \\ge 1")}. Первая нетривиальная: свидетель для
+        In ${K("\\mathcal{L}_0")} there is already a closed term ${K("0")}, but the Henkin axioms
+        are added when ${K("n \\ge 1")}. The first nontrivial one: a witness for
         ${K("\\exists x\\,(0 < x)")}.
        </div>`
     : `<div class="axiom-list">${hAxs.map(h =>
@@ -794,7 +794,7 @@ function render() {
   /* Lindenbaum */
   const steps = LIND_STEPS.slice(0, k);
   document.getElementById("lind-panel").innerHTML = steps.length === 0
-    ? `<span class="empty-note">${K("\\Delta = \\Gamma^*")} — ни одной формулы ещё не рассмотрено</span>`
+    ? `<span class="empty-note">${K("\\Delta = \\Gamma^*")} — no formula has been considered yet</span>`
     : `<div class="lind-list">${steps.map((s, i) => {
         const cls = s.ind ? "in" : "out";
         const verdict = s.ind
@@ -818,13 +818,13 @@ function render() {
 
   if (fin) {
     modelHTML += `<div class="note-box" style="margin-bottom:10px">
-      Аксиома ограничения мощности вынуждает ${K("c_{0,0}")} быть единственным элементом выше ${K("0")}
-      — все прочие константы Хенкина отождествляются с ${K("0")} или ${K("c_{0,0}")} по ${K("\\sim")}.
+      The cardinality-restriction axiom forces ${K("c_{0,0}")} to be the only element above ${K("0")}
+      — all the other Henkin constants become identified with ${K("0")} or ${K("c_{0,0}")} under ${K("\\sim")}.
     </div>`;
   }
 
   modelHTML += `<div class="model-visual">`;
-  modelHTML += `<div><div class="model-row-label">носитель ${K("T/{\\sim}")} — элементы в порядке ${K("{<}^{\\mathfrak{M}}")}</div>`;
+  modelHTML += `<div><div class="model-row-label">carrier ${K("T/{\\sim}")} — elements in the order ${K("{<}^{\\mathfrak{M}}")}</div>`;
 
   modelHTML += `<div class="order-line">`;
   elems.forEach((e, i) => {
@@ -838,22 +838,22 @@ function render() {
   modelHTML += `</div></div>`;
 
   modelHTML += `<div>
-    <div class="model-row-label">интерпретация предиката</div>
+    <div class="model-row-label">interpretation of the predicate</div>
     <div class="pred-fact">
       ${K("P_{<}^{\\mathfrak{M}}([s],[t]) = \\top \\;\\iff\\; (s < t)\\in\\Delta")}
-      &nbsp;&mdash; значение задаётся <em>по определению</em> через принадлежность ${K("\\Delta")}
+      &nbsp;&mdash; the value is given <em>by definition</em>, via membership in ${K("\\Delta")}
     </div>
   </div>`;
 
   if (!fin && n >= 1) {
     modelHTML += `<div>
-      <div class="model-row-label">пример: значение предиката на константе Хенкина</div>
+      <div class="model-row-label">example: the value of the predicate on a Henkin constant</div>
       <div class="pred-fact">
         ${K("P_{<}^{\\mathfrak{M}}([0],[c_{0,0}])")} = ?
-        &nbsp;Лежит ли ${K("0 < c_{0,0}")} в ${K("\\Delta")}?
+        &nbsp;Does ${K("0 < c_{0,0}")} lie in ${K("\\Delta")}?
         ${k >= 1
-          ? `<strong style="color:var(--teal)">Да</strong> — шаг 1 Линденбаума.`
-          : `Пока ${K("k = 0")} — Линденбаум ещё не дошёл до этой формулы.`}
+          ? `<strong style="color:var(--teal)">Yes</strong> — Lindenbaum step 1.`
+          : `So far ${K("k = 0")} — Lindenbaum hasn't reached this formula yet.`}
       </div>
     </div>`;
   }

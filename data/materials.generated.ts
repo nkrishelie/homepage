@@ -106,6 +106,13 @@ export const MATERIALS_ITEMS: MaterialItem[] = [
     "lang": "ru"
   },
   {
+    "filename": "henkin_construction_en.html",
+    "href": "/Materials/henkin_construction_en.html",
+    "title": "The Henkin Construction — An Interactive Demonstration",
+    "category": "foundations",
+    "lang": "en"
+  },
+  {
     "filename": "henkin_construction.html",
     "href": "/Materials/henkin_construction.html",
     "title": "Конструкция Хенкина — интерактивная демонстрация",
