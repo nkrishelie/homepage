@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Levels of Formalization of Mathematical Analysis</title>
+<meta name="description" content="A comparison of three levels of formalization of analysis — first-order RCF, Weyl's predicative analysis, and ZFA/ZFC — by expressive power, axiomatics, and metatheoretic properties.">
+<link rel="canonical" href="https://mathem.at/Materials/math_analysis_levels_en.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Levels of Formalization of Mathematical Analysis">
+<meta property="og:description" content="A comparison of three levels of formalization of analysis — first-order RCF, Weyl's predicative analysis, and ZFA/ZFC — by expressive power, axiomatics, and metatheoretic properties.">
+<meta property="og:url" content="https://mathem.at/Materials/math_analysis_levels_en.html">
+<meta property="og:image" content="https://mathem.at/archetypes.png">
+<meta property="og:locale" content="en_US">
+<link rel="alternate" hreflang="ru" href="/Materials/math_analysis_levels.html">
+<link rel="alternate" hreflang="en" href="/Materials/math_analysis_levels_en.html">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPuKIqzwvdGV4dD48L3N2Zz4=" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<style>
+:root {
+  --bg:#faf9f6; --bg2:#f2f0eb; --ink:#1a1917; --ink2:#5a5750; --ink3:#8a8680; --border:#dcd9d2;
+  --green-bg:#edf4e8; --green-fg:#2d6a1f;
+  --red-bg:#faeae6;   --red-fg:#9b2f1a;
+  --amber-bg:#fdf3e0; --amber-fg:#7a4f0d;
+  --blue-bg:#e8eef7;  --blue-acc:#3a5f9e;
+  --rust-bg:#f0ebe8;  --rust-acc:#8c4a32;
+  --sage-bg:#e8f0eb;  --sage-acc:#2e6645;
+  --tip-bg:#1e1c19;   --tip-fg:#f0ede8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Georgia,serif;font-size:19px;line-height:1.65;min-height:100vh}
+.page{max-width:1280px;margin:0 auto;padding:3rem 2.5rem 5rem}
+
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.8rem}
+.crumbs{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink3)}
+.crumbs a{color:var(--ink3);text-decoration:none}
+.crumbs a:hover{color:var(--ink)}
+.lang-pills{display:flex;gap:8px}
+.lang-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border:1px solid var(--border);color:var(--ink2);transition:.15s}
+.lang-pill.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.lang-pill:not(.active):hover{border-color:var(--ink)}
+
+/* ── Header ── */
+header{margin-bottom:2.5rem;border-bottom:1.5px solid var(--ink);padding-bottom:1.5rem}
+.kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:.6rem}
+h1{font-size:clamp(24px,2.8vw,38px);font-weight:500;line-height:1.15;color:var(--ink);margin-bottom:.5rem}
+.desc{font-size:16px;color:var(--ink2);font-style:italic;max-width:720px}
+
+/* ── Tooltip (smart positioning: fixed, not clipped by tbl-wrap; JS: .tip-show) ── */
+.tip-wrap{display:inline-flex;align-items:center;gap:4px;position:relative;vertical-align:middle}
+.tip-btn{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:var(--ink3);color:var(--bg);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;cursor:pointer;flex-shrink:0;border:none;outline:none;transition:background .15s}
+.tip-btn:hover,.tip-btn:focus-visible{background:var(--ink)}
+.tip-box{
+  display:none;
+  position:fixed;
+  left:0;top:0;
+  z-index:400;
+  background:var(--tip-bg);color:var(--tip-fg);
+  border-radius:7px;padding:12px 38px 13px 16px;
+  width:min(420px,calc(100vw - 24px));
+  max-width:calc(100vw - 24px);
+  box-sizing:border-box;
+  font-family:'EB Garamond',Georgia,serif;font-size:14px;line-height:1.6;
+  box-shadow:0 8px 28px rgba(0,0,0,.32);
+  pointer-events:auto;
+  white-space:normal;word-break:break-word;
+}
+.tip-wrap.tip-show .tip-box{display:block}
+.tip-close{
+  position:absolute;top:5px;right:5px;
+  z-index:2;
+  width:28px;height:28px;padding:0;margin:0;
+  display:inline-flex;align-items:center;justify-content:center;
+  border:none;border-radius:4px;background:transparent;
+  color:#b0aba3;font-size:20px;line-height:1;font-weight:400;
+  font-family:system-ui,-apple-system,sans-serif;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.tip-close:hover,.tip-close:focus-visible{color:var(--tip-fg);background:rgba(255,255,255,.1);outline:none}
+.tip-box::after{
+  content:'';
+  position:absolute;
+  left:var(--tip-arrow-shift,50%);
+  transform:translateX(-50%);
+  border:7px solid transparent;
+}
+.tip-box:not(.tip-box--below)::after{
+  top:100%;
+  border-top-color:var(--tip-bg);
+}
+.tip-box.tip-box--below::after{
+  bottom:100%;
+  border-bottom-color:var(--tip-bg);
+}
+.tip-title{font-weight:500;font-size:13px;color:#e0ddd7;margin-bottom:6px;font-family:'JetBrains Mono',monospace;letter-spacing:.02em}
+/* KaTeX in tooltip — no horizontal scrollbar (narrow block) */
+.tip-math{margin:6px 0;max-width:100%;overflow-x:visible;line-height:1.45;min-width:0}
+.tip-math .katex{font-size:.86em;line-height:1.35;display:inline-block;max-width:100%}
+.tip-math .katex-html{max-width:100%;overflow-x:visible!important;white-space:normal}
+.tip-text{font-size:13px;color:#c8c4bc;line-height:1.55;margin-top:5px}
+.tip-text .km-inline{display:inline-block;vertical-align:baseline;margin:0 1px;max-width:100%}
+.tip-text .km-inline .katex{font-size:.92em}
+.tip-box .katex{color:var(--tip-fg)}
+
+/* ── Language cards ── */
+.lang-section-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:.8rem}
+.lang-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:0.5px solid var(--border);margin-bottom:0}
+.lang-card{background:var(--bg);padding:1.3rem 1.4rem 1.3rem;display:flex;flex-direction:column;gap:.6rem}
+.lang-card.blue{background:var(--blue-bg)} .lang-card.rust{background:var(--rust-bg)} .lang-card.sage{background:var(--sage-bg)}
+.lang-card-top{display:flex;flex-direction:column;gap:2px;padding-bottom:.6rem;border-bottom:1px solid rgba(0,0,0,.08)}
+.lang-card-num{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+.blue .lang-card-num{color:var(--blue-acc)} .rust .lang-card-num{color:var(--rust-acc)} .sage .lang-card-num{color:var(--sage-acc)}
+.lang-card-name{font-size:16px;font-weight:500;color:var(--ink);line-height:1.25}
+.lang-card-sub{font-size:13px;color:var(--ink3);font-style:italic}
+.lang-card-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:2px;width:fit-content}
+.blue .lang-card-tag{background:rgba(58,95,158,.12);color:var(--blue-acc)}
+.rust .lang-card-tag{background:rgba(140,74,50,.12);color:var(--rust-acc)}
+.sage .lang-card-tag{background:rgba(46,102,69,.12);color:var(--sage-acc)}
+.lang-card-body{font-size:14.5px;color:var(--ink2);line-height:1.62}
+
+/* ── Axiom toggle buttons (inside cards, bottom) ── */
+.axioms-btn{
+  margin-top:4px;display:inline-flex;align-items:center;gap:5px;cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink3);border:0.5px solid var(--border);background:rgba(0,0,0,.03);
+  padding:4px 10px;border-radius:3px;transition:color .15s,background .15s;
+}
+.axioms-btn:hover{color:var(--ink2);background:rgba(0,0,0,.06)}
+.axioms-btn .arr{display:inline-block;transition:transform .2s;font-size:10px}
+.axioms-btn.active .arr{transform:rotate(90deg)}
+
+/* ── Axiom panel (single, below cards) ── */
+.axioms-panel{
+  display:none;
+  border:0.5px solid var(--border);border-top:none;
+  background:var(--bg);
+  padding:1.2rem 1.5rem 1.4rem;
+  margin-bottom:2rem;
+}
+.axioms-panel.open{display:block}
+.ax-panel-title{
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink3);margin-bottom:.9rem;
+}
+.ax-panel-title span{color:var(--ink2);font-weight:500}
+.ax-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:.9rem 2rem}
+.ax-item{margin-bottom:.5rem}
+.ax-label{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);display:block;margin-bottom:3px}
+.ax-text{font-size:14px;color:var(--ink2);line-height:1.6}
+.ax-math{margin-top:4px;font-size:13px;line-height:1.45;overflow-x:visible}
+.ax-math .katex{font-size:0.95em}
+.ax-math .katex-display{margin:4px 0!important;text-align:left}
+.ax-list{margin:6px 0 0;font-size:13px;color:var(--ink2);line-height:1.55;padding-left:1.35rem;list-style-type:disc;list-style-position:outside}
+.ax-list li{margin:5px 0;padding-left:.15em;display:list-item;list-style-position:outside;list-style-type:disc}
+.ax-list li::marker{color:var(--ink3)}
+.ax-list .ax-li-katex{display:inline-block;margin-right:3px;vertical-align:baseline}
+.ax-note{font-size:13px;color:var(--ink3);margin-top:3px}
+
+/* ── Table ── */
+.tbl-wrap{overflow-x:auto;overflow-y:visible;margin-bottom:1.5rem}
+table{width:100%;border-collapse:collapse;min-width:700px;border:0.5px solid var(--border);border-top:2px solid var(--ink)}
+col.c-prop{width:32%} col.c-lvl{width:22.66%}
+thead th{padding:10px 14px;vertical-align:bottom;border-bottom:1.5px solid var(--ink);border-right:0.5px solid var(--border);font-size:13px;font-weight:500;font-family:'EB Garamond',Georgia,serif;line-height:1.35}
+thead th:last-child{border-right:none}
+thead th.h-prop{font-size:12px;color:var(--ink3);font-style:italic;font-weight:400}
+thead th.h-1{background:var(--blue-bg)} thead th.h-2{background:var(--rust-bg)} thead th.h-3{background:var(--sage-bg)}
+.th-num{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:2px}
+.th-1 .th-num{color:var(--blue-acc)} .th-2 .th-num{color:var(--rust-acc)} .th-3 .th-num{color:var(--sage-acc)}
+.th-name{font-size:14px;font-weight:500;display:block}
+.th-sub{font-size:12px;font-style:italic;color:var(--ink3);display:block;margin-top:1px}
+tbody tr{border-bottom:0.5px solid var(--border)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover td{background:rgba(0,0,0,.02)}
+tbody td{padding:10px 14px;vertical-align:middle;border-right:0.5px solid var(--border)}
+tbody td:last-child{border-right:none}
+.prop-col{font-size:15px;color:var(--ink);line-height:1.45}
+.val-col{text-align:center}
+tr.section td{background:var(--bg2);font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);padding:5px 14px;border-bottom:0.5px solid var(--border);border-right:none}
+.sec-century{font-style:italic;text-transform:none;letter-spacing:0;opacity:.8}
+td.c1{background:rgba(44,74,124,.025)} td.c2{background:rgba(140,80,50,.025)} td.c3{background:rgba(30,100,50,.025)}
+tbody tr:hover td.c1{background:rgba(44,74,124,.045)} tbody tr:hover td.c2{background:rgba(140,80,50,.045)} tbody tr:hover td.c3{background:rgba(30,100,50,.045)}
+
+/* ── Badges ── */
+.badge{display:inline-flex;flex-direction:column;align-items:center;gap:2px}
+.badge-main{display:inline-flex;align-items:center;gap:4px;padding:3px 11px;border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;white-space:nowrap}
+.badge-note{font-size:11px;color:var(--ink3);font-style:italic;text-align:center;max-width:150px;line-height:1.3}
+.badge-bold .badge-main{outline:1.5px solid currentColor;outline-offset:1px}
+.yes   .badge-main{background:var(--green-bg);color:var(--green-fg)}
+.no    .badge-main{background:var(--red-bg);color:var(--red-fg)}
+.part  .badge-main{background:var(--amber-bg);color:var(--amber-fg)}
+.yesac .badge-main{background:var(--green-bg);color:var(--green-fg)}
+.text  .badge-main{background:var(--bg2);color:var(--ink2);font-style:italic;font-size:12px;white-space:normal;text-align:center;line-height:1.3}
+.sys{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;padding:1px 7px;border-radius:2px;background:rgba(140,74,50,.1);color:var(--rust-acc);white-space:nowrap;margin-top:2px}
+
+/* ── Legend ── */
+.legend{display:flex;gap:1.5rem;flex-wrap:wrap;margin-bottom:2rem}
+.tbl-hints{font-size:13px;color:var(--ink3);margin:-0.35rem 0 1.15rem;line-height:1.58}
+.tbl-hints p{margin:0 0 .75rem}
+.tbl-hints p:last-child{margin-bottom:0}
+
+.page-copy{margin-top:2.75rem;padding-top:1.1rem;border-top:0.5px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.04em;color:var(--ink3);text-align:center;line-height:1.5}
+.page-copy a{color:var(--ink3);text-decoration:none;border-bottom:1px solid rgba(138,134,128,.35)}
+.page-copy a:hover{color:var(--ink2);border-bottom-color:var(--ink2)}
+
+.leg-item{display:flex;align-items:center;gap:7px;font-size:14px;color:var(--ink2)}
+.leg-dot{width:11px;height:11px;border-radius:2px;flex-shrink:0}
+.leg-box{width:11px;height:11px;border-radius:2px;border:1.5px solid var(--green-fg);background:var(--green-bg);flex-shrink:0}
+.leg-sys{font-family:'JetBrains Mono',monospace;font-size:10.5px;padding:1px 7px;border-radius:2px;background:rgba(140,74,50,.1);color:var(--rust-acc)}
+
+.katex{font-size:1em}
+
+/* ── Mobile ── */
+@media(max-width:700px){
+  body{font-size:16px}
+  .page{padding:1.5rem 1rem 3rem}
+  .lang-cards{grid-template-columns:1fr}
+  table{min-width:500px}
+  col.c-prop{width:30%} col.c-lvl{width:23.33%}
+  .tip-box{padding:11px 36px 12px 14px}
+  .ax-grid{grid-template-columns:1fr}
+}
+</style>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js', 'ym');
+    ym(94010841, 'init', {webvisor:true, clickmap:true, referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<!-- /Yandex.Metrika counter -->
+</head>
+<body>
+<div class="page">
+
+<div class="topbar">
+  <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> / <a href="/#materials">Materials</a></div>
+  <div class="lang-pills">
+    <a class="lang-pill active" href="/Materials/math_analysis_levels_en.html">🇬🇧 EN</a>
+    <a class="lang-pill" href="/Materials/math_analysis_levels.html">🇷🇺 RU</a>
+  </div>
+</div>
+
+<header>
+  <p class="kicker">Mathematical Analysis · Model Theory · Reverse Mathematics</p>
+  <h1>Levels of Formalization of Mathematical Analysis</h1>
+  <p class="desc">Comparing expressive power and metatheoretic properties: <span id="hd-rcf"></span>, Weyl's predicative analysis, and <span id="hd-zfa"></span></p>
+</header>
+
+<p class="lang-section-label">Language and Ontology</p>
+<div class="lang-cards">
+
+  <!-- ── Level I ── -->
+  <div class="lang-card blue">
+    <div class="lang-card-top">
+      <span class="lang-card-num">Level I</span>
+      <span class="lang-card-name">RCF</span>
+      <span class="lang-card-sub">1st order over <span id="lc1-R"></span></span>
+    </div>
+    <span class="lang-card-tag">First-order language</span>
+    <p class="lang-card-body">
+      Variables range only over elements of <span id="lc1-R2"></span>; signature: <span id="lc1-sig"></span>.
+      There is no symbol <span id="lc1-in"></span> between numbers — the inner structure of numbers is syntactically inexpressible.
+      Functions are limited to polynomials. Quantification over subsets and sequences is impossible;
+      limits, continuity, and integrals cannot be expressed in general (only for polynomials).
+      By Tarski's theorem the theory is complete and decidable; by the Löwenheim–Skolem theorem it has models of every infinite cardinality.
+    </p>
+    <button class="axioms-btn" data-level="1" onclick="showAxioms(this)"><span class="arr">▶</span> Axioms</button>
+  </div>
+
+  <!-- ── Level II ── -->
+  <div class="lang-card rust">
+    <div class="lang-card-top">
+      <span class="lang-card-num">Level II</span>
+      <span class="lang-card-name">Predicative Analysis (Weyl)</span>
+      <span class="lang-card-sub">2nd order over <span id="lc2-R"></span>, strength <span id="lc2-geq"></span></span>
+    </div>
+    <span class="lang-card-tag">Two-sorted language</span>
+    <p class="lang-card-body">
+      Two sorts: numbers (type 0: <span id="lc2-xy"></span>) and sets of numbers (type 1: <span id="lc2-XY"></span>).
+      The comprehension scheme applies only to <em>arithmetical</em> formulas (without the quantifiers <span id="lc2-quant"></span>).
+      <span id="lc2-N"></span> is introduced axiomatically as the least inductive set.
+      Separable spaces (<span id="lc2-Cab"></span>, <span id="lc2-Lp"></span>, <span id="lc2-pinf"></span>)
+      are coded via subsets of <span id="lc2-RR"></span>.
+      Non-separable spaces (<span id="lc2-Linf"></span>) and arbitrary functionals require a third sort.
+      The theory is "syntactic sugar" over <span id="lc2-Z2"></span>
+      (a conservative extension).
+      As a recursively axiomatized two-sorted theory, it fits the standard Henkin&nbsp;semantics (completeness), without requiring uniqueness of the model (see the "Uniqueness of the model" row in the table).
+    </p>
+    <button class="axioms-btn" data-level="2" onclick="showAxioms(this)"><span class="arr">▶</span> Axioms</button>
+  </div>
+
+  <!-- ── Level III ── -->
+  <div class="lang-card sage">
+    <div class="lang-card-top">
+      <span class="lang-card-num">Level III</span>
+      <span class="lang-card-name">ZFA / ZFC</span>
+      <span class="lang-card-sub">atoms <span id="lc3-R"></span> + axioms of choice</span>
+    </div>
+    <span class="lang-card-tag">∈-language of set theory</span>
+    <p class="lang-card-body">
+      We work inside <span id="lc3-ZF-in"></span>, but the whole language is reduced to the cumulative hierarchy
+      <span id="lc3-VofR"></span>, started from <span id="lc3-R-start"></span>
+      (following the same scheme by which <span id="lc3-empty"></span> generates the von Neumann universe).
+      At the base level of the hierarchy, the elements of <span id="lc3-R-lev"></span> are treated as effective atoms whose properties are exhausted by the <em>complete</em> theory of the model
+      <span id="lc3-R-mod"></span> in the signature of an ordered field
+      <span id="lc3-RCFsig"></span> (unlike level&nbsp;II, where the language is only recursively axiomatized — see "Uniqueness of the model" in the table).
+      This excludes the inner <span id="lc3-inin"></span>-structure of the numbers themselves from consideration.
+      Above the base, however, all the constructions of <span id="lc3-ZF-sys"></span> are available: ordinals, cardinals, transfinite induction, and function spaces.
+      Forms of choice are added as needed: countable choice (<span id="lc3-acw"></span>), dependent choice (<span id="lc3-DC"></span>), or full <span id="lc3-AC"></span>.
+    </p>
+    <button class="axioms-btn" data-level="3" onclick="showAxioms(this)"><span class="arr">▶</span> Axioms</button>
+  </div>
+
+</div><!-- /.lang-cards -->
+
+<!-- ── Single axiom panel (shown below cards) ── -->
+<div class="axioms-panel" id="axioms-panel">
+  <div class="ax-panel-title">Axioms · <span id="ax-panel-lvl-label"></span></div>
+  <div class="ax-grid" id="ax-panel-content"></div>
+</div>
+
+<!-- ── Table ── -->
+<div class="tbl-wrap">
+<table>
+<colgroup><col class="c-prop"><col class="c-lvl"><col class="c-lvl"><col class="c-lvl"></colgroup>
+<thead>
+  <tr>
+    <th class="h-prop">Property / Landmark Theorems</th>
+    <th class="h-1 th-1">
+      <span class="th-num">Level I</span>
+      <span class="th-name">RCF</span>
+      <span class="th-sub">1st order over <span id="th1-R"></span></span>
+    </th>
+    <th class="h-2 th-2">
+      <span class="th-num">Level II</span>
+      <span class="th-name">Weyl <span id="th2-geq"></span></span>
+      <span class="th-sub">predicative 2nd order over <span id="th2-R"></span></span>
+    </th>
+    <th class="h-3 th-3">
+      <span class="th-num">Level III</span>
+      <span class="th-name"><span id="th3-ZFA"></span></span>
+      <span class="th-sub">atoms <span id="th3-R"></span> + forms of choice</span>
+    </th>
+  </tr>
+</thead>
+<tbody id="tbody"></tbody>
+</table>
+</div>
+
+<div class="legend">
+  <div class="leg-item"><div class="leg-dot" style="background:var(--green-bg);border:1px solid var(--green-fg)"></div> Expressible / applicable</div>
+  <div class="leg-item"><div class="leg-dot" style="background:var(--red-bg);border:1px solid var(--red-fg)"></div> Not definable at this level</div>
+  <div class="leg-item"><div class="leg-dot" style="background:var(--amber-bg);border:1px solid var(--amber-fg)"></div> Partially expressible (via coding)</div>
+  <div class="leg-item"><div class="leg-box"></div> A key achievement of the level</div>
+  <div class="leg-item"><span class="leg-sys">WKL₀</span> Exact strength on the reverse-mathematics scale</div>
+</div>
+
+<div class="tbl-hints">
+  <p>
+    In the first column, the mark <b>not definable</b> is synonymous with "not expressible in the language": after the dot comes the typical reason —
+    <b>no 2nd order</b> (subsets of&nbsp;ℝ, sequences, arbitrary covers, and&nbsp;so&nbsp;on);
+    <b>no&nbsp;ℕ</b>;
+    <b>codes and&nbsp;σ-algebra</b> — here <i>σ-algebra</i> refers to the need for a family of subsets of ℝ closed under countable operations (complement, countable union): this is how measurable sets and Lebesgue measure are defined; language I has no variable for arbitrary such families, nor for the measure itself as a function on them.
+  </p>
+  <p>
+    By <i>codes</i> we mean representing the objects of analysis (numbers, functions on an interval, classes of functions, elements of L<sup>p</sup>) by sequences of natural numbers or other objects of second-order arithmetic, subject to predicativity restrictions; without this, even stating the theorems about measure and Banach spaces in the form given in the table would be unavailable.
+  </p>
+  <p>
+    Separately for the axiomatics: <b>no set objects</b>, <b>ℕ is not singled out</b>.
+  </p>
+  <p>
+    The row <b>Uniqueness of the model</b>: at level&nbsp;I — the Löwenheim–Skolem theorem for a countable first-order signature;
+    at level&nbsp;II the formalization is two-sorted and recursively axiomatized, so <b>Henkin semantics</b> comes into play (completeness for such a language), and pairwise non-isomorphic models are possible;
+    at level&nbsp;III, ZF is supplemented with the <b>complete elementary theory</b> of the model&nbsp;ℝ on the atoms, and the intended structure is fixed <b>up to isomorphism</b>.
+  </p>
+</div>
+
+<p class="page-copy">© Nikolai Kazimirov · <a href="https://mathem.at" rel="noopener">mathem.at</a></p>
+
+</div><!-- /.page -->
+
+<script>
+// ══ KaTeX helpers ══════════════════════════════════════════════════════════
+function ki(el,src){if(!el)return;try{katex.render(src,el,{throwOnError:false,displayMode:false})}catch(e){el.textContent=src}}
+function kd(el,src){if(!el)return;try{katex.render(src,el,{throwOnError:false,displayMode:true})}catch(e){el.textContent=src}}
+
+// Shared signature of the ordered field ℝ (first-order formulas)
+const RCF_SIG = '\\langle 0,1,{+},{\\cdot},{=},{\\leqslant}\\rangle';
+
+/** "Ordered field" block: single source for the axioms of levels I and II */
+const RCF_ORDERED_FIELD_MIX = [
+  [{ html: 'Carrier — ' }, { math: '\\mathbb{R}' }, { html: ', signature ' }, { math: RCF_SIG }, { html: '.' }],
+  [{ html: '(' }, { math: '\\mathbb{R}' }, { html: ',&nbsp;+) and (' }, { math: '\\mathbb{R}\\setminus\\{0\\}' }, { html: ',&nbsp;·) are abelian groups.' }],
+  [{ html: 'Distributivity; ' }, { math: '0\\neq 1' }, { html: '.' }],
+  [{ math: '\\leqslant' }, { html: ' defines a linear order compatible with the operations.' }],
+];
+
+// ══ All inline KaTeX spots ════════════════════════════════════════════════
+const INLINE = {
+  'hd-rcf':'\\mathsf{RCF}','hd-zfa':'\\mathsf{ZFA/ZFC}',
+  'lc1-R':'\\mathbb{R}','lc1-R2':'\\mathbb{R}','lc1-sig':RCF_SIG,'lc1-in':'\\in',
+  'lc2-R':'\\mathbb{R}','lc2-geq':'{\\ge\\,\\mathsf{Z}_2}',
+  'lc2-xy':'x,y,\\ldots','lc2-XY':'X,Y,\\ldots','lc2-quant':'\\exists X,\\,\\forall X',
+  'lc2-N':'\\mathbb{N}','lc2-Cab':'C[a,b]','lc2-Lp':'L^p','lc2-pinf':'p<\\infty',
+  'lc2-RR':'\\mathbb{R}\\times\\mathbb{R}','lc2-Linf':'L^\\infty','lc2-Z2':'\\mathsf{Z}_2',
+  'lc3-R':'\\mathbb{R}',
+  'lc3-ZF-in':'\\mathsf{ZF}','lc3-ZF-sys':'\\mathsf{ZF}',
+  'lc3-VofR':'V(\\mathbb{R})',
+  'lc3-R-start':'\\mathbb{R}','lc3-R-lev':'\\mathbb{R}','lc3-R-mod':'\\mathbb{R}',
+  'lc3-RCFsig':RCF_SIG,
+  'lc3-inin':'\\in',
+  'lc3-empty':'\\emptyset',
+  'lc3-acw':'\\mathsf{AC}_\\omega','lc3-DC':'\\mathsf{DC}','lc3-AC':'\\mathsf{AC}',
+  'th1-R':'\\mathbb{R}',
+  'th2-geq':'{\\ge\\,\\mathsf{Z}_2}','th2-R':'\\mathbb{R}',
+  'th3-ZFA':'\\mathsf{ZFA/ZFC}','th3-R':'\\mathbb{R}',
+};
+
+// ══ Axiom panel data ══════════════════════════════════════════════════════
+const AXIOMS = {
+  1: {
+    label: 'Level I — RCF',
+    items: [
+      { label: 'Ordered field',
+        mixBullets: RCF_ORDERED_FIELD_MIX,
+        note: '' },
+      { label: 'Scheme: roots of odd-degree polynomials',
+        mixBullets: [
+          [{ math: '\\displaystyle\\forall a_0,\\ldots,a_n\\;\\bigl(a_n\\neq0\\Rightarrow\\exists x:\\textstyle\\sum\\limits_{k=0}^n a_k x^k=0\\bigr)' }],
+          [{ html: 'An axiom scheme — one axiom for each odd&nbsp;n.' }],
+        ],
+        note: '' },
+      { label: 'Existence of square roots',
+        mixBullets: [
+          [{ math: '\\displaystyle\\forall a\\geqslant0:\\;\\exists x,\\,x^2=a)' }],
+        ],
+        note: '' },
+    ]
+  },
+  2: {
+    label: 'Level II — Weyl\u2019s predicative analysis',
+    items: [
+      { label: 'Ordered field',
+        mixBullets: RCF_ORDERED_FIELD_MIX,
+        note: '' },
+      { label: 'Extensionality',
+        mixBullets: [
+          [{ math: '\\displaystyle\\forall X\\,\\forall Y\\;\\bigl(\\forall z\\;(z\\in X\\leftrightarrow z\\in Y)\\to X=Y\\bigr)' }],
+        ],
+        note: '' },
+      { label: 'Comprehension scheme (arithmetical formulas)',
+        mixBullets: [
+          [{ math: '\\displaystyle\\exists X\\,\\forall x\\;\\bigl(x\\in X\\leftrightarrow\\varphi(x,\\vec{A})\\bigr)\\quad(\\varphi\\text{ — arithmetical})' }],
+          [
+            { html: 'where the formula ' },
+            { math: '\\varphi' },
+            { html: ' contains no quantifiers ' },
+            { math: '\\exists X,\\,\\forall X' },
+            { html: ' over sets of numbers.' },
+          ],
+        ],
+        note: '' },
+      { label: 'Axiom of the natural numbers',
+        mixBullets: [
+          [{ math: '\\displaystyle\\mathrm{Ind}(\\mathbb{N})\\land\\forall X\\;\\bigl(\\mathrm{Ind}(X)\\to\\mathbb{N}\\subseteq X\\bigr)' }],
+          [
+            { html: 'where ' },
+            { math: '\\mathrm{Ind}(X)\\iff (0\\in X)\\land\\forall x\\,\\bigl(x\\in X\\Rightarrow x+1\\in X\\bigr)' },
+          ],
+        ],
+        note: '' },
+      { label: 'Continuity axiom (supremum)',
+        mixBullets: [
+          [{ math: '\\displaystyle\\forall X\\;\\Bigl(X\\neq\\emptyset\\land\\exists u\\;X\\leqslant u\\Bigr)\\to\\exists\\,\\sup X' }],
+        ],
+        note: '' },
+    ]
+  },
+  3: {
+    label: 'Level III — ZFA / ZFC',
+    items: [
+      { label: 'Axioms of ZF (for sets)',
+        mixBullets: [
+          [{ math: '\\mathsf{Ext}' }, { html: ' — Extensionality' }],
+          [{ math: '\\mathsf{Pair}' }, { html: ' — Pairing' }],
+          [{ math: '\\mathsf{Union}' }, { html: ' — Union' }],
+          [{ math: '\\mathsf{Pow}' }, { html: ' — Power Set' }],
+          [{ math: '\\mathsf{Inf}' }, { html: ' — Infinity' }],
+          [{ math: '\\mathsf{Repl}' }, { html: ' — Replacement' }],
+          [{ math: '\\mathsf{Found}' }, { html: ' — Foundation' }],
+        ],
+        note: 'The reals ℝ are urelements; the symbol&nbsp;∈ is not used between real numbers themselves in this language (encapsulation).' },
+      { label: 'ℝ as atoms',
+        mixBullets: [
+          [
+            { html: 'The complete elementary theory of the structure ' },
+            { math: '\\mathbb{R}' },
+            { html: ' in the signature ' },
+            { math: RCF_SIG },
+            { html: ' (all first-order formulas).' },
+          ],
+          [
+            { html: 'Remark: the structure ' },
+            { math: '\\mathbb{R}' },
+            { html: ' itself, with this signature, is built the classical way:' },
+          ],
+          [
+            { math: '\\mathbb{N}' },
+            { html: ' — the ordinal ' },
+            { math: '\\omega' },
+            { html: ' with its arithmetic and order;' },
+          ],
+          [
+            { math: '\\mathbb{Z}' },
+            { html: ' — equivalence classes of differences of natural numbers; the operations and order lift to these classes;' },
+          ],
+          [
+            { math: '\\mathbb{Q}' },
+            { html: ' — the field of fractions of the ring ' },
+            { math: '\\mathbb{Z}' },
+            { html: ';' },
+          ],
+          [
+            { math: '\\mathbb{R}' },
+            { html: ' — any classical completion (Cauchy sequences, Dedekind cuts, etc.).' },
+          ],
+        ],
+        note: '' },
+      { label: 'Axioms of choice and related principles',
+        mixBullets: [
+          [{ math: '\\mathsf{AC}' }, { html: ' — the axiom of choice: unrestricted choice' }],
+          [{ math: '\\mathsf{AC}_\\omega' }, { html: ' — the axiom of countable choice: choice over countable families' }],
+          [{ math: '\\mathsf{AC}_\\omega(\\mathbb{R})' }, { html: ' — countable choice "for analysis": choice over countable families of nonempty subsets of the real line; many textbooks note it as sufficient, for example, for the key steps in <strong>constructing Lebesgue measure</strong> on the line without the full axiom of choice' }],
+          [{ math: '\\mathsf{DC}' }, { html: ' — the axiom of dependent choice' }],
+          [{ math: '\\mathsf{AD}' }, { html: ' — the axiom of determinacy (for classical games of length&nbsp;ω on the natural numbers)' }],
+        ]
+      },
+    ]
+  }
+};
+
+// current open level (null = closed)
+let openLevel = null;
+
+/** Bullet list ("itemize"-style): each item is an array of segments { math?, html? } (text outside KaTeX). */
+function axMixLi(segments) {
+  if (!segments || !segments.length) return '';
+  return segments.map(seg => {
+    if (seg.math != null && String(seg.math).trim() !== '') {
+      const mq = String(seg.math).replace(/"/g, '&quot;');
+      return `<span class="ax-li-katex" data-math="${mq}"></span>`;
+    }
+    if (seg.html != null) return seg.html;
+    return '';
+  }).join('');
+}
+
+function showAxioms(btn) {
+  const level = parseInt(btn.dataset.level);
+  const panel = document.getElementById('axioms-panel');
+  // deactivate all buttons
+  document.querySelectorAll('.axioms-btn').forEach(b => b.classList.remove('active'));
+
+  if (openLevel === level) {
+    // toggle off
+    panel.classList.remove('open');
+    openLevel = null;
+    return;
+  }
+  openLevel = level;
+  btn.classList.add('active');
+
+  // fill panel
+  const data = AXIOMS[level];
+  document.getElementById('ax-panel-lvl-label').textContent = data.label;
+  const grid = document.getElementById('ax-panel-content');
+  grid.innerHTML = '';
+  data.items.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'ax-item';
+    let html = `<span class="ax-label">${item.label}</span>`;
+    if (item.mixBullets && item.mixBullets.length) {
+      html += '<ul class="ax-list">' + item.mixBullets.map(segments =>
+        `<li>${axMixLi(segments)}</li>`
+      ).join('') + '</ul>';
+    }
+    if (item.note) html += `<div class="ax-note">${item.note}</div>`;
+    if (item.math) html += `<div class="ax-math" data-math="${item.math.replace(/"/g,'&quot;')}"></div>`;
+    div.innerHTML = html;
+    grid.appendChild(div);
+  });
+  panel.classList.add('open');
+
+  // render KaTeX in panel
+  if (typeof katex !== 'undefined') {
+    grid.querySelectorAll('.ax-math[data-math]').forEach(el => {
+      kd(el, el.dataset.math);
+      el.removeAttribute('data-math');
+    });
+    grid.querySelectorAll('.ax-li-katex[data-math]').forEach(el => {
+      ki(el, el.dataset.math);
+      el.removeAttribute('data-math');
+    });
+  }
+}
+
+// ══ Tooltips ═════════════════════════════════════════════════════════════════
+const TIPS = {
+  'bolzano-cauchy':{title:'Bolzano–Cauchy theorem',
+    math:'f\\in C[a,b],\\;f(a)\\cdot f(b)<0\\implies\\exists\\,c\\in(a,b):\\;f(c)=0',
+    text:'If \\(f\\) is continuous on \\([a,b]\\) and \\(f(a)f(b)<0\\), then \\(\\exists\\,c\\in(a,b)\\): \\(f(c)=0\\). At level II one often sets \\(c=\\sup\\{x\\in[a,b]\\mid f(x)<0\\}\\) after coding the interval and continuity. "Over \\(\\mathsf{RCA}_0\\)" means the base theory of reverse mathematics, not that the theorem follows from the axioms of \\(\\mathsf{RCA}_0\\) alone: for coded continuous functions, the classical statement over \\(\\mathsf{RCA}_0\\) is equivalent to \\(\\mathsf{WKL}_0\\); for polynomials, \\(\\mathsf{RCA}_0\\) already suffices.'},
+  'archimedean-r':{title:'The Archimedean property of ℝ',
+    math:'\\forall x\\in\\mathbb{R}\\ \\exists n\\in\\mathbb{N}\\ (|x|<n)',
+    text:'For every real number there is a natural number greater than \\(|x|\\); a field with no elements infinitely large relative to \\(\\mathbb{N}\\). At level I, the entry in the table column is <b>not definable</b> for the same reason as the other red cells: the first-order language of a real closed field does not single out a subset \\(\\mathbb{N}\\subset\\mathbb{R}\\), so the quantifier \\(\\exists n\\in\\mathbb{N}\\) is unavailable in its usual form. For the standard coding of \\(\\mathbb{R}\\) in second-order arithmetic, the theorem is already provable in \\(\\mathsf{RCA}_0\\).'},
+  'heine-borel':{title:'The Heine–Borel lemma',
+    math:'[a,b]\\subseteq\\bigcup_{\\alpha} U_\\alpha\\implies\\exists\\ \\text{a finite subcover}',
+    text:'An open cover of a bounded closed interval has a finite subcover. Over \\( \\mathsf{RCA}_0 \\): equivalent to \\( \\mathsf{WKL}_0 \\). At level II it is natural to rely on the countable base of the topology of \\( \\mathbb{R} \\) — intervals with rational endpoints: an arbitrary open cover of the interval can be replaced by an equivalent cover by basic intervals, and this is how covers (and the statement of the lemma) are coded in the second-order language.'},
+  'weierstrass-extreme':{title:'Weierstrass\u2019s extreme value theorem',
+    math:'f\\in C[a,b]\\implies \\exists\\,s,t\\in[a,b]:\\ f(t)=\\max f,\\ f(s)=\\min f',
+    text:'A function continuous on \\([a,b]\\) is bounded and attains its maximum and minimum. Related to \\( \\mathsf{WKL}_0 \\), as is the classical compactness of \\( [a,b] \\) and related statements.'},
+  'brouwer-fixed':{title:'Brouwer\u2019s fixed-point theorem',
+    math:'f:[0,1]^n\\to[0,1]^n,\\;f\\in C\\implies\\exists\\,x:\\;f(x)=x',
+    text:'Every continuous self-map of the n-dimensional "cube" \\([0,1]^n\\) has a fixed point.'},
+  'cantor-uniform':{title:'Cantor\u2019s theorem on uniform continuity',
+    math:'f\\colon X\\to Y,\\quad X\\ \\text{compact}\\implies f\\ \\text{unif. cont.}',
+    text:'A continuous map from a compact metric space into a metric space is uniformly continuous.'},
+  'bolzano-weierstrass-bw':{title:'The Bolzano–Weierstrass theorem',
+    math:'\\{x_n\\}\\subset\\mathbb{R}\\ \\text{bdd.}\\implies\\exists\\ \\{x_{n_k}\\},\\ \\lim\\limits_{k}x_{n_k}\\in\\mathbb{R}',
+    text:'Every bounded real sequence contains a convergent subsequence. Over \\( \\mathsf{RCA}_0 \\), equivalent to \\( \\mathsf{ACA}_0 \\).'},
+  'cauchy-criterion-seq':{title:'The Cauchy criterion in ℝ',
+    math:'(\\{x_n\\}\\subset\\mathbb{R})\\ \\text{conv.}\\iff \\forall \\varepsilon>0\\ \\exists N\\ \\forall m,n\\ge N:\\ |x_n-x_m|<\\varepsilon',
+    text:'Convergence in \\( \\mathbb{R} \\) is equivalent to the sequence being Cauchy (fundamental). Over \\( \\mathsf{RCA}_0 \\), this criterion is equivalent to the Bolzano–Weierstrass principle and to \\( \\mathsf{ACA}_0 \\).'},
+  'lebesgue-measure':{title:'Lebesgue measure on ℝ',
+    math:'\\mu:\\mathcal{B}(\\mathbb{R})\\to[0,+\\infty]',
+    text:'The standard \\( \\sigma \\)-additive extension of interval length to the Borel \\( \\sigma \\)-algebra. At level II it is given by arithmetical codes; the full version is tied to \\( \\mathrm{ZF} \\).'},
+  'lebesgue-integral':{title:'The Lebesgue integral',
+    math:'\\int_E f\\,d\\mu,\\quad f\\ \\text{ measurable w.r.t. }\\ \\mu',
+    text:'The Lebesgue integral of a measurable function with respect to a \\( \\sigma \\)-additive measure; it generalizes the Riemann integral to a much wider class of functions.'},
+  'space-cab':{title:'The Banach space C[a,b]',
+    math:'C[a,b]=\\{\\,f:[a,b]\\to\\mathbb{R}\\mid f\\ \\text{ cont.}\\}',
+    text:'Functions confined to \\([a,b]\\), with norm \\( \\|\\cdot\\|_{\\infty} \\); complete and separable. At level II it is given via the density of \\( \\mathbb{Q}\\cap[a,b] \\).'},
+  'space-lp':{title:'The Lebesgue spaces Lᵖ, p < ∞',
+    math:'L^p=\\{\\,f:\\int|f|^p\\,d\\mu<\\infty\\}',
+    text:'Normed spaces with respect to a \\( \\sigma \\)-finite measure; the separable spaces \\( L^p(\\mathbb{R}) \\) are described at level II; the metric is given by \\( \\|\\cdot\\|_{p} \\).'},
+  'nonsep-linfty':{title:'The space L∞',
+    math:'L^{\\infty}=\\{\\,f:\\|f\\|_{\\infty}<\\infty\\}',
+    text:'Under the essential-supremum norm there is no countable dense subset — the space is non-separable; the full theory requires quantifying over objects of \\( \\mathcal{P}(\\mathbb{R}\\times\\mathbb{R}) \\) or an analogous device.'},
+  'dual-functionals':{title:'Functionals and dual spaces',
+    math:'X^{*}=\\{\\,\\phi\\colon X\\to\\mathbb{R}\\mid \\phi\\ \\text{ linear, bdd.}\\}',
+    text:'Elements of \\( X^* \\), arbitrary families of such operators, or the full space of dual objects are given by quantifying over \\( \\mathcal{P}(\\mathbb{R}\\times\\mathbb{R}) \\) or by introducing a third sort.'},
+  'hahn-banach':{title:'The Hahn–Banach theorem',
+    math:'f:Y\\to\\mathbb{R},\\;|f|\\le p|_Y\\implies\\exists F:X\\to\\mathbb{R}:\\;F|_Y=f,\\;|F|\\le p',
+    text:'A linear functional bounded by a subadditive function extends from a subspace Y to all of X with the same bound. In the separable case DC suffices; in general, AC is needed.'},
+  'tychonoff':{title:'Tychonoff\u2019s theorem',
+    math:'\\forall\\alpha:\\ K_\\alpha\\ \\text{compact}\\implies \\prod_\\alpha K_\\alpha\\ \\text{compact}',
+    text:'The product of an arbitrary family of compact spaces is compact in the Tychonoff topology. Equivalent to full AC (Kelley, 1950).'},
+  'vitali':{title:'The Vitali set',
+    math:'V\\subset[0,1]:\\quad V\\ \\text{not Lebesgue measurable}',
+    text:'Take one representative from each coset of ℝ/ℚ. The resulting set V is not Lebesgue measurable. The construction essentially uses AC.'},
+  'banach-tarski':{title:'The Banach–Tarski paradox',
+    math:'B^3\\xrightarrow{\\text{decomposition + motions}}B^3\\sqcup B^3',
+    text:'A unit ball in ℝ³ is split into 5 pieces, which are reassembled by rigid motions into two balls of the same radius. The pieces are not Lebesgue measurable. Essentially uses AC.'},
+  'cantor-uncountable':{title:'Uncountability of ℝ (Cantor, 1874)',
+    math:'|\\mathbb{R}|>|\\mathbb{N}|,\\quad\\nexists\\;f:\\mathbb{N}\\twoheadrightarrow\\mathbb{R}',
+    text:'Diagonal argument: any purported enumeration of the real numbers is incomplete — there is a number missing from the list. At level II it is more appropriate to rely not on the language of injections \\( \\mathbb{R}\\hookrightarrow\\mathbb{N} \\), but on nested intervals and continuity (the common-point principle): from these one constructs a real number — the limit of "shrinking" intervals — that fails to coincide with any term of the purported list, provided the enumeration is given by a predicative formula.'},
+  'incompleteness':{title:'Gödel\u2019s (first) incompleteness theorem',
+    math:'T\\ \\text{consistent}\\Rightarrow\\exists\\sigma:\\;T\\nvdash\\sigma\\land T\\nvdash\\neg\\sigma',
+    text:'Every consistent, recursively axiomatizable theory that interprets arithmetic contains sentences that are true but unprovable. Applies to levels II and III.'},
+};
+
+/** As in the table's property column: fragments \\( … \\) → span.km-inline for the shared renderAll + KaTeX. */
+function tipTextWithInlineMath(s){
+  return String(s).replace(/\\\(([\s\S]*?)\\\)/g, (_, src) =>
+    `<span class="km-inline" data-math="${src.replace(/"/g,'&quot;')}"></span>`);
+}
+
+function buildTip(key){
+  const t=TIPS[key]; if(!t) return '';
+  return `<span class="tip-wrap"><button type="button" class="tip-btn" tabindex="0" aria-expanded="false">?</button>`+
+    `<div class="tip-box" role="dialog" aria-modal="false">`+
+    `<button type="button" class="tip-close" tabindex="0" title="Close" aria-label="Close tooltip">×</button>`+
+    `<div class="tip-title">${t.title}</div>`+
+    (t.math?`<div class="tip-math" id="math-${key}"></div>`:'')+
+    (t.text?`<div class="tip-text">${tipTextWithInlineMath(t.text)}</div>`:'')+
+    `</div></span>`;
+}
+
+/** Popover tooltip: fixed within the viewport (not clipped by the table's overflow). */
+const CAN_USE_HOVER = typeof window.matchMedia === 'function'
+  && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+function closeTipPopover(wrap){
+  wrap.classList.remove('tip-show');
+  const box = wrap.querySelector('.tip-box');
+  const btn = wrap.querySelector('.tip-btn');
+  if(box){
+    box.classList.remove('tip-box--below');
+    /* Reset inline styles from positionTipPopover — otherwise display:block overrides the CSS and the block won't hide */
+    box.style.display = '';
+    box.style.position = '';
+    box.style.left = '';
+    box.style.top = '';
+    box.style.margin = '';
+    box.style.bottom = '';
+    box.style.transform = '';
+    box.style.removeProperty('--tip-arrow-shift');
+  }
+  if(btn){ btn.setAttribute('aria-expanded','false'); }
+}
+
+function positionTipPopover(wrap){
+  const box = wrap.querySelector('.tip-box');
+  const btn = wrap.querySelector('.tip-btn');
+  if(!box||!btn||!wrap.classList.contains('tip-show')) return;
+
+  box.classList.remove('tip-box--below');
+  box.style.display = 'block';
+  box.style.position = 'fixed';
+  box.style.margin = '0';
+  box.style.bottom = 'auto';
+  box.style.transform = 'none';
+
+  const pad = 12;
+  const gap = 10;
+  const vw = Math.max(window.innerWidth || 800, 280);
+  const vh = window.innerHeight || 600;
+  const ar = btn.getBoundingClientRect();
+
+  let bw = box.offsetWidth || Math.min(420, vw - 2 * pad);
+  let bh = box.offsetHeight || 80;
+  let cx = ar.left + ar.width / 2;
+  let left = cx - bw / 2;
+  left = Math.max(pad, Math.min(left, vw - bw - pad));
+  box.style.left = `${Math.round(left)}px`;
+
+  bh = box.offsetHeight;
+  let top = ar.top - gap - bh;
+  if(top < pad){
+    box.classList.add('tip-box--below');
+    bh = box.offsetHeight;
+    top = ar.bottom + gap;
+    if(top + bh > vh - pad) top = Math.max(pad, vh - pad - bh);
+  }else{
+    if(top + bh > vh - pad) top = Math.max(pad, vh - pad - bh);
+  }
+  box.style.top = `${Math.round(top)}px`;
+
+  bw = box.getBoundingClientRect().width || bw;
+  let arrow = cx - left;
+  arrow = Math.max(26, Math.min(arrow, bw - 26));
+  box.style.setProperty('--tip-arrow-shift', `${Math.round(arrow)}px`);
+}
+
+function openTipPopover(wrap){
+  document.querySelectorAll('.tip-wrap.tip-show').forEach(w=>{
+    if(w!==wrap) closeTipPopover(w);
+  });
+  wrap.classList.add('tip-show');
+  const btn = wrap.querySelector('.tip-btn');
+  if(btn) btn.setAttribute('aria-expanded','true');
+  requestAnimationFrame(()=>{
+    positionTipPopover(wrap);
+    requestAnimationFrame(()=>positionTipPopover(wrap));
+  });
+}
+
+let tipReposQueued = false;
+function queueReposTipPopovers(){
+  if(!document.querySelector('.tip-wrap.tip-show')) return;
+  if(tipReposQueued) return;
+  tipReposQueued = true;
+  requestAnimationFrame(()=>{
+    tipReposQueued = false;
+    document.querySelectorAll('.tip-wrap.tip-show').forEach(positionTipPopover);
+  });
+}
+
+function initSmartTips(){
+  document.querySelectorAll('.tip-wrap').forEach(wrap=>{
+    if(wrap.dataset.tipSmartBound) return;
+    wrap.dataset.tipSmartBound = '1';
+    const btn = wrap.querySelector('.tip-btn');
+    if(!btn) return;
+
+    let hideTimer = null;
+    const cancelHide = ()=>{ if(hideTimer){ clearTimeout(hideTimer); hideTimer = null; } };
+    const scheduleHide = ()=>{
+      hideTimer = setTimeout(()=>closeTipPopover(wrap), 80);
+    };
+
+    btn.addEventListener('focus', ()=>{ cancelHide(); openTipPopover(wrap); });
+
+    if(CAN_USE_HOVER){
+      wrap.addEventListener('mouseenter', ()=>{ cancelHide(); openTipPopover(wrap); });
+      wrap.addEventListener('mouseleave', scheduleHide);
+    }else{
+      btn.addEventListener('click', ev=>{
+        ev.preventDefault();
+        ev.stopPropagation();
+        cancelHide();
+        if(wrap.classList.contains('tip-show')) closeTipPopover(wrap);
+        else openTipPopover(wrap);
+      });
+    }
+
+    const box = wrap.querySelector('.tip-box');
+    const closeBtn = wrap.querySelector('.tip-close');
+    if(closeBtn){
+      closeBtn.addEventListener('click', ev=>{
+        ev.preventDefault();
+        ev.stopPropagation();
+        cancelHide();
+        closeTipPopover(wrap);
+        btn.blur();
+      });
+    }
+    if(box && CAN_USE_HOVER){
+      box.addEventListener('mouseenter', cancelHide);
+      box.addEventListener('mouseleave', scheduleHide);
+    }
+  });
+
+  const tbl = document.querySelector('.tbl-wrap');
+  if(tbl && !tbl.dataset.tipScrollBound){
+    tbl.dataset.tipScrollBound = '1';
+    tbl.addEventListener('scroll', queueReposTipPopovers, { passive: true });
+  }
+}
+
+document.addEventListener('focusin', ev=>{
+  document.querySelectorAll('.tip-wrap.tip-show').forEach(w=>{
+    if(!w.contains(ev.target)) closeTipPopover(w);
+  });
+}, true);
+
+document.addEventListener('click', ev=>{
+  if(ev.target.closest('.tip-wrap')) return;
+  document.querySelectorAll('.tip-wrap.tip-show').forEach(closeTipPopover);
+}, true);
+
+document.addEventListener('keydown', ev=>{
+  if(ev.key === 'Escape'){
+    document.querySelectorAll('.tip-wrap.tip-show').forEach(closeTipPopover);
+  }
+});
+
+window.addEventListener('resize', queueReposTipPopovers, { passive: true });
+window.addEventListener('scroll', queueReposTipPopovers, { capture: true, passive: true });
+
+// ══ Table rows ════════════════════════════════════════════════════════════════
+const Y  =(n,b)=>({cls:'yes',  icon:'✓',text:'Yes',       note:n||'',bold:!!b,sys:''});
+const N  =(n)  =>({cls:'no',   icon:'✗',text:'No',        note:n||'',bold:false,sys:''});
+const P  =(n,b)=>({cls:'part', icon:'≈',text:'Partial',   note:n||'',bold:!!b,sys:''});
+const AC =(n)  =>({cls:'yesac',icon:'✓',text:'Yes (AC)',  note:n||'',bold:false,sys:''});
+const DC =()   =>({cls:'yesac',icon:'✓',text:'Yes (DC/AC)',note:'',   bold:false,sys:''});
+const TX =(t)  =>({cls:'text', icon:'', text:t,           note:'',   bold:false,sys:'', isTX:true});
+const YN =(n)  =>({cls:'yes',  icon:'✓',text:'Yes',       note:n||'',bold:false,sys:''});
+const YS =(s,b)=>({cls:'yes',  icon:'✓',text:'Yes',       note:'',   bold:!!b,  sys:s});
+const S  =(t,c)=>({section:t,century:c||''});
+
+const rows=[
+  S('Foundations'),
+  ['Typing',null,
+    TX('\\text{numbers only}'),
+    TX('\\text{numbers and sets of numbers}'),
+    TX('V(\\mathbb{R})\\ \\text{(von Neumann-style hierarchy)}')],
+  ['Subset comprehension scheme',null,
+    N('not definable · no set objects'),P('via arithmetical formulas'),Y('full (ZF)')],
+  ['Decidability and deductive completeness','incompleteness',
+    Y('by Tarski'),N('Gödel'),N('Gödel')],
+  ['Uncountability of \\(\\mathbb{R}\\) (Cantor\u2019s theorem)','cantor-uncountable',
+    N('not definable · no 2nd order'),Y('nested intervals, continuity'),Y()],
+  ['Defining the set \\(\\mathbb{N}\\)',null,
+    N('not definable · \\(\\mathbb{N}\\) is not singled out'),Y('axiomatically'),Y()],
+  ['Uniqueness of the model',null,
+    N('Löwenheim–Skolem'),
+    N('two-sorted, recursively axiomatized · Henkin'),
+    Y('complete theory of the model · up to isomorphism')],
+
+  S('Basic theorems of analysis','19th century'),
+  ['Limits, derivatives, integrals',null,
+    N('not definable · no 2nd order'),Y(),Y()],
+  ['Archimedean property of \\(\\mathbb{R}\\)','archimedean-r',
+    N('not definable · no \\(\\mathbb{N}\\subset\\mathbb{R}\\)'),YN('\\text{in }\\mathsf{RCA}_0'),Y()],
+  ['Bolzano–Cauchy theorem (intermediate value)','bolzano-cauchy',
+    YN('for polynomials'),YS('\\equiv\\mathsf{WKL}_0',true),Y()],
+  ['Heine–Borel lemma','heine-borel',
+    N('not definable · no 2nd order'),YS('\\equiv\\mathsf{WKL}_0',true),Y()],
+  ['Weierstrass\u2019s extreme value theorem on an interval','weierstrass-extreme',
+    N('not definable · no 2nd order'),YS('\\equiv\\mathsf{WKL}_0',true),Y()],
+  ['Brouwer\u2019s theorem (fixed point)','brouwer-fixed',
+    N('not definable · no 2nd order'),YS('\\equiv\\mathsf{WKL}_0',true),Y()],
+  ['Cantor\u2019s theorem on uniform continuity on a compact metric space','cantor-uniform',
+    N('not definable · no 2nd order'),YS('\\equiv\\mathsf{WKL}_0',true),Y()],
+  ['Bolzano–Weierstrass theorem','bolzano-weierstrass-bw',
+    N('not definable · no 2nd order'),YS('\\equiv\\mathsf{ACA}_0',true),Y()],
+  ['Cauchy criterion (convergence in \\(\\mathbb{R}\\))','cauchy-criterion-seq',
+    N('not definable · no 2nd order'),YS('\\equiv\\mathsf{ACA}_0',true),Y()],
+
+  S('Measure, integration, functional analysis','20th century'),
+  ['Lebesgue measure','lebesgue-measure',
+    N('not definable · codes and \\(\\sigma\\)-algebra'),P('via codes'),Y('',true)],
+  ['Lebesgue integral (w.r.t. a \\( \\sigma \\)-additive measure)','lebesgue-integral',
+    N('not definable · codes and \\(\\sigma\\)-algebra'),P('via codes'),Y('',true)],
+  ['Space \\(C[a,b]\\)','space-cab',
+    N('not definable · codes and \\(\\sigma\\)-algebra'),YN('via coding'),Y()],
+  ['Space \\(L^p\\), \\(p<\\infty\\)','space-lp',
+    N('not definable · codes and \\(\\sigma\\)-algebra'),YN('via coding'),Y()],
+  ['Space \\(L^{\\infty}\\)','nonsep-linfty',
+    N('not definable · codes and \\(\\sigma\\)-algebra'),N('requires a 3rd sort'),Y('\\mathcal{P}(\\mathbb{R}{\\times}\\mathbb{R})',true)],
+  ['Functionals and \\(X^{*}\\)','dual-functionals',
+    N('not definable · codes and \\(\\sigma\\)-algebra'),N('require a 3rd sort'),Y('\\mathcal{P}(\\mathbb{R}{\\times}\\mathbb{R})',true)],
+  ['Hahn–Banach theorem','hahn-banach',
+    N('not definable · codes and \\(\\sigma\\)-algebra'),N('needs \\(\\mathsf{AC}\\) (III)'),DC()],
+
+  S('Consequences of the axiom of choice'),
+  ['Tychonoff\u2019s theorem (product of compact spaces)','tychonoff',
+    N('not definable · no 2nd order'),N('full \\(\\mathsf{AC}\\) (III)'),AC('full \\(\\mathsf{AC}\\)')],
+  ['Existence of non-measurable sets (Vitali)','vitali',
+    N('not definable · no 2nd order'),N('full \\(\\mathsf{AC}\\) (III)'),AC('full \\(\\mathsf{AC}\\)')],
+  ['Banach–Tarski paradox','banach-tarski',
+    N('not definable · no 2nd order'),N('full \\(\\mathsf{AC}\\) (III)'),AC('full \\(\\mathsf{AC}\\)')],
+];
+
+// ══ Build table ═══════════════════════════════════════════════════════════════
+const cols=['c1','c2','c3'];
+const tb=document.getElementById('tbody');
+
+rows.forEach(row=>{
+  const tr=document.createElement('tr');
+  if(row.section!==undefined){
+    tr.className='section';
+    const cent=row.century?` <span class="sec-century">(${row.century})</span>`:'';
+    tr.innerHTML=`<td colspan="4">${row.section}${cent}</td>`;
+    tb.appendChild(tr);return;
+  }
+  const[prop,tipKey,v1,v2,v3]=row;
+  const tipHtml=tipKey?buildTip(tipKey):'';
+  const propHtml=prop.replace(/\\\((.+?)\\\)/g,(_,src)=>
+    `<span class="km-inline" data-math="${src.replace(/"/g,'&quot;')}"></span>`);
+  let html=`<td class="prop-col">${propHtml} ${tipHtml}</td>`;
+  [v1,v2,v3].forEach((v,i)=>{
+    const boldCls=v.bold?' badge-bold':'';
+    let noteHtml='';
+    if(v.note){
+      // raw LaTeX without \(...\) wrapper
+      if(v.note.startsWith('\\')){
+        noteHtml=`<span class="badge-note km-inline" data-math="${v.note.replace(/"/g,'&quot;')}"></span>`;
+      } else {
+        const nm=v.note.replace(/\\\((.+?)\\\)/g,(_,src)=>
+          `<span class="km-inline" data-math="${src.replace(/"/g,'&quot;')}"></span>`);
+        noteHtml=`<span class="badge-note">${nm}</span>`;
+      }
+    }
+    const sysEl=v.sys?`<span class="sys km-inline" data-math="${v.sys.replace(/"/g,'&quot;')}"></span>`:'';
+    // TX cells: render KaTeX inside badge-main if LaTeX command present
+    let mainContent=v.icon?v.icon+'&nbsp;'+v.text:v.text;
+    if(v.isTX && /\\/.test(v.text)){
+      mainContent=`<span class="km-inline" data-math="${v.text.replace(/"/g,'&quot;')}"></span>`;
+    }
+    html+=`<td class="val-col ${cols[i]}"><div class="badge ${v.cls}${boldCls}"><span class="badge-main">${mainContent}</span>${noteHtml}${sysEl}</div></td>`;
+  });
+  tr.innerHTML=html;tb.appendChild(tr);
+});
+
+initSmartTips();
+
+// ══ renderAll ═════════════════════════════════════════════════════════════════
+function renderAll(){
+  if(typeof katex==='undefined'){setTimeout(renderAll,60);return;}
+  // inline spots
+  for(const[id,src]of Object.entries(INLINE)) ki(document.getElementById(id),src);
+  // km-inline spans (table, cards, header, etc.)
+  document.querySelectorAll('.km-inline[data-math]').forEach(el=>{
+    ki(el,el.dataset.math);el.removeAttribute('data-math');
+  });
+  // tooltip formulas
+  Object.entries(TIPS).forEach(([key,t])=>{
+    if(!t.math)return;
+    const el=document.getElementById('math-'+key);
+    if(el&&!el.dataset.rendered){ki(el,t.math);el.dataset.rendered='1';}
+  });
+  queueReposTipPopovers();
+}
+
+document.addEventListener('DOMContentLoaded',()=>setTimeout(renderAll,80));
+setTimeout(renderAll,300);
+</script>
+</body>
+</html>

@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Процесс Гальтона–Ватсона</title>
-<meta name="description" content="Процесс Гальтона–Ватсона — простейшая вероятностная модель размножения популяций: интерактивная симуляция вырождения и выживания в докритическом, критическом и надкритическом режимах.">
-<link rel="canonical" href="https://mathem.at/Materials/galton_watson_process.html">
+<title>The Galton–Watson Process</title>
+<meta name="description" content="The Galton–Watson process — the simplest probabilistic model of population reproduction: an interactive simulation of extinction and survival in the subcritical, critical, and supercritical regimes.">
+<link rel="canonical" href="https://mathem.at/Materials/galton_watson_process_en.html">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Процесс Гальтона–Ватсона">
-<meta property="og:description" content="Процесс Гальтона–Ватсона — простейшая вероятностная модель размножения популяций: интерактивная симуляция вырождения и выживания в докритическом, критическом и надкритическом режимах.">
-<meta property="og:url" content="https://mathem.at/Materials/galton_watson_process.html">
+<meta property="og:title" content="The Galton–Watson Process">
+<meta property="og:description" content="The Galton–Watson process — the simplest probabilistic model of population reproduction: an interactive simulation of extinction and survival in the subcritical, critical, and supercritical regimes.">
+<meta property="og:url" content="https://mathem.at/Materials/galton_watson_process_en.html">
 <meta property="og:image" content="https://mathem.at/archetypes.png">
-<meta property="og:locale" content="ru_RU">
+<meta property="og:locale" content="en_US">
 <link rel="alternate" hreflang="ru" href="/Materials/galton_watson_process.html">
 <link rel="alternate" hreflang="en" href="/Materials/galton_watson_process_en.html">
 <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPs6jPC90ZXh0Pjwvc3ZnPg==" type="image/svg+xml">
@@ -328,12 +328,12 @@ input[type=range]::-webkit-slider-thumb {
 <header class="topbar">
   <a href="https://mathem.at/" class="logo">mathem.at</a>
   <span class="sep">/</span>
-  <span class="crumb">Случайные процессы</span>
+  <span class="crumb">Random Processes</span>
   <span class="sep">/</span>
-  <span class="crumb">Процесс Гальтона–Ватсона</span>
+  <span class="crumb">The Galton–Watson Process</span>
   <div class="lang-pills">
-    <a class="lang-pill" href="/Materials/galton_watson_process_en.html">🇬🇧 EN</a>
-    <a class="lang-pill active" href="/Materials/galton_watson_process.html">🇷🇺 RU</a>
+    <a class="lang-pill active" href="/Materials/galton_watson_process_en.html">🇬🇧 EN</a>
+    <a class="lang-pill" href="/Materials/galton_watson_process.html">🇷🇺 RU</a>
   </div>
 </header>
 
@@ -342,20 +342,20 @@ input[type=range]::-webkit-slider-thumb {
 <!-- ══ SIDEBAR ══ -->
 <aside class="sidebar">
 
-  <div class="sec-label">Параметры модели</div>
+  <div class="sec-label">Model Parameters</div>
 
   <div class="ctrl-row">
     <div class="ctrl-head">
       <span class="ctrl-name">
-        Параметр λ (Пуассон)
+        Parameter λ (Poisson)
         <span class="tip-wrap" data-tip="tip-lambda">
           <span class="tip-icon" tabindex="0">?</span>
           <div class="tip-box" id="tip-lambda">
-            <div class="tit">Распределение Пуассона</div>
-            Число потомков одной частицы:
+            <div class="tit">Poisson distribution</div>
+            Number of offspring of one particle:
             \[P(\xi = k) = \frac{\lambda^k e^{-\lambda}}{k!}, \quad k = 0,1,2,\ldots\]
-            Среднее \(\mathbb{E}[\xi] = \lambda\), дисперсия \(\mathrm{Var}(\xi) = \lambda\).<br>
-            Производящая функция: \(f(s) = e^{\lambda(s-1)}\).
+            Mean \(\mathbb{E}[\xi] = \lambda\), variance \(\mathrm{Var}(\xi) = \lambda\).<br>
+            Generating function: \(f(s) = e^{\lambda(s-1)}\).
           </div>
         </span>
       </span>
@@ -367,13 +367,13 @@ input[type=range]::-webkit-slider-thumb {
   <div class="ctrl-row">
     <div class="ctrl-head">
       <span class="ctrl-name">
-        Стартовых частиц N₀
+        Starting particles N₀
         <span class="tip-wrap" data-tip="tip-n0">
           <span class="tip-icon" tabindex="0">?</span>
           <div class="tip-box" id="tip-n0">
-            <div class="tit">Начальная популяция</div>
-            Процесс стартует с \(N_0\) независимых частиц поколения 0. Каждая порождает
-            независимое дерево потомков. На лесу деревья окрашены разными цветами.
+            <div class="tit">Initial population</div>
+            The process starts with \(N_0\) independent particles of generation 0. Each one generates an
+            independent tree of descendants. In the forest, the trees are colored differently.
           </div>
         </span>
       </span>
@@ -385,14 +385,14 @@ input[type=range]::-webkit-slider-thumb {
   <div class="ctrl-row">
     <div class="ctrl-head">
       <span class="ctrl-name">
-        Поколений T
+        Generations T
         <span class="tip-wrap" data-tip="tip-gens">
           <span class="tip-icon" tabindex="0">?</span>
           <div class="tip-box" id="tip-gens">
-            <div class="tit">Глубина процесса</div>
-            \(T\) — число шагов эволюции. \(Z_n\) — число живых частиц поколения \(n\).
-            При докритическом режиме \(Z_n \to 0\) п.н., при надкритическом \(Z_n \to \infty\)
-            на событии выживания.
+            <div class="tit">Depth of the process</div>
+            \(T\) is the number of evolution steps. \(Z_n\) is the number of live particles in generation \(n\).
+            In the subcritical regime \(Z_n \to 0\) a.s.; in the supercritical regime \(Z_n \to \infty\)
+            on the event of survival.
           </div>
         </span>
       </span>
@@ -403,7 +403,7 @@ input[type=range]::-webkit-slider-thumb {
 
   <!-- mean display -->
   <div class="mean-box">
-    <div class="mlabel">Матожидание числа потомков</div>
+    <div class="mlabel">Expected number of offspring</div>
     <div class="mean-big" id="mNum">1.00</div>
     <div class="mean-formula" id="meanKatex"></div>
   </div>
@@ -411,20 +411,20 @@ input[type=range]::-webkit-slider-thumb {
   <!-- mode badge -->
   <div id="modeBadge" class="mode-badge mode-sub">
     <span class="dot"></span>
-    <span id="modeText">Докритический  (m &lt; 1)</span>
+    <span id="modeText">Subcritical  (m &lt; 1)</span>
   </div>
 
   <!-- ext prob -->
   <div class="ext-box">
     <div class="elabel">
-      P(вырождения) q
+      P(extinction) q
       <span class="tip-wrap" data-tip="tip-q">
         <span class="tip-icon" tabindex="0">?</span>
         <div class="tip-box" id="tip-q">
-          <div class="tit">Вероятность вырождения</div>
-          Наименьший неотрицательный корень уравнения \(q = f(q)\), где \(f\) — производящая функция числа потомков.<br>
-          Для Пуассона: \(f(s) = e^{\lambda(s-1)}\).<br>
-          При \(\lambda \le 1\): \(q=1\). При \(\lambda > 1\): \(q < 1\) — единственный корень \(q = e^{\lambda(q-1)}\) в \((0,1)\).
+          <div class="tit">Extinction probability</div>
+          The smallest nonnegative root of the equation \(q = f(q)\), where \(f\) is the generating function of the offspring number.<br>
+          For Poisson: \(f(s) = e^{\lambda(s-1)}\).<br>
+          For \(\lambda \le 1\): \(q=1\). For \(\lambda > 1\): \(q < 1\) is the unique root of \(q = e^{\lambda(q-1)}\) in \((0,1)\).
         </div>
       </span>
     </div>
@@ -432,10 +432,10 @@ input[type=range]::-webkit-slider-thumb {
     <div class="eform" id="extFormula"></div>
   </div>
 
-  <button class="btn-rerun" id="rerunBtn">↻ Новая реализация</button>
+  <button class="btn-rerun" id="rerunBtn">↻ New realization</button>
 
   <div style="margin-top:auto; font-size:11px; color:var(--text3); line-height:1.6; padding-top:8px;">
-    Каждый запуск — независимая реализация того же распределения.
+    Each run is an independent realization of the same distribution.
   </div>
 
 </aside>
@@ -445,8 +445,8 @@ input[type=range]::-webkit-slider-thumb {
 
   <!-- hero -->
   <div class="hero">
-    <div class="hero-eyebrow">Математическая статистика · Случайные ветвящиеся процессы</div>
-    <h1>Процесс <em>Гальтона–Ватсона</em></h1>
+    <div class="hero-eyebrow">Mathematical Statistics · Random Branching Processes</div>
+    <h1>The <em>Galton–Watson</em> Process</h1>
     <p id="heroP1"></p>
     <p id="heroP2"></p>
     <p id="heroP3"></p>
@@ -456,13 +456,13 @@ input[type=range]::-webkit-slider-thumb {
   <div class="ref-box">
     <div class="ref-icon">ℹ️</div>
     <div class="ref-content">
-      <div class="ref-title">Справка</div>
+      <div class="ref-title">Reference</div>
       <div class="ref-text">
-        Процесс Гальтона–Ватсона — это вероятностная модель ветвящейся популяции.
-        Каждая частица независимо порождает случайное число потомков согласно
-        одному и тому же распределению. Ключевой параметр — математическое ожидание
-        числа потомков \(m = \mathbb{E}[\xi]\). При \(m < 1\) популяция гарантированно вымирает,
-        при \(m > 1\) с вероятностью \(1-q > 0\) она может расти неограниченно.
+        The Galton–Watson process is a probabilistic model of a branching population.
+        Each particle independently produces a random number of offspring according to
+        the same distribution. The key parameter is the expected number of offspring
+        \(m = \mathbb{E}[\xi]\). For \(m < 1\) the population is guaranteed to die out,
+        while for \(m > 1\), with probability \(1-q > 0\), it can grow without bound.
       </div>
     </div>
   </div>
@@ -470,18 +470,18 @@ input[type=range]::-webkit-slider-thumb {
   <!-- stats -->
   <div class="stats-row">
     <div class="stat-card">
-      <div class="slbl">Живых в поколении T</div>
+      <div class="slbl">Alive in generation T</div>
       <div class="snum" id="sTotal">—</div>
     </div>
     <div class="stat-card">
       <div class="slbl">
-        Вымерших деревьев
+        Extinct trees
         <span class="tip-wrap" data-tip="tip-ext">
           <span class="tip-icon" tabindex="0">?</span>
           <div class="tip-box" id="tip-ext">
-            <div class="tit">Вымершее дерево</div>
-            Дерево, которое не дожило до последнего поколения \(T\).
-            В докритическом режиме все деревья вырождаются с вероятностью 1.
+            <div class="tit">Extinct tree</div>
+            A tree that did not survive to the last generation \(T\).
+            In the subcritical regime, all trees become extinct with probability 1.
           </div>
         </span>
       </div>
@@ -489,19 +489,19 @@ input[type=range]::-webkit-slider-thumb {
     </div>
     <div class="stat-card">
       <div class="slbl">
-        Доля доминирующего дерева
+        Share of the dominant tree
         <span class="tip-wrap" data-tip="tip-dom">
           <span class="tip-icon" tabindex="0">?</span>
           <div class="tip-box" id="tip-dom">
-            <div class="tit">Гигантская компонента</div>
-            Эффект гигантской компоненты заключается в том, что с ростом номера поколения доля числа потомков какой-то одной частицы стремится к 100%.            
+            <div class="tit">Giant component</div>
+            The giant-component effect is that, as the generation number grows, the share of descendants coming from some single particle tends to 100%.
           </div>
         </span>
       </div>
       <div class="snum" id="sDom">—</div>
     </div>
     <div class="stat-card">
-      <div class="slbl">q теоретическое</div>
+      <div class="slbl">Theoretical q</div>
       <div class="snum" id="sQtheo">—</div>
     </div>
   </div>
@@ -511,42 +511,42 @@ input[type=range]::-webkit-slider-thumb {
 
     <div class="panel">
       <div class="panel-title">
-        Распределение числа потомков ξ
+        Distribution of the offspring number ξ
         <span class="tip-wrap" data-tip="tip-pgf">
           <span class="tip-icon" tabindex="0">?</span>
           <div class="tip-box" id="tip-pgf">
-            <div class="tit">Производящая функция</div>
+            <div class="tit">Generating function</div>
             \[f(s) = \mathbb{E}[s^\xi] = e^{\lambda(s-1)}\]
-            Вероятность вырождения — наименьший корень \(f(q)=q\) в \([0,1]\).
+            The extinction probability is the smallest root of \(f(q)=q\) in \([0,1]\).
           </div>
         </span>
       </div>
       <div style="position:relative; height:190px;">
-        <canvas id="distChart" role="img" aria-label="Распределение Пуассона числа потомков"></canvas>
+        <canvas id="distChart" role="img" aria-label="Poisson distribution of the offspring number"></canvas>
       </div>
     </div>
 
     <div class="panel">
       <div class="panel-title">
-        Распределение объемов деревьев процесса (поколение <span id="lastGenLbl">T</span>)
+        Distribution of tree sizes in the process (generation <span id="lastGenLbl">T</span>)
         <span class="tip-wrap" data-tip="tip-hist">
           <span class="tip-icon" tabindex="0">?</span>
           <div class="tip-box" id="tip-hist">
-            <div class="tit">Дерево стартовой частицы</div>
-            Все потомки одной стартовой частицы образуют её дерево.
-            Гистограмма показывает размер каждого дерева в поколении \(T\).
+            <div class="tit">Tree of a starting particle</div>
+            All descendants of one starting particle form its tree.
+            The histogram shows the size of each tree in generation \(T\).
           </div>
         </span>
       </div>
       <div style="position:relative; height:190px;">
-        <canvas id="histChart" role="img" aria-label="Размер клонов в поколении T"></canvas>
+        <canvas id="histChart" role="img" aria-label="Size of clones in generation T"></canvas>
       </div>
     </div>
 
     <div class="panel full">
-      <div class="panel-title">Лес процесса — деревья окрашены по стартовой частице</div>
+      <div class="panel-title">Forest of the process — trees colored by starting particle</div>
       <div class="forest-legend" id="forestLegend"></div>
-      <canvas id="forestCanvas" role="img" aria-label="Лес деревьев процесса Гальтона–Ватсона"></canvas>
+      <canvas id="forestCanvas" role="img" aria-label="Forest of trees of the Galton–Watson process"></canvas>
     </div>
 
   </div>
@@ -561,7 +561,7 @@ input[type=range]::-webkit-slider-thumb {
 </footer>
 
 <script>
-/* ─── Пуассон: семплирование через инверсию CDF ─── */
+/* ─── Poisson: sampling via CDF inversion ─── */
 function poissonSample(lambda) {
   const L = Math.exp(-lambda);
   let k = 0, p = 1;
@@ -569,7 +569,7 @@ function poissonSample(lambda) {
   return k - 1;
 }
 
-/* ─── Вероятность вырождения для Пуассон(λ) ─── */
+/* ─── Extinction probability for Poisson(λ) ─── */
 function extinctionProb(lambda) {
   if (lambda <= 1) return 1.0;
   let q = 0.5;
@@ -587,7 +587,7 @@ const PALETTE = [
 let lambda = 1.05, N0 = 8, GENS = 20;
 let distChartInst = null, histChartInst = null, simData = null;
 
-/* ─── Симуляция ─── */
+/* ─── Simulation ─── */
 function simulate() {
   const trees = [];
   for (let i = 0; i < N0; i++) {
@@ -612,7 +612,7 @@ function simulate() {
   return trees;
 }
 
-/* ─── График распределения ─── */
+/* ─── Distribution chart ─── */
 function drawDistChart() {
   const kmax = Math.max(8, Math.ceil(lambda * 3 + 5));
   const labels = [], data = [];
@@ -654,7 +654,7 @@ function drawDistChart() {
   });
 }
 
-/* ─── Гистограмма клонов ─── */
+/* ─── Clone histogram ─── */
 function drawHistChart(trees) {
   document.getElementById('lastGenLbl').textContent = GENS;
   const labels = trees.map((_, i) => `P${i + 1}`);
@@ -675,13 +675,13 @@ function drawHistChart(trees) {
       scales: {
         x: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#4e5870', font: { size: 10 } } },
         y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#4e5870', font: { size: 10 } },
-          title: { display: true, text: 'Объём дерева', color: '#4e5870', font: { size: 10 } } }
+          title: { display: true, text: 'Tree size', color: '#4e5870', font: { size: 10 } } }
       }
     }
   });
 }
 
-/* ─── Лес ─── */
+/* ─── Forest ─── */
 function drawForest(trees) {
   const canvas = document.getElementById('forestCanvas');
   const W = canvas.parentElement.clientWidth - 32;
@@ -740,10 +740,10 @@ function drawForest(trees) {
     legend.map(l => `<span class="leg-item"><span class="leg-dot" style="background:${l.col}"></span>${l.label}</span>`).join('');
 }
 
-/* ─── Статистика ─── */
+/* ─── Statistics ─── */
 function updateStats(trees) {
   const total = trees.reduce((s,t) => s + t.size, 0);
-  const ext   = trees.filter(t => t.nodes[t.nodes.length - 1].gen < GENS - 1).length;  // вымершие = не дожили до поколения T
+  const ext   = trees.filter(t => t.nodes[t.nodes.length - 1].gen < GENS - 1).length;  // extinct = did not survive to generation T
   const dom   = trees.reduce((a,b) => b.size > a.size ? b : a, trees[0]);
   const domPct = total > 0 ? (dom.size/total*100).toFixed(1)+'%' : '—';
   const q = extinctionProb(lambda);
@@ -753,16 +753,16 @@ function updateStats(trees) {
   document.getElementById('sQtheo').textContent  = q.toFixed(3);
 }
 
-/* ─── Обновление режима / параметров ─── */
+/* ─── Update mode / parameters ─── */
 function updateMode() {
   const m = lambda;  // E[Poisson(λ)] = λ
   document.getElementById('mNum').textContent = m.toFixed(2);
   const numEl = document.getElementById('mNum');
   const badge = document.getElementById('modeBadge');
   let cls, txt;
-  if (m < 0.999)      { cls='sub';  txt='Докритический  (m < 1)'; numEl.className='mean-big sub'; }
-  else if (m<=1.001)  { cls='crit'; txt='Критический  (m = 1)';   numEl.className='mean-big crit'; }
-  else                { cls='sup';  txt='Надкритический  (m > 1)'; numEl.className='mean-big sup'; }
+  if (m < 0.999)      { cls='sub';  txt='Subcritical  (m < 1)'; numEl.className='mean-big sub'; }
+  else if (m<=1.001)  { cls='crit'; txt='Critical  (m = 1)';   numEl.className='mean-big crit'; }
+  else                { cls='sup';  txt='Supercritical  (m > 1)'; numEl.className='mean-big sup'; }
   badge.className = `mode-badge mode-${cls}`;
   document.getElementById('modeText').textContent = txt;
 
@@ -784,25 +784,25 @@ function updateMode() {
 /* ─── Hero text (KaTeX) ─── */
 function buildHero() {
   const texts = [
-    `Процесс Гальтона–Ватсона — простейшая вероятностная модель размножения популяций.
-     Каждая частица поколения \\(n\\) независимо порождает случайное число потомков \\(\\xi\\)
-     с одним и тем же законом распределения, образуя поколение \\(n+1\\).
-     Ключевой параметр модели — математическое ожидание числа потомков \\(m = \\mathbb{E}[\\xi]\\).`,
+    `The Galton–Watson process is the simplest probabilistic model of population reproduction.
+     Each particle of generation \\(n\\) independently produces a random number of offspring \\(\\xi\\)
+     according to the same distribution, forming generation \\(n+1\\).
+     The key parameter of the model is the expected number of offspring \\(m = \\mathbb{E}[\\xi]\\).`,
 
-    `Если \\(m < 1\\) (докритический режим), процесс вырождается с вероятностью 1:
-     популяция рано или поздно обнуляется.
-     Если \\(m = 1\\) (критический), вырождение тоже неизбежно, но происходит значительно медленнее.
-     При \\(m > 1\\) (надкритический) существует ненулевая вероятность выживания \\(1 - q > 0\\),
-     где \\(q\\) — вероятность вырождения, определяемая как наименьший корень \\(q = f(q)\\)
-     (\\(f\\) — производящая функция).`,
+    `If \\(m < 1\\) (the subcritical regime), the process becomes extinct with probability 1:
+     the population sooner or later dies out.
+     If \\(m = 1\\) (critical), extinction is also inevitable, but it happens much more slowly.
+     For \\(m > 1\\) (supercritical) there is a nonzero probability of survival \\(1 - q > 0\\),
+     where \\(q\\) is the extinction probability, defined as the smallest root of \\(q = f(q)\\)
+     (\\(f\\) being the generating function).`,
 
-    `При больших \\(m\\) быстро возникает <strong>гигантская компонента</strong>:
-     один из стартовых клонов захватывает подавляющую долю всей популяции уже за
-     \\(10{-}15\\) поколений. На этой странице используется распределение Пуассона
-     \\(\\xi \\sim \\mathrm{Pois}(\\lambda)\\), у которого \\(m = \\lambda\\),
-     производящая функция \\(f(s) = e^{\\lambda(s-1)}\\),
-     а вероятность вырождения — единственный корень \\(q = e^{\\lambda(q-1)}\\) в \\((0,1)\\)
-     при \\(\\lambda > 1\\).`
+    `For large \\(m\\), a <strong>giant component</strong> quickly emerges:
+     one of the starting clones captures an overwhelming share of the whole population within just
+     \\(10{-}15\\) generations. This page uses the Poisson distribution
+     \\(\\xi \\sim \\mathrm{Pois}(\\lambda)\\), for which \\(m = \\lambda\\),
+     the generating function \\(f(s) = e^{\\lambda(s-1)}\\),
+     and the extinction probability is the unique root of \\(q = e^{\\lambda(q-1)}\\) in \\((0,1)\\)
+     for \\(\\lambda > 1\\).`
   ];
   ['heroP1','heroP2','heroP3'].forEach((id, i) => {
     const el = document.getElementById(id);
@@ -817,7 +817,7 @@ function buildHero() {
   });
 }
 
-/* ─── Tooltip: позиционирование через fixed ─── */
+/* ─── Tooltip: positioning via fixed ─── */
 function initTooltips() {
   document.querySelectorAll('.tip-wrap').forEach(wrap => {
     const icon = wrap.querySelector('.tip-icon');
@@ -853,7 +853,7 @@ function initTooltips() {
   });
 }
 
-/* ─── Главный запуск ─── */
+/* ─── Main run ─── */
 function run() {
   updateMode();
   drawDistChart();
@@ -863,7 +863,7 @@ function run() {
   drawForest(simData);
 }
 
-/* ─── Слушатели ─── */
+/* ─── Listeners ─── */
 document.getElementById('lambdaSlider').addEventListener('input', function () {
   lambda = +this.value;
   document.getElementById('lambdaVal').textContent = lambda.toFixed(2);
@@ -882,7 +882,7 @@ document.getElementById('genSlider').addEventListener('input', function () {
 document.getElementById('rerunBtn').addEventListener('click', run);
 window.addEventListener('resize', () => { if (simData) drawForest(simData); });
 
-/* ─── Инициализация ─── */
+/* ─── Initialization ─── */
 buildHero();
 initTooltips();
 

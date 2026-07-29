@@ -1,0 +1,292 @@
+\documentclass[12pt,a4paper]{article}
+
+% Font settings for XeLaTeX
+\usepackage{fontspec}
+\setmainfont{FreeSerif}
+\setsansfont{FreeSans}
+\setmonofont{FreeMono}
+
+% Math packages
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{mathtools}
+\usepackage{calrsfs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\tolerance=1000
+\emergencystretch=2em
+
+\geometry{
+  a4paper,
+  top=2.5cm, bottom=2.5cm,
+  left=3cm, right=3cm
+}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!60!black,
+  urlcolor=blue!60!black
+}
+
+% Packages for graphics and diagrams
+\usepackage{tikz}
+\usetikzlibrary{cd, arrows.meta, shapes.geometric}
+
+% Math environments
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+% Macros for notational uniformity
+\newcommand{\ph}{\varphi}
+\newcommand{\toinf}{\rightarrow}
+\newcommand{\PA}{\textsf{PA}}
+\newcommand{\Ztwo}{\textsf{Z}_2}
+\newcommand{\ZFC}{\textsf{ZFC}}
+\newcommand{\PArec}{\PA^{\mathrm{rec}}_{-}}
+\newcommand{\eqdef}{\mathrel{\overset{\mathrm{def}}{\rightleftharpoons}}}
+
+\begin{document}
+
+\title{\textbf{On Mathematical Induction}}
+\author{Nikolai I. Kazimirov}
+\date{2026}
+\maketitle
+\tableofcontents
+\bigskip
+
+\section{Formalizations and Varieties of Induction}
+
+The principle of mathematical induction is a load-bearing construction of regular discrete systems. Depending on the expressive power of the language and the deductive strength of the base theory, induction takes on substantially different logical forms.
+
+\subsection{First-Order and Second-Order Formulations}
+In first-order Peano arithmetic ($\PA$), induction cannot be expressed by a single formula, because quantification over predicates is unavailable: formally, it is postulated as a countable scheme of axioms, one for each formula $\ph(a)$ (possibly with parameters $\vec p$):
+$$\ph[a/0] \land \forall x (\ph[a/x] \toinf \ph[a/Sx]) \toinf \forall y \; \ph[a/y].$$
+In substance, however, it is more familiar and convenient to write this scheme in the form mathematicians are used to from inductive definitions in set theory --- identifying the formula $\ph$ with its extension $X=\{x \mid \ph(x)\}$:
+\begin{equation}
+    I:\qquad \forall X \Big(0\in X \,\land\, \forall x\,(x\in X \toinf Sx\in X) \;\toinf\; \forall x\,(x\in X)\Big).
+\end{equation}
+One must immediately clarify the sense in which the notation $\forall X$ in (1) is to be understood: in the first-order language of $\PA$ there is no quantification over sets, so (1) is a \emph{metanotation} for the axiom scheme (ranging over all formulas $\ph$ defining $X$), and not a single formula with a genuine second-order quantifier. It is exactly this scheme --- denoted $I$, in agreement with the already-standard notation $I\Sigma_n$, $I\Delta_0$ for its fragments by the complexity of the formula $\ph$ --- that we discuss in detail in §2, together with several principles equivalent to it.
+
+In the system of second-order arithmetic ($\Ztwo$), where quantification over sets is permitted directly by the language, scheme (1) collapses into a single literal axiom of the same form --- now without any qualification about metanotation:
+\begin{equation}
+    \forall X \left( 0 \in X \land \forall x (x \in X \toinf S(x) \in X) \toinf \forall y (y \in X) \right).
+\end{equation}
+The deductive strength of $\Ztwo$ is determined by which \textit{comprehension scheme} is postulated for the existence of sets $X = \{x \mid \ph(x)\}$: the wider the class of formulas $\ph$ for which the existence of such an $X$ is guaranteed, the larger the stock of ``sets'' to which the single axiom (2) applies. Under impredicative comprehension (adopted in full $\Ztwo$), this already covers an arbitrary subset definable in the whole language of analysis.
+
+\subsection{Varieties of Induction by Formula Complexity and Parameters}
+\begin{enumerate}[label=\arabic*.]
+    \item \textbf{Restriction by formula hierarchy ($I\Sigma_n$, $I\Pi_n$):} Restricting the quantifier complexity of the formula $\ph$ in the induction scheme generates a strict deductive hierarchy of arithmetic subsystems. For instance, $I\Sigma_1$ suffices to prove the totality of the primitive recursive functions, whereas $I\Delta_0$ (induction only for formulas with bounded quantifiers) cannot even prove the totality of exponentiation.
+    \item \textbf{Induction with and without parameters (parameter-free induction):} In full $\PA$, the presence of free variables $\vec{p}$ in the formula $\ph$ does not increase the strength of the theory. However, for restricted fragments such as $I\Sigma_n^-$ (without parameters), the strength of the theory is strictly less than for the fragments with parameters $I\Sigma_n$.
+    \item \textbf{Induction along orderings:} A generalization of the local step to arbitrary well-ordered sets.
+\end{enumerate}
+
+\subsection{Induction in Set Theory}
+In Zermelo--Fraenkel set theory ($\ZFC$), induction on the natural numbers is a consequence of the axiom of infinity, which guarantees the existence of an inductive set $\omega$:
+\begin{equation}
+    \exists X \left( \emptyset \in X \land \forall x \in X (x \cup \{x\} \in X) \right).
+\end{equation}
+The set $\omega$ is defined as the intersection of all such inductive sets, from which standard induction for subsets of $\omega$ follows trivially.
+
+\textit{Transfinite induction} generalizes this principle to the class of all ordinals $\text{On}$ (or to arbitrary well-founded relations):
+\begin{equation}
+    \forall \alpha \in \text{On} \left( (\forall \beta < \alpha \; \ph(\beta)) \toinf \ph(\alpha) \right) \toinf \forall \gamma \in \text{On} \; \ph(\gamma).
+\end{equation}
+In $\ZFC$, transfinite induction as a proof principle (as opposed to transfinite \emph{recursion}, for defining functions by which the replacement scheme is essential) is a theorem, resting only on the axiom of regularity (foundation) and the separation scheme.
+
+\section{Equivalent First-Order Principles and Metamathematical Subtleties}
+
+\subsection{Five Principles: Definitions}
+Consider five key principles, formulated in the first-order language of arithmetic. As in §1.1, each of them is an axiom scheme (over the formula $\ph$ defining $X=\{x \mid \ph(x)\}$), and the notation $\forall X(\ldots)$ everywhere denotes exactly this scheme, not a second-order quantifier. For $x$, write $[0,x)\eqdef\{y \mid y<x\}$ for the initial interval, and fix three abbreviations:
+$$\mathrm{Ind}(X) \eqdef\; 0\in X \,\land\, \forall x\,(x\in X\toinf Sx\in X),$$
+$$\mathrm{Prog}(X) \eqdef\; \forall x\,\big([0,x)\subseteq X\;\toinf\; x\in X\big),$$
+$$\mathrm{Tot}(X) \eqdef\; \forall x\,(x\in X).$$
+Here \emph{inductiveness} is the local-step condition; \emph{progressiveness} is closure with respect to initial intervals; \emph{totality} states that $X$ contains absolutely everything. Then:
+\begin{enumerate}[leftmargin=1.2em, itemindent=0pt, labelsep=0.4em, itemsep=0.7em]
+    \item \textbf{Local induction ($I$).} \\ $\forall X\big(\mathrm{Ind}(X)\toinf \mathrm{Tot}(X)\big)$.
+    \item \textbf{Course-of-values (complete) induction ($I^*$).} \\ $\forall X\big(\mathrm{Prog}(X)\toinf\mathrm{Tot}(X)\big)$.
+    \item \textbf{Least element principle ($L$).} \\ $\forall X\big(X\ne\varnothing \;\toinf\; \exists x\in X\,\forall y\in X\,(x\leqslant y)\big)$.
+    \item \textbf{Infinite descent principle ($D$).} \\ $\forall X\big(X\ne\varnothing \;\toinf\; \neg\big(\forall x\in X\,\exists y\in X\,(y<x)\big)\big)$.
+    \item \textbf{Collection scheme ($B$).} \\ $\forall a\,\big(\forall x{<}a\,\exists y\,\ph(x,y) \;\toinf\; \exists z\,\forall x{<}a\,\exists y{<}z\,\ph(x,y)\big)$.
+\end{enumerate}
+(It is inconvenient and unnatural to write the scheme $B$ in terms of a characteristic set $X$ --- by its very form it is a statement about a binary relation $\ph(x,y)$ --- so for it we keep the ordinary formula notation.)
+
+\subsection{Equivalence of $I^*$, $L$, $D$ in Pure Predicate Calculus}
+A principally important observation: $I^*$, $L$, and $D$ are equivalent to one another already in pure predicate calculus --- without a single arithmetical axiom --- provided only that $<$ is required to be a strict linear order. We do not need a detailed axiomatics of order here (that is not our goal); only one consequence of it matters --- \emph{trichotomy}: for any $x,y$, exactly one of $x<y$, $x=y$, $y<x$ holds. Trichotomy is used exactly once: to link the ``negative'' form of the principle $D$ (expressed via $<$) with its logical twin --- the ``positive'' form $L$ familiar to a mathematician (via $\leqslant$, comparison with \emph{every} element of $X$).
+
+\begin{proposition}
+For any formula $\ph$ (with $X=\{x \mid \ph(x)\}$):
+\begin{enumerate}[label=(\alph*)]
+    \item in pure predicate calculus, $I^*_{\neg\ph} \iff D_\ph$;
+    \item if, in addition, $<$ satisfies trichotomy, then $D_\ph \iff L_\ph$.
+\end{enumerate}
+Since the class of formulas is closed under $\ph\mapsto\neg\ph$, it follows that the full schemes are equivalent: $I^*\iff D\iff L$.
+\end{proposition}
+\begin{proof}
+(a) The scheme $I^*$ for the formula $\neg\ph$ has the form $A\toinf B$, where (unfolding $\mathrm{Prog}$ and $\mathrm{Tot}$ by definition)
+$$A \equiv \forall x\big(\forall y{<}x\,(\neg\ph(y)) \toinf \neg\ph(x)\big), \qquad B\equiv \forall x\,(\neg\ph(x)).$$
+By the law of contraposition, $A\toinf B$ is equivalent to $\neg B\toinf\neg A$ --- a pure propositional tautology, requiring no new axioms whatsoever. Unfolding the negations by De Morgan's rules and quantifier duality:
+$$\neg B \equiv \exists x\,(\ph(x)) \equiv X\ne\varnothing, \qquad \neg A \equiv \exists x\big(\ph(x)\,\land\,\forall y{<}x\,(\neg\ph(y))\big).$$
+Inside $\neg A$, the subformula ``$\forall y{<}x\,\neg\ph(y)$'', that is, ``$\forall y\,(y<x\toinf\neg\ph(y))$'', is itself, by pure logic, equivalent to its contrapositive ``$\forall y\,(\ph(y)\toinf\neg(y<x))$'', that is, ``$\forall y\in X\,\neg(y<x)$''. Hence
+$$\neg A \equiv \exists x\in X\,\forall y\in X\,\neg(y<x) \equiv \neg\big(\forall x\in X\,\exists y\in X\,(y<x)\big),$$
+and the implication $\neg B\toinf\neg A$ is exactly $D_\ph$.
+
+(b) Unfolding the inner negation, $D_\ph$ states: $X\ne\varnothing\toinf\exists x\in X\,\forall y\in X\,\neg(y<x)$. The formula $L_\ph$ is literally the same, only with ``$\neg(y<x)$'' replaced by ``$x\leqslant y$''. By trichotomy these are the same condition: $\neg(y<x)$ means that either $y=x$ or $x<y$, i.e., exactly $x\leqslant y$.
+\end{proof}
+
+Thus the equivalence $I^*\iff L\iff D$ is a fact of \emph{logic}, not of arithmetic: the proof uses neither the number $0$ nor the operation $+1$, only the linearity of the order $<$.
+
+\subsection{Equivalence of $I$ and $I^*$: the Role of Minimal Arithmetic of the Successor}
+The connection of local induction $I$ with the triple $I^*, L, D$ is of a fundamentally different nature: it is inseparable from the successor $S$ and therefore cannot be a purely logical fact. We will need three elementary facts about $<$ and $S$. Here one should be careful about where these come from: in Robinson arithmetic $\mathsf{Q}$, the relation $<$ is usually not primitive at all, but is \emph{defined} by an existential formula ($x<y \eqdef \exists z\,(Sz+x=y)$), and the proof that this definition is equivalent to the recursive identities given below is itself not entirely trivial and depends on the manner of recursively unfolding $+$. To avoid leaving this hanging, we fix $<$ as a primitive relation and introduce the theory
+$$\PArec \;\eqdef\; \big\{\,x+0=x,\ x+Sy=S(x+y),\ x\cdot0=0,\ x\cdot Sy=x\cdot y+x,$$
+$$Sx\ne0,\ Sx=Sy\to x=y\,\big\} \,\cup\, \{\text{(O1)--(O3)}\}$$
+--- essentially, this is Robinson arithmetic in its original, recursive form, with the order axioms (O1)--(O3) explicitly postulated (rather than derived):
+\begin{itemize}
+    \item[(O1)] $\neg(x<0)$ --- $0$ is the least element;
+    \item[(O2)] $y<Sx \leftrightarrow y\leqslant x$ --- the recursive link between order and successor;
+    \item[(O3)] $x\ne0 \toinf \exists y\,(x=Sy)$ --- every nonzero element is a successor.
+\end{itemize}
+All three are axioms of $\PArec$, not theorems derivable from something simpler.
+
+\begin{lemma}
+From (O1)--(O3) it follows that: for every $X$, $\mathrm{Ind}(X)\toinf\mathrm{Prog}(X)$.
+\end{lemma}
+\begin{proof}
+Suppose $\mathrm{Ind}(X)$ holds, i.e., $0\in X$ and $\forall z\,(z\in X\toinf Sz\in X)$. Take an arbitrary $x$ with $[0,x)\subseteq X$; we show $x\in X$. By (O3), either $x=0$ or $x=Sz$ for some $z$.
+If $x=0$: then $x\in X$ directly, by the first conjunct of $\mathrm{Ind}(X)$.
+If $x=Sz$: then by (O2) (with $y=z$) we have $z<Sz=x$, whence $z\in[0,x)\subseteq X$, i.e., $z\in X$; then by the second conjunct of $\mathrm{Ind}(X)$ we get $Sz=x\in X$.
+\end{proof}
+
+\begin{proposition}
+Given (O1)--(O3), $I^*$ implies $I$.
+\end{proposition}
+\begin{proof}
+Suppose $\mathrm{Ind}(X)$ holds. By the Lemma, $\mathrm{Prog}(X)$. Applying $I^*$, we obtain $\mathrm{Tot}(X)$ --- the conclusion of $I$.
+\end{proof}
+Note: axiom (O3) is used here exactly once --- in the case split on $x$ (either $0$ or a successor). Without it, one could not guarantee that every nonzero element is ``reachable by an induction step'' from some predecessor.
+
+\begin{proposition}
+Given only (O1)--(O2) (axiom (O3) is not needed!), $I$ implies $I^*$.
+\end{proposition}
+\begin{proof}
+Suppose $\mathrm{Prog}(X)$ holds. Define the auxiliary set
+$$Y \eqdef \{x \mid [0,x)\subseteq X\}$$
+--- the maximal initial interval lying entirely within $X$.
+
+\emph{$Y\subseteq X$.} If $x\in Y$, then $[0,x)\subseteq X$ --- which is exactly the hypothesis of $\mathrm{Prog}(X)$ at this $x$, so immediately $x\in X$.
+
+\emph{$\mathrm{Ind}(Y)$.} \textit{Base:} by (O1), $[0,0)=\varnothing\subseteq X$, so $0\in Y$. \textit{Step:} let $z\in Y$, i.e., $[0,z)\subseteq X$; by the already-proved $Y\subseteq X$, also $z\in X$, so $[0,z)\cup\{z\}\subseteq X$. By (O2), $[0,Sz)=[0,z)\cup\{z\}$ (since $y<Sz \leftrightarrow y\leqslant z \leftrightarrow y<z\,\lor\,y=z$), so $[0,Sz)\subseteq X$, i.e., $Sz\in Y$.
+
+Applying $I$ to $Y$, we obtain $\mathrm{Tot}(Y)$. Together with the already-established $Y\subseteq X$, this immediately gives $\mathrm{Tot}(X)$ --- the conclusion of $I^*$.
+\end{proof}
+
+The asymmetry of the directions here is substantive. The direction $I^*\Rightarrow I$ (the Lemma above) essentially uses all three facts (O1)--(O3), with (O3) playing the decisive role --- in the case split ``$x$ is $0$ or a successor''. The direction $I\Rightarrow I^*$, by contrast, gets by with (O1)--(O2), and (O3) is simply not used in its proof.
+
+\textbf{(O3) is essential: a model where $I^*$ holds but $I$ does not.} Take as carrier the ordinal $\omega+\omega$ --- two consecutive copies of $\mathbb N$, with the usual ordinal order $<$, and define the successor $S$ \emph{separately within each copy}: $S(n)=n+1$ in the first copy, $S(\omega+n)=\omega+n+1$ in the second. The function $S$ is everywhere defined and injective, (O1)--(O2) hold, but the element $\omega$ (the start of the second copy) is not $S(y)$ for any $y$ --- this is exactly the limit ordinal at which (O3) fails.
+
+Since $\omega+\omega$ is a genuine ordinal, i.e., a well-ordered set, transfinite induction (§1.3) holds in it for \emph{arbitrary} subsets of the carrier --- not only for subsets given by a formula --- so $I^*$ (and with it $L$ and $D$) holds here in a genuinely second-order sense, with no reservations about a scheme.\footnote{A remark for the cautious reader: does this not mean that induction ``forces'' a model to be well-ordered, i.e., standard? No: there exist nonstandard models of $\PA$ in which the full scheme $I$ (and with it $I^*,L,D$ as schemes) holds, yet the model itself, viewed \emph{from outside}, is not well-ordered --- it contains subsets (not definable in the language of $\PA$) with no least element. There is no contradiction here: as an axiom scheme, $I^*$ guarantees a least element only for subsets \emph{definable} by a formula of the language of $\PA$; the scheme simply does not extend to the ``illegitimate'' subsets of a nonstandard model. In the example above we were legitimately entitled to require $I^*$ for absolutely all subsets of the carrier precisely because $\omega+\omega$ is standard by construction (coincides with a genuine ordinal); for nonstandard models this luxury is no longer available.} But $I$ does not hold: the set $X=$ the first copy of $\mathbb N$ contains $0$ and is closed under $S$ (i.e., $\mathrm{Ind}(X)$ holds), yet $X\ne\omega+\omega$. This is exactly what the asymmetry above predicts: the model violates (O3) --- and with it $I$ --- but does not touch the purely logical triple $I^*, L, D$ at all.
+
+\subsection{The Collection Scheme $B$ and Induction}
+The nature of the connection between the collection scheme $B$ and the induction scheme $I$ is different, and noticeably more subtle metamathematically, than everything considered above: it reduces neither to pure logic nor to the minimal arithmetic of the successor. We will not prove it here, confining ourselves to a precise statement of the known result.
+
+Within the weak base theory $\PA^-$ (the axioms of a discrete ordered semiring without induction, see Kaye, \textit{Models of Peano Arithmetic}), the scheme $B$ on its own \textbf{does not imply} the scheme $I$. But already relative to the base induction for $\Delta_0$-formulas ($I\Delta_0$), the connection is restored and takes the form of a strict hierarchy (Paris--Kirby, 1978):
+$$I\Sigma_n \;\toinf\; B\Sigma_n \;\toinf\; I\Sigma_{n-1} \qquad (n\ge1),$$
+while at the level of the full (formula-complexity-unbounded) schemes, $I \iff B$ relative to the base $I\Delta_0$. The hierarchy of connections among all five principles is shown in the diagram:
+
+\begin{center}
+\catcode`\"=12
+\begin{tikzcd}[row sep=3em, column sep=4.5em]
+|[draw, rounded corners, inner sep=8pt]| I^* \Leftrightarrow L \Leftrightarrow D
+\arrow[r, shift left=2, Rightarrow, "\text{(O2),(O3)}"]
+& |[draw, rounded corners, inner sep=6pt]| I
+\arrow[l, shift left=2, Rightarrow, "\text{(O1),(O2)}"']
+\arrow[r, shift left=2, Rightarrow, "I\Delta_0"]
+& |[draw, rectangle, rounded corners, inner sep=6pt]| B
+\arrow[l, shift left=2, Rightarrow, "I\Delta_0"']
+\end{tikzcd}
+\end{center}
+
+The equivalence $I^*\Leftrightarrow L\Leftrightarrow D$ is proved in §2.2 purely logically, up to the trichotomy of $<$. The passage to $I$ requires the minimal arithmetic of the successor (§2.3): it is precisely axiom (O3) that creates the asymmetry --- it is needed for $I^*\Rightarrow I$, but not for $I\Rightarrow I^*$. The passage to the collection scheme $B$ essentially uses the induction $I\Delta_0$; the proof is not given.
+
+\section{Consequences of the Induction Principle in Mathematical Structures}
+
+Below is a list of deep mathematical statements whose validity is essentially tied to the deductive strength of induction. Where possible, the exact status of the statement is indicated in terms of subsystems of second-order arithmetic ($\textsf{RCA}_0$, $\textsf{WKL}_0$, $\textsf{ACA}_0$).
+
+\subsection{The Pigeonhole Principle}
+Functional formulation: if $A$ and $B$ are finite sets, and the cardinality of $A$ is strictly greater than the cardinality of $B$, then there is no injective map $f: A \toinf B$.
+\textit{Status:} The provability of the pigeonhole principle is a classical question of proof theory. By the theorem of Paris--Wilkie--Woods and Ajtai (1988), $PHP$ is not provable in $I\Delta_0$ even for $\Delta_0$-definable functions --- that is, one of the most elementary combinatorial truths is not derivable from bounded induction, which demonstrates the extreme weakness of $I\Delta_0$ as a base theory.
+
+\subsection{König's Lemma on Infinite Paths}
+Formulation in the language of partially ordered sets: if a finitely branching partially ordered set $(T, \leqslant_T)$ that is a tree with a single root contains infinitely many elements, then it contains an infinite chain (path).
+\textit{Status:} Weak König's lemma ($\textsf{WKL}_0$, for binary trees) is equivalent to the compactness of an interval in analysis. Full König's lemma (for arbitrary finitely branching trees) is strictly stronger and equivalent to the arithmetical comprehension scheme $\textsf{ACA}_0$. The extra strength compared to $\textsf{WKL}_0$ arises not from induction (the induction scheme is the same in both systems), but precisely from the comprehension scheme: to choose, at each step, a subtree with infinitely many vertices, one must be allowed the predicate ``the subtree is infinite,'' which for arbitrary (not just binary) trees does not reduce to a $\Delta_0$-condition and requires exactly $\textsf{ACA}_0$.
+
+\subsection{Algebraic Laws in $\PA$}
+Commutativity and associativity of addition ($\forall x, y \; x+y = y+x$) and of multiplication.
+
+\textit{Clarifying the base theory.} It is important here to specify precisely which induction-free theory is meant. The theory $\PA^-$, used in §2.4 (the theory of the nonnegative part of a discrete ordered ring, see Kaye, \textit{Models of Peano Arithmetic}), already \emph{postulates} the commutativity and associativity of $+$ and $\times$ as separate, non-inductive axioms --- so one cannot speak of ``noncommutative models of $\PA^-$'': that would contradict the very definition of $\PA^-$. The statement below concerns the weaker theory $\PArec$, introduced in §2.3 --- Robinson arithmetic in its original, recursive form, with explicit order axioms (O1)--(O3), but without induction and without separately postulating commutativity or associativity.
+
+\textit{A model without commutativity:} Deriving the commutative law in $\PArec$ without induction is impossible: there exist (necessarily nonstandard) models of $\PArec$ in which addition is not commutative. A substantive illustration of the same phenomenon --- though not a literal model of $\PArec$, but a structure of a different type (an ordered monoid) --- is ordinal arithmetic: for the first transfinite ordinal $\omega$, $\omega + 1 \neq 1 + \omega$ holds. It is precisely the impossibility of deriving commutativity without induction that is the reason why $\PA^-$ in the sense of Kaye includes commutativity and associativity explicitly in its list of axioms, rather than trying to obtain them as consequences.
+
+\subsection{Dedekind-Finite Sets}
+\begin{enumerate}[label=\arabic*.]
+    \item \textbf{Proper subsets:} The statement ``if $B \subsetneq A$ and $A$ is finite, then the cardinality of $B$ is strictly less than the cardinality of $A$'' is a direct consequence of induction on the number of elements of the set $A$. Without induction, finite sets behave like quasi-infinite ones.
+    \item \textbf{Dedekind finiteness:} A set $A$ is Dedekind-finite if there is no injection $f: A \toinf A$ that fails to be a surjection. Using induction, one easily proves the direction ``standard-finite $\Rightarrow$ Dedekind-finite.'' The converse direction, however, does not follow from induction alone: it is provable using the countable axiom of choice $AC_\omega$ (if the set is infinite, $AC_\omega$ allows choosing a countable subsequence of distinct elements within it, which yields the required non-surjective injection) --- but this is only a \emph{consequence} of $AC_\omega$, not a statement equivalent to it. In any case, without any choice, in the theory $\textsf{ZF}$ this direction is unprovable: there exist models of $\textsf{ZF}$ with infinite Dedekind-finite sets (Fraenkel--Mostowski models, Cohen's first model).
+\end{enumerate}
+
+\subsection{Ramsey's Theorem ($RT^2_2$)}
+Ramsey's theorem for a pair of colors is most clearly stated in the language of ordinary graphs, without talk of colorings: for two colors, one of them is ``there is an edge'' and the other is ``there is no edge,'' so an arbitrary coloring of pairs of vertices in 2 colors is the same thing as an arbitrary graph on those vertices.
+
+\textbf{The finite case.} The classical example is the ``party theorem'': among any 6 people (consider the acquaintance graph, where an edge is an acquaintance), there are either three who are pairwise acquainted (a triangle in the graph) or three who are pairwise unacquainted (a triangle in its complement); 6 is the smallest such number (the Ramsey number $R(3,3)=6$). In general: for any $k,m$ there exists a Ramsey number $R(k,m)$ --- the smallest $N$ such that any graph on $N$ vertices contains either a clique of size $k$ or an independent set of size $m$. It is worth noting that even this purely finitary statement (merely quantified over $k,m$) is proved by induction, on the sum $k+m$.
+
+\textbf{The infinite case ($RT^2_2$).} In any graph on an infinite vertex set there is an infinite subset of vertices forming either a complete subgraph (all edges present) or a totally disconnected subgraph (no edges at all). This is a direct consequence of induction (more precisely, of the principle $L$: among the ``types'' of vertices relative to those already selected, there are always infinitely many of some single type).\footnote{The exact reverse-mathematical strength of $RT^2_2$ is known and quite subtle: it is provable in $\textsf{RCA}_0+I\Sigma_2$, but does not itself imply $I\Sigma_2$ (Cholak--Jockusch--Slaman, 2001) --- we will not go into these details.}
+
+\subsection{Totality of the Ackermann Function}
+By Parsons's theorem, the $I\Sigma_1$-provably recursive functions are exactly the primitive recursive functions; since the Ackermann function is by construction not primitive recursive, its totality is \textbf{unprovable} in $I\Sigma_1$. It becomes provable already at the next level, in $I\Sigma_2$ (which corresponds to the place of the Ackermann function in the fast-growing hierarchy, at level $\omega$, whereas $I\Sigma_1$ covers only the finite levels of this hierarchy).
+
+\subsection{The Limits of Induction: Goodstein's Theorem and the Paris--Harrington Principle}
+All the examples of §§3.1--3.6 showed how much can be achieved by the means of induction $I$. The next two results demonstrate the exact opposite: induction $I$ (that is, the full induction scheme of $\PA$) has a clear, precisely measurable \textbf{limit} of strength --- and it is exactly these two examples that mark it.
+
+\textbf{Goodstein's theorem.} Formulated and proved (with no connection whatsoever to the metamathematics of $\PA$) by R. Goodstein as early as 1944: for any number $n$, the Goodstein sequence $g_n(0), g_n(1), g_n(2),\ldots$ (defined via the representation of numbers in hereditary base-$k$ notation, replacing the base $k$ by $k+1$ and subtracting one at each step) always reaches $0$ in finitely many steps. This is a true $\Pi_2$-sentence of the language of $\PA$ (of the form $\forall n\,\exists k\,g_n(k)=0$); it was only almost four decades later that Kirby and Paris (1982) showed it is \textbf{not derivable in $\PA$}.
+
+\textbf{The Paris--Harrington principle.} A strengthened version of the finitary Ramsey theorem of §3.5 (with the additional requirement of ``relative largeness'' of the sought monochromatic set) --- a true, purely combinatorial statement (Paris, Harrington, 1977), which was presented \emph{immediately}, at the very moment of its appearance, as an example of a statement unprovable in $\PA$. In this sense the Paris--Harrington principle is the first example of a \emph{natural} theorem (not metamathematical in its statement, not explicitly appealing to provability or to Gödelian diagonalization) for which unprovability in $\PA$ was established simultaneously with the theorem itself: Goodstein's theorem as a \emph{mathematical statement} appeared considerably earlier (1944), but its independence from $\PA$ was discovered only later --- under the influence of the Paris--Harrington result.
+
+Both facts are nonetheless provable by means going beyond $I$ --- in particular, already in $\ZFC$ and in full second-order arithmetic $\Ztwo$: it suffices to use \emph{transfinite} induction along the ordinal $\varepsilon_0$, available already in the comparatively modest subsystem $\textsf{ATR}_0\subseteq\Ztwo$. The ordinal $\varepsilon_0$ does not appear here by accident: by Gentzen's theorem (1936), this is exactly the proof-theoretic ordinal of $\PA$ --- the boundary that induction $I$ cannot formalize as a proof scheme on its own. In other words: the local and course-of-values induction schemes $I\iff I^*$ --- for all the power they demonstrate --- are themselves \textbf{not closed} with respect to all true arithmetical statements; going beyond their limits requires an essentially stronger form of induction --- transfinite induction --- unavailable as a first-order axiom scheme over the standard model $\omega$.
+
+\section*{List of Notation}
+\begin{description}[leftmargin=3.2cm, style=nextline, font=\normalfont]
+    \item[$\PA$] Peano arithmetic (first-order, with the full induction scheme $I$).
+    \item[$\Ztwo$] Second-order arithmetic (analysis) with the impredicative comprehension scheme.
+    \item[$\ZFC$] Zermelo--Fraenkel set theory with the axiom of choice.
+    \item[$\PA^-$] The axioms of a discrete ordered semiring without induction (in the sense of Kaye), with commutativity and associativity of $+,\times$ explicitly postulated.
+    \item[$\PArec$] Robinson arithmetic in recursive form (equations for $+,\times,S$) with explicit order axioms (O1)--(O3), without induction and without separately postulating commutativity/associativity (§2.3).
+    \item[$S$, $<$, $\leqslant$] Successor; strict and non-strict order on numbers.
+    \item[$[0,x)$] The initial interval $\{y \mid y<x\}$.
+    \item[$\mathrm{Ind}(X)$] Inductiveness of $X$: $0\in X\,\land\,\forall x\,(x\in X\toinf Sx\in X)$.
+    \item[$\mathrm{Prog}(X)$] Progressiveness of $X$: $\forall x\,([0,x)\subseteq X\toinf x\in X)$.
+    \item[$\mathrm{Tot}(X)$] Totality of $X$: $\forall x\,(x\in X)$.
+    \item[$I$] Local induction: $\forall X(\mathrm{Ind}(X)\toinf\mathrm{Tot}(X))$.
+    \item[$I^*$] Course-of-values (complete) induction: $\forall X(\mathrm{Prog}(X)\toinf\mathrm{Tot}(X))$.
+    \item[$L$] The least element principle.
+    \item[$D$] The infinite descent principle (absence of infinite descending chains).
+    \item[$B$] The collection scheme.
+    \item[(O1)--(O3)] Axioms of $\PArec$ relating $<$ and $S$: $0$ is least; $y<Sx\leftrightarrow y\leqslant x$; every nonzero element is a successor.
+    \item[$I\Sigma_n$, $B\Sigma_n$, $I\Delta_0$] Induction (resp. collection) for formulas of bounded quantifier complexity; the hierarchy of subsystems of $\PA$.
+    \item[$\textsf{RCA}_0$] The base system of reverse mathematics: recursive comprehension scheme plus $I\Sigma_1$.
+    \item[$\textsf{WKL}_0$] $\textsf{RCA}_0$ plus weak König's lemma (for binary trees).
+    \item[$\textsf{ACA}_0$] $\textsf{RCA}_0$ plus the arithmetical comprehension scheme.
+    \item[$\textsf{ATR}_0$] $\textsf{RCA}_0$ plus arithmetical transfinite recursion; strictly stronger than $\textsf{ACA}_0$.
+    \item[$\varepsilon_0$] The proof-theoretic ordinal of $\PA$ (Gentzen, 1936): the supremum of the order types of canonical (naturally given) well-ordering relations on $\mathbb N$ whose well-foundedness is provable in $\PA$.\footnote{Not the least ordinal for which $\PA$ cannot prove well-foundedness: there exist far shorter orders, artificially built (via the consistency predicate) with the same defect. The qualification ``canonical'' is precisely meant to exclude such pathologies --- the question of the precise boundary of this notion is the subject of a separate discussion in proof theory.}
+    \item[$RT^2_2$] Ramsey's theorem for pairs and two colors (in graph form --- for an arbitrary graph on an infinite vertex set).
+\end{description}
+
+\end{document}

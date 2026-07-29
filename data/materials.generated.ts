@@ -92,6 +92,13 @@ export const MATERIALS_ITEMS: MaterialItem[] = [
     "lang": "ru"
   },
   {
+    "filename": "galton_watson_process_en.html",
+    "href": "/Materials/galton_watson_process_en.html",
+    "title": "The Galton–Watson Process",
+    "category": "probability",
+    "lang": "en"
+  },
+  {
     "filename": "galton_watson_process.html",
     "href": "/Materials/galton_watson_process.html",
     "title": "Процесс Гальтона–Ватсона",
@@ -104,6 +111,13 @@ export const MATERIALS_ITEMS: MaterialItem[] = [
     "title": "Конструкция Хенкина — интерактивная демонстрация",
     "category": "foundations",
     "lang": "ru"
+  },
+  {
+    "filename": "induction_en.html",
+    "href": "/Materials/induction_en.html",
+    "title": "On Mathematical Induction",
+    "category": "foundations",
+    "lang": "en"
   },
   {
     "filename": "induction.html",
@@ -127,11 +141,25 @@ export const MATERIALS_ITEMS: MaterialItem[] = [
     "lang": "ru"
   },
   {
+    "filename": "math_analysis_levels_en.html",
+    "href": "/Materials/math_analysis_levels_en.html",
+    "title": "Levels of Formalization of Mathematical Analysis",
+    "category": "analysis",
+    "lang": "en"
+  },
+  {
     "filename": "math_analysis_levels.html",
     "href": "/Materials/math_analysis_levels.html",
     "title": "Уровни формализации математического анализа",
     "category": "analysis",
     "lang": "ru"
+  },
+  {
+    "filename": "math_structures_en.html",
+    "href": "/Materials/math_structures_en.html",
+    "title": "How Mathematical Structures Are Constructed",
+    "category": "algebra",
+    "lang": "en"
   },
   {
     "filename": "math_structures.html",

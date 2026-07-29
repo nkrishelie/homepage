@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://mathem.at/Materials/induction.html">
 <meta property="og:image" content="https://mathem.at/archetypes.png">
 <meta property="og:locale" content="ru_RU">
+<link rel="alternate" hreflang="ru" href="/Materials/induction.html">
+<link rel="alternate" hreflang="en" href="/Materials/induction_en.html">
 <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPuKKojwvdGV4dD48L3N2Zz4=" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -37,6 +39,10 @@ body{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Georgia,ser
 .crumbs{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink3)}
 .crumbs a{color:var(--ink3);text-decoration:none}
 .crumbs a:hover{color:var(--ink)}
+.lang-pills{display:flex;gap:8px}
+.lang-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border:1px solid var(--border);color:var(--ink2);transition:.15s}
+.lang-pill.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.lang-pill:not(.active):hover{border-color:var(--ink)}
 
 header{margin-bottom:2.5rem;border-bottom:1.5px solid var(--ink);padding-bottom:1.5rem}
 .kicker{font-family:'JetBrains Mono',monospace;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:.6rem}
@@ -197,6 +203,10 @@ tbody td:last-child{border-right:none}
 
 <div class="topbar">
   <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> / <a href="/#materials">Материалы</a></div>
+  <div class="lang-pills">
+    <a class="lang-pill" href="/Materials/induction_en.html">🇬🇧 EN</a>
+    <a class="lang-pill active" href="/Materials/induction.html">🇷🇺 RU</a>
+  </div>
 </div>
 
 <header>

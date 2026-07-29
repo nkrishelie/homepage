@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Как конструируются математические структуры</title>
-<meta name="description" content="От голого множества к аналитической структуре: как последовательно вводятся домен, алгебра, топология и метрика при построении математических структур.">
-<link rel="canonical" href="https://mathem.at/Materials/math_structures.html">
+<title>How Mathematical Structures Are Constructed</title>
+<meta name="description" content="From a bare set to an analytic structure: how domain, algebra, topology, and metric are successively introduced when building mathematical structures.">
+<link rel="canonical" href="https://mathem.at/Materials/math_structures_en.html">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Как конструируются математические структуры">
-<meta property="og:description" content="От голого множества к аналитической структуре: как последовательно вводятся домен, алгебра, топология и метрика при построении математических структур.">
-<meta property="og:url" content="https://mathem.at/Materials/math_structures.html">
+<meta property="og:title" content="How Mathematical Structures Are Constructed">
+<meta property="og:description" content="From a bare set to an analytic structure: how domain, algebra, topology, and metric are successively introduced when building mathematical structures.">
+<meta property="og:url" content="https://mathem.at/Materials/math_structures_en.html">
 <meta property="og:image" content="https://mathem.at/archetypes.png">
-<meta property="og:locale" content="ru_RU">
+<meta property="og:locale" content="en_US">
 <link rel="alternate" hreflang="ru" href="/Materials/math_structures.html">
 <link rel="alternate" hreflang="en" href="/Materials/math_structures_en.html">
 <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPsKxw5fDtzwvdGV4dD48L3N2Zz4=" type="image/svg+xml">
@@ -470,126 +470,126 @@
 <body>
 
 <div class="topbar">
-  <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> / <a href="/#materials">Материалы</a></div>
+  <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> / <a href="/#materials">Materials</a></div>
   <div class="lang-pills">
-    <a class="lang-pill" href="/Materials/math_structures_en.html">🇬🇧 EN</a>
-    <a class="lang-pill active" href="/Materials/math_structures.html">🇷🇺 RU</a>
+    <a class="lang-pill active" href="/Materials/math_structures_en.html">🇬🇧 EN</a>
+    <a class="lang-pill" href="/Materials/math_structures.html">🇷🇺 RU</a>
   </div>
 </div>
 
 <header>
-  <div class="section-label">Математические структуры</div>
-  <h1>Как конструируются математические структуры</h1>
-  <p class="subtitle">От голого множества к аналитической структуре: домен, алгебра, топология, метрика</p>
+  <div class="section-label">Mathematical Structures</div>
+  <h1>How Mathematical Structures Are Constructed</h1>
+  <p class="subtitle">From a bare set to an analytic structure: domain, algebra, topology, metric</p>
 </header>
 
 <main>
 
 <!-- ══════════════════════════════════════════════
-     1. БАЗОВЫЕ КОНСТРУКЦИИ
+     1. BASIC CONSTRUCTIONS
      ══════════════════════════════════════════════ -->
 <section class="block" id="base">
-  <h2 class="section-title"><span class="num">§1</span> Базовые теоретико-множественные конструкции</h2>
+  <h2 class="section-title"><span class="num">§1</span> Basic Set-Theoretic Constructions</h2>
 
-  <p>Все математические структуры строятся из нескольких фундаментальных кирпичиков теории множеств. Перечислим их справочно.</p>
+  <p>Every mathematical structure is built out of a few fundamental building blocks of set theory. Let's list them for reference.</p>
 
   <div class="constructions-grid">
 
     <div class="constr-card">
-      <h4>Упорядоченная пара</h4>
-      <span class="prop-tag">Ключевое свойство</span>
+      <h4>Ordered Pair</h4>
+      <span class="prop-tag">Key property</span>
       <p>\(\langle x, y \rangle \stackrel{\rm def}{=} \{\{x\},\{x,y\}\}\)</p>
-      <p style="font-size:.85rem">Главное свойство: \(\langle a,b\rangle = \langle c,d\rangle \Leftrightarrow a=c \wedge b=d\)</p>
-      <p class="example-note">Основа для декартовых произведений и всех отношений</p>
+      <p style="font-size:.85rem">Main property: \(\langle a,b\rangle = \langle c,d\rangle \Leftrightarrow a=c \wedge b=d\)</p>
+      <p class="example-note">The basis for Cartesian products and all relations</p>
     </div>
 
     <div class="constr-card">
-      <h4>Декартово произведение</h4>
-      <span class="prop-tag">Конструкция</span>
+      <h4>Cartesian Product</h4>
+      <span class="prop-tag">Construction</span>
       <p>\(A \times B \stackrel{\rm def}{=} \{\langle x,y\rangle \mid x\in A,\; y\in B\}\)</p>
-      <p style="font-size:.85rem">\(n\)-арное: \(A_1 \times \cdots \times A_n\); однородное \(A^n\)</p>
-      <p class="example-note">Строит «координатные» пространства, графики функций</p>
+      <p style="font-size:.85rem">\(n\)-ary: \(A_1 \times \cdots \times A_n\); homogeneous \(A^n\)</p>
+      <p class="example-note">Builds "coordinate" spaces and graphs of functions</p>
     </div>
 
     <div class="constr-card">
-      <h4>Функция</h4>
-      <span class="prop-tag">Отображение</span>
-      <p>Всюду определённое однозначное отношение \(f \subseteq A\times B\)</p>
-      <p style="font-size:.85rem"><strong>Биекция</strong> = инъекция + сюръекция</p>
-      <p class="example-note">Образ \(f[X]\), прообраз \(f^{-1}[Y]\), композиция \(g\circ f\)</p>
+      <h4>Function</h4>
+      <span class="prop-tag">Mapping</span>
+      <p>A total, single-valued relation \(f \subseteq A\times B\)</p>
+      <p style="font-size:.85rem"><strong>Bijection</strong> = injection + surjection</p>
+      <p class="example-note">Image \(f[X]\), preimage \(f^{-1}[Y]\), composition \(g\circ f\)</p>
     </div>
 
     <div class="constr-card">
-      <h4>Отношение эквивалентности</h4>
-      <span class="prop-tag">Разбиение</span>
-      <p>Рефлексивное + симметричное + транзитивное</p>
-      <p style="font-size:.85rem">Класс: \([x]_{\sim} = \{y\in X \mid x\sim y\}\)</p>
-      <p>Фактор-множество: \(X/{\sim} = \{[x]_\sim \mid x\in X\}\)</p>
-      <p class="example-note">Строит \(\mathbb{Z}, \mathbb{Q}, \mathbb{R}\) через классы эквивалентности</p>
+      <h4>Equivalence Relation</h4>
+      <span class="prop-tag">Partition</span>
+      <p>Reflexive + symmetric + transitive</p>
+      <p style="font-size:.85rem">Class: \([x]_{\sim} = \{y\in X \mid x\sim y\}\)</p>
+      <p>Quotient set: \(X/{\sim} = \{[x]_\sim \mid x\in X\}\)</p>
+      <p class="example-note">Constructs \(\mathbb{Z}, \mathbb{Q}, \mathbb{R}\) via equivalence classes</p>
     </div>
 
     <div class="constr-card">
-      <h4>Звезда Клини</h4>
-      <span class="prop-tag">Бесконечное объединение</span>
+      <h4>Kleene Star</h4>
+      <span class="prop-tag">Infinite union</span>
       <p>\(X^* = \bigcup_{n=0}^{\infty} X^n = X^0 \cup X \cup X^2 \cup \cdots\)</p>
-      <p style="font-size:.85rem">Множество всех конечных слов над алфавитом \(X\)</p>
-      <p class="example-note">Тексты: \(\Sigma^*\); многочлены: \(K[x]\) на носителе \(K^*\)</p>
+      <p style="font-size:.85rem">The set of all finite words over the alphabet \(X\)</p>
+      <p class="example-note">Strings: \(\Sigma^*\); polynomials: \(K[x]\) on the carrier \(K^*\)</p>
     </div>
 
     <div class="constr-card">
-      <h4>Порядки</h4>
-      <span class="prop-tag">Иерархия</span>
+      <h4>Orders</h4>
+      <span class="prop-tag">Hierarchy</span>
       <p style="font-size:.85rem">
-        <strong>Предпорядок:</strong> рефл. + транз.<br>
-        <strong>Частичный порядок:</strong> антисимм. предпорядок<br>
-        <strong>Линейный порядок:</strong> связный ч.п.<br>
-        <strong>Вполне упорядоченное:</strong> \(\forall X\neq\emptyset\;\exists\text{min}\)
+        <strong>Preorder:</strong> refl. + trans.<br>
+        <strong>Partial order:</strong> antisymmetric preorder<br>
+        <strong>Linear order:</strong> a total (connected) partial order<br>
+        <strong>Well-order:</strong> \(\forall X\neq\emptyset\;\exists\text{min}\)
       </p>
-      <p class="example-note">Ординалы: \(\omega, \omega^2, \varepsilon_0,\ldots\)</p>
+      <p class="example-note">Ordinals: \(\omega, \omega^2, \varepsilon_0,\ldots\)</p>
     </div>
 
   </div><!-- /.constructions-grid -->
 
-  <h3 class="sub-title">Свойства бинарных отношений</h3>
+  <h3 class="sub-title">Properties of Binary Relations</h3>
   <div class="rel-table-wrap">
     <table class="rel-table">
       <thead>
         <tr>
-          <th>Свойство</th>
-          <th>Формула</th>
-          <th>Пример</th>
+          <th>Property</th>
+          <th>Formula</th>
+          <th>Example</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>Рефлексивность</td>
+          <td>Reflexivity</td>
           <td class="formula">\(\forall x:\; xRx\)</td>
-          <td>\(\leq\) на \(\mathbb{R}\)</td>
+          <td>\(\leq\) on \(\mathbb{R}\)</td>
         </tr>
         <tr>
-          <td>Симметричность</td>
+          <td>Symmetry</td>
           <td class="formula">\(xRy \to yRx\)</td>
           <td>\(=\), \(\sim\)</td>
         </tr>
         <tr>
-          <td>Транзитивность</td>
+          <td>Transitivity</td>
           <td class="formula">\(xRy \wedge yRz \to xRz\)</td>
-          <td>\(<\), делимость</td>
+          <td>\(<\), divisibility</td>
         </tr>
         <tr>
-          <td>Антисимметричность</td>
+          <td>Antisymmetry</td>
           <td class="formula">\(xRy \wedge yRx \to x=y\)</td>
-          <td>\(\subseteq\) на \(\mathcal{P}(X)\)</td>
+          <td>\(\subseteq\) on \(\mathcal{P}(X)\)</td>
         </tr>
         <tr>
-          <td>Связность</td>
+          <td>Totality (connectedness)</td>
           <td class="formula">\(\forall x,y:\; xRy \vee yRx \vee x=y\)</td>
-          <td>\(\leq\) на \(\mathbb{Z}\)</td>
+          <td>\(\leq\) on \(\mathbb{Z}\)</td>
         </tr>
         <tr>
-          <td>Однозначность</td>
+          <td>Single-valuedness</td>
           <td class="formula">\(xRy \wedge xRz \to y=z\)</td>
-          <td>Функция \(f\)</td>
+          <td>A function \(f\)</td>
         </tr>
       </tbody>
     </table>
@@ -598,74 +598,74 @@
 </section>
 
 <!-- ══════════════════════════════════════════════
-     2. АНАЛИТИЧЕСКАЯ СТРУКТУРА — СТЕК
+     2. ANALYTIC STRUCTURE — STACK
      ══════════════════════════════════════════════ -->
 <section class="block" id="analytic">
-  <h2 class="section-title"><span class="num">§2</span> Аналитическая структура</h2>
+  <h2 class="section-title"><span class="num">§2</span> Analytic Structure</h2>
 
-  <p>Само по себе множество (носитель) аморфно. Чтобы превратить его в математическое пространство, на него <em>навешивается структура</em> — слоями, снизу вверх.</p>
+  <p>A set (a carrier) is amorphous by itself. To turn it into a mathematical space, structure is layered onto it — from the bottom up.</p>
 
   <div class="def-box">
-    <div class="def-head">Определение — Аналитическая структура</div>
-    <p>Аналитическая структура — это кортеж
+    <div class="def-head">Definition — Analytic Structure</div>
+    <p>An analytic structure is a tuple
     \[\mathcal{M} = \langle M,\; \Sigma,\; \mathcal{T},\; \Phi \rangle,\]
-    где \(M\) — <strong>домен</strong> (носитель), \(\Sigma\) — <strong>алгебраическая сигнатура</strong>, \(\mathcal{T}\) — <strong>топологический слой</strong> (системы подмножеств), \(\Phi\) — <strong>метрический слой</strong> (функционалы в числовое поле).</p>
+    where \(M\) is the <strong>domain</strong> (carrier), \(\Sigma\) is the <strong>algebraic signature</strong>, \(\mathcal{T}\) is the <strong>topological layer</strong> (systems of subsets), and \(\Phi\) is the <strong>metric layer</strong> (functionals into a numeric field).</p>
   </div>
 
-  <div class="stack-diagram" role="img" aria-label="Диаграмма слоёв структуры снизу вверх">
+  <div class="stack-diagram" role="img" aria-label="Diagram of the structure's layers from bottom to top">
 
     <div class="stack-layer sl-domain">
-      <h4>0. Домен \(M\)</h4>
-      <p>Исходное множество — носитель структуры. Сам по себе аморфен.</p>
+      <h4>0. Domain \(M\)</h4>
+      <p>The underlying set — the carrier of the structure. Amorphous by itself.</p>
     </div>
 
     <div class="stack-arrow">↓</div>
 
     <div class="stack-layer sl-algebra">
-      <h4>1. Алгебраический слой \(\Sigma\)</h4>
-      <p>Внутренние операции \(f:M^n\to M\), внешние операции \(R\times M\to M\), отношения \(P\subseteq M^n\), константы.</p>
+      <h4>1. Algebraic Layer \(\Sigma\)</h4>
+      <p>Internal operations \(f:M^n\to M\), external operations \(R\times M\to M\), relations \(P\subseteq M^n\), constants.</p>
     </div>
 
     <div class="stack-arrow">↓</div>
 
     <div class="stack-layer sl-topo">
-      <h4>2. Топологический слой \(\mathcal{T}\)</h4>
-      <p>Системы подмножеств \(\mathcal{T}\subseteq\mathcal{P}(M)\): топология \(\tau\), \(\sigma\)-алгебра, фильтры.</p>
+      <h4>2. Topological Layer \(\mathcal{T}\)</h4>
+      <p>Systems of subsets \(\mathcal{T}\subseteq\mathcal{P}(M)\): a topology \(\tau\), a \(\sigma\)-algebra, filters.</p>
     </div>
 
     <div class="stack-arrow">↓</div>
 
     <div class="stack-layer sl-metric">
-      <h4>3. Метрический слой \(\Phi\)</h4>
-      <p>Функционалы \(F:X\to\mathbb{K}\) (\(\mathbb{R}\) или \(\mathbb{C}\)): метрика, норма, мера, скалярное произведение.</p>
+      <h4>3. Metric Layer \(\Phi\)</h4>
+      <p>Functionals \(F:X\to\mathbb{K}\) (\(\mathbb{R}\) or \(\mathbb{C}\)): a metric, a norm, a measure, an inner product.</p>
     </div>
 
   </div><!-- /.stack-diagram -->
 
   <div class="example-box">
-    <div class="ex-head">Пример — Евклидово пространство \(\mathbb{R}^3\)</div>
-    <p><strong>Как алгебраическая структура:</strong> векторное пространство \(\langle\mathbb{R}^3,+,\cdot\rangle\). Есть только векторы и операции над ними — ни близости, ни длины.</p>
-    <p><strong>Как аналитическая структура:</strong> банахово пространство \(\langle\mathbb{R}^3,+,\cdot,\|\cdot\|\rangle\). Добавление нормы порождает метрику, а с ней — непрерывность, дифференцируемость, интегрируемость.</p>
+    <div class="ex-head">Example — Euclidean Space \(\mathbb{R}^3\)</div>
+    <p><strong>As an algebraic structure:</strong> the vector space \(\langle\mathbb{R}^3,+,\cdot\rangle\). There are only vectors and operations on them — no closeness, no length.</p>
+    <p><strong>As an analytic structure:</strong> the Banach space \(\langle\mathbb{R}^3,+,\cdot,\|\cdot\|\rangle\). Adding a norm generates a metric, and with it — continuity, differentiability, integrability.</p>
   </div>
 
 </section>
 
 <!-- ══════════════════════════════════════════════
-     3. ТАБЛИЦА СЛОЁВ
+     3. TABLE OF LAYERS
      ══════════════════════════════════════════════ -->
 <section class="block" id="layers-table">
-  <h2 class="section-title"><span class="num">§3</span> Аналитические слои: сравнительная таблица</h2>
+  <h2 class="section-title"><span class="num">§3</span> Analytic Layers: A Comparative Table</h2>
 
-  <p>Каждый слой добавляет новую «семантику» поверх предыдущих. Таблица показывает тип объекта, ключевые свойства и характерные примеры.</p>
+  <p>Each layer adds new "semantics" on top of the previous ones. The table shows the type of object, its key properties, and characteristic examples.</p>
 
   <div class="layers-table-wrap">
     <table class="layers-table">
       <thead>
         <tr>
-          <th>Слой</th>
-          <th>Тип объекта</th>
-          <th>Ключевые свойства / понятия</th>
-          <th>Характерные примеры</th>
+          <th>Layer</th>
+          <th>Type of Object</th>
+          <th>Key Properties / Concepts</th>
+          <th>Characteristic Examples</th>
         </tr>
       </thead>
       <tbody>
@@ -673,123 +673,123 @@
         <!-- DOMAIN -->
         <tr class="row-domain">
           <td>
-            <span class="tag tag-set">Множественный</span><br>
-            Домен \(M\)
+            <span class="tag tag-set">Set-theoretic</span><br>
+            Domain \(M\)
           </td>
-          <td>Просто множество — носитель</td>
+          <td>Just a set — the carrier</td>
           <td>
             <ul class="pill-list">
-              <li>Элементы</li>
-              <li>Равенство \(=\)</li>
-              <li>Вхождение \(\in\)</li>
-              <li>Подмножества</li>
-              <li>Мощность \(|M|\)</li>
+              <li>Elements</li>
+              <li>Equality \(=\)</li>
+              <li>Membership \(\in\)</li>
+              <li>Subsets</li>
+              <li>Cardinality \(|M|\)</li>
             </ul>
-            <p style="margin-top:.5rem;font-size:.82rem">Само по себе аморфно: нет операций, нет близости, нет измерений.</p>
+            <p style="margin-top:.5rem;font-size:.82rem">Amorphous by itself: no operations, no closeness, no measurements.</p>
           </td>
           <td>
             \(\mathbb{R}\), \(\mathbb{Z}\), \(\{0,1\}^\omega\),<br>
             \(\mathcal{P}(X)\),<br>
-            Слова \(\Sigma^*\)
+            Words \(\Sigma^*\)
           </td>
         </tr>
 
         <!-- ALGEBRA -->
         <tr class="row-algebra">
           <td>
-            <span class="tag tag-alg">Алгебраический</span><br>
-            Сигнатура \(\Sigma\)
+            <span class="tag tag-alg">Algebraic</span><br>
+            Signature \(\Sigma\)
           </td>
           <td>
-            <strong>Внутренние операции:</strong> \(f: M^n \to M\)<br><br>
-            <strong>Внешние операции:</strong> \(R\times M\to M\)<br><br>
-            <strong>Отношения:</strong> \(P\subseteq M^n\)<br><br>
-            <strong>Константы:</strong> \(c\in M\)
+            <strong>Internal operations:</strong> \(f: M^n \to M\)<br><br>
+            <strong>External operations:</strong> \(R\times M\to M\)<br><br>
+            <strong>Relations:</strong> \(P\subseteq M^n\)<br><br>
+            <strong>Constants:</strong> \(c\in M\)
           </td>
           <td>
             <ul class="pill-list">
-              <li>Замкнутость</li>
-              <li>Ассоциативность</li>
-              <li>Коммутативность</li>
-              <li>Дистрибутивность</li>
-              <li>Нейтральный элемент</li>
-              <li>Обратный элемент</li>
-              <li>Порядок \(\leq\)</li>
+              <li>Closure</li>
+              <li>Associativity</li>
+              <li>Commutativity</li>
+              <li>Distributivity</li>
+              <li>Identity element</li>
+              <li>Inverse element</li>
+              <li>Order \(\leq\)</li>
             </ul>
-            <p style="margin-top:.5rem;font-size:.82rem">Динамика: элементы порождают новые элементы того же домена. Внешние операции связывают структуру с числовой «шкалой».</p>
+            <p style="margin-top:.5rem;font-size:.82rem">Dynamics: elements generate new elements of the same domain. External operations link the structure to a numeric "scale".</p>
           </td>
           <td>
-            <strong>Группа:</strong> \((G,\cdot)\)<br>
-            <strong>Кольцо:</strong> \((\mathbb{Z},+,\cdot)\)<br>
-            <strong>Вект. пространство:</strong> \((V,+,\cdot_\mathbb{R})\)<br>
-            <strong>Решётка:</strong> \((\mathcal{P}(X),\cup,\cap)\)<br>
-            <strong>Алгебра Линд.–Тарск.:</strong> \((\mathcal{B}/{\sim},\wedge,\vee,\neg)\)
+            <strong>Group:</strong> \((G,\cdot)\)<br>
+            <strong>Ring:</strong> \((\mathbb{Z},+,\cdot)\)<br>
+            <strong>Vector space:</strong> \((V,+,\cdot_\mathbb{R})\)<br>
+            <strong>Lattice:</strong> \((\mathcal{P}(X),\cup,\cap)\)<br>
+            <strong>Lindenbaum–Tarski algebra:</strong> \((\mathcal{B}/{\sim},\wedge,\vee,\neg)\)
           </td>
         </tr>
 
         <!-- TOPOLOGY -->
         <tr class="row-topo">
           <td>
-            <span class="tag tag-top">Топологический</span><br>
+            <span class="tag tag-top">Topological</span><br>
             \(\mathcal{T}\subseteq\mathcal{P}(M)\)
           </td>
           <td>
-            <strong>Топология \(\tau\):</strong> откр. мн-ва<br><br>
-            <strong>\(\sigma\)-алгебра:</strong> измер. мн-ва<br><br>
-            <strong>Фильтр \(\mathcal{F}\):</strong> «большинство»<br><br>
-            <strong>Ультрафильтр:</strong> факторизация
+            <strong>Topology \(\tau\):</strong> open sets<br><br>
+            <strong>\(\sigma\)-algebra:</strong> measurable sets<br><br>
+            <strong>Filter \(\mathcal{F}\):</strong> "most of"<br><br>
+            <strong>Ultrafilter:</strong> factorization
           </td>
           <td>
             <ul class="pill-list">
-              <li>Открытость / замкнутость</li>
-              <li>Компактность</li>
-              <li>Связность</li>
-              <li>Непрерывность</li>
-              <li>Предел / сходимость</li>
-              <li>Измеримость</li>
-              <li>Локальность</li>
+              <li>Openness / closedness</li>
+              <li>Compactness</li>
+              <li>Connectedness</li>
+              <li>Continuity</li>
+              <li>Limit / convergence</li>
+              <li>Measurability</li>
+              <li>Locality</li>
             </ul>
-            <p style="margin-top:.5rem;font-size:.82rem">«Текстура» пространства — близость без линейки. Топология задаётся системой подмножеств, а не числом.</p>
+            <p style="margin-top:.5rem;font-size:.82rem">The "texture" of a space — closeness without a ruler. A topology is given by a system of subsets, not by a number.</p>
           </td>
           <td>
-            <strong>Метрич. топол.:</strong> открытые шары \(B(x,\varepsilon)\)<br>
-            <strong>Дискретная:</strong> \(\tau=\mathcal{P}(M)\)<br>
-            <strong>Антидискретная:</strong> \(\tau=\{\emptyset,M\}\)<br>
-            <strong>Проб. пространство:</strong> \(\sigma\)-алгебра событий \(\mathcal{F}\)<br>
-            <strong>Стоун:</strong> ультрафильтры как точки \(\beta\mathbb{N}\)
+            <strong>Metric topology:</strong> open balls \(B(x,\varepsilon)\)<br>
+            <strong>Discrete:</strong> \(\tau=\mathcal{P}(M)\)<br>
+            <strong>Indiscrete:</strong> \(\tau=\{\emptyset,M\}\)<br>
+            <strong>Probability space:</strong> the \(\sigma\)-algebra of events \(\mathcal{F}\)<br>
+            <strong>Stone space:</strong> ultrafilters as points of \(\beta\mathbb{N}\)
           </td>
         </tr>
 
         <!-- METRIC -->
         <tr class="row-metric">
           <td>
-            <span class="tag tag-met">Метрический</span><br>
+            <span class="tag tag-met">Metric</span><br>
             \(\Phi: X\to\mathbb{K}\)
           </td>
           <td>
-            <strong>Метрика:</strong> \(d:M^2\to\mathbb{R}_{\geq 0}\)<br><br>
-            <strong>Норма:</strong> \(\|{\cdot}\|:M\to\mathbb{R}_{\geq 0}\)<br><br>
-            <strong>Скал. произведение:</strong> \(\langle{\cdot,\cdot}\rangle:M^2\to\mathbb{K}\)<br><br>
-            <strong>Мера:</strong> \(\mu:\mathcal{T}\to\overline{\mathbb{R}}_{\geq 0}\)
+            <strong>Metric:</strong> \(d:M^2\to\mathbb{R}_{\geq 0}\)<br><br>
+            <strong>Norm:</strong> \(\|{\cdot}\|:M\to\mathbb{R}_{\geq 0}\)<br><br>
+            <strong>Inner product:</strong> \(\langle{\cdot,\cdot}\rangle:M^2\to\mathbb{K}\)<br><br>
+            <strong>Measure:</strong> \(\mu:\mathcal{T}\to\overline{\mathbb{R}}_{\geq 0}\)
           </td>
           <td>
             <ul class="pill-list">
-              <li>Неотрицательность</li>
-              <li>Симметрия</li>
-              <li>Неравенство треугольника</li>
-              <li>Полнота (Коши)</li>
-              <li>Сепарабельность</li>
-              <li>\(\sigma\)-аддитивность (мера)</li>
-              <li>Линейность (функционал)</li>
+              <li>Non-negativity</li>
+              <li>Symmetry</li>
+              <li>Triangle inequality</li>
+              <li>Completeness (Cauchy)</li>
+              <li>Separability</li>
+              <li>\(\sigma\)-additivity (measure)</li>
+              <li>Linearity (functional)</li>
             </ul>
-            <p style="margin-top:.5rem;font-size:.82rem">Проецирует структуру на числовую шкалу: расстояние, объём, вероятность, энергия.</p>
+            <p style="margin-top:.5rem;font-size:.82rem">Projects the structure onto a numeric scale: distance, volume, probability, energy.</p>
           </td>
           <td>
-            <strong>Метрич. пр-во:</strong> \((\mathbb{R}^n, d_{\rm eucl})\)<br>
-            <strong>Банахово:</strong> \((C[0,1],\|f\|_\infty)\)<br>
-            <strong>Гильбертово:</strong> \((L^2,\langle f,g\rangle)\)<br>
-            <strong>Мера Лебега:</strong> \(\lambda:\mathcal{B}(\mathbb{R})\to\overline{\mathbb{R}}\)<br>
-            <strong>Вероятность:</strong> \(\mathbb{P}:\mathcal{F}\to[0,1]\)
+            <strong>Metric space:</strong> \((\mathbb{R}^n, d_{\rm eucl})\)<br>
+            <strong>Banach space:</strong> \((C[0,1],\|f\|_\infty)\)<br>
+            <strong>Hilbert space:</strong> \((L^2,\langle f,g\rangle)\)<br>
+            <strong>Lebesgue measure:</strong> \(\lambda:\mathcal{B}(\mathbb{R})\to\overline{\mathbb{R}}\)<br>
+            <strong>Probability:</strong> \(\mathbb{P}:\mathcal{F}\to[0,1]\)
           </td>
         </tr>
 
@@ -798,35 +798,35 @@
   </div>
 
   <div class="remark-box">
-    <div class="rem-head">Замечание — Синтез слоёв</div>
-    <p>Реальные математические модели сочетают все четыре слоя. <strong>Гильбертово пространство</strong> \(L^2\): носитель — классы эквивалентности функций (факторизация); алгебра — сложение (вект. пр-во); функционал — скалярное произведение \(\langle f,g\rangle\); топология — порождена нормой \(\|f\| = \sqrt{\langle f,f\rangle}\).</p>
+    <div class="rem-head">Remark — Synthesis of Layers</div>
+    <p>Real mathematical models combine all four layers. The <strong>Hilbert space</strong> \(L^2\): the carrier is classes of equivalence of functions (a factorization); the algebra is addition (a vector space); the functional is the inner product \(\langle f,g\rangle\); the topology is generated by the norm \(\|f\| = \sqrt{\langle f,f\rangle}\).</p>
   </div>
 
 </section>
 
 <!-- ══════════════════════════════════════════════
-     4. ПРИМЕР ПУТЕЙ
+     4. PATH EXAMPLE
      ══════════════════════════════════════════════ -->
 <section class="block" id="path-example">
-  <h2 class="section-title"><span class="num">§4</span> Взаимодействие слоёв: пример</h2>
+  <h2 class="section-title"><span class="num">§4</span> Interaction of Layers: An Example</h2>
 
-  <p>Слои — не изолированные полки, а взаимосвязанные механизмы. Проследим, как объект одного слоя порождает новые объекты в другом, на примере понятия <em>пути</em>.</p>
+  <p>Layers are not isolated shelves but interconnected mechanisms. Let's trace how an object in one layer gives rise to new objects in another, using the notion of a <em>path</em> as an example.</p>
 
   <div class="example-box">
-    <div class="ex-head">Пример — Путь как связующий объект</div>
-    <p>Рассмотрим <strong>путь</strong> — непрерывное движение точки \(\gamma:[0,1]\to M\).</p>
+    <div class="ex-head">Example — A Path as a Connecting Object</div>
+    <p>Consider a <strong>path</strong> — a continuous motion of a point \(\gamma:[0,1]\to M\).</p>
     <ul style="margin:.6rem 0 .6rem 1.4rem; font-size:.9rem; line-height:1.8">
-      <li><strong>Топологический слой</strong> \(\mathcal{T}\): задаёт само понятие непрерывности \(\gamma\) — без него путь просто не существует как математический объект.</li>
-      <li><strong>Реляционный слой</strong> \(\Sigma\): отождествляет перепараметризованные пути \(\gamma \sim \gamma\circ\varphi\) — даёт геометрическую форму (траекторию), независимую от скорости движения.</li>
-      <li><strong>Метрический слой</strong> \(\Phi\): измеряет длину пути \(\ell(\gamma) = \int_\gamma ds\).</li>
-      <li><strong>Алгебраический слой</strong> \(\Sigma\): классы деформируемых петель образуют <strong>фундаментальную группу</strong> \(\pi_1(X,x_0)\) — пространство само стало алгебраической структурой.</li>
+      <li><strong>The topological layer</strong> \(\mathcal{T}\): defines the very notion of continuity of \(\gamma\) — without it, a path simply does not exist as a mathematical object.</li>
+      <li><strong>The relational layer</strong> \(\Sigma\): identifies reparametrized paths \(\gamma \sim \gamma\circ\varphi\) — yielding a geometric shape (a trajectory) independent of the speed of motion.</li>
+      <li><strong>The metric layer</strong> \(\Phi\): measures the length of the path, \(\ell(\gamma) = \int_\gamma ds\).</li>
+      <li><strong>The algebraic layer</strong> \(\Sigma\): classes of deformable loops form the <strong>fundamental group</strong> \(\pi_1(X,x_0)\) — the space itself has become an algebraic structure.</li>
     </ul>
-    <p style="font-size:.85rem; font-style:italic; color:#3a6a3a">Слои порождают друг друга: топологический объект порождает алгебраическую надструктуру.</p>
+    <p style="font-size:.85rem; font-style:italic; color:#3a6a3a">The layers generate one another: a topological object gives rise to an algebraic superstructure.</p>
   </div>
 
   <div class="remark-box">
-    <div class="rem-head">Связка: функционалы + предикаты = вариационные принципы</div>
-    <p>В теоретической механике и теории поля: слой <strong>функционалов</strong> задаёт действие \(S[\gamma]\), а слой <strong>предикатов</strong> формулирует закон природы как \(\delta S[\gamma] = 0\). Физический закон — предикат, наложенный на функционал: природа выбирает экстремальные траектории.</p>
+    <div class="rem-head">Connection: Functionals + Predicates = Variational Principles</div>
+    <p>In theoretical mechanics and field theory: the layer of <strong>functionals</strong> defines the action \(S[\gamma]\), while the layer of <strong>predicates</strong> formulates a law of nature as \(\delta S[\gamma] = 0\). A physical law is a predicate imposed on a functional: nature selects extremal trajectories.</p>
   </div>
 
 </section>
@@ -838,7 +838,7 @@
     © 2026 <strong>Nikolai Kazimirov</strong> · <a href="/" target="_blank" rel="noopener">mathem.at</a>
   </p>
   <p class="copy-text" style="font-size:.78rem; opacity:.75">
-    Материалы по математическому анализу, алгебре и основаниям
+    Materials on mathematical analysis, algebra, and foundations
   </p>
 </footer>
 

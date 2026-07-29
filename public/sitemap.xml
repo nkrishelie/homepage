@@ -21,6 +21,11 @@
       <priority>0.6</priority>
    </url>
    <url>
+      <loc>https://mathem.at/Materials/induction_en.html</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.6</priority>
+   </url>
+   <url>
       <loc>https://mathem.at/Materials/henkin_construction.html</loc>
       <changefreq>monthly</changefreq>
       <priority>0.6</priority>
@@ -31,7 +36,17 @@
       <priority>0.6</priority>
    </url>
    <url>
+      <loc>https://mathem.at/Materials/math_analysis_levels_en.html</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.6</priority>
+   </url>
+   <url>
       <loc>https://mathem.at/Materials/math_structures.html</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.6</priority>
+   </url>
+   <url>
+      <loc>https://mathem.at/Materials/math_structures_en.html</loc>
       <changefreq>monthly</changefreq>
       <priority>0.6</priority>
    </url>
@@ -52,6 +67,11 @@
    </url>
    <url>
       <loc>https://mathem.at/Materials/galton_watson_process.html</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.6</priority>
+   </url>
+   <url>
+      <loc>https://mathem.at/Materials/galton_watson_process_en.html</loc>
       <changefreq>monthly</changefreq>
       <priority>0.6</priority>
    </url>
