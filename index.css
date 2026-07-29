@@ -1,3 +1,18 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --font-sans: Inter, sans-serif;
+  --font-serif: Merriweather, serif;
+
+  --color-academic-50: #f8fafc;
+  --color-academic-100: #f1f5f9;
+  --color-academic-200: #e2e8f0;
+  --color-academic-300: #cbd5e1;
+  --color-academic-400: #94a3b8;
+  --color-academic-500: #64748b;
+  --color-academic-600: #475569;
+  --color-academic-700: #334155;
+  --color-academic-800: #1e293b;
+  --color-academic-900: #0f172a;
+  --color-academic-accent: #2c3e50;
+}
