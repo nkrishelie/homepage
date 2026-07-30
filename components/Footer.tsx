@@ -20,17 +20,19 @@ export const Footer: React.FC = () => {
         
         {/* Ссылки (Центрируются на мобильном, справа на ПК) */}
         <div className="flex flex-wrap justify-center gap-6 md:gap-8">
-            {content.about?.socials?.map(social => (
-                <a 
-                    key={social.label} 
-                    href={social.href} 
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm font-medium text-academic-500 hover:text-academic-900 transition-colors uppercase tracking-wider py-2"
-                >
-                    {social.label}
-                </a>
-            ))}
+            {content.about?.socials?.map(social => {
+                const isExternal = /^https?:\/\/|^mailto:/.test(social.href);
+                return (
+                    <a
+                        key={social.label}
+                        href={social.href}
+                        {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                        className="text-sm font-medium text-academic-500 hover:text-academic-900 transition-colors uppercase tracking-wider py-2"
+                    >
+                        {social.label}
+                    </a>
+                );
+            })}
         </div>
       </div>
     </footer>

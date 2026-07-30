@@ -191,7 +191,8 @@ export const content: SiteContent = {
       // Добавляем новые пункты для баланса:
       { label: "LinkedIn", href: "https://www.linkedin.com/in/nikolai-kazimirov/" },
       { label: "GitHub", href: "https://github.com/nkrishelie" }, // Если есть
-      { label: "ORCID", href: "https://orcid.org/0000-0002-1784-2293" }
+      { label: "ORCID", href: "https://orcid.org/0000-0002-1784-2293" },
+      { label: "Новости", href: "/news.html" }
     ],
     location: "Москва, Россия"
   },
