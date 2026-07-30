@@ -138,6 +138,40 @@ figure{margin:1.4rem 0}
 figcaption{font-size:16.5px;color:var(--ink3);margin-top:.6rem;line-height:1.55;font-style:italic}
 .svg-label{font-family:'JetBrains Mono',monospace;font-size:15px;fill:var(--ink2)}
 
+/* spherical duality: hover reveals the great circles */
+.gc{fill:none;stroke-width:1.2;transition:opacity .25s ease}
+.gc.gcv{opacity:0;stroke-dasharray:4 2.4}
+.gc.gch{opacity:0;stroke-dasharray:1.4 3}
+.ray{stroke-width:1.3;stroke-dasharray:2 3;opacity:.4;transition:opacity .25s ease, stroke-width .25s ease}
+.aux-ring{fill:none;stroke-width:2;transition:stroke-width .2s ease}
+.native-dot{transition:r .2s ease}
+.side-line{fill:none;stroke-width:1.7}
+.side-hit{fill:none;stroke:#000;stroke-width:16;opacity:0;pointer-events:stroke;cursor:pointer}
+.pt-hit{fill:#000;opacity:0;pointer-events:all;cursor:pointer}
+.pt-hit.drag{cursor:grab;touch-action:none}
+.pt-hit.drag:active{cursor:grabbing}
+.tri-fill{fill:rgba(26,25,23,.05);stroke:none}
+.angle-arc{fill:none;stroke-width:1.5}
+.meas-label{font-family:'JetBrains Mono',monospace;font-size:12.5px}
+.sd-label{font-family:'JetBrains Mono',monospace;font-size:15px}
+.angle-sum{font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--ink2);text-align:center;margin-top:.5rem}
+.angle-sum .exc{color:var(--ink3);font-size:12.5px}
+.fig-panels:has(.fam-a-hit:hover) .fam-a-t.gcv{opacity:.5}
+.fig-panels:has(.fam-a-hit:hover) .fam-a-t.gch{opacity:.2}
+.fig-panels:has(.fam-a-hit:hover) .ray.fam-a-t{opacity:.95;stroke-width:1.9}
+.fig-panels:has(.fam-a-hit:hover) .aux-ring.fam-a-t{stroke-width:3.2}
+.fig-panels:has(.fam-a-hit:hover) .native-dot.fam-a-t{r:6}
+.fig-panels:has(.fam-b-hit:hover) .fam-b-t.gcv{opacity:.5}
+.fig-panels:has(.fam-b-hit:hover) .fam-b-t.gch{opacity:.2}
+.fig-panels:has(.fam-b-hit:hover) .ray.fam-b-t{opacity:.95;stroke-width:1.9}
+.fig-panels:has(.fam-b-hit:hover) .aux-ring.fam-b-t{stroke-width:3.2}
+.fig-panels:has(.fam-b-hit:hover) .native-dot.fam-b-t{r:6}
+.fig-panels:has(.fam-c-hit:hover) .fam-c-t.gcv{opacity:.5}
+.fig-panels:has(.fam-c-hit:hover) .fam-c-t.gch{opacity:.2}
+.fig-panels:has(.fam-c-hit:hover) .ray.fam-c-t{opacity:.95;stroke-width:1.9}
+.fig-panels:has(.fam-c-hit:hover) .aux-ring.fam-c-t{stroke-width:3.2}
+.fig-panels:has(.fam-c-hit:hover) .native-dot.fam-c-t{r:6}
+
 details{background:var(--bg2);border:1px solid var(--border);border-radius:6px;margin:1.2rem 0;padding:0}
 details summary{
   cursor:pointer;padding:.85rem 1.1rem;font-family:'JetBrains Mono',monospace;font-size:14.5px;
@@ -456,6 +490,492 @@ table.basic tbody td.nm{color:var(--ink)}
     </div>
     <figcaption>Both panels are built from the same six points on the unit circle and drawn in the same coordinate system. On the left, the inscribed hexagon \(P_1\ldots P_6\); on the right, the circumscribed hexagon formed by the tangents at those same six points. Sides \(P_iP_{i+1}\) on the left correspond to vertices \(Q_i\) on the right, and points \(X,Y,Z\) correspond to diagonals \(Q_1Q_4\), \(Q_2Q_5\), \(Q_3Q_6\). The purple mark sits in the same place on both panels — and that is not a coincidence but the duality itself: polarity with respect to the circle carries the entire left picture onto the right one, and the Pascal line onto the Brianchon point.</figcaption>
   </figure>
+
+  <p>The same polarity works one dimension up — no longer with respect to a conic in the plane, but with respect to the sphere itself. On the unit sphere \(S^2\subset\mathbb R^3\), the role of "lines" is played by <strong>great circles</strong> — the sections of the sphere by planes through its center.</p>
+
+  <div class="dual">
+    <div class="dual-head">
+      <div class="dual-side"><span class="side-tag">Point</span>\(P\in S^2\)</div>
+      <div class="dual-link">⟷</div>
+      <div class="dual-side right"><span class="side-tag">Great circle</span>\(P^{*}=\{X\in S^2 : X\cdot P=0\}\)</div>
+    </div>
+    <div class="dual-rows">
+      <div class="drow"><span class="dkey">Pole / polar</span><span class="dval">Each point \(P\) has its <em>polar great circle</em> \(P^{*}\) — the set of points on the sphere at angular distance \(\pi/2\) from \(P\). Conversely, every great circle has a <em>pole</em> — the unit normal \(N\) to its plane (the circle itself is then \(N^{*}\)).</span></div>
+      <div class="drow"><span class="dkey">Principle</span><span class="dval">\(P\in c \iff \operatorname{pole}(c)\in P^{*}\) — the relation is symmetric, so "lines" and "points" swap roles without remainder: "two points determine a great circle" ↔ "two great circles meet" (though not in one point, but in a pair of antipodes — see the caveat below).</span></div>
+    </div>
+  </div>
+
+  <p>Just as with the conic, this polarity carries an entire figure to its dual. Take a spherical triangle \(ABC\) (sides are arcs of great circles) and its <strong>polar triangle</strong> \(A^{*}B^{*}C^{*}\), where \(A^{*}\) is the pole of side \(a=BC\), and so on. The pole of a side of the original triangle turns out to be a vertex of the dual one — exactly the same "side ↔ vertex" transformation as with Pascal and Brianchon.</p>
+
+  <figure>
+    <div class="fig-panels">
+      <div class="fig-panel">
+        <div class="fig-title">Spherical triangle</div>
+        <div class="fig-claim js-only-hide">Triangle \(ABC\); sides are arcs of great circles. Hover over a side or a point to reveal its great circle.</div>
+        <div class="fig-claim js-only" style="display:none">Triangle \(ABC\) — you can <strong>drag its vertices</strong> with the mouse. Hover over a side or a point to reveal its great circle.</div>
+        <svg id="sph-panel1" viewBox="-130 -130 260 260" role="img" aria-label="Spherical triangle ABC with the great circles of its sides and rays to their poles">
+          <circle cx="0" cy="0" r="100" fill="none" stroke="#8a8680" stroke-width="1.6"/>
+
+          <path class="gc gcv fam-a-t" stroke="#3a5f9e" d="M 93.00,-36.51 L 91.55,-38.93 L 89.70,-41.17 L 87.47,-43.25 L 84.87,-45.13 L 81.91,-46.83 L 78.59,-48.32 L 74.94,-49.60 L 70.96,-50.68 L 66.68,-51.53 L 62.12,-52.17 L 57.29,-52.58 L 52.22,-52.77 L 46.92,-52.73 L 41.42,-52.47 L 35.74,-51.98 L 29.91,-51.27 L 23.96,-50.33 L 17.90,-49.19 L 11.76,-47.83 L 5.57,-46.27 L -0.64,-44.51 L -6.85,-42.56 L -13.03,-40.42 L -19.15,-38.12 L -25.19,-35.65 L -31.13,-33.02 L -36.93,-30.26 L -42.57,-27.37 L -48.03,-24.36 L -53.28,-21.24 L -58.31,-18.04 L -63.08,-14.75 L -67.59,-11.41 L -71.81,-8.01 L -75.72,-4.58 L -79.30,-1.14 L -82.55,2.32 L -85.44,5.76 L -87.96,9.18 L -90.11,12.56 L -91.88,15.89 L -93.25,19.15 L -94.22,22.32 L -94.78,25.40 L -94.95,28.37 L -94.70,31.22 L -94.05,33.94"/>
+          <path class="gc gch fam-a-t" stroke="#3a5f9e" d="M -93.00,36.51 L -91.55,38.93 L -89.70,41.17 L -87.47,43.25 L -84.87,45.13 L -81.91,46.83 L -78.59,48.32 L -74.94,49.60 L -70.96,50.68 L -66.68,51.53 L -62.12,52.17 L -57.29,52.58 L -52.22,52.77 L -46.92,52.73 L -41.42,52.47 L -35.74,51.98 L -29.91,51.27 L -23.96,50.33 L -17.90,49.19 L -11.76,47.83 L -5.57,46.27 L 0.64,44.51 L 6.85,42.56 L 13.03,40.42 L 19.15,38.12 L 25.19,35.65 L 31.13,33.02 L 36.93,30.26 L 42.57,27.37 L 48.03,24.36 L 53.28,21.24 L 58.31,18.04 L 63.08,14.75 L 67.59,11.41 L 71.81,8.01 L 75.72,4.58 L 79.30,1.14 L 82.55,-2.32 L 85.44,-5.76 L 87.96,-9.18 L 90.11,-12.56 L 91.88,-15.89 L 93.25,-19.15 L 94.22,-22.32 L 94.78,-25.40 L 94.95,-28.37 L 94.70,-31.22 L 94.05,-33.94"/>
+
+          <path class="gc gcv fam-b-t" stroke="#0f6e56" d="M -22.44,97.35 L -18.31,97.85 L -14.09,97.94 L -9.82,97.61 L -5.50,96.85 L -1.16,95.69 L 3.19,94.11 L 7.52,92.13 L 11.82,89.76 L 16.07,87.00 L 20.25,83.87 L 24.35,80.38 L 28.34,76.55 L 32.20,72.39 L 35.94,67.91 L 39.51,63.15 L 42.92,58.12 L 46.14,52.84 L 49.17,47.33 L 51.98,41.62 L 54.58,35.73 L 56.94,29.69 L 59.05,23.52 L 60.91,17.25 L 62.52,10.91 L 63.85,4.52 L 64.91,-1.89 L 65.69,-8.30 L 66.19,-14.66 L 66.41,-20.96 L 66.35,-27.18 L 65.99,-33.28 L 65.36,-39.23 L 64.45,-45.02 L 63.26,-50.61 L 61.80,-55.99 L 60.07,-61.12 L 58.09,-66.00 L 55.86,-70.59 L 53.39,-74.88 L 50.69,-78.85 L 47.78,-82.49 L 44.66,-85.77 L 41.35,-88.68 L 37.86,-91.21 L 34.21,-93.35 L 30.41,-95.09 L 26.48,-96.43"/>
+          <path class="gc gch fam-b-t" stroke="#0f6e56" d="M 22.44,-97.35 L 18.31,-97.85 L 14.09,-97.94 L 9.82,-97.61 L 5.50,-96.85 L 1.16,-95.69 L -3.19,-94.11 L -7.52,-92.13 L -11.82,-89.76 L -16.07,-87.00 L -20.25,-83.87 L -24.35,-80.38 L -28.34,-76.55 L -32.20,-72.39 L -35.94,-67.91 L -39.51,-63.15 L -42.92,-58.12 L -46.14,-52.84 L -49.17,-47.33 L -51.98,-41.62 L -54.58,-35.73 L -56.94,-29.69 L -59.05,-23.52 L -60.91,-17.25 L -62.52,-10.91 L -63.85,-4.52 L -64.91,1.89 L -65.69,8.30 L -66.19,14.66 L -66.41,20.96 L -66.35,27.18 L -65.99,33.28 L -65.36,39.23 L -64.45,45.02 L -63.26,50.61 L -61.80,55.99 L -60.07,61.12 L -58.09,66.00 L -55.86,70.59 L -53.39,74.88 L -50.69,78.85 L -47.78,82.49 L -44.66,85.77 L -41.35,88.68 L -37.86,91.21 L -34.21,93.35 L -30.41,95.09 L -26.48,96.43"/>
+
+          <path class="gc gcv fam-c-t" stroke="#7a4f0d" d="M -95.73,-28.83 L -96.45,-25.30 L -96.76,-21.67 L -96.65,-17.94 L -96.13,-14.14 L -95.20,-10.27 L -93.86,-6.36 L -92.12,-2.43 L -89.98,1.52 L -87.46,5.46 L -84.57,9.37 L -81.31,13.25 L -77.70,17.07 L -73.76,20.81 L -69.51,24.47 L -64.95,28.02 L -60.12,31.46 L -55.04,34.75 L -49.71,37.90 L -44.17,40.89 L -38.45,43.70 L -32.56,46.32 L -26.53,48.75 L -20.38,50.97 L -14.15,52.97 L -7.86,54.74 L -1.54,56.27 L 4.79,57.57 L 11.11,58.62 L 17.37,59.42 L 23.56,59.97 L 29.65,60.25 L 35.61,60.28 L 41.42,60.06 L 47.05,59.57 L 52.48,58.83 L 57.68,57.84 L 62.64,56.60 L 67.33,55.11 L 71.74,53.40 L 75.83,51.45 L 79.60,49.28 L 83.03,46.90 L 86.10,44.32 L 88.81,41.55 L 91.13,38.61 L 93.07,35.49 L 94.60,32.23"/>
+          <path class="gc gch fam-c-t" stroke="#7a4f0d" d="M 95.73,28.83 L 96.45,25.30 L 96.76,21.67 L 96.65,17.94 L 96.13,14.14 L 95.20,10.27 L 93.86,6.36 L 92.12,2.43 L 89.98,-1.52 L 87.46,-5.46 L 84.57,-9.37 L 81.31,-13.25 L 77.70,-17.07 L 73.76,-20.81 L 69.51,-24.47 L 64.95,-28.02 L 60.12,-31.46 L 55.04,-34.75 L 49.71,-37.90 L 44.17,-40.89 L 38.45,-43.70 L 32.56,-46.32 L 26.53,-48.75 L 20.38,-50.97 L 14.15,-52.97 L 7.86,-54.74 L 1.54,-56.27 L -4.79,-57.57 L -11.11,-58.62 L -17.37,-59.42 L -23.56,-59.97 L -29.65,-60.25 L -35.61,-60.28 L -41.42,-60.06 L -47.05,-59.57 L -52.48,-58.83 L -57.68,-57.84 L -62.64,-56.60 L -67.33,-55.11 L -71.74,-53.40 L -75.83,-51.45 L -79.60,-49.28 L -83.03,-46.90 L -86.10,-44.32 L -88.81,-41.55 L -91.13,-38.61 L -93.07,-35.49 L -94.60,-32.23"/>
+
+          <path class="tri-fill" d="M 41.66,60.04 L 35.94,60.28 L 30.08,60.26 L 24.09,60.00 L 17.99,59.49 L 11.83,58.73 L 5.61,57.72 L -0.63,56.48 L -6.86,55.00 L -13.07,53.29 L -19.23,51.36 L -25.30,49.21 L -31.27,46.86 L -37.11,44.32 L -42.79,41.59 L -48.30,38.69 L -53.60,35.63 L -58.68,32.42 L -63.52,29.07 L -68.10,25.61 L -72.39,22.04 L -76.38,18.37 L -80.05,14.63 L -83.39,10.83 L -86.38,6.98 L -83.06,2.90 L -79.23,-1.21 L -74.92,-5.30 L -70.17,-9.37 L -64.98,-13.38 L -59.41,-17.30 L -53.47,-21.12 L -47.22,-24.82 L -40.67,-28.36 L -33.88,-31.74 L -26.89,-34.92 L -19.73,-37.89 L -12.46,-40.63 L -5.10,-43.12 L 2.28,-45.36 L 9.65,-47.32 L 16.96,-48.99 L 24.16,-50.37 L 31.23,-51.44 L 38.10,-52.21 L 44.74,-52.65 L 51.11,-52.78 L 57.18,-52.59 L 62.89,-52.08 L 63.90,-47.80 L 64.74,-43.39 L 65.41,-38.87 L 65.91,-34.25 L 66.24,-29.54 L 66.41,-24.76 L 66.40,-19.91 L 66.21,-15.01 L 65.86,-10.07 L 65.34,-5.10 L 64.65,-0.12 L 63.79,4.86 L 62.76,9.82 L 61.58,14.76 L 60.23,19.67 L 58.73,24.52 L 57.08,29.31 L 55.28,34.02 L 53.33,38.64 L 51.25,43.17 L 49.04,47.58 L 46.70,51.87 L 44.24,56.03 L 41.66,60.04 Z"/>
+
+          <path class="side-line fam-a-t" stroke="#3a5f9e" d="M -86.38,6.98 L -83.06,2.90 L -79.23,-1.21 L -74.92,-5.30 L -70.17,-9.37 L -64.98,-13.38 L -59.41,-17.30 L -53.47,-21.12 L -47.22,-24.82 L -40.67,-28.36 L -33.88,-31.74 L -26.89,-34.92 L -19.73,-37.89 L -12.46,-40.63 L -5.10,-43.12 L 2.28,-45.36 L 9.65,-47.32 L 16.96,-48.99 L 24.16,-50.37 L 31.23,-51.44 L 38.10,-52.21 L 44.74,-52.65 L 51.11,-52.78 L 57.18,-52.59 L 62.89,-52.08"/>
+          <path class="side-hit fam-a-hit" d="M -86.38,6.98 L -83.06,2.90 L -79.23,-1.21 L -74.92,-5.30 L -70.17,-9.37 L -64.98,-13.38 L -59.41,-17.30 L -53.47,-21.12 L -47.22,-24.82 L -40.67,-28.36 L -33.88,-31.74 L -26.89,-34.92 L -19.73,-37.89 L -12.46,-40.63 L -5.10,-43.12 L 2.28,-45.36 L 9.65,-47.32 L 16.96,-48.99 L 24.16,-50.37 L 31.23,-51.44 L 38.10,-52.21 L 44.74,-52.65 L 51.11,-52.78 L 57.18,-52.59 L 62.89,-52.08"/>
+
+          <path class="side-line fam-b-t" stroke="#0f6e56" d="M 62.89,-52.08 L 63.90,-47.80 L 64.74,-43.39 L 65.41,-38.87 L 65.91,-34.25 L 66.24,-29.54 L 66.41,-24.76 L 66.40,-19.91 L 66.21,-15.01 L 65.86,-10.07 L 65.34,-5.10 L 64.65,-0.12 L 63.79,4.86 L 62.76,9.82 L 61.58,14.76 L 60.23,19.67 L 58.73,24.52 L 57.08,29.31 L 55.28,34.02 L 53.33,38.64 L 51.25,43.17 L 49.04,47.58 L 46.70,51.87 L 44.24,56.03 L 41.66,60.04"/>
+          <path class="side-hit fam-b-hit" d="M 62.89,-52.08 L 63.90,-47.80 L 64.74,-43.39 L 65.41,-38.87 L 65.91,-34.25 L 66.24,-29.54 L 66.41,-24.76 L 66.40,-19.91 L 66.21,-15.01 L 65.86,-10.07 L 65.34,-5.10 L 64.65,-0.12 L 63.79,4.86 L 62.76,9.82 L 61.58,14.76 L 60.23,19.67 L 58.73,24.52 L 57.08,29.31 L 55.28,34.02 L 53.33,38.64 L 51.25,43.17 L 49.04,47.58 L 46.70,51.87 L 44.24,56.03 L 41.66,60.04"/>
+
+          <path class="side-line fam-c-t" stroke="#7a4f0d" d="M 41.66,60.04 L 35.94,60.28 L 30.08,60.26 L 24.09,60.00 L 17.99,59.49 L 11.83,58.73 L 5.61,57.72 L -0.63,56.48 L -6.86,55.00 L -13.07,53.29 L -19.23,51.36 L -25.30,49.21 L -31.27,46.86 L -37.11,44.32 L -42.79,41.59 L -48.30,38.69 L -53.60,35.63 L -58.68,32.42 L -63.52,29.07 L -68.10,25.61 L -72.39,22.04 L -76.38,18.37 L -80.05,14.63 L -83.39,10.83 L -86.38,6.98"/>
+          <path class="side-hit fam-c-hit" d="M 41.66,60.04 L 35.94,60.28 L 30.08,60.26 L 24.09,60.00 L 17.99,59.49 L 11.83,58.73 L 5.61,57.72 L -0.63,56.48 L -6.86,55.00 L -13.07,53.29 L -19.23,51.36 L -25.30,49.21 L -31.27,46.86 L -37.11,44.32 L -42.79,41.59 L -48.30,38.69 L -53.60,35.63 L -58.68,32.42 L -63.52,29.07 L -68.10,25.61 L -72.39,22.04 L -76.38,18.37 L -80.05,14.63 L -83.39,10.83 L -86.38,6.98"/>
+
+          <line class="ray fam-a-t" stroke="#3a5f9e" x1="0" y1="0" x2="31.38" y2="84.94"/>
+          <line class="ray fam-b-t" stroke="#0f6e56" x1="0" y1="0" x2="-74.75" y2="-20.11"/>
+          <line class="ray fam-c-t" stroke="#7a4f0d" x1="0" y1="0" x2="25.20" y2="-79.77"/>
+
+          <circle class="aux-ring fam-a-t" stroke="#3a5f9e" cx="31.38" cy="84.94" r="4.5"/>
+          <circle class="pt-hit fam-a-hit" cx="31.38" cy="84.94" r="10"/>
+          <circle class="aux-ring fam-b-t" stroke="#0f6e56" cx="-74.75" cy="-20.11" r="4.5"/>
+          <circle class="pt-hit fam-b-hit" cx="-74.75" cy="-20.11" r="10"/>
+          <circle class="aux-ring fam-c-t" stroke="#7a4f0d" cx="25.20" cy="-79.77" r="4.5"/>
+          <circle class="pt-hit fam-c-hit" cx="25.20" cy="-79.77" r="10"/>
+
+          <circle class="native-dot fam-a-t" fill="#3a5f9e" cx="41.66" cy="60.04" r="4.5"/>
+          <circle class="pt-hit fam-a-hit" cx="41.66" cy="60.04" r="10"/>
+          <circle class="native-dot fam-b-t" fill="#0f6e56" cx="-86.38" cy="6.98" r="4.5"/>
+          <circle class="pt-hit fam-b-hit" cx="-86.38" cy="6.98" r="10"/>
+          <circle class="native-dot fam-c-t" fill="#7a4f0d" cx="62.89" cy="-52.08" r="4.5"/>
+          <circle class="pt-hit fam-c-hit" cx="62.89" cy="-52.08" r="10"/>
+
+          <g class="svg-label">
+            <text x="52" y="70" text-anchor="middle" fill="#3a5f9e">A</text>
+            <text x="-101" y="10" text-anchor="end" fill="#0f6e56">B</text>
+            <text x="80" y="-66" text-anchor="start" fill="#7a4f0d">C</text>
+            <text x="42" y="108" text-anchor="middle" fill="#3a5f9e">A*</text>
+            <text x="-91" y="-24" text-anchor="end" fill="#0f6e56">B*</text>
+            <text x="31" y="-97" text-anchor="middle" fill="#7a4f0d">C*</text>
+          </g>
+        </svg>
+        <div class="angle-sum" id="p1-anglesum">∠A+∠B+∠C=1.45π <span class="exc">(&gt;π — spherical excess)</span></div>
+        <div class="angle-sum" id="p1-perisum">a+b+c=1.50π <span class="exc">(perimeter)</span></div>
+      </div>
+      <div class="fig-panel">
+        <div class="fig-title">Polar triangle</div>
+        <div class="fig-claim">Triangle \(A^{*}B^{*}C^{*}\): its vertices are the poles of the original's sides, recomputed live. Same projection of the sphere; matching colors mark the same "side ↔ pole" family.</div>
+        <svg id="sph-panel2" viewBox="-130 -130 260 260" role="img" aria-label="Polar triangle A*B*C* with the great circles of its sides and rays to the points A,B,C">
+          <circle cx="0" cy="0" r="100" fill="none" stroke="#8a8680" stroke-width="1.6"/>
+
+          <path class="gc gcv fam-a-t" stroke="#3a5f9e" d="M 79.55,-60.42 L 76.51,-63.71 L 73.13,-66.74 L 69.44,-69.48 L 65.46,-71.92 L 61.19,-74.05 L 56.66,-75.87 L 51.89,-77.36 L 46.90,-78.52 L 41.70,-79.34 L 36.33,-79.83 L 30.80,-79.97 L 25.14,-79.77 L 19.38,-79.23 L 13.52,-78.35 L 7.62,-77.13 L 1.68,-75.58 L -4.27,-73.71 L -10.20,-71.53 L -16.09,-69.03 L -21.91,-66.25 L -27.63,-63.17 L -33.24,-59.83 L -38.70,-56.23 L -44.00,-52.39 L -49.10,-48.33 L -54.00,-44.06 L -58.67,-39.60 L -63.09,-34.97 L -67.23,-30.19 L -71.09,-25.28 L -74.64,-20.27 L -77.88,-15.17 L -80.78,-10.00 L -83.33,-4.79 L -85.53,0.44 L -87.36,5.67 L -88.82,10.88 L -89.90,16.04 L -90.59,21.13 L -90.89,26.13 L -90.81,31.01 L -90.33,35.77 L -89.47,40.37 L -88.23,44.80 L -86.61,49.03 L -84.62,53.06 L -82.26,56.86"/>
+          <path class="gc gch fam-a-t" stroke="#3a5f9e" d="M -79.55,60.42 L -76.51,63.71 L -73.13,66.74 L -69.44,69.48 L -65.46,71.92 L -61.19,74.05 L -56.66,75.87 L -51.89,77.36 L -46.90,78.52 L -41.70,79.34 L -36.33,79.83 L -30.80,79.97 L -25.14,79.77 L -19.38,79.23 L -13.52,78.35 L -7.62,77.13 L -1.68,75.58 L 4.27,73.71 L 10.20,71.53 L 16.09,69.03 L 21.91,66.25 L 27.63,63.17 L 33.24,59.83 L 38.70,56.23 L 44.00,52.39 L 49.10,48.33 L 54.00,44.06 L 58.67,39.60 L 63.09,34.97 L 67.23,30.19 L 71.09,25.28 L 74.64,20.27 L 77.88,15.17 L 80.78,10.00 L 83.33,4.79 L 85.53,-0.44 L 87.36,-5.67 L 88.82,-10.88 L 89.90,-16.04 L 90.59,-21.13 L 90.89,-26.13 L 90.81,-31.01 L 90.33,-35.77 L 89.47,-40.37 L 88.23,-44.80 L 86.61,-49.03 L 84.62,-53.06 L 82.26,-56.86"/>
+
+          <path class="gc gch fam-b-t" stroke="#0f6e56" d="M -9.60,-99.50 L -12.82,-98.82 L -15.98,-97.72 L -19.07,-96.20 L -22.08,-94.27 L -24.99,-91.93 L -27.80,-89.20 L -30.49,-86.09 L -33.05,-82.61 L -35.46,-78.78 L -37.73,-74.60 L -39.83,-70.11 L -41.76,-65.32 L -43.52,-60.25 L -45.09,-54.92 L -46.46,-49.36 L -47.64,-43.58 L -48.61,-37.62 L -49.37,-31.50 L -49.92,-25.24 L -50.26,-18.87 L -50.38,-12.43 L -50.29,-5.93 L -49.98,0.60 L -49.46,7.12 L -48.73,13.61 L -47.78,20.05 L -46.64,26.40 L -45.29,32.63 L -43.75,38.73 L -42.02,44.66 L -40.11,50.40 L -38.03,55.92 L -35.79,61.20 L -33.39,66.22 L -30.86,70.96 L -28.18,75.39 L -25.39,79.51 L -22.49,83.28 L -19.49,86.69 L -16.41,89.73 L -13.26,92.39 L -10.06,94.65 L -6.81,96.51 L -3.53,97.95 L -0.23,98.98 L 3.06,99.58 L 6.35,99.75"/>
+          <path class="gc gcv fam-b-t" stroke="#0f6e56" d="M 9.60,99.50 L 12.82,98.82 L 15.98,97.72 L 19.07,96.20 L 22.08,94.27 L 24.99,91.93 L 27.80,89.20 L 30.49,86.09 L 33.05,82.61 L 35.46,78.78 L 37.73,74.60 L 39.83,70.11 L 41.76,65.32 L 43.52,60.25 L 45.09,54.92 L 46.46,49.36 L 47.64,43.58 L 48.61,37.62 L 49.37,31.50 L 49.92,25.24 L 50.26,18.87 L 50.38,12.43 L 50.29,5.93 L 49.98,-0.60 L 49.46,-7.12 L 48.73,-13.61 L 47.78,-20.05 L 46.64,-26.40 L 45.29,-32.63 L 43.75,-38.73 L 42.02,-44.66 L 40.11,-50.40 L 38.03,-55.92 L 35.79,-61.20 L 33.39,-66.22 L 30.86,-70.96 L 28.18,-75.39 L 25.39,-79.51 L 22.49,-83.28 L 19.49,-86.69 L 16.41,-89.73 L 13.26,-92.39 L 10.06,-94.65 L 6.81,-96.51 L 3.53,-97.95 L 0.23,-98.98 L -3.06,-99.58 L -6.35,-99.75"/>
+
+          <path class="gc gcv fam-c-t" stroke="#7a4f0d" d="M -64.12,-76.74 L -66.85,-74.13 L -69.31,-71.20 L -71.46,-67.97 L -73.31,-64.44 L -74.85,-60.64 L -76.06,-56.58 L -76.95,-52.28 L -77.51,-47.76 L -77.74,-43.03 L -77.64,-38.11 L -77.20,-33.03 L -76.43,-27.82 L -75.34,-22.48 L -73.92,-17.04 L -72.18,-11.54 L -70.14,-5.98 L -67.80,-0.40 L -65.16,5.19 L -62.25,10.75 L -59.07,16.27 L -55.64,21.71 L -51.97,27.06 L -48.07,32.30 L -43.97,37.40 L -39.69,42.34 L -35.23,47.10 L -30.62,51.65 L -25.88,55.99 L -21.03,60.08 L -16.09,63.92 L -11.08,67.48 L -6.02,70.76 L -0.94,73.73 L 4.14,76.39 L 9.21,78.72 L 14.24,80.71 L 19.21,82.36 L 24.10,83.65 L 28.88,84.58 L 33.54,85.16 L 38.05,85.37 L 42.41,85.21 L 46.58,84.69 L 50.55,83.80 L 54.30,82.56 L 57.83,80.96 L 61.10,79.02"/>
+          <path class="gc gch fam-c-t" stroke="#7a4f0d" d="M 64.12,76.74 L 66.85,74.13 L 69.31,71.20 L 71.46,67.97 L 73.31,64.44 L 74.85,60.64 L 76.06,56.58 L 76.95,52.28 L 77.51,47.76 L 77.74,43.03 L 77.64,38.11 L 77.20,33.03 L 76.43,27.82 L 75.34,22.48 L 73.92,17.04 L 72.18,11.54 L 70.14,5.98 L 67.80,0.40 L 65.16,-5.19 L 62.25,-10.75 L 59.07,-16.27 L 55.64,-21.71 L 51.97,-27.06 L 48.07,-32.30 L 43.97,-37.40 L 39.69,-42.34 L 35.23,-47.10 L 30.62,-51.65 L 25.88,-55.99 L 21.03,-60.08 L 16.09,-63.92 L 11.08,-67.48 L 6.02,-70.76 L 0.94,-73.73 L -4.14,-76.39 L -9.21,-78.72 L -14.24,-80.71 L -19.21,-82.36 L -24.10,-83.65 L -28.88,-84.58 L -33.54,-85.16 L -38.05,-85.37 L -42.41,-85.21 L -46.58,-84.69 L -50.55,-83.80 L -54.30,-82.56 L -57.83,-80.96 L -61.10,-79.02"/>
+
+          <path class="tri-fill" d="M 31.38,84.94 L 26.24,84.11 L 20.97,82.86 L 15.60,81.19 L 10.14,79.11 L 4.64,76.63 L -0.89,73.76 L -6.42,70.52 L -11.91,66.92 L -17.34,62.98 L -22.69,58.72 L -27.92,54.17 L -33.01,49.34 L -37.93,44.26 L -42.66,38.96 L -47.17,33.46 L -51.45,27.79 L -55.46,21.98 L -59.19,16.06 L -62.63,10.06 L -65.75,4.00 L -68.53,-2.07 L -70.97,-8.13 L -73.05,-14.16 L -74.75,-20.11 L -71.97,-24.10 L -68.99,-28.02 L -65.82,-31.87 L -62.48,-35.64 L -58.97,-39.30 L -55.30,-42.87 L -51.48,-46.31 L -47.52,-49.63 L -43.43,-52.82 L -39.23,-55.87 L -34.92,-58.76 L -30.51,-61.50 L -26.03,-64.07 L -21.47,-66.47 L -16.86,-68.68 L -12.20,-70.72 L -7.50,-72.56 L -2.79,-74.21 L 1.93,-75.65 L 6.64,-76.90 L 11.34,-77.93 L 16.01,-78.76 L 20.63,-79.37 L 25.20,-79.77 L 28.65,-74.66 L 31.91,-69.06 L 34.96,-63.00 L 37.79,-56.53 L 40.36,-49.69 L 42.67,-42.52 L 44.70,-35.08 L 46.44,-27.40 L 47.87,-19.54 L 48.98,-11.56 L 49.78,-3.50 L 50.25,4.59 L 50.38,12.64 L 50.19,20.61 L 49.67,28.45 L 48.82,36.09 L 47.65,43.51 L 46.17,50.63 L 44.38,57.43 L 42.30,63.84 L 39.95,69.84 L 37.33,75.38 L 34.47,80.42 L 31.38,84.94 Z"/>
+
+          <path class="side-line fam-a-t" stroke="#3a5f9e" d="M -74.75,-20.11 L -71.97,-24.10 L -68.99,-28.02 L -65.82,-31.87 L -62.48,-35.64 L -58.97,-39.30 L -55.30,-42.87 L -51.48,-46.31 L -47.52,-49.63 L -43.43,-52.82 L -39.23,-55.87 L -34.92,-58.76 L -30.51,-61.50 L -26.03,-64.07 L -21.47,-66.47 L -16.86,-68.68 L -12.20,-70.72 L -7.50,-72.56 L -2.79,-74.21 L 1.93,-75.65 L 6.64,-76.90 L 11.34,-77.93 L 16.01,-78.76 L 20.63,-79.37 L 25.20,-79.77"/>
+          <path class="side-hit fam-a-hit" d="M -74.75,-20.11 L -71.97,-24.10 L -68.99,-28.02 L -65.82,-31.87 L -62.48,-35.64 L -58.97,-39.30 L -55.30,-42.87 L -51.48,-46.31 L -47.52,-49.63 L -43.43,-52.82 L -39.23,-55.87 L -34.92,-58.76 L -30.51,-61.50 L -26.03,-64.07 L -21.47,-66.47 L -16.86,-68.68 L -12.20,-70.72 L -7.50,-72.56 L -2.79,-74.21 L 1.93,-75.65 L 6.64,-76.90 L 11.34,-77.93 L 16.01,-78.76 L 20.63,-79.37 L 25.20,-79.77"/>
+
+          <path class="side-line fam-b-t" stroke="#0f6e56" d="M 25.20,-79.77 L 28.65,-74.66 L 31.91,-69.06 L 34.96,-63.00 L 37.79,-56.53 L 40.36,-49.69 L 42.67,-42.52 L 44.70,-35.08 L 46.44,-27.40 L 47.87,-19.54 L 48.98,-11.56 L 49.78,-3.50 L 50.25,4.59 L 50.38,12.64 L 50.19,20.61 L 49.67,28.45 L 48.82,36.09 L 47.65,43.51 L 46.17,50.63 L 44.38,57.43 L 42.30,63.84 L 39.95,69.84 L 37.33,75.38 L 34.47,80.42 L 31.38,84.94"/>
+          <path class="side-hit fam-b-hit" d="M 25.20,-79.77 L 28.65,-74.66 L 31.91,-69.06 L 34.96,-63.00 L 37.79,-56.53 L 40.36,-49.69 L 42.67,-42.52 L 44.70,-35.08 L 46.44,-27.40 L 47.87,-19.54 L 48.98,-11.56 L 49.78,-3.50 L 50.25,4.59 L 50.38,12.64 L 50.19,20.61 L 49.67,28.45 L 48.82,36.09 L 47.65,43.51 L 46.17,50.63 L 44.38,57.43 L 42.30,63.84 L 39.95,69.84 L 37.33,75.38 L 34.47,80.42 L 31.38,84.94"/>
+
+          <path class="side-line fam-c-t" stroke="#7a4f0d" d="M 31.38,84.94 L 26.24,84.11 L 20.97,82.86 L 15.60,81.19 L 10.14,79.11 L 4.64,76.63 L -0.89,73.76 L -6.42,70.52 L -11.91,66.92 L -17.34,62.98 L -22.69,58.72 L -27.92,54.17 L -33.01,49.34 L -37.93,44.26 L -42.66,38.96 L -47.17,33.46 L -51.45,27.79 L -55.46,21.98 L -59.19,16.06 L -62.63,10.06 L -65.75,4.00 L -68.53,-2.07 L -70.97,-8.13 L -73.05,-14.16 L -74.75,-20.11"/>
+          <path class="side-hit fam-c-hit" d="M 31.38,84.94 L 26.24,84.11 L 20.97,82.86 L 15.60,81.19 L 10.14,79.11 L 4.64,76.63 L -0.89,73.76 L -6.42,70.52 L -11.91,66.92 L -17.34,62.98 L -22.69,58.72 L -27.92,54.17 L -33.01,49.34 L -37.93,44.26 L -42.66,38.96 L -47.17,33.46 L -51.45,27.79 L -55.46,21.98 L -59.19,16.06 L -62.63,10.06 L -65.75,4.00 L -68.53,-2.07 L -70.97,-8.13 L -73.05,-14.16 L -74.75,-20.11"/>
+
+          <line class="ray fam-a-t" stroke="#3a5f9e" x1="0" y1="0" x2="41.66" y2="60.04"/>
+          <line class="ray fam-b-t" stroke="#0f6e56" x1="0" y1="0" x2="-86.38" y2="6.98"/>
+          <line class="ray fam-c-t" stroke="#7a4f0d" x1="0" y1="0" x2="62.89" y2="-52.08"/>
+
+          <circle class="aux-ring fam-a-t" stroke="#3a5f9e" cx="41.66" cy="60.04" r="4.5"/>
+          <circle class="pt-hit fam-a-hit" cx="41.66" cy="60.04" r="10"/>
+          <circle class="aux-ring fam-b-t" stroke="#0f6e56" cx="-86.38" cy="6.98" r="4.5"/>
+          <circle class="pt-hit fam-b-hit" cx="-86.38" cy="6.98" r="10"/>
+          <circle class="aux-ring fam-c-t" stroke="#7a4f0d" cx="62.89" cy="-52.08" r="4.5"/>
+          <circle class="pt-hit fam-c-hit" cx="62.89" cy="-52.08" r="10"/>
+
+          <circle class="native-dot fam-a-t" fill="#3a5f9e" cx="31.38" cy="84.94" r="4.5"/>
+          <circle class="pt-hit fam-a-hit" cx="31.38" cy="84.94" r="10"/>
+          <circle class="native-dot fam-b-t" fill="#0f6e56" cx="-74.75" cy="-20.11" r="4.5"/>
+          <circle class="pt-hit fam-b-hit" cx="-74.75" cy="-20.11" r="10"/>
+          <circle class="native-dot fam-c-t" fill="#7a4f0d" cx="25.20" cy="-79.77" r="4.5"/>
+          <circle class="pt-hit fam-c-hit" cx="25.20" cy="-79.77" r="10"/>
+
+          <g class="svg-label">
+            <text x="42" y="108" text-anchor="middle" fill="#3a5f9e">A*</text>
+            <text x="-91" y="-24" text-anchor="end" fill="#0f6e56">B*</text>
+            <text x="31" y="-97" text-anchor="middle" fill="#7a4f0d">C*</text>
+            <text x="52" y="70" text-anchor="middle" fill="#3a5f9e">A</text>
+            <text x="-101" y="10" text-anchor="end" fill="#0f6e56">B</text>
+            <text x="80" y="-66" text-anchor="start" fill="#7a4f0d">C</text>
+          </g>
+        </svg>
+        <div class="angle-sum" id="p2-anglesum">∠A*+∠B*+∠C*=1.50π <span class="exc">(&gt;π — spherical excess)</span></div>
+        <div class="angle-sum" id="p2-perisum">a*+b*+c*=1.55π <span class="exc">(perimeter)</span></div>
+      </div>
+    </div>
+    <div class="fig-legend">
+      <span class="legend-row"><span style="display:inline-block;width:13px;height:13px;border-radius:50%;background:#3a5f9e" aria-hidden></span>side \(a=BC\) and its pole \(A^{*}\) — a ray from the sphere's center points to the pole; a solid dot is the panel's own vertex, a ring is the pole of a side</span>
+      <span class="legend-row"><span style="display:inline-block;width:13px;height:13px;border-radius:50%;background:#0f6e56" aria-hidden></span>likewise for side \(b=CA\) and pole \(B^{*}\)</span>
+      <span class="legend-row"><span style="display:inline-block;width:13px;height:13px;border-radius:50%;background:#7a4f0d" aria-hidden></span>likewise for side \(c=AB\) and pole \(C^{*}\)</span>
+    </div>
+    <figcaption>Both panels show the same sphere in the same orthographic projection (the circle is its silhouette). The ray from the sphere's center to each marked point is literally the normal to the plane of the corresponding side, i.e. its pole: on the left the rays point to \(A^{*},B^{*},C^{*}\); on the right, back to \(A,B,C\) (applying polarity twice returns the original triangle). Hovering over a side or a point reveals its great circle in full: the visible half is drawn solid, the hidden one (on the far side of the sphere) is very faint. The color matches between a side and the pole it points to, in both panels. The vertices \(A,B,C\) on the left can be dragged with the mouse (or a finger) — all angles, side lengths, and the polar triangle on the right recompute live; values are shown in fractions of \(\pi\) rounded to hundredths, so the identity \(a^{*}=\pi-\angle A\) is easy to check by eye.</figcaption>
+  </figure>
+
+  <div class="note">
+    <div class="note-head">Artifacts right at the edge (while dragging)</div>
+    <p>If you drag all three points onto almost a single great circle (the limiting, degenerate configuration), the polar triangle on the right may start looking jagged, and its perimeter and angles can jump sharply from frame to frame. That's not a bug — it's a genuine instability of the polarity itself at that point: a side's pole is chosen between two antipodal points on the sphere by the sign of a dot product with the third vertex, and near degeneracy that vertex ends up almost exactly on the boundary between "plus" and "minus" — the slightest shift can flip the pole to the opposite side of the sphere. How strongly and abruptly this shows up depends precisely on how evenly (or not) the three points are spread along that limiting circle.</p>
+  </div>
+
+  <script>
+(function () {
+  'use strict';
+
+  var svg1 = document.getElementById('sph-panel1');
+  var svg2 = document.getElementById('sph-panel2');
+  if (!svg1 || !svg2) return;
+
+  // ---------- vector helpers ----------
+  function norm(v) { var l = Math.hypot(v[0], v[1], v[2]); return [v[0] / l, v[1] / l, v[2] / l]; }
+  function dot(a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; }
+  function cross(a, b) { return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]]; }
+  function addv(a, b) { return [a[0] + b[0], a[1] + b[1], a[2] + b[2]]; }
+  function sub(a, b) { return [a[0] - b[0], a[1] - b[1], a[2] - b[2]]; }
+  function scale(a, s) { return [a[0] * s, a[1] * s, a[2] * s]; }
+  function clamp(x, lo, hi) { return Math.max(lo, Math.min(hi, x)); }
+  function angleBetween(a, b) { return Math.acos(clamp(dot(a, b), -1, 1)); }
+  function slerp(a, b, t) {
+    var w = angleBetween(a, b);
+    if (w < 1e-9) return a;
+    var s1 = Math.sin((1 - t) * w) / Math.sin(w);
+    var s2 = Math.sin(t * w) / Math.sin(w);
+    return norm(addv(scale(a, s1), scale(b, s2)));
+  }
+  function poleOf(P, Q, ref) {
+    var n = norm(cross(P, Q));
+    if (dot(n, ref) < 0) n = scale(n, -1);
+    return n;
+  }
+  function tangentAt(P, Q) {
+    return norm(sub(Q, scale(P, dot(P, Q))));
+  }
+  function vertexAngle(P, Q, S) {
+    return Math.acos(clamp(dot(tangentAt(P, Q), tangentAt(P, S)), -1, 1));
+  }
+
+  // ---------- fixed camera (computed once from the initial configuration, then frozen) ----------
+  var A0 = norm([0.15, 0.92, 0.36]);
+  var B0 = norm([0.86, -0.28, 0.42]);
+  var C0 = norm([-0.62, 0.18, 0.72]);
+  var As0 = poleOf(B0, C0, A0), Bs0 = poleOf(C0, A0, B0), Cs0 = poleOf(A0, B0, C0);
+
+  var VIEW = norm([A0, B0, C0, As0, Bs0, Cs0].reduce(function (acc, p) { return addv(acc, p); }, [0, 0, 0]));
+  var UP0 = [0, 0, 1];
+  var RIGHT = norm(cross(UP0, VIEW));
+  var TRUEUP = cross(VIEW, RIGHT);
+  var R = 100;
+
+  function proj(P) { return [R * dot(P, RIGHT), -R * dot(P, TRUEUP)]; }
+  function projDir(T) { return [dot(T, RIGHT), -dot(T, TRUEUP)]; } // direction (not scaled by R) — for angle glyphs
+
+  // inverse projection: local SVG coords (px,py) -> point on the visible cap of the unit sphere
+  function unproj(px, py) {
+    var u = px / R, v = -py / R;
+    var r2 = u * u + v * v;
+    if (r2 > 1) { var k = Math.sqrt(1 / r2); u *= k; v *= k; r2 = 1; }
+    var w = Math.sqrt(Math.max(0, 1 - r2));
+    return norm(addv(addv(scale(RIGHT, u), scale(TRUEUP, v)), scale(VIEW, w)));
+  }
+
+  function fmtPi(rad) {
+    var frac = clamp(rad / Math.PI, 0, 3);
+    return frac.toFixed(2) + 'π';
+  }
+
+  function circlePoints(N, nSamp) {
+    nSamp = nSamp || 96;
+    var ref = Math.abs(N[2]) < 0.9 ? [0, 0, 1] : [1, 0, 0];
+    var u = norm(cross(ref, N));
+    var v = cross(N, u);
+    var pts = [];
+    for (var i = 0; i < nSamp; i++) {
+      var th = 2 * Math.PI * i / nSamp;
+      pts.push(addv(scale(u, Math.cos(th)), scale(v, Math.sin(th))));
+    }
+    return pts;
+  }
+
+  function splitByVisibility(pts3d) {
+    var n = pts3d.length;
+    var vis = pts3d.map(function (p) { return dot(p, VIEW) >= 0; });
+    var start = 0;
+    for (var i = 0; i < n; i++) { if (vis[i] !== vis[(i - 1 + n) % n]) { start = i; break; } }
+    var runs = [];
+    var curVis = vis[start];
+    var curPts = [];
+    for (var k = 0; k <= n; k++) {
+      var idx = (start + k) % n;
+      if (k > 0 && vis[idx] !== curVis) { runs.push({ vis: curVis, pts: curPts }); curPts = []; curVis = vis[idx]; }
+      curPts.push(proj(pts3d[idx]));
+    }
+    runs.push({ vis: curVis, pts: curPts });
+    return runs;
+  }
+
+  function pathFromPts(pts) {
+    return pts.map(function (p, i) { return (i === 0 ? 'M ' : 'L ') + p[0].toFixed(2) + ',' + p[1].toFixed(2); }).join(' ');
+  }
+
+  function arcPath(P, Q, N) {
+    N = N || 28;
+    var pts = [];
+    for (var i = 0; i <= N; i++) pts.push(proj(slerp(P, Q, i / N)));
+    return pathFromPts(pts);
+  }
+
+  function trianglePath(P, Q, S, N) {
+    N = N || 28;
+    var pts = [];
+    for (var i = 0; i <= N; i++) pts.push(proj(slerp(P, Q, i / N)));
+    for (var j = 1; j <= N; j++) pts.push(proj(slerp(Q, S, j / N)));
+    for (var k = 1; k <= N; k++) pts.push(proj(slerp(S, P, k / N)));
+    return pathFromPts(pts) + ' Z';
+  }
+
+  function angleArcPath(Pproj, dir1, dir2, radiusPx) {
+    var a1 = Math.atan2(dir1[1], dir1[0]);
+    var a2 = Math.atan2(dir2[1], dir2[0]);
+    var delta = a2 - a1;
+    while (delta > Math.PI) delta -= 2 * Math.PI;
+    while (delta < -Math.PI) delta += 2 * Math.PI;
+    var steps = 14;
+    var pts = [];
+    for (var i = 0; i <= steps; i++) {
+      var t = a1 + delta * i / steps;
+      pts.push([Pproj[0] + radiusPx * Math.cos(t), Pproj[1] + radiusPx * Math.sin(t)]);
+    }
+    return { d: pathFromPts(pts), bisector: a1 + delta / 2 };
+  }
+
+  var FAM_COLORS = ['#3a5f9e', '#0f6e56', '#7a4f0d'];
+
+  // ---------- SVG markup generation ----------
+  function renderPanel(nativeP, nativeNames, auxP, auxNames, draggable) {
+    var parts = [];
+    parts.push('<circle cx="0" cy="0" r="100" fill="none" stroke="#8a8680" stroke-width="1.6"/>');
+
+    var i;
+    // great circles (behind everything else)
+    for (i = 0; i < 3; i++) {
+      var runs = splitByVisibility(circlePoints(auxP[i]));
+      for (var r = 0; r < runs.length; r++) {
+        var cls = 'gc ' + (runs[r].vis ? 'gcv' : 'gch') + ' fam-' + 'abc'[i] + '-t';
+        parts.push('<path class="' + cls + '" stroke="' + FAM_COLORS[i] + '" d="' + pathFromPts(runs[r].pts) + '"/>');
+      }
+    }
+
+    // fill
+    parts.push('<path class="tri-fill" d="' + trianglePath(nativeP[0], nativeP[1], nativeP[2]) + '"/>');
+
+    // sides + hit areas (side i = opposite native vertex i, i.e. between the OTHER two native vertices)
+    for (i = 0; i < 3; i++) {
+      var p1 = nativeP[(i + 1) % 3], p2 = nativeP[(i + 2) % 3];
+      var d = arcPath(p1, p2);
+      var fam = 'abc'[i];
+      parts.push('<path class="side-line fam-' + fam + '-t" stroke="' + FAM_COLORS[i] + '" d="' + d + '"/>');
+      parts.push('<path class="side-hit fam-' + fam + '-hit" d="' + d + '"/>');
+    }
+
+    // rays to auxiliary poles
+    for (i = 0; i < 3; i++) {
+      var ap = proj(auxP[i]);
+      parts.push('<line class="ray fam-' + 'abc'[i] + '-t" stroke="' + FAM_COLORS[i] + '" x1="0" y1="0" x2="' + ap[0].toFixed(2) + '" y2="' + ap[1].toFixed(2) + '"/>');
+    }
+
+    // auxiliary rings
+    for (i = 0; i < 3; i++) {
+      var apr = proj(auxP[i]);
+      parts.push('<circle class="aux-ring fam-' + 'abc'[i] + '-t" stroke="' + FAM_COLORS[i] + '" cx="' + apr[0].toFixed(2) + '" cy="' + apr[1].toFixed(2) + '" r="4.5"/>');
+      parts.push('<circle class="pt-hit fam-' + 'abc'[i] + '-hit" cx="' + apr[0].toFixed(2) + '" cy="' + apr[1].toFixed(2) + '" r="10"/>');
+    }
+
+    // native dots (+ drag hit-area if draggable)
+    for (i = 0; i < 3; i++) {
+      var npz = proj(nativeP[i]);
+      parts.push('<circle class="native-dot fam-' + 'abc'[i] + '-t" fill="' + FAM_COLORS[i] + '" cx="' + npz[0].toFixed(2) + '" cy="' + npz[1].toFixed(2) + '" r="4.5"/>');
+      var hitClass = 'pt-hit fam-' + 'abc'[i] + '-hit' + (draggable ? ' drag' : '');
+      parts.push('<circle class="' + hitClass + '" data-vertex="' + (draggable ? i : '') + '" cx="' + npz[0].toFixed(2) + '" cy="' + npz[1].toFixed(2) + '" r="11"/>');
+    }
+
+    // declutter: when the native triangle is projected too small (or too close to degenerate)
+    // to fit per-vertex/per-side labels legibly, skip them — only the sum/perimeter lines (outside
+    // the SVG) remain, instead of an unreadable pile-up of overlapping text.
+    var pr0 = proj(nativeP[0]), pr1 = proj(nativeP[1]), pr2 = proj(nativeP[2]);
+    function d2(u, v) { return Math.hypot(u[0] - v[0], u[1] - v[1]); }
+    var spread = Math.max(d2(pr0, pr1), d2(pr1, pr2), d2(pr2, pr0));
+    var showMeas = spread >= 35;
+
+    // angle glyphs + labels at native vertices, side-length labels along native sides
+    if (showMeas) {
+      for (i = 0; i < 3; i++) {
+        var P = nativeP[i], Q = nativeP[(i + 1) % 3], S = nativeP[(i + 2) % 3];
+        var Pproj = proj(P);
+        var dQ = projDir(tangentAt(P, Q));
+        var dS = projDir(tangentAt(P, S));
+        var glyph = angleArcPath(Pproj, dQ, dS, 15);
+        parts.push('<path class="angle-arc fam-' + 'abc'[i] + '-t" stroke="' + FAM_COLORS[i] + '" d="' + glyph.d + '"/>');
+        var lx = Pproj[0] + 27 * Math.cos(glyph.bisector);
+        var ly = Pproj[1] + 27 * Math.sin(glyph.bisector);
+        var angRad = vertexAngle(P, Q, S);
+        parts.push('<text class="meas-label" x="' + lx.toFixed(1) + '" y="' + ly.toFixed(1) + '" text-anchor="middle" fill="' + FAM_COLORS[i] + '">∠' + nativeNames[i] + '=' + fmtPi(angRad) + '</text>');
+      }
+      for (i = 0; i < 3; i++) {
+        var p1b = nativeP[(i + 1) % 3], p2b = nativeP[(i + 2) % 3];
+        var mid = slerp(p1b, p2b, 0.5);
+        var midProj = proj(mid);
+        var rlen = Math.hypot(midProj[0], midProj[1]) || 1;
+        var ox = midProj[0] / rlen, oy = midProj[1] / rlen;
+        var lx2 = midProj[0] + 13 * ox, ly2 = midProj[1] + 13 * oy;
+        var sideRad = angleBetween(p1b, p2b);
+        var sideName = 'abc'[i] + (nativeNames[0].indexOf('*') >= 0 ? '*' : '');
+        parts.push('<text class="meas-label" x="' + lx2.toFixed(1) + '" y="' + ly2.toFixed(1) + '" text-anchor="middle" fill="' + FAM_COLORS[i] + '">' + sideName + '=' + fmtPi(sideRad) + '</text>');
+      }
+    }
+
+    // point labels (A,B,C / A*,B*,C*) — offset outward along the radial direction, then nudged up
+    for (i = 0; i < 3; i++) {
+      var lp = proj(nativeP[i]);
+      var dlen = Math.hypot(lp[0], lp[1]) || 1;
+      var tlx = lp[0] + 20 * lp[0] / dlen;
+      var tly = lp[1] + 20 * lp[1] / dlen - 10;
+      parts.push('<text class="sd-label" x="' + tlx.toFixed(1) + '" y="' + tly.toFixed(1) + '" text-anchor="middle" fill="' + FAM_COLORS[i] + '">' + nativeNames[i] + '</text>');
+    }
+    for (i = 0; i < 3; i++) {
+      var la = proj(auxP[i]);
+      var dxa = la[0], dya = la[1];
+      var dlena = Math.hypot(dxa, dya) || 1;
+      var tlxa = la[0] + 18 * dxa / dlena, tlya = la[1] + 18 * dya / dlena;
+      parts.push('<text class="sd-label" x="' + tlxa.toFixed(1) + '" y="' + tlya.toFixed(1) + '" text-anchor="middle" fill="' + FAM_COLORS[i] + '">' + auxNames[i] + '</text>');
+    }
+
+    return parts.join('\n');
+  }
+
+  // ---------- state + drag wiring ----------
+  var A = A0, B = B0, C = C0;
+
+  var sum1El = document.getElementById('p1-anglesum');
+  var sum2El = document.getElementById('p2-anglesum');
+  var peri1El = document.getElementById('p1-perisum');
+  var peri2El = document.getElementById('p2-perisum');
+
+  function renderAll() {
+    var As = poleOf(B, C, A), Bs = poleOf(C, A, B), Cs = poleOf(A, B, C);
+    svg1.innerHTML = renderPanel([A, B, C], ['A', 'B', 'C'], [As, Bs, Cs], ['A*', 'B*', 'C*'], true);
+    svg2.innerHTML = renderPanel([As, Bs, Cs], ['A*', 'B*', 'C*'], [A, B, C], ['A', 'B', 'C'], false);
+    wireDrag();
+
+    if (sum1El) {
+      var sum1 = vertexAngle(A, B, C) + vertexAngle(B, C, A) + vertexAngle(C, A, B);
+      sum1El.innerHTML = '∠A+∠B+∠C=' + fmtPi(sum1) + ' <span class="exc">(&gt;π — spherical excess)</span>';
+    }
+    if (sum2El) {
+      var sum2 = vertexAngle(As, Bs, Cs) + vertexAngle(Bs, Cs, As) + vertexAngle(Cs, As, Bs);
+      sum2El.innerHTML = '∠A*+∠B*+∠C*=' + fmtPi(sum2) + ' <span class="exc">(&gt;π — spherical excess)</span>';
+    }
+    if (peri1El) {
+      var peri1 = angleBetween(A, B) + angleBetween(B, C) + angleBetween(C, A);
+      peri1El.innerHTML = 'a+b+c=' + fmtPi(peri1) + ' <span class="exc">(perimeter)</span>';
+    }
+    if (peri2El) {
+      var peri2 = angleBetween(As, Bs) + angleBetween(Bs, Cs) + angleBetween(Cs, As);
+      peri2El.innerHTML = 'a*+b*+c*=' + fmtPi(peri2) + ' <span class="exc">(perimeter)</span>';
+    }
+  }
+
+  var draggingIdx = null;
+  var activePointerId = null;
+
+  function localPointFromClient(svgEl, clientX, clientY) {
+    var rect = svgEl.getBoundingClientRect();
+    var vb = svgEl.viewBox.baseVal;
+    var scaleF = rect.width / vb.width;
+    var px = (clientX - rect.left) / scaleF + vb.x;
+    var py = (clientY - rect.top) / scaleF + vb.y;
+    return [px, py];
+  }
+
+  function onPointerDown(e) {
+    var t = e.target;
+    if (!t.classList || !t.classList.contains('drag')) return;
+    var idx = t.getAttribute('data-vertex');
+    if (idx === null || idx === '') return;
+    draggingIdx = parseInt(idx, 10);
+    activePointerId = e.pointerId;
+    try { t.setPointerCapture(e.pointerId); } catch (err) { /* noop */ }
+    e.preventDefault();
+  }
+
+  function onPointerMove(e) {
+    if (draggingIdx === null || e.pointerId !== activePointerId) return;
+    var lp = localPointFromClient(svg1, e.clientX, e.clientY);
+    var newPoint = unproj(lp[0], lp[1]);
+    if (draggingIdx === 0) A = newPoint;
+    else if (draggingIdx === 1) B = newPoint;
+    else C = newPoint;
+    renderAll();
+    e.preventDefault();
+  }
+
+  function onPointerUp(e) {
+    if (e.pointerId !== activePointerId) return;
+    draggingIdx = null;
+    activePointerId = null;
+  }
+
+  function wireDrag() {
+    var hits = svg1.querySelectorAll('.pt-hit.drag');
+    for (var i = 0; i < hits.length; i++) {
+      hits[i].removeEventListener('pointerdown', onPointerDown);
+      hits[i].addEventListener('pointerdown', onPointerDown);
+    }
+  }
+
+  window.addEventListener('pointermove', onPointerMove);
+  window.addEventListener('pointerup', onPointerUp);
+  window.addEventListener('pointercancel', onPointerUp);
+
+  renderAll();
+
+  // progressive-enhancement claim swap
+  var hideEls = document.querySelectorAll('.js-only-hide');
+  var showEls = document.querySelectorAll('.js-only');
+  for (var i = 0; i < hideEls.length; i++) hideEls[i].style.display = 'none';
+  for (var j = 0; j < showEls.length; j++) showEls[j].style.display = '';
+})();
+  </script>
+
+  <details>
+    <summary>Metric version: sides ↔ angles (in detail)</summary>
+    <div class="details-body">
+      <p>Polarity translates not only figure to figure, but measure to measure. Here it is important not to confuse the point \(A\) (a vertex, an element of the sphere) with the <em>angle at vertex</em> \(A\) — the dihedral angle between sides \(b\) and \(c\) meeting at that point; denote it \(\angle A\). Likewise, don't confuse the side-arc \(a=BC\) (a set of points) with its <em>length</em> — also denoted \(a\) by tradition: \(a=|BC|\), the length of the great-circle arc from \(B\) to \(C\), which on the unit sphere (radius \(1\)) coincides with the central angle \(\angle(OB,OC)\) in radians. Likewise \(a^{*}=|B^{*}C^{*}|\) — the length of a side of the polar triangle, a number, not the arc itself. A classical fact of spherical trigonometry: a side of the polar triangle supplements to \(\pi\) the opposite angle of the original, and conversely — \(a^{*}=\pi-\angle A\), \(\angle A^{*}=\pi-a\) (and likewise for the other pairs). Where polarity for the conic swapped "side" and "vertex" of a polygon, here it swaps "side" (arc length) and "angle" — that is its metric face.</p>
+    </div>
+  </details>
+
+  <div class="note">
+    <div class="note-head">Which geometry does the sphere model?</div>
+    <p>If antipodal points are identified (\(P\) and \(-P\) counted as one point), great circles become "lines" for which all the axioms of absolute geometry hold except one: any two lines meet, in exactly one point — there are no parallels. This is <strong>elliptic geometry</strong>, the third classical constant-curvature geometry alongside Euclidean (zero curvature) and hyperbolic/Lobachevskian geometry (negative curvature); the sphere with antipodes identified (\(\mathbb{RP}^2\) with its metric) is its standard model.</p>
+    <p>On the sphere itself, without identification, there is a small subtlety: two great circles meet not in one but in two (antipodal) points, and through a pair of antipodes there passes not a single line but a whole pencil of them. This version is sometimes called "double elliptic geometry." It has no effect on the point↔circle duality itself: a circle has exactly two poles, but they are antipodal and define the very same polar circle — so for the purposes of polarity it makes no difference whether one works on the sphere itself or after identification.</p>
+  </div>
 
   <div class="tag-block" id="ex-1b-ii">
     <span class="coord-tag">1B-II</span>
