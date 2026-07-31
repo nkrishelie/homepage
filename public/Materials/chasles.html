@@ -82,6 +82,103 @@ em{color:var(--ink)}
   <p>Простейший пример — параллельный перенос: все точки сдвигаются на один и тот же вектор, поэтому расстояния между ними не меняются. Дальше выяснится, что «простейших» видов движения плоскости на самом деле немного — и они полностью исчерпывают список.</p>
 </section>
 
+<script id="motion-math">
+window.MotionMath = (function () {
+  function add(u, v) { return { re: u.re + v.re, im: u.im + v.im }; }
+  function sub(u, v) { return { re: u.re - v.re, im: u.im - v.im }; }
+  function mul(u, v) { return { re: u.re * v.re - u.im * v.im, im: u.re * v.im + u.im * v.re }; }
+  function scale(u, k) { return { re: u.re * k, im: u.im * k }; }
+  function conj(u) { return { re: u.re, im: -u.im }; }
+  function abs(u) { return Math.hypot(u.re, u.im); }
+  function arg(u) { return Math.atan2(u.im, u.re); }
+  function fromPolar(r, theta) { return { re: r * Math.cos(theta), im: r * Math.sin(theta) }; }
+  function div(u, v) {
+    var d = v.re * v.re + v.im * v.im;
+    return { re: (u.re * v.re + u.im * v.im) / d, im: (u.im * v.re - u.re * v.im) / d };
+  }
+
+  function translationToMotion(vx, vy) {
+    return { kind: 1, a: { re: 1, im: 0 }, b: { re: vx, im: vy } };
+  }
+  function rotationToMotion(ox, oy, angle) {
+    var a = fromPolar(1, angle);
+    var o = { re: ox, im: oy };
+    return { kind: 1, a: a, b: mul(o, sub({ re: 1, im: 0 }, a)) };
+  }
+  function reflectionToMotion(px, py, theta) {
+    var a = fromPolar(1, 2 * theta);
+    var p = { re: px, im: py };
+    return { kind: 2, a: a, b: sub(p, mul(a, conj(p))) };
+  }
+  function glideToMotion(px, py, theta, t) {
+    var refl = reflectionToMotion(px, py, theta);
+    return { kind: 2, a: refl.a, b: add(refl.b, fromPolar(t, theta)) };
+  }
+
+  function paramsToMotion(p) {
+    if (p.type === 'translate') return translationToMotion(p.vx, p.vy);
+    if (p.type === 'rotate') return rotationToMotion(p.ox, p.oy, p.angle);
+    if (p.type === 'reflect') return reflectionToMotion(p.px, p.py, p.theta);
+    return glideToMotion(p.px, p.py, p.theta, p.t);
+  }
+
+  function apply(m, z) {
+    var zz = m.kind === 2 ? conj(z) : z;
+    return add(mul(m.a, zz), m.b);
+  }
+
+  // f∘g — g is applied first. Composing two isometries f(z)=a_f z+b_f or
+  // a_f zbar+b_f with g likewise: conjugate g's coefficients iff f is kind 2.
+  function compose(f, g) {
+    var gA = f.kind === 2 ? conj(g.a) : g.a;
+    var gB = f.kind === 2 ? conj(g.b) : g.b;
+    return {
+      kind: f.kind === g.kind ? 1 : 2,
+      a: mul(f.a, gA),
+      b: add(mul(f.a, gB), f.b)
+    };
+  }
+
+  function classify(m, eps) {
+    eps = eps || 1e-6;
+    if (m.kind === 1) {
+      if (abs(sub(m.a, { re: 1, im: 0 })) < eps) {
+        return { type: 'translate', vx: m.b.re, vy: m.b.im };
+      }
+      var center = div(m.b, sub({ re: 1, im: 0 }, m.a));
+      return { type: 'rotate', ox: center.re, oy: center.im, angle: arg(m.a) };
+    }
+    var psi = arg(m.a);
+    var r = fromPolar(1, psi / 2);
+    var beta = mul(m.b, conj(r));
+    var axisPoint = mul(r, { re: 0, im: beta.im / 2 });
+    if (Math.abs(beta.re) < eps) {
+      return { type: 'reflect', px: axisPoint.re, py: axisPoint.im, theta: psi / 2 };
+    }
+    return { type: 'glide', px: axisPoint.re, py: axisPoint.im, theta: psi / 2, t: beta.re };
+  }
+
+  function formatComplex(u) {
+    var re = u.re.toFixed(2);
+    var imAbs = Math.abs(u.im).toFixed(2);
+    var sign = u.im < 0 ? '-' : '+';
+    return re + ' ' + sign + ' ' + imAbs + 'i';
+  }
+
+  function formatExpr(m) {
+    var zPart = m.kind === 2 ? '\\bar z' : 'z';
+    return '(' + formatComplex(m.a) + ')' + zPart + ' + (' + formatComplex(m.b) + ')';
+  }
+
+  return {
+    add: add, sub: sub, mul: mul, scale: scale, conj: conj, abs: abs, arg: arg,
+    fromPolar: fromPolar, div: div,
+    paramsToMotion: paramsToMotion, apply: apply, compose: compose, classify: classify,
+    formatComplex: formatComplex, formatExpr: formatExpr
+  };
+})();
+</script>
+
 <p class="page-footer">© Nikolai Kazimirov · <a href="https://mathem.at" rel="noopener">mathem.at</a></p>
 
 </div><!-- .page -->
