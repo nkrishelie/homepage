@@ -65,8 +65,8 @@ ul.plain li::marker{color:var(--ink3)}
   .page{padding:1.5rem 1rem 3rem}
 }
 
-.motion-frame{width:100%;height:auto;aspect-ratio:300/220;display:block;background:var(--bg2);border:1px solid var(--border);border-radius:6px;touch-action:none}
-.motion-widget{margin:1rem 0}
+.motion-frame{width:100%;max-width:560px;height:auto;aspect-ratio:300/220;display:block;background:var(--bg2);border:1px solid var(--border);border-radius:6px;touch-action:none}
+.motion-widget{margin:1rem 0;max-width:560px}
 .motion-widget.small{max-width:340px}
 .mw-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:.6rem}
 .mw-tab{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.03em;padding:6px 12px;border-radius:999px;border:1px solid var(--border);background:var(--bg);color:var(--ink2);cursor:pointer}
@@ -96,7 +96,7 @@ details summary::-webkit-details-marker{display:none}
 details summary::before{content:'▶';font-size:11px;color:var(--ink3);transition:transform .15s}
 details[open] summary::before{transform:rotate(90deg)}
 details .details-body{padding:0 1.2rem 1.1rem;font-size:17.5px;color:var(--ink2);line-height:1.65}
-.note.theorem{border-left-color:var(--blue-acc);background:var(--blue-bg)}
+.note.theorem{border-left-color:var(--blue-acc);background:var(--blue-bg);font-size:22px}
 .note.theorem .note-head{color:var(--blue-acc)}
 .tbl-wrap{overflow-x:auto;margin-bottom:.6rem}
 table.basic{width:100%;border-collapse:collapse;min-width:520px;border:0.5px solid var(--border);border-top:2px solid var(--ink)}
@@ -411,10 +411,10 @@ window.MotionWidget = (function () {
   </p>
   <p>Собираем всю картину неподвижных точек движения плоскости:</p>
   <ul class="plain">
-    <li>неподвижных точек нет — <strong>перенос</strong> (кроме нулевого — это $\id$);</li>
+    <li>неподвижных точек нет — <strong>перенос</strong> (кроме нулевого — это $\mathrm{id}$);</li>
     <li>неподвижна ровно одна точка — <strong>поворот</strong> вокруг неё;</li>
-    <li>неподвижна целая прямая — <strong>отражение</strong> относительно неё;</li>
-    <li>неподвижны три точки не на одной прямой — $\id$, неподвижно вообще всё.</li>
+    <li>неподвижна целая прямая и больше ничего — <strong>отражение</strong> относительно неё;</li>
+    <li>неподвижны три точки не на одной прямой — $\mathrm{id}$, неподвижно вообще всё.</li>
   </ul>
   <p>Первые три случая мы уже увидели в действии выше — вместе с §2. Остаётся один, четвёртый.</p>
 </section>
@@ -503,7 +503,7 @@ window.MotionWidget = (function () {
 
 <section id="sec-glide">
   <h2>4. Скользящая симметрия</h2>
-  <p class="lead">А что если у движения вообще нет неподвижных точек? Переноса и поворота для этого мало: композиция отражения и сдвига вдоль его же оси — тоже движение без единой неподвижной точки, но её нельзя свести ни к переносу, ни к повороту, ни к простому отражению. Это четвёртый, самостоятельный вид — <strong>скользящая симметрия</strong>.</p>
+  <p class="lead">А что если у движения вообще нет неподвижных точек? Один ответ мы уже знаем — ненулевой перенос (поворот тут не подходит: у него всегда есть хотя бы центр). Но это не единственная возможность: композиция отражения и сдвига вдоль его же оси — тоже движение без единой неподвижной точки, но её нельзя свести ни к переносу, ни к повороту, ни к простому отражению. Это четвёртый, самостоятельный вид — <strong>скользящая симметрия</strong>.</p>
   <figure>
     <div class="motion-widget" id="widget-glide"></div>
     <figcaption>Вкладка «Скользящая симметрия»: тащите концы оси — так же, как в отражении — и третью ручку вдоль самой оси, чтобы задать сдвиг.</figcaption>
@@ -532,11 +532,12 @@ window.MotionWidget = (function () {
   </div>
   <p>Тождественное движение — это перенос на нулевой вектор; обычное отражение — это скользящая симметрия с нулевым сдвигом вдоль оси. Других движений плоскости не существует.</p>
 
+  <p>На картинке — исходный флажок (бледный контур) и его образ (синий) под действием одного конкретного движения. Прежде чем открыть ответ — какой это класс: перенос, поворот или скользящая симметрия?</p>
+  <svg id="chasles-quiz-svg" class="motion-frame" role="img" aria-label="Исходный и преобразованный флажок для угадывания класса движения" style="max-width:420px"></svg>
+
   <details>
-    <summary>Проверьте себя: какой класс?</summary>
+    <summary>Открыть ответ</summary>
     <div class="details-body">
-      <p>На картинке — исходный флажок (бледный контур) и его образ (синий) под действием одного конкретного движения. Прежде чем открыть ответ — какой это класс: перенос, поворот или скользящая симметрия?</p>
-      <svg id="chasles-quiz-svg" class="motion-frame" role="img" aria-label="Исходный и преобразованный флажок для угадывания класса движения" style="max-width:420px"></svg>
       <p><strong>Ответ:</strong> это скользящая симметрия — флажок одновременно отразился (поменял «сторону») и сдвинулся вдоль оси отражения. Ни перенос, ни поворот в одиночку так не смогли бы: перенос не меняет ориентацию флажка, а поворот оставляет на месте свой центр.</p>
     </div>
   </details>
@@ -617,36 +618,43 @@ window.MotionWidget = (function () {
   var resultSvg = document.getElementById('calc-result-svg');
   var resultFormula = document.getElementById('calc-result-formula');
   var resultClass = document.getElementById('calc-result-class');
-  if (!gEl || !fEl || !window.MotionWidget || !window.MotionMath || !window.katex) return;
 
-  var CLASS_LABELS = {
-    translate: 'Перенос', rotate: 'Поворот', reflect: 'Отражение', glide: 'Скользящая симметрия'
-  };
+  // Same reason as the constructor script: katex.min.js is <script defer>,
+  // so window.katex isn't defined yet when this inline script runs during
+  // parsing. Wait for window 'load' before touching it.
+  function init() {
+    if (!gEl || !fEl || !window.MotionWidget || !window.MotionMath || !window.katex) return;
 
-  function update() {
-    if (!gWidget || !fWidget) return; // both widgets fire onChange once during their own construction
-    var gMotion = MotionMath.paramsToMotion(gWidget.getParams());
-    var fMotion = MotionMath.paramsToMotion(fWidget.getParams());
-    var composed = MotionMath.compose(fMotion, gMotion);
-    var classified = MotionMath.classify(composed);
+    var CLASS_LABELS = {
+      translate: 'Перенос', rotate: 'Поворот', reflect: 'Отражение', glide: 'Скользящая симметрия'
+    };
 
-    resultClass.textContent = CLASS_LABELS[classified.type];
-    katex.render('(f\\circ g)(z) = ' + MotionMath.formatExpr(composed), resultFormula, { throwOnError: false });
-    MotionWidget.renderStatic(resultSvg, classified);
+    function update() {
+      if (!gWidget || !fWidget) return; // both widgets fire onChange once during their own construction
+      var gMotion = MotionMath.paramsToMotion(gWidget.getParams());
+      var fMotion = MotionMath.paramsToMotion(fWidget.getParams());
+      var composed = MotionMath.compose(fMotion, gMotion);
+      var classified = MotionMath.classify(composed);
+
+      resultClass.textContent = CLASS_LABELS[classified.type];
+      katex.render('(f\\circ g)(z) = ' + MotionMath.formatExpr(composed), resultFormula, { throwOnError: false });
+      MotionWidget.renderStatic(resultSvg, classified);
+    }
+
+    var gWidget = MotionWidget.create(gEl, {
+      tabs: ['translate', 'rotate', 'reflect', 'glide'],
+      initial: { type: 'reflect', px: 0, py: 0, theta: 0 },
+      onChange: update
+    });
+    var fWidget = MotionWidget.create(fEl, {
+      tabs: ['translate', 'rotate', 'reflect', 'glide'],
+      initial: { type: 'reflect', px: 0, py: 40, theta: 0 },
+      onChange: update
+    });
+
+    update();
   }
-
-  var gWidget = MotionWidget.create(gEl, {
-    tabs: ['translate', 'rotate', 'reflect', 'glide'],
-    initial: { type: 'reflect', px: 0, py: 0, theta: 0 },
-    onChange: update
-  });
-  var fWidget = MotionWidget.create(fEl, {
-    tabs: ['translate', 'rotate', 'reflect', 'glide'],
-    initial: { type: 'reflect', px: 0, py: 40, theta: 0 },
-    onChange: update
-  });
-
-  update();
+  window.addEventListener('load', init);
 })();
 </script>
 
@@ -654,19 +662,26 @@ window.MotionWidget = (function () {
 (function () {
   var el = document.getElementById('widget-constructor');
   var formulaEl = document.getElementById('constructor-formula');
-  if (!el || !formulaEl || !window.MotionWidget || !window.MotionMath || !window.katex) return;
 
-  function update(params) {
-    var motion = MotionMath.paramsToMotion(params);
-    katex.render('f(z) = ' + MotionMath.formatExpr(motion), formulaEl, { throwOnError: false });
+  // katex.min.js is loaded via <script defer>, so it only runs after this
+  // (non-deferred, inline) script has already executed during parsing —
+  // window.katex is not defined yet at this point. Wait for window 'load'.
+  function init() {
+    if (!el || !formulaEl || !window.MotionWidget || !window.MotionMath || !window.katex) return;
+
+    function update(params) {
+      var motion = MotionMath.paramsToMotion(params);
+      katex.render('f(z) = ' + MotionMath.formatExpr(motion), formulaEl, { throwOnError: false });
+    }
+
+    var widget = MotionWidget.create(el, {
+      tabs: ['translate', 'rotate', 'reflect', 'glide'],
+      initial: { type: 'rotate', ox: 20, oy: 30, angle: Math.PI / 3 },
+      onChange: update
+    });
+    update(widget.getParams());
   }
-
-  var widget = MotionWidget.create(el, {
-    tabs: ['translate', 'rotate', 'reflect', 'glide'],
-    initial: { type: 'rotate', ox: 20, oy: 30, angle: Math.PI / 3 },
-    onChange: update
-  });
-  update(widget.getParams());
+  window.addEventListener('load', init);
 })();
 </script>
 
