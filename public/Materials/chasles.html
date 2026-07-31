@@ -459,6 +459,26 @@ window.MotionWidget = (function () {
 })();
 </script>
 
+<section id="sec-glide">
+  <h2>4. Скользящая симметрия</h2>
+  <p class="lead">А что если у движения вообще нет неподвижных точек? Переноса и поворота для этого мало: композиция отражения и сдвига вдоль его же оси — тоже движение без единой неподвижной точки, но её нельзя свести ни к переносу, ни к повороту, ни к простому отражению. Это четвёртый, самостоятельный вид — <strong>скользящая симметрия</strong>.</p>
+  <figure>
+    <div class="motion-widget" id="widget-glide"></div>
+    <figcaption>Вкладка «Скользящая симметрия»: тащите концы оси — так же, как в отражении — и третью ручку вдоль самой оси, чтобы задать сдвиг.</figcaption>
+  </figure>
+</section>
+
+<script>
+(function () {
+  var el = document.getElementById('widget-glide');
+  if (!el) return;
+  MotionWidget.create(el, {
+    tabs: ['reflect', 'glide'],
+    initial: { type: 'glide', px: -30, py: 70, theta: Math.atan2(-130, 90), t: 50 }
+  });
+})();
+</script>
+
 <script id="motion-math">
 window.MotionMath = (function () {
   function add(u, v) { return { re: u.re + v.re, im: u.im + v.im }; }
