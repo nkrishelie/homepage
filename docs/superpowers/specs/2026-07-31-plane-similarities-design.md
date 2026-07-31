@@ -138,9 +138,12 @@ KaTeX 0.16.9 CDN, drag-паттерн с фиксированным viewBox).
     не только для $|a|=1$); для kind 2 при $|a|\ne1$ нужна новая ветка —
     неподвижная точка отражённой гомотетии
     $z_0=\dfrac{b+a\bar b}{1-|a|^2}$, угол оси $\theta=\arg(a)/2$, $k=|a|$.
-- `public/Materials/_taxonomy.json`: добавить `"similarities.html": "algebra"`
-  в `fileCategory` (та же категория, что у `chasles.html`/`duality.html`) и
-  `"similarities.html": "ru"` в `fileLanguage`.
+- `public/Materials/_taxonomy.json`: добавить `"similarities.html": "geometry"`
+  в `fileCategory` — та же категория, в которую только что переехал сам
+  `chasles.html` (коммит `6671f9a`, «геометрия» — потому что кикер страницы
+  уже гласит «Геометрия · Группы», и материал по сути о классификации, а не
+  об алгебре, использующей язык групп; `similarities.html` наследует тот же
+  кикер и ту же логику) — и `"similarities.html": "ru"` в `fileLanguage`.
 - После добавления файла — прогнать
   `node scripts/generate-materials-manifest.mjs`.
 - **`public/Materials/chasles.html`**: добавить короткую ссылку вперёд (в конце
@@ -159,7 +162,7 @@ KaTeX 0.16.9 CDN, drag-паттерн с фиксированным viewBox).
   посередине) реагируют живо, KaTeX рендерится, формулы в §5 совпадают с
   геометрией на канве.
 - `node scripts/generate-materials-manifest.mjs` — подтвердить новую запись
-  (`title`/`category: "algebra"`/`lang: "ru"`).
+  (`title`/`category: "geometry"`/`lang: "ru"`).
 - Математика (`classify`/`compose`/неподвижные точки) проверяется test-first в
   scratchpad-скрипте (как `motion-math.test.mjs` в плане `chasles.html`) —
   включая обобщённые случаи $|a|\ne1$ и как минимум одну сверку с книжным
