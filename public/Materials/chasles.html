@@ -165,12 +165,16 @@ window.MotionWidget = (function () {
     var y = Math.max(-CAP_Y, Math.min(CAP_Y, p[1]));
     return [snap(x), snap(y)];
   }
+  // Labels show the true complex-number reading (Im up), not the raw SVG (y
+  // down) coordinate -- same sign flip as MotionMath.flipY, kept local since
+  // this module intentionally has no dependency on MotionMath.
   function fmtCoord(x, y) {
-    var sign = y < 0 ? '-' : '+';
-    return x.toFixed(2) + ' ' + sign + ' ' + Math.abs(y).toFixed(2) + 'i';
+    var im = -y;
+    var sign = im < 0 ? '-' : '+';
+    return x.toFixed(2) + ' ' + sign + ' ' + Math.abs(im).toFixed(2) + 'i';
   }
   function fmtAngleDeg(rad) {
-    return (rad * 180 / Math.PI).toFixed(1) + '°';
+    return (-rad * 180 / Math.PI).toFixed(1) + '°';
   }
   function rotatePoint(p, c, ang) {
     var dx = p[0] - c[0], dy = p[1] - c[1];
@@ -752,11 +756,25 @@ window.MotionMath = (function () {
     return { kind: 2, a: refl.a, b: add(refl.b, fromPolar(t, theta)) };
   }
 
+  // Widget params are in SVG space (y grows downward, angles measured the
+  // same way atan2 does on screen coordinates). Complex numbers use the
+  // standard math convention (Im grows upward, positive angle = counter-
+  // clockwise). flipY converts between the two by negating every y-like
+  // and angle-like field; it is its own inverse, so the same function
+  // converts params->motion (paramsToMotion) and motion->params (classify).
+  function flipY(p) {
+    if (p.type === 'translate') return { type: 'translate', vx: p.vx, vy: -p.vy };
+    if (p.type === 'rotate') return { type: 'rotate', ox: p.ox, oy: -p.oy, angle: -p.angle };
+    if (p.type === 'reflect') return { type: 'reflect', px: p.px, py: -p.py, theta: -p.theta };
+    return { type: 'glide', px: p.px, py: -p.py, theta: -p.theta, t: p.t };
+  }
+
   function paramsToMotion(p) {
-    if (p.type === 'translate') return translationToMotion(p.vx, p.vy);
-    if (p.type === 'rotate') return rotationToMotion(p.ox, p.oy, p.angle);
-    if (p.type === 'reflect') return reflectionToMotion(p.px, p.py, p.theta);
-    return glideToMotion(p.px, p.py, p.theta, p.t);
+    var fp = flipY(p);
+    if (fp.type === 'translate') return translationToMotion(fp.vx, fp.vy);
+    if (fp.type === 'rotate') return rotationToMotion(fp.ox, fp.oy, fp.angle);
+    if (fp.type === 'reflect') return reflectionToMotion(fp.px, fp.py, fp.theta);
+    return glideToMotion(fp.px, fp.py, fp.theta, fp.t);
   }
 
   function apply(m, z) {
@@ -778,21 +796,26 @@ window.MotionMath = (function () {
 
   function classify(m, eps) {
     eps = eps || 1e-6;
+    var raw;
     if (m.kind === 1) {
       if (abs(sub(m.a, { re: 1, im: 0 })) < eps) {
-        return { type: 'translate', vx: m.b.re, vy: m.b.im };
+        raw = { type: 'translate', vx: m.b.re, vy: m.b.im };
+      } else {
+        var center = div(m.b, sub({ re: 1, im: 0 }, m.a));
+        raw = { type: 'rotate', ox: center.re, oy: center.im, angle: arg(m.a) };
       }
-      var center = div(m.b, sub({ re: 1, im: 0 }, m.a));
-      return { type: 'rotate', ox: center.re, oy: center.im, angle: arg(m.a) };
+    } else {
+      var psi = arg(m.a);
+      var r = fromPolar(1, psi / 2);
+      var beta = mul(m.b, conj(r));
+      var axisPoint = mul(r, { re: 0, im: beta.im / 2 });
+      if (Math.abs(beta.re) < eps) {
+        raw = { type: 'reflect', px: axisPoint.re, py: axisPoint.im, theta: psi / 2 };
+      } else {
+        raw = { type: 'glide', px: axisPoint.re, py: axisPoint.im, theta: psi / 2, t: beta.re };
+      }
     }
-    var psi = arg(m.a);
-    var r = fromPolar(1, psi / 2);
-    var beta = mul(m.b, conj(r));
-    var axisPoint = mul(r, { re: 0, im: beta.im / 2 });
-    if (Math.abs(beta.re) < eps) {
-      return { type: 'reflect', px: axisPoint.re, py: axisPoint.im, theta: psi / 2 };
-    }
-    return { type: 'glide', px: axisPoint.re, py: axisPoint.im, theta: psi / 2, t: beta.re };
+    return flipY(raw);
   }
 
   function formatComplex(u) {
@@ -813,28 +836,31 @@ window.MotionMath = (function () {
 
   // The "recipe" shape is fixed per type; only "params" carries live numbers.
   // Both are algebraically verified to expand to exactly paramsToMotion's a,b.
+  // p is in widget/SVG space, same as paramsToMotion's input -- flip first so
+  // the numbers shown here match what actually goes into the formula.
   function formatRecipe(p) {
-    if (p.type === 'translate') {
-      return { template: 'f(z) = z + v', params: 'v \\approx ' + formatComplex({ re: p.vx, im: p.vy }) };
+    var fp = flipY(p);
+    if (fp.type === 'translate') {
+      return { template: 'f(z) = z + v', params: 'v \\approx ' + formatComplex({ re: fp.vx, im: fp.vy }) };
     }
-    if (p.type === 'rotate') {
-      var z0 = { re: p.ox, im: p.oy };
+    if (fp.type === 'rotate') {
+      var z0 = { re: fp.ox, im: fp.oy };
       return {
         template: 'f(z) = e^{i\\alpha}(z-z_0)+z_0',
-        params: '\\alpha \\approx ' + formatDeg(p.angle) + ',\\ z_0 \\approx ' + formatComplex(z0)
+        params: '\\alpha \\approx ' + formatDeg(fp.angle) + ',\\ z_0 \\approx ' + formatComplex(z0)
       };
     }
-    if (p.type === 'reflect') {
-      var pt = { re: p.px, im: p.py };
+    if (fp.type === 'reflect') {
+      var pt = { re: fp.px, im: fp.py };
       return {
         template: 'f(z) = e^{2i\\theta}\\overline{(z-p)}+p',
-        params: '\\theta \\approx ' + formatDeg(p.theta) + ',\\ p \\approx ' + formatComplex(pt)
+        params: '\\theta \\approx ' + formatDeg(fp.theta) + ',\\ p \\approx ' + formatComplex(pt)
       };
     }
-    var pt2 = { re: p.px, im: p.py };
+    var pt2 = { re: fp.px, im: fp.py };
     return {
       template: 'f(z) = e^{2i\\theta}\\overline{(z-p)}+p+te^{i\\theta}',
-      params: '\\theta \\approx ' + formatDeg(p.theta) + ',\\ p \\approx ' + formatComplex(pt2) + ',\\ t \\approx ' + p.t.toFixed(2)
+      params: '\\theta \\approx ' + formatDeg(fp.theta) + ',\\ p \\approx ' + formatComplex(pt2) + ',\\ t \\approx ' + fp.t.toFixed(2)
     };
   }
 
