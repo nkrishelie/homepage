@@ -61,6 +61,7 @@
     "duality_en.html": "algebra",
     "chasles.html": "geometry",
     "chasles_en.html": "geometry",
+    "similarities.html": "geometry",
     "test1.html": "sets",
     "diagonal.html": "foundations",
     "henkin_construction.html": "foundations",
@@ -88,6 +89,7 @@
     "math_structures.html": "ru",
     "duality.html": "ru",
     "chasles.html": "ru",
+    "similarities.html": "ru",
     "maglish_b1_formal_logic.html": "ru",
     "maglish_b2_foundations.html": "ru",
     "maglish_c1_paradise.html": "ru"

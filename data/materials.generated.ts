@@ -208,6 +208,13 @@ export const MATERIALS_ITEMS: MaterialItem[] = [
     "lang": "ru"
   },
   {
+    "filename": "similarities.html",
+    "href": "/Materials/similarities.html",
+    "title": "Подобия плоскости: гомотетия и поворотная гомотетия",
+    "category": "geometry",
+    "lang": "ru"
+  },
+  {
     "filename": "test1.html",
     "href": "/Materials/test1.html",
     "title": "Теория множеств: Тест",
