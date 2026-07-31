@@ -108,6 +108,7 @@ table.basic tbody tr:hover td, table.basic tbody tr:hover th{background:rgba(58,
 table.basic:has(td.col-1:hover) td.col-1, table.basic:has(td.col-1:hover) thead th.col-1{background:rgba(58,95,158,.1)}
 table.basic:has(td.col-2:hover) td.col-2, table.basic:has(td.col-2:hover) thead th.col-2{background:rgba(58,95,158,.1)}
 table.basic:has(td.col-3:hover) td.col-3, table.basic:has(td.col-3:hover) thead th.col-3{background:rgba(58,95,158,.1)}
+.formula-box{font-family:'JetBrains Mono',monospace;font-size:16px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:.8rem 1.1rem;margin-top:.8rem;color:var(--ink)}
 </style>
 </head>
 <body>
@@ -552,6 +553,41 @@ window.MotionWidget = (function () {
     </div>
   </details>
 </section>
+
+<section id="sec-fz">
+  <h2>7. Движения как функции $f(z)$</h2>
+  <p class="lead">Если считать плоскость полем комплексных чисел, каждое движение записывается одной формулой. Сложение с числом — это перенос; умножение на число с $|a|=1$ — поворот вокруг нуля; сопряжение $\bar z$ — отражение от вещественной оси. Собирая эти операции вместе, получаем всё семейство:</p>
+  <p>$f(z) = az + b$, $|a|=1$ — движения первого рода (перенос, поворот): $a=1$ — перенос на вектор $b$; $a\ne1$ — поворот на угол $\arg a$ вокруг точки $z_0=b/(1-a)$.</p>
+  <p>$f(z) = a\bar z + b$, $|a|=1$ — движения второго рода (отражение, скользящая симметрия).</p>
+
+  <h3>Конструктор</h3>
+  <p>Настройте движение и посмотрите на его формулу.</p>
+  <figure>
+    <div class="motion-widget" id="widget-constructor"></div>
+    <div class="formula-box" id="constructor-formula"></div>
+    <figcaption>Числа округлены до сотых — это подстановка текущих параметров, без упрощения.</figcaption>
+  </figure>
+</section>
+
+<script>
+(function () {
+  var el = document.getElementById('widget-constructor');
+  var formulaEl = document.getElementById('constructor-formula');
+  if (!el || !formulaEl || !window.MotionWidget || !window.MotionMath || !window.katex) return;
+
+  function update(params) {
+    var motion = MotionMath.paramsToMotion(params);
+    katex.render('f(z) = ' + MotionMath.formatExpr(motion), formulaEl, { throwOnError: false });
+  }
+
+  var widget = MotionWidget.create(el, {
+    tabs: ['translate', 'rotate', 'reflect', 'glide'],
+    initial: { type: 'rotate', ox: 20, oy: 30, angle: Math.PI / 3 },
+    onChange: update
+  });
+  update(widget.getParams());
+})();
+</script>
 
 <script id="motion-math">
 window.MotionMath = (function () {
