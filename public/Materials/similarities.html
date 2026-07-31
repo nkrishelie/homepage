@@ -464,6 +464,26 @@ window.SimilarityWidget = (function () {
 })();
 </script>
 
+<section id="sec-rothomothety">
+  <h2>3. Поворотная гомотетия</h2>
+  <p class="lead">Скомбинируем гомотетию с поворотом вокруг того же центра $O$: сначала растянуть в $k$ раз, потом повернуть на угол $\alpha$ — или наоборот, результат один и тот же, поворот и гомотетия с общим центром коммутируют: $R_O^\alpha\circ H_O^k = H_O^k\circ R_O^\alpha$. Если поместить $O$ в комплексный ноль, всё действие — это просто умножение на число $ke^{i\alpha}$.</p>
+  <figure>
+    <div class="motion-widget" id="widget-rothomothety"></div>
+    <figcaption>Тащите центр $O$ и ручку угла, двигайте ползунок $k$.</figcaption>
+  </figure>
+</section>
+
+<script>
+(function () {
+  var el = document.getElementById('widget-rothomothety');
+  if (!el || !window.SimilarityWidget) return;
+  SimilarityWidget.create(el, {
+    tabs: ['rotate'],
+    initial: { type: 'rotate', ox: 20, oy: 30, angle: Math.PI / 3, k: 1.5 }
+  });
+})();
+</script>
+
 <script id="similarity-math">
 window.SimilarityMath = (function () {
   function add(u, v) { return { re: u.re + v.re, im: u.im + v.im }; }
