@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="ru" style="scroll-behavior: smooth;">
+<html lang="en" style="scroll-behavior: smooth;">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Движения плоскости: теорема Шаля</title>
-<meta name="description" content="Перенос, поворот, отражение и скользящая симметрия — три вида движений плоскости. Теорема о трёх гвоздях, теорема Шаля и калькулятор композиции на комплексных числах, с перетаскиваемыми фигурами.">
-<link rel="canonical" href="https://mathem.at/Materials/chasles.html">
+<title>Motions of the Plane: Chasles' Theorem</title>
+<meta name="description" content="Translation, rotation, reflection, and glide reflection — the three kinds of plane motion. The three-nails theorem, Chasles' theorem, and a complex-number composition calculator, with draggable figures.">
+<link rel="canonical" href="https://mathem.at/Materials/chasles_en.html">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Движения плоскости: теорема Шаля">
-<meta property="og:description" content="Три вида движений плоскости, теорема о трёх гвоздях и теорема Шаля — интерактивный разбор с перетаскиваемыми фигурами и калькулятором композиции на комплексных числах.">
-<meta property="og:url" content="https://mathem.at/Materials/chasles.html">
-<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="Motions of the Plane: Chasles' Theorem">
+<meta property="og:description" content="Three kinds of plane motion, the three-nails theorem, and Chasles' theorem — an interactive walkthrough with draggable figures and a complex-number composition calculator.">
+<meta property="og:url" content="https://mathem.at/Materials/chasles_en.html">
+<meta property="og:locale" content="en_US">
 <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPsKxw5fDtzwvdGV4dD48L3N2Zz4=" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -129,45 +129,45 @@ table.basic:has(td.col-3:hover) td.col-3, table.basic:has(td.col-3:hover) thead 
 <div class="page">
 
 <div class="topbar">
-  <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> / <a href="/#materials">Материалы</a></div>
+  <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> / <a href="/#materials">Materials</a></div>
   <div class="lang-pills">
-    <a class="lang-pill" href="/Materials/chasles_en.html">🇬🇧 EN</a>
-    <a class="lang-pill active" href="/Materials/chasles.html">🇷🇺 RU</a>
+    <a class="lang-pill active" href="/Materials/chasles_en.html">🇬🇧 EN</a>
+    <a class="lang-pill" href="/Materials/chasles.html">🇷🇺 RU</a>
   </div>
 </div>
 
 <header>
-  <p class="kicker">Геометрия · Группы</p>
-  <h1>Движения плоскости</h1>
-  <p class="desc">Перенос, поворот, отражение и скользящая симметрия — все движения плоскости укладываются в три класса. Теорема о трёх гвоздях объясняет, почему это так, а теорема Шаля даёт полную классификацию. Ниже — интерактивные модели вместо длинных доказательств.</p>
+  <p class="kicker">Geometry · Groups</p>
+  <h1>Motions of the Plane</h1>
+  <p class="desc">Translation, rotation, reflection, and glide reflection — every motion of the plane falls into one of three classes. The three-nails theorem explains why, and Chasles' theorem gives the full classification. Below: interactive models instead of long proofs.</p>
 </header>
 
 <nav class="toc" style="background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 1.2rem 1.5rem; margin-bottom: 2.5rem;">
-  <h3 style="margin-top: 0; margin-bottom: 0.8rem; font-size: 19px;">Содержание</h3>
+  <h3 style="margin-top: 0; margin-bottom: 0.8rem; font-size: 19px;">Contents</h3>
   <ol style="margin: 0 0 0 1.5rem; padding: 0; color: var(--ink2); line-height: 1.6;">
-    <li><a href="#sec-what" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Что сохраняет движение</a></li>
-    <li><a href="#sec-three-kinds" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Три вида движений</a></li>
-    <li><a href="#sec-nails" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Теорема о трёх гвоздях</a></li>
-    <li><a href="#sec-glide" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Скользящая симметрия</a></li>
-    <li><a href="#sec-chasles" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Теорема Шаля</a></li>
-    <li><a href="#sec-table" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Таблица композиций</a></li>
-    <li><a href="#sec-fz" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Движения как функции $f(z)$</a></li>
-    <li><a href="#sec-recovery" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Восстановление формулы по образам точек</a></li>
+    <li><a href="#sec-what" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">What a motion preserves</a></li>
+    <li><a href="#sec-three-kinds" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Three kinds of motion</a></li>
+    <li><a href="#sec-nails" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">The three-nails theorem</a></li>
+    <li><a href="#sec-glide" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Glide reflection</a></li>
+    <li><a href="#sec-chasles" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Chasles' theorem</a></li>
+    <li><a href="#sec-table" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Composition table</a></li>
+    <li><a href="#sec-fz" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Motions as functions $f(z)$</a></li>
+    <li><a href="#sec-recovery" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Recovering the formula from images of points</a></li>
   </ol>
 </nav>
 
 <section id="sec-what">
-  <h2>1. Что сохраняет движение</h2>
-  <p class="lead"><strong>Движение</strong> плоскости — это преобразование, которое сохраняет расстояния: если между точками $A$ и $B$ было расстояние $x$, то после движения расстояние между их образами $A'$ и $B'$ снова равно $x$ — и так для любой пары точек.</p>
-  <p>Простейший пример — параллельный перенос: все точки сдвигаются на один и тот же вектор, поэтому расстояния между ними не меняются. Дальше выяснится, что «простейших» видов движения плоскости на самом деле немного — и они полностью исчерпывают список.</p>
+  <h2>1. What a motion preserves</h2>
+  <p class="lead">A <strong>motion</strong> of the plane is a transformation that preserves distances: if the distance between points $A$ and $B$ was $x$, then after the motion the distance between their images $A'$ and $B'$ is still $x$ — for every pair of points.</p>
+  <p>The simplest example is a translation: every point shifts by the same vector, so the distances between them don't change. It will turn out that there really aren't many "simple" kinds of plane motion — and together they exhaust the whole list.</p>
 </section>
 
 <section id="sec-three-kinds">
-  <h2>2. Три вида движений</h2>
-  <p class="lead">Переключайте вкладки и тащите ручки — флажок сразу показывает, что делает каждое движение. Бледный контур — исходное положение, синий флажок — образ.</p>
+  <h2>2. Three kinds of motion</h2>
+  <p class="lead">Switch tabs and drag the handles — the flag shows immediately what each motion does. The pale outline is the original position, the blue flag is the image.</p>
   <figure>
     <div class="motion-widget" id="widget-three-kinds"></div>
-    <figcaption>Перенос задаётся вектором, поворот — центром и углом, отражение — осью (тащите за любой из двух её концов).</figcaption>
+    <figcaption>A translation is given by a vector, a rotation by a center and an angle, a reflection by an axis (drag either of its two ends).</figcaption>
   </figure>
 </section>
 
@@ -178,7 +178,7 @@ window.MotionWidget = (function () {
   var FRAME_VB = (-FRAME_HALF_W) + ' ' + (-FRAME_HALF_H) + ' ' + (2 * FRAME_HALF_W) + ' ' + (2 * FRAME_HALF_H);
   var ORIGIN = [-70, 35];
   var LOCAL_FLAG = [[-2, -28], [-2, 28], [2, 28], [2, -12], [20, -20], [2, -28]];
-  var TAB_LABELS = { translate: 'Перенос', rotate: 'Поворот', reflect: 'Отражение', glide: 'Скользящая симметрия' };
+  var TAB_LABELS = { translate: 'Translation', rotate: 'Rotation', reflect: 'Reflection', glide: 'Glide reflection' };
 
   var SNAP = 5;
   function snap(v) { return Math.round(v / SNAP) * SNAP; }
@@ -452,21 +452,21 @@ window.MotionWidget = (function () {
 </script>
 
 <section id="sec-nails">
-  <h2>3. Теорема о трёх гвоздях</h2>
-  <p class="lead">Если движение оставляет на месте три точки $A$, $B$, $C$, не лежащие на одной прямой, оно оставляет на месте вообще всё — то есть является тождественным ($\mathrm{id}$). Перетащите $A$, $B$, $C$ и пробную точку $P$: три окружности радиусов $|AP|$, $|BP|$, $|CP|$ вокруг гвоздей пересекаются ровно в одной точке — самой $P$. Значит, никакая другая точка не может быть образом $P$ при движении, сохраняющем $A,B,C$.</p>
+  <h2>3. The three-nails theorem</h2>
+  <p class="lead">If a motion leaves three points $A$, $B$, $C$ fixed and they don't lie on one line, it leaves absolutely everything fixed — that is, it's the identity ($\mathrm{id}$). Drag $A$, $B$, $C$, and a test point $P$: the three circles of radii $|AP|$, $|BP|$, $|CP|$ around the nails meet at exactly one point — $P$ itself. So no other point can be the image of $P$ under a motion that fixes $A,B,C$.</p>
   <figure>
-    <svg id="nails-svg" class="motion-frame" role="img" aria-label="Три гвоздя A, B, C и пробная точка P с окружностями расстояний"></svg>
-    <figcaption>Перетащите любую из четырёх точек.</figcaption>
+    <svg id="nails-svg" class="motion-frame" role="img" aria-label="Three nails A, B, C and a test point P with distance circles"></svg>
+    <figcaption>Drag any of the four points.</figcaption>
   </figure>
   <p class="note" id="nails-note" style="display:none">
-    <span class="note-head">Вырожденный случай</span>
-    <span>$C$ легла на прямую $AB$: неподвижной оказывается не пара точек, а вся прямая $AB$ целиком, а всё, что вне её, — уже нет. Одна степень свободы ещё остаётся — отражение относительно $AB$.</span>
+    <span class="note-head">Degenerate case</span>
+    <span>$C$ has landed on line $AB$: what's fixed is no longer a pair of points but the whole line $AB$ — and everything off it is no longer fixed. One degree of freedom is left — reflection about $AB$.</span>
   </p>
 
-  <p>Раз три неподвижные точки не на одной прямой — это всегда $\mathrm{id}$, разберём более скромные случаи по убыванию.</p>
-  <p><strong>Две неподвижные точки.</strong> Это не случайность из вырожденного случая выше, а общий факт — лемма о двух точках: если движение оставляет на месте различные $A$ и $B$, оно оставляет на месте всю прямую $AB$ — для точки $C$ на этой прямой обязано сохраниться равенство длин ($|AC|+|CB|=|AB|$), а для точки вне прямой оно превратилось бы в строгое неравенство. При этом третьей неподвижной точки вне этой прямой быть не может: иначе, по теореме выше, неподвижным оказалось бы вообще всё. Значит, если движение не тождественно, но неподвижна хотя бы пара точек, неподвижна ровно вся прямая через них и ничего сверх того — это <strong>отражение</strong> относительно неё.</p>
-  <p><strong>Одна неподвижная точка.</strong> Вторую движение зафиксировать уже не может — по той же лемме тогда зафиксировалась бы целая прямая. Это <strong>поворот</strong> вокруг неё — вы уже видели его в §2.</p>
-  <p><strong>Ни одной неподвижной точки.</strong> Один пример у нас уже есть — ненулевой <strong>перенос</strong>. Но, как выясняется дальше, это не единственный ответ: есть ещё один, четвёртый вид движения.</p>
+  <p>Since three fixed points off one line always mean $\mathrm{id}$, let's work through the more modest cases in decreasing order.</p>
+  <p><strong>Two fixed points.</strong> This isn't a coincidence from the degenerate case above but a general fact — the two-point lemma: if a motion leaves distinct points $A$ and $B$ fixed, it leaves the whole line $AB$ fixed — for a point $C$ on that line the equality of lengths ($|AC|+|CB|=|AB|$) must be preserved, while for a point off the line it would turn into a strict inequality. And there can't be a third fixed point off that line either: otherwise, by the theorem above, everything would be fixed. So if a motion isn't the identity but at least a pair of points is fixed, exactly the whole line through them is fixed and nothing more — that's a <strong>reflection</strong> about it.</p>
+  <p><strong>One fixed point.</strong> The motion can't fix a second one — by the same lemma, that would fix an entire line. This is a <strong>rotation</strong> about it — you already saw this in §2.</p>
+  <p><strong>No fixed points at all.</strong> We already have one example — a nonzero <strong>translation</strong>. But, as it turns out next, that's not the only answer: there's one more, fourth, kind of motion.</p>
 </section>
 
 <script id="nails-theorem">
@@ -552,11 +552,11 @@ window.MotionWidget = (function () {
 </script>
 
 <section id="sec-glide">
-  <h2>4. Скользящая симметрия</h2>
-  <p class="lead">Композиция отражения и сдвига вдоль его же оси — тоже движение без единой неподвижной точки, но её нельзя свести ни к переносу, ни к повороту, ни к простому отражению. Это и есть обещанный четвёртый, самостоятельный вид — <strong>скользящая симметрия</strong>.</p>
+  <h2>4. Glide reflection</h2>
+  <p class="lead">The composition of a reflection and a shift along its own axis is also a motion with no fixed point whatsoever, yet it can't be reduced to a translation, a rotation, or a plain reflection. This is the promised fourth, independent kind — <strong>glide reflection</strong>.</p>
   <figure>
     <div class="motion-widget" id="widget-glide"></div>
-    <figcaption>Вкладка «Скользящая симметрия»: тащите концы оси — так же, как в отражении — и третью ручку вдоль самой оси, чтобы задать сдвиг.</figcaption>
+    <figcaption>The "Glide reflection" tab: drag the ends of the axis — same as for a reflection — and the third handle along the axis itself to set the shift.</figcaption>
   </figure>
 </section>
 
@@ -572,23 +572,23 @@ window.MotionWidget = (function () {
 </script>
 
 <section id="sec-chasles">
-  <h2>5. Теорема Шаля</h2>
+  <h2>5. Chasles' theorem</h2>
   <div class="note theorem">
-    <span class="note-head">Теорема (Шаля)</span>
-    <p>Всякое движение плоскости относится ровно к одному из трёх классов:</p>
-    <p>$\rightrightarrows$ <strong>перенос</strong> (в том числе нулевой — тождественное движение);</p>
-    <p>$\circlearrowleft$ <strong>поворот</strong> вокруг произвольного центра;</p>
-    <p>$\leftharpoonup\leftharpoondown$ <strong>скользящая симметрия</strong> — в том числе обычное отражение как случай нулевого сдвига.</p>
+    <span class="note-head">Theorem (Chasles)</span>
+    <p>Every motion of the plane belongs to exactly one of three classes:</p>
+    <p>$\rightrightarrows$ <strong>translation</strong> (including the zero one — the identity motion);</p>
+    <p>$\circlearrowleft$ <strong>rotation</strong> about an arbitrary center;</p>
+    <p>$\leftharpoonup\leftharpoondown$ <strong>glide reflection</strong> — including a plain reflection as the case of zero shift.</p>
   </div>
-  <p>Тождественное движение — это перенос на нулевой вектор; обычное отражение — это скользящая симметрия с нулевым сдвигом вдоль оси. Других движений плоскости не существует.</p>
+  <p>The identity motion is a translation by the zero vector; a plain reflection is a glide reflection with zero shift along the axis. No other motions of the plane exist.</p>
 
-  <p>На картинке — исходный флажок (бледный контур) и его образ (синий) под действием одного конкретного движения. Прежде чем открыть ответ — какой это класс: перенос, поворот или скользящая симметрия?</p>
-  <svg id="chasles-quiz-svg" class="motion-frame" role="img" aria-label="Исходный и преобразованный флажок для угадывания класса движения" style="max-width:420px"></svg>
+  <p>The picture shows an original flag (pale outline) and its image (blue) under one specific motion. Before opening the answer — which class is it: translation, rotation, or glide reflection?</p>
+  <svg id="chasles-quiz-svg" class="motion-frame" role="img" aria-label="Original and transformed flag for guessing the motion's class" style="max-width:420px"></svg>
 
   <details>
-    <summary>Открыть ответ</summary>
+    <summary>Reveal the answer</summary>
     <div class="details-body">
-      <p><strong>Ответ:</strong> это скользящая симметрия — флажок одновременно отразился (поменял «сторону») и сдвинулся вдоль оси отражения. Ни перенос, ни поворот в одиночку так не смогли бы: перенос не меняет ориентацию флажка, а поворот оставляет на месте свой центр.</p>
+      <p><strong>Answer:</strong> it's a glide reflection — the flag both got reflected (flipped its "side") and shifted along the axis of reflection. Neither a translation nor a rotation alone could do that: a translation doesn't change the flag's orientation, and a rotation leaves its own center fixed.</p>
     </div>
   </details>
 </section>
@@ -602,54 +602,54 @@ window.MotionWidget = (function () {
 </script>
 
 <section id="sec-table">
-  <h2>6. Таблица композиций</h2>
-  <p class="lead">Что получится, если сначала выполнить движение из строки, а затем — из столбца (порядок «строка∘столбец», как и в таблице композиций для прямой). Две ячейки на диагонали неоднозначны: их конкретный исход зависит от параметров, а не только от класса.</p>
+  <h2>6. Composition table</h2>
+  <p class="lead">What you get if you first perform the motion from the row, then the one from the column (the "row∘column" order, same as in the composition table for the line). Two cells on the diagonal are ambiguous: their exact outcome depends on the parameters, not just the class.</p>
   <div class="tbl-wrap">
     <table class="basic">
       <thead>
-        <tr><th></th><th class="col-1">$\rightrightarrows$ перенос</th><th class="col-2">$\circlearrowleft$ поворот</th><th class="col-3">$\leftharpoonup\leftharpoondown$ скользящая симметрия</th></tr>
+        <tr><th></th><th class="col-1">$\rightrightarrows$ translation</th><th class="col-2">$\circlearrowleft$ rotation</th><th class="col-3">$\leftharpoonup\leftharpoondown$ glide reflection</th></tr>
       </thead>
       <tbody>
-        <tr><th>$\rightrightarrows$ перенос</th><td class="col-1">$\rightrightarrows$ перенос</td><td class="col-2">$\circlearrowleft$ поворот</td><td class="col-3">$\leftharpoonup\leftharpoondown$ скользящая симметрия</td></tr>
-        <tr><th>$\circlearrowleft$ поворот</th><td class="col-1">$\circlearrowleft$ поворот</td><td class="col-2">$\rightrightarrows$ перенос <em>или</em> $\circlearrowleft$ поворот</td><td class="col-3">$\leftharpoonup\leftharpoondown$ скользящая симметрия</td></tr>
-        <tr><th>$\leftharpoonup\leftharpoondown$ скользящая симметрия</th><td class="col-1">$\leftharpoonup\leftharpoondown$ скользящая симметрия</td><td class="col-2">$\leftharpoonup\leftharpoondown$ скользящая симметрия</td><td class="col-3">$\rightrightarrows$ перенос <em>или</em> $\circlearrowleft$ поворот</td></tr>
+        <tr><th>$\rightrightarrows$ translation</th><td class="col-1">$\rightrightarrows$ translation</td><td class="col-2">$\circlearrowleft$ rotation</td><td class="col-3">$\leftharpoonup\leftharpoondown$ glide reflection</td></tr>
+        <tr><th>$\circlearrowleft$ rotation</th><td class="col-1">$\circlearrowleft$ rotation</td><td class="col-2">$\rightrightarrows$ translation <em>or</em> $\circlearrowleft$ rotation</td><td class="col-3">$\leftharpoonup\leftharpoondown$ glide reflection</td></tr>
+        <tr><th>$\leftharpoonup\leftharpoondown$ glide reflection</th><td class="col-1">$\leftharpoonup\leftharpoondown$ glide reflection</td><td class="col-2">$\leftharpoonup\leftharpoondown$ glide reflection</td><td class="col-3">$\rightrightarrows$ translation <em>or</em> $\circlearrowleft$ rotation</td></tr>
       </tbody>
     </table>
   </div>
 
   <details>
-    <summary>Предскажите: скользящая ∘ скользящая</summary>
+    <summary>Predict: glide ∘ glide</summary>
     <div class="details-body">
-      <p>Композиция двух скользящих симметрий — это перенос, если их оси параллельны, и поворот (на удвоенный угол между осями), если оси пересекаются — совершенно как для двух обычных отражений: скользящая составляющая обеих симметрий в промежуточных выкладках сокращается. Тот же эффект даёт композицию поворот∘поворот: перенос, если сумма углов кратна $2\pi$, иначе поворот на эту сумму.</p>
+      <p>The composition of two glide reflections is a translation if their axes are parallel, and a rotation (by twice the angle between the axes) if the axes cross — exactly as for two plain reflections: the glide (shift) component of both cancels out along the way. The same effect shows up for rotation∘rotation: a translation if the sum of the angles is a multiple of $2\pi$, otherwise a rotation by that sum.</p>
     </div>
   </details>
 </section>
 
 <section id="sec-fz">
-  <h2>7. Движения как функции $f(z)$</h2>
-  <p class="lead">Если считать плоскость полем комплексных чисел, каждое движение записывается одной формулой. Сложение с числом — это перенос; умножение на число с $|a|=1$ — поворот вокруг нуля; сопряжение $\bar z$ — отражение от вещественной оси. Собирая эти операции вместе, получаем всё семейство:</p>
-  <p>$f(z) = az + b$, $|a|=1$ — <strong>собственные движения</strong> (перенос, поворот): $a=1$ — перенос на вектор $b$; $a\ne1$ — поворот на угол $\arg a$ вокруг точки $z_0=b/(1-a)$.</p>
-  <p>$f(z) = a\bar z + b$, $|a|=1$ — <strong>несобственные движения</strong> (отражение, скользящая симметрия).</p>
+  <h2>7. Motions as functions $f(z)$</h2>
+  <p class="lead">Treating the plane as the field of complex numbers, every motion is written as a single formula. Adding a number is a translation; multiplying by a number with $|a|=1$ is a rotation about zero; conjugation $\bar z$ is a reflection about the real axis. Putting these operations together gives the whole family:</p>
+  <p>$f(z) = az + b$, $|a|=1$ — <strong>orientation-preserving motions</strong> (translation, rotation): $a=1$ — a translation by vector $b$; $a\ne1$ — a rotation by angle $\arg a$ about the point $z_0=b/(1-a)$.</p>
+  <p>$f(z) = a\bar z + b$, $|a|=1$ — <strong>orientation-reversing motions</strong> (reflection, glide reflection).</p>
 
-  <h3>Конструктор</h3>
-  <p>Настройте движение и посмотрите на его формулу — сначала как она вычисляется из геометрических параметров, потом как выглядит в раскрытом виде.</p>
+  <h3>Constructor</h3>
+  <p>Set up a motion and watch its formula — first how it's computed from the geometric parameters, then how it looks expanded out.</p>
   <figure>
     <div class="motion-widget" id="widget-constructor"></div>
     <div class="formula-box" id="constructor-recipe"></div>
     <div class="formula-box" id="constructor-params"></div>
     <div class="formula-box" id="constructor-formula"></div>
-    <figcaption>Числа округлены до сотых, а рамка захватывает точки только на сетке 5×5 — так проще попасть точно в 0 или другую нужную точку.</figcaption>
+    <figcaption>Numbers are rounded to two decimals, and the frame only catches points on a 5×5 grid — so it's easier to land exactly on 0 or another target point.</figcaption>
   </figure>
 
-  <h3>Калькулятор композиции</h3>
-  <p>Соберите $g$ (применяется первым) и $f$ (применяется вторым) — ниже сразу появится $f\circ g$: класс результата, его формула и параметры, посчитанные из алгебры, а не подобранные на глаз.</p>
+  <h3>Composition calculator</h3>
+  <p>Set up $g$ (applied first) and $f$ (applied second) — $f\circ g$ appears right below: the class of the result, its formula, and parameters computed from the algebra, not eyeballed.</p>
   <div class="calc-grid">
     <div class="calc-col">
-      <h4>$g$ — первым</h4>
+      <h4>$g$ — first</h4>
       <div class="motion-widget small" id="widget-calc-g"></div>
     </div>
     <div class="calc-col">
-      <h4>$f$ — вторым</h4>
+      <h4>$f$ — second</h4>
       <div class="motion-widget small" id="widget-calc-f"></div>
     </div>
   </div>
@@ -657,8 +657,8 @@ window.MotionWidget = (function () {
     <div class="calc-result-class" id="calc-result-class"></div>
     <div class="formula-box" id="calc-result-formula"></div>
     <figure>
-      <svg id="calc-result-svg" class="motion-frame" role="img" aria-label="Флажок, преобразованный композицией f после g" style="max-width:340px"></svg>
-      <figcaption>Тот же флажок, что и в конструкторе выше, преобразованный сразу композицией — не в два шага.</figcaption>
+      <svg id="calc-result-svg" class="motion-frame" role="img" aria-label="Flag transformed by the composition f after g" style="max-width:340px"></svg>
+      <figcaption>The same flag as in the constructor above, transformed directly by the composition — not in two steps.</figcaption>
     </figure>
   </div>
 </section>
@@ -678,7 +678,7 @@ window.MotionWidget = (function () {
     if (!gEl || !fEl || !window.MotionWidget || !window.MotionMath || !window.katex) return;
 
     var CLASS_LABELS = {
-      translate: 'Перенос', rotate: 'Поворот', reflect: 'Отражение', glide: 'Скользящая симметрия'
+      translate: 'Translation', rotate: 'Rotation', reflect: 'Reflection', glide: 'Glide reflection'
     };
 
     function update() {
@@ -927,19 +927,19 @@ window.MotionMath = (function () {
 </script>
 
 <section id="sec-recovery">
-  <h2>8. Восстановление формулы по образам точек</h2>
-  <p class="lead">Если движение задано не геометрическими параметрами осей и векторов, а образами конкретных точек, его комплексную формулу можно восстановить алгебраически. Для этого достаточно двух или трёх точек.</p>
+  <h2>8. Recovering the formula from images of points</h2>
+  <p class="lead">If a motion is given not by the geometric parameters of its axes and vectors but by the images of specific points, its complex formula can be recovered algebraically. Two or three points are enough.</p>
 
-  <h3>Если род движения известен</h3>
-  <p>Когда заранее известно, сохраняет движение ориентацию или меняет, для однозначного задания достаточно двух различных точек $z_1, z_2$ и их образов $w_1, w_2$.</p>
-  <p>Для <strong>собственного</strong> движения ($w = az + b$) коэффициенты находятся из линейной системы:</p>
+  <h3>If the parity of the motion is known</h3>
+  <p>When it's already known whether the motion preserves orientation or reverses it, two distinct points $z_1, z_2$ and their images $w_1, w_2$ are enough to pin it down uniquely.</p>
+  <p>For an <strong>orientation-preserving</strong> motion ($w = az + b$) the coefficients come from a linear system:</p>
   $$a = \frac{w_2 - w_1}{z_2 - z_1}, \quad b = \frac{w_1 z_2 - w_2 z_1}{z_2 - z_1}$$
-  <p>Для <strong>несобственного</strong> движения ($w = a\bar{z} + b$) в знаменателях появляется сопряжение:</p>
+  <p>For an <strong>orientation-reversing</strong> motion ($w = a\bar{z} + b$) conjugation shows up in the denominators:</p>
   $$a = \frac{w_2 - w_1}{\bar{z}_2 - \bar{z}_1}, \quad b = \frac{w_1 \bar{z}_2 - w_2 \bar{z}_1}{\bar{z}_2 - \bar{z}_1}$$
 
-  <h3>Если род движения неизвестен</h3>
-  <p>Двух точек в этом случае не хватит: они оставляют неоднозначность. Существует ровно одно собственное и ровно одно несобственное движение, переводящие направленный отрезок $z_1z_2$ в $w_1w_2$. Потребуется третья точка $z_3$, не лежащая на прямой через первые две, и её образ $w_3$.</p>
-  <p>Алгоритм проверки простой: по $z_1, z_2$ вычисляются коэффициенты $a, b$ в предположении, что движение собственное. Если для третьей точки выполняется равенство $w_3 = a z_3 + b$, гипотеза подтверждается. Если тождество не сошлось — движение гарантированно несобственное, и коэффициенты нужно пересчитать по формулам для $\bar{z}$.</p>
+  <h3>If the parity of the motion is unknown</h3>
+  <p>Two points aren't enough in this case: they leave an ambiguity. There is exactly one orientation-preserving and exactly one orientation-reversing motion sending the directed segment $z_1z_2$ to $w_1w_2$. A third point $z_3$, not on the line through the first two, is needed, along with its image $w_3$.</p>
+  <p>The check is simple: from $z_1, z_2$ compute the coefficients $a, b$ assuming the motion is orientation-preserving. If the equality $w_3 = a z_3 + b$ holds for the third point, the guess is confirmed. If the identity doesn't hold, the motion is guaranteed to be orientation-reversing, and the coefficients need to be recomputed with the formulas for $\bar{z}$.</p>
 </section>
 
 <p class="page-footer">© Nikolai Kazimirov · <a href="https://mathem.at" rel="noopener">mathem.at</a></p>

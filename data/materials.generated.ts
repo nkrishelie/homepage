@@ -64,6 +64,13 @@ export const MATERIALS_ITEMS: MaterialItem[] = [
     "lang": "ru"
   },
   {
+    "filename": "chasles_en.html",
+    "href": "/Materials/chasles_en.html",
+    "title": "Motions of the Plane: Chasles' Theorem",
+    "category": "algebra",
+    "lang": "en"
+  },
+  {
     "filename": "chasles.html",
     "href": "/Materials/chasles.html",
     "title": "Движения плоскости: теорема Шаля",
