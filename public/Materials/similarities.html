@@ -90,6 +90,7 @@ figcaption{font-size:16.5px;color:var(--ink3);margin-top:.6rem;line-height:1.55;
 .note .note-head{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--rust-acc);margin-bottom:.35rem}
 .note p{margin-bottom:.55rem;color:var(--ink2)}
 .note p:last-child{margin-bottom:0}
+.formula-box{font-family:'JetBrains Mono',monospace;font-size:16px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:.8rem 1.1rem;margin-top:.8rem;color:var(--ink)}
 </style>
 </head>
 <body>
@@ -481,6 +482,52 @@ window.SimilarityWidget = (function () {
     tabs: ['rotate'],
     initial: { type: 'rotate', ox: 20, oy: 30, angle: Math.PI / 3, k: 1.5 }
   });
+})();
+</script>
+
+<section id="sec-fixedpoint">
+  <h2>4. Неподвижная точка подобия</h2>
+  <p class="lead">Если поместить центр поворотной гомотетии в комплексный ноль, её формула — умножение на $a=ke^{i\alpha}$. Со сдвигом центра формула становится $f(z)=az+b$. Пока $a\ne1$ (то есть пока преобразование не сводится к чистому переносу), у него есть ровно одна неподвижная точка: из $f(z_0)=z_0$ следует $z_0=b/(1-a)$. Формулу можно переписать компактнее: $f(z)-z_0 = a(z-z_0)$ — преобразование буквально «растягивает-поворачивает» всё вокруг $z_0$ на коэффициент $a$.</p>
+  <figure>
+    <div class="motion-widget" id="widget-fixedpoint"></div>
+    <div class="formula-box" id="fixedpoint-recipe"></div>
+    <div class="formula-box" id="fixedpoint-params"></div>
+    <div class="formula-box" id="fixedpoint-formula"></div>
+    <figcaption>Числа округлены до сотых — подстановка текущих параметров, без упрощения. При $|a|=1$ это в точности формула поворота из <a href="/Materials/chasles.html">«Движений плоскости»</a> — здесь коэффициент $a$ уже не заперт на единичной окружности.</figcaption>
+  </figure>
+</section>
+
+<script>
+(function () {
+  var el = document.getElementById('widget-fixedpoint');
+  var recipeEl = document.getElementById('fixedpoint-recipe');
+  var paramsEl = document.getElementById('fixedpoint-params');
+  var formulaEl = document.getElementById('fixedpoint-formula');
+
+  // katex.min.js is <script defer>, so it only runs after this (non-deferred,
+  // inline) script has already executed during parsing -- window.katex is
+  // not defined yet at this point. Wait for window 'load' (same reason as
+  // chasles.html's constructor script).
+  function init() {
+    if (!el || !recipeEl || !paramsEl || !formulaEl || !window.SimilarityWidget || !window.SimilarityMath || !window.katex) return;
+
+    function update(params) {
+      var motion = SimilarityMath.paramsToMotion(params);
+      var recipe = SimilarityMath.formatRecipe(params);
+      katex.render(recipe.template, recipeEl, { throwOnError: false });
+      katex.render(recipe.params, paramsEl, { throwOnError: false });
+      katex.render('f(z) = ' + SimilarityMath.formatExpr(motion), formulaEl, { throwOnError: false });
+    }
+
+    var widget = SimilarityWidget.create(el, {
+      tabs: ['rotate'],
+      initial: { type: 'rotate', ox: 20, oy: 30, angle: Math.PI / 4, k: 1.6 },
+      axes: true,
+      onChange: update
+    });
+    update(widget.getParams());
+  }
+  window.addEventListener('load', init);
 })();
 </script>
 
