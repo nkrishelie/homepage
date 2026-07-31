@@ -31,6 +31,10 @@ export const MATERIAL_CATEGORY_LABELS: Record<string, MaterialCategoryLabels> = 
     "ru": "Алгебра и структуры",
     "en": "Algebra and structures"
   },
+  "geometry": {
+    "ru": "Геометрия и топология",
+    "en": "Geometry and topology"
+  },
   "sets": {
     "ru": "Теория множеств",
     "en": "Set theory"
@@ -46,7 +50,7 @@ export const MATERIAL_CATEGORY_LABELS: Record<string, MaterialCategoryLabels> = 
 };
 
 /** Preferred ordering of category ids for menus and sections */
-export const MATERIAL_CATEGORY_ORDER: readonly string[] = ["maglish","analysis","algebra","sets","foundations","probability","general"];
+export const MATERIAL_CATEGORY_ORDER: readonly string[] = ["maglish","analysis","algebra","geometry","sets","foundations","probability","general"];
 
 export const MATERIALS_ITEMS: MaterialItem[] = [
   {
@@ -67,14 +71,14 @@ export const MATERIALS_ITEMS: MaterialItem[] = [
     "filename": "chasles_en.html",
     "href": "/Materials/chasles_en.html",
     "title": "Motions of the Plane: Chasles' Theorem",
-    "category": "algebra",
+    "category": "geometry",
     "lang": "en"
   },
   {
     "filename": "chasles.html",
     "href": "/Materials/chasles.html",
     "title": "Движения плоскости: теорема Шаля",
-    "category": "algebra",
+    "category": "geometry",
     "lang": "ru"
   },
   {
