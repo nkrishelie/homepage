@@ -79,6 +79,7 @@ em{color:var(--ink)}
 .mw-hit:active{cursor:grabbing}
 .mw-coord-axis{stroke:var(--ink3);stroke-width:1;opacity:.55}
 .mw-origin{fill:var(--ink3)}
+.mw-handle-label{font-family:'JetBrains Mono',monospace;font-size:11px;fill:var(--ink2)}
 figure{margin:1.4rem 0}
 figcaption{font-size:16.5px;color:var(--ink3);margin-top:.6rem;line-height:1.55;font-style:italic}
 .svg-label{font-family:'JetBrains Mono',monospace;font-size:13px;fill:var(--ink2)}
@@ -157,8 +158,19 @@ window.MotionWidget = (function () {
   var LOCAL_FLAG = [[-2, -28], [-2, 28], [2, 28], [2, -12], [20, -20], [2, -28]];
   var TAB_LABELS = { translate: 'Перенос', rotate: 'Поворот', reflect: 'Отражение', glide: 'Скользящая симметрия' };
 
+  var SNAP = 5;
+  function snap(v) { return Math.round(v / SNAP) * SNAP; }
   function clamp(p) {
-    return [Math.max(-CAP_X, Math.min(CAP_X, p[0])), Math.max(-CAP_Y, Math.min(CAP_Y, p[1]))];
+    var x = Math.max(-CAP_X, Math.min(CAP_X, p[0]));
+    var y = Math.max(-CAP_Y, Math.min(CAP_Y, p[1]));
+    return [snap(x), snap(y)];
+  }
+  function fmtCoord(x, y) {
+    var sign = y < 0 ? '-' : '+';
+    return x.toFixed(2) + ' ' + sign + ' ' + Math.abs(y).toFixed(2) + 'i';
+  }
+  function fmtAngleDeg(rad) {
+    return (rad * 180 / Math.PI).toFixed(1) + '°';
   }
   function rotatePoint(p, c, ang) {
     var dx = p[0] - c[0], dy = p[1] - c[1];
@@ -229,7 +241,7 @@ window.MotionWidget = (function () {
       translate: { vx: 70, vy: -40 },
       rotate: { ox: 20, oy: 30, angle: Math.PI / 3 },
       reflect: { ax: -30, ay: 70, bx: 60, by: -60 },
-      glide: { ax: -30, ay: 70, bx: 60, by: -60, t: 50 }
+      glide: { ax: -30, ay: 70, bx: -2, by: 29 }
     };
     var current = tabs[0];
 
@@ -257,12 +269,17 @@ window.MotionWidget = (function () {
         return { type: 'reflect', px: s.ax, py: s.ay, theta: Math.atan2(s.by - s.ay, s.bx - s.ax) };
       }
       var g = state.glide;
-      return { type: 'glide', px: g.ax, py: g.ay, theta: Math.atan2(g.by - g.ay, g.bx - g.ax), t: g.t };
+      var gdx = g.bx - g.ax, gdy = g.by - g.ay;
+      return { type: 'glide', px: g.ax, py: g.ay, theta: Math.atan2(gdy, gdx), t: Math.hypot(gdx, gdy) };
     }
 
-    function handleMarkup(x, y, key) {
-      return '<circle class="mw-handle" cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="6"/>' +
-             '<circle class="mw-hit" data-key="' + key + '" cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="16"/>';
+    function handleMarkup(x, y, key, label) {
+      var labelSvg = (showAxes && label)
+        ? '<text x="' + (x + 10).toFixed(1) + '" y="' + (y - 10).toFixed(1) + '" class="mw-handle-label">' + label + '</text>'
+        : '';
+      return '<circle class="mw-handle" cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="8"/>' +
+             '<circle class="mw-hit" data-key="' + key + '" cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="20"/>' +
+             labelSvg;
     }
 
     function render() {
@@ -276,6 +293,11 @@ window.MotionWidget = (function () {
         var ux = dx / len, uy = dy / len, ext = 500;
         parts.push('<line x1="' + (s.ax - ux * ext).toFixed(1) + '" y1="' + (s.ay - uy * ext).toFixed(1) +
           '" x2="' + (s.bx + ux * ext).toFixed(1) + '" y2="' + (s.by + uy * ext).toFixed(1) + '" class="mw-axis"/>');
+      }
+      if (current === 'glide') {
+        var gs = state.glide;
+        parts.push('<line x1="' + gs.ax.toFixed(1) + '" y1="' + gs.ay.toFixed(1) +
+          '" x2="' + gs.bx.toFixed(1) + '" y2="' + gs.by.toFixed(1) + '" class="mw-vector"/>');
       }
       if (current === 'rotate') {
         var r = state.rotate;
@@ -291,22 +313,15 @@ window.MotionWidget = (function () {
 
       if (current === 'translate') {
         var v2 = state.translate;
-        parts.push(handleMarkup(ORIGIN[0] + v2.vx, ORIGIN[1] + v2.vy, 'v'));
+        parts.push(handleMarkup(ORIGIN[0] + v2.vx, ORIGIN[1] + v2.vy, 'v', fmtCoord(v2.vx, v2.vy)));
       } else if (current === 'rotate') {
         var r2 = state.rotate;
-        parts.push(handleMarkup(r2.ox, r2.oy, 'o'));
-        parts.push(handleMarkup(r2.ox + 45 * Math.cos(r2.angle), r2.oy + 45 * Math.sin(r2.angle), 'ang'));
-      } else if (current === 'reflect') {
-        var s2 = state.reflect;
-        parts.push(handleMarkup(s2.ax, s2.ay, 'a'));
-        parts.push(handleMarkup(s2.bx, s2.by, 'b'));
-      } else {
-        var g2 = state.glide;
-        var dx2 = g2.bx - g2.ax, dy2 = g2.by - g2.ay, len2 = Math.hypot(dx2, dy2) || 1;
-        var ux2 = dx2 / len2, uy2 = dy2 / len2, mx = (g2.ax + g2.bx) / 2, my = (g2.ay + g2.by) / 2;
-        parts.push(handleMarkup(g2.ax, g2.ay, 'a'));
-        parts.push(handleMarkup(g2.bx, g2.by, 'b'));
-        parts.push(handleMarkup(mx + ux2 * g2.t, my + uy2 * g2.t, 't'));
+        parts.push(handleMarkup(r2.ox, r2.oy, 'o', fmtCoord(r2.ox, r2.oy)));
+        parts.push(handleMarkup(r2.ox + 45 * Math.cos(r2.angle), r2.oy + 45 * Math.sin(r2.angle), 'ang', fmtAngleDeg(r2.angle)));
+      } else if (current === 'reflect' || current === 'glide') {
+        var s2 = state[current];
+        parts.push(handleMarkup(s2.ax, s2.ay, 'a', fmtCoord(s2.ax, s2.ay)));
+        parts.push(handleMarkup(s2.bx, s2.by, 'b', fmtCoord(s2.bx, s2.by)));
       }
 
       svg.innerHTML = parts.join('');
@@ -325,23 +340,25 @@ window.MotionWidget = (function () {
     }
     function onPointerMove(e) {
       if (dragKey === null || e.pointerId !== activePointerId) return;
+      if (current === 'rotate' && dragKey === 'ang') {
+        var raw = localPointFromClient(e.clientX, e.clientY);
+        var rawAngle = Math.atan2(raw[1] - state.rotate.oy, raw[0] - state.rotate.ox);
+        var deg = Math.round((rawAngle * 180 / Math.PI) / SNAP) * SNAP;
+        state.rotate.angle = deg * Math.PI / 180;
+        render();
+        e.preventDefault();
+        return;
+      }
       var p = clamp(localPointFromClient(e.clientX, e.clientY));
       if (current === 'translate' && dragKey === 'v') {
         state.translate.vx = p[0] - ORIGIN[0];
         state.translate.vy = p[1] - ORIGIN[1];
       } else if (current === 'rotate' && dragKey === 'o') {
         state.rotate.ox = p[0]; state.rotate.oy = p[1];
-      } else if (current === 'rotate' && dragKey === 'ang') {
-        state.rotate.angle = Math.atan2(p[1] - state.rotate.oy, p[0] - state.rotate.ox);
       } else if ((current === 'reflect' || current === 'glide') && dragKey === 'a') {
         state[current].ax = p[0]; state[current].ay = p[1];
       } else if ((current === 'reflect' || current === 'glide') && dragKey === 'b') {
         state[current].bx = p[0]; state[current].by = p[1];
-      } else if (current === 'glide' && dragKey === 't') {
-        var g = state.glide;
-        var dx = g.bx - g.ax, dy = g.by - g.ay, len = Math.hypot(dx, dy) || 1;
-        var ux = dx / len, uy = dy / len, mx = (g.ax + g.bx) / 2, my = (g.ay + g.by) / 2;
-        g.t = (p[0] - mx) * ux + (p[1] - my) * uy;
       }
       render();
       e.preventDefault();
@@ -378,10 +395,12 @@ window.MotionWidget = (function () {
       current = p.type;
       if (p.type === 'translate') state.translate = { vx: p.vx, vy: p.vy };
       else if (p.type === 'rotate') state.rotate = { ox: p.ox, oy: p.oy, angle: p.angle };
-      else {
+      else if (p.type === 'reflect') {
         var axis = axisFromPointTheta(p.px, p.py, p.theta, 40);
-        if (p.type === 'reflect') state.reflect = { ax: axis[0][0], ay: axis[0][1], bx: axis[1][0], by: axis[1][1] };
-        else state.glide = { ax: axis[0][0], ay: axis[0][1], bx: axis[1][0], by: axis[1][1], t: p.t };
+        state.reflect = { ax: axis[0][0], ay: axis[0][1], bx: axis[1][0], by: axis[1][1] };
+      } else {
+        // A sits on the axis and maps to B: A=(px,py), B=A+t*(cos theta, sin theta).
+        state.glide = { ax: p.px, ay: p.py, bx: p.px + Math.cos(p.theta) * p.t, by: p.py + Math.sin(p.theta) * p.t };
       }
     }
 
@@ -587,11 +606,13 @@ window.MotionWidget = (function () {
   <p>$f(z) = a\bar z + b$, $|a|=1$ — движения второго рода (отражение, скользящая симметрия).</p>
 
   <h3>Конструктор</h3>
-  <p>Настройте движение и посмотрите на его формулу.</p>
+  <p>Настройте движение и посмотрите на его формулу — сначала как она вычисляется из геометрических параметров, потом как выглядит в раскрытом виде.</p>
   <figure>
     <div class="motion-widget" id="widget-constructor"></div>
+    <div class="formula-box" id="constructor-recipe"></div>
+    <div class="formula-box" id="constructor-params"></div>
     <div class="formula-box" id="constructor-formula"></div>
-    <figcaption>Числа округлены до сотых — это подстановка текущих параметров, без упрощения.</figcaption>
+    <figcaption>Числа округлены до сотых, а рамка захватывает точки только на сетке 5×5 — так проще попасть точно в 0 или другую нужную точку.</figcaption>
   </figure>
 
   <h3>Калькулятор композиции</h3>
@@ -668,16 +689,21 @@ window.MotionWidget = (function () {
 <script>
 (function () {
   var el = document.getElementById('widget-constructor');
+  var recipeEl = document.getElementById('constructor-recipe');
+  var paramsEl = document.getElementById('constructor-params');
   var formulaEl = document.getElementById('constructor-formula');
 
   // katex.min.js is loaded via <script defer>, so it only runs after this
   // (non-deferred, inline) script has already executed during parsing —
   // window.katex is not defined yet at this point. Wait for window 'load'.
   function init() {
-    if (!el || !formulaEl || !window.MotionWidget || !window.MotionMath || !window.katex) return;
+    if (!el || !recipeEl || !paramsEl || !formulaEl || !window.MotionWidget || !window.MotionMath || !window.katex) return;
 
     function update(params) {
       var motion = MotionMath.paramsToMotion(params);
+      var recipe = MotionMath.formatRecipe(params);
+      katex.render(recipe.template, recipeEl, { throwOnError: false });
+      katex.render(recipe.params, paramsEl, { throwOnError: false });
       katex.render('f(z) = ' + MotionMath.formatExpr(motion), formulaEl, { throwOnError: false });
     }
 
@@ -781,11 +807,42 @@ window.MotionMath = (function () {
     return '(' + formatComplex(m.a) + ')' + zPart + ' + (' + formatComplex(m.b) + ')';
   }
 
+  function formatDeg(rad) {
+    return (rad * 180 / Math.PI).toFixed(1) + '^\\circ';
+  }
+
+  // The "recipe" shape is fixed per type; only "params" carries live numbers.
+  // Both are algebraically verified to expand to exactly paramsToMotion's a,b.
+  function formatRecipe(p) {
+    if (p.type === 'translate') {
+      return { template: 'f(z) = z + v', params: 'v \\approx ' + formatComplex({ re: p.vx, im: p.vy }) };
+    }
+    if (p.type === 'rotate') {
+      var z0 = { re: p.ox, im: p.oy };
+      return {
+        template: 'f(z) = e^{i\\alpha}(z-z_0)+z_0',
+        params: '\\alpha \\approx ' + formatDeg(p.angle) + ',\\ z_0 \\approx ' + formatComplex(z0)
+      };
+    }
+    if (p.type === 'reflect') {
+      var pt = { re: p.px, im: p.py };
+      return {
+        template: 'f(z) = e^{2i\\theta}\\overline{(z-p)}+p',
+        params: '\\theta \\approx ' + formatDeg(p.theta) + ',\\ p \\approx ' + formatComplex(pt)
+      };
+    }
+    var pt2 = { re: p.px, im: p.py };
+    return {
+      template: 'f(z) = e^{2i\\theta}\\overline{(z-p)}+p+te^{i\\theta}',
+      params: '\\theta \\approx ' + formatDeg(p.theta) + ',\\ p \\approx ' + formatComplex(pt2) + ',\\ t \\approx ' + p.t.toFixed(2)
+    };
+  }
+
   return {
     add: add, sub: sub, mul: mul, scale: scale, conj: conj, abs: abs, arg: arg,
     fromPolar: fromPolar, div: div,
     paramsToMotion: paramsToMotion, apply: apply, compose: compose, classify: classify,
-    formatComplex: formatComplex, formatExpr: formatExpr
+    formatComplex: formatComplex, formatExpr: formatExpr, formatRecipe: formatRecipe
   };
 })();
 </script>
