@@ -64,6 +64,13 @@ export const MATERIALS_ITEMS: MaterialItem[] = [
     "lang": "ru"
   },
   {
+    "filename": "chasles.html",
+    "href": "/Materials/chasles.html",
+    "title": "Движения плоскости: теорема Шаля",
+    "category": "algebra",
+    "lang": "ru"
+  },
+  {
     "filename": "diagonal.html",
     "href": "/Materials/diagonal.html",
     "title": "Вычисление неподвижной точки арифметической формулы",
