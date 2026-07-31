@@ -61,6 +61,35 @@ em{color:var(--ink)}
   body{font-size:19px}
   .page{padding:1.5rem 1rem 3rem}
 }
+
+.motion-frame{width:100%;max-width:560px;height:auto;aspect-ratio:300/220;display:block;background:var(--bg2);border:1px solid var(--border);border-radius:6px;touch-action:none}
+.motion-widget{margin:1rem 0;max-width:560px}
+.motion-widget.small{max-width:340px}
+.mw-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:.6rem}
+.mw-tab{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.03em;padding:6px 12px;border-radius:999px;border:1px solid var(--border);background:var(--bg);color:var(--ink2);cursor:pointer}
+.mw-tab.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.mw-tab:not(.active):hover{border-color:var(--ink2)}
+.mw-flag-ghost{fill:rgba(26,25,23,.08);stroke:var(--ink3);stroke-width:1;stroke-dasharray:3 3}
+.mw-flag-solid{fill:rgba(58,95,158,.18);stroke:var(--blue-acc);stroke-width:1.6}
+.mw-axis{stroke:var(--rust-acc);stroke-width:1.4;stroke-dasharray:6 4}
+.mw-orbit{fill:none;stroke:var(--ink3);stroke-width:1;stroke-dasharray:3 3}
+.mw-vector{stroke:var(--blue-acc);stroke-width:2}
+.mw-handle{fill:var(--ink);stroke:var(--bg);stroke-width:1.5}
+.mw-hit{fill:#000;opacity:0;cursor:grab;touch-action:none}
+.mw-hit:active{cursor:grabbing}
+.mw-coord-axis{stroke:var(--ink3);stroke-width:1;opacity:.55}
+.mw-origin{fill:var(--ink3)}
+.mw-handle-label{font-family:'JetBrains Mono',monospace;font-size:7px;fill:var(--ink2)}
+.mw-slider-row{display:flex;align-items:center;gap:10px;margin-top:.7rem;font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--ink2)}
+.mw-slider-row input[type=range]{flex:1;accent-color:var(--blue-acc)}
+.mw-slider-val{min-width:3.6em;text-align:right;color:var(--ink);font-weight:500}
+figure{margin:1.4rem 0}
+figcaption{font-size:16.5px;color:var(--ink3);margin-top:.6rem;line-height:1.55;font-style:italic}
+.svg-label{font-family:'JetBrains Mono',monospace;font-size:13px;fill:var(--ink2)}
+.note{border-left:3px solid var(--rust-acc);background:var(--rust-bg);border-radius:0 6px 6px 0;padding:.8rem 1.1rem;margin:1rem 0;font-size:17.5px;color:var(--ink2)}
+.note .note-head{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--rust-acc);margin-bottom:.35rem}
+.note p{margin-bottom:.55rem;color:var(--ink2)}
+.note p:last-child{margin-bottom:0}
 </style>
 </head>
 <body>
@@ -82,6 +111,358 @@ em{color:var(--ink)}
   <p>При $k=1$ расстояния сохраняются в точности — это в точности <a href="/Materials/chasles.html">движения плоскости</a>: перенос, поворот, отражение, скользящая симметрия. Всё дальше касается случая $k\ne1$ — когда фигуры не просто перемещаются, а ещё и меняют размер.</p>
   <p>Композиция подобий с коэффициентами $k$ и $s$ — снова подобие, с коэффициентом $ks$: это следует прямо из определения ($\rho$ умножается сначала на $k$, потом на $s$).</p>
 </section>
+
+<section id="sec-homothety">
+  <h2>2. Гомотетия</h2>
+  <p class="lead">Зафиксируем точку $O$ — центр гомотетии. Гомотетия с коэффициентом $k$ переводит точку $A$ в точку $H_O^k(A) = O + k\vec{OA}$ — на луче $OA$ (или его продолжении), на расстоянии в $|k|$ раз больше, чем $|OA|$. Перетащите центр $O$ и подвигайте ползунок $k$.</p>
+  <figure>
+    <div class="motion-widget" id="widget-homothety"></div>
+    <div class="note" id="badge-homothety-id" style="display:none">
+      <span class="note-head">k = 1</span>
+      <span>Тождественное преобразование — гомотетия ничего не меняет.</span>
+    </div>
+    <div class="note" id="badge-homothety-central" style="display:none">
+      <span class="note-head">k = −1</span>
+      <span>Центральная симметрия: поворот на $180^\circ$ вокруг центра $O$.</span>
+    </div>
+    <figcaption>Бледный контур — исходный флажок, синий — его образ при гомотетии $H_O^k$.</figcaption>
+  </figure>
+  <div class="note">
+    <span class="note-head">Композиция концентрических гомотетий</span>
+    <p>$H_O^k\circ H_O^s = H_O^{ks}$ — коэффициенты просто перемножаются. Гомотетии с общим центром и операцией композиции устроены как ненулевые числа с умножением — совсем как переносы устроены как числа со сложением ($T_a\circ T_b=T_{a+b}$).</p>
+  </div>
+</section>
+
+<script id="similarity-widget">
+window.SimilarityWidget = (function () {
+  var FRAME_HALF_W = 150, FRAME_HALF_H = 110;
+  var CAP_X = 140, CAP_Y = 100;
+  var FRAME_VB = (-FRAME_HALF_W) + ' ' + (-FRAME_HALF_H) + ' ' + (2 * FRAME_HALF_W) + ' ' + (2 * FRAME_HALF_H);
+  var ORIGIN = [-70, 35];
+  var LOCAL_FLAG = [[-2, -28], [-2, 28], [2, 28], [2, -12], [20, -20], [2, -28]];
+  var TAB_LABELS = {
+    translate: 'Перенос', homothety: 'Гомотетия', rotate: 'Поворотная гомотетия',
+    reflect: 'Отражённая гомотетия', glide: 'Скользящая симметрия'
+  };
+
+  var SNAP = 5;
+  function snap(v) { return Math.round(v / SNAP) * SNAP; }
+  function clamp(p) {
+    var x = Math.max(-CAP_X, Math.min(CAP_X, p[0]));
+    var y = Math.max(-CAP_Y, Math.min(CAP_Y, p[1]));
+    return [snap(x), snap(y)];
+  }
+  function fmtCoord(x, y) {
+    var im = -y;
+    var sign = im < 0 ? '-' : '+';
+    return x.toFixed(2) + ' ' + sign + ' ' + Math.abs(im).toFixed(2) + 'i';
+  }
+  function fmtAngleDeg(rad) {
+    return (-rad * 180 / Math.PI).toFixed(1) + '°';
+  }
+  function flagPoints(anchor, angle) {
+    var a = angle || 0, cos = Math.cos(a), sin = Math.sin(a);
+    return LOCAL_FLAG.map(function (p) {
+      return [p[0] * cos - p[1] * sin + anchor[0], p[0] * sin + p[1] * cos + anchor[1]];
+    });
+  }
+  function fmtPts(pts) {
+    return pts.map(function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' ');
+  }
+  function axisFromPointTheta(px, py, theta, half) {
+    var dx = Math.cos(theta) * half, dy = Math.sin(theta) * half;
+    return [[px - dx, py - dy], [px + dx, py + dy]];
+  }
+  function axesMarkup() {
+    return '<line x1="' + (-FRAME_HALF_W) + '" y1="0" x2="' + FRAME_HALF_W + '" y2="0" class="mw-coord-axis"/>' +
+      '<line x1="0" y1="' + (-FRAME_HALF_H) + '" x2="0" y2="' + FRAME_HALF_H + '" class="mw-coord-axis"/>' +
+      '<circle cx="0" cy="0" r="3" class="mw-origin"/>' +
+      '<text x="6" y="16" class="svg-label">0</text>' +
+      '<text x="' + (FRAME_HALF_W - 20) + '" y="-8" class="svg-label">Re</text>' +
+      '<text x="8" y="' + (-FRAME_HALF_H + 14) + '" class="svg-label">Im</text>';
+  }
+
+  function scalePoint(pt, c, k) {
+    return [c[0] + (pt[0] - c[0]) * k, c[1] + (pt[1] - c[1]) * k];
+  }
+  function rotateScalePoint(pt, c, ang, k) {
+    var dx = (pt[0] - c[0]) * k, dy = (pt[1] - c[1]) * k;
+    var cos = Math.cos(ang), sin = Math.sin(ang);
+    return [c[0] + dx * cos - dy * sin, c[1] + dx * sin + dy * cos];
+  }
+  // Reflect across the line through c at angle theta, scaled by k from c.
+  // (Derivation: rotate into the axis-local frame, negate the perpendicular
+  // component, scale, rotate back -- reduces to the standard double-angle
+  // form rx=k(dx*cos2theta+dy*sin2theta), ry=k(dx*sin2theta-dy*cos2theta).)
+  function reflectScalePoint(pt, c, theta, k) {
+    var dx = pt[0] - c[0], dy = pt[1] - c[1];
+    var c2 = Math.cos(2 * theta), s2 = Math.sin(2 * theta);
+    var rx = k * (dx * c2 + dy * s2), ry = k * (dx * s2 - dy * c2);
+    return [c[0] + rx, c[1] + ry];
+  }
+
+  function imagePointsForParams(p) {
+    var base = flagPoints(ORIGIN, 0);
+    if (p.type === 'translate') {
+      return base.map(function (pt) { return [pt[0] + p.vx, pt[1] + p.vy]; });
+    }
+    if (p.type === 'homothety') {
+      return base.map(function (pt) { return scalePoint(pt, [p.ox, p.oy], p.k); });
+    }
+    if (p.type === 'rotate') {
+      return base.map(function (pt) { return rotateScalePoint(pt, [p.ox, p.oy], p.angle, p.k === undefined ? 1 : p.k); });
+    }
+    if (p.type === 'reflect') {
+      return base.map(function (pt) { return reflectScalePoint(pt, [p.px, p.py], p.theta, p.k === undefined ? 1 : p.k); });
+    }
+    var ux = Math.cos(p.theta), uy = Math.sin(p.theta);
+    return base.map(function (pt) {
+      var r = reflectScalePoint(pt, [p.px, p.py], p.theta, 1);
+      return [r[0] + ux * p.t, r[1] + uy * p.t];
+    });
+  }
+
+  function renderStatic(svgEl, params, opts) {
+    svgEl.setAttribute('viewBox', FRAME_VB);
+    svgEl.innerHTML =
+      (opts && opts.axes ? axesMarkup() : '') +
+      '<polygon points="' + fmtPts(flagPoints(ORIGIN, 0)) + '" class="mw-flag-ghost"/>' +
+      '<polygon points="' + fmtPts(imagePointsForParams(params)) + '" class="mw-flag-solid"/>';
+  }
+
+  function kSupported(tabKey) {
+    return tabKey === 'homothety' || tabKey === 'rotate' || tabKey === 'reflect';
+  }
+
+  function createSimilarityWidget(container, opts) {
+    var tabs = opts.tabs.slice();
+    var onChange = opts.onChange || function () {};
+    var showAxes = !!opts.axes;
+    var state = {
+      translate: { vx: 70, vy: -40 },
+      homothety: { ox: 20, oy: 30, k: 1 },
+      rotate: { ox: 20, oy: 30, angle: Math.PI / 3, k: 1 },
+      reflect: { ax: -30, ay: 70, bx: 60, by: -60, k: 1 },
+      glide: { ax: -30, ay: 70, bx: -2, by: 29 }
+    };
+    var current = tabs[0];
+
+    container.innerHTML =
+      (tabs.length > 1 ? '<div class="mw-tabs">' + tabs.map(function (tkey) {
+        return '<button type="button" class="mw-tab" data-tab="' + tkey + '">' + TAB_LABELS[tkey] + '</button>';
+      }).join('') + '</div>' : '') +
+      '<svg class="mw-svg motion-frame" viewBox="' + FRAME_VB + '"></svg>' +
+      '<div class="mw-slider-row"><label>k = <span class="mw-slider-val">1.00</span></label><input type="range" class="mw-slider" min="-2" max="4" step="0.1" value="1"></div>';
+
+    var svg = container.querySelector('.mw-svg');
+    var tabButtons = container.querySelectorAll('.mw-tab');
+    var sliderRow = container.querySelector('.mw-slider-row');
+    var sliderInput = container.querySelector('.mw-slider');
+    var sliderVal = container.querySelector('.mw-slider-val');
+
+    function localPointFromClient(clientX, clientY) {
+      var rect = svg.getBoundingClientRect();
+      var vb = svg.viewBox.baseVal;
+      var s = rect.width / vb.width;
+      return [(clientX - rect.left) / s + vb.x, (clientY - rect.top) / s + vb.y];
+    }
+
+    function currentParams() {
+      if (current === 'translate') return { type: 'translate', vx: state.translate.vx, vy: state.translate.vy };
+      if (current === 'homothety') return { type: 'homothety', ox: state.homothety.ox, oy: state.homothety.oy, k: state.homothety.k };
+      if (current === 'rotate') return { type: 'rotate', ox: state.rotate.ox, oy: state.rotate.oy, angle: state.rotate.angle, k: state.rotate.k };
+      if (current === 'reflect') {
+        var s = state.reflect;
+        return { type: 'reflect', px: s.ax, py: s.ay, theta: Math.atan2(s.by - s.ay, s.bx - s.ax), k: s.k };
+      }
+      var g = state.glide;
+      var gdx = g.bx - g.ax, gdy = g.by - g.ay;
+      return { type: 'glide', px: g.ax, py: g.ay, theta: Math.atan2(gdy, gdx), t: Math.hypot(gdx, gdy) };
+    }
+
+    function handleMarkup(x, y, key, label) {
+      var labelSvg = (showAxes && label)
+        ? '<text x="' + (x + 10).toFixed(1) + '" y="' + (y - 10).toFixed(1) + '" class="mw-handle-label">' + label + '</text>'
+        : '';
+      return '<circle class="mw-handle" cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="8"/>' +
+             '<circle class="mw-hit" data-key="' + key + '" cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="20"/>' +
+             labelSvg;
+    }
+
+    function render() {
+      var parts = [];
+      if (showAxes) parts.push(axesMarkup());
+      parts.push('<polygon points="' + fmtPts(flagPoints(ORIGIN, 0)) + '" class="mw-flag-ghost"/>');
+
+      if (current === 'reflect' || current === 'glide') {
+        var s = state[current];
+        var dx = s.bx - s.ax, dy = s.by - s.ay, len = Math.hypot(dx, dy) || 1;
+        var ux = dx / len, uy = dy / len, ext = 500;
+        parts.push('<line x1="' + (s.ax - ux * ext).toFixed(1) + '" y1="' + (s.ay - uy * ext).toFixed(1) +
+          '" x2="' + (s.bx + ux * ext).toFixed(1) + '" y2="' + (s.by + uy * ext).toFixed(1) + '" class="mw-axis"/>');
+      }
+      if (current === 'glide') {
+        var gs = state.glide;
+        parts.push('<line x1="' + gs.ax.toFixed(1) + '" y1="' + gs.ay.toFixed(1) +
+          '" x2="' + gs.bx.toFixed(1) + '" y2="' + gs.by.toFixed(1) + '" class="mw-vector"/>');
+      }
+      if (current === 'rotate') {
+        var r = state.rotate;
+        parts.push('<circle cx="' + r.ox.toFixed(1) + '" cy="' + r.oy.toFixed(1) + '" r="45" class="mw-orbit"/>');
+      }
+      if (current === 'translate') {
+        var v = state.translate;
+        parts.push('<line x1="' + ORIGIN[0] + '" y1="' + ORIGIN[1] + '" x2="' + (ORIGIN[0] + v.vx).toFixed(1) +
+          '" y2="' + (ORIGIN[1] + v.vy).toFixed(1) + '" class="mw-vector"/>');
+      }
+
+      parts.push('<polygon points="' + fmtPts(imagePointsForParams(currentParams())) + '" class="mw-flag-solid"/>');
+
+      if (current === 'translate') {
+        var v2 = state.translate;
+        parts.push(handleMarkup(ORIGIN[0] + v2.vx, ORIGIN[1] + v2.vy, 'v', fmtCoord(v2.vx, v2.vy)));
+      } else if (current === 'homothety') {
+        var h = state.homothety;
+        parts.push(handleMarkup(h.ox, h.oy, 'o', fmtCoord(h.ox, h.oy)));
+      } else if (current === 'rotate') {
+        var r2 = state.rotate;
+        parts.push(handleMarkup(r2.ox, r2.oy, 'o', fmtCoord(r2.ox, r2.oy)));
+        parts.push(handleMarkup(r2.ox + 45 * Math.cos(r2.angle), r2.oy + 45 * Math.sin(r2.angle), 'ang', fmtAngleDeg(r2.angle)));
+      } else if (current === 'reflect' || current === 'glide') {
+        var s2 = state[current];
+        parts.push(handleMarkup(s2.ax, s2.ay, 'a', fmtCoord(s2.ax, s2.ay)));
+        parts.push(handleMarkup(s2.bx, s2.by, 'b', fmtCoord(s2.bx, s2.by)));
+      }
+
+      svg.innerHTML = parts.join('');
+      wireHandleDrag();
+
+      if (kSupported(current)) {
+        sliderRow.style.display = 'flex';
+        sliderInput.value = state[current].k;
+        sliderVal.textContent = state[current].k.toFixed(2);
+      } else {
+        sliderRow.style.display = 'none';
+      }
+
+      onChange(currentParams());
+    }
+
+    var dragKey = null, activePointerId = null;
+
+    function onPointerDown(e) {
+      var t = e.target;
+      if (!t.classList || !t.classList.contains('mw-hit')) return;
+      dragKey = t.getAttribute('data-key');
+      activePointerId = e.pointerId;
+      e.preventDefault();
+    }
+    function onPointerMove(e) {
+      if (dragKey === null || e.pointerId !== activePointerId) return;
+      if (current === 'rotate' && dragKey === 'ang') {
+        var raw = localPointFromClient(e.clientX, e.clientY);
+        var rawAngle = Math.atan2(raw[1] - state.rotate.oy, raw[0] - state.rotate.ox);
+        var deg = Math.round((rawAngle * 180 / Math.PI) / SNAP) * SNAP;
+        state.rotate.angle = deg * Math.PI / 180;
+        render();
+        e.preventDefault();
+        return;
+      }
+      var p = clamp(localPointFromClient(e.clientX, e.clientY));
+      if (current === 'translate' && dragKey === 'v') {
+        state.translate.vx = p[0] - ORIGIN[0];
+        state.translate.vy = p[1] - ORIGIN[1];
+      } else if (current === 'homothety' && dragKey === 'o') {
+        state.homothety.ox = p[0]; state.homothety.oy = p[1];
+      } else if (current === 'rotate' && dragKey === 'o') {
+        state.rotate.ox = p[0]; state.rotate.oy = p[1];
+      } else if ((current === 'reflect' || current === 'glide') && dragKey === 'a') {
+        state[current].ax = p[0]; state[current].ay = p[1];
+      } else if ((current === 'reflect' || current === 'glide') && dragKey === 'b') {
+        state[current].bx = p[0]; state[current].by = p[1];
+      }
+      render();
+      e.preventDefault();
+    }
+    function onPointerUp(e) {
+      if (e.pointerId !== activePointerId) return;
+      dragKey = null; activePointerId = null;
+    }
+    function wireHandleDrag() {
+      var hits = svg.querySelectorAll('.mw-hit');
+      for (var i = 0; i < hits.length; i++) {
+        hits[i].removeEventListener('pointerdown', onPointerDown);
+        hits[i].addEventListener('pointerdown', onPointerDown);
+      }
+    }
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerup', onPointerUp);
+    window.addEventListener('pointercancel', onPointerUp);
+
+    sliderInput.addEventListener('input', function () {
+      state[current].k = parseFloat(sliderInput.value);
+      render();
+    });
+
+    for (var bi = 0; bi < tabButtons.length; bi++) {
+      tabButtons[bi].addEventListener('click', function (e) {
+        current = e.currentTarget.getAttribute('data-tab');
+        updateTabButtons();
+        render();
+      });
+    }
+    function updateTabButtons() {
+      for (var j = 0; j < tabButtons.length; j++) {
+        tabButtons[j].classList.toggle('active', tabButtons[j].getAttribute('data-tab') === current);
+      }
+    }
+
+    function applyParams(p) {
+      current = p.type;
+      if (p.type === 'translate') state.translate = { vx: p.vx, vy: p.vy };
+      else if (p.type === 'homothety') state.homothety = { ox: p.ox, oy: p.oy, k: p.k === undefined ? 1 : p.k };
+      else if (p.type === 'rotate') state.rotate = { ox: p.ox, oy: p.oy, angle: p.angle, k: p.k === undefined ? 1 : p.k };
+      else if (p.type === 'reflect') {
+        var axis = axisFromPointTheta(p.px, p.py, p.theta, 40);
+        state.reflect = { ax: axis[0][0], ay: axis[0][1], bx: axis[1][0], by: axis[1][1], k: p.k === undefined ? 1 : p.k };
+      } else {
+        state.glide = { ax: p.px, ay: p.py, bx: p.px + Math.cos(p.theta) * p.t, by: p.py + Math.sin(p.theta) * p.t };
+      }
+    }
+
+    if (opts.initial) applyParams(opts.initial);
+    updateTabButtons();
+    render();
+
+    return {
+      getParams: currentParams,
+      setParams: function (p) { applyParams(p); updateTabButtons(); render(); },
+      el: container
+    };
+  }
+
+  return { create: createSimilarityWidget, renderStatic: renderStatic };
+})();
+
+(function () {
+  var el = document.getElementById('widget-homothety');
+  var badgeId = document.getElementById('badge-homothety-id');
+  var badgeCentral = document.getElementById('badge-homothety-central');
+  if (!el || !badgeId || !badgeCentral) return;
+
+  function update(params) {
+    badgeId.style.display = Math.abs(params.k - 1) < 0.03 ? 'block' : 'none';
+    badgeCentral.style.display = Math.abs(params.k + 1) < 0.03 ? 'block' : 'none';
+  }
+
+  var widget = SimilarityWidget.create(el, {
+    tabs: ['homothety'],
+    initial: { type: 'homothety', ox: 20, oy: 30, k: 1.6 },
+    onChange: update
+  });
+  update(widget.getParams());
+})();
+</script>
 
 <script id="similarity-math">
 window.SimilarityMath = (function () {
