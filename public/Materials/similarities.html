@@ -93,6 +93,13 @@ figcaption{font-size:16.5px;color:var(--ink3);margin-top:.6rem;line-height:1.55;
 .formula-box{font-family:'JetBrains Mono',monospace;font-size:16px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:.8rem 1.1rem;margin-top:.8rem;color:var(--ink)}
 .note.theorem{border-left-color:var(--blue-acc);background:var(--blue-bg);font-size:22px}
 .note.theorem .note-head{color:var(--blue-acc)}
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;align-items:start;margin-top:1rem}
+.calc-col h4{margin-top:0}
+.calc-result{margin-top:1.5rem;padding-top:1.2rem;border-top:1px solid var(--border)}
+.calc-result-class{font-family:'JetBrains Mono',monospace;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--blue-acc);margin-bottom:.5rem}
+@media(max-width:700px){
+  .calc-grid{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
@@ -545,6 +552,77 @@ window.SimilarityWidget = (function () {
   </div>
   <p>Границы между классами пересекаются — и это не случайность, а часть той же картины, что уже встречалась у движений: тождественное преобразование одновременно и «нулевой» перенос, и «нулевая» поворотная гомотетия ($k=1$, $\alpha=0$); обычное отражение одновременно и скользящая симметрия с нулевым сдвигом, и отражённая гомотетия с $k=1$. Других подобий плоскости не бывает.</p>
 </section>
+
+<section id="sec-calc">
+  <h2>6. Калькулятор композиции подобий</h2>
+  <p class="lead">Соберите $g$ (применяется первым) и $f$ (применяется вторым) — ниже сразу появится $f\circ g$: класс результата и его формула, посчитанные из алгебры, а не подобранные на глаз. Таблицы классов здесь сознательно нет — вместо неё исследуйте сами: например, композицию двух отражённых гомотетий с перпендикулярными осями и разными $k$, или поворотную гомотетию с $k$ и с $1/k$ вокруг одного центра.</p>
+  <div class="calc-grid">
+    <div class="calc-col">
+      <h4>$g$ — первым</h4>
+      <div class="motion-widget small" id="widget-calc-g"></div>
+    </div>
+    <div class="calc-col">
+      <h4>$f$ — вторым</h4>
+      <div class="motion-widget small" id="widget-calc-f"></div>
+    </div>
+  </div>
+  <div class="calc-result">
+    <div class="calc-result-class" id="calc-result-class"></div>
+    <div class="formula-box" id="calc-result-formula"></div>
+    <figure>
+      <svg id="calc-result-svg" class="motion-frame" role="img" aria-label="Флажок, преобразованный композицией f после g" style="max-width:340px"></svg>
+      <figcaption>Тот же флажок, преобразованный сразу композицией — не в два шага.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<script>
+(function () {
+  var gEl = document.getElementById('widget-calc-g');
+  var fEl = document.getElementById('widget-calc-f');
+  var resultSvg = document.getElementById('calc-result-svg');
+  var resultFormula = document.getElementById('calc-result-formula');
+  var resultClass = document.getElementById('calc-result-class');
+
+  // Same defer/load-order reason as Task 5's constructor.
+  function init() {
+    if (!gEl || !fEl || !window.SimilarityWidget || !window.SimilarityMath || !window.katex) return;
+
+    var CLASS_LABELS = {
+      translate: 'Перенос', rotate: 'Поворотная гомотетия',
+      reflect: 'Отражённая гомотетия', glide: 'Скользящая симметрия'
+    };
+
+    function update() {
+      if (!gWidget || !fWidget) return; // both widgets fire onChange once during their own construction
+      var gMotion = SimilarityMath.paramsToMotion(gWidget.getParams());
+      var fMotion = SimilarityMath.paramsToMotion(fWidget.getParams());
+      var composed = SimilarityMath.compose(fMotion, gMotion);
+      var classified = SimilarityMath.classify(composed);
+
+      resultClass.textContent = CLASS_LABELS[classified.type];
+      katex.render('(f\\circ g)(z) = ' + SimilarityMath.formatExpr(composed), resultFormula, { throwOnError: false });
+      SimilarityWidget.renderStatic(resultSvg, classified, { axes: true });
+    }
+
+    var gWidget = SimilarityWidget.create(gEl, {
+      tabs: ['translate', 'rotate', 'reflect', 'glide'],
+      initial: { type: 'reflect', px: 0, py: 0, theta: 0, k: 1.4 },
+      axes: true,
+      onChange: update
+    });
+    var fWidget = SimilarityWidget.create(fEl, {
+      tabs: ['translate', 'rotate', 'reflect', 'glide'],
+      initial: { type: 'reflect', px: 0, py: 0, theta: Math.PI / 2, k: 1 },
+      axes: true,
+      onChange: update
+    });
+
+    update();
+  }
+  window.addEventListener('load', init);
+})();
+</script>
 
 <script id="similarity-math">
 window.SimilarityMath = (function () {
