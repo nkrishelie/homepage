@@ -61,6 +61,25 @@ em{color:var(--ink)}
   body{font-size:19px}
   .page{padding:1.5rem 1rem 3rem}
 }
+
+.motion-frame{width:100%;height:auto;aspect-ratio:300/220;display:block;background:var(--bg2);border:1px solid var(--border);border-radius:6px;touch-action:none}
+.motion-widget{margin:1rem 0}
+.motion-widget.small{max-width:340px}
+.mw-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:.6rem}
+.mw-tab{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.03em;padding:6px 12px;border-radius:999px;border:1px solid var(--border);background:var(--bg);color:var(--ink2);cursor:pointer}
+.mw-tab.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.mw-tab:not(.active):hover{border-color:var(--ink2)}
+.mw-flag-ghost{fill:rgba(26,25,23,.08);stroke:var(--ink3);stroke-width:1;stroke-dasharray:3 3}
+.mw-flag-solid{fill:rgba(58,95,158,.18);stroke:var(--blue-acc);stroke-width:1.6}
+.mw-axis{stroke:var(--rust-acc);stroke-width:1.4;stroke-dasharray:6 4}
+.mw-orbit{fill:none;stroke:var(--ink3);stroke-width:1;stroke-dasharray:3 3}
+.mw-vector{stroke:var(--blue-acc);stroke-width:2}
+.mw-handle{fill:var(--ink);stroke:var(--bg);stroke-width:1.5}
+.mw-hit{fill:#000;opacity:0;cursor:grab;touch-action:none}
+.mw-hit:active{cursor:grabbing}
+figure{margin:1.4rem 0}
+figcaption{font-size:16.5px;color:var(--ink3);margin-top:.6rem;line-height:1.55;font-style:italic}
+.svg-label{font-family:'JetBrains Mono',monospace;font-size:13px;fill:var(--ink2)}
 </style>
 </head>
 <body>
@@ -81,6 +100,262 @@ em{color:var(--ink)}
   <p class="lead"><strong>Движение</strong> плоскости — это преобразование, которое сохраняет расстояния: если между точками $A$ и $B$ было расстояние $x$, то после движения расстояние между их образами $A'$ и $B'$ снова равно $x$ — и так для любой пары точек.</p>
   <p>Простейший пример — параллельный перенос: все точки сдвигаются на один и тот же вектор, поэтому расстояния между ними не меняются. Дальше выяснится, что «простейших» видов движения плоскости на самом деле немного — и они полностью исчерпывают список.</p>
 </section>
+
+<section id="sec-three-kinds">
+  <h2>2. Три вида движений</h2>
+  <p class="lead">Переключайте вкладки и тащите ручки — флажок сразу показывает, что делает каждое движение. Бледный контур — исходное положение, синий флажок — образ.</p>
+  <figure>
+    <div class="motion-widget" id="widget-three-kinds"></div>
+    <figcaption>Перенос задаётся вектором, поворот — центром и углом, отражение — осью (тащите за любой из двух её концов).</figcaption>
+  </figure>
+</section>
+
+<script id="motion-widget">
+window.MotionWidget = (function () {
+  var FRAME_HALF_W = 150, FRAME_HALF_H = 110;
+  var CAP_X = 140, CAP_Y = 100;
+  var FRAME_VB = (-FRAME_HALF_W) + ' ' + (-FRAME_HALF_H) + ' ' + (2 * FRAME_HALF_W) + ' ' + (2 * FRAME_HALF_H);
+  var ORIGIN = [-70, 35];
+  var LOCAL_FLAG = [[-2, -28], [-2, 28], [2, 28], [2, -12], [20, -20], [2, -28]];
+  var TAB_LABELS = { translate: 'Перенос', rotate: 'Поворот', reflect: 'Отражение', glide: 'Скользящая симметрия' };
+
+  function clamp(p) {
+    return [Math.max(-CAP_X, Math.min(CAP_X, p[0])), Math.max(-CAP_Y, Math.min(CAP_Y, p[1]))];
+  }
+  function rotatePoint(p, c, ang) {
+    var dx = p[0] - c[0], dy = p[1] - c[1];
+    var cos = Math.cos(ang), sin = Math.sin(ang);
+    return [c[0] + dx * cos - dy * sin, c[1] + dx * sin + dy * cos];
+  }
+  function reflectPoint(p, A, B) {
+    var dx = B[0] - A[0], dy = B[1] - A[1];
+    var len2 = dx * dx + dy * dy || 1;
+    var tt = ((p[0] - A[0]) * dx + (p[1] - A[1]) * dy) / len2;
+    var projX = A[0] + tt * dx, projY = A[1] + tt * dy;
+    return [2 * projX - p[0], 2 * projY - p[1]];
+  }
+  function flagPoints(anchor, angle) {
+    var a = angle || 0, cos = Math.cos(a), sin = Math.sin(a);
+    return LOCAL_FLAG.map(function (p) {
+      return [p[0] * cos - p[1] * sin + anchor[0], p[0] * sin + p[1] * cos + anchor[1]];
+    });
+  }
+  function fmtPts(pts) {
+    return pts.map(function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' ');
+  }
+  function axisFromPointTheta(px, py, theta, half) {
+    var dx = Math.cos(theta) * half, dy = Math.sin(theta) * half;
+    return [[px - dx, py - dy], [px + dx, py + dy]];
+  }
+
+  function imagePointsForParams(p) {
+    var base = flagPoints(ORIGIN, 0);
+    if (p.type === 'translate') {
+      return base.map(function (pt) { return [pt[0] + p.vx, pt[1] + p.vy]; });
+    }
+    if (p.type === 'rotate') {
+      return base.map(function (pt) { return rotatePoint(pt, [p.ox, p.oy], p.angle); });
+    }
+    var axis = axisFromPointTheta(p.px, p.py, p.theta, 200);
+    if (p.type === 'reflect') {
+      return base.map(function (pt) { return reflectPoint(pt, axis[0], axis[1]); });
+    }
+    var ux = Math.cos(p.theta), uy = Math.sin(p.theta);
+    return base.map(function (pt) {
+      var r = reflectPoint(pt, axis[0], axis[1]);
+      return [r[0] + ux * p.t, r[1] + uy * p.t];
+    });
+  }
+
+  function renderStatic(svgEl, params) {
+    svgEl.setAttribute('viewBox', FRAME_VB);
+    svgEl.innerHTML =
+      '<polygon points="' + fmtPts(flagPoints(ORIGIN, 0)) + '" class="mw-flag-ghost"/>' +
+      '<polygon points="' + fmtPts(imagePointsForParams(params)) + '" class="mw-flag-solid"/>';
+  }
+
+  function createMotionWidget(container, opts) {
+    var tabs = opts.tabs.slice();
+    var onChange = opts.onChange || function () {};
+    var state = {
+      translate: { vx: 70, vy: -40 },
+      rotate: { ox: 20, oy: 30, angle: Math.PI / 3 },
+      reflect: { ax: -30, ay: 70, bx: 60, by: -60 },
+      glide: { ax: -30, ay: 70, bx: 60, by: -60, t: 50 }
+    };
+    var current = tabs[0];
+
+    container.innerHTML =
+      '<div class="mw-tabs">' + tabs.map(function (tkey) {
+        return '<button type="button" class="mw-tab" data-tab="' + tkey + '">' + TAB_LABELS[tkey] + '</button>';
+      }).join('') + '</div>' +
+      '<svg class="mw-svg motion-frame" viewBox="' + FRAME_VB + '"></svg>';
+
+    var svg = container.querySelector('.mw-svg');
+    var tabButtons = container.querySelectorAll('.mw-tab');
+
+    function localPointFromClient(clientX, clientY) {
+      var rect = svg.getBoundingClientRect();
+      var vb = svg.viewBox.baseVal;
+      var scale = rect.width / vb.width;
+      return [(clientX - rect.left) / scale + vb.x, (clientY - rect.top) / scale + vb.y];
+    }
+
+    function currentParams() {
+      if (current === 'translate') return { type: 'translate', vx: state.translate.vx, vy: state.translate.vy };
+      if (current === 'rotate') return { type: 'rotate', ox: state.rotate.ox, oy: state.rotate.oy, angle: state.rotate.angle };
+      if (current === 'reflect') {
+        var s = state.reflect;
+        return { type: 'reflect', px: s.ax, py: s.ay, theta: Math.atan2(s.by - s.ay, s.bx - s.ax) };
+      }
+      var g = state.glide;
+      return { type: 'glide', px: g.ax, py: g.ay, theta: Math.atan2(g.by - g.ay, g.bx - g.ax), t: g.t };
+    }
+
+    function handleMarkup(x, y, key) {
+      return '<circle class="mw-handle" cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="6"/>' +
+             '<circle class="mw-hit" data-key="' + key + '" cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="16"/>';
+    }
+
+    function render() {
+      var parts = [];
+      parts.push('<polygon points="' + fmtPts(flagPoints(ORIGIN, 0)) + '" class="mw-flag-ghost"/>');
+
+      if (current === 'reflect' || current === 'glide') {
+        var s = state[current];
+        var dx = s.bx - s.ax, dy = s.by - s.ay, len = Math.hypot(dx, dy) || 1;
+        var ux = dx / len, uy = dy / len, ext = 500;
+        parts.push('<line x1="' + (s.ax - ux * ext).toFixed(1) + '" y1="' + (s.ay - uy * ext).toFixed(1) +
+          '" x2="' + (s.bx + ux * ext).toFixed(1) + '" y2="' + (s.by + uy * ext).toFixed(1) + '" class="mw-axis"/>');
+      }
+      if (current === 'rotate') {
+        var r = state.rotate;
+        parts.push('<circle cx="' + r.ox.toFixed(1) + '" cy="' + r.oy.toFixed(1) + '" r="45" class="mw-orbit"/>');
+      }
+      if (current === 'translate') {
+        var v = state.translate;
+        parts.push('<line x1="' + ORIGIN[0] + '" y1="' + ORIGIN[1] + '" x2="' + (ORIGIN[0] + v.vx).toFixed(1) +
+          '" y2="' + (ORIGIN[1] + v.vy).toFixed(1) + '" class="mw-vector"/>');
+      }
+
+      parts.push('<polygon points="' + fmtPts(imagePointsForParams(currentParams())) + '" class="mw-flag-solid"/>');
+
+      if (current === 'translate') {
+        var v2 = state.translate;
+        parts.push(handleMarkup(ORIGIN[0] + v2.vx, ORIGIN[1] + v2.vy, 'v'));
+      } else if (current === 'rotate') {
+        var r2 = state.rotate;
+        parts.push(handleMarkup(r2.ox, r2.oy, 'o'));
+        parts.push(handleMarkup(r2.ox + 45 * Math.cos(r2.angle), r2.oy + 45 * Math.sin(r2.angle), 'ang'));
+      } else if (current === 'reflect') {
+        var s2 = state.reflect;
+        parts.push(handleMarkup(s2.ax, s2.ay, 'a'));
+        parts.push(handleMarkup(s2.bx, s2.by, 'b'));
+      } else {
+        var g2 = state.glide;
+        var dx2 = g2.bx - g2.ax, dy2 = g2.by - g2.ay, len2 = Math.hypot(dx2, dy2) || 1;
+        var ux2 = dx2 / len2, uy2 = dy2 / len2, mx = (g2.ax + g2.bx) / 2, my = (g2.ay + g2.by) / 2;
+        parts.push(handleMarkup(g2.ax, g2.ay, 'a'));
+        parts.push(handleMarkup(g2.bx, g2.by, 'b'));
+        parts.push(handleMarkup(mx + ux2 * g2.t, my + uy2 * g2.t, 't'));
+      }
+
+      svg.innerHTML = parts.join('');
+      wireHandleDrag();
+      onChange(currentParams());
+    }
+
+    var dragKey = null, activePointerId = null;
+
+    function onPointerDown(e) {
+      var t = e.target;
+      if (!t.classList || !t.classList.contains('mw-hit')) return;
+      dragKey = t.getAttribute('data-key');
+      activePointerId = e.pointerId;
+      e.preventDefault();
+    }
+    function onPointerMove(e) {
+      if (dragKey === null || e.pointerId !== activePointerId) return;
+      var p = clamp(localPointFromClient(e.clientX, e.clientY));
+      if (current === 'translate' && dragKey === 'v') {
+        state.translate.vx = p[0] - ORIGIN[0];
+        state.translate.vy = p[1] - ORIGIN[1];
+      } else if (current === 'rotate' && dragKey === 'o') {
+        state.rotate.ox = p[0]; state.rotate.oy = p[1];
+      } else if (current === 'rotate' && dragKey === 'ang') {
+        state.rotate.angle = Math.atan2(p[1] - state.rotate.oy, p[0] - state.rotate.ox);
+      } else if ((current === 'reflect' || current === 'glide') && dragKey === 'a') {
+        state[current].ax = p[0]; state[current].ay = p[1];
+      } else if ((current === 'reflect' || current === 'glide') && dragKey === 'b') {
+        state[current].bx = p[0]; state[current].by = p[1];
+      } else if (current === 'glide' && dragKey === 't') {
+        var g = state.glide;
+        var dx = g.bx - g.ax, dy = g.by - g.ay, len = Math.hypot(dx, dy) || 1;
+        var ux = dx / len, uy = dy / len, mx = (g.ax + g.bx) / 2, my = (g.ay + g.by) / 2;
+        g.t = (p[0] - mx) * ux + (p[1] - my) * uy;
+      }
+      render();
+      e.preventDefault();
+    }
+    function onPointerUp(e) {
+      if (e.pointerId !== activePointerId) return;
+      dragKey = null; activePointerId = null;
+    }
+    function wireHandleDrag() {
+      var hits = svg.querySelectorAll('.mw-hit');
+      for (var i = 0; i < hits.length; i++) {
+        hits[i].removeEventListener('pointerdown', onPointerDown);
+        hits[i].addEventListener('pointerdown', onPointerDown);
+      }
+    }
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerup', onPointerUp);
+    window.addEventListener('pointercancel', onPointerUp);
+
+    for (var bi = 0; bi < tabButtons.length; bi++) {
+      tabButtons[bi].addEventListener('click', function (e) {
+        current = e.currentTarget.getAttribute('data-tab');
+        updateTabButtons();
+        render();
+      });
+    }
+    function updateTabButtons() {
+      for (var j = 0; j < tabButtons.length; j++) {
+        tabButtons[j].classList.toggle('active', tabButtons[j].getAttribute('data-tab') === current);
+      }
+    }
+
+    function applyParams(p) {
+      current = p.type;
+      if (p.type === 'translate') state.translate = { vx: p.vx, vy: p.vy };
+      else if (p.type === 'rotate') state.rotate = { ox: p.ox, oy: p.oy, angle: p.angle };
+      else {
+        var axis = axisFromPointTheta(p.px, p.py, p.theta, 40);
+        if (p.type === 'reflect') state.reflect = { ax: axis[0][0], ay: axis[0][1], bx: axis[1][0], by: axis[1][1] };
+        else state.glide = { ax: axis[0][0], ay: axis[0][1], bx: axis[1][0], by: axis[1][1], t: p.t };
+      }
+    }
+
+    if (opts.initial) applyParams(opts.initial);
+    updateTabButtons();
+    render();
+
+    return {
+      getParams: currentParams,
+      setParams: function (p) { applyParams(p); updateTabButtons(); render(); },
+      el: container
+    };
+  }
+
+  return { create: createMotionWidget, renderStatic: renderStatic };
+})();
+
+(function () {
+  var el = document.getElementById('widget-three-kinds');
+  if (!el) return;
+  MotionWidget.create(el, { tabs: ['translate', 'rotate', 'reflect'] });
+})();
+</script>
 
 <script id="motion-math">
 window.MotionMath = (function () {
