@@ -80,6 +80,13 @@ em{color:var(--ink)}
 figure{margin:1.4rem 0}
 figcaption{font-size:16.5px;color:var(--ink3);margin-top:.6rem;line-height:1.55;font-style:italic}
 .svg-label{font-family:'JetBrains Mono',monospace;font-size:13px;fill:var(--ink2)}
+.note{border-left:3px solid var(--rust-acc);background:var(--rust-bg);border-radius:0 6px 6px 0;padding:.8rem 1.1rem;margin:1rem 0;font-size:17.5px;color:var(--ink2)}
+.note .note-head{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--rust-acc);margin-bottom:.35rem}
+.note p{margin-bottom:.55rem;color:var(--ink2)}
+.note p:last-child{margin-bottom:0}
+.nails-tri{fill:rgba(26,25,23,.05);stroke:#1a1917;stroke-width:1.2}
+.nails-hit{fill:#000;opacity:0;cursor:grab;touch-action:none}
+.nails-hit:active{cursor:grabbing}
 </style>
 </head>
 <body>
@@ -354,6 +361,101 @@ window.MotionWidget = (function () {
   var el = document.getElementById('widget-three-kinds');
   if (!el) return;
   MotionWidget.create(el, { tabs: ['translate', 'rotate', 'reflect'] });
+})();
+</script>
+
+<section id="sec-nails">
+  <h2>3. Теорема о трёх гвоздях</h2>
+  <p class="lead">Если движение оставляет на месте три точки $A$, $B$, $C$, не лежащие на одной прямой, оно оставляет на месте вообще всё — то есть является тождественным. Перетащите $A$, $B$, $C$ и пробную точку $P$: три окружности радиусов $|AP|$, $|BP|$, $|CP|$ вокруг гвоздей пересекаются ровно в одной точке — самой $P$. Значит, никакая другая точка не может быть образом $P$ при движении, сохраняющем $A,B,C$.</p>
+  <figure>
+    <svg id="nails-svg" class="motion-frame" role="img" aria-label="Три гвоздя A, B, C и пробная точка P с окружностями расстояний"></svg>
+    <figcaption>Перетащите любую из четырёх точек.</figcaption>
+  </figure>
+  <p class="note" id="nails-note" style="display:none">
+    <span class="note-head">Вырожденный случай</span>
+    <span>$C$ легла на прямую $AB$ — теперь работает только лемма о двух точках: окружностей $A$ и $B$ уже недостаточно, остаётся одна степень свободы (отражение относительно прямой $AB$).</span>
+  </p>
+</section>
+
+<script id="nails-theorem">
+(function () {
+  var svg = document.getElementById('nails-svg');
+  var note = document.getElementById('nails-note');
+  if (!svg) return;
+
+  var FRAME_HALF_W = 150, FRAME_HALF_H = 110, CAP_X = 140, CAP_Y = 100;
+  svg.setAttribute('viewBox', (-FRAME_HALF_W) + ' ' + (-FRAME_HALF_H) + ' ' + (2 * FRAME_HALF_W) + ' ' + (2 * FRAME_HALF_H));
+
+  var pts = { A: [-90, -60], B: [80, -70], C: [-20, 75], P: [20, 10] };
+  var COLORS = { A: '#3a5f9e', B: '#8c4a32', C: '#2e6645' };
+
+  function clamp(p) { return [Math.max(-CAP_X, Math.min(CAP_X, p[0])), Math.max(-CAP_Y, Math.min(CAP_Y, p[1]))]; }
+  function dist(u, v) { return Math.hypot(u[0] - v[0], u[1] - v[1]); }
+  function f1(v) { return v.toFixed(1); }
+  function isDegenerate() {
+    var A = pts.A, B = pts.B, C = pts.C;
+    var cross = (B[0] - A[0]) * (C[1] - A[1]) - (B[1] - A[1]) * (C[0] - A[0]);
+    return Math.abs(cross) < 600;
+  }
+
+  function render() {
+    var A = pts.A, B = pts.B, C = pts.C, P = pts.P, parts = [];
+    parts.push('<polygon points="' + [A, B, C].map(function (p) { return f1(p[0]) + ',' + f1(p[1]); }).join(' ') + '" class="nails-tri"/>');
+    ['A', 'B', 'C'].forEach(function (key) {
+      var c = pts[key], r = dist(c, P);
+      parts.push('<circle cx="' + f1(c[0]) + '" cy="' + f1(c[1]) + '" r="' + f1(r) + '" fill="none" stroke="' + COLORS[key] + '" stroke-width="1.4" stroke-dasharray="5 4" opacity="0.75"/>');
+    });
+    ['A', 'B', 'C'].forEach(function (key) {
+      var p = pts[key];
+      parts.push('<circle cx="' + f1(p[0]) + '" cy="' + f1(p[1]) + '" r="5" fill="' + COLORS[key] + '"/>');
+      parts.push('<text x="' + f1(p[0] + 10) + '" y="' + f1(p[1] - 10) + '" class="svg-label">' + key + '</text>');
+      parts.push('<circle class="nails-hit" data-key="' + key + '" cx="' + f1(p[0]) + '" cy="' + f1(p[1]) + '" r="16"/>');
+    });
+    parts.push('<circle cx="' + f1(P[0]) + '" cy="' + f1(P[1]) + '" r="5.5" fill="#1a1917"/>');
+    parts.push('<text x="' + f1(P[0] + 10) + '" y="' + f1(P[1] - 10) + '" class="svg-label">P</text>');
+    parts.push('<circle class="nails-hit" data-key="P" cx="' + f1(P[0]) + '" cy="' + f1(P[1]) + '" r="16"/>');
+
+    svg.innerHTML = parts.join('');
+    wireDrag();
+    if (note) note.style.display = isDegenerate() ? 'block' : 'none';
+  }
+
+  var dragKey = null, activePointerId = null;
+  function localPointFromClient(clientX, clientY) {
+    var rect = svg.getBoundingClientRect();
+    var vb = svg.viewBox.baseVal;
+    var scale = rect.width / vb.width;
+    return [(clientX - rect.left) / scale + vb.x, (clientY - rect.top) / scale + vb.y];
+  }
+  function onPointerDown(e) {
+    var t = e.target;
+    if (!t.classList || !t.classList.contains('nails-hit')) return;
+    dragKey = t.getAttribute('data-key');
+    activePointerId = e.pointerId;
+    e.preventDefault();
+  }
+  function onPointerMove(e) {
+    if (dragKey === null || e.pointerId !== activePointerId) return;
+    pts[dragKey] = clamp(localPointFromClient(e.clientX, e.clientY));
+    render();
+    e.preventDefault();
+  }
+  function onPointerUp(e) {
+    if (e.pointerId !== activePointerId) return;
+    dragKey = null; activePointerId = null;
+  }
+  function wireDrag() {
+    var hits = svg.querySelectorAll('.nails-hit');
+    for (var i = 0; i < hits.length; i++) {
+      hits[i].removeEventListener('pointerdown', onPointerDown);
+      hits[i].addEventListener('pointerdown', onPointerDown);
+    }
+  }
+  window.addEventListener('pointermove', onPointerMove);
+  window.addEventListener('pointerup', onPointerUp);
+  window.addEventListener('pointercancel', onPointerUp);
+
+  render();
 })();
 </script>
 
