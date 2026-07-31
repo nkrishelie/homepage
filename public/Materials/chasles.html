@@ -77,6 +77,8 @@ em{color:var(--ink)}
 .mw-handle{fill:var(--ink);stroke:var(--bg);stroke-width:1.5}
 .mw-hit{fill:#000;opacity:0;cursor:grab;touch-action:none}
 .mw-hit:active{cursor:grabbing}
+.mw-coord-axis{stroke:var(--ink3);stroke-width:1;opacity:.55}
+.mw-origin{fill:var(--ink3)}
 figure{margin:1.4rem 0}
 figcaption{font-size:16.5px;color:var(--ink3);margin-top:.6rem;line-height:1.55;font-style:italic}
 .svg-label{font-family:'JetBrains Mono',monospace;font-size:13px;fill:var(--ink2)}
@@ -183,6 +185,14 @@ window.MotionWidget = (function () {
     var dx = Math.cos(theta) * half, dy = Math.sin(theta) * half;
     return [[px - dx, py - dy], [px + dx, py + dy]];
   }
+  function axesMarkup() {
+    return '<line x1="' + (-FRAME_HALF_W) + '" y1="0" x2="' + FRAME_HALF_W + '" y2="0" class="mw-coord-axis"/>' +
+      '<line x1="0" y1="' + (-FRAME_HALF_H) + '" x2="0" y2="' + FRAME_HALF_H + '" class="mw-coord-axis"/>' +
+      '<circle cx="0" cy="0" r="3" class="mw-origin"/>' +
+      '<text x="6" y="16" class="svg-label">0</text>' +
+      '<text x="' + (FRAME_HALF_W - 20) + '" y="-8" class="svg-label">Re</text>' +
+      '<text x="8" y="' + (-FRAME_HALF_H + 14) + '" class="svg-label">Im</text>';
+  }
 
   function imagePointsForParams(p) {
     var base = flagPoints(ORIGIN, 0);
@@ -203,9 +213,10 @@ window.MotionWidget = (function () {
     });
   }
 
-  function renderStatic(svgEl, params) {
+  function renderStatic(svgEl, params, opts) {
     svgEl.setAttribute('viewBox', FRAME_VB);
     svgEl.innerHTML =
+      (opts && opts.axes ? axesMarkup() : '') +
       '<polygon points="' + fmtPts(flagPoints(ORIGIN, 0)) + '" class="mw-flag-ghost"/>' +
       '<polygon points="' + fmtPts(imagePointsForParams(params)) + '" class="mw-flag-solid"/>';
   }
@@ -213,6 +224,7 @@ window.MotionWidget = (function () {
   function createMotionWidget(container, opts) {
     var tabs = opts.tabs.slice();
     var onChange = opts.onChange || function () {};
+    var showAxes = !!opts.axes;
     var state = {
       translate: { vx: 70, vy: -40 },
       rotate: { ox: 20, oy: 30, angle: Math.PI / 3 },
@@ -255,6 +267,7 @@ window.MotionWidget = (function () {
 
     function render() {
       var parts = [];
+      if (showAxes) parts.push(axesMarkup());
       parts.push('<polygon points="' + fmtPts(flagPoints(ORIGIN, 0)) + '" class="mw-flag-ghost"/>');
 
       if (current === 'reflect' || current === 'glide') {
@@ -630,17 +643,19 @@ window.MotionWidget = (function () {
 
       resultClass.textContent = CLASS_LABELS[classified.type];
       katex.render('(f\\circ g)(z) = ' + MotionMath.formatExpr(composed), resultFormula, { throwOnError: false });
-      MotionWidget.renderStatic(resultSvg, classified);
+      MotionWidget.renderStatic(resultSvg, classified, { axes: true });
     }
 
     var gWidget = MotionWidget.create(gEl, {
       tabs: ['translate', 'rotate', 'reflect', 'glide'],
       initial: { type: 'reflect', px: 0, py: 0, theta: 0 },
+      axes: true,
       onChange: update
     });
     var fWidget = MotionWidget.create(fEl, {
       tabs: ['translate', 'rotate', 'reflect', 'glide'],
       initial: { type: 'reflect', px: 0, py: 40, theta: 0 },
+      axes: true,
       onChange: update
     });
 
@@ -669,6 +684,7 @@ window.MotionWidget = (function () {
     var widget = MotionWidget.create(el, {
       tabs: ['translate', 'rotate', 'reflect', 'glide'],
       initial: { type: 'rotate', ox: 20, oy: 30, angle: Math.PI / 3 },
+      axes: true,
       onChange: update
     });
     update(widget.getParams());
