@@ -83,6 +83,205 @@ em{color:var(--ink)}
   <p>Композиция подобий с коэффициентами $k$ и $s$ — снова подобие, с коэффициентом $ks$: это следует прямо из определения ($\rho$ умножается сначала на $k$, потом на $s$).</p>
 </section>
 
+<script id="similarity-math">
+window.SimilarityMath = (function () {
+  function add(u, v) { return { re: u.re + v.re, im: u.im + v.im }; }
+  function sub(u, v) { return { re: u.re - v.re, im: u.im - v.im }; }
+  function mul(u, v) { return { re: u.re * v.re - u.im * v.im, im: u.re * v.im + u.im * v.re }; }
+  function scale(u, k) { return { re: u.re * k, im: u.im * k }; }
+  function conj(u) { return { re: u.re, im: -u.im }; }
+  function abs(u) { return Math.hypot(u.re, u.im); }
+  function arg(u) { return Math.atan2(u.im, u.re); }
+  function fromPolar(r, theta) { return { re: r * Math.cos(theta), im: r * Math.sin(theta) }; }
+  function div(u, v) {
+    var d = v.re * v.re + v.im * v.im;
+    return { re: (u.re * v.re + u.im * v.im) / d, im: (u.im * v.re - u.re * v.im) / d };
+  }
+
+  function translationToMotion(vx, vy) {
+    return { kind: 1, a: { re: 1, im: 0 }, b: { re: vx, im: vy } };
+  }
+  // k=1 reproduces a plain rotation (chasles.html's rotationToMotion);
+  // angle=0 reproduces a plain homothety. Both are just special values of
+  // this one two-parameter family, which is why classify() only ever
+  // reports 'rotate', never a separate 'homothety' kind.
+  function rotationToMotion(ox, oy, angle, k) {
+    var a = fromPolar(k, angle);
+    var o = { re: ox, im: oy };
+    return { kind: 1, a: a, b: mul(o, sub({ re: 1, im: 0 }, a)) };
+  }
+  // k=1 reproduces a plain reflection (chasles.html's reflectionToMotion).
+  // b = p - a*conj(p) guarantees f(p)=p for ANY k, so p is always the
+  // homothety center -- not just an arbitrary point on the axis, the way it
+  // is for a plain reflection where every point on the axis is fixed.
+  function reflectionToMotion(px, py, theta, k) {
+    var a = fromPolar(k, 2 * theta);
+    var p = { re: px, im: py };
+    return { kind: 2, a: a, b: sub(p, mul(a, conj(p))) };
+  }
+  function glideToMotion(px, py, theta, t) {
+    var refl = reflectionToMotion(px, py, theta, 1);
+    return { kind: 2, a: refl.a, b: add(refl.b, fromPolar(t, theta)) };
+  }
+
+  // Same widget/complex-space sign-flip convention as chasles.html's
+  // MotionMath.flipY. k is a plain scale factor and is unaffected by the flip.
+  function flipY(p) {
+    if (p.type === 'translate') return { type: 'translate', vx: p.vx, vy: -p.vy };
+    if (p.type === 'homothety') return { type: 'homothety', ox: p.ox, oy: -p.oy, k: p.k };
+    if (p.type === 'rotate') return { type: 'rotate', ox: p.ox, oy: -p.oy, angle: -p.angle, k: p.k };
+    if (p.type === 'reflect') return { type: 'reflect', px: p.px, py: -p.py, theta: -p.theta, k: p.k };
+    return { type: 'glide', px: p.px, py: -p.py, theta: -p.theta, t: p.t };
+  }
+
+  // 'homothety' is an input-only convenience shape; classify() never returns
+  // it -- a rotate-family result with angle ~= 0 IS the homothety case.
+  function paramsToMotion(p) {
+    var fp = flipY(p);
+    if (fp.type === 'translate') return translationToMotion(fp.vx, fp.vy);
+    if (fp.type === 'homothety') return rotationToMotion(fp.ox, fp.oy, 0, fp.k);
+    if (fp.type === 'rotate') return rotationToMotion(fp.ox, fp.oy, fp.angle, fp.k);
+    if (fp.type === 'reflect') return reflectionToMotion(fp.px, fp.py, fp.theta, fp.k);
+    return glideToMotion(fp.px, fp.py, fp.theta, fp.t);
+  }
+
+  function apply(m, z) {
+    var zz = m.kind === 2 ? conj(z) : z;
+    return add(mul(m.a, zz), m.b);
+  }
+
+  // Identical to chasles.html's MotionMath.compose -- already fully general,
+  // never assumed |a|=1.
+  function compose(f, g) {
+    var gA = f.kind === 2 ? conj(g.a) : g.a;
+    var gB = f.kind === 2 ? conj(g.b) : g.b;
+    return {
+      kind: f.kind === g.kind ? 1 : 2,
+      a: mul(f.a, gA),
+      b: add(mul(f.a, gB), f.b)
+    };
+  }
+
+  function classify(m, eps) {
+    eps = eps || 1e-6;
+    var raw;
+    if (m.kind === 1) {
+      if (abs(sub(m.a, { re: 1, im: 0 })) < eps) {
+        raw = { type: 'translate', vx: m.b.re, vy: m.b.im };
+      } else {
+        var center = div(m.b, sub({ re: 1, im: 0 }, m.a));
+        raw = { type: 'rotate', ox: center.re, oy: center.im, angle: arg(m.a), k: abs(m.a) };
+      }
+    } else {
+      var ka = abs(m.a);
+      if (Math.abs(ka - 1) < eps) {
+        // Isometry case: identical derivation to chasles.html's classify.
+        var psi = arg(m.a);
+        var r = fromPolar(1, psi / 2);
+        var beta = mul(m.b, conj(r));
+        var axisPoint = mul(r, { re: 0, im: beta.im / 2 });
+        if (Math.abs(beta.re) < eps) {
+          raw = { type: 'reflect', px: axisPoint.re, py: axisPoint.im, theta: psi / 2, k: 1 };
+        } else {
+          raw = { type: 'glide', px: axisPoint.re, py: axisPoint.im, theta: psi / 2, t: beta.re };
+        }
+      } else {
+        // Reflected homothety: f(z)=a*conj(z)+b, |a|!=1. Solving f(z)=z
+        // together with its conjugate as a 2x2 real-linear system gives the
+        // unique fixed point z0=(b+a*conj(b))/(1-|a|^2); the axis runs
+        // through z0 at angle arg(a)/2 (since a=k*e^(2i*theta)).
+        var denom = 1 - ka * ka;
+        var z0 = div(add(m.b, mul(m.a, conj(m.b))), { re: denom, im: 0 });
+        raw = { type: 'reflect', px: z0.re, py: z0.im, theta: arg(m.a) / 2, k: ka };
+      }
+    }
+    return flipY(raw);
+  }
+
+  function formatComplex(u) {
+    var re = u.re.toFixed(2);
+    var imAbs = Math.abs(u.im).toFixed(2);
+    var sign = u.im < 0 ? '-' : '+';
+    return re + ' ' + sign + ' ' + imAbs + 'i';
+  }
+
+  function formatCoefficient(u, eps) {
+    eps = eps || 1e-2;
+    var reZero = Math.abs(u.re) < eps, imZero = Math.abs(u.im) < eps;
+    if (reZero && imZero) return '0';
+    if (imZero) {
+      if (Math.abs(u.re - 1) < eps) return '';
+      if (Math.abs(u.re + 1) < eps) return '-';
+      return '(' + u.re.toFixed(2) + ')';
+    }
+    if (reZero) {
+      if (Math.abs(u.im - 1) < eps) return 'i';
+      if (Math.abs(u.im + 1) < eps) return '-i';
+      return '(' + u.im.toFixed(2) + 'i)';
+    }
+    return '(' + formatComplex(u) + ')';
+  }
+
+  function formatConstantTerm(u, eps) {
+    eps = eps || 1e-2;
+    var reZero = Math.abs(u.re) < eps, imZero = Math.abs(u.im) < eps;
+    if (reZero && imZero) return '';
+    if (imZero) return (u.re < 0 ? ' - ' : ' + ') + Math.abs(u.re).toFixed(2);
+    if (reZero) return (u.im < 0 ? ' - ' : ' + ') + Math.abs(u.im).toFixed(2) + 'i';
+    return ' + (' + formatComplex(u) + ')';
+  }
+
+  function formatExpr(m) {
+    var zPart = m.kind === 2 ? '\\bar z' : 'z';
+    return formatCoefficient(m.a) + zPart + formatConstantTerm(m.b);
+  }
+
+  function formatDeg(rad) {
+    return (rad * 180 / Math.PI).toFixed(1) + '^\\circ';
+  }
+
+  function formatRecipe(p) {
+    var fp = flipY(p);
+    if (fp.type === 'translate') {
+      return { template: 'f(z) = z + v', params: 'v \\approx ' + formatComplex({ re: fp.vx, im: fp.vy }) };
+    }
+    if (fp.type === 'homothety') {
+      var z0h = { re: fp.ox, im: fp.oy };
+      return {
+        template: 'f(z) = k(z-z_0)+z_0',
+        params: 'k \\approx ' + fp.k.toFixed(2) + ',\\ z_0 \\approx ' + formatComplex(z0h)
+      };
+    }
+    if (fp.type === 'rotate') {
+      var z0 = { re: fp.ox, im: fp.oy };
+      return {
+        template: 'f(z) = ke^{i\\alpha}(z-z_0)+z_0',
+        params: 'k \\approx ' + fp.k.toFixed(2) + ',\\ \\alpha \\approx ' + formatDeg(fp.angle) + ',\\ z_0 \\approx ' + formatComplex(z0)
+      };
+    }
+    if (fp.type === 'reflect') {
+      var pt = { re: fp.px, im: fp.py };
+      return {
+        template: 'f(z) = ke^{2i\\theta}\\overline{(z-p)}+p',
+        params: 'k \\approx ' + fp.k.toFixed(2) + ',\\ \\theta \\approx ' + formatDeg(fp.theta) + ',\\ p \\approx ' + formatComplex(pt)
+      };
+    }
+    var pt2 = { re: fp.px, im: fp.py };
+    return {
+      template: 'f(z) = e^{2i\\theta}\\overline{(z-p)}+p+te^{i\\theta}',
+      params: '\\theta \\approx ' + formatDeg(fp.theta) + ',\\ p \\approx ' + formatComplex(pt2) + ',\\ t \\approx ' + fp.t.toFixed(2)
+    };
+  }
+
+  return {
+    add: add, sub: sub, mul: mul, scale: scale, conj: conj, abs: abs, arg: arg,
+    fromPolar: fromPolar, div: div,
+    paramsToMotion: paramsToMotion, apply: apply, compose: compose, classify: classify,
+    formatComplex: formatComplex, formatExpr: formatExpr, formatRecipe: formatRecipe
+  };
+})();
+</script>
+
 <p class="page-footer">© Nikolai Kazimirov · <a href="https://mathem.at" rel="noopener">mathem.at</a></p>
 
 </div><!-- .page -->
