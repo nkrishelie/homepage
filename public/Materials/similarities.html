@@ -91,6 +91,8 @@ figcaption{font-size:16.5px;color:var(--ink3);margin-top:.6rem;line-height:1.55;
 .note p{margin-bottom:.55rem;color:var(--ink2)}
 .note p:last-child{margin-bottom:0}
 .formula-box{font-family:'JetBrains Mono',monospace;font-size:16px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:.8rem 1.1rem;margin-top:.8rem;color:var(--ink)}
+.note.theorem{border-left-color:var(--blue-acc);background:var(--blue-bg);font-size:22px}
+.note.theorem .note-head{color:var(--blue-acc)}
 </style>
 </head>
 <body>
@@ -530,6 +532,19 @@ window.SimilarityWidget = (function () {
   window.addEventListener('load', init);
 })();
 </script>
+
+<section id="sec-classification">
+  <h2>5. Классификация подобий</h2>
+  <div class="note theorem">
+    <span class="note-head">Теорема (классификация подобий плоскости)</span>
+    <p>Любое подобие плоскости — один из четырёх видов:</p>
+    <p><strong>перенос</strong> (в частности, тождественное преобразование);</p>
+    <p><strong>поворотная гомотетия</strong> (в частности, тождественное преобразование, поворот или гомотетия);</p>
+    <p><strong>скользящая симметрия</strong> (в частности, отражение);</p>
+    <p><strong>отражённая гомотетия</strong> (в частности, отражение).</p>
+  </div>
+  <p>Границы между классами пересекаются — и это не случайность, а часть той же картины, что уже встречалась у движений: тождественное преобразование одновременно и «нулевой» перенос, и «нулевая» поворотная гомотетия ($k=1$, $\alpha=0$); обычное отражение одновременно и скользящая симметрия с нулевым сдвигом, и отражённая гомотетия с $k=1$. Других подобий плоскости не бывает.</p>
+</section>
 
 <script id="similarity-math">
 window.SimilarityMath = (function () {
