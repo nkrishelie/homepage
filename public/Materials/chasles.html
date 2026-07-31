@@ -79,7 +79,7 @@ em{color:var(--ink)}
 .mw-hit:active{cursor:grabbing}
 .mw-coord-axis{stroke:var(--ink3);stroke-width:1;opacity:.55}
 .mw-origin{fill:var(--ink3)}
-.mw-handle-label{font-family:'JetBrains Mono',monospace;font-size:11px;fill:var(--ink2)}
+.mw-handle-label{font-family:'JetBrains Mono',monospace;font-size:7px;fill:var(--ink2)}
 figure{margin:1.4rem 0}
 figcaption{font-size:16.5px;color:var(--ink3);margin-top:.6rem;line-height:1.55;font-style:italic}
 .svg-label{font-family:'JetBrains Mono',monospace;font-size:13px;fill:var(--ink2)}
@@ -825,9 +825,40 @@ window.MotionMath = (function () {
     return re + ' ' + sign + ' ' + imAbs + 'i';
   }
 
+  // formatExpr's "z coefficient" is trimmed like a human would write it by
+  // hand: 1 disappears, -1 becomes a bare minus, a pure-imaginary unit
+  // becomes i/-i. This is not symbolic algebra (no exact-value reasoning,
+  // just epsilon checks against the rounded display) -- it only ever
+  // touches the final result line, never formatRecipe's literal parameters.
+  function formatCoefficient(u, eps) {
+    eps = eps || 1e-2;
+    var reZero = Math.abs(u.re) < eps, imZero = Math.abs(u.im) < eps;
+    if (reZero && imZero) return '0';
+    if (imZero) {
+      if (Math.abs(u.re - 1) < eps) return '';
+      if (Math.abs(u.re + 1) < eps) return '-';
+      return '(' + u.re.toFixed(2) + ')';
+    }
+    if (reZero) {
+      if (Math.abs(u.im - 1) < eps) return 'i';
+      if (Math.abs(u.im + 1) < eps) return '-i';
+      return '(' + u.im.toFixed(2) + 'i)';
+    }
+    return '(' + formatComplex(u) + ')';
+  }
+
+  function formatConstantTerm(u, eps) {
+    eps = eps || 1e-2;
+    var reZero = Math.abs(u.re) < eps, imZero = Math.abs(u.im) < eps;
+    if (reZero && imZero) return '';
+    if (imZero) return (u.re < 0 ? ' - ' : ' + ') + Math.abs(u.re).toFixed(2);
+    if (reZero) return (u.im < 0 ? ' - ' : ' + ') + Math.abs(u.im).toFixed(2) + 'i';
+    return ' + (' + formatComplex(u) + ')';
+  }
+
   function formatExpr(m) {
     var zPart = m.kind === 2 ? '\\bar z' : 'z';
-    return '(' + formatComplex(m.a) + ')' + zPart + ' + (' + formatComplex(m.b) + ')';
+    return formatCoefficient(m.a) + zPart + formatConstantTerm(m.b);
   }
 
   function formatDeg(rad) {
