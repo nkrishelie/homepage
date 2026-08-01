@@ -62,6 +62,21 @@ em{color:var(--ink)}
 .note p{margin-bottom:.55rem;color:var(--ink2)}
 .note p:last-child{margin-bottom:0}
 
+.motion-frame{width:100%;max-width:560px;height:auto;aspect-ratio:300/220;display:block;background:var(--bg2);border:1px solid var(--border);border-radius:6px;touch-action:none}
+.motion-widget{margin:1rem 0;max-width:560px}
+.mw-coord-axis{stroke:var(--ink3);stroke-width:1;opacity:.55}
+.mw-origin{fill:var(--ink3)}
+.mw-preimage{fill:rgba(26,25,23,.08);stroke:var(--ink3);stroke-width:1;stroke-dasharray:3 3}
+.mw-image{fill:rgba(58,95,158,.18);stroke:var(--blue-acc);stroke-width:1.6}
+.mw-handle{fill:var(--ink);stroke:var(--bg);stroke-width:1.5}
+.mw-hit{fill:#000;opacity:0;cursor:grab;touch-action:none}
+.mw-hit:active{cursor:grabbing}
+.mw-handle-label{font-family:'JetBrains Mono',monospace;font-size:11px;fill:var(--ink2)}
+.svg-label{font-family:'JetBrains Mono',monospace;font-size:13px;fill:var(--ink2)}
+figure{margin:1.4rem 0}
+figcaption{font-size:16.5px;color:var(--ink3);margin-top:.6rem;line-height:1.55;font-style:italic}
+.formula-box{font-family:'JetBrains Mono',monospace;font-size:16px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:.8rem 1.1rem;margin-top:.8rem;color:var(--ink)}
+
 @media(max-width:700px){
   body{font-size:19px}
   .page{padding:1.5rem 1rem 3rem}
@@ -116,6 +131,195 @@ em{color:var(--ink)}
   </div>
   <p>Условие $f'(z_0)\ne0$ существенно: там, где производная обращается в нуль, линейная часть приближения из §1 исчезает, и углы, вообще говоря, не сохраняются. Простой пример: $f(z)=z^2$ в точке $z_0=0$. Записав $z=re^{i\theta}$, получаем $f(z)=r^2e^{2i\theta}$ — угол между любыми двумя лучами из нуля под действием $f$ удваивается, а не сохраняется.</p>
 </section>
+
+<section id="sec-inversion">
+  <h2>3. Инверсия: окружности переходят в окружности</h2>
+  <p class="lead">Простейший пример регулярной функции, не сводящейся к подобию, — <strong>инверсия</strong> $w=1/z$. Она регулярна и конформна всюду, кроме $z=0$: $w'(z)=-1/z^2\ne0$ при $z\ne0$. У неё есть знаменитое свойство — она переводит окружности и прямые снова в окружности и прямые.</p>
+  <div class="note">
+    <span class="note-head">Теорема</span>
+    <p>Пусть окружность $|z-c|=r$ не проходит через ноль ($|c|\ne r$). Тогда её образ под действием $w=1/z$ — окружность с центром $c'=\bar c/(|c|^2-r^2)$ и радиусом $r'=r/\big||c|^2-r^2\big|$.</p>
+  </div>
+  <p>Уравнение окружности $|z-c|=r$ запишется как $(z-c)(\bar z-\bar c)=r^2$, то есть $z\bar z-c\bar z-\bar cz+|c|^2-r^2=0$. Подставим $z=1/w$, $\bar z=1/\bar w$ (это и есть преобразование, обратное к $w=1/z$) и умножим на $w\bar w\ne0$:</p>
+  <p>$$1-cw-\bar c\bar w+(|c|^2-r^2)\,w\bar w=0.$$</p>
+  <p>Поделим на $|c|^2-r^2\ne0$:</p>
+  <p>$$w\bar w-\frac c{|c|^2-r^2}w-\frac{\bar c}{|c|^2-r^2}\bar w+\frac1{|c|^2-r^2}=0.$$</p>
+  <p>Уравнение окружности $|w-c'|=r'$ в тех же обозначениях — это $w\bar w-\bar{c'}w-c'\bar w+|c'|^2-r'^2=0$. Сравнивая коэффициенты при $w$ и при $\bar w$, получаем $\bar{c'}=c/(|c|^2-r^2)$, откуда и берётся формула для $c'$; из свободного члена $|c'|^2-r'^2=1/(|c|^2-r^2)$, что после подстановки $|c'|^2$ даёт формулу для $r'$.</p>
+  <p>(Если окружность всё же проходит через ноль, $|c|=r$, знаменатель обращается в ноль, и образ — уже не окружность, а прямая; этот предельный случай ниже в интерактиве не показан — центр окружности намеренно не подпускается к нулю ближе фиксированной границы, чтобы $1/z$ не приходилось вычислять сколь угодно близко к особой точке.)</p>
+  <figure>
+    <div class="motion-widget" id="widget-inversion"></div>
+    <div class="formula-box" id="inv-c"></div>
+    <div class="formula-box" id="inv-image"></div>
+    <figcaption>Центр $c$ перетаскивается; радиус окружности зафиксирован. Бледный контур — окружность-прообраз, синяя фигура — её образ, построенный по 120 точкам (численная проверка того, что формула выше действительно даёт окружность, а не что-то похожее на неё).</figcaption>
+  </figure>
+</section>
+
+<script id="inversion-widget">
+window.InversionWidget = (function () {
+  var FRAME_HALF_W = 150, FRAME_HALF_H = 110;
+  var FRAME_VB = (-FRAME_HALF_W) + ' ' + (-FRAME_HALF_H) + ' ' + (2 * FRAME_HALF_W) + ' ' + (2 * FRAME_HALF_H);
+  var SCALE = 25;         // px per unit -- same scale as the rest of the series
+  var SHAPE_R = 1;        // fixed circle radius, in units
+  var MIN_C = 1.3, MAX_C = 4; // |c| clamp, in units -- keeps the circle off
+                               // the origin and the image inside the frame
+                               // at every angle (verified test-first)
+  var SNAP = 5;           // px
+  var SAMPLES = 120;
+
+  function axesMarkup() {
+    return '<line x1="' + (-FRAME_HALF_W) + '" y1="0" x2="' + FRAME_HALF_W + '" y2="0" class="mw-coord-axis"/>' +
+      '<line x1="0" y1="' + (-FRAME_HALF_H) + '" x2="0" y2="' + FRAME_HALF_H + '" class="mw-coord-axis"/>' +
+      '<circle cx="0" cy="0" r="3" class="mw-origin"/>' +
+      '<text x="6" y="16" class="svg-label">0</text>' +
+      '<text x="' + (FRAME_HALF_W - 20) + '" y="-8" class="svg-label">Re</text>' +
+      '<text x="8" y="' + (-FRAME_HALF_H + 14) + '" class="svg-label">Im</text>';
+  }
+
+  function invert(z) {
+    var d = z.re * z.re + z.im * z.im;
+    return { re: z.re / d, im: -z.im / d };
+  }
+
+  // Derived and verified against direct sampling (see the test) -- see
+  // also §3's own prose derivation on the page itself.
+  function imageCircle(c, r) {
+    var mag2 = c.re * c.re + c.im * c.im;
+    var denom = mag2 - r * r;
+    return { c: { re: c.re / denom, im: -c.im / denom }, r: r / Math.abs(denom) };
+  }
+
+  function sampleImage(c, r) {
+    var pts = [];
+    for (var i = 0; i < SAMPLES; i++) {
+      var th = i / SAMPLES * 2 * Math.PI;
+      pts.push(invert({ re: c.re + r * Math.cos(th), im: c.im + r * Math.sin(th) }));
+    }
+    return pts;
+  }
+
+  function mathToSvg(z) { return [z.re * SCALE, -z.im * SCALE]; }
+  function svgToMath(x, y) { return { re: x / SCALE, im: -y / SCALE }; }
+  function fmtPts(pts) { return pts.map(function (p) { return p[0].toFixed(2) + ',' + p[1].toFixed(2); }).join(' '); }
+  function fmtComplex(z) {
+    var sign = z.im < 0 ? '-' : '+';
+    return z.re.toFixed(2) + ' ' + sign + ' ' + Math.abs(z.im).toFixed(2) + 'i';
+  }
+  function snap(v) { return Math.round(v / SNAP) * SNAP; }
+  function clamp(p) {
+    var d = Math.hypot(p[0], p[1]);
+    var minPx = MIN_C * SCALE, maxPx = MAX_C * SCALE;
+    if (d < 1e-9) return [minPx, 0];
+    var clampedD = Math.max(minPx, Math.min(maxPx, d));
+    var s = clampedD / d;
+    return [snap(p[0] * s), snap(p[1] * s)];
+  }
+
+  function createInversionWidget(container, opts) {
+    var onChange = (opts && opts.onChange) || function () {};
+    // |c| ~= 1.72 units: close enough to MIN_C for a visibly large,
+    // legible image circle at rest, without sitting at the boundary.
+    var state = { cx: -35, cy: 25 };
+
+    container.innerHTML = '<svg class="mw-svg motion-frame" viewBox="' + FRAME_VB + '"></svg>';
+    var svg = container.querySelector('.mw-svg');
+
+    function localPointFromClient(clientX, clientY) {
+      var rect = svg.getBoundingClientRect();
+      var vb = svg.viewBox.baseVal;
+      var s = rect.width / vb.width;
+      return [(clientX - rect.left) / s + vb.x, (clientY - rect.top) / s + vb.y];
+    }
+
+    function render() {
+      var cMath = svgToMath(state.cx, state.cy);
+      var imgSvgPts = sampleImage(cMath, SHAPE_R).map(mathToSvg);
+
+      var parts = [];
+      parts.push(axesMarkup());
+      parts.push('<circle cx="' + state.cx.toFixed(1) + '" cy="' + state.cy.toFixed(1) + '" r="' + (SHAPE_R * SCALE) + '" class="mw-preimage"/>');
+      parts.push('<polygon points="' + fmtPts(imgSvgPts) + '" class="mw-image"/>');
+      parts.push('<circle class="mw-handle" cx="' + state.cx.toFixed(1) + '" cy="' + state.cy.toFixed(1) + '" r="8"/>');
+      parts.push('<circle class="mw-hit" cx="' + state.cx.toFixed(1) + '" cy="' + state.cy.toFixed(1) + '" r="20"/>');
+      // Bare symbol only -- see complex_numbers.html's post-ship fix: an
+      // on-canvas live number here would risk drifting from the formula
+      // box below if the two are ever computed slightly differently.
+      parts.push('<text x="' + (state.cx + 10).toFixed(1) + '" y="' + (state.cy - 10).toFixed(1) + '" class="mw-handle-label">c</text>');
+      svg.innerHTML = parts.join('');
+      wireDrag();
+      onChange({ cx: state.cx, cy: state.cy });
+    }
+
+    var dragging = false, activePointerId = null;
+    function onPointerDown(e) {
+      if (!e.target.classList || !e.target.classList.contains('mw-hit')) return;
+      dragging = true; activePointerId = e.pointerId;
+      e.preventDefault();
+    }
+    function onPointerMove(e) {
+      if (!dragging || e.pointerId !== activePointerId) return;
+      var p = clamp(localPointFromClient(e.clientX, e.clientY));
+      state.cx = p[0]; state.cy = p[1];
+      render();
+      e.preventDefault();
+    }
+    function onPointerUp(e) {
+      if (e.pointerId !== activePointerId) return;
+      dragging = false; activePointerId = null;
+    }
+    function wireDrag() {
+      var hit = svg.querySelector('.mw-hit');
+      hit.removeEventListener('pointerdown', onPointerDown);
+      hit.addEventListener('pointerdown', onPointerDown);
+    }
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerup', onPointerUp);
+    window.addEventListener('pointercancel', onPointerUp);
+
+    render();
+    return { getC: function () { return { cx: state.cx, cy: state.cy }; } };
+  }
+
+  return {
+    create: createInversionWidget,
+    _test: {
+      invert: invert,
+      imageCircle: imageCircle,
+      svgToMath: svgToMath,
+      SCALE: SCALE, SHAPE_R: SHAPE_R, MIN_C: MIN_C, MAX_C: MAX_C
+    }
+  };
+})();
+</script>
+
+<script>
+(function () {
+  var el = document.getElementById('widget-inversion');
+  var cEl = document.getElementById('inv-c');
+  var imgEl = document.getElementById('inv-image');
+
+  // katex.min.js is <script defer>; wait for window 'load' before calling
+  // katex.render directly (same reason as the earlier two materials).
+  function init() {
+    if (!el || !cEl || !imgEl || !window.InversionWidget || !window.katex) return;
+
+    function fmtComplex(z) {
+      var sign = z.im < 0 ? '-' : '+';
+      return z.re.toFixed(2) + ' ' + sign + ' ' + Math.abs(z.im).toFixed(2) + 'i';
+    }
+
+    function update(state) {
+      var c = InversionWidget._test.svgToMath(state.cx, state.cy);
+      var img = InversionWidget._test.imageCircle(c, InversionWidget._test.SHAPE_R);
+      var mag = Math.hypot(c.re, c.im);
+      katex.render('c \\approx ' + fmtComplex(c) + ',\\quad |c| \\approx ' + mag.toFixed(2), cEl, { throwOnError: false });
+      katex.render('c\' \\approx ' + fmtComplex(img.c) + ',\\quad r\' \\approx ' + img.r.toFixed(2), imgEl, { throwOnError: false });
+    }
+
+    var widget = InversionWidget.create(el, { onChange: update });
+    update(widget.getC());
+  }
+  window.addEventListener('load', init);
+})();
+</script>
 
 <p class="page-footer">© Nikolai Kazimirov · <a href="https://mathem.at" rel="noopener">mathem.at</a></p>
 
