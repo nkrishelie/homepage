@@ -57,6 +57,11 @@ em{color:var(--ink)}
 .page-footer a{color:var(--ink3);text-decoration:none;border-bottom:1px solid rgba(138,134,128,.35)}
 .page-footer a:hover{color:var(--ink2);border-bottom-color:var(--ink2)}
 
+.note{border-left:3px solid var(--rust-acc);background:var(--rust-bg);border-radius:0 6px 6px 0;padding:.8rem 1.1rem;margin:1rem 0;font-size:17.5px;color:var(--ink2)}
+.note .note-head{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--rust-acc);margin-bottom:.35rem}
+.note p{margin-bottom:.55rem;color:var(--ink2)}
+.note p:last-child{margin-bottom:0}
+
 @media(max-width:700px){
   body{font-size:19px}
   .page{padding:1.5rem 1rem 3rem}
@@ -94,6 +99,22 @@ em{color:var(--ink)}
   <p>то есть вблизи $z_0$ функция $f$ приближается своей линейной частью</p>
   <p>$$f(z)\approx f(z_0)+a(z-z_0)=az+\big(f(z_0)-az_0\big).$$</p>
   <p>Это в точности подобие $w=az+b$ из материала «<a href="/Materials/complex_numbers.html">Комплексные числа: три конструкции одного поля</a>» с $b=f(z_0)-az_0$ — поворотная гомотетия с коэффициентом $|a|$ и углом поворота $\arg a$. Разница с тем материалом только в одном: там $a$ было фиксированным числом для всего преобразования плоскости, здесь $a=f'(z_0)$ меняется от точки к точке — это подобие «в бесконечно малом», своё в каждой точке области регулярности.</p>
+</section>
+
+<section id="sec-conformal">
+  <h2>2. Конформность</h2>
+  <p class="lead">Пусть через точку $z_0$ проходит гладкая кривая $\gamma(t)$, $\gamma(0)=z_0$, с касательным вектором $\gamma'(0)=\tau\ne0$. Направление кривой в $z_0$ — это $\arg\tau$; угол между двумя кривыми, пересекающимися в $z_0$ с касательными $\tau_1,\tau_2$, — это разность $\arg\tau_2-\arg\tau_1$.</p>
+  <p>Посмотрим, что происходит с этим углом под действием регулярной функции $f$ с $f'(z_0)=a\ne0$. Образ кривой — это $f(\gamma(t))$, и её касательная в $t=0$:</p>
+  <p>$$(f\circ\gamma)'(0)=\lim_{t\to0}\frac{f(\gamma(t))-f(\gamma(0))}{t}=\lim_{t\to0}\frac{f(\gamma(t))-f(z_0)}{\gamma(t)-z_0}\cdot\frac{\gamma(t)-z_0}{t}=a\tau.$$</p>
+  <p>Первый множитель стремится к $f'(z_0)=a$, потому что $\gamma(t)\to z_0$ при $t\to0$, а комплексная производная — это предел по <em>любому</em> направлению приближения (материал «<a href="/Materials/complex_regularity.html">Регулярные функции</a>», §1), не только вдоль прямой; второй множитель стремится к $\gamma'(0)=\tau$ по определению.</p>
+  <p>Значит, касательная к образу кривой — это $a\tau$: исходная касательная $\tau$, умноженная на одно и то же число $a$, для <em>любой</em> кривой через $z_0$. Для двух кривых с касательными $\tau_1,\tau_2$ угол между образами</p>
+  <p>$$\arg(a\tau_2)-\arg(a\tau_1)=\big(\arg a+\arg\tau_2\big)-\big(\arg a+\arg\tau_1\big)=\arg\tau_2-\arg\tau_1$$</p>
+  <p>— тот же угол, что и между исходными кривыми, с тем же знаком (ориентация тоже сохраняется). Это и есть <strong>конформность</strong>.</p>
+  <div class="note">
+    <span class="note-head">Теорема</span>
+    <p>Если $f$ регулярна в точке $z_0$ и $f'(z_0)\ne0$, то $f$ конформна в $z_0$: сохраняет углы между кривыми, включая знак угла.</p>
+  </div>
+  <p>Условие $f'(z_0)\ne0$ существенно: там, где производная обращается в нуль, линейная часть приближения из §1 исчезает, и углы, вообще говоря, не сохраняются. Простой пример: $f(z)=z^2$ в точке $z_0=0$. Записав $z=re^{i\theta}$, получаем $f(z)=r^2e^{2i\theta}$ — угол между любыми двумя лучами из нуля под действием $f$ удваивается, а не сохраняется.</p>
 </section>
 
 <p class="page-footer">© Nikolai Kazimirov · <a href="https://mathem.at" rel="noopener">mathem.at</a></p>
