@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="ru" style="scroll-behavior: smooth;">
+<html lang="en" style="scroll-behavior: smooth;">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Подобия плоскости: гомотетия и поворотная гомотетия</title>
-<meta name="description" content="Гомотетия, поворотная гомотетия и общая формула неподвижной точки z0=b/(1-a) — классификация подобий плоскости, продолжение материала о движениях плоскости, с перетаскиваемыми фигурами и ползунками коэффициента.">
-<link rel="canonical" href="https://mathem.at/Materials/similarities.html">
+<title>Similarities of the Plane: Homothety and Rotational Homothety</title>
+<meta name="description" content="Homothety, rotational homothety, and the general fixed-point formula z0=b/(1-a) — the classification of plane similarities, continuing the material on motions of the plane, with draggable figures and coefficient sliders.">
+<link rel="canonical" href="https://mathem.at/Materials/similarities_en.html">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Подобия плоскости: гомотетия и поворотная гомотетия">
-<meta property="og:description" content="Гомотетия, поворотная гомотетия, неподвижная точка подобия и классификация подобий плоскости — интерактивный разбор с перетаскиваемыми фигурами и калькулятором композиции.">
-<meta property="og:url" content="https://mathem.at/Materials/similarities.html">
-<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="Similarities of the Plane: Homothety and Rotational Homothety">
+<meta property="og:description" content="Homothety, rotational homothety, the fixed point of a similarity, and the classification of plane similarities — an interactive walkthrough with draggable figures and a composition calculator.">
+<meta property="og:url" content="https://mathem.at/Materials/similarities_en.html">
+<meta property="og:locale" content="en_US">
 <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPsKxw5fDtzwvdGV4dD48L3N2Zz4=" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -110,58 +110,58 @@ figcaption{font-size:16.5px;color:var(--ink3);margin-top:.6rem;line-height:1.55;
 <div class="page">
 
 <div class="topbar">
-  <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> / <a href="/#materials">Материалы</a></div>
+  <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> / <a href="/#materials">Materials</a></div>
   <div class="lang-pills">
-    <a class="lang-pill" href="/Materials/similarities_en.html">🇬🇧 EN</a>
-    <a class="lang-pill active" href="/Materials/similarities.html">🇷🇺 RU</a>
+    <a class="lang-pill active" href="/Materials/similarities_en.html">🇬🇧 EN</a>
+    <a class="lang-pill" href="/Materials/similarities.html">🇷🇺 RU</a>
   </div>
 </div>
 
 <header>
-  <p class="kicker">Геометрия · Группы</p>
-  <h1>Подобия плоскости</h1>
-  <p class="desc">Гомотетия и поворотная гомотетия расширяют движения плоскости до полного семейства подобий: в формуле $f(z)=az+b$ коэффициент $a$ теперь может быть любым (не только $|a|=1$, как для движений) — и, пока $a\ne1$, преобразование по-прежнему имеет ровно одну неподвижную точку. Ниже — интерактивные модели вместо длинных доказательств.</p>
+  <p class="kicker">Geometry · Groups</p>
+  <h1>Similarities of the Plane</h1>
+  <p class="desc">Homothety and rotational homothety extend motions of the plane to the full family of similarities: in the formula $f(z)=az+b$, the coefficient $a$ can now be anything (not just $|a|=1$, as for motions) — and, as long as $a\ne1$, the transformation still has exactly one fixed point. Below: interactive models instead of long proofs.</p>
 </header>
 
 <nav class="toc" style="background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 1.2rem 1.5rem; margin-bottom: 2.5rem;">
-  <h3 style="margin-top: 0; margin-bottom: 0.8rem; font-size: 19px;">Содержание</h3>
+  <h3 style="margin-top: 0; margin-bottom: 0.8rem; font-size: 19px;">Contents</h3>
   <ol style="margin: 0 0 0 1.5rem; padding: 0; color: var(--ink2); line-height: 1.6;">
-    <li><a href="#sec-intro" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">От движений к подобиям</a></li>
-    <li><a href="#sec-homothety" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Гомотетия</a></li>
-    <li><a href="#sec-rothomothety" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Поворотная гомотетия</a></li>
-    <li><a href="#sec-fixedpoint" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Неподвижная точка подобия</a></li>
-    <li><a href="#sec-classification" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Классификация подобий</a></li>
-    <li><a href="#sec-fz" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Подобия как функции $f(z)$</a></li>
-    <li><a href="#sec-calc" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Калькулятор композиции подобий</a></li>
+    <li><a href="#sec-intro" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">From motions to similarities</a></li>
+    <li><a href="#sec-homothety" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Homothety</a></li>
+    <li><a href="#sec-rothomothety" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Rotational homothety</a></li>
+    <li><a href="#sec-fixedpoint" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Fixed point of a similarity</a></li>
+    <li><a href="#sec-classification" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Classification of similarities</a></li>
+    <li><a href="#sec-fz" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Similarities as functions $f(z)$</a></li>
+    <li><a href="#sec-calc" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Composition calculator for similarities</a></li>
   </ol>
 </nav>
 
 <section id="sec-intro">
-  <h2>1. От движений к подобиям</h2>
-  <p class="lead"><strong>Подобие</strong> плоскости — это преобразование $P$, при котором расстояния между образами точек меняются в одно и то же число раз: $\rho(P(x),P(y)) = k\,\rho(x,y)$ для некоторого числа $k>0$, одного и того же для любых $x,y$. Число $k$ называется коэффициентом подобия.</p>
-  <p>При $k=1$ расстояния сохраняются в точности — это в точности <a href="/Materials/chasles.html">движения плоскости</a>: перенос, поворот, отражение, скользящая симметрия. Всё дальше касается случая $k\ne1$ — когда фигуры не просто перемещаются, а ещё и меняют размер.</p>
-  <p>Композиция подобий с коэффициентами $k$ и $s$ — снова подобие, с коэффициентом $ks$: это следует прямо из определения ($\rho$ умножается сначала на $k$, потом на $s$).</p>
+  <h2>1. From motions to similarities</h2>
+  <p class="lead">A <strong>similarity</strong> of the plane is a transformation $P$ under which distances between images of points change by one and the same factor: $\rho(P(x),P(y)) = k\,\rho(x,y)$ for some number $k>0$, the same for any $x,y$. The number $k$ is called the ratio of similarity.</p>
+  <p>When $k=1$, distances are preserved exactly — these are precisely the <a href="/Materials/chasles_en.html">motions of the plane</a>: translation, rotation, reflection, glide reflection. Everything from here on concerns the case $k\ne1$ — when figures aren't just moved, but also change size.</p>
+  <p>The composition of similarities with ratios $k$ and $s$ is again a similarity, with ratio $ks$: this follows directly from the definition ($\rho$ is multiplied first by $k$, then by $s$).</p>
 </section>
 
 <section id="sec-homothety">
-  <h2>2. Гомотетия</h2>
-  <p class="lead">Зафиксируем точку $O$ — центр гомотетии. Гомотетия с коэффициентом $k$ переводит точку $A$ в точку $H_O^k(A) = O + k\vec{OA}$ — на луче $OA$ (или его продолжении), на расстоянии в $|k|$ раз больше, чем $|OA|$. Перетащите центр $O$ и подвигайте ползунок $k$.</p>
-  <p>Обратите внимание, что коэффициент гомотетии может быть отрицательным. Поскольку гомотетия является частным случаем подобия (очевидно из определения), имеется прямая связь между коэффициентом гомотетии и коэффициентом соответствующего подобия, а именно: гомотетия с коэффициентом $k$ является подобием с коэффициентом $|k|$.</p>
+  <h2>2. Homothety</h2>
+  <p class="lead">Fix a point $O$ — the center of homothety. A homothety with coefficient $k$ sends a point $A$ to the point $H_O^k(A) = O + k\vec{OA}$ — on ray $OA$ (or its extension), at $|k|$ times the distance $|OA|$. Drag the center $O$ and move the $k$ slider.</p>
+  <p>Note that the homothety's own coefficient can be negative. Since a homothety is a special case of a similarity (obvious from the definition), there is a direct relationship between the homothety's coefficient and the ratio of the corresponding similarity: a homothety with coefficient $k$ is a similarity with ratio $|k|$.</p>
   <figure>
     <div class="motion-widget" id="widget-homothety"></div>
     <div class="note" id="badge-homothety-id" style="display:none">
       <span class="note-head">k = 1</span>
-      <span>Тождественное преобразование — гомотетия ничего не меняет.</span>
+      <span>The identity transformation — the homothety changes nothing.</span>
     </div>
     <div class="note" id="badge-homothety-central" style="display:none">
       <span class="note-head">k = −1</span>
-      <span>Центральная симметрия: поворот на $180^\circ$ вокруг центра $O$.</span>
+      <span>Central symmetry: a $180^\circ$ rotation about the center $O$.</span>
     </div>
-    <figcaption>Бледный контур — исходный флажок, синий — его образ при гомотетии $H_O^k$.</figcaption>
+    <figcaption>The pale outline is the original flag; the blue one is its image under the homothety $H_O^k$.</figcaption>
   </figure>
   <div class="note">
-    <span class="note-head">Композиция концентрических гомотетий</span>
-    <p>$H_O^k\circ H_O^s = H_O^{ks}$ — коэффициенты просто перемножаются. Гомотетии с общим центром и операцией композиции устроены как ненулевые числа с умножением — совсем как переносы устроены как числа со сложением ($T_a\circ T_b=T_{a+b}$).</p>
+    <span class="note-head">Composition of concentric homotheties</span>
+    <p>$H_O^k\circ H_O^s = H_O^{ks}$ — the coefficients simply multiply. Homotheties sharing a center, under composition, behave exactly like nonzero numbers under multiplication — just as translations behave like numbers under addition ($T_a\circ T_b=T_{a+b}$).</p>
   </div>
 </section>
 
@@ -173,8 +173,8 @@ window.SimilarityWidget = (function () {
   var ORIGIN = [-70, 35];
   var LOCAL_FLAG = [[-2, -28], [-2, 28], [2, 28], [2, -12], [20, -20], [2, -28]];
   var TAB_LABELS = {
-    translate: 'Перенос', homothety: 'Гомотетия', rotate: 'Поворотная гомотетия',
-    reflect: 'Отражённая гомотетия', glide: 'Скользящая симметрия'
+    translate: 'Translation', homothety: 'Homothety', rotate: 'Rotational homothety',
+    reflect: 'Reflected homothety', glide: 'Glide reflection'
   };
 
   var SNAP = 5;
@@ -497,11 +497,11 @@ window.SimilarityWidget = (function () {
 </script>
 
 <section id="sec-rothomothety">
-  <h2>3. Поворотная гомотетия</h2>
-  <p class="lead">Скомбинируем гомотетию с поворотом вокруг того же центра $O$: сначала растянуть в $k$ раз, потом повернуть на угол $\alpha$ — или наоборот, результат один и тот же, поворот и гомотетия с общим центром коммутируют: $R_O^\alpha\circ H_O^k = H_O^k\circ R_O^\alpha$. Если поместить $O$ в комплексный ноль, всё действие — это просто умножение на число $ke^{i\alpha}$.</p>
+  <h2>3. Rotational homothety</h2>
+  <p class="lead">Let's combine a homothety with a rotation about the same center $O$: first scale by $k$, then rotate by angle $\alpha$ — or the other way around, the result is the same, since a rotation and a homothety sharing a center commute: $R_O^\alpha\circ H_O^k = H_O^k\circ R_O^\alpha$. Placing $O$ at the complex zero, the whole action is simply multiplication by the number $ke^{i\alpha}$.</p>
   <figure>
     <div class="motion-widget" id="widget-rothomothety"></div>
-    <figcaption>Тащите центр $O$ и ручку угла, двигайте ползунок $k$.</figcaption>
+    <figcaption>Drag the center $O$ and the angle handle; move the $k$ slider.</figcaption>
   </figure>
 </section>
 
@@ -517,14 +517,14 @@ window.SimilarityWidget = (function () {
 </script>
 
 <section id="sec-fixedpoint">
-  <h2>4. Неподвижная точка подобия</h2>
-  <p class="lead">Если поместить центр поворотной гомотетии в комплексный ноль, её формула — умножение на $a=ke^{i\alpha}$. Со сдвигом центра формула становится $f(z)=az+b$, где $a$ — любое комплексное число, кроме нуля ($a=0$ стягивает всю плоскость в одну точку — это уже не подобие). Пока $a\ne1$ (то есть пока преобразование не сводится к чистому переносу), у него есть ровно одна неподвижная точка: из $f(z_0)=z_0$ следует $z_0=b/(1-a)$. Формулу можно переписать компактнее: $f(z)-z_0 = a(z-z_0)$ — преобразование буквально «растягивает-поворачивает» всё вокруг $z_0$ на коэффициент $a$.</p>
+  <h2>4. Fixed point of a similarity</h2>
+  <p class="lead">Placing the center of a rotational homothety at the complex zero, its formula is multiplication by $a=ke^{i\alpha}$. Shifting the center, the formula becomes $f(z)=az+b$, where $a$ is any complex number except zero ($a=0$ collapses the whole plane to a single point — that's no longer a similarity). As long as $a\ne1$ (that is, as long as the transformation doesn't reduce to a plain translation), it has exactly one fixed point: from $f(z_0)=z_0$ it follows that $z_0=b/(1-a)$. The formula can be rewritten more compactly: $f(z)-z_0 = a(z-z_0)$ — the transformation literally "stretches-and-rotates" everything around $z_0$ by the coefficient $a$.</p>
   <figure>
     <div class="motion-widget" id="widget-fixedpoint"></div>
     <div class="formula-box" id="fixedpoint-recipe"></div>
     <div class="formula-box" id="fixedpoint-params"></div>
     <div class="formula-box" id="fixedpoint-formula"></div>
-    <figcaption>Числа округлены до сотых — подстановка текущих параметров, без упрощения. При $|a|=1$ это в точности формула поворота из <a href="/Materials/chasles.html">«Движений плоскости»</a> — здесь коэффициент $a$ уже не заперт на единичной окружности.</figcaption>
+    <figcaption>Numbers are rounded to hundredths — a substitution of the current parameters, without simplification. At $|a|=1$ this is exactly the rotation formula from <a href="/Materials/chasles_en.html">"Motions of the Plane"</a> — here the coefficient $a$ is no longer locked to the unit circle.</figcaption>
   </figure>
 </section>
 
@@ -563,37 +563,37 @@ window.SimilarityWidget = (function () {
 </script>
 
 <section id="sec-classification">
-  <h2>5. Классификация подобий</h2>
+  <h2>5. Classification of similarities</h2>
   <div class="note theorem">
-    <span class="note-head">Теорема (классификация подобий плоскости)</span>
-    <p>Любое подобие плоскости — один из четырёх видов:</p>
-    <p><strong>перенос</strong> (в частности, тождественное преобразование);</p>
-    <p><strong>поворотная гомотетия</strong> (в частности, тождественное преобразование, поворот или гомотетия);</p>
-    <p><strong>скользящая симметрия</strong> (в частности, отражение);</p>
-    <p><strong>отражённая гомотетия</strong> (в частности, отражение).</p>
+    <span class="note-head">Theorem (classification of plane similarities)</span>
+    <p>Every similarity of the plane is one of four kinds:</p>
+    <p><strong>translation</strong> (in particular, the identity transformation);</p>
+    <p><strong>rotational homothety</strong> (in particular, the identity transformation, a rotation, or a homothety);</p>
+    <p><strong>glide reflection</strong> (in particular, a reflection);</p>
+    <p><strong>reflected homothety</strong> (in particular, a reflection).</p>
   </div>
-  <p>Поворотная гомотетия уже разобрана в §3. <strong>Отражённая гомотетия</strong> — её «зеркальный» аналог: гомотетия $H_{z_0}^k$, скомбинированная с отражением относительно оси, проходящей через её же центр $z_0$ (гомотетия и такое отражение коммутируют, как и гомотетия с поворотом в §3). При $k=1$ это просто обычное отражение относительно этой оси. Именно за неё отвечает вкладка «Отражённая гомотетия» в калькуляторе (§7).</p>
-  <p>Границы между классами пересекаются — и это не случайность, а часть той же картины, что уже встречалась у движений: тождественное преобразование одновременно и «нулевой» перенос, и «нулевая» поворотная гомотетия ($k=1$, $\alpha=0$); обычное отражение одновременно и скользящая симметрия с нулевым сдвигом, и отражённая гомотетия с $k=1$. Других подобий плоскости не бывает.</p>
+  <p>Rotational homothety was already covered in §3. <strong>Reflected homothety</strong> is its "mirror" counterpart: a homothety $H_{z_0}^k$ combined with a reflection across an axis through its own center $z_0$ (a homothety and such a reflection commute, just like the homothety and rotation in §3). At $k=1$ this is just an ordinary reflection across that axis. It's exactly this that the "Reflected homothety" tab in the calculator (§7) is for.</p>
+  <p>The boundaries between classes overlap — and that's not a coincidence, but part of the same picture already seen with motions: the identity transformation is at once a "zero" translation and a "zero" rotational homothety ($k=1$, $\alpha=0$); an ordinary reflection is at once a glide reflection with zero shift and a reflected homothety with $k=1$. There are no other similarities of the plane.</p>
 </section>
 
 <section id="sec-fz">
-  <h2>6. Подобия как функции $f(z)$</h2>
-  <p class="lead">Каждое подобие плоскости, как и каждое движение, записывается одной формулой в комплексных числах — только теперь коэффициент $a$ уже не заперт на единичной окружности.</p>
-  <p>$f(z)=az+b$, $a\ne0$ — <strong>собственные подобия</strong> (сохраняют ориентацию): при $a=1$ это перенос на вектор $b$; при $a\ne1$ — поворотная гомотетия с коэффициентом $|a|$, углом поворота $\arg a$ и центром $z_0=b/(1-a)$ (см. §4).</p>
-  <p>$f(z)=a\bar z+b$, $a\ne0$ — <strong>несобственные подобия</strong> (меняют ориентацию): при $|a|=1$ это скользящая симметрия, в частности отражение (см. <a href="/Materials/chasles.html">«Движения плоскости»</a>); при $|a|\ne1$ — отражённая гомотетия с коэффициентом $|a|$ (см. выше).</p>
-  <p>Ровно эти четыре случая и составляют теорему о классификации из §5 — только записанные не геометрически, а алгебраически.</p>
+  <h2>6. Similarities as functions $f(z)$</h2>
+  <p class="lead">Every similarity of the plane, like every motion, is written as a single formula in complex numbers — only now the coefficient $a$ is no longer locked to the unit circle.</p>
+  <p>$f(z)=az+b$, $a\ne0$ — <strong>orientation-preserving similarities</strong>: at $a=1$ this is a translation by vector $b$; at $a\ne1$ — a rotational homothety with coefficient $|a|$, rotation angle $\arg a$, and center $z_0=b/(1-a)$ (see §4).</p>
+  <p>$f(z)=a\bar z+b$, $a\ne0$ — <strong>orientation-reversing similarities</strong>: at $|a|=1$ this is a glide reflection, in particular a reflection (see <a href="/Materials/chasles_en.html">"Motions of the Plane"</a>); at $|a|\ne1$ — a reflected homothety with coefficient $|a|$ (see above).</p>
+  <p>These four cases are exactly the classification theorem from §5 — only written not geometrically, but algebraically.</p>
 </section>
 
 <section id="sec-calc">
-  <h2>7. Калькулятор композиции подобий</h2>
-  <p class="lead">Соберите $g$ (применяется первым) и $f$ (применяется вторым) — ниже сразу появится $f\circ g$: класс результата и его формула, посчитанные из алгебры, а не подобранные на глаз. Таблицы классов здесь сознательно нет — вместо неё исследуйте сами: например, композицию двух отражённых гомотетий с перпендикулярными осями и разными $k$, или поворотную гомотетию с $k$ и с $1/k$ вокруг одного центра.</p>
+  <h2>7. Composition calculator for similarities</h2>
+  <p class="lead">Set up $g$ (applied first) and $f$ (applied second) — below, $f\circ g$ appears immediately: the class of the result and its formula, computed from the algebra rather than eyeballed. There's deliberately no class table here — instead, explore it yourself: for instance, compose two reflected homotheties with perpendicular axes and different $k$, or a rotational homothety with $k$ and with $1/k$ about the same center.</p>
   <div class="calc-grid">
     <div class="calc-col">
-      <h4>$g$ — первым</h4>
+      <h4>$g$ — first</h4>
       <div class="motion-widget small" id="widget-calc-g"></div>
     </div>
     <div class="calc-col">
-      <h4>$f$ — вторым</h4>
+      <h4>$f$ — second</h4>
       <div class="motion-widget small" id="widget-calc-f"></div>
     </div>
   </div>
@@ -601,8 +601,8 @@ window.SimilarityWidget = (function () {
     <div class="calc-result-class" id="calc-result-class"></div>
     <div class="formula-box" id="calc-result-formula"></div>
     <figure>
-      <svg id="calc-result-svg" class="motion-frame" role="img" aria-label="Флажок, преобразованный композицией f после g" style="max-width:340px"></svg>
-      <figcaption>Тот же флажок, преобразованный сразу композицией — не в два шага.</figcaption>
+      <svg id="calc-result-svg" class="motion-frame" role="img" aria-label="The flag transformed by the composition f after g" style="max-width:340px"></svg>
+      <figcaption>The same flag, transformed by the composition in one step — not two.</figcaption>
     </figure>
   </div>
 </section>
@@ -620,8 +620,8 @@ window.SimilarityWidget = (function () {
     if (!gEl || !fEl || !window.SimilarityWidget || !window.SimilarityMath || !window.katex) return;
 
     var CLASS_LABELS = {
-      translate: 'Перенос', rotate: 'Поворотная гомотетия',
-      reflect: 'Отражённая гомотетия', glide: 'Скользящая симметрия'
+      translate: 'Translation', rotate: 'Rotational homothety',
+      reflect: 'Reflected homothety', glide: 'Glide reflection'
     };
 
     function update() {
