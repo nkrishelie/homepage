@@ -89,6 +89,13 @@ export const MATERIALS_ITEMS: MaterialItem[] = [
     "lang": "ru"
   },
   {
+    "filename": "complex_regularity.html",
+    "href": "/Materials/complex_regularity.html",
+    "title": "Регулярные функции: ряд Тейлора, интеграл Коши, формула Эйлера",
+    "category": "analysis",
+    "lang": "ru"
+  },
+  {
     "filename": "diagonal.html",
     "href": "/Materials/diagonal.html",
     "title": "Вычисление неподвижной точки арифметической формулы",
