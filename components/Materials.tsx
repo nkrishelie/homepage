@@ -54,9 +54,18 @@ export const Materials: React.FC = () => {
                         geometry: '≃',
                         sets: '∅',
                         foundations: '⊢',
+                        probability: 'P',
                       };
+                      const isProbability = group.categoryId === 'probability';
                       return (
-                        <span style={{ font: 'normal 24px Georgia, "Times New Roman", serif', lineHeight: '1' }}>
+                        <span
+                          style={{
+                            font: isProbability
+                              ? 'bold 24px Arial, Helvetica, sans-serif'
+                              : 'normal 24px Georgia, "Times New Roman", serif',
+                            lineHeight: '1',
+                          }}
+                        >
                           {categories[group.categoryId] || 'Σ'}
                         </span>
                       );
