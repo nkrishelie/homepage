@@ -1,5 +1,35 @@
 # Комплексные числа: три конструкции одного поля — Implementation Plan
 
+> **Post-ship corrections (2026-08-01, same day, after user review of the
+> shipped page):** three things below don't match what's actually live in
+> `public/Materials/complex_numbers.html` — treat the live file as the
+> source of truth, not these code blocks.
+> 1. **§1's lead** (line ~200) called `math_analysis_levels.html`'s three
+>    formalization levels "три равносильных способа" (three equivalent
+>    ways) — wrong, that page's whole point is that RCF/Weyl/ZFA are **not**
+>    equivalent, they differ in expressive power (that's why it's "levels",
+>    not "ways"). Fixed on-page to describe them as differing levels.
+> 2. **§3's lead** (line ~587) put a raw `(источник: LevelAlpha.tex, §«...»,
+>    строки 8493–8501)` citation directly in the published page text —
+>    meaningless to a reader of a private, unpublished manuscript, and not
+>    how `chasles.html`/`similarities.html` cite the same source (they
+>    don't, on-page — sourcing lives only in spec docs, see
+>    [[chasles-similarities-content-series]]). Dropped from the page.
+> 3. **`ComplexWidget`'s scale was broken** (`CAP_X`/`CAP_Y`, `Z0 = [-70,
+>    35]`, initial `state = { ax: 50, ay: -50 }`, and the "Verify in
+>    browser" numbers around line 775): the handle's raw drag distance from
+>    the origin was used directly as `|a|`, so even a small drag made `|a|`
+>    huge and `w=az_0` flew thousands of units off-canvas — confirmed by the
+>    user ("образ не виден... коэффициент a какой-то гигантский"). Fixed by
+>    adding `A_VALUE_SCALE=25` (px of drag per unit of `|a|`) and a circular
+>    `A_DRAG_CAP=100` (so `|a|` maxes at 4, matching `similarities.html`'s
+>    `k` slider), and shrinking `Z0` to `[-20,15]` (a 20-15-25 triangle) so
+>    `k_max*|Z0|=100` stays inside the 150×110 frame at every angle —
+>    verified numerically over all 360 degrees, not just the axis-aligned
+>    worst case. New default handle position: `{ax:35, ay:-35}`
+>    (`a≈1.4+1.4i`). See the live file's comments on `Z0`/`multiplyPointSvg`
+>    for the corrected reasoning, and commit `14471bf` for the exact diff.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Ship `public/Materials/complex_numbers.html` — a single self-contained,
