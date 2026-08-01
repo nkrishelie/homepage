@@ -57,9 +57,40 @@ em{color:var(--ink)}
 .page-footer a{color:var(--ink3);text-decoration:none;border-bottom:1px solid rgba(138,134,128,.35)}
 .page-footer a:hover{color:var(--ink2);border-bottom-color:var(--ink2)}
 
+.lang-section-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:.8rem}
+.lang-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:0.5px solid var(--border);margin-bottom:1rem}
+.lang-card{background:var(--bg);padding:1.3rem 1.4rem 1.3rem;display:flex;flex-direction:column;gap:.6rem}
+.lang-card.blue{background:var(--blue-bg)} .lang-card.rust{background:var(--rust-bg)} .lang-card.sage{background:var(--sage-bg)}
+.lang-card-top{display:flex;flex-direction:column;gap:2px;padding-bottom:.6rem;border-bottom:1px solid rgba(0,0,0,.08)}
+.lang-card-num{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+.blue .lang-card-num{color:var(--blue-acc)} .rust .lang-card-num{color:var(--rust-acc)} .sage .lang-card-num{color:var(--sage-acc)}
+.lang-card-name{font-size:16px;font-weight:500;color:var(--ink);line-height:1.25}
+.lang-card-sub{font-size:13px;color:var(--ink3);font-style:italic}
+.lang-card-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:2px;width:fit-content}
+.blue .lang-card-tag{background:rgba(58,95,158,.12);color:var(--blue-acc)}
+.rust .lang-card-tag{background:rgba(140,74,50,.12);color:var(--rust-acc)}
+.sage .lang-card-tag{background:rgba(46,102,69,.12);color:var(--sage-acc)}
+.lang-card-body{font-size:14.5px;color:var(--ink2);line-height:1.62}
+
+.axioms-btn{margin-top:4px;display:inline-flex;align-items:center;gap:5px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);border:0.5px solid var(--border);background:rgba(0,0,0,.03);padding:4px 10px;border-radius:3px;transition:color .15s,background .15s}
+.axioms-btn:hover{color:var(--ink2);background:rgba(0,0,0,.06)}
+.axioms-btn .arr{display:inline-block;transition:transform .2s;font-size:10px}
+.axioms-btn.active .arr{transform:rotate(90deg)}
+.axioms-panel{display:none;border:0.5px solid var(--border);border-top:none;background:var(--bg);padding:1.2rem 1.5rem 1.4rem;margin-bottom:1rem}
+.axioms-panel.open{display:block}
+.axioms-panel p{font-size:14px;color:var(--ink2);margin-top:.8rem}
+.ax-panel-title{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:.9rem}
+.ax-panel-title span{color:var(--ink2);font-weight:500}
+.ax-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.9rem 2rem}
+.ax-item{margin-bottom:.5rem}
+.ax-label{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);display:block;margin-bottom:3px}
+.ax-text{font-size:15px;color:var(--ink2)}
+
 @media(max-width:700px){
   body{font-size:19px}
   .page{padding:1.5rem 1rem 3rem}
+  .lang-cards{grid-template-columns:1fr}
+  .ax-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -91,6 +122,77 @@ em{color:var(--ink)}
   <p class="lead">Уравнение $x^2+1=0$ не имеет решений среди действительных чисел: квадрат любого вещественного числа неотрицателен, поэтому $x^2+1\ge1>0$ всегда. При этом R — уже полное упорядоченное поле (см. <a href="/Materials/math_analysis_levels.html">«Уровни формализации математического анализа»</a>, где разобраны сразу три равносильных способа задать эту полноту аксиоматически).</p>
   <p>Полнота не спасает: она гарантирует существование супремумов и пределов, но не корней многочленов. Единственный выход — расширить R до поля, где $x^2+1=0$ уже решается. Оказывается, сделать это можно (с точностью до переименования) ровно одним способом — но взглянуть на этот способ можно с трёх разных сторон.</p>
 </section>
+
+<section id="sec-construction">
+  <h2>2. Три конструкции одного поля</h2>
+  <p class="lead">Добавить к R решение уравнения $x^2+1=0$ можно ровно одним способом (с точностью до переименования) — но описать этот способ можно тремя равносильными языками.</p>
+  <p class="lang-section-label">Конструкции ℂ</p>
+  <div class="lang-cards">
+
+    <div class="lang-card blue">
+      <div class="lang-card-top">
+        <span class="lang-card-num">Конструкция I</span>
+        <span class="lang-card-name">R² с арифметикой</span>
+        <span class="lang-card-sub">пары действительных чисел</span>
+      </div>
+      <span class="lang-card-tag">покоординатная арифметика</span>
+      <p class="lang-card-body">Число — это пара $z=(x,y)$. Сложение покоординатное: $(x,y)+(x',y')=(x+x',\,y+y')$. Умножение задаётся отдельно: $(x,y)(x',y')=(xx'-yy',\,xy'+x'y)$. Обозначим $i=(0,1)$: тогда $i\cdot i=(0\cdot0-1\cdot1,\ 0\cdot1+1\cdot0)=(-1,0)$, то есть $i^2=-1$. Записываем пару $(x,y)$ как $x+iy$.</p>
+    </div>
+
+    <div class="lang-card rust">
+      <div class="lang-card-top">
+        <span class="lang-card-num">Конструкция II</span>
+        <span class="lang-card-name">Матрицы 2×2</span>
+        <span class="lang-card-sub">подкольцо $\mathrm{Mat}_2(\R)$</span>
+      </div>
+      <span class="lang-card-tag">умножение = линейный оператор</span>
+      <p class="lang-card-body">Числу $x+iy$ сопоставим матрицу $\begin{pmatrix}x&-y\\y&x\end{pmatrix}$. Сложение и умножение чисел превращаются в сложение и умножение таких матриц; $i$ соответствует матрице поворота на $90^\circ$ — $\begin{pmatrix}0&-1\\1&0\end{pmatrix}$, и её квадрат $\begin{pmatrix}-1&0\\0&-1\end{pmatrix}=-E$ подтверждает $i^2=-1$. Определитель $x^2+y^2\ne0$ при $(x,y)\ne(0,0)$ — у каждого ненулевого числа есть обратное; сопряжение — это транспонирование.</p>
+    </div>
+
+    <div class="lang-card sage">
+      <div class="lang-card-top">
+        <span class="lang-card-num">Конструкция III</span>
+        <span class="lang-card-name">$\R[x]/(x^2+1)$</span>
+        <span class="lang-card-sub">классы вычетов многочленов</span>
+      </div>
+      <span class="lang-card-tag">$i^2=-1$ по построению</span>
+      <p class="lang-card-body">Многочлен $x^2+1$ не имеет вещественных корней, поэтому неприводим над R, и факторкольцо $\R[x]/(x^2+1)$ — поле. Обозначим класс $[x]$ буквой $i$: по определению фактора $x^2+1\equiv0$, откуда $i^2=-1$ — это не проверяемый факт, а прямое следствие того, по какому многочлену берётся остаток. Каждый класс однозначно представим многочленом степени меньше 2, то есть выражением $x+iy$.</p>
+    </div>
+
+  </div>
+
+  <button type="button" class="axioms-btn" id="iso-toggle"><span class="arr">▶</span> Это один и тот же объект</button>
+  <div class="axioms-panel" id="iso-panel">
+    <div class="ax-panel-title">Три записи одного и того же числа <span>$z=2+3i$</span></div>
+    <div class="ax-grid">
+      <div class="ax-item">
+        <span class="ax-label">R² с арифметикой</span>
+        <span class="ax-text">$(2,3)$</span>
+      </div>
+      <div class="ax-item">
+        <span class="ax-label">Матрица</span>
+        <span class="ax-text">$\begin{pmatrix}2&-3\\3&2\end{pmatrix}$</span>
+      </div>
+      <div class="ax-item">
+        <span class="ax-label">Класс вычета</span>
+        <span class="ax-text">$2+3x \pmod{x^2+1}$</span>
+      </div>
+    </div>
+    <p>Между любыми двумя из этих языков есть перевод, сохраняющий сложение и умножение (изоморфизм полей) — дальше мы свободно переключаемся между ними, не уточняя каждый раз, в какой из трёх моделей идёт вычисление.</p>
+  </div>
+</section>
+
+<script>
+(function () {
+  var btn = document.getElementById('iso-toggle');
+  var panel = document.getElementById('iso-panel');
+  if (!btn || !panel) return;
+  btn.addEventListener('click', function () {
+    var open = panel.classList.toggle('open');
+    btn.classList.toggle('active', open);
+  });
+})();
+</script>
 
 <p class="page-footer">© Nikolai Kazimirov · <a href="https://mathem.at" rel="noopener">mathem.at</a></p>
 
