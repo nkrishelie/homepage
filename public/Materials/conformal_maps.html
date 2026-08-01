@@ -363,7 +363,170 @@ window.InversionWidget = (function () {
   <p>(проверяется раскрытием скобок: $\frac ac(cz+d)+\frac{bc-ad}c=az+\frac{ad}c+\frac{bc-ad}c=az+b$). Правая часть — это перенос на $d/c$, затем инверсия, затем поворотная гомотетия с коэффициентом $(bc-ad)/c^2$ (ненулевым ровно при $ad-bc\ne0$), затем перенос на $a/c$.</p>
   <p>Перенос и подобие переводят окружности и прямые в окружности и прямые тривиально (материал 1); инверсия — по теореме из §3. Композиция преобразований с этим свойством снова обладает этим свойством, поэтому и любое дробно-линейное преобразование переводит окружности и прямые в окружности и прямые — без отдельного доказательства для общего случая.</p>
   <p>Как композиция регулярных функций (перенос, инверсия и подобие регулярны и конформны везде, где определены), дробно-линейное преобразование регулярно и конформно на всей области определения — то есть всюду, кроме точки $z=-d/c$ (при $c\ne0$), где знаменатель обращается в ноль.</p>
+  <p>Проверим это не на инверсии, а на настоящем дробно-линейном преобразовании с ненулевым $a$. Возьмём классический пример $w=\dfrac{z+1}{z-1}$ (единичная окружность $|z|=1$ переходит в мнимую ось — это можно проверить прямой подстановкой $z=e^{i\theta}$) и применим тот же приём, что и в §3: сэмплируем окружность в 120 точках и построим образ.</p>
+  <figure>
+    <div class="motion-widget" id="widget-mobius"></div>
+    <div class="formula-box" id="mob-c"></div>
+    <figcaption>Точка $c$ (центр окружности) перетаскивается вокруг полюса $z=1$ преобразования $w=(z+1)/(z-1)$ — того самого $-d/c$ из общей формулы при $a=b=1$, $c=1$, $d=-1$. Бледный контур — окружность-прообраз, синяя фигура — её образ по 120 точкам: чем ближе окружность к полюсу, тем сильнее искажён и крупнее её образ.</figcaption>
+  </figure>
 </section>
+
+<script id="mobius-widget">
+window.MobiusWidget = (function () {
+  var FRAME_HALF_W = 150, FRAME_HALF_H = 110;
+  var FRAME_VB = (-FRAME_HALF_W) + ' ' + (-FRAME_HALF_H) + ' ' + (2 * FRAME_HALF_W) + ' ' + (2 * FRAME_HALF_H);
+  var SCALE = 25;          // px per unit -- same scale as the rest of the series
+  var SHAPE_R = 1;         // fixed circle radius, in units
+  var POLE = { re: 1, im: 0 }; // where z-1=0
+  var MIN_GAP = 1.7, MAX_GAP = 2.8; // |c-POLE| clamp, verified test-first
+  var SNAP = 5;            // px
+  var SAMPLES = 120;
+
+  function axesMarkup() {
+    return '<line x1="' + (-FRAME_HALF_W) + '" y1="0" x2="' + FRAME_HALF_W + '" y2="0" class="mw-coord-axis"/>' +
+      '<line x1="0" y1="' + (-FRAME_HALF_H) + '" x2="0" y2="' + FRAME_HALF_H + '" class="mw-coord-axis"/>' +
+      '<circle cx="0" cy="0" r="3" class="mw-origin"/>' +
+      '<text x="6" y="16" class="svg-label">0</text>' +
+      '<text x="' + (FRAME_HALF_W - 20) + '" y="-8" class="svg-label">Re</text>' +
+      '<text x="8" y="' + (-FRAME_HALF_H + 14) + '" class="svg-label">Im</text>';
+  }
+
+  // w = (z+1)/(z-1) -- the fixed map this widget demonstrates. Not the
+  // general (az+b)/(cz+d) -- a single well-known example, matching this
+  // series' pattern of one concrete, verified case rather than a
+  // free-parameter widget.
+  function mobius(z) {
+    var num = { re: z.re + 1, im: z.im };
+    var den = { re: z.re - 1, im: z.im };
+    var d = den.re * den.re + den.im * den.im;
+    return { re: (num.re * den.re + num.im * den.im) / d, im: (num.im * den.re - num.re * den.im) / d };
+  }
+
+  function sampleImage(c, r) {
+    var pts = [];
+    for (var i = 0; i < SAMPLES; i++) {
+      var th = i / SAMPLES * 2 * Math.PI;
+      pts.push(mobius({ re: c.re + r * Math.cos(th), im: c.im + r * Math.sin(th) }));
+    }
+    return pts;
+  }
+
+  function mathToSvg(z) { return [z.re * SCALE, -z.im * SCALE]; }
+  function svgToMath(x, y) { return { re: x / SCALE, im: -y / SCALE }; }
+  function fmtPts(pts) { return pts.map(function (p) { return p[0].toFixed(2) + ',' + p[1].toFixed(2); }).join(' '); }
+  function snap(v) { return Math.round(v / SNAP) * SNAP; }
+  // Same ring-clamp idea as InversionWidget, but centered on the POLE
+  // instead of the origin -- the pole is this map's danger point.
+  function clamp(p) {
+    var poleSvg = mathToSvg(POLE);
+    var dx = p[0] - poleSvg[0], dy = p[1] - poleSvg[1];
+    var d = Math.hypot(dx, dy);
+    var minPx = MIN_GAP * SCALE, maxPx = MAX_GAP * SCALE;
+    if (d < 1e-9) return [poleSvg[0] + minPx, poleSvg[1]];
+    var clampedD = Math.max(minPx, Math.min(maxPx, d));
+    var s = clampedD / d;
+    return [snap(poleSvg[0] + dx * s), snap(poleSvg[1] + dy * s)];
+  }
+
+  function createMobiusWidget(container, opts) {
+    var onChange = (opts && opts.onChange) || function () {};
+    // gap ~= 2.0 units from the pole: legible default, not at the boundary.
+    var state = { cx: -15, cy: 30 };
+
+    container.innerHTML = '<svg class="mw-svg motion-frame" viewBox="' + FRAME_VB + '"></svg>';
+    var svg = container.querySelector('.mw-svg');
+
+    function localPointFromClient(clientX, clientY) {
+      var rect = svg.getBoundingClientRect();
+      var vb = svg.viewBox.baseVal;
+      var s = rect.width / vb.width;
+      return [(clientX - rect.left) / s + vb.x, (clientY - rect.top) / s + vb.y];
+    }
+
+    function render() {
+      var cMath = svgToMath(state.cx, state.cy);
+      var imgSvgPts = sampleImage(cMath, SHAPE_R).map(mathToSvg);
+      var poleSvg = mathToSvg(POLE);
+
+      var parts = [];
+      parts.push(axesMarkup());
+      parts.push('<circle cx="' + poleSvg[0].toFixed(1) + '" cy="' + poleSvg[1].toFixed(1) + '" r="4" class="mw-pole"/>');
+      parts.push('<text x="' + (poleSvg[0] + 8).toFixed(1) + '" y="' + (poleSvg[1] - 8).toFixed(1) + '" class="mw-handle-label">полюс</text>');
+      parts.push('<circle cx="' + state.cx.toFixed(1) + '" cy="' + state.cy.toFixed(1) + '" r="' + (SHAPE_R * SCALE) + '" class="mw-preimage"/>');
+      parts.push('<polygon points="' + fmtPts(imgSvgPts) + '" class="mw-image"/>');
+      parts.push('<circle class="mw-handle" cx="' + state.cx.toFixed(1) + '" cy="' + state.cy.toFixed(1) + '" r="8"/>');
+      parts.push('<circle class="mw-hit" cx="' + state.cx.toFixed(1) + '" cy="' + state.cy.toFixed(1) + '" r="20"/>');
+      parts.push('<text x="' + (state.cx + 10).toFixed(1) + '" y="' + (state.cy - 10).toFixed(1) + '" class="mw-handle-label">c</text>');
+      svg.innerHTML = parts.join('');
+      wireDrag();
+      onChange({ cx: state.cx, cy: state.cy });
+    }
+
+    var dragging = false, activePointerId = null;
+    function onPointerDown(e) {
+      if (!e.target.classList || !e.target.classList.contains('mw-hit')) return;
+      dragging = true; activePointerId = e.pointerId;
+      e.preventDefault();
+    }
+    function onPointerMove(e) {
+      if (!dragging || e.pointerId !== activePointerId) return;
+      var p = clamp(localPointFromClient(e.clientX, e.clientY));
+      state.cx = p[0]; state.cy = p[1];
+      render();
+      e.preventDefault();
+    }
+    function onPointerUp(e) {
+      if (e.pointerId !== activePointerId) return;
+      dragging = false; activePointerId = null;
+    }
+    function wireDrag() {
+      var hit = svg.querySelector('.mw-hit');
+      hit.removeEventListener('pointerdown', onPointerDown);
+      hit.addEventListener('pointerdown', onPointerDown);
+    }
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerup', onPointerUp);
+    window.addEventListener('pointercancel', onPointerUp);
+
+    render();
+    return { getC: function () { return { cx: state.cx, cy: state.cy }; } };
+  }
+
+  return {
+    create: createMobiusWidget,
+    _test: {
+      mobius: mobius,
+      svgToMath: svgToMath,
+      POLE: POLE, SCALE: SCALE, SHAPE_R: SHAPE_R, MIN_GAP: MIN_GAP, MAX_GAP: MAX_GAP
+    }
+  };
+})();
+</script>
+
+<script>
+(function () {
+  var el = document.getElementById('widget-mobius');
+  var cEl = document.getElementById('mob-c');
+
+  function init() {
+    if (!el || !cEl || !window.MobiusWidget || !window.katex) return;
+
+    function fmtComplex(z) {
+      var sign = z.im < 0 ? '-' : '+';
+      return z.re.toFixed(2) + ' ' + sign + ' ' + Math.abs(z.im).toFixed(2) + 'i';
+    }
+
+    function update(state) {
+      var c = MobiusWidget._test.svgToMath(state.cx, state.cy);
+      katex.render('c \\approx ' + fmtComplex(c), cEl, { throwOnError: false });
+    }
+
+    var widget = MobiusWidget.create(el, { onChange: update });
+    update(widget.getC());
+  }
+  window.addEventListener('load', init);
+})();
+</script>
 
 <section id="sec-conclusion">
   <h2>5. Заключение</h2>
