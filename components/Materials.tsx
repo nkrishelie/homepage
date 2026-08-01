@@ -51,6 +51,7 @@ export const Materials: React.FC = () => {
                       const categories: Record<string, string> = {
                         analysis: '∫',
                         algebra: '±×÷',
+                        geometry: '≃',
                         sets: '∅',
                         foundations: '⊢',
                       };
