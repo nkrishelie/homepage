@@ -68,6 +68,9 @@ em{color:var(--ink)}
 .mw-origin{fill:var(--ink3)}
 .mw-preimage{fill:rgba(26,25,23,.08);stroke:var(--ink3);stroke-width:1;stroke-dasharray:3 3}
 .mw-image{fill:rgba(58,95,158,.18);stroke:var(--blue-acc);stroke-width:1.6}
+.mw-preimage-grid{fill:rgba(26,25,23,.04);stroke:var(--ink3);stroke-width:.7;stroke-dasharray:2 3;opacity:.65}
+.mw-image-grid{fill:rgba(58,95,158,.09);stroke:var(--blue-acc);stroke-width:1;opacity:.55}
+.mw-pole{fill:var(--coral-acc)}
 .mw-handle{fill:var(--ink);stroke:var(--bg);stroke-width:1.5}
 .mw-hit{fill:#000;opacity:0;cursor:grab;touch-action:none}
 .mw-hit:active{cursor:grabbing}
@@ -149,7 +152,7 @@ figcaption{font-size:16.5px;color:var(--ink3);margin-top:.6rem;line-height:1.55;
     <div class="motion-widget" id="widget-inversion"></div>
     <div class="formula-box" id="inv-c"></div>
     <div class="formula-box" id="inv-image"></div>
-    <figcaption>Центр $c$ перетаскивается; радиус окружности зафиксирован. Бледный контур — окружность-прообраз, синяя фигура — её образ, построенный по 120 точкам (численная проверка того, что формула выше действительно даёт окружность, а не что-то похожее на неё).</figcaption>
+    <figcaption>Точка $c$ перетаскивается; вместе с ней сдвигается цепочка из пяти одинаковых окружностей (радиус зафиксирован). Выделенная окружность и её числа в панели ниже соответствуют самой точке $c$; остальные четыре — та же инверсия, применённая одновременно к соседним окружностям, просто чтобы было видно, как деформируется целая цепочка, а не одна фигура. Бледные контуры — окружности-прообразы, синие фигуры — их образы, каждый по 120 точкам (численная проверка того, что формула выше действительно даёт окружность, а не что-то похожее на неё).</figcaption>
   </figure>
 </section>
 
@@ -159,9 +162,16 @@ window.InversionWidget = (function () {
   var FRAME_VB = (-FRAME_HALF_W) + ' ' + (-FRAME_HALF_H) + ' ' + (2 * FRAME_HALF_W) + ' ' + (2 * FRAME_HALF_H);
   var SCALE = 25;         // px per unit -- same scale as the rest of the series
   var SHAPE_R = 1;        // fixed circle radius, in units
-  var MIN_C = 1.3, MAX_C = 4; // |c| clamp, in units -- keeps the circle off
-                               // the origin and the image inside the frame
-                               // at every angle (verified test-first)
+  // |c| clamp, in units. MAX_C was originally 4, but that let the *preimage*
+  // ghost circle poke past the frame's 110px half-height when dragged
+  // straight up or down (150x110 is not square, and only the image was
+  // ever verified -- the preimage bound was a real, shipped bug, found
+  // while re-verifying this widget for the grid addition below). 2.8 keeps
+  // both preimage and image inside the frame at every angle, for the whole
+  // 5-circle grid, not just the single anchor circle (verified test-first).
+  var MIN_C = 1.3, MAX_C = 2.8;
+  var GRID_SPACING = 0.6; // units, tangential spacing between grid circles
+  var GRID_KS = [-2, -1, 0, 1, 2]; // offsets in units of GRID_SPACING; 0 is the anchor
   var SNAP = 5;           // px
   var SAMPLES = 120;
 
@@ -194,6 +204,20 @@ window.InversionWidget = (function () {
       pts.push(invert({ re: c.re + r * Math.cos(th), im: c.im + r * Math.sin(th) }));
     }
     return pts;
+  }
+
+  // Offsets the anchor c TANGENTIALLY (perpendicular to the c direction,
+  // not toward/away from the origin) to build a row of circle centers.
+  // This is what makes MIN_C=1.3 still a valid safety bound for every
+  // circle in the row: |c + k*s*that|^2 = |c|^2 + (k*s)^2 (Pythagoras,
+  // since that _|_ c), so no offset circle's center is ever closer to the
+  // origin than |c| itself -- verified test-first, not just argued here.
+  function gridCenters(c) {
+    var mag = Math.hypot(c.re, c.im);
+    var vhat = mag < 1e-9 ? { re: 0, im: 1 } : { re: -c.im / mag, im: c.re / mag };
+    return GRID_KS.map(function (k) {
+      return { re: c.re + k * GRID_SPACING * vhat.re, im: c.im + k * GRID_SPACING * vhat.im };
+    });
   }
 
   function mathToSvg(z) { return [z.re * SCALE, -z.im * SCALE]; }
@@ -231,12 +255,19 @@ window.InversionWidget = (function () {
 
     function render() {
       var cMath = svgToMath(state.cx, state.cy);
-      var imgSvgPts = sampleImage(cMath, SHAPE_R).map(mathToSvg);
+      var centers = gridCenters(cMath);
 
       var parts = [];
       parts.push(axesMarkup());
-      parts.push('<circle cx="' + state.cx.toFixed(1) + '" cy="' + state.cy.toFixed(1) + '" r="' + (SHAPE_R * SCALE) + '" class="mw-preimage"/>');
-      parts.push('<polygon points="' + fmtPts(imgSvgPts) + '" class="mw-image"/>');
+      centers.forEach(function (center, i) {
+        var isAnchor = GRID_KS[i] === 0;
+        var centerSvg = mathToSvg(center);
+        var imgSvgPts = sampleImage(center, SHAPE_R).map(mathToSvg);
+        var preCls = isAnchor ? 'mw-preimage' : 'mw-preimage-grid';
+        var imgCls = isAnchor ? 'mw-image' : 'mw-image-grid';
+        parts.push('<circle cx="' + centerSvg[0].toFixed(1) + '" cy="' + centerSvg[1].toFixed(1) + '" r="' + (SHAPE_R * SCALE) + '" class="' + preCls + '"/>');
+        parts.push('<polygon points="' + fmtPts(imgSvgPts) + '" class="' + imgCls + '"/>');
+      });
       parts.push('<circle class="mw-handle" cx="' + state.cx.toFixed(1) + '" cy="' + state.cy.toFixed(1) + '" r="8"/>');
       parts.push('<circle class="mw-hit" cx="' + state.cx.toFixed(1) + '" cy="' + state.cy.toFixed(1) + '" r="20"/>');
       // Bare symbol only -- see complex_numbers.html's post-ship fix: an
@@ -284,7 +315,9 @@ window.InversionWidget = (function () {
       invert: invert,
       imageCircle: imageCircle,
       svgToMath: svgToMath,
-      SCALE: SCALE, SHAPE_R: SHAPE_R, MIN_C: MIN_C, MAX_C: MAX_C
+      gridCenters: gridCenters,
+      SCALE: SCALE, SHAPE_R: SHAPE_R, MIN_C: MIN_C, MAX_C: MAX_C,
+      GRID_SPACING: GRID_SPACING, GRID_KS: GRID_KS
     }
   };
 })();
