@@ -82,6 +82,13 @@ export const MATERIALS_ITEMS: MaterialItem[] = [
     "lang": "ru"
   },
   {
+    "filename": "complex_numbers.html",
+    "href": "/Materials/complex_numbers.html",
+    "title": "Комплексные числа: три конструкции одного поля",
+    "category": "analysis",
+    "lang": "ru"
+  },
+  {
     "filename": "diagonal.html",
     "href": "/Materials/diagonal.html",
     "title": "Вычисление неподвижной точки арифметической формулы",
