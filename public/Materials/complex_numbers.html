@@ -86,6 +86,26 @@ em{color:var(--ink)}
 .ax-label{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);display:block;margin-bottom:3px}
 .ax-text{font-size:15px;color:var(--ink2)}
 
+.motion-frame{width:100%;max-width:560px;height:auto;aspect-ratio:300/220;display:block;background:var(--bg2);border:1px solid var(--border);border-radius:6px;touch-action:none}
+.motion-widget{margin:1rem 0;max-width:560px}
+.mw-flag-ghost{fill:rgba(26,25,23,.08);stroke:var(--ink3);stroke-width:1;stroke-dasharray:3 3}
+.mw-flag-solid{fill:rgba(58,95,158,.18);stroke:var(--blue-acc);stroke-width:1.6}
+.mw-vector{stroke:var(--blue-acc);stroke-width:2}
+.mw-handle{fill:var(--ink);stroke:var(--bg);stroke-width:1.5}
+.mw-hit{fill:#000;opacity:0;cursor:grab;touch-action:none}
+.mw-hit:active{cursor:grabbing}
+.mw-coord-axis{stroke:var(--ink3);stroke-width:1;opacity:.55}
+.mw-origin{fill:var(--ink3)}
+.mw-handle-label{font-family:'JetBrains Mono',monospace;font-size:11px;fill:var(--ink2)}
+figure{margin:1.4rem 0}
+figcaption{font-size:16.5px;color:var(--ink3);margin-top:.6rem;line-height:1.55;font-style:italic}
+.svg-label{font-family:'JetBrains Mono',monospace;font-size:13px;fill:var(--ink2)}
+.formula-box{font-family:'JetBrains Mono',monospace;font-size:16px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:.8rem 1.1rem;margin-top:.8rem;color:var(--ink)}
+.note{border-left:3px solid var(--rust-acc);background:var(--rust-bg);border-radius:0 6px 6px 0;padding:.8rem 1.1rem;margin:1rem 0;font-size:17.5px;color:var(--ink2)}
+.note .note-head{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--rust-acc);margin-bottom:.35rem}
+.note p{margin-bottom:.55rem;color:var(--ink2)}
+.note p:last-child{margin-bottom:0}
+
 @media(max-width:700px){
   body{font-size:19px}
   .page{padding:1.5rem 1rem 3rem}
@@ -181,6 +201,182 @@ em{color:var(--ink)}
     <p>Между любыми двумя из этих языков есть перевод, сохраняющий сложение и умножение (изоморфизм полей) — дальше мы свободно переключаемся между ними, не уточняя каждый раз, в какой из трёх моделей идёт вычисление.</p>
   </div>
 </section>
+
+<section id="sec-multiplication">
+  <h2>3. Умножение — это подобие</h2>
+  <p class="lead">Возьмём любое $a\ne0$ и посмотрим на преобразование плоскости $w=az$. Это в точности поворотная гомотетия с центром в нуле: коэффициент растяжения $|a|$, угол поворота $\arg a$ (источник: LevelAlpha.tex, §«Матрицы и комплексные числа», строки 8493–8501) — тот же объект, что уже разобран в <a href="/Materials/similarities.html">«Подобиях плоскости»</a>, только теперь центр всегда закреплён в нуле, а сдвиг $b=0$.</p>
+  <figure>
+    <div class="motion-widget" id="widget-multiply"></div>
+    <div class="formula-box" id="mult-a"></div>
+    <div class="formula-box" id="mult-w"></div>
+    <figcaption>Перетащите точку $a$ — канва покажет, во что превращается закреплённый флажок $z_0$ при умножении на $a$. Бледный контур — исходное положение $z_0$, синий — образ $w=az_0$.</figcaption>
+  </figure>
+  <div class="note">
+    <span class="note-head">a = 0</span>
+    <p>Условие $a\ne0$ существенно: при $a=0$ вся плоскость стягивается в одну точку (в ноль) — это уже не подобие, а вырожденное отображение.</p>
+  </div>
+</section>
+
+<script id="complex-widget">
+window.ComplexWidget = (function () {
+  var FRAME_HALF_W = 150, FRAME_HALF_H = 110;
+  var CAP_X = 140, CAP_Y = 100;
+  var FRAME_VB = (-FRAME_HALF_W) + ' ' + (-FRAME_HALF_H) + ' ' + (2 * FRAME_HALF_W) + ' ' + (2 * FRAME_HALF_H);
+  // Same anchor point similarities.html uses for its flag (its ORIGIN
+  // constant) -- same flag, now seen under complex multiplication instead
+  // of a general similarity.
+  var Z0 = [-70, 35];
+  var LOCAL_FLAG = [[-2, -28], [-2, 28], [2, 28], [2, -12], [20, -20], [2, -28]];
+
+  var SNAP = 5;
+  function snap(v) { return Math.round(v / SNAP) * SNAP; }
+  function clamp(p) {
+    var x = Math.max(-CAP_X, Math.min(CAP_X, p[0]));
+    var y = Math.max(-CAP_Y, Math.min(CAP_Y, p[1]));
+    return [snap(x), snap(y)];
+  }
+  function fmtCoord(x, y) {
+    var im = -y;
+    var sign = im < 0 ? '-' : '+';
+    return x.toFixed(2) + ' ' + sign + ' ' + Math.abs(im).toFixed(2) + 'i';
+  }
+  function flagPoints(anchor, angle) {
+    var a = angle || 0, cos = Math.cos(a), sin = Math.sin(a);
+    return LOCAL_FLAG.map(function (p) {
+      return [p[0] * cos - p[1] * sin + anchor[0], p[0] * sin + p[1] * cos + anchor[1]];
+    });
+  }
+  function fmtPts(pts) {
+    return pts.map(function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' ');
+  }
+  function axesMarkup() {
+    return '<line x1="' + (-FRAME_HALF_W) + '" y1="0" x2="' + FRAME_HALF_W + '" y2="0" class="mw-coord-axis"/>' +
+      '<line x1="0" y1="' + (-FRAME_HALF_H) + '" x2="0" y2="' + FRAME_HALF_H + '" class="mw-coord-axis"/>' +
+      '<circle cx="0" cy="0" r="3" class="mw-origin"/>' +
+      '<text x="6" y="16" class="svg-label">0</text>' +
+      '<text x="' + (FRAME_HALF_W - 20) + '" y="-8" class="svg-label">Re</text>' +
+      '<text x="8" y="' + (-FRAME_HALF_H + 14) + '" class="svg-label">Im</text>';
+  }
+  // Identical to similarities.html's rotateScalePoint (SimilarityWidget) --
+  // here the center c is always [0,0], never dragged.
+  function rotateScalePoint(pt, c, ang, k) {
+    var dx = (pt[0] - c[0]) * k, dy = (pt[1] - c[1]) * k;
+    var cos = Math.cos(ang), sin = Math.sin(ang);
+    return [c[0] + dx * cos - dy * sin, c[1] + dx * sin + dy * cos];
+  }
+  function multiplyPointSvg(ax, ay, px, py) {
+    return rotateScalePoint([px, py], [0, 0], Math.atan2(ay, ax), Math.hypot(ax, ay));
+  }
+  function imageOfZ0(ax, ay) {
+    return flagPoints(Z0, 0).map(function (pt) { return multiplyPointSvg(ax, ay, pt[0], pt[1]); });
+  }
+
+  function createComplexWidget(container, opts) {
+    var onChange = (opts && opts.onChange) || function () {};
+    var state = { ax: 50, ay: -50 };
+
+    container.innerHTML = '<svg class="mw-svg motion-frame" viewBox="' + FRAME_VB + '"></svg>';
+    var svg = container.querySelector('.mw-svg');
+
+    function localPointFromClient(clientX, clientY) {
+      var rect = svg.getBoundingClientRect();
+      var vb = svg.viewBox.baseVal;
+      var s = rect.width / vb.width;
+      return [(clientX - rect.left) / s + vb.x, (clientY - rect.top) / s + vb.y];
+    }
+
+    function render() {
+      var parts = [];
+      parts.push(axesMarkup());
+      parts.push('<line x1="0" y1="0" x2="' + state.ax.toFixed(1) + '" y2="' + state.ay.toFixed(1) + '" class="mw-vector"/>');
+      parts.push('<polygon points="' + fmtPts(flagPoints(Z0, 0)) + '" class="mw-flag-ghost"/>');
+      parts.push('<polygon points="' + fmtPts(imageOfZ0(state.ax, state.ay)) + '" class="mw-flag-solid"/>');
+      parts.push('<circle class="mw-handle" cx="' + state.ax.toFixed(1) + '" cy="' + state.ay.toFixed(1) + '" r="8"/>');
+      parts.push('<circle class="mw-hit" cx="' + state.ax.toFixed(1) + '" cy="' + state.ay.toFixed(1) + '" r="20"/>');
+      parts.push('<text x="' + (state.ax + 10).toFixed(1) + '" y="' + (state.ay - 10).toFixed(1) + '" class="mw-handle-label">a = ' + fmtCoord(state.ax, state.ay) + '</text>');
+      svg.innerHTML = parts.join('');
+      wireDrag();
+      onChange({ ax: state.ax, ay: state.ay });
+    }
+
+    var dragging = false, activePointerId = null;
+    function onPointerDown(e) {
+      if (!e.target.classList || !e.target.classList.contains('mw-hit')) return;
+      dragging = true; activePointerId = e.pointerId;
+      e.preventDefault();
+    }
+    function onPointerMove(e) {
+      if (!dragging || e.pointerId !== activePointerId) return;
+      var p = clamp(localPointFromClient(e.clientX, e.clientY));
+      state.ax = p[0]; state.ay = p[1];
+      render();
+      e.preventDefault();
+    }
+    function onPointerUp(e) {
+      if (e.pointerId !== activePointerId) return;
+      dragging = false; activePointerId = null;
+    }
+    function wireDrag() {
+      var hit = svg.querySelector('.mw-hit');
+      hit.removeEventListener('pointerdown', onPointerDown);
+      hit.addEventListener('pointerdown', onPointerDown);
+    }
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerup', onPointerUp);
+    window.addEventListener('pointercancel', onPointerUp);
+
+    render();
+    return { getA: function () { return { ax: state.ax, ay: state.ay }; } };
+  }
+
+  return {
+    create: createComplexWidget,
+    // Z0 is the single source of truth for the flag's fixed anchor -- the
+    // live KaTeX panel script below reads it from here instead of hardcoding
+    // its own copy, so the two can never drift apart.
+    Z0: Z0,
+    // Exposed for the test suite only -- not used by the page itself.
+    _test: {
+      svgToMath: function (x, y) { return { re: x, im: -y }; },
+      multiplyPointSvg: multiplyPointSvg
+    }
+  };
+})();
+</script>
+
+<script>
+(function () {
+  var el = document.getElementById('widget-multiply');
+  var aEl = document.getElementById('mult-a');
+  var wEl = document.getElementById('mult-w');
+
+  // katex.min.js is <script defer>, so it only runs after this (non-deferred,
+  // inline) script has already executed during parsing -- window.katex is
+  // not defined yet at this point. Wait for window 'load' (same reason as
+  // similarities.html's §4 constructor script).
+  function init() {
+    if (!el || !aEl || !wEl || !window.ComplexWidget || !window.katex) return;
+
+    function update(state) {
+      var a = { re: state.ax, im: -state.ay };
+      var z0 = { re: ComplexWidget.Z0[0], im: -ComplexWidget.Z0[1] };
+      var w = { re: a.re * z0.re - a.im * z0.im, im: a.re * z0.im + a.im * z0.re };
+      var modulus = Math.hypot(a.re, a.im);
+      var argDeg = Math.atan2(-state.ay, state.ax) * 180 / Math.PI;
+      var fmt = function (u) {
+        var sign = u.im < 0 ? '-' : '+';
+        return u.re.toFixed(2) + ' ' + sign + ' ' + Math.abs(u.im).toFixed(2) + 'i';
+      };
+      katex.render('a \\approx ' + fmt(a) + ',\\quad |a|\\approx ' + modulus.toFixed(2) + ',\\quad \\arg a \\approx ' + argDeg.toFixed(1) + '^\\circ', aEl, { throwOnError: false });
+      katex.render('w = az_0 \\approx ' + fmt(w), wEl, { throwOnError: false });
+    }
+
+    var widget = ComplexWidget.create(el, { onChange: update });
+    update(widget.getA());
+  }
+  window.addEventListener('load', init);
+})();
+</script>
 
 <script>
 (function () {
