@@ -208,6 +208,13 @@ export const MATERIALS_ITEMS: MaterialItem[] = [
     "lang": "ru"
   },
   {
+    "filename": "similarities_en.html",
+    "href": "/Materials/similarities_en.html",
+    "title": "Similarities of the Plane: Homothety and Rotational Homothety",
+    "category": "geometry",
+    "lang": "en"
+  },
+  {
     "filename": "similarities.html",
     "href": "/Materials/similarities.html",
     "title": "Подобия плоскости: гомотетия и поворотная гомотетия",
