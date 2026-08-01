@@ -96,6 +96,13 @@ export const MATERIALS_ITEMS: MaterialItem[] = [
     "lang": "ru"
   },
   {
+    "filename": "conformal_maps.html",
+    "href": "/Materials/conformal_maps.html",
+    "title": "Конформность и дробно-линейные преобразования",
+    "category": "analysis",
+    "lang": "ru"
+  },
+  {
     "filename": "diagonal.html",
     "href": "/Materials/diagonal.html",
     "title": "Вычисление неподвижной точки арифметической формулы",
