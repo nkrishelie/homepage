@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="ru" style="scroll-behavior: smooth;">
+<html lang="en" style="scroll-behavior: smooth;">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Комплексные числа: три конструкции одного поля</title>
-<meta name="description" content="R² с покоординатной арифметикой, представление 2×2-матрицами и факторкольцо R[x]/(x²+1) — три равносильных способа построить поле комплексных чисел. Умножение на комплексное число как поворотная гомотетия, с перетаскиваемой точкой.">
-<link rel="canonical" href="https://mathem.at/Materials/complex_numbers.html">
+<title>Complex Numbers: Three Constructions of One Field</title>
+<meta name="description" content="R² with coordinatewise arithmetic, a 2×2-matrix representation, and the quotient ring R[x]/(x²+1) — three equivalent ways to build the field of complex numbers. Multiplication by a complex number as rotational homothety, with a draggable point.">
+<link rel="canonical" href="https://mathem.at/Materials/complex_numbers_en.html">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Комплексные числа: три конструкции одного поля">
-<meta property="og:description" content="Три равносильных способа построить поле комплексных чисел — и интерактивная демонстрация того, что умножение на комплексное число есть поворотная гомотетия.">
-<meta property="og:url" content="https://mathem.at/Materials/complex_numbers.html">
-<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="Complex Numbers: Three Constructions of One Field">
+<meta property="og:description" content="Three equivalent ways to build the field of complex numbers — and an interactive demonstration that multiplying by a complex number is rotational homothety.">
+<meta property="og:url" content="https://mathem.at/Materials/complex_numbers_en.html">
+<meta property="og:locale" content="en_US">
 <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPsKxw5fDtzwvdGV4dD48L3N2Zz4=" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -122,106 +122,106 @@ figcaption{font-size:16.5px;color:var(--ink3);margin-top:.6rem;line-height:1.55;
 <div class="page">
 
 <div class="topbar">
-  <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> / <a href="/#materials">Материалы</a></div>
+  <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> / <a href="/#materials">Materials</a></div>
   <div class="lang-pills">
-    <a class="lang-pill" href="/Materials/complex_numbers_en.html">🇬🇧 EN</a>
-    <a class="lang-pill active" href="/Materials/complex_numbers.html">🇷🇺 RU</a>
+    <a class="lang-pill active" href="/Materials/complex_numbers_en.html">🇬🇧 EN</a>
+    <a class="lang-pill" href="/Materials/complex_numbers.html">🇷🇺 RU</a>
   </div>
 </div>
 
 <header>
-  <p class="kicker">Математический анализ · Комплексные числа</p>
-  <h1>Три конструкции ℂ</h1>
-  <p class="desc">Уравнение $x^2+1=0$ не имеет решений в R — но добавить к R решение можно ровно одним способом (с точностью до переименования), и посмотреть на этот способ можно с трёх разных сторон. А заодно увидеть, что умножение на комплексное число — это в точности та поворотная гомотетия, что уже разобрана в «Подобиях плоскости».</p>
+  <p class="kicker">Mathematical Analysis · Complex Numbers</p>
+  <h1>Three Constructions of ℂ</h1>
+  <p class="desc">The equation $x^2+1=0$ has no solutions in R — but adding a solution to R can be done in exactly one way (up to renaming), and that one way can be looked at from three different angles. Along the way we'll see that multiplying by a complex number is exactly the rotational homothety already covered in «Similarities of the Plane».</p>
 </header>
 
 <nav class="toc" style="background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 1.2rem 1.5rem; margin-bottom: 2.5rem;">
-  <h3 style="margin-top: 0; margin-bottom: 0.8rem; font-size: 19px;">Содержание</h3>
+  <h3 style="margin-top: 0; margin-bottom: 0.8rem; font-size: 19px;">Contents</h3>
   <ol style="margin: 0 0 0 1.5rem; padding: 0; color: var(--ink2); line-height: 1.6;">
-    <li><a href="#sec-intro" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Зачем ещё одно число</a></li>
-    <li><a href="#sec-construction" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Три конструкции одного поля</a></li>
-    <li><a href="#sec-multiplication" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Умножение — это подобие</a></li>
-    <li><a href="#sec-next" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Что дальше</a></li>
+    <li><a href="#sec-intro" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Why Another Number</a></li>
+    <li><a href="#sec-construction" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Three Constructions of One Field</a></li>
+    <li><a href="#sec-multiplication" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Multiplication Is a Similarity</a></li>
+    <li><a href="#sec-next" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">What's Next</a></li>
   </ol>
 </nav>
 
 <section id="sec-intro">
-  <h2>1. Зачем ещё одно число</h2>
-  <p class="lead">Уравнение $x^2+1=0$ не имеет решений среди действительных чисел: квадрат любого вещественного числа неотрицателен, и потому $x^2+1\ge1>0$ при любом $x$. При этом R — уже полное упорядоченное поле (см. <a href="/Materials/math_analysis_levels.html">«Уровни формализации математического анализа»</a>, где эта полнота представлена сразу на трёх уровнях формализации разной выразительной силы — от языка 1-го порядка над RCF до ZFA, — заведомо не равносильных друг другу).</p>
-  <p>Полнота, однако, не даёт алгебраической замкнутости: она обеспечивает существование супремумов и пределов, но не корней многочленов. Расширить R до поля, в котором уравнение $x^2+1=0$ разрешимо, можно — и притом ровно одним способом, с точностью до переименования элементов. Ниже этот способ рассмотрен с трёх разных точек зрения.</p>
+  <h2>1. Why Another Number</h2>
+  <p class="lead">The equation $x^2+1=0$ has no solutions among the real numbers: the square of any real number is non-negative, so $x^2+1\ge1>0$ for every $x$. Yet R is already a complete ordered field (see <a href="/Materials/math_analysis_levels_en.html">«Levels of Formalization of Mathematical Analysis»</a>, where that completeness is laid out at three levels of formalization of differing expressive power — from a first-order language over RCF to ZFA — deliberately not equivalent to one another).</p>
+  <p>Completeness, however, doesn't give algebraic closure: it guarantees the existence of suprema and limits, not roots of polynomials. R can be extended to a field in which $x^2+1=0$ is solvable — and in exactly one way, up to renaming the elements. Below, that one way is examined from three different angles.</p>
 </section>
 
 <section id="sec-construction">
-  <h2>2. Три конструкции одного поля</h2>
-  <p class="lead">Единственность конструкции не означает единственности описания: ниже — три равносильных языка, на которых обычно вводят поле ℂ.</p>
-  <p class="lang-section-label">Конструкции ℂ</p>
+  <h2>2. Three Constructions of One Field</h2>
+  <p class="lead">Uniqueness of the construction doesn't mean uniqueness of description: below are three equivalent languages commonly used to introduce the field ℂ.</p>
+  <p class="lang-section-label">Constructions of ℂ</p>
   <div class="lang-cards">
 
     <div class="lang-card blue">
       <div class="lang-card-top">
-        <span class="lang-card-num">Конструкция I</span>
-        <span class="lang-card-name">R² с арифметикой</span>
-        <span class="lang-card-sub">пары действительных чисел</span>
+        <span class="lang-card-num">Construction I</span>
+        <span class="lang-card-name">R² with arithmetic</span>
+        <span class="lang-card-sub">pairs of real numbers</span>
       </div>
-      <span class="lang-card-tag">покоординатная арифметика</span>
-      <p class="lang-card-body">Число — это пара $z=(x,y)$. Сложение покоординатное: $(x,y)+(x',y')=(x+x',\,y+y')$. Умножение задаётся отдельно: $(x,y)(x',y')=(xx'-yy',\,xy'+x'y)$. Обозначим $i=(0,1)$: тогда $i\cdot i=(0\cdot0-1\cdot1,\ 0\cdot1+1\cdot0)=(-1,0)$, то есть $i^2=-1$. Записываем пару $(x,y)$ как $x+iy$.</p>
+      <span class="lang-card-tag">coordinatewise arithmetic</span>
+      <p class="lang-card-body">A number is a pair $z=(x,y)$. Addition is coordinatewise: $(x,y)+(x',y')=(x+x',\,y+y')$. Multiplication is defined separately: $(x,y)(x',y')=(xx'-yy',\,xy'+x'y)$. Let $i=(0,1)$: then $i\cdot i=(0\cdot0-1\cdot1,\ 0\cdot1+1\cdot0)=(-1,0)$, that is, $i^2=-1$. We write the pair $(x,y)$ as $x+iy$.</p>
     </div>
 
     <div class="lang-card rust">
       <div class="lang-card-top">
-        <span class="lang-card-num">Конструкция II</span>
-        <span class="lang-card-name">Матрицы 2×2</span>
-        <span class="lang-card-sub">подкольцо $\mathrm{Mat}_2(\R)$</span>
+        <span class="lang-card-num">Construction II</span>
+        <span class="lang-card-name">2×2 matrices</span>
+        <span class="lang-card-sub">a subring of $\mathrm{Mat}_2(\R)$</span>
       </div>
-      <span class="lang-card-tag">умножение = линейный оператор</span>
-      <p class="lang-card-body">Числу $x+iy$ сопоставим матрицу $\begin{pmatrix}x&-y\\y&x\end{pmatrix}$. Сложение и умножение чисел превращаются в сложение и умножение таких матриц; $i$ соответствует матрице поворота на $90^\circ$ — $\begin{pmatrix}0&-1\\1&0\end{pmatrix}$, и её квадрат $\begin{pmatrix}-1&0\\0&-1\end{pmatrix}=-E$ подтверждает $i^2=-1$. Определитель $x^2+y^2\ne0$ при $(x,y)\ne(0,0)$ — у каждого ненулевого числа есть обратное; сопряжение — это транспонирование.</p>
+      <span class="lang-card-tag">multiplication = linear operator</span>
+      <p class="lang-card-body">To the number $x+iy$ we assign the matrix $\begin{pmatrix}x&-y\\y&x\end{pmatrix}$. Addition and multiplication of numbers become addition and multiplication of such matrices; $i$ corresponds to the $90^\circ$ rotation matrix $\begin{pmatrix}0&-1\\1&0\end{pmatrix}$, and its square $\begin{pmatrix}-1&0\\0&-1\end{pmatrix}=-E$ confirms $i^2=-1$. The determinant $x^2+y^2\ne0$ whenever $(x,y)\ne(0,0)$ — every nonzero number has an inverse; conjugation is transposition.</p>
     </div>
 
     <div class="lang-card sage">
       <div class="lang-card-top">
-        <span class="lang-card-num">Конструкция III</span>
+        <span class="lang-card-num">Construction III</span>
         <span class="lang-card-name">$\R[x]/(x^2+1)$</span>
-        <span class="lang-card-sub">классы вычетов многочленов</span>
+        <span class="lang-card-sub">residue classes of polynomials</span>
       </div>
-      <span class="lang-card-tag">$i^2=-1$ по построению</span>
-      <p class="lang-card-body">Многочлен $x^2+1$ не имеет вещественных корней, поэтому неприводим над R, и факторкольцо $\R[x]/(x^2+1)$ — поле. Обозначим класс $[x]$ буквой $i$: по определению фактора $x^2+1\equiv0$, откуда $i^2=-1$ — это не проверяемый факт, а прямое следствие того, по какому многочлену берётся остаток. Каждый класс однозначно представим многочленом степени меньше 2, то есть выражением $x+iy$.</p>
+      <span class="lang-card-tag">$i^2=-1$ by construction</span>
+      <p class="lang-card-body">The polynomial $x^2+1$ has no real roots, hence is irreducible over R, and the quotient ring $\R[x]/(x^2+1)$ is a field. Let $i$ denote the class $[x]$: by the definition of the quotient, $x^2+1\equiv0$, so $i^2=-1$ — this is not a fact to be checked, but a direct consequence of which polynomial the remainder is taken modulo. Every class is represented uniquely by a polynomial of degree less than 2, that is, by an expression $x+iy$.</p>
     </div>
 
   </div>
 
-  <button type="button" class="axioms-btn" id="iso-toggle"><span class="arr">▶</span> Это один и тот же объект</button>
+  <button type="button" class="axioms-btn" id="iso-toggle"><span class="arr">▶</span> This is the same object</button>
   <div class="axioms-panel" id="iso-panel">
-    <div class="ax-panel-title">Три записи одного и того же числа <span>$z=2+3i$</span></div>
+    <div class="ax-panel-title">Three ways to write the same number <span>$z=2+3i$</span></div>
     <div class="ax-grid">
       <div class="ax-item">
-        <span class="ax-label">R² с арифметикой</span>
+        <span class="ax-label">R² with arithmetic</span>
         <span class="ax-text">$(2,3)$</span>
       </div>
       <div class="ax-item">
-        <span class="ax-label">Матрица</span>
+        <span class="ax-label">Matrix</span>
         <span class="ax-text">$\begin{pmatrix}2&-3\\3&2\end{pmatrix}$</span>
       </div>
       <div class="ax-item">
-        <span class="ax-label">Класс вычета</span>
+        <span class="ax-label">Residue class</span>
         <span class="ax-text">$2+3x \pmod{x^2+1}$</span>
       </div>
     </div>
-    <p>Между любыми двумя из этих языков есть перевод, сохраняющий сложение и умножение (изоморфизм полей) — дальше мы свободно переключаемся между ними, не уточняя каждый раз, в какой из трёх моделей идёт вычисление.</p>
+    <p>Between any two of these languages there is a translation that preserves addition and multiplication (a field isomorphism) — from here on we switch freely between them, without specifying each time which of the three models a computation is happening in.</p>
   </div>
 </section>
 
 <section id="sec-multiplication">
-  <h2>3. Умножение — это подобие</h2>
-  <p class="lead">Сложение устроено просто: $z\mapsto z+b$ — это перенос плоскости на вектор $b$. Умножение устроено интереснее. Зафиксируем $a\ne0$ и рассмотрим преобразование $w=az$: это поворотная гомотетия с центром в нуле — коэффициент растяжения $|a|$, угол поворота $\arg a$, — тот же объект, что уже разобран в <a href="/Materials/similarities.html">«Подобиях плоскости»</a>, только теперь центр закреплён в нуле, а сдвиг $b=0$.</p>
+  <h2>3. Multiplication Is a Similarity</h2>
+  <p class="lead">Addition is simple: $z\mapsto z+b$ is a translation of the plane by the vector $b$. Multiplication is more interesting. Fix $a\ne0$ and consider the transformation $w=az$: this is a rotational homothety centered at zero — scale factor $|a|$, rotation angle $\arg a$ — the same object already covered in <a href="/Materials/similarities_en.html">«Similarities of the Plane»</a>, except now the center is pinned at zero and the shift $b=0$.</p>
   <figure>
     <div class="motion-widget" id="widget-multiply"></div>
     <div class="formula-box" id="mult-a"></div>
     <div class="formula-box" id="mult-w"></div>
-    <figcaption>Точка $a$ перетаскивается свободно; её действие показано на фиксированной точке $z_0=-20-15i$ (флажок с меткой «$z_0$» на рисунке). Бледный контур — исходное положение флажка, синий — его образ $w=az_0$.</figcaption>
+    <figcaption>The point $a$ can be dragged freely; its action is shown on a fixed point $z_0=-20-15i$ (the flag labeled «$z_0$» in the figure). The pale outline is the flag's original position, the blue one is its image $w=az_0$.</figcaption>
   </figure>
   <div class="note">
     <span class="note-head">a = 0</span>
-    <p>Условие $a\ne0$ существенно: при $a=0$ плоскость стягивается в точку $0$ — это уже не подобие, а вырожденное отображение.</p>
+    <p>The condition $a\ne0$ is essential: at $a=0$ the whole plane collapses onto the point $0$ — this is no longer a similarity, but a degenerate map.</p>
   </div>
 </section>
 
@@ -421,9 +421,9 @@ window.ComplexWidget = (function () {
 </script>
 
 <section id="sec-next">
-  <h2>4. Что дальше</h2>
-  <p class="lead">Поле ℂ построено тремя равносильными способами; сложение оказалось переносом, а умножение на фиксированное число $a$ — той же поворотной гомотетией, что рассмотрена в «Подобиях плоскости», только полученной теперь из арифметики, а не из геометрии. Однако $f(z)=az$ — линейная функция, простейшая из всех функций комплексного переменного.</p>
-  <p>Естественный следующий шаг — более сложные функции: многочлены, рациональные дроби, степенные ряды. У некоторых из них в каждой точке области определения существует производная $f'(z)=\lim\limits_{\Delta z\to0}\dfrac{f(z+\Delta z)-f(z)}{\Delta z}$, определяемая тем же пределом, что и для функций одной вещественной переменной, — только приращение $\Delta z$ теперь комплексное. Свойства таких функций разбираются в материале «<a href="/Materials/complex_regularity.html">Регулярные функции</a>».</p>
+  <h2>4. What's Next</h2>
+  <p class="lead">The field ℂ has been built three equivalent ways; addition turned out to be translation, and multiplication by a fixed number $a$ the same rotational homothety examined in «Similarities of the Plane», only now obtained from arithmetic rather than geometry. Yet $f(z)=az$ is a linear function, the simplest of all functions of a complex variable.</p>
+  <p>The natural next step is more complicated functions: polynomials, rational fractions, power series. Some of them have, at every point of their domain, a derivative $f'(z)=\lim\limits_{\Delta z\to0}\dfrac{f(z+\Delta z)-f(z)}{\Delta z}$, defined by the same limit as for functions of one real variable — except the increment $\Delta z$ is now complex. The properties of such functions are examined in the material «<a href="/Materials/complex_regularity_en.html">Regular Functions</a>».</p>
 </section>
 
 <p class="page-footer">© Nikolai Kazimirov · <a href="https://mathem.at" rel="noopener">mathem.at</a></p>

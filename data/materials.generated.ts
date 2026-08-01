@@ -82,6 +82,13 @@ export const MATERIALS_ITEMS: MaterialItem[] = [
     "lang": "ru"
   },
   {
+    "filename": "complex_numbers_en.html",
+    "href": "/Materials/complex_numbers_en.html",
+    "title": "Complex Numbers: Three Constructions of One Field",
+    "category": "analysis",
+    "lang": "en"
+  },
+  {
     "filename": "complex_numbers.html",
     "href": "/Materials/complex_numbers.html",
     "title": "Комплексные числа: три конструкции одного поля",
@@ -89,11 +96,25 @@ export const MATERIALS_ITEMS: MaterialItem[] = [
     "lang": "ru"
   },
   {
+    "filename": "complex_regularity_en.html",
+    "href": "/Materials/complex_regularity_en.html",
+    "title": "Regular Functions: Taylor Series, Cauchy's Integral, Euler's Formula",
+    "category": "analysis",
+    "lang": "en"
+  },
+  {
     "filename": "complex_regularity.html",
     "href": "/Materials/complex_regularity.html",
     "title": "Регулярные функции: ряд Тейлора, интеграл Коши, формула Эйлера",
     "category": "analysis",
     "lang": "ru"
+  },
+  {
+    "filename": "conformal_maps_en.html",
+    "href": "/Materials/conformal_maps_en.html",
+    "title": "Conformality and Fractional-Linear Transformations",
+    "category": "analysis",
+    "lang": "en"
   },
   {
     "filename": "conformal_maps.html",

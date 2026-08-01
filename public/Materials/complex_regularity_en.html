@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Regular Functions: Taylor Series, Cauchy's Integral, Euler's Formula</title>
+<meta name="description" content="The complex derivative and the Cauchy-Riemann equations, Taylor representability of regular functions, the uniqueness theorem, Cauchy's integral theorem via Green's formula, the complex exponential and a derivation of Euler's formula — with a point dragged around the unit circle.">
+<link rel="canonical" href="https://mathem.at/Materials/complex_regularity_en.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Regular Functions: Taylor Series, Cauchy's Integral, Euler's Formula">
+<meta property="og:description" content="The derivative and regularity in C, the uniqueness theorem, Cauchy's integral theorem, and a derivation of Euler's formula — with an interactive point on the unit circle.">
+<meta property="og:url" content="https://mathem.at/Materials/complex_regularity_en.html">
+<meta property="og:locale" content="en_US">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPsKxw5fDtzwvdGV4dD48L3N2Zz4=" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\]', display: true}, {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}], macros: {'\\R': '\\mathbb{R}', '\\C': '\\mathbb{C}', '\\N': '\\mathbb{N}', '\\Z': '\\mathbb{Z}', '\\Q': '\\mathbb{Q}'}, throwOnError: false})"></script>
+<style>
+:root {
+  --bg:#faf9f6; --bg2:#f2f0eb; --ink:#1a1917; --ink2:#5a5750; --ink3:#8a8680; --border:#dcd9d2;
+  --blue-bg:#e8eef7;  --blue-acc:#3a5f9e;
+  --rust-bg:#f0ebe8;  --rust-acc:#8c4a32;
+  --sage-bg:#e8f0eb;  --sage-acc:#2e6645;
+  --teal-bg:#e6f5ef;  --teal-acc:#0f6e56;
+  --amber-bg:#fdf3e0; --amber-acc:#7a4f0d;
+  --coral-bg:#faeae6; --coral-acc:#9b2f1a;
+  --purple-bg:#eeedfb; --purple-acc:#4a3a9a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Georgia,serif;font-size:22px;line-height:1.65;min-height:100vh}
+.page{max-width:1320px;margin:0 auto;padding:3rem 2.5rem 5rem}
+
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.8rem}
+.crumbs{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink3)}
+.crumbs a{color:var(--ink3);text-decoration:none}
+.crumbs a:hover{color:var(--ink)}
+.lang-pills{display:flex;gap:8px}
+.lang-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border:1px solid var(--border);color:var(--ink2);transition:.15s}
+.lang-pill.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.lang-pill:not(.active):hover{border-color:var(--ink)}
+
+header{margin-bottom:2.5rem;border-bottom:1.5px solid var(--ink);padding-bottom:1.5rem}
+.kicker{font-family:'JetBrains Mono',monospace;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:.6rem}
+h1{font-size:clamp(28px,3.2vw,44px);font-weight:500;line-height:1.15;color:var(--ink);margin-bottom:.5rem}
+.desc{font-size:19px;color:var(--ink2);font-style:italic;max-width:900px}
+
+section{margin-bottom:3.5rem}
+h2{font-size:28px;font-weight:500;margin-bottom:1.2rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+h3{font-size:22px;font-weight:500;margin:1.8rem 0 .8rem;color:var(--ink)}
+h4{font-size:19px;font-weight:500;margin:1.2rem 0 .5rem;color:var(--ink)}
+p{margin-bottom:.9rem;color:var(--ink2)}
+p.lead{color:var(--ink)}
+strong{color:var(--ink);font-weight:500}
+em{color:var(--ink)}
+.katex{font-size:1.05em}
+.katex-display{margin:.6em 0!important;overflow-x:auto;overflow-y:hidden}
+
+.page-footer{margin-top:2.75rem;padding-top:1.1rem;border-top:0.5px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.04em;color:var(--ink3);text-align:center;line-height:1.5}
+.page-footer a{color:var(--ink3);text-decoration:none;border-bottom:1px solid rgba(138,134,128,.35)}
+.page-footer a:hover{color:var(--ink2);border-bottom-color:var(--ink2)}
+
+.note{border-left:3px solid var(--rust-acc);background:var(--rust-bg);border-radius:0 6px 6px 0;padding:.8rem 1.1rem;margin:1rem 0;font-size:17.5px;color:var(--ink2)}
+.note .note-head{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--rust-acc);margin-bottom:.35rem}
+.note p{margin-bottom:.55rem;color:var(--ink2)}
+.note p:last-child{margin-bottom:0}
+
+.motion-frame{width:100%;max-width:560px;height:auto;aspect-ratio:300/220;display:block;background:var(--bg2);border:1px solid var(--border);border-radius:6px;touch-action:none}
+.motion-widget{margin:1rem 0;max-width:560px}
+.mw-coord-axis{stroke:var(--ink3);stroke-width:1;opacity:.55}
+.mw-origin{fill:var(--ink3)}
+.mw-orbit{fill:none;stroke:var(--ink3);stroke-width:1;stroke-dasharray:3 3}
+.mw-path{fill:none;stroke:var(--blue-acc);stroke-width:1.4;opacity:.7}
+.mw-path-dot{fill:var(--blue-acc);opacity:.55}
+.mw-path-dot-final{fill:var(--rust-acc)}
+.mw-handle{fill:var(--ink);stroke:var(--bg);stroke-width:1.5}
+.mw-hit{fill:#000;opacity:0;cursor:grab;touch-action:none}
+.mw-hit:active{cursor:grabbing}
+.mw-handle-label{font-family:'JetBrains Mono',monospace;font-size:11px;fill:var(--ink2)}
+.svg-label{font-family:'JetBrains Mono',monospace;font-size:13px;fill:var(--ink2)}
+figure{margin:1.4rem 0}
+figcaption{font-size:16.5px;color:var(--ink3);margin-top:.6rem;line-height:1.55;font-style:italic}
+.formula-box{font-family:'JetBrains Mono',monospace;font-size:16px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:.8rem 1.1rem;margin-top:.8rem;color:var(--ink)}
+
+@media(max-width:700px){
+  body{font-size:19px}
+  .page{padding:1.5rem 1rem 3rem}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="topbar">
+  <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> / <a href="/#materials">Materials</a></div>
+  <div class="lang-pills">
+    <a class="lang-pill active" href="/Materials/complex_regularity_en.html">🇬🇧 EN</a>
+    <a class="lang-pill" href="/Materials/complex_regularity.html">🇷🇺 RU</a>
+  </div>
+</div>
+
+<header>
+  <p class="kicker">Mathematical Analysis · Complex Analysis</p>
+  <h1>Regular Functions</h1>
+  <p class="desc">Multiplying by a complex number is a rotational homothety (see «Complex Numbers: Three Constructions of One Field»). Which functions $f(z)$ behave just as well at every point? It turns out to be a rigid and surprisingly narrow family: regular functions, for which mere differentiability implies representability as a power series.</p>
+</header>
+
+<nav class="toc" style="background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 1.2rem 1.5rem; margin-bottom: 2.5rem;">
+  <h3 style="margin-top: 0; margin-bottom: 0.8rem; font-size: 19px;">Contents</h3>
+  <ol style="margin: 0 0 0 1.5rem; padding: 0; color: var(--ink2); line-height: 1.6;">
+    <li><a href="#sec-derivative" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">The Derivative and Regularity</a></li>
+    <li><a href="#sec-taylor" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Taylor Series and Uniqueness</a></li>
+    <li><a href="#sec-cauchy" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Cauchy's Integral Theorem and Formula</a></li>
+    <li><a href="#sec-euler" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">The Complex Exponential and Euler's Formula</a></li>
+    <li><a href="#sec-next" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">What's Next</a></li>
+  </ol>
+</nav>
+
+<section id="sec-derivative">
+  <h2>1. The Derivative and Regularity</h2>
+  <p class="lead">The complex derivative is defined by the same limit as for functions of one real variable:</p>
+  <p>$$f'(z)=\lim_{\Delta z\to0}\frac{f(z+\Delta z)-f(z)}{\Delta z},$$</p>
+  <p>except now the increment $\Delta z$ is a complex number, and it can tend to zero from any direction in the plane.</p>
+  <p>A function $f$ is called <strong>regular</strong> in a domain $D$ if it is differentiable at every point of $D$. A function regular on the whole complex plane is called <strong>entire</strong>.</p>
+  <p>Since $\Delta z\to0$ can proceed in any direction, the limit must agree along the real axis and along the imaginary axis. Write $f=u+iv$, where $u,v$ are the real and imaginary parts of $f$ as functions of $(x,y)$. For $\Delta z=\Delta x$ (along the real axis):</p>
+  <p>$$f'(z)=\lim_{\Delta x\to0}\frac{u(x+\Delta x,y)-u(x,y)}{\Delta x}+i\lim_{\Delta x\to0}\frac{v(x+\Delta x,y)-v(x,y)}{\Delta x}=u_x+iv_x.$$</p>
+  <p>For $\Delta z=i\Delta y$ (along the imaginary axis):</p>
+  <p>$$f'(z)=\frac1i\lim_{\Delta y\to0}\frac{u(x,y+\Delta y)-u(x,y)}{\Delta y}+\lim_{\Delta y\to0}\frac{v(x,y+\Delta y)-v(x,y)}{\Delta y}=v_y-iu_y.$$</p>
+  <p>Both limits are the same number $f'(z)$, so their real and imaginary parts agree:</p>
+  <p>$$u_x=v_y,\qquad u_y=-v_x.$$</p>
+  <p>These are the <strong>Cauchy-Riemann equations</strong> — a necessary condition for complex differentiability at a point. Unlike the real case, where differentiability at a single point is a fairly weak requirement, regularity (differentiability <em>at every point of a domain at once</em>) turns out to be a surprisingly rigid constraint — the subject of the next section, while the Cauchy-Riemann equations will be needed again in §3.</p>
+</section>
+
+<section id="sec-taylor">
+  <h2>2. Taylor Series and Uniqueness</h2>
+  <p class="lead">Unlike the real case, complex differentiability at every point of a domain implies the existence of derivatives of all orders — and representability of the function as a Taylor series in a neighborhood of any point of the domain of regularity:</p>
+  <p>$$f(z)=f(z_0)+f'(z_0)(z-z_0)+f''(z_0)\frac{(z-z_0)^2}{2}+f'''(z_0)\frac{(z-z_0)^3}{3!}+\dots$$</p>
+  <p>The proof of this fact is not quick and lies outside the scope of this material — but it is exactly what turns regularity from a local condition into an extremely rigid global one: knowing the function on an arbitrarily small neighborhood of a point lets you recover its values on the entire domain of regularity.</p>
+  <div class="note">
+    <span class="note-head">Uniqueness Theorem</span>
+    <p>Let $f$ and $g$ be regular in a domain $D$, and suppose there is a sequence $\{z_n\}\subset D$ converging to a point $w\in D$ on which $f(z_n)=g(z_n)$. Then $f=g$ throughout $D$.</p>
+  </div>
+  <p>Consequences: a regular function not identically zero has only finitely many zeros in any closed disk lying entirely within the domain of regularity; if two regular functions agree on some curve inside a shared domain of regularity, they agree throughout that domain. In particular, if two <strong>entire</strong> functions agree on a real interval $(-r;r)$, they agree on the whole plane $\C$.</p>
+  <p>This is used below for the complex exponential: a continuation of a real function to a regular function on $\C$, if it exists at all, is unique.</p>
+</section>
+
+<section id="sec-cauchy">
+  <h2>3. Cauchy's Integral Theorem and Formula</h2>
+  <p class="lead">Let $f=u+iv$ be regular in a domain containing a closed contour $C$ and the region $D$ it bounds. Then</p>
+  <p>$$\oint_C f(z)\,dz=0.$$</p>
+  <p>Write $dz=dx+i\,dy$ and expand the product:</p>
+  <p>$$\oint_C f\,dz=\oint_C(u+iv)(dx+i\,dy)=\oint_C(u\,dx-v\,dy)+i\oint_C(v\,dx+u\,dy).$$</p>
+  <p>Green's formula applies to each of the two real contour integrals:</p>
+  <p>$$\oint_C P\,dx+Q\,dy=\iint_D\left(\frac{\partial Q}{\partial x}-\frac{\partial P}{\partial y}\right)dA.$$</p>
+  <p>For the real part ($P=u$, $Q=-v$):</p>
+  <p>$$\oint_C u\,dx-v\,dy=\iint_D(-v_x-u_y)\,dA.$$</p>
+  <p>For the imaginary part ($P=v$, $Q=u$):</p>
+  <p>$$\oint_C v\,dx+u\,dy=\iint_D(u_x-v_y)\,dA.$$</p>
+  <p>By the Cauchy-Riemann equations from §1 ($u_x=v_y$, $u_y=-v_x$), both integrands are identically zero: $-v_x-u_y=-v_x-(-v_x)=0$ and $u_x-v_y=0$. So both contour integrals vanish, and $\oint_C f\,dz=0$.</p>
+  <p>Geometrically, this means the integral $\int_{z_1}^{z_2}f\,dz$ along any path inside the domain of regularity depends only on the starting and ending point.</p>
+  <p>The theorem implies a far stronger fact — the <strong>Cauchy integral formula</strong>: the value of a regular function inside a contour is fully determined by its values on the contour itself.</p>
+  <div class="note">
+    <span class="note-head">Cauchy's Formula</span>
+    <p>Let $f$ be regular in a domain containing a closed contour $C$ and the region $D$ it bounds, and let $z_0\in D$. Then</p>
+    <p>$$f(z_0)=\frac1{2\pi i}\oint_C\frac{f(z)}{z-z_0}\,dz.$$</p>
+  </div>
+  <p>Proof sketch: the function $g(z)=f(z)/(z-z_0)$ is regular everywhere in $D$ except at the point $z_0$ itself. Cut out of $D$ a small disk of radius $\varepsilon$ centered at $z_0$: on the remaining ring between $C$ and the circle $C_\varepsilon$, $g$ is now regular everywhere. Green's formula also works on a domain with a "hole" (the boundary just needs to be oriented correctly — the outer contour counterclockwise, the inner one clockwise), so the theorem proved above gives $\oint_C g\,dz=\oint_{C_\varepsilon}g\,dz$ for any sufficiently small $\varepsilon$. Parametrizing $z=z_0+\varepsilon e^{i\theta}$:</p>
+  <p>$$\oint_{C_\varepsilon}\frac{f(z)}{z-z_0}\,dz=\int_0^{2\pi}\frac{f(z_0+\varepsilon e^{i\theta})}{\varepsilon e^{i\theta}}\,i\varepsilon e^{i\theta}\,d\theta=i\int_0^{2\pi}f(z_0+\varepsilon e^{i\theta})\,d\theta.$$</p>
+  <p>As $\varepsilon\to0$, the integrand tends to $f(z_0)$ uniformly in $\theta$ (regularity implies continuity), so the whole integral tends to $i\cdot2\pi f(z_0)$. The left-hand side $\oint_C g\,dz$ doesn't depend on $\varepsilon$ at all — so that is its value: $\oint_C\frac{f(z)}{z-z_0}\,dz=2\pi if(z_0)$, as claimed.</p>
+  <p>The formula reconstructs the function at any interior point from boundary data alone — and, differentiated with respect to $z_0$ under the integral sign, it is exactly what underlies the proof (omitted in §2) that a regular function is representable as a Taylor series.</p>
+</section>
+
+<section id="sec-euler">
+  <h2>4. The Complex Exponential and Euler's Formula</h2>
+  <p class="lead">Define the complex exponential by the same power series as the real one:</p>
+  <p>$$\exp(z)=1+z+\frac{z^2}{2}+\frac{z^3}{3!}+\dots$$</p>
+  <p>The series converges at every point $z\in\C$: the partial sums form a Cauchy sequence, since for $n<m$, by the triangle inequality, $|S_m-S_n|\le\sum_{k=n+1}^m\frac{|z|^k}{k!}$, and the right-hand side is the tail of the convergent series for the real exponential $e^{|z|}=\sum_{k=0}^\infty|z|^k/k!$, which tends to zero by the Cauchy criterion for that series; by completeness of $\C$, the limit of the partial sums exists. It's easy to check that the derivative $\exp'(z)=\exp(z)$ at every point — so $\exp$ is entire, and it agrees with the real exponential $e^x$ on the real axis. By the uniqueness theorem from §2, this is the unique regular continuation of $e^x$ to all of $\C$.</p>
+  <p>The exponential can also be written as a limit:</p>
+  <p>$$e^z=\lim_{n\to\infty}\left(1+\frac zn\right)^n.$$</p>
+  <p>Take $z=i\varphi$, a purely imaginary number. On one hand, by definition $e^{i\varphi}=\lim_{n\to\infty}(1+i\varphi/n)^n$. On the other — the known limits $\cos(\varphi/n)=1-\varphi^2/2n^2+o(1/n^2)$ and $\sin(\varphi/n)=\varphi/n+o(1/n)$ give $\cos(\varphi/n)+i\sin(\varphi/n)=1+i\varphi/n+o(1/n)$ — that is, these two expressions differ by a quantity of order $o(1/n)$. A careful estimate (via the inequality $|z^n-w^n|\le n|z-w|\max\{|z|^{n-1},|w|^{n-1}\}$) shows that after raising to the $n$-th power this difference vanishes in the limit, and</p>
+  <p>$$e^{i\varphi}=\lim_{n\to\infty}\big(\cos(\varphi/n)+i\sin(\varphi/n)\big)^n=\cos\varphi+i\sin\varphi$$</p>
+  <p>— the last equality holds because multiplying $n$ equal numbers on the unit circle adds their arguments while their moduli stay equal to one. This is <strong>Euler's formula</strong>. At $\varphi=\pi$ it gives the famous identity</p>
+  <p>$$e^{i\pi}+1=0,$$</p>
+  <p>linking five fundamental constants in a single equation. Splitting the series for $e^{i\varphi}$ into real and imaginary parts gives the Taylor series for sine and cosine:</p>
+  <p>$$\cos\varphi=1-\frac{\varphi^2}{2!}+\frac{\varphi^4}{4!}-\dots,\qquad\sin\varphi=\varphi-\frac{\varphi^3}{3!}+\frac{\varphi^5}{5!}-\dots$$</p>
+  <figure>
+    <div class="motion-widget" id="widget-euler"></div>
+    <div class="formula-box" id="euler-phi"></div>
+    <div class="formula-box" id="euler-values"></div>
+    <figcaption>The point on the circle is dragged by angle $\varphi$; the polyline is the partial sums $S_0,S_1,\dots,S_{10}$ of the series for $e^{i\varphi}$, spiraling toward the point $\cos\varphi+i\sin\varphi$ on the circle.</figcaption>
+  </figure>
+</section>
+
+<script id="euler-widget">
+window.EulerWidget = (function () {
+  var FRAME_HALF_W = 150, FRAME_HALF_H = 110;
+  var FRAME_VB = (-FRAME_HALF_W) + ' ' + (-FRAME_HALF_H) + ' ' + (2 * FRAME_HALF_W) + ' ' + (2 * FRAME_HALF_H);
+  var RADIUS = 25; // px per unit -- same scale as complex_numbers.html's A_VALUE_SCALE
+  var N = 10;       // partial sums S_0..S_10, fixed (no slider, see design doc)
+  var SNAP_DEG = 5;
+
+  function axesMarkup() {
+    return '<line x1="' + (-FRAME_HALF_W) + '" y1="0" x2="' + FRAME_HALF_W + '" y2="0" class="mw-coord-axis"/>' +
+      '<line x1="0" y1="' + (-FRAME_HALF_H) + '" x2="0" y2="' + FRAME_HALF_H + '" class="mw-coord-axis"/>' +
+      '<circle cx="0" cy="0" r="3" class="mw-origin"/>' +
+      '<text x="6" y="16" class="svg-label">0</text>' +
+      '<text x="' + (FRAME_HALF_W - 20) + '" y="-8" class="svg-label">Re</text>' +
+      '<text x="8" y="' + (-FRAME_HALF_H + 14) + '" class="svg-label">Im</text>';
+  }
+
+  // S_0..S_N for e^(i*mathPhi), computed directly in true math space (no
+  // SVG-space geometry tricks -- there is no transform being demonstrated
+  // here, just numbers being plotted, so plain complex arithmetic is
+  // simpler than complex_numbers.html's rotateScalePoint reuse).
+  function partialSums(mathPhi) {
+    var sums = [];
+    var term = { re: 1, im: 0 };   // (i*phi)^0 / 0!
+    var sum = { re: 0, im: 0 };
+    for (var k = 0; k <= N; k++) {
+      sum = { re: sum.re + term.re, im: sum.im + term.im };
+      sums.push(sum);
+      // term_{k+1} = term_k * (i*mathPhi) / (k+1)
+      var next = { re: -term.im * mathPhi, im: term.re * mathPhi };
+      term = { re: next.re / (k + 1), im: next.im / (k + 1) };
+    }
+    return sums;
+  }
+
+  function mathToSvg(z) { return [z.re * RADIUS, -z.im * RADIUS]; }
+  function fmtPts(pts) { return pts.map(function (p) { return p[0].toFixed(2) + ',' + p[1].toFixed(2); }).join(' '); }
+  function fmtComplex(z) {
+    var sign = z.im < 0 ? '-' : '+';
+    return z.re.toFixed(4) + ' ' + sign + ' ' + Math.abs(z.im).toFixed(4) + 'i';
+  }
+
+  function createEulerWidget(container, opts) {
+    var onChange = (opts && opts.onChange) || function () {};
+    var phiSvgDeg = -45; // math phi = +45deg (see the negation below) -- a legible default, not on an axis
+
+    container.innerHTML = '<svg class="mw-svg motion-frame" viewBox="' + FRAME_VB + '"></svg>';
+    var svg = container.querySelector('.mw-svg');
+
+    function localPointFromClient(clientX, clientY) {
+      var rect = svg.getBoundingClientRect();
+      var vb = svg.viewBox.baseVal;
+      var s = rect.width / vb.width;
+      return [(clientX - rect.left) / s + vb.x, (clientY - rect.top) / s + vb.y];
+    }
+
+    function render() {
+      var phiSvgRad = phiSvgDeg * Math.PI / 180;
+      var mathPhi = -phiSvgRad; // same negation convention as similarities.html's fmtAngleDeg
+      var hx = RADIUS * Math.cos(phiSvgRad), hy = RADIUS * Math.sin(phiSvgRad);
+      var sums = partialSums(mathPhi);
+      var svgPts = sums.map(mathToSvg);
+
+      var parts = [];
+      parts.push(axesMarkup());
+      parts.push('<circle cx="0" cy="0" r="' + RADIUS + '" class="mw-orbit"/>');
+      parts.push('<polyline points="' + fmtPts(svgPts) + '" class="mw-path"/>');
+      svgPts.forEach(function (p, i) {
+        var isFinal = i === svgPts.length - 1;
+        parts.push('<circle cx="' + p[0].toFixed(2) + '" cy="' + p[1].toFixed(2) + '" r="' + (isFinal ? 4 : 2.5) + '" class="' + (isFinal ? 'mw-path-dot mw-path-dot-final' : 'mw-path-dot') + '"/>');
+      });
+      parts.push('<circle class="mw-handle" cx="' + hx.toFixed(2) + '" cy="' + hy.toFixed(2) + '" r="8"/>');
+      parts.push('<circle class="mw-hit" cx="' + hx.toFixed(2) + '" cy="' + hy.toFixed(2) + '" r="20"/>');
+      parts.push('<text x="' + (hx + 10).toFixed(1) + '" y="' + (hy - 10).toFixed(1) + '" class="mw-handle-label">φ</text>');
+      svg.innerHTML = parts.join('');
+      wireDrag();
+      onChange({ phiDeg: -phiSvgDeg, sums: sums });
+    }
+
+    var dragging = false, activePointerId = null;
+    function onPointerDown(e) {
+      if (!e.target.classList || !e.target.classList.contains('mw-hit')) return;
+      dragging = true; activePointerId = e.pointerId;
+      e.preventDefault();
+    }
+    function onPointerMove(e) {
+      if (!dragging || e.pointerId !== activePointerId) return;
+      // Angle-only drag: only the direction from the origin matters, not
+      // the raw cursor distance -- same pattern as similarities.html's
+      // rotate-tab angle handle (dragKey === 'ang').
+      var raw = localPointFromClient(e.clientX, e.clientY);
+      var rawAngleDeg = Math.atan2(raw[1], raw[0]) * 180 / Math.PI;
+      phiSvgDeg = Math.round(rawAngleDeg / SNAP_DEG) * SNAP_DEG;
+      render();
+      e.preventDefault();
+    }
+    function onPointerUp(e) {
+      if (e.pointerId !== activePointerId) return;
+      dragging = false; activePointerId = null;
+    }
+    function wireDrag() {
+      var hit = svg.querySelector('.mw-hit');
+      hit.removeEventListener('pointerdown', onPointerDown);
+      hit.addEventListener('pointerdown', onPointerDown);
+    }
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerup', onPointerUp);
+    window.addEventListener('pointercancel', onPointerUp);
+
+    render();
+    return { getPhiDeg: function () { return -phiSvgDeg; } };
+  }
+
+  return {
+    create: createEulerWidget,
+    _test: { partialSums: partialSums, N: N, RADIUS: RADIUS }
+  };
+})();
+</script>
+
+<script>
+(function () {
+  var el = document.getElementById('widget-euler');
+  var phiEl = document.getElementById('euler-phi');
+  var valuesEl = document.getElementById('euler-values');
+
+  // katex.min.js is <script defer>; wait for window 'load' before calling
+  // katex.render directly (same reason as complex_numbers.html's §3 panel).
+  function init() {
+    if (!el || !phiEl || !valuesEl || !window.EulerWidget || !window.katex) return;
+
+    function fmtComplex(z) {
+      var sign = z.im < 0 ? '-' : '+';
+      return z.re.toFixed(4) + ' ' + sign + ' ' + Math.abs(z.im).toFixed(4) + 'i';
+    }
+
+    function update(state) {
+      var phiRad = state.phiDeg * Math.PI / 180;
+      var exact = { re: Math.cos(phiRad), im: Math.sin(phiRad) };
+      var approx = state.sums[state.sums.length - 1];
+      katex.render('\\varphi \\approx ' + state.phiDeg.toFixed(1) + '^\\circ', phiEl, { throwOnError: false });
+      katex.render('S_{10} \\approx ' + fmtComplex(approx) + ',\\quad \\cos\\varphi+i\\sin\\varphi \\approx ' + fmtComplex(exact), valuesEl, { throwOnError: false });
+    }
+
+    var widget = EulerWidget.create(el, { onChange: update });
+    update({ phiDeg: widget.getPhiDeg(), sums: EulerWidget._test.partialSums(widget.getPhiDeg() * Math.PI / 180) });
+  }
+  window.addEventListener('load', init);
+})();
+</script>
+
+<section id="sec-next">
+  <h2>5. What's Next</h2>
+  <p class="lead">Multiplying by a complex number is a rotational homothety (material «<a href="/Materials/complex_numbers_en.html">Complex Numbers: Three Constructions of One Field</a>»). Regularity at a point where $f'(z_0)\ne0$ works much the same way: near $z_0$, the function $f$ is approximated by its linear part, $f(z)\approx f(z_0)+f'(z_0)(z-z_0)$ — the very same similarity, only with the coefficient $a=f'(z_0)$ now varying from point to point.</p>
+  <p>Similarities have a characteristic property — they preserve the angles between intersecting lines. What that implies for curves passing through $z_0$, and how to use it to construct explicit geometric maps of the plane, is examined in the material «<a href="/Materials/conformal_maps_en.html">Conformality and Fractional-Linear Transformations</a>».</p>
+</section>
+
+<p class="page-footer">© Nikolai Kazimirov · <a href="https://mathem.at" rel="noopener">mathem.at</a></p>
+
+</div><!-- .page -->
+</body>
+</html>

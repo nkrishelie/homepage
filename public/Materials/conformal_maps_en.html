@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="ru" style="scroll-behavior: smooth;">
+<html lang="en" style="scroll-behavior: smooth;">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Конформность и дробно-линейные преобразования</title>
-<meta name="description" content="Регулярность как подобие в бесконечно малом, конформность как следствие комплексной дифференцируемости, доказательство того, что инверсия переводит окружности в окружности, дробно-линейные преобразования как их композиция — с перетаскиваемым центром окружности.">
-<link rel="canonical" href="https://mathem.at/Materials/conformal_maps.html">
+<title>Conformality and Fractional-Linear Transformations</title>
+<meta name="description" content="Regularity as a similarity in the infinitesimal, conformality as a consequence of complex differentiability, a proof that inversion sends circles to circles, and fractional-linear transformations as their composition — with a draggable circle center.">
+<link rel="canonical" href="https://mathem.at/Materials/conformal_maps_en.html">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Конформность и дробно-линейные преобразования">
-<meta property="og:description" content="Почему регулярность — это подобие в бесконечно малом, вывод конформности и доказательство того, что инверсия и дробно-линейные преобразования переводят окружности и прямые в окружности и прямые.">
-<meta property="og:url" content="https://mathem.at/Materials/conformal_maps.html">
-<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="Conformality and Fractional-Linear Transformations">
+<meta property="og:description" content="Why regularity is a similarity in the infinitesimal, a derivation of conformality, and a proof that inversion and fractional-linear transformations send circles and lines to circles and lines.">
+<meta property="og:url" content="https://mathem.at/Materials/conformal_maps_en.html">
+<meta property="og:locale" content="en_US">
 <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPsKxw5fDtzwvdGV4dD48L3N2Zz4=" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -94,73 +94,73 @@ figcaption{font-size:16.5px;color:var(--ink3);margin-top:.6rem;line-height:1.55;
 <div class="page">
 
 <div class="topbar">
-  <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> / <a href="/#materials">Материалы</a></div>
+  <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> / <a href="/#materials">Materials</a></div>
   <div class="lang-pills">
-    <a class="lang-pill" href="/Materials/conformal_maps_en.html">🇬🇧 EN</a>
-    <a class="lang-pill active" href="/Materials/conformal_maps.html">🇷🇺 RU</a>
+    <a class="lang-pill active" href="/Materials/conformal_maps_en.html">🇬🇧 EN</a>
+    <a class="lang-pill" href="/Materials/conformal_maps.html">🇷🇺 RU</a>
   </div>
 </div>
 
 <header>
-  <p class="kicker">Математический анализ · Комплексный анализ</p>
-  <h1>Конформные отображения</h1>
-  <p class="desc">Умножение на комплексное число — поворотная гомотетия (материал «Комплексные числа: три конструкции одного поля»); производная — тот же предел, что и для вещественных функций (материал «Регулярные функции»). Здесь — что из этого следует геометрически: регулярность оказывается подобием «в бесконечно малом», а значит сохраняет углы между кривыми, и на примере инверсии $w=1/z$ это можно увидеть и доказать в чистом виде.</p>
+  <p class="kicker">Mathematical Analysis · Complex Analysis</p>
+  <h1>Conformal Maps</h1>
+  <p class="desc">Multiplying by a complex number is a rotational homothety (material «Complex Numbers: Three Constructions of One Field»); the derivative is the same limit as for real functions (material «Regular Functions»). Here — what follows from this geometrically: regularity turns out to be a similarity "in the infinitesimal," and so preserves angles between curves, and the inversion $w=1/z$ lets us see and prove this in its purest form.</p>
 </header>
 
 <nav class="toc" style="background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 1.2rem 1.5rem; margin-bottom: 2.5rem;">
-  <h3 style="margin-top: 0; margin-bottom: 0.8rem; font-size: 19px;">Содержание</h3>
+  <h3 style="margin-top: 0; margin-bottom: 0.8rem; font-size: 19px;">Contents</h3>
   <ol style="margin: 0 0 0 1.5rem; padding: 0; color: var(--ink2); line-height: 1.6;">
-    <li><a href="#sec-similarity" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Регулярность как локальное подобие</a></li>
-    <li><a href="#sec-conformal" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Конформность</a></li>
-    <li><a href="#sec-inversion" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Инверсия: окружности переходят в окружности</a></li>
-    <li><a href="#sec-mobius" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Дробно-линейные преобразования</a></li>
-    <li><a href="#sec-conclusion" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Заключение</a></li>
+    <li><a href="#sec-similarity" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Regularity as a Local Similarity</a></li>
+    <li><a href="#sec-conformal" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Conformality</a></li>
+    <li><a href="#sec-inversion" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Inversion: Circles Map to Circles</a></li>
+    <li><a href="#sec-mobius" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Fractional-Linear Transformations</a></li>
+    <li><a href="#sec-conclusion" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Conclusion</a></li>
   </ol>
 </nav>
 
 <section id="sec-similarity">
-  <h2>1. Регулярность как локальное подобие</h2>
-  <p class="lead">Пусть $f$ дифференцируема в точке $z_0$, и $a=f'(z_0)$. По определению производной,</p>
-  <p>$$f(z)=f(z_0)+f'(z_0)(z-z_0)+o(z-z_0)\quad\text{при }z\to z_0,$$</p>
-  <p>то есть вблизи $z_0$ функция $f$ приближается своей линейной частью</p>
+  <h2>1. Regularity as a Local Similarity</h2>
+  <p class="lead">Let $f$ be differentiable at the point $z_0$, and let $a=f'(z_0)$. By the definition of the derivative,</p>
+  <p>$$f(z)=f(z_0)+f'(z_0)(z-z_0)+o(z-z_0)\quad\text{as }z\to z_0,$$</p>
+  <p>that is, near $z_0$ the function $f$ is approximated by its linear part</p>
   <p>$$f(z)\approx f(z_0)+a(z-z_0)=az+\big(f(z_0)-az_0\big).$$</p>
-  <p>Это в точности подобие $w=az+b$ из материала «<a href="/Materials/complex_numbers.html">Комплексные числа: три конструкции одного поля</a>» с $b=f(z_0)-az_0$ — поворотная гомотетия с коэффициентом $|a|$ и углом поворота $\arg a$. Разница с тем материалом только в одном: там $a$ было фиксированным числом для всего преобразования плоскости, здесь $a=f'(z_0)$ меняется от точки к точке — это подобие «в бесконечно малом», своё в каждой точке области регулярности.</p>
+  <p>This is exactly the similarity $w=az+b$ from the material «<a href="/Materials/complex_numbers_en.html">Complex Numbers: Three Constructions of One Field</a>» with $b=f(z_0)-az_0$ — a rotational homothety with coefficient $|a|$ and rotation angle $\arg a$. The only difference from that material: there, $a$ was a fixed number for the whole transformation of the plane; here $a=f'(z_0)$ varies from point to point — this is a similarity "in the infinitesimal," its own at every point of the domain of regularity.</p>
 </section>
 
 <section id="sec-conformal">
-  <h2>2. Конформность</h2>
-  <p class="lead">Пусть через точку $z_0$ проходит гладкая кривая $\gamma(t)$, $\gamma(0)=z_0$, с касательным вектором $\gamma'(0)=\tau\ne0$. Направление кривой в $z_0$ — это $\arg\tau$; угол между двумя кривыми, пересекающимися в $z_0$ с касательными $\tau_1,\tau_2$, — это разность $\arg\tau_2-\arg\tau_1$.</p>
-  <p>Посмотрим, что происходит с этим углом под действием регулярной функции $f$ с $f'(z_0)=a\ne0$. Образ кривой — это $f(\gamma(t))$, и её касательная в $t=0$:</p>
+  <h2>2. Conformality</h2>
+  <p class="lead">Let a smooth curve $\gamma(t)$ pass through the point $z_0$, with $\gamma(0)=z_0$ and tangent vector $\gamma'(0)=\tau\ne0$. The direction of the curve at $z_0$ is $\arg\tau$; the angle between two curves intersecting at $z_0$ with tangents $\tau_1,\tau_2$ is the difference $\arg\tau_2-\arg\tau_1$.</p>
+  <p>Let's see what happens to this angle under a regular function $f$ with $f'(z_0)=a\ne0$. The image of the curve is $f(\gamma(t))$, and its tangent at $t=0$ is:</p>
   <p>$$(f\circ\gamma)'(0)=\lim_{t\to0}\frac{f(\gamma(t))-f(\gamma(0))}{t}=\lim_{t\to0}\frac{f(\gamma(t))-f(z_0)}{\gamma(t)-z_0}\cdot\frac{\gamma(t)-z_0}{t}=a\tau.$$</p>
-  <p>Первый множитель стремится к $f'(z_0)=a$, потому что $\gamma(t)\to z_0$ при $t\to0$, а комплексная производная — это предел по <em>любому</em> направлению приближения (материал «<a href="/Materials/complex_regularity.html">Регулярные функции</a>», §1), не только вдоль прямой; второй множитель стремится к $\gamma'(0)=\tau$ по определению.</p>
-  <p>Значит, касательная к образу кривой — это $a\tau$: исходная касательная $\tau$, умноженная на одно и то же число $a$, для <em>любой</em> кривой через $z_0$. Для двух кривых с касательными $\tau_1,\tau_2$ угол между образами</p>
+  <p>The first factor tends to $f'(z_0)=a$, because $\gamma(t)\to z_0$ as $t\to0$, and the complex derivative is a limit along <em>any</em> direction of approach (material «<a href="/Materials/complex_regularity_en.html">Regular Functions</a>», §1), not only along a straight line; the second factor tends to $\gamma'(0)=\tau$ by definition.</p>
+  <p>So the tangent to the image of the curve is $a\tau$: the original tangent $\tau$, multiplied by the same number $a$, for <em>any</em> curve through $z_0$. For two curves with tangents $\tau_1,\tau_2$, the angle between the images is</p>
   <p>$$\arg(a\tau_2)-\arg(a\tau_1)=\big(\arg a+\arg\tau_2\big)-\big(\arg a+\arg\tau_1\big)=\arg\tau_2-\arg\tau_1$$</p>
-  <p>— тот же угол, что и между исходными кривыми, с тем же знаком (ориентация тоже сохраняется). Это и есть <strong>конформность</strong>.</p>
+  <p>— the same angle as between the original curves, with the same sign (orientation is preserved too). This is exactly <strong>conformality</strong>.</p>
   <div class="note">
-    <span class="note-head">Теорема</span>
-    <p>Если $f$ регулярна в точке $z_0$ и $f'(z_0)\ne0$, то $f$ конформна в $z_0$: сохраняет углы между кривыми, включая знак угла.</p>
+    <span class="note-head">Theorem</span>
+    <p>If $f$ is regular at the point $z_0$ and $f'(z_0)\ne0$, then $f$ is conformal at $z_0$: it preserves angles between curves, including the sign of the angle.</p>
   </div>
-  <p>Условие $f'(z_0)\ne0$ существенно: там, где производная обращается в нуль, линейная часть приближения из §1 исчезает, и углы, вообще говоря, не сохраняются. Простой пример: $f(z)=z^2$ в точке $z_0=0$. Записав $z=re^{i\theta}$, получаем $f(z)=r^2e^{2i\theta}$ — угол между любыми двумя лучами из нуля под действием $f$ удваивается, а не сохраняется.</p>
+  <p>The condition $f'(z_0)\ne0$ matters: where the derivative vanishes, the linear part of the approximation from §1 disappears, and angles are, in general, not preserved. A simple example: $f(z)=z^2$ at the point $z_0=0$. Writing $z=re^{i\theta}$, we get $f(z)=r^2e^{2i\theta}$ — the angle between any two rays from zero is doubled by $f$, not preserved.</p>
 </section>
 
 <section id="sec-inversion">
-  <h2>3. Инверсия: окружности переходят в окружности</h2>
-  <p class="lead">Простейший пример регулярной функции, не сводящейся к подобию, — <strong>инверсия</strong> $w=1/z$. Она регулярна и конформна всюду, кроме $z=0$: $w'(z)=-1/z^2\ne0$ при $z\ne0$. У неё есть знаменитое свойство — она переводит окружности и прямые снова в окружности и прямые.</p>
+  <h2>3. Inversion: Circles Map to Circles</h2>
+  <p class="lead">The simplest example of a regular function that isn't just a similarity is <strong>inversion</strong>, $w=1/z$. It is regular and conformal everywhere except $z=0$: $w'(z)=-1/z^2\ne0$ for $z\ne0$. It has a famous property — it sends circles and lines back to circles and lines.</p>
   <div class="note">
-    <span class="note-head">Теорема</span>
-    <p>Пусть окружность $|z-c|=r$ не проходит через ноль ($|c|\ne r$). Тогда её образ под действием $w=1/z$ — окружность с центром $c'=\bar c/(|c|^2-r^2)$ и радиусом $r'=r/\big||c|^2-r^2\big|$.</p>
+    <span class="note-head">Theorem</span>
+    <p>Let the circle $|z-c|=r$ not pass through zero ($|c|\ne r$). Then its image under $w=1/z$ is a circle with center $c'=\bar c/(|c|^2-r^2)$ and radius $r'=r/\big||c|^2-r^2\big|$.</p>
   </div>
-  <p>Уравнение окружности $|z-c|=r$ запишется как $(z-c)(\bar z-\bar c)=r^2$, то есть $z\bar z-c\bar z-\bar cz+|c|^2-r^2=0$. Подставим $z=1/w$, $\bar z=1/\bar w$ (это и есть преобразование, обратное к $w=1/z$) и умножим на $w\bar w\ne0$:</p>
+  <p>The equation of the circle $|z-c|=r$ can be written as $(z-c)(\bar z-\bar c)=r^2$, that is, $z\bar z-c\bar z-\bar cz+|c|^2-r^2=0$. Substitute $z=1/w$, $\bar z=1/\bar w$ (this is exactly the inverse transformation of $w=1/z$) and multiply by $w\bar w\ne0$:</p>
   <p>$$1-cw-\bar c\bar w+(|c|^2-r^2)\,w\bar w=0.$$</p>
-  <p>Поделим на $|c|^2-r^2\ne0$:</p>
+  <p>Divide by $|c|^2-r^2\ne0$:</p>
   <p>$$w\bar w-\frac c{|c|^2-r^2}w-\frac{\bar c}{|c|^2-r^2}\bar w+\frac1{|c|^2-r^2}=0.$$</p>
-  <p>Уравнение окружности $|w-c'|=r'$ в тех же обозначениях — это $w\bar w-\bar{c'}w-c'\bar w+|c'|^2-r'^2=0$. Сравнивая коэффициенты при $w$ и при $\bar w$, получаем $\bar{c'}=c/(|c|^2-r^2)$, откуда и берётся формула для $c'$; из свободного члена $|c'|^2-r'^2=1/(|c|^2-r^2)$, что после подстановки $|c'|^2$ даёт формулу для $r'$.</p>
-  <p>(Если окружность всё же проходит через ноль, $|c|=r$, знаменатель обращается в ноль, и образ — уже не окружность, а прямая; этот предельный случай ниже в интерактиве не показан — центр окружности намеренно не подпускается к нулю ближе фиксированной границы, чтобы $1/z$ не приходилось вычислять сколь угодно близко к особой точке.)</p>
+  <p>The equation of the circle $|w-c'|=r'$ in the same notation is $w\bar w-\bar{c'}w-c'\bar w+|c'|^2-r'^2=0$. Comparing the coefficients of $w$ and $\bar w$ gives $\bar{c'}=c/(|c|^2-r^2)$, which is where the formula for $c'$ comes from; from the constant term, $|c'|^2-r'^2=1/(|c|^2-r^2)$, which after substituting $|c'|^2$ gives the formula for $r'$.</p>
+  <p>(If the circle does pass through zero, $|c|=r$, the denominator vanishes, and the image is no longer a circle but a line; this limiting case isn't shown in the interactive widget below — the circle's center is deliberately kept from approaching zero closer than a fixed bound, so that $1/z$ never has to be computed arbitrarily close to the singular point.)</p>
   <figure>
     <div class="motion-widget" id="widget-inversion"></div>
     <div class="formula-box" id="inv-c"></div>
     <div class="formula-box" id="inv-image"></div>
-    <figcaption>Точка $c$ перетаскивается; вместе с ней сдвигается цепочка из пяти одинаковых окружностей (радиус зафиксирован). Выделенная окружность и её числа в панели ниже соответствуют самой точке $c$; остальные четыре — та же инверсия, применённая одновременно к соседним окружностям, просто чтобы было видно, как деформируется целая цепочка, а не одна фигура. Бледные контуры — окружности-прообразы, синие фигуры — их образы, каждый по 120 точкам (численная проверка того, что формула выше действительно даёт окружность, а не что-то похожее на неё).</figcaption>
+    <figcaption>The point $c$ is dragged; a row of five identical circles (fixed radius) moves along with it. The highlighted circle and the numbers in the panel below correspond to the point $c$ itself; the other four are the same inversion applied simultaneously to neighboring circles, just so you can see how a whole row deforms, not just a single shape. Pale outlines are the preimage circles, blue shapes are their images, each traced through 120 points (a numerical check that the formula above really does give a circle, not just something that looks like one).</figcaption>
   </figure>
 </section>
 
@@ -363,19 +363,19 @@ window.InversionWidget = (function () {
 </script>
 
 <section id="sec-mobius">
-  <h2>4. Дробно-линейные преобразования</h2>
-  <p class="lead">Функция $\displaystyle w=\frac{az+b}{cz+d}$, $a,b,c,d\in\C$, $ad-bc\ne0$, называется <strong>дробно-линейным</strong> (или <strong>Мёбиусовым</strong>) преобразованием. Условие $ad-bc\ne0$ — это в точности условие того, что $w$ не вырождается в постоянную функцию.</p>
-  <p>При $c=0$ преобразование — это просто $w=(a/d)z+(b/d)$, подобие; окружности и прямые переходят в окружности и прямые тривиально (материал «<a href="/Materials/complex_numbers.html">Комплексные числа: три конструкции одного поля</a>»).</p>
-  <p>При $c\ne0$ поделим числитель на знаменатель:</p>
+  <h2>4. Fractional-Linear Transformations</h2>
+  <p class="lead">The function $\displaystyle w=\frac{az+b}{cz+d}$, $a,b,c,d\in\C$, $ad-bc\ne0$, is called a <strong>fractional-linear</strong> (or <strong>Möbius</strong>) transformation. The condition $ad-bc\ne0$ is exactly the condition that keeps $w$ from degenerating into a constant function.</p>
+  <p>When $c=0$, the transformation is just $w=(a/d)z+(b/d)$, a similarity; circles and lines map to circles and lines trivially (material «<a href="/Materials/complex_numbers_en.html">Complex Numbers: Three Constructions of One Field</a>»).</p>
+  <p>When $c\ne0$, divide the numerator by the denominator:</p>
   <p>$$\frac{az+b}{cz+d}=\frac ac+\frac{bc-ad}{c^2}\cdot\frac1{z+d/c}$$</p>
-  <p>(проверяется раскрытием скобок: $\frac ac(cz+d)+\frac{bc-ad}c=az+\frac{ad}c+\frac{bc-ad}c=az+b$). Правая часть — это перенос на $d/c$, затем инверсия, затем поворотная гомотетия с коэффициентом $(bc-ad)/c^2$ (ненулевым ровно при $ad-bc\ne0$), затем перенос на $a/c$.</p>
-  <p>Перенос и подобие переводят окружности и прямые в окружности и прямые тривиально (материал 1); инверсия — по теореме из §3. Композиция преобразований с этим свойством снова обладает этим свойством, поэтому и любое дробно-линейное преобразование переводит окружности и прямые в окружности и прямые — без отдельного доказательства для общего случая.</p>
-  <p>Как композиция регулярных функций (перенос, инверсия и подобие регулярны и конформны везде, где определены), дробно-линейное преобразование регулярно и конформно на всей области определения — то есть всюду, кроме точки $z=-d/c$ (при $c\ne0$), где знаменатель обращается в ноль.</p>
-  <p>Проверим это не на инверсии, а на настоящем дробно-линейном преобразовании с ненулевым $a$. Возьмём классический пример $w=\dfrac{z+1}{z-1}$ (единичная окружность $|z|=1$ переходит в мнимую ось — это можно проверить прямой подстановкой $z=e^{i\theta}$) и применим тот же приём, что и в §3: сэмплируем окружность в 120 точках и построим образ.</p>
+  <p>(check by expanding: $\frac ac(cz+d)+\frac{bc-ad}c=az+\frac{ad}c+\frac{bc-ad}c=az+b$). The right-hand side is: a translation by $d/c$, then inversion, then a rotational homothety with coefficient $(bc-ad)/c^2$ (nonzero exactly when $ad-bc\ne0$), then a translation by $a/c$.</p>
+  <p>Translation and similarity send circles and lines to circles and lines trivially (material 1); inversion does so by the theorem in §3. A composition of transformations with this property again has this property, so any fractional-linear transformation sends circles and lines to circles and lines too — with no separate proof needed for the general case.</p>
+  <p>As a composition of regular functions (translation, inversion, and similarity are all regular and conformal wherever defined), a fractional-linear transformation is regular and conformal on its entire domain — that is, everywhere except the point $z=-d/c$ (for $c\ne0$), where the denominator vanishes.</p>
+  <p>Let's check this not on inversion, but on a genuine fractional-linear transformation with nonzero $a$. Take the classic example $w=\dfrac{z+1}{z-1}$ (the unit circle $|z|=1$ maps to the imaginary axis — this can be checked by direct substitution $z=e^{i\theta}$) and apply the same trick as in §3: sample the circle at 120 points and plot the image.</p>
   <figure>
     <div class="motion-widget" id="widget-mobius"></div>
     <div class="formula-box" id="mob-c"></div>
-    <figcaption>Точка $c$ (центр окружности) перетаскивается вокруг полюса $z=1$ преобразования $w=(z+1)/(z-1)$ — того самого $-d/c$ из общей формулы при $a=b=1$, $c=1$, $d=-1$. Бледный контур — окружность-прообраз, синяя фигура — её образ по 120 точкам: чем ближе окружность к полюсу, тем сильнее искажён и крупнее её образ.</figcaption>
+    <figcaption>The point $c$ (circle center) is dragged around the pole $z=1$ of the transformation $w=(z+1)/(z-1)$ — exactly the $-d/c$ from the general formula, with $a=b=1$, $c=1$, $d=-1$. The pale outline is the preimage circle, the blue shape is its image traced through 120 points: the closer the circle sits to the pole, the more distorted and larger its image becomes.</figcaption>
   </figure>
 </section>
 
@@ -459,7 +459,7 @@ window.MobiusWidget = (function () {
       var parts = [];
       parts.push(axesMarkup());
       parts.push('<circle cx="' + poleSvg[0].toFixed(1) + '" cy="' + poleSvg[1].toFixed(1) + '" r="4" class="mw-pole"/>');
-      parts.push('<text x="' + (poleSvg[0] + 8).toFixed(1) + '" y="' + (poleSvg[1] - 8).toFixed(1) + '" class="mw-handle-label">полюс</text>');
+      parts.push('<text x="' + (poleSvg[0] + 8).toFixed(1) + '" y="' + (poleSvg[1] - 8).toFixed(1) + '" class="mw-handle-label">pole</text>');
       parts.push('<circle cx="' + state.cx.toFixed(1) + '" cy="' + state.cy.toFixed(1) + '" r="' + (SHAPE_R * SCALE) + '" class="mw-preimage"/>');
       parts.push('<polygon points="' + fmtPts(imgSvgPts) + '" class="mw-image"/>');
       parts.push('<circle class="mw-handle" cx="' + state.cx.toFixed(1) + '" cy="' + state.cy.toFixed(1) + '" r="8"/>');
@@ -537,9 +537,9 @@ window.MobiusWidget = (function () {
 </script>
 
 <section id="sec-conclusion">
-  <h2>5. Заключение</h2>
-  <p class="lead">Три материала этой серии прошли путь от алгебры к геометрии через анализ. Сначала — три равносильные конструкции поля ℂ и открытие, что умножение на число — это поворотная гомотетия (материал «<a href="/Materials/complex_numbers.html">Комплексные числа: три конструкции одного поля</a>»). Затем — что значит быть дифференцируемой функцией комплексного переменного и почему это условие оказалось на удивление жёстким: регулярность влечёт представимость рядом Тейлора, единственность продолжения, интегральную теорему и формулу Коши (материал «<a href="/Materials/complex_regularity.html">Регулярные функции</a>»).</p>
-  <p>И, наконец, здесь — что регулярность означает геометрически: в каждой точке, где производная не равна нулю, функция ведёт себя как подобие «в бесконечно малом», а значит сохраняет углы между кривыми. Инверсия и её потомки, дробно-линейные преобразования, показывают это свойство в чистом виде — на примере, который можно провести явно от определения до готовой формулы.</p>
+  <h2>5. Conclusion</h2>
+  <p class="lead">The three materials in this series traced a path from algebra to geometry, by way of analysis. First — three equivalent constructions of the field ℂ, and the discovery that multiplying by a number is a rotational homothety (material «<a href="/Materials/complex_numbers_en.html">Complex Numbers: Three Constructions of One Field</a>»). Then — what it means to be a differentiable function of a complex variable, and why that condition turns out to be surprisingly rigid: regularity implies representability as a Taylor series, uniqueness of continuation, an integral theorem, and Cauchy's formula (material «<a href="/Materials/complex_regularity_en.html">Regular Functions</a>»).</p>
+  <p>And finally, here — what regularity means geometrically: at every point where the derivative is nonzero, the function behaves like a similarity "in the infinitesimal," and so preserves angles between curves. Inversion and its descendants, fractional-linear transformations, show this property in its purest form — in an example that can be carried explicitly from definition to finished formula.</p>
 </section>
 
 <p class="page-footer">© Nikolai Kazimirov · <a href="https://mathem.at" rel="noopener">mathem.at</a></p>
