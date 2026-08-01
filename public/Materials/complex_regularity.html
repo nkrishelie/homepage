@@ -62,6 +62,23 @@ em{color:var(--ink)}
 .note p{margin-bottom:.55rem;color:var(--ink2)}
 .note p:last-child{margin-bottom:0}
 
+.motion-frame{width:100%;max-width:560px;height:auto;aspect-ratio:300/220;display:block;background:var(--bg2);border:1px solid var(--border);border-radius:6px;touch-action:none}
+.motion-widget{margin:1rem 0;max-width:560px}
+.mw-coord-axis{stroke:var(--ink3);stroke-width:1;opacity:.55}
+.mw-origin{fill:var(--ink3)}
+.mw-orbit{fill:none;stroke:var(--ink3);stroke-width:1;stroke-dasharray:3 3}
+.mw-path{fill:none;stroke:var(--blue-acc);stroke-width:1.4;opacity:.7}
+.mw-path-dot{fill:var(--blue-acc);opacity:.55}
+.mw-path-dot-final{fill:var(--rust-acc)}
+.mw-handle{fill:var(--ink);stroke:var(--bg);stroke-width:1.5}
+.mw-hit{fill:#000;opacity:0;cursor:grab;touch-action:none}
+.mw-hit:active{cursor:grabbing}
+.mw-handle-label{font-family:'JetBrains Mono',monospace;font-size:11px;fill:var(--ink2)}
+.svg-label{font-family:'JetBrains Mono',monospace;font-size:13px;fill:var(--ink2)}
+figure{margin:1.4rem 0}
+figcaption{font-size:16.5px;color:var(--ink3);margin-top:.6rem;line-height:1.55;font-style:italic}
+.formula-box{font-family:'JetBrains Mono',monospace;font-size:16px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:.8rem 1.1rem;margin-top:.8rem;color:var(--ink)}
+
 @media(max-width:700px){
   body{font-size:19px}
   .page{padding:1.5rem 1rem 3rem}
@@ -135,6 +152,178 @@ em{color:var(--ink)}
   <p>По условиям Коши–Римана из §1 ($u_x=v_y$, $u_y=-v_x$) оба подынтегральных выражения — тождественный нуль: $-v_x-u_y=-v_x-(-v_x)=0$ и $u_x-v_y=0$. Значит, оба контурных интеграла равны нулю, и $\oint_C f\,dz=0$.</p>
   <p>Геометрически это означает, что интеграл $\int_{z_1}^{z_2}f\,dz$ по любому пути внутри области регулярности зависит только от начальной и конечной точки — прямое обобщение того факта, что для вещественной функции с первообразной $\int_a^b f'(x)\,dx=f(b)-f(a)$ не зависит от того, как «идти» от $a$ до $b$ (там идти особо некуда — вещественная прямая одномерна).</p>
 </section>
+
+<section id="sec-euler">
+  <h2>4. Комплексная экспонента и формула Эйлера</h2>
+  <p class="lead">Определим комплексную экспоненту тем же степенным рядом, что и вещественную:</p>
+  <p>$$\exp(z)=1+z+\frac{z^2}{2}+\frac{z^3}{3!}+\dots$$</p>
+  <p>Ряд сходится в каждой точке $z\in\C$: частичные суммы образуют фундаментальную последовательность, поскольку хвост ряда оценивается через $|z|^n/n!\to0$; в силу полноты $\C$ предел существует. Нетрудно проверить, что производная $\exp'(z)=\exp(z)$ в каждой точке — то есть $\exp$ целая, и совпадает с вещественной экспонентой $e^x$ на вещественной оси. По теореме единственности из §2, это единственное регулярное на всём $\C$ продолжение $e^x$.</p>
+  <p>Экспоненту можно также представить как предел:</p>
+  <p>$$e^z=\lim_{n\to\infty}\left(1+\frac zn\right)^n.$$</p>
+  <p>Возьмём $z=i\varphi$ — чисто мнимое число. С одной стороны, по определению $e^{i\varphi}=\lim_{n\to\infty}(1+i\varphi/n)^n$. С другой — известные пределы $\cos(\varphi/n)=1-\varphi^2/2n^2+o(1/n^2)$ и $\sin(\varphi/n)=\varphi/n+o(1/n)$ дают $\cos(\varphi/n)+i\sin(\varphi/n)=1+i\varphi/n+o(1/n)$ — то есть эти два выражения различаются на величину порядка $o(1/n)$. Аккуратная оценка (через неравенство $|z^n-w^n|\le n|z-w|\max\{|z|^{n-1},|w|^{n-1}\}$) показывает, что после возведения в $n$-ю степень эта разница исчезает в пределе, и</p>
+  <p>$$e^{i\varphi}=\lim_{n\to\infty}\big(\cos(\varphi/n)+i\sin(\varphi/n)\big)^n=\cos\varphi+i\sin\varphi$$</p>
+  <p>— последнее равенство верно, поскольку при умножении $n$ одинаковых чисел с единичной окружности их аргументы складываются, а модули остаются равны единице. Это <strong>формула Эйлера</strong>. При $\varphi=\pi$ она даёт знаменитое тождество</p>
+  <p>$$e^{i\pi}+1=0,$$</p>
+  <p>связывающее пять фундаментальных констант одним равенством. Разделяя вещественную и мнимую части ряда для $e^{i\varphi}$, получаются ряды Тейлора для синуса и косинуса:</p>
+  <p>$$\cos\varphi=1-\frac{\varphi^2}{2!}+\frac{\varphi^4}{4!}-\dots,\qquad\sin\varphi=\varphi-\frac{\varphi^3}{3!}+\frac{\varphi^5}{5!}-\dots$$</p>
+  <figure>
+    <div class="motion-widget" id="widget-euler"></div>
+    <div class="formula-box" id="euler-phi"></div>
+    <div class="formula-box" id="euler-values"></div>
+    <figcaption>Точка на окружности перетаскивается по углу $\varphi$; ломаная — частичные суммы $S_0,S_1,\dots,S_{10}$ ряда для $e^{i\varphi}$, спиралью сходящиеся к точке $\cos\varphi+i\sin\varphi$ на окружности.</figcaption>
+  </figure>
+</section>
+
+<script id="euler-widget">
+window.EulerWidget = (function () {
+  var FRAME_HALF_W = 150, FRAME_HALF_H = 110;
+  var FRAME_VB = (-FRAME_HALF_W) + ' ' + (-FRAME_HALF_H) + ' ' + (2 * FRAME_HALF_W) + ' ' + (2 * FRAME_HALF_H);
+  var RADIUS = 25; // px per unit -- same scale as complex_numbers.html's A_VALUE_SCALE
+  var N = 10;       // partial sums S_0..S_10, fixed (no slider, see design doc)
+  var SNAP_DEG = 5;
+
+  function axesMarkup() {
+    return '<line x1="' + (-FRAME_HALF_W) + '" y1="0" x2="' + FRAME_HALF_W + '" y2="0" class="mw-coord-axis"/>' +
+      '<line x1="0" y1="' + (-FRAME_HALF_H) + '" x2="0" y2="' + FRAME_HALF_H + '" class="mw-coord-axis"/>' +
+      '<circle cx="0" cy="0" r="3" class="mw-origin"/>' +
+      '<text x="6" y="16" class="svg-label">0</text>' +
+      '<text x="' + (FRAME_HALF_W - 20) + '" y="-8" class="svg-label">Re</text>' +
+      '<text x="8" y="' + (-FRAME_HALF_H + 14) + '" class="svg-label">Im</text>';
+  }
+
+  // S_0..S_N for e^(i*mathPhi), computed directly in true math space (no
+  // SVG-space geometry tricks -- there is no transform being demonstrated
+  // here, just numbers being plotted, so plain complex arithmetic is
+  // simpler than complex_numbers.html's rotateScalePoint reuse).
+  function partialSums(mathPhi) {
+    var sums = [];
+    var term = { re: 1, im: 0 };   // (i*phi)^0 / 0!
+    var sum = { re: 0, im: 0 };
+    for (var k = 0; k <= N; k++) {
+      sum = { re: sum.re + term.re, im: sum.im + term.im };
+      sums.push(sum);
+      // term_{k+1} = term_k * (i*mathPhi) / (k+1)
+      var next = { re: -term.im * mathPhi, im: term.re * mathPhi };
+      term = { re: next.re / (k + 1), im: next.im / (k + 1) };
+    }
+    return sums;
+  }
+
+  function mathToSvg(z) { return [z.re * RADIUS, -z.im * RADIUS]; }
+  function fmtPts(pts) { return pts.map(function (p) { return p[0].toFixed(2) + ',' + p[1].toFixed(2); }).join(' '); }
+  function fmtComplex(z) {
+    var sign = z.im < 0 ? '-' : '+';
+    return z.re.toFixed(4) + ' ' + sign + ' ' + Math.abs(z.im).toFixed(4) + 'i';
+  }
+
+  function createEulerWidget(container, opts) {
+    var onChange = (opts && opts.onChange) || function () {};
+    var phiSvgDeg = -45; // math phi = +45deg (see the negation below) -- a legible default, not on an axis
+
+    container.innerHTML = '<svg class="mw-svg motion-frame" viewBox="' + FRAME_VB + '"></svg>';
+    var svg = container.querySelector('.mw-svg');
+
+    function localPointFromClient(clientX, clientY) {
+      var rect = svg.getBoundingClientRect();
+      var vb = svg.viewBox.baseVal;
+      var s = rect.width / vb.width;
+      return [(clientX - rect.left) / s + vb.x, (clientY - rect.top) / s + vb.y];
+    }
+
+    function render() {
+      var phiSvgRad = phiSvgDeg * Math.PI / 180;
+      var mathPhi = -phiSvgRad; // same negation convention as similarities.html's fmtAngleDeg
+      var hx = RADIUS * Math.cos(phiSvgRad), hy = RADIUS * Math.sin(phiSvgRad);
+      var sums = partialSums(mathPhi);
+      var svgPts = sums.map(mathToSvg);
+
+      var parts = [];
+      parts.push(axesMarkup());
+      parts.push('<circle cx="0" cy="0" r="' + RADIUS + '" class="mw-orbit"/>');
+      parts.push('<polyline points="' + fmtPts(svgPts) + '" class="mw-path"/>');
+      svgPts.forEach(function (p, i) {
+        var isFinal = i === svgPts.length - 1;
+        parts.push('<circle cx="' + p[0].toFixed(2) + '" cy="' + p[1].toFixed(2) + '" r="' + (isFinal ? 4 : 2.5) + '" class="' + (isFinal ? 'mw-path-dot mw-path-dot-final' : 'mw-path-dot') + '"/>');
+      });
+      parts.push('<circle class="mw-handle" cx="' + hx.toFixed(2) + '" cy="' + hy.toFixed(2) + '" r="8"/>');
+      parts.push('<circle class="mw-hit" cx="' + hx.toFixed(2) + '" cy="' + hy.toFixed(2) + '" r="20"/>');
+      parts.push('<text x="' + (hx + 10).toFixed(1) + '" y="' + (hy - 10).toFixed(1) + '" class="mw-handle-label">φ</text>');
+      svg.innerHTML = parts.join('');
+      wireDrag();
+      onChange({ phiDeg: -phiSvgDeg, sums: sums });
+    }
+
+    var dragging = false, activePointerId = null;
+    function onPointerDown(e) {
+      if (!e.target.classList || !e.target.classList.contains('mw-hit')) return;
+      dragging = true; activePointerId = e.pointerId;
+      e.preventDefault();
+    }
+    function onPointerMove(e) {
+      if (!dragging || e.pointerId !== activePointerId) return;
+      // Angle-only drag: only the direction from the origin matters, not
+      // the raw cursor distance -- same pattern as similarities.html's
+      // rotate-tab angle handle (dragKey === 'ang').
+      var raw = localPointFromClient(e.clientX, e.clientY);
+      var rawAngleDeg = Math.atan2(raw[1], raw[0]) * 180 / Math.PI;
+      phiSvgDeg = Math.round(rawAngleDeg / SNAP_DEG) * SNAP_DEG;
+      render();
+      e.preventDefault();
+    }
+    function onPointerUp(e) {
+      if (e.pointerId !== activePointerId) return;
+      dragging = false; activePointerId = null;
+    }
+    function wireDrag() {
+      var hit = svg.querySelector('.mw-hit');
+      hit.removeEventListener('pointerdown', onPointerDown);
+      hit.addEventListener('pointerdown', onPointerDown);
+    }
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerup', onPointerUp);
+    window.addEventListener('pointercancel', onPointerUp);
+
+    render();
+    return { getPhiDeg: function () { return -phiSvgDeg; } };
+  }
+
+  return {
+    create: createEulerWidget,
+    _test: { partialSums: partialSums, N: N, RADIUS: RADIUS }
+  };
+})();
+</script>
+
+<script>
+(function () {
+  var el = document.getElementById('widget-euler');
+  var phiEl = document.getElementById('euler-phi');
+  var valuesEl = document.getElementById('euler-values');
+
+  // katex.min.js is <script defer>; wait for window 'load' before calling
+  // katex.render directly (same reason as complex_numbers.html's §3 panel).
+  function init() {
+    if (!el || !phiEl || !valuesEl || !window.EulerWidget || !window.katex) return;
+
+    function fmtComplex(z) {
+      var sign = z.im < 0 ? '-' : '+';
+      return z.re.toFixed(4) + ' ' + sign + ' ' + Math.abs(z.im).toFixed(4) + 'i';
+    }
+
+    function update(state) {
+      var phiRad = state.phiDeg * Math.PI / 180;
+      var exact = { re: Math.cos(phiRad), im: Math.sin(phiRad) };
+      var approx = state.sums[state.sums.length - 1];
+      katex.render('\\varphi \\approx ' + state.phiDeg.toFixed(1) + '^\\circ', phiEl, { throwOnError: false });
+      katex.render('S_{10} \\approx ' + fmtComplex(approx) + ',\\quad \\cos\\varphi+i\\sin\\varphi \\approx ' + fmtComplex(exact), valuesEl, { throwOnError: false });
+    }
+
+    var widget = EulerWidget.create(el, { onChange: update });
+    update({ phiDeg: widget.getPhiDeg(), sums: EulerWidget._test.partialSums(widget.getPhiDeg() * Math.PI / 180) });
+  }
+  window.addEventListener('load', init);
+})();
+</script>
 
 <p class="page-footer">© Nikolai Kazimirov · <a href="https://mathem.at" rel="noopener">mathem.at</a></p>
 
