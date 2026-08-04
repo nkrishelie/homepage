@@ -94,6 +94,7 @@ figcaption{font-size:16.5px;color:var(--ink3);margin-top:.6rem;line-height:1.55;
 .nails-tri{fill:rgba(26,25,23,.05);stroke:#1a1917;stroke-width:1.2}
 .nails-hit{fill:#000;opacity:0;cursor:grab;touch-action:none}
 .nails-hit:active{cursor:grabbing}
+.refl-flag-mid{fill:rgba(122,79,13,.15);stroke:var(--amber-acc);stroke-width:1.4;stroke-dasharray:5 3}
 details{background:var(--bg2);border:1px solid var(--border);border-radius:6px;margin:1.2rem 0;padding:0}
 details summary{cursor:pointer;padding:.85rem 1.1rem;font-family:'JetBrains Mono',monospace;font-size:14.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink2);list-style:none;display:flex;align-items:center;gap:8px}
 details summary::-webkit-details-marker{display:none}
@@ -149,8 +150,9 @@ table.basic:has(td.col-3:hover) td.col-3, table.basic:has(td.col-3:hover) thead 
     <li><a href="#sec-three-kinds" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Three kinds of motion</a></li>
     <li><a href="#sec-nails" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">The three-nails theorem</a></li>
     <li><a href="#sec-glide" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Glide reflection</a></li>
-    <li><a href="#sec-chasles" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Chasles' theorem</a></li>
     <li><a href="#sec-table" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Composition table</a></li>
+    <li><a href="#sec-chasles" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Chasles' theorem</a></li>
+    <li><a href="#sec-reflections" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Reflection as a "prime" motion</a></li>
     <li><a href="#sec-fz" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Motions as functions $f(z)$</a></li>
     <li><a href="#sec-recovery" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Recovering the formula from images of points</a></li>
   </ol>
@@ -571,38 +573,8 @@ window.MotionWidget = (function () {
 })();
 </script>
 
-<section id="sec-chasles">
-  <h2>5. Chasles' theorem</h2>
-  <div class="note theorem">
-    <span class="note-head">Theorem (Chasles)</span>
-    <p>Every motion of the plane belongs to exactly one of three classes:</p>
-    <p>$\rightrightarrows$ <strong>translation</strong> (including the zero one — the identity motion);</p>
-    <p>$\circlearrowleft$ <strong>rotation</strong> about an arbitrary center;</p>
-    <p>$\leftharpoonup\leftharpoondown$ <strong>glide reflection</strong> — including a plain reflection as the case of zero shift.</p>
-  </div>
-  <p>The identity motion is a translation by the zero vector; a plain reflection is a glide reflection with zero shift along the axis. No other motions of the plane exist.</p>
-
-  <p>The picture shows an original flag (pale outline) and its image (blue) under one specific motion. Before opening the answer — which class is it: translation, rotation, or glide reflection?</p>
-  <svg id="chasles-quiz-svg" class="motion-frame" role="img" aria-label="Original and transformed flag for guessing the motion's class" style="max-width:420px"></svg>
-
-  <details>
-    <summary>Reveal the answer</summary>
-    <div class="details-body">
-      <p><strong>Answer:</strong> it's a glide reflection — the flag both got reflected (flipped its "side") and shifted along the axis of reflection. Neither a translation nor a rotation alone could do that: a translation doesn't change the flag's orientation, and a rotation leaves its own center fixed.</p>
-    </div>
-  </details>
-</section>
-
-<script>
-(function () {
-  var svg = document.getElementById('chasles-quiz-svg');
-  if (!svg || !window.MotionWidget) return;
-  MotionWidget.renderStatic(svg, { type: 'glide', px: -20, py: 0, theta: 0.3, t: 65 });
-})();
-</script>
-
 <section id="sec-table">
-  <h2>6. Composition table</h2>
+  <h2>5. Composition table</h2>
   <p class="lead">What you get if you first perform the motion from the row, then the one from the column (the "row∘column" order, same as in the composition table for the line). Two cells on the diagonal are ambiguous: their exact outcome depends on the parameters, not just the class.</p>
   <div class="tbl-wrap">
     <table class="basic">
@@ -625,8 +597,254 @@ window.MotionWidget = (function () {
   </details>
 </section>
 
+<section id="sec-chasles">
+  <h2>6. Chasles' theorem</h2>
+  <div class="note theorem">
+    <span class="note-head">Theorem (Chasles)</span>
+    <p>Every motion of the plane belongs to exactly one of three classes:</p>
+    <p>$\rightrightarrows$ <strong>translation</strong> (including the zero one — the identity motion);</p>
+    <p>$\circlearrowleft$ <strong>rotation</strong> about an arbitrary center;</p>
+    <p>$\leftharpoonup\leftharpoondown$ <strong>glide reflection</strong> — including a plain reflection as the case of zero shift.</p>
+  </div>
+  <p>The identity motion is a translation by the zero vector; a plain reflection is a glide reflection with zero shift along the axis. No other motions of the plane exist.</p>
+
+  <h3>Proof</h3>
+  <p>Let's sort motions by their number of fixed points. At each step, if there aren't enough fixed points for an already-handled case, we multiply the motion by a suitable "corrective" motion — so the number of fixed points goes up by one — and reduce to the previous case. Any extra branch that would contradict the number of fixed points of the original motion gets discarded using the composition table (§5).</p>
+  <p><strong>Three or more fixed points.</strong> This is the three-nails theorem (§3) — the motion is the identity.</p>
+  <p><strong>Exactly two.</strong> Handled there too (the two-point lemma): the whole line $AB$ is fixed and nothing more — this is the reflection $S_{AB}$.</p>
+  <p><strong>Exactly one, $O$.</strong> Take any $P\ne O$ and set $P'=G(P)$. Since $|OP|=|OP'|$, the points $P$ and $P'$ lie on one circle centered at $O$; let $R$ be the rotation about $O$ sending $P'$ to $P$. Then $R\circ G$ fixes both $O$ and $P$ — already two fixed points, so by the previous case $R\circ G=\mathrm{id}$ or $R\circ G=S_{OP}$. The second option is impossible: by the composition table, rotation∘reflection sharing the point $O$ is again a reflection through $O$, which fixes an entire line rather than one point — contradicting the hypothesis. That leaves $G=R^{-1}$ — a rotation about $O$.</p>
+  <p><strong>None at all.</strong> Take any point $O$, set $A=G(O)\ne O$, and let $T$ be the translation sending $A$ back to $O$. Then $T\circ G$ fixes $O$, so by the cases already handled it's $\mathrm{id}$, a rotation about $O$, or a reflection about some line $m\ni O$. The "rotation" branch is impossible: by the table, translation∘rotation is again a rotation, and a rotation always has a fixed point — its center — contradicting the hypothesis that $G$ has none. The "$\mathrm{id}$" branch gives $G=T^{-1}$ — a translation (nonzero, since $A\ne O$). The "reflection $S_m$" branch gives $G=T^{-1}\circ S_m$: by the table, translation∘reflection is again a reflection (if the translation runs along $m$ — but then a whole line is fixed again, a contradiction) or a glide reflection with axis parallel to $m$ and nonzero shift along it — only this outcome leaves no fixed points.</p>
+  <p>All four cases exhaust the possibilities — and that's Chasles' theorem.</p>
+
+  <p>The picture shows an original flag (pale outline) and its image (blue) under one specific motion. Before opening the answer — which class is it: translation, rotation, or glide reflection?</p>
+  <svg id="chasles-quiz-svg" class="motion-frame" role="img" aria-label="Original and transformed flag for guessing the motion's class" style="max-width:420px"></svg>
+
+  <details>
+    <summary>Reveal the answer</summary>
+    <div class="details-body">
+      <p><strong>Answer:</strong> it's a glide reflection — the flag both got reflected (flipped its "side") and shifted along the axis of reflection. Neither a translation nor a rotation alone could do that: a translation doesn't change the flag's orientation, and a rotation leaves its own center fixed.</p>
+    </div>
+  </details>
+</section>
+
+<script>
+(function () {
+  var svg = document.getElementById('chasles-quiz-svg');
+  if (!svg || !window.MotionWidget) return;
+  MotionWidget.renderStatic(svg, { type: 'glide', px: -20, py: 0, theta: 0.3, t: 65 });
+})();
+</script>
+
+<section id="sec-reflections">
+  <h2>7. Reflection as a "prime" motion</h2>
+  <p class="lead">Between Chasles' theorem and the composition table there's a stronger fact: reflection isn't just one of the four classes — it's the "building block" for all the others.</p>
+  <div class="note theorem">
+    <span class="note-head">Theorem</span>
+    <p>Every motion of the plane is a composition of at most three axial reflections: $\mathrm{id}$ is the empty composition (0 reflections); translation and rotation take exactly two; reflection takes one; glide reflection takes three.</p>
+  </div>
+  <p>This is exactly the fact about rotation∘reflection and translation∘reflection that we already cited in the proof of Chasles' theorem above (§6) — here's what it looks like in pictures. Reflect about $l_1$, then about $l_2$: if the axes meet at a point $O$ at angle $\theta$ (from $l_1$ to $l_2$) — the result is a rotation about $O$ by $2\theta$; if the axes are parallel with distance $d$ between them — the result is a translation by $2d$ perpendicular to the axes, from $l_1$ to $l_2$.</p>
+
+  <figure>
+    <div class="motion-widget" id="widget-reflections">
+      <div class="mw-tabs">
+        <button type="button" class="mw-tab" data-tab="cross">Intersecting axes</button>
+        <button type="button" class="mw-tab" data-tab="parallel">Parallel axes</button>
+      </div>
+      <svg id="refl-svg" class="mw-svg motion-frame" role="img" aria-label="Flag after reflecting about two axes in a row"></svg>
+    </div>
+    <p class="formula-box" id="refl-label-cross">$\theta$ = <span id="refl-cross-theta">—</span>, rotation by $2\theta$ = <span id="refl-cross-rot">—</span> about $O$.</p>
+    <p class="formula-box" id="refl-label-parallel" style="display:none">$d$ = <span id="refl-par-d">—</span>, translation by $2d$ = <span id="refl-par-t">—</span>.</p>
+    <figcaption>Pale outline — the original flag; muted — after the first reflection ($l_1$); blue — after the second ($l_2$). Drag the handles on the axes.</figcaption>
+  </figure>
+
+  <p>Adding a third reflection with any axis can never again give an orientation-preserving motion: by the composition table (§5), the parity of the number of reflections determines the kind of the result — an odd count always gives a reflection or a glide reflection.</p>
+</section>
+
+<script id="reflections-widget">
+(function () {
+  var svg = document.getElementById('refl-svg');
+  var widget = document.getElementById('widget-reflections');
+  if (!svg || !widget) return;
+
+  var FRAME_HALF_W = 150, FRAME_HALF_H = 110, CAP_X = 140, CAP_Y = 100;
+  var FRAME_VB = (-FRAME_HALF_W) + ' ' + (-FRAME_HALF_H) + ' ' + (2 * FRAME_HALF_W) + ' ' + (2 * FRAME_HALF_H);
+  svg.setAttribute('viewBox', FRAME_VB);
+
+  var LOCAL_FLAG = [[-2, -28], [-2, 28], [2, 28], [2, -12], [20, -20], [2, -28]];
+  var O = [0, 0];
+  var FLAG_ANCHOR_CROSS = [55, 20];
+  var FLAG_ANCHOR_PARALLEL = [55, -60];
+  var HANDLE_R = 55;
+  var HANDLE_X_PARALLEL = -110;
+
+  var state = {
+    cross: { t1: 20 * Math.PI / 180, t2: 80 * Math.PI / 180 },
+    parallel: { y1: -35, y2: 25 }
+  };
+  var current = 'cross';
+
+  function flagAt(anchor) {
+    return LOCAL_FLAG.map(function (p) { return [p[0] + anchor[0], p[1] + anchor[1]]; });
+  }
+  function reflectPoint(p, A, B) {
+    var dx = B[0] - A[0], dy = B[1] - A[1];
+    var len2 = dx * dx + dy * dy || 1;
+    var tt = ((p[0] - A[0]) * dx + (p[1] - A[1]) * dy) / len2;
+    var projX = A[0] + tt * dx, projY = A[1] + tt * dy;
+    return [2 * projX - p[0], 2 * projY - p[1]];
+  }
+  function reflectAll(pts, A, B) {
+    return pts.map(function (p) { return reflectPoint(p, A, B); });
+  }
+  function fmtPts(pts) {
+    return pts.map(function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' ');
+  }
+  function normAngle(a) {
+    while (a <= -Math.PI) a += 2 * Math.PI;
+    while (a > Math.PI) a -= 2 * Math.PI;
+    return a;
+  }
+  function clampY(y) { return Math.max(-CAP_Y, Math.min(CAP_Y, y)); }
+  function lineFromCross(theta) {
+    return [O, [O[0] + Math.cos(theta), O[1] + Math.sin(theta)]];
+  }
+  function lineFromY(y) {
+    return [[-500, y], [500, y]];
+  }
+  function axisMarkup(A, B) {
+    var dx = B[0] - A[0], dy = B[1] - A[1], len = Math.hypot(dx, dy) || 1;
+    var ux = dx / len, uy = dy / len, ext = 500;
+    return '<line x1="' + (A[0] - ux * ext).toFixed(1) + '" y1="' + (A[1] - uy * ext).toFixed(1) +
+      '" x2="' + (A[0] + ux * ext).toFixed(1) + '" y2="' + (A[1] + uy * ext).toFixed(1) + '" class="mw-axis"/>';
+  }
+  function handleMarkup(x, y, key, label) {
+    return '<circle class="mw-handle" cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="7"/>' +
+      '<circle class="mw-hit" data-key="' + key + '" cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="18"/>' +
+      '<text x="' + (x + 9).toFixed(1) + '" y="' + (y - 9).toFixed(1) + '" class="svg-label">' + label + '</text>';
+  }
+
+  var thetaEl = document.getElementById('refl-cross-theta');
+  var rotEl = document.getElementById('refl-cross-rot');
+  var dEl = document.getElementById('refl-par-d');
+  var tEl = document.getElementById('refl-par-t');
+  var labelCross = document.getElementById('refl-label-cross');
+  var labelParallel = document.getElementById('refl-label-parallel');
+
+  function updateLabels() {
+    labelCross.style.display = current === 'cross' ? 'block' : 'none';
+    labelParallel.style.display = current === 'parallel' ? 'block' : 'none';
+    if (current === 'cross') {
+      var thetaNorm = normAngle(state.cross.t2 - state.cross.t1);
+      var rotNorm = normAngle(2 * thetaNorm);
+      thetaEl.textContent = (-thetaNorm * 180 / Math.PI).toFixed(1) + '°';
+      rotEl.textContent = (-rotNorm * 180 / Math.PI).toFixed(1) + '°';
+    } else {
+      var d = Math.abs(state.parallel.y2 - state.parallel.y1);
+      dEl.textContent = d.toFixed(1);
+      tEl.textContent = (2 * d).toFixed(1);
+    }
+  }
+
+  function render() {
+    var parts = [];
+    var ghost, A1, B1, A2, B2;
+
+    if (current === 'cross') {
+      ghost = flagAt(FLAG_ANCHOR_CROSS);
+      var line1 = lineFromCross(state.cross.t1), line2 = lineFromCross(state.cross.t2);
+      A1 = line1[0]; B1 = line1[1]; A2 = line2[0]; B2 = line2[1];
+    } else {
+      ghost = flagAt(FLAG_ANCHOR_PARALLEL);
+      var lineA = lineFromY(state.parallel.y1), lineB = lineFromY(state.parallel.y2);
+      A1 = lineA[0]; B1 = lineA[1]; A2 = lineB[0]; B2 = lineB[1];
+    }
+
+    var mid = reflectAll(ghost, A1, B1);
+    var finalPts = reflectAll(mid, A2, B2);
+
+    parts.push(axisMarkup(A1, B1));
+    parts.push(axisMarkup(A2, B2));
+    parts.push('<polygon points="' + fmtPts(ghost) + '" class="mw-flag-ghost"/>');
+    parts.push('<polygon points="' + fmtPts(mid) + '" class="refl-flag-mid"/>');
+    parts.push('<polygon points="' + fmtPts(finalPts) + '" class="mw-flag-solid"/>');
+
+    if (current === 'cross') {
+      var h1 = [O[0] + HANDLE_R * Math.cos(state.cross.t1), O[1] + HANDLE_R * Math.sin(state.cross.t1)];
+      var h2 = [O[0] + HANDLE_R * Math.cos(state.cross.t2), O[1] + HANDLE_R * Math.sin(state.cross.t2)];
+      parts.push('<circle cx="' + O[0] + '" cy="' + O[1] + '" r="3.5" fill="#1a1917"/>');
+      parts.push('<text x="' + (O[0] + 8) + '" y="' + (O[1] - 8) + '" class="svg-label">O</text>');
+      parts.push(handleMarkup(h1[0], h1[1], 't1', 'l₁'));
+      parts.push(handleMarkup(h2[0], h2[1], 't2', 'l₂'));
+    } else {
+      parts.push(handleMarkup(HANDLE_X_PARALLEL, state.parallel.y1, 'y1', 'l₁'));
+      parts.push(handleMarkup(HANDLE_X_PARALLEL, state.parallel.y2, 'y2', 'l₂'));
+    }
+
+    svg.innerHTML = parts.join('');
+    wireDrag();
+    updateLabels();
+  }
+
+  var dragKey = null, activePointerId = null;
+  function localPointFromClient(clientX, clientY) {
+    var rect = svg.getBoundingClientRect();
+    var vb = svg.viewBox.baseVal;
+    var scale = rect.width / vb.width;
+    return [(clientX - rect.left) / scale + vb.x, (clientY - rect.top) / scale + vb.y];
+  }
+  function onPointerDown(e) {
+    var t = e.target;
+    if (!t.classList || !t.classList.contains('mw-hit')) return;
+    dragKey = t.getAttribute('data-key');
+    activePointerId = e.pointerId;
+    e.preventDefault();
+  }
+  function onPointerMove(e) {
+    if (dragKey === null || e.pointerId !== activePointerId) return;
+    var p = localPointFromClient(e.clientX, e.clientY);
+    if (dragKey === 't1' || dragKey === 't2') {
+      var raw = Math.atan2(p[1] - O[1], p[0] - O[0]);
+      var deg = Math.round((raw * 180 / Math.PI) / 5) * 5;
+      state.cross[dragKey] = deg * Math.PI / 180;
+    } else if (dragKey === 'y1' || dragKey === 'y2') {
+      state.parallel[dragKey] = clampY(Math.round(p[1] / 5) * 5);
+    }
+    render();
+    e.preventDefault();
+  }
+  function onPointerUp(e) {
+    if (e.pointerId !== activePointerId) return;
+    dragKey = null; activePointerId = null;
+  }
+  function wireDrag() {
+    var hits = svg.querySelectorAll('.mw-hit');
+    for (var i = 0; i < hits.length; i++) {
+      hits[i].removeEventListener('pointerdown', onPointerDown);
+      hits[i].addEventListener('pointerdown', onPointerDown);
+    }
+  }
+  window.addEventListener('pointermove', onPointerMove);
+  window.addEventListener('pointerup', onPointerUp);
+  window.addEventListener('pointercancel', onPointerUp);
+
+  var tabButtons = widget.querySelectorAll('.mw-tab');
+  for (var bi = 0; bi < tabButtons.length; bi++) {
+    tabButtons[bi].addEventListener('click', function (e) {
+      current = e.currentTarget.getAttribute('data-tab');
+      for (var j = 0; j < tabButtons.length; j++) {
+        tabButtons[j].classList.toggle('active', tabButtons[j] === e.currentTarget);
+      }
+      render();
+    });
+  }
+  tabButtons[0].classList.add('active');
+
+  render();
+})();
+</script>
+
 <section id="sec-fz">
-  <h2>7. Motions as functions $f(z)$</h2>
+  <h2>8. Motions as functions $f(z)$</h2>
   <p class="lead">Treating the plane as the field of complex numbers, every motion is written as a single formula. Adding a number is a translation; multiplying by a number with $|a|=1$ is a rotation about zero; conjugation $\bar z$ is a reflection about the real axis. Putting these operations together gives the whole family:</p>
   <p>$f(z) = az + b$, $|a|=1$ — <strong>orientation-preserving motions</strong> (translation, rotation): $a=1$ — a translation by vector $b$; $a\ne1$ — a rotation by angle $\arg a$ about the point $z_0=b/(1-a)$.</p>
   <p>$f(z) = a\bar z + b$, $|a|=1$ — <strong>orientation-reversing motions</strong> (reflection, glide reflection).</p>
@@ -928,7 +1146,7 @@ window.MotionMath = (function () {
 </script>
 
 <section id="sec-recovery">
-  <h2>8. Recovering the formula from images of points</h2>
+  <h2>9. Recovering the formula from images of points</h2>
   <p class="lead">If a motion is given not by the geometric parameters of its axes and vectors but by the images of specific points, its complex formula can be recovered algebraically. Two or three points are enough.</p>
 
   <h3>If the parity of the motion is known</h3>

@@ -94,6 +94,7 @@ figcaption{font-size:16.5px;color:var(--ink3);margin-top:.6rem;line-height:1.55;
 .nails-tri{fill:rgba(26,25,23,.05);stroke:#1a1917;stroke-width:1.2}
 .nails-hit{fill:#000;opacity:0;cursor:grab;touch-action:none}
 .nails-hit:active{cursor:grabbing}
+.refl-flag-mid{fill:rgba(122,79,13,.15);stroke:var(--amber-acc);stroke-width:1.4;stroke-dasharray:5 3}
 details{background:var(--bg2);border:1px solid var(--border);border-radius:6px;margin:1.2rem 0;padding:0}
 details summary{cursor:pointer;padding:.85rem 1.1rem;font-family:'JetBrains Mono',monospace;font-size:14.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink2);list-style:none;display:flex;align-items:center;gap:8px}
 details summary::-webkit-details-marker{display:none}
@@ -149,8 +150,9 @@ table.basic:has(td.col-3:hover) td.col-3, table.basic:has(td.col-3:hover) thead 
     <li><a href="#sec-three-kinds" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Три вида движений</a></li>
     <li><a href="#sec-nails" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Теорема о трёх гвоздях</a></li>
     <li><a href="#sec-glide" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Скользящая симметрия</a></li>
-    <li><a href="#sec-chasles" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Теорема Шаля</a></li>
     <li><a href="#sec-table" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Таблица композиций</a></li>
+    <li><a href="#sec-chasles" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Теорема Шаля</a></li>
+    <li><a href="#sec-reflections" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Симметрия как «простое» движение</a></li>
     <li><a href="#sec-fz" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Движения как функции $f(z)$</a></li>
     <li><a href="#sec-recovery" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Восстановление формулы по образам точек</a></li>
   </ol>
@@ -571,38 +573,8 @@ window.MotionWidget = (function () {
 })();
 </script>
 
-<section id="sec-chasles">
-  <h2>5. Теорема Шаля</h2>
-  <div class="note theorem">
-    <span class="note-head">Теорема (Шаля)</span>
-    <p>Всякое движение плоскости относится ровно к одному из трёх классов:</p>
-    <p>$\rightrightarrows$ <strong>перенос</strong> (в том числе нулевой — тождественное движение);</p>
-    <p>$\circlearrowleft$ <strong>поворот</strong> вокруг произвольного центра;</p>
-    <p>$\leftharpoonup\leftharpoondown$ <strong>скользящая симметрия</strong> — в том числе обычное отражение как случай нулевого сдвига.</p>
-  </div>
-  <p>Тождественное движение — это перенос на нулевой вектор; обычное отражение — это скользящая симметрия с нулевым сдвигом вдоль оси. Других движений плоскости не существует.</p>
-
-  <p>На картинке — исходный флажок (бледный контур) и его образ (синий) под действием одного конкретного движения. Прежде чем открыть ответ — какой это класс: перенос, поворот или скользящая симметрия?</p>
-  <svg id="chasles-quiz-svg" class="motion-frame" role="img" aria-label="Исходный и преобразованный флажок для угадывания класса движения" style="max-width:420px"></svg>
-
-  <details>
-    <summary>Открыть ответ</summary>
-    <div class="details-body">
-      <p><strong>Ответ:</strong> это скользящая симметрия — флажок одновременно отразился (поменял «сторону») и сдвинулся вдоль оси отражения. Ни перенос, ни поворот в одиночку так не смогли бы: перенос не меняет ориентацию флажка, а поворот оставляет на месте свой центр.</p>
-    </div>
-  </details>
-</section>
-
-<script>
-(function () {
-  var svg = document.getElementById('chasles-quiz-svg');
-  if (!svg || !window.MotionWidget) return;
-  MotionWidget.renderStatic(svg, { type: 'glide', px: -20, py: 0, theta: 0.3, t: 65 });
-})();
-</script>
-
 <section id="sec-table">
-  <h2>6. Таблица композиций</h2>
+  <h2>5. Таблица композиций</h2>
   <p class="lead">Что получится, если сначала выполнить движение из строки, а затем — из столбца (порядок «строка∘столбец», как и в таблице композиций для прямой). Две ячейки на диагонали неоднозначны: их конкретный исход зависит от параметров, а не только от класса.</p>
   <div class="tbl-wrap">
     <table class="basic">
@@ -625,8 +597,254 @@ window.MotionWidget = (function () {
   </details>
 </section>
 
+<section id="sec-chasles">
+  <h2>6. Теорема Шаля</h2>
+  <div class="note theorem">
+    <span class="note-head">Теорема (Шаля)</span>
+    <p>Всякое движение плоскости относится ровно к одному из трёх классов:</p>
+    <p>$\rightrightarrows$ <strong>перенос</strong> (в том числе нулевой — тождественное движение);</p>
+    <p>$\circlearrowleft$ <strong>поворот</strong> вокруг произвольного центра;</p>
+    <p>$\leftharpoonup\leftharpoondown$ <strong>скользящая симметрия</strong> — в том числе обычное отражение как случай нулевого сдвига.</p>
+  </div>
+  <p>Тождественное движение — это перенос на нулевой вектор; обычное отражение — это скользящая симметрия с нулевым сдвигом вдоль оси. Других движений плоскости не существует.</p>
+
+  <h3>Доказательство</h3>
+  <p>Разберём движения по числу неподвижных точек. На каждом шаге, если точек не хватает для уже разобранного случая, домножим движение на подходящее «исправляющее» движение — так, чтобы неподвижных точек стало на одну больше, — и сведём к предыдущему случаю. Лишние ветки, которые противоречили бы числу неподвижных точек исходного движения, отбросим с помощью таблицы композиций (§5).</p>
+  <p><strong>Три и более неподвижные точки.</strong> Это теорема о трёх гвоздях (§3) — движение тождественно.</p>
+  <p><strong>Ровно две.</strong> Разобрано там же (лемма о двух точках): неподвижна вся прямая $AB$ и ничего больше — это отражение $S_{AB}$.</p>
+  <p><strong>Ровно одна, $O$.</strong> Возьмём любую $P\ne O$ и положим $P'=G(P)$. Так как $|OP|=|OP'|$, точки $P$ и $P'$ лежат на одной окружности с центром $O$; пусть $R$ — поворот вокруг $O$, переводящий $P'$ в $P$. Тогда $R\circ G$ сохраняет и $O$, и $P$ — уже две неподвижные точки, значит по предыдущему случаю $R\circ G=\mathrm{id}$ либо $R\circ G=S_{OP}$. Второй вариант невозможен: по таблице композиций поворот∘отражение с общей точкой $O$ — снова отражение через $O$, а у него неподвижна целая прямая, а не одна точка — противоречие условию. Остаётся $G=R^{-1}$ — поворот вокруг $O$.</p>
+  <p><strong>Ни одной.</strong> Возьмём любую точку $O$, положим $A=G(O)\ne O$ и пусть $T$ — перенос, возвращающий $A$ в $O$. Тогда $T\circ G$ сохраняет $O$, значит по уже разобранным случаям это $\mathrm{id}$, поворот вокруг $O$ или отражение относительно некоторой прямой $m\ni O$. Ветка «поворот» невозможна: по таблице перенос∘поворот — снова поворот, а у него неизбежно есть неподвижный центр, что противоречит отсутствию неподвижных точек у $G$. Ветка «$\mathrm{id}$» даёт $G=T^{-1}$ — перенос (ненулевой, раз $A\ne O$). Ветка «отражение $S_m$» даёт $G=T^{-1}\circ S_m$: по таблице перенос∘отражение — снова отражение (если перенос идёт вдоль $m$, но тогда опять неподвижна целая прямая — противоречие) или скользящая симметрия с осью, параллельной $m$, и ненулевым сдвигом вдоль неё — только этот исход не даёт неподвижных точек.</p>
+  <p>Все четыре случая исчерпывают возможности — это и есть теорема Шаля.</p>
+
+  <p>На картинке — исходный флажок (бледный контур) и его образ (синий) под действием одного конкретного движения. Прежде чем открыть ответ — какой это класс: перенос, поворот или скользящая симметрия?</p>
+  <svg id="chasles-quiz-svg" class="motion-frame" role="img" aria-label="Исходный и преобразованный флажок для угадывания класса движения" style="max-width:420px"></svg>
+
+  <details>
+    <summary>Открыть ответ</summary>
+    <div class="details-body">
+      <p><strong>Ответ:</strong> это скользящая симметрия — флажок одновременно отразился (поменял «сторону») и сдвинулся вдоль оси отражения. Ни перенос, ни поворот в одиночку так не смогли бы: перенос не меняет ориентацию флажка, а поворот оставляет на месте свой центр.</p>
+    </div>
+  </details>
+</section>
+
+<script>
+(function () {
+  var svg = document.getElementById('chasles-quiz-svg');
+  if (!svg || !window.MotionWidget) return;
+  MotionWidget.renderStatic(svg, { type: 'glide', px: -20, py: 0, theta: 0.3, t: 65 });
+})();
+</script>
+
+<section id="sec-reflections">
+  <h2>7. Симметрия как «простое» движение</h2>
+  <p class="lead">Между теоремой Шаля и таблицей композиций есть более сильный факт: отражение — не один из четырёх классов, а «строительный блок» для всех остальных.</p>
+  <div class="note theorem">
+    <span class="note-head">Теорема</span>
+    <p>Любое движение плоскости — композиция не более чем трёх осевых симметрий: $\mathrm{id}$ — пустая композиция (0 отражений); перенос и поворот — ровно два; отражение — одно; скользящая симметрия — три.</p>
+  </div>
+  <p>Это тот самый факт про поворот∘отражение и перенос∘отражение, на который мы уже ссылались в доказательстве теоремы Шаля (§6) — вот как он выглядит в картинках. Отражение относительно $l_1$, затем относительно $l_2$: если оси пересекаются в точке $O$ под углом $\theta$ (от $l_1$ к $l_2$) — результат поворот вокруг $O$ на $2\theta$; если оси параллельны и расстояние между ними $d$ — результат перенос на $2d$ перпендикулярно осям, от $l_1$ к $l_2$.</p>
+
+  <figure>
+    <div class="motion-widget" id="widget-reflections">
+      <div class="mw-tabs">
+        <button type="button" class="mw-tab" data-tab="cross">Пересекающиеся оси</button>
+        <button type="button" class="mw-tab" data-tab="parallel">Параллельные оси</button>
+      </div>
+      <svg id="refl-svg" class="mw-svg motion-frame" role="img" aria-label="Флажок после отражения относительно двух осей подряд"></svg>
+    </div>
+    <p class="formula-box" id="refl-label-cross">$\theta$ = <span id="refl-cross-theta">—</span>, поворот на $2\theta$ = <span id="refl-cross-rot">—</span> вокруг $O$.</p>
+    <p class="formula-box" id="refl-label-parallel" style="display:none">$d$ = <span id="refl-par-d">—</span>, перенос на $2d$ = <span id="refl-par-t">—</span>.</p>
+    <figcaption>Бледный контур — исходный флажок; приглушённый — после первого отражения ($l_1$); синий — после второго ($l_2$). Тащите ручки на осях.</figcaption>
+  </figure>
+
+  <p>Добавить третье отражение с любой осью уже не может снова дать собственное движение: по таблице композиций (§5) чётность числа отражений определяет род результата — нечётное число всегда даёт отражение или скользящую симметрию.</p>
+</section>
+
+<script id="reflections-widget">
+(function () {
+  var svg = document.getElementById('refl-svg');
+  var widget = document.getElementById('widget-reflections');
+  if (!svg || !widget) return;
+
+  var FRAME_HALF_W = 150, FRAME_HALF_H = 110, CAP_X = 140, CAP_Y = 100;
+  var FRAME_VB = (-FRAME_HALF_W) + ' ' + (-FRAME_HALF_H) + ' ' + (2 * FRAME_HALF_W) + ' ' + (2 * FRAME_HALF_H);
+  svg.setAttribute('viewBox', FRAME_VB);
+
+  var LOCAL_FLAG = [[-2, -28], [-2, 28], [2, 28], [2, -12], [20, -20], [2, -28]];
+  var O = [0, 0];
+  var FLAG_ANCHOR_CROSS = [55, 20];
+  var FLAG_ANCHOR_PARALLEL = [55, -60];
+  var HANDLE_R = 55;
+  var HANDLE_X_PARALLEL = -110;
+
+  var state = {
+    cross: { t1: 20 * Math.PI / 180, t2: 80 * Math.PI / 180 },
+    parallel: { y1: -35, y2: 25 }
+  };
+  var current = 'cross';
+
+  function flagAt(anchor) {
+    return LOCAL_FLAG.map(function (p) { return [p[0] + anchor[0], p[1] + anchor[1]]; });
+  }
+  function reflectPoint(p, A, B) {
+    var dx = B[0] - A[0], dy = B[1] - A[1];
+    var len2 = dx * dx + dy * dy || 1;
+    var tt = ((p[0] - A[0]) * dx + (p[1] - A[1]) * dy) / len2;
+    var projX = A[0] + tt * dx, projY = A[1] + tt * dy;
+    return [2 * projX - p[0], 2 * projY - p[1]];
+  }
+  function reflectAll(pts, A, B) {
+    return pts.map(function (p) { return reflectPoint(p, A, B); });
+  }
+  function fmtPts(pts) {
+    return pts.map(function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' ');
+  }
+  function normAngle(a) {
+    while (a <= -Math.PI) a += 2 * Math.PI;
+    while (a > Math.PI) a -= 2 * Math.PI;
+    return a;
+  }
+  function clampY(y) { return Math.max(-CAP_Y, Math.min(CAP_Y, y)); }
+  function lineFromCross(theta) {
+    return [O, [O[0] + Math.cos(theta), O[1] + Math.sin(theta)]];
+  }
+  function lineFromY(y) {
+    return [[-500, y], [500, y]];
+  }
+  function axisMarkup(A, B) {
+    var dx = B[0] - A[0], dy = B[1] - A[1], len = Math.hypot(dx, dy) || 1;
+    var ux = dx / len, uy = dy / len, ext = 500;
+    return '<line x1="' + (A[0] - ux * ext).toFixed(1) + '" y1="' + (A[1] - uy * ext).toFixed(1) +
+      '" x2="' + (A[0] + ux * ext).toFixed(1) + '" y2="' + (A[1] + uy * ext).toFixed(1) + '" class="mw-axis"/>';
+  }
+  function handleMarkup(x, y, key, label) {
+    return '<circle class="mw-handle" cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="7"/>' +
+      '<circle class="mw-hit" data-key="' + key + '" cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="18"/>' +
+      '<text x="' + (x + 9).toFixed(1) + '" y="' + (y - 9).toFixed(1) + '" class="svg-label">' + label + '</text>';
+  }
+
+  var thetaEl = document.getElementById('refl-cross-theta');
+  var rotEl = document.getElementById('refl-cross-rot');
+  var dEl = document.getElementById('refl-par-d');
+  var tEl = document.getElementById('refl-par-t');
+  var labelCross = document.getElementById('refl-label-cross');
+  var labelParallel = document.getElementById('refl-label-parallel');
+
+  function updateLabels() {
+    labelCross.style.display = current === 'cross' ? 'block' : 'none';
+    labelParallel.style.display = current === 'parallel' ? 'block' : 'none';
+    if (current === 'cross') {
+      var thetaNorm = normAngle(state.cross.t2 - state.cross.t1);
+      var rotNorm = normAngle(2 * thetaNorm);
+      thetaEl.textContent = (-thetaNorm * 180 / Math.PI).toFixed(1) + '°';
+      rotEl.textContent = (-rotNorm * 180 / Math.PI).toFixed(1) + '°';
+    } else {
+      var d = Math.abs(state.parallel.y2 - state.parallel.y1);
+      dEl.textContent = d.toFixed(1);
+      tEl.textContent = (2 * d).toFixed(1);
+    }
+  }
+
+  function render() {
+    var parts = [];
+    var ghost, A1, B1, A2, B2;
+
+    if (current === 'cross') {
+      ghost = flagAt(FLAG_ANCHOR_CROSS);
+      var line1 = lineFromCross(state.cross.t1), line2 = lineFromCross(state.cross.t2);
+      A1 = line1[0]; B1 = line1[1]; A2 = line2[0]; B2 = line2[1];
+    } else {
+      ghost = flagAt(FLAG_ANCHOR_PARALLEL);
+      var lineA = lineFromY(state.parallel.y1), lineB = lineFromY(state.parallel.y2);
+      A1 = lineA[0]; B1 = lineA[1]; A2 = lineB[0]; B2 = lineB[1];
+    }
+
+    var mid = reflectAll(ghost, A1, B1);
+    var finalPts = reflectAll(mid, A2, B2);
+
+    parts.push(axisMarkup(A1, B1));
+    parts.push(axisMarkup(A2, B2));
+    parts.push('<polygon points="' + fmtPts(ghost) + '" class="mw-flag-ghost"/>');
+    parts.push('<polygon points="' + fmtPts(mid) + '" class="refl-flag-mid"/>');
+    parts.push('<polygon points="' + fmtPts(finalPts) + '" class="mw-flag-solid"/>');
+
+    if (current === 'cross') {
+      var h1 = [O[0] + HANDLE_R * Math.cos(state.cross.t1), O[1] + HANDLE_R * Math.sin(state.cross.t1)];
+      var h2 = [O[0] + HANDLE_R * Math.cos(state.cross.t2), O[1] + HANDLE_R * Math.sin(state.cross.t2)];
+      parts.push('<circle cx="' + O[0] + '" cy="' + O[1] + '" r="3.5" fill="#1a1917"/>');
+      parts.push('<text x="' + (O[0] + 8) + '" y="' + (O[1] - 8) + '" class="svg-label">O</text>');
+      parts.push(handleMarkup(h1[0], h1[1], 't1', 'l₁'));
+      parts.push(handleMarkup(h2[0], h2[1], 't2', 'l₂'));
+    } else {
+      parts.push(handleMarkup(HANDLE_X_PARALLEL, state.parallel.y1, 'y1', 'l₁'));
+      parts.push(handleMarkup(HANDLE_X_PARALLEL, state.parallel.y2, 'y2', 'l₂'));
+    }
+
+    svg.innerHTML = parts.join('');
+    wireDrag();
+    updateLabels();
+  }
+
+  var dragKey = null, activePointerId = null;
+  function localPointFromClient(clientX, clientY) {
+    var rect = svg.getBoundingClientRect();
+    var vb = svg.viewBox.baseVal;
+    var scale = rect.width / vb.width;
+    return [(clientX - rect.left) / scale + vb.x, (clientY - rect.top) / scale + vb.y];
+  }
+  function onPointerDown(e) {
+    var t = e.target;
+    if (!t.classList || !t.classList.contains('mw-hit')) return;
+    dragKey = t.getAttribute('data-key');
+    activePointerId = e.pointerId;
+    e.preventDefault();
+  }
+  function onPointerMove(e) {
+    if (dragKey === null || e.pointerId !== activePointerId) return;
+    var p = localPointFromClient(e.clientX, e.clientY);
+    if (dragKey === 't1' || dragKey === 't2') {
+      var raw = Math.atan2(p[1] - O[1], p[0] - O[0]);
+      var deg = Math.round((raw * 180 / Math.PI) / 5) * 5;
+      state.cross[dragKey] = deg * Math.PI / 180;
+    } else if (dragKey === 'y1' || dragKey === 'y2') {
+      state.parallel[dragKey] = clampY(Math.round(p[1] / 5) * 5);
+    }
+    render();
+    e.preventDefault();
+  }
+  function onPointerUp(e) {
+    if (e.pointerId !== activePointerId) return;
+    dragKey = null; activePointerId = null;
+  }
+  function wireDrag() {
+    var hits = svg.querySelectorAll('.mw-hit');
+    for (var i = 0; i < hits.length; i++) {
+      hits[i].removeEventListener('pointerdown', onPointerDown);
+      hits[i].addEventListener('pointerdown', onPointerDown);
+    }
+  }
+  window.addEventListener('pointermove', onPointerMove);
+  window.addEventListener('pointerup', onPointerUp);
+  window.addEventListener('pointercancel', onPointerUp);
+
+  var tabButtons = widget.querySelectorAll('.mw-tab');
+  for (var bi = 0; bi < tabButtons.length; bi++) {
+    tabButtons[bi].addEventListener('click', function (e) {
+      current = e.currentTarget.getAttribute('data-tab');
+      for (var j = 0; j < tabButtons.length; j++) {
+        tabButtons[j].classList.toggle('active', tabButtons[j] === e.currentTarget);
+      }
+      render();
+    });
+  }
+  tabButtons[0].classList.add('active');
+
+  render();
+})();
+</script>
+
 <section id="sec-fz">
-  <h2>7. Движения как функции $f(z)$</h2>
+  <h2>8. Движения как функции $f(z)$</h2>
   <p class="lead">Если считать плоскость полем комплексных чисел, каждое движение записывается одной формулой. Сложение с числом — это перенос; умножение на число с $|a|=1$ — поворот вокруг нуля; сопряжение $\bar z$ — отражение от вещественной оси. Собирая эти операции вместе, получаем всё семейство:</p>
   <p>$f(z) = az + b$, $|a|=1$ — <strong>собственные движения</strong> (перенос, поворот): $a=1$ — перенос на вектор $b$; $a\ne1$ — поворот на угол $\arg a$ вокруг точки $z_0=b/(1-a)$.</p>
   <p>$f(z) = a\bar z + b$, $|a|=1$ — <strong>несобственные движения</strong> (отражение, скользящая симметрия).</p>
@@ -928,7 +1146,7 @@ window.MotionMath = (function () {
 </script>
 
 <section id="sec-recovery">
-  <h2>8. Восстановление формулы по образам точек</h2>
+  <h2>9. Восстановление формулы по образам точек</h2>
   <p class="lead">Если движение задано не геометрическими параметрами осей и векторов, а образами конкретных точек, его комплексную формулу можно восстановить алгебраически. Для этого достаточно двух или трёх точек.</p>
 
   <h3>Если род движения известен</h3>
