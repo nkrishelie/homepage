@@ -4,6 +4,7 @@ import { Header } from './Header'; // Импортируем нашу испра
 import { Footer } from './Footer';
 import { BookChapterCard } from './BookChapterCard';
 import { Download, BookOpen, Image as ImageIcon, List, Star, Send, Youtube, Mail, Linkedin, Heart } from 'lucide-react';
+import { renderWithLinks } from './renderWithLinks';
 
 // Кнопка с раскрытием по клику: сперва только подпись, по клику — значение,
 // повторный клик по значению копирует его в буфер обмена.
@@ -59,7 +60,7 @@ export const BookDetails: React.FC = () => {
     s.label.toLowerCase().includes('email') || s.label.toLowerCase().includes('mail'));
   const linkedin = socials.find((s) => s.label.toLowerCase().includes('linkedin'));
 
-  const relatedBook = content.books.find((book) => book.id === 'savvateev');
+  const relatedBooks = content.books.filter((book) => book.id === 'springer' || book.id === 'savvateev');
   const PDF_LINK = "/archetypeswithface.pdf";
 
   const support = language === 'ru' ? {
@@ -301,64 +302,73 @@ export const BookDetails: React.FC = () => {
            ))}
         </div>
 
-        {/* RELATED BOOK */}
-        {relatedBook && (
+        {/* RELATED BOOKS */}
+        {relatedBooks.length > 0 && (
           <section className="mt-16">
             <h3 className="text-2xl font-serif font-bold mb-6 text-academic-900">
               {language === 'ru' ? 'Другие книги автора' : 'More by the author'}
             </h3>
-            <div className="bg-white p-6 md:p-7 border border-academic-200 hover:shadow-sm transition-shadow flex flex-col md:flex-row gap-6 items-start">
-              <div className="w-full md:w-40 shrink-0 self-start">
-                <a
-                  href={relatedBook.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block aspect-[2/3] bg-academic-100 relative overflow-hidden group border border-academic-100 transition-opacity hover:opacity-90"
+            <div className="flex flex-col gap-6">
+              {relatedBooks.map((relatedBook) => (
+                <div
+                  key={relatedBook.id}
+                  className="bg-white p-6 md:p-7 border border-academic-200 hover:shadow-sm transition-shadow flex flex-col md:flex-row gap-6 items-start"
                 >
-                  {relatedBook.coverImage ? (
-                    <img
-                      src={relatedBook.coverImage}
-                      alt={relatedBook.title}
-                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-academic-300">
-                      <BookOpen size={32} />
-                    </div>
-                  )}
-                </a>
-              </div>
-              <div className="flex-1">
-                <div className="flex flex-wrap items-center justify-between gap-3 mb-3 border-b border-academic-100 pb-3">
-                  <div className="text-xs font-bold uppercase tracking-widest text-academic-600">
-                    {relatedBook.type}
+                  <div className="w-full md:w-40 shrink-0 self-start">
+                    <a
+                      href={relatedBook.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block aspect-[2/3] bg-academic-100 relative overflow-hidden group border border-academic-100 transition-opacity hover:opacity-90"
+                    >
+                      {relatedBook.coverImage ? (
+                        <img
+                          src={relatedBook.coverImage}
+                          alt={relatedBook.title}
+                          className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-academic-300">
+                          <BookOpen size={32} />
+                        </div>
+                      )}
+                    </a>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-academic-500">
-                    <span className="font-medium text-academic-800 bg-academic-50 px-2 py-0.5 rounded">
-                      {relatedBook.role}
-                    </span>
-                    <span className="text-academic-300">•</span>
-                    <span className="font-serif italic">{relatedBook.year}</span>
+                  <div className="flex-1">
+                    <div className="flex flex-wrap items-center justify-between gap-3 mb-3 border-b border-academic-100 pb-3">
+                      <div className="text-xs font-bold uppercase tracking-widest text-academic-600">
+                        {relatedBook.type}
+                      </div>
+                      <div className="flex items-center gap-2 text-sm text-academic-500">
+                        <span className="font-medium text-academic-800 bg-academic-50 px-2 py-0.5 rounded">
+                          {relatedBook.role}
+                        </span>
+                        <span className="text-academic-300">•</span>
+                        <span className="font-serif italic">{relatedBook.year}</span>
+                      </div>
+                    </div>
+                    <h4 className="text-xl md:text-2xl font-serif font-bold text-academic-900 mb-3 leading-snug">
+                      {relatedBook.title}
+                    </h4>
+                    <p className="text-academic-600 text-sm md:text-[15px] leading-relaxed mb-4">
+                      {renderWithLinks(relatedBook.description)}
+                    </p>
+                    {relatedBook.link && relatedBook.link !== '#' && (
+                      <a
+                        href={relatedBook.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-academic-900 font-semibold border-b-2 border-academic-300 hover:border-academic-900 transition-colors text-sm"
+                      >
+                        {language === 'ru'
+                          ? (relatedBook.link.toLowerCase().endsWith('.pdf') ? 'Открыть книгу' : 'Подробнее о книге')
+                          : 'View details'}
+                      </a>
+                    )}
                   </div>
                 </div>
-                <h4 className="text-xl md:text-2xl font-serif font-bold text-academic-900 mb-3 leading-snug">
-                  {relatedBook.title}
-                </h4>
-                <p className="text-academic-600 text-sm md:text-[15px] leading-relaxed mb-4">
-                  {relatedBook.description}
-                </p>
-                {relatedBook.link && relatedBook.link !== '#' && (
-                  <a
-                    href={relatedBook.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-academic-900 font-semibold border-b-2 border-academic-300 hover:border-academic-900 transition-colors text-sm"
-                  >
-                    {language === 'ru' ? 'Открыть книгу' : 'View details'}
-                  </a>
-                )}
-              </div>
+              ))}
             </div>
           </section>
         )}
