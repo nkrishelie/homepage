@@ -67,14 +67,14 @@ a{color:inherit}
 .hero-sub{font-size:19px;font-style:italic;color:var(--hero-ink2);margin-bottom:1.1rem}
 .hero-desc{font-size:17.5px;color:#dfe4ec;max-width:640px;margin-bottom:1.6rem;line-height:1.65}
 .hero-desc strong{color:#fff;font-weight:700}
-.hero-cta-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--hero-ink2);margin-bottom:.6rem}
 .hero-cta{display:flex;flex-wrap:wrap;gap:12px}
-.btn-disabled{background:rgba(255,255,255,.06);color:rgba(255,255,255,.35);cursor:not-allowed}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:.75rem 1.3rem;border-radius:5px;font-size:15.5px;font-weight:500;
   text-decoration:none;font-family:'EB Garamond',Georgia,serif;transition:.15s}
 .btn-primary{background:#fff;color:var(--hero)}
 .btn-primary:hover{background:var(--gold);color:#231a05}
 .btn-ghost{border:1px solid rgba(255,255,255,.35);color:#fff}
+.btn-accent{background:var(--gold);color:#231a05;font-weight:700;box-shadow:0 6px 18px rgba(201,164,76,.35)}
+.btn-accent:hover{background:#dcb862}
 .btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.08)}
 .hero-note{margin-top:.9rem;font-size:13.5px;color:var(--hero-ink2)}
 
@@ -172,6 +172,23 @@ em{color:var(--ink)}
 .companion a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(201,164,76,.4)}
 .companion a:hover{border-bottom-color:var(--gold)}
 
+.support-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+@media(max-width:760px){.support-grid{grid-template-columns:1fr}}
+.support-card{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1.3rem 1.5rem}
+.support-card-title{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:.9rem}
+.support-item{margin-bottom:.7rem}
+.support-item:last-child{margin-bottom:0}
+.support-reveal{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1rem;border-radius:5px;border:1px solid var(--border);
+  background:var(--bg);color:var(--ink2);font-family:'EB Garamond',Georgia,serif;font-size:16px;cursor:pointer;transition:.15s}
+.support-reveal:hover{border-color:var(--ink3);color:var(--ink)}
+.support-reveal.small{padding:.4rem .8rem;font-size:14px}
+.support-value{display:block;width:100%;text-align:left;padding:.6rem 1rem;border-radius:5px;border:1px dashed var(--ink3);
+  background:var(--bg);font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--ink);cursor:pointer}
+.support-value[hidden]{display:none}
+.support-value .copied-note{display:block;font-family:'EB Garamond',Georgia,serif;font-style:italic;font-size:12.5px;color:var(--ink3);margin-top:.25rem}
+.support-value.copied{border-color:var(--sage-acc);color:var(--sage-acc)}
+.support-value.copied .copied-note{color:var(--sage-acc)}
+.support-alt{margin-top:.6rem;font-size:15px;color:var(--ink3);display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
 .page-footer{margin-top:3rem;padding-top:1.1rem;border-top:0.5px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.04em;color:var(--ink3);text-align:center;line-height:1.5}
 .page-footer a{color:var(--ink3);text-decoration:none;border-bottom:1px solid rgba(138,134,128,.35)}
 .page-footer a:hover{color:var(--ink2);border-bottom-color:var(--ink2)}
@@ -325,15 +342,10 @@ em{color:var(--ink)}
           бесплатными конспектами отдельных глав.
         </p>
         <div class="hero-cta hero-cta-main">
-          <a class="btn btn-primary" href="#sample">Читать ознакомительный фрагмент</a>
+          <a class="btn btn-accent" href="#support">♥ Поддержать автора</a>
+          <a class="btn btn-ghost" href="/Materials/maglish.pdf" target="_blank" rel="noopener noreferrer">↓ Скачать книгу целиком (PDF, 354 стр.)</a>
         </div>
-        <div class="hero-cta-label">Скоро на площадках</div>
-        <div class="hero-cta">
-          <span class="btn btn-disabled" aria-disabled="true">ЛитРес</span>
-          <span class="btn btn-disabled" aria-disabled="true">Ozon</span>
-          <span class="btn btn-disabled" aria-disabled="true">Wildberries</span>
-        </div>
-        <div class="hero-note">Релиз английского издания в <a href="https://link.springer.com/book/9783032307200" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline">Springer</a> — 19 сентября 2026 года. Оригинальная авторская вёрстка доступна отдельно.</div>
+        <div class="hero-note">Полный текст книги на русском языке — в свободном доступе. Релиз английского издания в <a href="https://link.springer.com/book/9783032307200" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline">Springer</a> — 19 сентября 2026 года.</div>
       </div>
     </div>
   </div>
@@ -712,6 +724,52 @@ em{color:var(--ink)}
     </div>
   </section>
 
+  <!-- ПОДДЕРЖАТЬ -->
+  <section id="support">
+    <div class="sec-head"><span class="sec-num">§9</span><h2>Поддержать автора</h2></div>
+    <p class="lead" style="margin-bottom:1.3rem">Книга в свободном доступе и останется бесплатной. Если она оказалась
+      полезной и вы хотите поддержать мою дальнейшую работу — вот пара способов, без каких-либо обязательств.</p>
+    <div class="support-grid">
+      <div class="support-card">
+        <div class="support-card-title">Россия</div>
+        <div class="support-item">
+          <button class="support-reveal" type="button">Показать номер карты</button>
+          <button class="support-value" type="button" hidden data-raw="2200300101045209">
+            2200 3001 0104 5209
+            <span class="copied-note">Нажмите, чтобы скопировать</span>
+          </button>
+        </div>
+      </div>
+      <div class="support-card">
+        <div class="support-card-title">Остальные страны</div>
+        <div class="support-item">
+          <button class="support-reveal" type="button">Показать PayPal</button>
+          <button class="support-value" type="button" hidden data-raw="ngoogstein@gmail.com">
+            ngoogstein@gmail.com
+            <span class="copied-note">Нажмите, чтобы скопировать · перевод на email в PayPal</span>
+          </button>
+        </div>
+        <div class="support-alt">
+          <span>или картой:</span>
+          <div class="support-item" style="margin-bottom:0">
+            <button class="support-reveal small" type="button">Беларусь</button>
+            <button class="support-value" type="button" hidden data-raw="5592680070259884">
+              5592 6800 7025 9884
+              <span class="copied-note">Нажмите, чтобы скопировать</span>
+            </button>
+          </div>
+          <div class="support-item" style="margin-bottom:0">
+            <button class="support-reveal small" type="button">Казахстан</button>
+            <button class="support-value" type="button" hidden data-raw="5269880075172908">
+              5269 8800 7517 2908
+              <span class="copied-note">Нажмите, чтобы скопировать</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <div class="wrap">
@@ -728,6 +786,35 @@ em{color:var(--ink)}
 </div>
 
 <script>
+/* Блок «Поддержать»: клик по кнопке раскрывает номер/email,
+   клик по раскрытому значению копирует его в буфер обмена. */
+(function(){
+  document.querySelectorAll('.support-item').forEach(item => {
+    const btn = item.querySelector('.support-reveal');
+    const val = item.querySelector('.support-value');
+    if (!btn || !val) return;
+    const note = val.querySelector('.copied-note');
+    const noteDefault = note ? note.textContent : '';
+
+    btn.addEventListener('click', () => {
+      btn.hidden = true;
+      val.hidden = false;
+    });
+
+    val.addEventListener('click', () => {
+      const raw = val.dataset.raw;
+      navigator.clipboard.writeText(raw).then(() => {
+        val.classList.add('copied');
+        if (note) note.textContent = 'Скопировано ✓';
+        setTimeout(() => {
+          val.classList.remove('copied');
+          if (note) note.textContent = noteDefault;
+        }, 1500);
+      });
+    });
+  });
+})();
+
 /* Лайтбокс: клик по миниатюре открывает страницу целиком.
    Esc и клик по фону закрывают, стрелки листают. */
 (function(){

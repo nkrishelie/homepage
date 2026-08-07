@@ -93,17 +93,15 @@ export const content: SiteContent = {
       title: "Математика как иностранный",
       role: "Автор",
       year: "2026",
-      description: "Архитектура математической мысли. Фундаментальное исследование математики как языковой системы: от синтаксиса формул до семантики формальных теорий. Релиз книги в издательстве [Springer](https://link.springer.com/book/9783032307200) (английская версия) — 19 сентября 2026 года.",
+      description: "Архитектура математической мысли. Фундаментальное исследование математики как языковой системы: от синтаксиса формул до семантики формальных теорий. Полный текст на русском языке — в свободном доступе. Релиз английского издания в [Springer](https://link.springer.com/book/9783032307200) — 19 сентября 2026 года.",
       note: "Оригинальная авторская версия в исходной LaTeX-верстке.",
       coverImage: "/litres_cover.png",
       link: "/Materials/maglish_index.html",
       type: "Монография",
       preorder: {
-        label: "Скоро на площадках",
+        label: "Читать бесплатно",
         links: [
-          { label: "ЛитРес", href: "#", disabled: true },
-          { label: "Ozon", href: "#", disabled: true },
-          { label: "Wildberries", href: "#", disabled: true }
+          { label: "Скачать PDF (354 стр.)", href: "/Materials/maglish.pdf" }
         ]
       }
     },

@@ -1,9 +1,52 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../LanguageContext';
 import { Header } from './Header'; // Импортируем нашу исправленную шапку
 import { Footer } from './Footer';
 import { BookChapterCard } from './BookChapterCard';
-import { Download, BookOpen, Image as ImageIcon, List, Star, Send, Youtube, Mail, Linkedin } from 'lucide-react';
+import { Download, BookOpen, Image as ImageIcon, List, Star, Send, Youtube, Mail, Linkedin, Heart } from 'lucide-react';
+
+// Кнопка с раскрытием по клику: сперва только подпись, по клику — значение,
+// повторный клик по значению копирует его в буфер обмена.
+const RevealValue: React.FC<{
+  display: string;
+  raw: string;
+  revealLabel: string;
+  hintLabel: string;
+  copiedLabel: string;
+  small?: boolean;
+}> = ({ display, raw, revealLabel, hintLabel, copiedLabel, small }) => {
+  const [revealed, setRevealed] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  if (!revealed) {
+    return (
+      <button
+        type="button"
+        onClick={() => setRevealed(true)}
+        className={`inline-flex items-center gap-2 rounded border border-academic-200 bg-academic-50 text-academic-700 hover:border-academic-400 hover:text-academic-900 transition-colors ${small ? 'px-3 py-1.5 text-sm' : 'px-4 py-2.5 text-[15px]'}`}
+      >
+        {revealLabel}
+      </button>
+    );
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        navigator.clipboard.writeText(raw);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 1500);
+      }}
+      className={`block text-left rounded border border-dashed bg-white font-mono transition-colors ${small ? 'px-3 py-1.5 text-sm' : 'px-4 py-2.5 text-[15px]'} ${copied ? 'border-emerald-500 text-emerald-600' : 'border-academic-300 text-academic-900'}`}
+    >
+      {display}
+      <span className={`block font-sans italic text-xs mt-1 ${copied ? 'text-emerald-600' : 'text-academic-400'}`}>
+        {copied ? copiedLabel : hintLabel}
+      </span>
+    </button>
+  );
+};
 
 export const BookDetails: React.FC = () => {
   const { content, language } = useLanguage(); 
@@ -17,7 +60,37 @@ export const BookDetails: React.FC = () => {
   const linkedin = socials.find((s) => s.label.toLowerCase().includes('linkedin'));
 
   const relatedBook = content.books.find((book) => book.id === 'savvateev');
-  const PDF_LINK = "/archetypeswithface.pdf"; 
+  const PDF_LINK = "/archetypeswithface.pdf";
+
+  const support = language === 'ru' ? {
+    heroCta: 'Поддержать автора',
+    title: 'Поддержать автора',
+    lead: 'Книга в свободном доступе. Если она оказалась полезной и вы хотите поддержать мою дальнейшую работу — вот пара способов, без каких-либо обязательств.',
+    russia: 'Россия',
+    other: 'Остальные страны',
+    orCard: 'или картой:',
+    belarus: 'Беларусь',
+    kazakhstan: 'Казахстан',
+    revealCard: 'Показать номер карты',
+    revealPaypal: 'Показать PayPal',
+    hint: 'Нажмите, чтобы скопировать',
+    hintPaypal: 'Нажмите, чтобы скопировать · перевод на email в PayPal',
+    copied: 'Скопировано ✓',
+  } : {
+    heroCta: 'Support the Author',
+    title: 'Support the Author',
+    lead: 'The book is freely available. If you found it useful and would like to support my ongoing work, here are a couple of options — no obligation.',
+    russia: 'Russia',
+    other: 'Other countries',
+    orCard: 'or by card:',
+    belarus: 'Belarus',
+    kazakhstan: 'Kazakhstan',
+    revealCard: 'Show card number',
+    revealPaypal: 'Show PayPal',
+    hint: 'Click to copy',
+    hintPaypal: 'Click to copy · send to this email via PayPal',
+    copied: 'Copied ✓',
+  };
 
   useEffect(() => {
     document.title = "Archetypes of Mathematics — Nikolai Kazimirov";
@@ -74,15 +147,24 @@ export const BookDetails: React.FC = () => {
                <h1 className="text-4xl md:text-5xl font-serif font-bold mb-6 leading-tight">{b.title}</h1>
                <p className="text-lg text-academic-300 mb-8 max-w-2xl leading-relaxed">{b.description}</p>
                
-               <a 
-                 href={PDF_LINK}
-                 target="_blank" 
-                 rel="noopener noreferrer"
-                 className="inline-flex w-full sm:w-auto items-center justify-center gap-3 px-8 py-4 bg-white text-academic-900 font-bold rounded hover:bg-academic-100 transition-colors shadow-lg text-base sm:text-lg"
-               >
-                 <Download size={20} />
-                 {b.downloadButton}
-               </a>
+               <div className="flex flex-col sm:flex-row gap-3">
+                 <a
+                   href="#support"
+                   className="inline-flex w-full sm:w-auto items-center justify-center gap-3 px-8 py-4 bg-[#c9a44c] text-academic-900 font-bold rounded hover:bg-[#dab862] transition-colors shadow-lg text-base sm:text-lg"
+                 >
+                   <Heart size={20} />
+                   {support.heroCta}
+                 </a>
+                 <a
+                   href={PDF_LINK}
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   className="inline-flex w-full sm:w-auto items-center justify-center gap-3 px-8 py-4 border border-white/30 text-white font-medium rounded hover:border-white hover:bg-white/10 transition-colors text-base sm:text-lg"
+                 >
+                   <Download size={20} />
+                   {b.downloadButton}
+                 </a>
+               </div>
             </div>
           </div>
         </div>
@@ -349,6 +431,63 @@ export const BookDetails: React.FC = () => {
           </div>
         </section>
       )}
+
+      {/* SUPPORT AUTHOR */}
+      <section id="support" className="bg-academic-50 border-t border-academic-200 py-12">
+        <div className="container mx-auto max-w-4xl px-6">
+          <h2 className="font-serif font-bold text-2xl text-academic-900 mb-4">
+            {support.title}
+          </h2>
+          <p className="text-academic-600 leading-relaxed text-lg mb-8 max-w-2xl">
+            {support.lead}
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-white border border-academic-200 rounded-lg p-6">
+              <div className="text-xs font-bold uppercase tracking-widest text-academic-500 mb-4">
+                {support.russia}
+              </div>
+              <RevealValue
+                display="2200 3001 0104 5209"
+                raw="2200300101045209"
+                revealLabel={support.revealCard}
+                hintLabel={support.hint}
+                copiedLabel={support.copied}
+              />
+            </div>
+            <div className="bg-white border border-academic-200 rounded-lg p-6">
+              <div className="text-xs font-bold uppercase tracking-widest text-academic-500 mb-4">
+                {support.other}
+              </div>
+              <RevealValue
+                display="ngoogstein@gmail.com"
+                raw="ngoogstein@gmail.com"
+                revealLabel={support.revealPaypal}
+                hintLabel={support.hintPaypal}
+                copiedLabel={support.copied}
+              />
+              <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-academic-500">
+                <span>{support.orCard}</span>
+                <RevealValue
+                  small
+                  display="5592 6800 7025 9884"
+                  raw="5592680070259884"
+                  revealLabel={support.belarus}
+                  hintLabel={support.hint}
+                  copiedLabel={support.copied}
+                />
+                <RevealValue
+                  small
+                  display="5269 8800 7517 2908"
+                  raw="5269880075172908"
+                  revealLabel={support.kazakhstan}
+                  hintLabel={support.hint}
+                  copiedLabel={support.copied}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <Footer />
     </div>
