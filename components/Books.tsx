@@ -1,10 +1,10 @@
 import React from 'react';
 import { useLanguage } from '../LanguageContext';
-import { ExternalLink, Mail, FileText, Book, GraduationCap } from 'lucide-react';
+import { ExternalLink, Download, Mail, FileText, Book, GraduationCap } from 'lucide-react';
 import { renderWithLinks } from './renderWithLinks';
 
 export const Books: React.FC = () => {
-  const { content } = useLanguage();
+  const { content, language } = useLanguage();
 
   const getTypeIcon = (type: string | undefined) => {
     if (!type) return <Book size={14} />;
@@ -30,6 +30,7 @@ export const Books: React.FC = () => {
           {content.books.map((book) => {
             const isWaitlist = book.link && (book.link.includes('forms.gle') || book.link.includes('docs.google.com'));
             const hasLink = !!book.link;
+            const isPdfLink = !!book.link && book.link.toLowerCase().endsWith('.pdf');
 
             return (
               <div
@@ -167,14 +168,16 @@ export const Books: React.FC = () => {
                             Waitlist
                         </a>
                     ) : (
-                        <a 
+                        <a
                             href={book.link}
                             target="_blank"
-                            rel="noopener noreferrer" 
+                            rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 text-academic-800 font-bold border-b-2 border-academic-200 hover:border-academic-800 transition-colors pb-0.5"
                         >
-                            {content.ui.buttons.details || 'Read'}
-                            <ExternalLink size={16} />
+                            {isPdfLink
+                              ? (language === 'ru' ? 'Скачать' : 'Download')
+                              : (content.ui.buttons.details || 'Read')}
+                            {isPdfLink ? <Download size={16} /> : <ExternalLink size={16} />}
                         </a>
                     )}
                    </div>
