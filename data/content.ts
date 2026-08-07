@@ -98,12 +98,6 @@ export const content: SiteContent = {
       coverImage: "/litres_cover.png",
       link: "/Materials/maglish_index.html",
       type: "Монография",
-      preorder: {
-        label: "Читать бесплатно",
-        links: [
-          { label: "Скачать PDF (354 стр.)", href: "/Materials/maglish.pdf" }
-        ]
-      }
     },
     {
       id: "savvateev",
