@@ -70,10 +70,10 @@ export const BookDetails: React.FC = () => {
     russia: 'Россия',
     other: 'Остальные страны',
     orCard: 'или картой:',
-    belarus: 'Беларусь',
-    kazakhstan: 'Казахстан',
-    revealCard: 'Показать номер карты',
-    revealPaypal: 'Показать PayPal',
+    belarus: 'Беларусь (BYN)',
+    kazakhstan: 'Казахстан (USD, EUR, KZT)',
+    revealCard: 'Показать номер карты (RUB)',
+    revealPaypal: 'Показать PayPal (USD, EUR)',
     hint: 'Нажмите, чтобы скопировать',
     hintPaypal: 'Нажмите, чтобы скопировать · перевод на email в PayPal',
     copied: 'Скопировано ✓',
@@ -84,10 +84,10 @@ export const BookDetails: React.FC = () => {
     russia: 'Russia',
     other: 'Other countries',
     orCard: 'or by card:',
-    belarus: 'Belarus',
-    kazakhstan: 'Kazakhstan',
-    revealCard: 'Show card number',
-    revealPaypal: 'Show PayPal',
+    belarus: 'Belarus (BYN)',
+    kazakhstan: 'Kazakhstan (USD, EUR, KZT)',
+    revealCard: 'Show card number (RUB)',
+    revealPaypal: 'Show PayPal (USD, EUR)',
     hint: 'Click to copy',
     hintPaypal: 'Click to copy · send to this email via PayPal',
     copied: 'Copied ✓',
@@ -457,7 +457,7 @@ export const BookDetails: React.FC = () => {
                 {support.russia}
               </div>
               <RevealValue
-                display="2200 3001 0104 5209"
+                display="2200 3001 0104 5209 (RUB)"
                 raw="2200300101045209"
                 revealLabel={support.revealCard}
                 hintLabel={support.hint}
@@ -469,7 +469,7 @@ export const BookDetails: React.FC = () => {
                 {support.other}
               </div>
               <RevealValue
-                display="ngoogstein@gmail.com"
+                display="ngoogstein@gmail.com (USD, EUR)"
                 raw="ngoogstein@gmail.com"
                 revealLabel={support.revealPaypal}
                 hintLabel={support.hintPaypal}
@@ -479,7 +479,7 @@ export const BookDetails: React.FC = () => {
                 <span>{support.orCard}</span>
                 <RevealValue
                   small
-                  display="5592 6800 7025 9884"
+                  display="5592 6800 7025 9884 (BYN)"
                   raw="5592680070259884"
                   revealLabel={support.belarus}
                   hintLabel={support.hint}
@@ -487,7 +487,7 @@ export const BookDetails: React.FC = () => {
                 />
                 <RevealValue
                   small
-                  display="5269 8800 7517 2908"
+                  display="5269 8800 7517 2908 (USD, EUR, KZT)"
                   raw="5269880075172908"
                   revealLabel={support.kazakhstan}
                   hintLabel={support.hint}
