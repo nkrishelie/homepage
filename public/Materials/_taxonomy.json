@@ -69,6 +69,8 @@
     "complex_regularity_en.html": "analysis",
     "conformal_maps.html": "analysis",
     "conformal_maps_en.html": "analysis",
+    "linear_spaces.html": "algebra",
+    "linear_spaces_en.html": "algebra",
     "test1.html": "sets",
     "diagonal.html": "foundations",
     "henkin_construction.html": "foundations",
@@ -100,6 +102,7 @@
     "complex_numbers.html": "ru",
     "complex_regularity.html": "ru",
     "conformal_maps.html": "ru",
+    "linear_spaces.html": "ru",
     "maglish_b1_formal_logic.html": "ru",
     "maglish_b2_foundations.html": "ru",
     "maglish_c1_paradise.html": "ru"

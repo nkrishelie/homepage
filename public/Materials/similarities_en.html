@@ -16,7 +16,7 @@
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\]', display: true}, {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}], throwOnError: false})"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\]', display: true}, {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}], macros: {'\\R': '\\mathbb{R}', '\\C': '\\mathbb{C}', '\\N': '\\mathbb{N}', '\\Z': '\\mathbb{Z}', '\\Q': '\\mathbb{Q}'}, throwOnError: false})"></script>
 <style>
 :root {
   --bg:#faf9f6; --bg2:#f2f0eb; --ink:#1a1917; --ink2:#5a5750; --ink3:#8a8680; --border:#dcd9d2;
@@ -138,7 +138,7 @@ figcaption{font-size:16.5px;color:var(--ink3);margin-top:.6rem;line-height:1.55;
 
 <section id="sec-intro">
   <h2>1. From motions to similarities</h2>
-  <p class="lead">A <strong>similarity</strong> of the plane is a transformation $P$ under which distances between images of points change by one and the same factor: $\rho(P(x),P(y)) = k\,\rho(x,y)$ for some number $k>0$, the same for any $x,y$. The number $k$ is called the ratio of similarity.</p>
+  <p class="lead">A <strong>similarity</strong> of the plane is a transformation $P$ under which distances between images of points change by one and the same factor: $\rho(P(x),P(y)) = k\,\rho(x,y)$ for some number $k&gt;0$, the same for any $x,y$. The number $k$ is called the ratio of similarity.</p>
   <p>When $k=1$, distances are preserved exactly — these are precisely the <a href="/Materials/chasles_en.html">motions of the plane</a>: translation, rotation, reflection, glide reflection. Everything from here on concerns the case $k\ne1$ — when figures aren't just moved, but also change size.</p>
   <p>The composition of similarities with ratios $k$ and $s$ is again a similarity, with ratio $ks$: this follows directly from the definition ($\rho$ is multiplied first by $k$, then by $s$).</p>
 </section>
@@ -574,6 +574,7 @@ window.SimilarityWidget = (function () {
   </div>
   <p>Rotational homothety was already covered in §3. <strong>Reflected homothety</strong> is its "mirror" counterpart: a homothety $H_{z_0}^k$ combined with a reflection across an axis through its own center $z_0$ (a homothety and such a reflection commute, just like the homothety and rotation in §3). At $k=1$ this is just an ordinary reflection across that axis. It's exactly this that the "Reflected homothety" tab in the calculator (§7) is for.</p>
   <p>The boundaries between classes overlap — and that's not a coincidence, but part of the same picture already seen with motions: the identity transformation is at once a "zero" translation and a "zero" rotational homothety ($k=1$, $\alpha=0$); an ordinary reflection is at once a glide reflection with zero shift and a reflected homothety with $k=1$. There are no other similarities of the plane.</p>
+  <p>This classification has a purely algebraic reading: the linear part of each of the four kinds is a linear operator on $\R^2$ whose matrix $W$ satisfies $W^{\mathsf T}W=k^2E$ (columns perpendicular and equal in length to $k$), and the sign of $\det W$ is exactly what tells rotational and reflected homothety apart. The general framework — module, vector space, linear operator, and its matrix — is assembled in «<a href="/Materials/linear_spaces_en.html">From Module to Operator</a>», whose §6 comes back here with this very theorem.</p>
 </section>
 
 <section id="sec-fz">

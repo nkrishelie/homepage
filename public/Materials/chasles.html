@@ -16,7 +16,7 @@
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\]', display: true}, {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}], throwOnError: false})"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\]', display: true}, {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}], macros: {'\\R': '\\mathbb{R}', '\\C': '\\mathbb{C}', '\\N': '\\mathbb{N}', '\\Z': '\\mathbb{Z}', '\\Q': '\\mathbb{Q}'}, throwOnError: false})"></script>
 <style>
 :root {
   --bg:#faf9f6; --bg2:#f2f0eb; --ink:#1a1917; --ink2:#5a5750; --ink3:#8a8680; --border:#dcd9d2;
@@ -1163,6 +1163,7 @@ window.MotionMath = (function () {
   <h3>Если род движения неизвестен</h3>
   <p>Двух точек в этом случае не хватит: они оставляют неоднозначность. Существует ровно одно собственное и ровно одно несобственное движение, переводящие направленный отрезок $z_1z_2$ в $w_1w_2$. Потребуется третья точка $z_3$, не лежащая на прямой через первые две, и её образ $w_3$.</p>
   <p>Алгоритм проверки простой: по $z_1, z_2$ вычисляются коэффициенты $a, b$ в предположении, что движение собственное. Если для третьей точки выполняется равенство $w_3 = a z_3 + b$, гипотеза подтверждается. Если тождество не сошлось — движение гарантированно несобственное, и коэффициенты нужно пересчитать по формулам для $\bar{z}$.</p>
+  <p>У каждого собственного движения $z\mapsto az+b$ есть линейная часть $z\mapsto az$ ($|a|=1$) — отображение, получаемое отбрасыванием сдвига $b$; она аддитивна и однородна, то есть является линейным оператором на $\R^2\cong\C$. Общая теория таких операторов, их матриц и алгебры — в материале «<a href="/Materials/linear_spaces.html">От модуля к оператору</a>», §6 которого возвращается сюда и в «Подобия плоскости» с матричной классификацией.</p>
 </section>
 
 <p class="page-footer">© Nikolai Kazimirov · <a href="https://mathem.at" rel="noopener">mathem.at</a></p>

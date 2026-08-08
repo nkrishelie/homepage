@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linear Spaces and Operators: From Module to Matrix</title>
+<meta name="description" content="A module over a ring and its special cases — vector space and algebra; Hamel basis and the theorem on the equipotence of bases (including infinite ones, a consequence of the axiom of choice); coordinates and the isomorphism with Rⁿ; a linear operator and its matrix in a basis; the ring of matrices, the algebra of operators, and the dual space; motions and similarities of the plane as linear operators on R².">
+<link rel="canonical" href="https://mathem.at/Materials/linear_spaces_en.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linear Spaces and Operators: From Module to Matrix">
+<meta property="og:description" content="From a module over a ring to the matrix of a linear operator — with Hamel bases, coordinates, the ring of matrices, the dual space, and plane motions as a special case.">
+<meta property="og:url" content="https://mathem.at/Materials/linear_spaces_en.html">
+<meta property="og:locale" content="en_US">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPsKxw5fDtzwvdGV4dD48L3N2Zz4=" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\]', display: true}, {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}], macros: {'\\R': '\\mathbb{R}', '\\C': '\\mathbb{C}', '\\N': '\\mathbb{N}', '\\Z': '\\mathbb{Z}', '\\Q': '\\mathbb{Q}', '\\e': '\\mathsf{e}'}, throwOnError: false})"></script>
+<style>
+:root {
+  --bg:#faf9f6; --bg2:#f2f0eb; --ink:#1a1917; --ink2:#5a5750; --ink3:#8a8680; --border:#dcd9d2;
+  --blue-bg:#e8eef7;  --blue-acc:#3a5f9e;
+  --rust-bg:#f0ebe8;  --rust-acc:#8c4a32;
+  --sage-bg:#e8f0eb;  --sage-acc:#2e6645;
+  --teal-bg:#e6f5ef;  --teal-acc:#0f6e56;
+  --amber-bg:#fdf3e0; --amber-acc:#7a4f0d;
+  --coral-bg:#faeae6; --coral-acc:#9b2f1a;
+  --purple-bg:#eeedfb; --purple-acc:#4a3a9a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Georgia,serif;font-size:22px;line-height:1.65;min-height:100vh}
+.page{max-width:1320px;margin:0 auto;padding:3rem 2.5rem 5rem}
+
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.8rem}
+.crumbs{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink3)}
+.crumbs a{color:var(--ink3);text-decoration:none}
+.crumbs a:hover{color:var(--ink)}
+.lang-pills{display:flex;gap:8px}
+.lang-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border:1px solid var(--border);color:var(--ink2);transition:.15s}
+.lang-pill.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.lang-pill:not(.active):hover{border-color:var(--ink)}
+
+header{margin-bottom:2.5rem;border-bottom:1.5px solid var(--ink);padding-bottom:1.5rem}
+.kicker{font-family:'JetBrains Mono',monospace;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:.6rem}
+h1{font-size:clamp(28px,3.2vw,44px);font-weight:500;line-height:1.15;color:var(--ink);margin-bottom:.5rem}
+.desc{font-size:19px;color:var(--ink2);font-style:italic;max-width:900px}
+
+section{margin-bottom:3.5rem}
+h2{font-size:28px;font-weight:500;margin-bottom:1.2rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+h3{font-size:22px;font-weight:500;margin:1.8rem 0 .8rem;color:var(--ink)}
+h4{font-size:19px;font-weight:500;margin:1.2rem 0 .5rem;color:var(--ink)}
+p{margin-bottom:.9rem;color:var(--ink2)}
+p.lead{color:var(--ink)}
+strong{color:var(--ink);font-weight:500}
+em{color:var(--ink)}
+ul.plain,ol.plain{margin:.6rem 0 1rem 1.4rem;color:var(--ink2)}
+ul.plain li,ol.plain li{margin-bottom:.4rem}
+.katex{font-size:1.05em}
+.katex-display{margin:.6em 0!important;overflow-x:auto;overflow-y:hidden}
+
+.page-footer{margin-top:2.75rem;padding-top:1.1rem;border-top:0.5px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.04em;color:var(--ink3);text-align:center;line-height:1.5}
+.page-footer a{color:var(--ink3);text-decoration:none;border-bottom:1px solid rgba(138,134,128,.35)}
+.page-footer a:hover{color:var(--ink2);border-bottom-color:var(--ink2)}
+
+.lang-section-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:.8rem}
+.lang-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:0.5px solid var(--border);margin-bottom:1rem}
+.lang-cards.cols-2{grid-template-columns:repeat(2,1fr)}
+.lang-card{background:var(--bg);padding:1.3rem 1.4rem 1.3rem;display:flex;flex-direction:column;gap:.6rem}
+.lang-card.blue{background:var(--blue-bg)} .lang-card.rust{background:var(--rust-bg)} .lang-card.sage{background:var(--sage-bg)}
+.lang-card.teal{background:var(--teal-bg)} .lang-card.amber{background:var(--amber-bg)} .lang-card.purple{background:var(--purple-bg)}
+.lang-card-top{display:flex;flex-direction:column;gap:2px;padding-bottom:.6rem;border-bottom:1px solid rgba(0,0,0,.08)}
+.lang-card-num{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+.blue .lang-card-num{color:var(--blue-acc)} .rust .lang-card-num{color:var(--rust-acc)} .sage .lang-card-num{color:var(--sage-acc)}
+.teal .lang-card-num{color:var(--teal-acc)} .amber .lang-card-num{color:var(--amber-acc)} .purple .lang-card-num{color:var(--purple-acc)}
+.lang-card-name{font-size:16px;font-weight:500;color:var(--ink);line-height:1.25}
+.lang-card-sub{font-size:13px;color:var(--ink3);font-style:italic}
+.lang-card-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:2px;width:fit-content}
+.blue .lang-card-tag{background:rgba(58,95,158,.12);color:var(--blue-acc)}
+.rust .lang-card-tag{background:rgba(140,74,50,.12);color:var(--rust-acc)}
+.sage .lang-card-tag{background:rgba(46,102,69,.12);color:var(--sage-acc)}
+.teal .lang-card-tag{background:rgba(15,110,86,.12);color:var(--teal-acc)}
+.amber .lang-card-tag{background:rgba(122,79,13,.12);color:var(--amber-acc)}
+.purple .lang-card-tag{background:rgba(74,58,154,.12);color:var(--purple-acc)}
+.lang-card-body{font-size:14.5px;color:var(--ink2);line-height:1.62}
+
+.axioms-btn{margin-top:4px;display:inline-flex;align-items:center;gap:5px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);border:0.5px solid var(--border);background:rgba(0,0,0,.03);padding:4px 10px;border-radius:3px;transition:color .15s,background .15s}
+.axioms-btn:hover{color:var(--ink2);background:rgba(0,0,0,.06)}
+.axioms-btn .arr{display:inline-block;transition:transform .2s;font-size:10px}
+.axioms-btn.active .arr{transform:rotate(90deg)}
+.axioms-panel{display:none;border:0.5px solid var(--border);border-top:none;background:var(--bg);padding:1.2rem 1.5rem 1.4rem;margin-bottom:1rem}
+.axioms-panel.open{display:block}
+.axioms-panel p{font-size:15px;color:var(--ink2);margin-top:.8rem}
+.ax-panel-title{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:.9rem}
+.ax-panel-title span{color:var(--ink2);font-weight:500}
+.ax-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.9rem 2rem}
+.ax-item{margin-bottom:.5rem}
+.ax-label{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);display:block;margin-bottom:3px}
+.ax-text{font-size:15px;color:var(--ink2)}
+
+.motion-frame{width:100%;max-width:560px;height:auto;aspect-ratio:300/220;display:block;background:var(--bg2);border:1px solid var(--border);border-radius:6px;touch-action:none}
+.motion-widget{margin:1rem 0;max-width:560px}
+.mw-flag-ghost{fill:rgba(26,25,23,.08);stroke:var(--ink3);stroke-width:1;stroke-dasharray:3 3}
+.mw-flag-solid{fill:rgba(58,95,158,.18);stroke:var(--blue-acc);stroke-width:1.6}
+.mw-vector{stroke:var(--blue-acc);stroke-width:2}
+.mw-vector2{stroke:var(--rust-acc);stroke-width:2}
+.mw-ref-vector{stroke:var(--ink3);stroke-width:1.3;stroke-dasharray:2 2}
+.mw-handle{fill:var(--ink);stroke:var(--bg);stroke-width:1.5}
+.mw-handle2{fill:var(--rust-acc);stroke:var(--bg);stroke-width:1.5}
+.mw-hit{fill:#000;opacity:0;cursor:grab;touch-action:none}
+.mw-hit:active{cursor:grabbing}
+.mw-coord-axis{stroke:var(--ink3);stroke-width:1;opacity:.55}
+.mw-origin{fill:var(--ink3)}
+.mw-handle-label{font-family:'JetBrains Mono',monospace;font-size:11px;fill:var(--ink2)}
+.mw-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:.6rem}
+.mw-tab{font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:.02em;padding:6px 12px;border-radius:999px;border:1px solid var(--border);background:var(--bg);color:var(--ink2);cursor:pointer}
+.mw-tab.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.mw-tab:not(.active):hover{border-color:var(--ink2)}
+figure{margin:1.4rem 0}
+figcaption{font-size:16.5px;color:var(--ink3);margin-top:.6rem;line-height:1.55;font-style:italic}
+.svg-label{font-family:'JetBrains Mono',monospace;font-size:13px;fill:var(--ink2)}
+.formula-box{font-family:'JetBrains Mono',monospace;font-size:16px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:.8rem 1.1rem;margin-top:.8rem;color:var(--ink)}
+.op-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.03em;padding:5px 12px;border-radius:4px;margin-top:.6rem}
+.op-badge.ok{background:var(--sage-bg);color:var(--sage-acc)}
+.op-badge.no{background:var(--amber-bg);color:var(--amber-acc)}
+.op-badge.deg{background:var(--coral-bg);color:var(--coral-acc)}
+.note{border-left:3px solid var(--rust-acc);background:var(--rust-bg);border-radius:0 6px 6px 0;padding:.8rem 1.1rem;margin:1rem 0;font-size:17.5px;color:var(--ink2)}
+.note.purple{border-left-color:var(--purple-acc);background:var(--purple-bg)}
+.note.teal{border-left-color:var(--teal-acc);background:var(--teal-bg)}
+.note.amber{border-left-color:var(--amber-acc);background:var(--amber-bg)}
+.note .note-head{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--rust-acc);margin-bottom:.35rem}
+.note.purple .note-head{color:var(--purple-acc)}
+.note.teal .note-head{color:var(--teal-acc)}
+.note.amber .note-head{color:var(--amber-acc)}
+.note p{margin-bottom:.55rem;color:var(--ink2)}
+.note p:last-child{margin-bottom:0}
+
+.definition{border:1.5px solid var(--blue-acc);background:var(--blue-bg);border-radius:6px;padding:1.1rem 1.4rem;margin:1.2rem 0}
+.definition .def-head{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-acc);font-weight:700;margin-bottom:.6rem}
+.definition p{margin-bottom:.7rem;color:var(--ink2)}
+.definition p:last-child{margin-bottom:0}
+.definition ol.plain{margin-bottom:0}
+.note ul.plain,.note ol.plain{margin-top:.5rem;margin-bottom:0}
+
+.map-table-wrap{overflow-x:auto;margin:1rem 0}
+table.map-table{border-collapse:collapse;width:100%;font-size:16px}
+table.map-table th,table.map-table td{border:0.5px solid var(--border);padding:.55rem .8rem;text-align:left;vertical-align:middle}
+table.map-table th{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);background:var(--bg2);font-weight:500}
+table.map-table td{color:var(--ink2)}
+table.map-table tr:nth-child(even) td{background:#f6f4f0}
+
+.scheme-wrap{width:100%;overflow-x:auto;margin:1.4rem 0}
+.scheme-svg{width:100%;min-width:560px;max-width:760px;display:block;margin:0 auto}
+.scheme-box-title{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:16px}
+.scheme-box-sub{font-family:'EB Garamond',serif;font-size:13.5px}
+.scheme-axiom{font-family:'JetBrains Mono',monospace;font-size:11px}
+.scheme-cond{font-family:'JetBrains Mono',monospace;font-size:11px;font-style:normal}
+.scheme-arrow{stroke:var(--ink3);stroke-width:1.4;fill:none}
+
+@media(max-width:700px){
+  body{font-size:19px}
+  .page{padding:1.5rem 1rem 3rem}
+  .lang-cards{grid-template-columns:1fr}
+  .lang-cards.cols-2{grid-template-columns:1fr}
+  .ax-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="topbar">
+  <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> / <a href="/#materials">Materials</a></div>
+  <div class="lang-pills">
+    <a class="lang-pill active" href="/Materials/linear_spaces_en.html">🇬🇧 EN</a>
+    <a class="lang-pill" href="/Materials/linear_spaces.html">🇷🇺 RU</a>
+  </div>
+</div>
+
+<header>
+  <p class="kicker">Algebra and Structures · Linear Algebra</p>
+  <h1>From Module to Operator</h1>
+  <p class="desc">«<a href="/Materials/chasles_en.html">Motions of the Plane</a>» and «<a href="/Materials/similarities_en.html">Similarities of the Plane</a>» already showed a telling pattern: translations add, and concentric homotheties multiply — exactly like numbers. Here we assemble the general algebraic framework behind that pattern: a module over a ring, its special cases (vector space, algebra), basis, coordinates, a linear operator and its matrix, the ring of matrices, and the dual space — and matrices, let's remember, can encode far more than just motions and similarities. At the end — motions and similarities themselves, now as linear operators on $\R^2$.</p>
+</header>
+
+<nav class="toc" style="background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 1.2rem 1.5rem; margin-bottom: 2.5rem;">
+  <h3 style="margin-top: 0; margin-bottom: 0.8rem; font-size: 19px;">Contents</h3>
+  <ol style="margin: 0 0 0 1.5rem; padding: 0; color: var(--ink2); line-height: 1.6;">
+    <li><a href="#sec-module" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Module over a Ring</a></li>
+    <li><a href="#sec-basis" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Hamel Basis</a></li>
+    <li><a href="#sec-coords" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Coordinates and the Isomorphism with $\R^n$</a></li>
+    <li><a href="#sec-operator" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Linear Operators and Their Matrix</a></li>
+    <li><a href="#sec-algebra" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">The Ring of Matrices and the Dual Space</a></li>
+    <li><a href="#sec-bridge" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Motions and Similarities as Operators on $\R^2$</a></li>
+  </ol>
+</nav>
+
+<section id="sec-module">
+  <h2>1. Module over a Ring</h2>
+  <p class="lead">Any abelian group $\langle M,+\rangle$ becomes a module over $\Z$ in exactly one natural way: an integer $n$ acts on a vector by repeated addition — for $n&gt;0$ this is the $n$-fold "$v+v+\dots+v$," for $n&lt;0$ the same with a minus sign, and $0*v=\vec 0$. Let's take this idea and abstract it: let an arbitrary ring $K$ play the role of $\Z$, and let the concrete operation "add $n$ times" be replaced by an abstract operation $*$, subject to the very same identities that "add $n$ times" satisfies automatically.</p>
+
+  <div class="definition">
+    <div class="def-head">Definition</div>
+    <p>Let $M$ be some set ("vectors") with an operation $+$, and let $K$ be some set ("numbers") with operations $+,\cdot$ and a distinguished element $1$. We say $M$ is a <strong>module over the ring $K$</strong> if there is a further operation $*:K\times M\to M$ (multiplying a vector by a number) satisfying three groups of requirements:</p>
+    <ol class="plain">
+      <li><strong>Mod1.</strong> $\langle M,+\rangle$ is an abelian group: vector addition is associative, commutative, there is a neutral vector $\vec 0$, and every vector has an opposite.</li>
+      <li><strong>Mod2.</strong> $\langle K,+,\cdot,1\rangle$ is a commutative ring with unity.</li>
+      <li><strong>Mod3.</strong> The operation $*$ is compatible with addition in $M$ and with addition/multiplication in $K$:
+        $$
+        1*v=v,\quad (\lambda\mu)*v=\lambda*(\mu*v),\quad \lambda*(u+v)=\lambda*u+\lambda*v,\quad (\lambda+\mu)*v=\lambda*v+\mu*v.
+        $$
+      </li>
+    </ol>
+  </div>
+
+  <p>The signs $+$ and "$\cdot$" (or a short space instead of the dot) are each doing double duty here: the very same symbol "$+$" is both vector addition and number addition; the very same symbol "$\cdot$"/space is both a vector-by-number multiplication ($*$) and a number-by-number multiplication. This causes no confusion, because the type of an operand is always visible from its notation. <strong>Throughout this material, lowercase Latin letters ($u,v,w,x,\dots$) denote vectors, and lowercase Greek letters ($\lambda,\mu,\xi,\eta,\kappa,\alpha,\dots$) denote numbers</strong>; capital letters ($K,M,V,L,W,\dots$) denote rings, spaces, operators, matrices.</p>
+
+  <div class="note">
+    <span class="note-head">Left and Right Modules</span>
+    <p>We wrote multiplying a vector by a number as $\lambda*v$ — the number on the left. If instead we set up the operation $v*\lambda$ (number on the right) with mirrored axioms, we get a <em>right</em> module; the structure above is then called, for clarity, a <em>left</em> module. For commutative $K$ the distinction doesn't matter ($\lambda v$ and $v\lambda$ can be identified), but for a noncommutative ring, left and right modules are different, if related, structures. Everywhere below $K$ is commutative, so this distinction plays no role — but it's worth knowing that it exists at all.</p>
+  </div>
+
+  <div class="scheme-wrap">
+    <svg class="scheme-svg" viewBox="0 0 720 430" role="img" aria-label="Diagram: a module over a ring and its specializations into a vector space and an algebra">
+      <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="7" refY="4.5" orient="auto">
+          <path d="M0,0 L9,4.5 L0,9 Z" fill="var(--ink3)"/>
+        </marker>
+      </defs>
+
+      <rect x="40" y="24" width="200" height="66" rx="8" fill="var(--blue-bg)" stroke="var(--blue-acc)" stroke-width="1.3"/>
+      <text x="140" y="54" text-anchor="middle" class="scheme-box-title" fill="var(--blue-acc)" font-size="19">K</text>
+      <text x="140" y="73" text-anchor="middle" class="scheme-box-sub" fill="var(--ink2)" font-size="14">⟨K,+,·,1⟩ — a commutative</text>
+      <text x="140" y="87" text-anchor="middle" class="scheme-box-sub" fill="var(--ink2)" font-size="14">ring with unity</text>
+
+      <rect x="480" y="24" width="200" height="66" rx="8" fill="var(--rust-bg)" stroke="var(--rust-acc)" stroke-width="1.3"/>
+      <text x="580" y="54" text-anchor="middle" class="scheme-box-title" fill="var(--rust-acc)" font-size="19">M</text>
+      <text x="580" y="73" text-anchor="middle" class="scheme-box-sub" fill="var(--ink2)" font-size="14">⟨M,+⟩ — an abelian group</text>
+      <text x="580" y="87" text-anchor="middle" class="scheme-box-sub" fill="var(--ink2)" font-size="14">("vectors")</text>
+
+      <path d="M170,90 C170,130 280,130 320,158" class="scheme-arrow" marker-end="url(#arrowhead)"/>
+      <path d="M550,90 C550,130 440,130 400,158" class="scheme-arrow" marker-end="url(#arrowhead)"/>
+
+      <rect x="230" y="160" width="260" height="66" rx="33" fill="var(--bg2)" stroke="var(--ink)" stroke-width="1.5"/>
+      <text x="360" y="188" text-anchor="middle" class="scheme-box-title" fill="var(--ink)" font-size="18">∗ : K × M → M</text>
+      <text x="360" y="210" text-anchor="middle" class="scheme-box-sub" fill="var(--ink2)" font-size="13">Mod1–Mod3 (see the definition above)</text>
+
+      <text x="360" y="252" text-anchor="middle" class="scheme-box-title" fill="var(--ink)" font-size="19">= MODULE over K</text>
+
+      <path d="M300,264 C260,290 190,300 170,320" class="scheme-arrow" marker-end="url(#arrowhead)"/>
+      <path d="M420,264 C460,290 530,300 550,320" class="scheme-arrow" marker-end="url(#arrowhead)"/>
+
+      <rect x="20" y="324" width="300" height="86" rx="8" fill="var(--sage-bg)" stroke="var(--sage-acc)" stroke-width="1.3"/>
+      <text x="170" y="352" text-anchor="middle" class="scheme-box-title" fill="var(--sage-acc)" font-size="16">VECTOR (LINEAR)</text>
+      <text x="170" y="372" text-anchor="middle" class="scheme-box-title" fill="var(--sage-acc)" font-size="16">SPACE</text>
+      <text x="170" y="396" text-anchor="middle" class="scheme-cond" fill="var(--sage-acc)" font-size="13">if K is a field</text>
+
+      <rect x="400" y="324" width="300" height="86" rx="8" fill="var(--amber-bg)" stroke="var(--amber-acc)" stroke-width="1.3"/>
+      <text x="550" y="352" text-anchor="middle" class="scheme-box-title" fill="var(--amber-acc)" font-size="16">ALGEBRA OVER</text>
+      <text x="550" y="372" text-anchor="middle" class="scheme-box-title" fill="var(--amber-acc)" font-size="16">A RING / FIELD</text>
+      <text x="550" y="396" text-anchor="middle" class="scheme-cond" fill="var(--amber-acc)" font-size="13">+ multiplication on M: λ(uv)=(λu)v=u(λv)</text>
+    </svg>
+  </div>
+
+  <p>Two special cases are important enough to get their own names.</p>
+  <div class="definition">
+    <div class="def-head">Definition</div>
+    <p><strong>If $K$ is a field</strong> (numbers can also be divided by one another), the module $M$ is called a <strong>vector</strong> (or <strong>linear</strong>) <strong>space</strong>.</p>
+    <p><strong>If, moreover, $M$ also carries a multiplication of vectors</strong> $\cdot:M\times M\to M$, compatible with $*$ via the identity $\lambda(uv)=(\lambda u)v=u(\lambda v)$, the structure is called an <strong>algebra over the ring (or field) $K$</strong>.</p>
+  </div>
+  <p>Once a module becomes an algebra, its third operation interacts with $*$ by exactly the same rule we'll see below for the composition of linear operators.</p>
+  <p>In the terms of «<a href="/Materials/math_structures_en.html">How Mathematical Structures Are Constructed</a>», a module is precisely the first, <strong>algebraic layer</strong> $\Sigma$, hung on a bare domain $M$: an internal operation $+:M\times M\to M$ (exactly an instance of the "internal operations $f:M^n\to M$" from that general scheme) and an external operation $*:K\times M\to M$ (an instance of the "external operations $R\times M\to M$" — there $R$ plays the role our $K$ plays here). A vector space and an algebra are the same layer $\Sigma$, just richer: a field adds division, an algebra adds a second internal operation. This material almost never reaches that scheme's next layers, the topological and the metric — the one exception: §6 will briefly need an inner product, which in that scheme already belongs to the metric layer $\Phi$.</p>
+  <p>The pair of commutative groups that a ring $K$ is built from in axiom Mod2 (addition and multiplication of numbers) has already appeared geometrically, just separately: in «<a href="/Materials/similarities_en.html">Similarities of the Plane</a>», translations of the plane compose exactly like addition of numbers ($T_a\circ T_b=T_{a+b}$), while concentric homotheties compose like multiplication ($H_O^k\circ H_O^s=H_O^{ks}$). In §6 we'll see how motions and similarities themselves become linear operators within the framework assembled here.</p>
+
+  <p class="lang-section-label">Examples of Modules, Vector Spaces, and Algebras</p>
+  <div class="lang-cards">
+    <div class="lang-card blue">
+      <div class="lang-card-top">
+        <span class="lang-card-num">Example 1</span>
+        <span class="lang-card-name">Abelian Group $A$ over $\Z$</span>
+        <span class="lang-card-sub">module over $\Z$ = abelian group</span>
+      </div>
+      <span class="lang-card-tag">the canonical example</span>
+      <p class="lang-card-body">Any abelian group $\langle A,+\rangle$ becomes a $\Z$-module in exactly one way: $n*a=\underbrace{a+\dots+a}_{n}$ for $n&gt;0$, $(-n)*a=-(n*a)$, $0*a=\vec 0$ — axioms Mod1–3 hold automatically, this is just repeated application of the addition already present. The converse holds too: every $\Z$-module is built only this way. In other words, "module over $\Z$" and "abelian group" are literally the same notion under two names.</p>
+    </div>
+    <div class="lang-card rust">
+      <div class="lang-card-top">
+        <span class="lang-card-num">Example 2</span>
+        <span class="lang-card-name">$\Z^n$</span>
+        <span class="lang-card-sub">module over $\Z$ — <em>not</em> a vector space</span>
+      </div>
+      <span class="lang-card-tag">the ring $\Z$ is not a field</span>
+      <p class="lang-card-body">Integer vectors with componentwise addition and multiplication by an integer — a module, since $\Z$ is not a field: for instance, the vector $\langle1,0\rangle$ can't be "divided by 3" and stay in $\Z^2$. Ordinary linear algebra (basis, dimension in the usual sense) doesn't carry over here without qualification.</p>
+    </div>
+    <div class="lang-card sage">
+      <div class="lang-card-top">
+        <span class="lang-card-num">Example 3</span>
+        <span class="lang-card-name">A Submodule of $\Z/6\Z$ with No Basis</span>
+        <span class="lang-card-sub">the ring $K=\Z/6\Z$ has zero divisors</span>
+      </div>
+      <span class="lang-card-tag">a zero divisor — the source of torsion</span>
+      <p class="lang-card-body">In $K=\Z/6\Z$ the numbers $2$ and $3$ are zero divisors: $2\cdot3=6\equiv0$, yet both factors are nonzero. The submodule $M=\{0,2,4\}\subset K$ (all multiples of two) is generated by the element $2$, but the system $\{2\}$ is not independent: $3*2=6\equiv0$, while $3\ne0$. This isn't a matter of a poorly chosen generator — $M$ has only 3 elements, while a free $K$-module of rank $r$ would have $6^r$ elements ($1,6,36,\dots$), and $3$ isn't among them. So $M$ has no basis at all — the root of the problem is precisely that $2$ divides zero.</p>
+    </div>
+    <div class="lang-card teal">
+      <div class="lang-card-top">
+        <span class="lang-card-num">Example 4</span>
+        <span class="lang-card-name">$\R[x]$</span>
+        <span class="lang-card-sub">a vector space and an algebra over $\R$</span>
+      </div>
+      <span class="lang-card-tag">infinite-dimensional</span>
+      <p class="lang-card-body">Polynomials with real coefficients: they add and scale like vectors (the space $\R[x]$), but they can also be multiplied by one another — compatibility $\lambda(pq)=(\lambda p)q=p(\lambda q)$ holds, so this is an algebra over $\R$. A natural basis is $\{1,x,x^2,\dots\}$, which is infinite.</p>
+    </div>
+    <div class="lang-card amber">
+      <div class="lang-card-top">
+        <span class="lang-card-num">Example 5</span>
+        <span class="lang-card-name">$\mathrm{Mat}_n(\R)$</span>
+        <span class="lang-card-sub">a vector space and a (noncommutative) algebra</span>
+      </div>
+      <span class="lang-card-tag">matrix multiplication ↔ composition of operators</span>
+      <p class="lang-card-body">Square matrices add and scale componentwise (a space), and matrix multiplication supplies the second operation — compatible with $*$ in exactly the same way. Noncommutativity of this multiplication (unlike $\R[x]$) is the subject of §5.</p>
+    </div>
+    <div class="lang-card purple">
+      <div class="lang-card-top">
+        <span class="lang-card-num">Example 6</span>
+        <span class="lang-card-name">$\C$ as an $\R$-Space</span>
+        <span class="lang-card-sub">dimension 2, and an algebra too</span>
+      </div>
+      <span class="lang-card-tag">see «Three Constructions of ℂ»</span>
+      <p class="lang-card-body">The complex numbers are a two-dimensional real vector space with basis $\{1,i\}$, and multiplication of complex numbers turns it into an algebra over $\R$ as well. In <a href="/Materials/complex_numbers_en.html">«Complex Numbers»</a>, this same multiplication is represented by $2\times2$ matrices of the form $\begin{pmatrix}x&-y\\y&x\end{pmatrix}$ — Construction II there is literally the matrix of a linear operator from §4 of this page.</p>
+    </div>
+  </div>
+</section>
+
+<section id="sec-basis">
+  <h2>2. Hamel Basis</h2>
+  <p class="lead">Let $V$ be a module (in particular, a vector space) over a ring $K$.</p>
+
+  <div class="definition">
+    <div class="def-head">Definition</div>
+    <p>Take a collection of vectors $\{\e_i\}_{i\in I}\subset V$, indexed by an arbitrary set $I$ — finite or infinite. Such a collection is called a <strong>system of vectors</strong>: unlike a set, in a system the index itself matters, so the very same vector can in principle correspond to different indices (a repeat) — linear independence, defined below, is exactly what rules such repeats out.</p>
+    <p>A <strong>linear combination</strong> of the system is always a <em>finite</em> expression $\xi_{i_1}\e_{i_1}+\dots+\xi_{i_n}\e_{i_n}$ with coefficients from $K$, where $i_1,\dots,i_n$ is an arbitrary finite collection of distinct indices from $I$: even if the system itself is infinite, any single combination involves only finitely many of its vectors. The set of all such combinations is called the <strong>linear span</strong> of the system.</p>
+    <p>A system is <strong>linearly independent</strong> if no nontrivial linear combination of it equals zero.</p>
+    <p>A <strong>basis</strong> (or <strong>Hamel basis</strong>) is a linearly independent system whose linear span is all of $V$ — that is, every vector decomposes, uniquely, into a linear combination of the system's vectors.</p>
+  </div>
+
+  <p>The word "Hamel" in the name emphasizes exactly what's already built into the definition of a linear combination: the decomposition of any vector in the basis is always a finite sum, even when the basis (as a system) is itself infinite.</p>
+
+  <div class="note amber">
+    <span class="note-head">Not Every Module Has a Basis</span>
+    <p>An example has already come up: the submodule $M=\{0,2,4\}\subset\Z/6\Z$ (example 3, §1) has no basis at all — the root of the problem there is the zero divisors of the ring $\Z/6\Z$. Below, starting from the equipotence theorem, we're back to talking only about vector spaces (modules over a <em>field</em>) — and a field, by definition, has no zero divisors (every nonzero element is invertible), so there, as we'll see, a basis always exists.</p>
+  </div>
+
+  <h3>Existence of a Basis</h3>
+  <p>Before asking whether all bases of a given space are "the same size," we need to make sure a basis exists at all. This is where set theory begins.</p>
+  <div class="note teal">
+    <span class="note-head">Theorem</span>
+    <p>Every vector space has a basis.</p>
+  </div>
+  <p>Proved by Zorn's Lemma: consider the family of all linearly independent subsets of $V$, ordered by inclusion; the union of any chain of such sets is again linearly independent (any particular linear dependence within the union involves only finitely many vectors, and so lies entirely within some single link of the chain), so Zorn's Lemma yields a maximal element — and a maximal, by inclusion, linearly independent set is exactly a basis. Zorn's Lemma is equivalent to the axiom of choice (AC; for more on this and other forms of AC — countable choice, dependent choice — see «<a href="/Materials/math_analysis_levels_en.html">Levels of Formalization of Mathematical Analysis</a>»).</p>
+  <div class="note">
+    <span class="note-head">A Remarkable Fact (Blass, 1984)</span>
+    <p>The connection to the axiom of choice runs deeper than it looks: the statement "every vector space has a basis" doesn't just follow from AC, it's <em>equivalent</em> to it (in ZF set theory without AC). This was proved by Andreas Blass in 1984. The existence of a Hamel basis isn't a technicality — it's a full-fledged form of the axiom of choice.</p>
+  </div>
+
+  <h3>Equipotence of Bases and Dimension</h3>
+  <div class="note purple">
+    <span class="note-head">Theorem</span>
+    <p>Any two bases of one and the same vector space are equipotent — even if both are infinite.</p>
+  </div>
+  <p>For finite bases the proof is elementary, and it even works for an arbitrary module over a commutative ring, not just for a vector space:</p>
+  <button type="button" class="axioms-btn" id="proof-toggle"><span class="arr">▶</span> Proof (finite case)</button>
+  <div class="axioms-panel" id="proof-panel">
+    <p><strong>Lemma.</strong> In a nonzero commutative ring, a homogeneous system of $m$ linear equations in $n$ unknowns with $m&lt;n$ always has a nontrivial solution. Proved by induction on $n$: for $n=2$ the solution is written down explicitly ($\omega_{11}\xi_1+\omega_{12}\xi_2=0$ is solved by the pair $\xi_1=\omega_{12},\,\xi_2=-\omega_{11}$, or trivially if both coefficients are zero); the induction step eliminates the first variable from all equations but one by combining rows — commutativity of the ring is what makes this combination valid — and applies the induction hypothesis to the remaining $m-1$ equations in $n$ variables.</p>
+    <p><strong>Proof.</strong> Let $\e_1,\dots,\e_m$ and $\e_1',\dots,\e_n'$ be two bases, $m&lt;n$. Expand the second basis in the first: $\e_j'=\sum_i \omega_{ij}\e_i$. By the lemma, the homogeneous system $\sum_j \omega_{ij}\xi_j=0$ ($m$ equations, $n&gt;m$ unknowns) has a nontrivial solution $\xi_1^*,\dots,\xi_n^*$. Then
+    $$
+    \sum_j \xi_j^*\e_j' = \sum_j \xi_j^*\sum_i \omega_{ij}\e_i = \sum_i\Big(\sum_j \omega_{ij}\xi_j^*\Big)\e_i = \sum_i 0\cdot\e_i = 0,
+    $$
+    that is, a nontrivial combination of $\e_1',\dots,\e_n'$ equals zero — a contradiction with their independence. So $n&gt;m$ is impossible; by symmetry $m&gt;n$ is impossible too, hence $m=n$.</p>
+  </div>
+  <p>The equipotence of any two infinite bases is proved separately: every vector of one basis is a finite linear combination of vectors of the other, so each element of one basis gets assigned a <em>finite</em> subset of the other; from this, using the arithmetic of infinite cardinals ($\kappa=\kappa\cdot\aleph_0$ for infinite $\kappa$ — itself, generally speaking, an AC-dependent equality), it follows that the two bases have the same cardinality.</p>
+
+  <div class="definition">
+    <div class="def-head">Definition</div>
+    <p>The <strong>dimension</strong> $\dim V$ is the cardinality of the basis set — by the theorem above, it doesn't depend on which particular basis was chosen.</p>
+  </div>
+
+  <h3>Examples of Bases</h3>
+  <p class="lang-section-label">From Finite to Non-Constructible</p>
+  <div class="lang-cards cols-2">
+    <div class="lang-card blue">
+      <div class="lang-card-top">
+        <span class="lang-card-num">Finite-Dimensional</span>
+        <span class="lang-card-name">$\R^n$, $\C$ over $\R$, $\mathrm{Mat}_n(\R)$</span>
+      </div>
+      <p class="lang-card-body">The standard basis $\{\langle1,0,\dots\rangle,\langle0,1,0,\dots\rangle,\dots\}$ in $\R^n$; $\{1,i\}$ in $\C$ over $\R$ ($\dim=2$); the matrix units $E_{ij}$ in $\mathrm{Mat}_n(\R)$ ($\dim=n^2$) — every one of these bases can be written down explicitly, is finite, and needs no choice at all.</p>
+    </div>
+    <div class="lang-card teal">
+      <div class="lang-card-top">
+        <span class="lang-card-num">Countably Infinite</span>
+        <span class="lang-card-name">$\R[x]$ over $\R$</span>
+      </div>
+      <p class="lang-card-body">$\{1,x,x^2,x^3,\dots\}$ — every polynomial is a finite (this matters — precisely finite, exactly as a Hamel basis requires) linear combination of powers of $x$. The basis is explicit but infinite.</p>
+    </div>
+    <div class="lang-card purple" style="grid-column:1/-1">
+      <div class="lang-card-top">
+        <span class="lang-card-num">Uncountable and Fundamentally Non-Constructible</span>
+        <span class="lang-card-name">$\R$ as a Vector Space over $\Q$</span>
+      </div>
+      <span class="lang-card-tag">this is where the name "Hamel basis" comes from</span>
+      <p class="lang-card-body">Forget the multiplication of real numbers and keep only addition and multiplication by rationals — $\R$ becomes a $\Q$-vector space of cardinality the continuum. The theorem above guarantees it has a basis, but no such basis can be exhibited by an explicit formula: its existence is a direct consequence of AC (via Zorn's Lemma above), not a construction. The term "Hamel basis" comes from exactly this example: in 1905 Georg Hamel used such a basis of $\R$ over $\Q$ to build a discontinuous (and hence "pathological") solution of Cauchy's functional equation $f(x+y)=f(x)+f(y)$, distinct from the obvious linear solutions $f(x)=cx$ — by defining $f$ differently on different basis vectors and extending by $\Q$-linearity.</p>
+    </div>
+  </div>
+</section>
+
+<section id="sec-coords">
+  <h2>3. Coordinates and the Isomorphism with $\R^n$</h2>
+  <p class="lead">Let $V$ be a vector space over $\R$ of dimension $n$ with basis $\e_1,\dots,\e_n$. By the definition of a basis, every vector $v\in V$ decomposes over it in a <em>unique</em> way: $v=\xi_1\e_1+\dots+\xi_n\e_n$.</p>
+  <div class="definition">
+    <div class="def-head">Definition</div>
+    <p>The numbers $\langle\xi_1,\dots,\xi_n\rangle$ are called the <strong>coordinates</strong> of $v$ in this basis.</p>
+  </div>
+  <p>Uniqueness of the decomposition is no accident, but a direct consequence of the independence of the basis: if we had $v=\xi_1\e_1+\dots+\xi_n\e_n=\xi_1'\e_1+\dots+\xi_n'\e_n$, subtracting would give $(\xi_1-\xi_1')\e_1+\dots+(\xi_n-\xi_n')\e_n=0$, and linear independence of $\{\e_i\}$ forces every difference to be zero.</p>
+  <p>So the map $\Phi:V\to\R^n$, $\Phi(v)=\langle\xi_1,\dots,\xi_n\rangle$, is a bijection. Moreover it's linear: coordinates of a sum add, coordinates of $\lambda v$ scale by $\lambda$ — this follows directly from the vector-space axioms.</p>
+  <div class="definition">
+    <div class="def-head">Definition</div>
+    <p>A bijective linear map is called an <strong>isomorphism</strong> of vector spaces.</p>
+  </div>
+  <div class="note teal">
+    <span class="note-head">Theorem</span>
+    <p>Every real vector space of dimension $n$ is isomorphic to $\R^n$.</p>
+  </div>
+  <p>An important caveat: this isomorphism is <strong>not canonical</strong> — it depends on the choice of basis. Change the basis, and the coordinates of the very same vector $v$ become different numbers. This is exactly why, further on (§4), the matrix of a linear operator will also depend on the choice of basis, rather than being a property of the operator "itself."</p>
+  <p>This is the same trick as ordinary Cartesian coordinates: two noncollinear vectors $\e_1,\e_2$ form a basis, any vector $v$ decomposes as $v=\xi\e_1+\eta\e_2$, and the pair $\langle\xi,\eta\rangle$ is exactly the coordinates familiar from the axes $Ox,Oy$ (the special case where $\e_1=\langle1,0\rangle$, $\e_2=\langle0,1\rangle$, the standard basis). This very identification of the point $z=x+iy$ with the pair of real coordinates $\langle x,y\rangle$ in the basis $\{1,i\}$ of the space $\C$ over $\R$ is used in «<a href="/Materials/complex_numbers_en.html">Complex Numbers</a>» (Construction I) — and tacitly underlies how «Motions of the Plane» and «Similarities of the Plane» identify a point with a number $z=x+iy$.</p>
+</section>
+
+<section id="sec-operator">
+  <h2>4. Linear Operators and Their Matrix</h2>
+  <p class="lead">Let $V$ and $U$ be vector spaces over the same field $K$.</p>
+  <div class="definition">
+    <div class="def-head">Definition</div>
+    <p>A map $L:V\to U$ is called a <strong>linear operator</strong> if it is:</p>
+    <ol class="plain">
+      <li><strong>L1 (additivity):</strong> $L(u+v)=L(u)+L(v)$;</li>
+      <li><strong>L2 (homogeneity):</strong> $L(\lambda v)=\lambda L(v)$.</li>
+    </ol>
+    <p>If $V=U$, we say $L$ acts <em>on</em> the space $V$. Invertible linear operators (those that are bijections), with the operation of composition, form a group $\mathrm{GL}(V)$ — the <strong>general linear group</strong>.</p>
+  </div>
+  <div class="note">
+    <span class="note-head">Remark</span>
+    <p>A similarity of the plane $z\mapsto az+b$ (or $z\mapsto a\bar z+b$ for improper ones) is not a linear operator but an <em>affine</em> map: the term $b$ shifts the origin, and for $b\ne0$ homogeneity fails ($L(0)=b\ne0$). But its <strong>linear part</strong> — the map $z\mapsto az$ (resp. $z\mapsto a\bar z$), obtained by dropping the shift — already is a linear operator on $\R^2\cong\C$: additivity and homogeneity for real coefficients follow directly from the arithmetic of $\C$, and the difference between the images of two points depends only on the difference of the points themselves: $(az_2+b)-(az_1+b)=a(z_2-z_1)$.</p>
+  </div>
+  <p>It's exactly this linear part that we'll now equip with a matrix — the full correspondence "operator ↔ type of similarity" comes later, in §6.</p>
+
+  <h3>The Matrix of an Operator in a Basis</h3>
+  <p>Let $\e_1,\e_2$ be a basis of the plane $V$. By linearity, an operator $L:V\to V$ is completely determined by where it sends the basis vectors: if $v=\xi\e_1+\eta\e_2$, then
+  $$
+  L(v)=\xi L(\e_1)+\eta L(\e_2)=\xi w_1+\eta w_2,\qquad w_1=L(\e_1),\ w_2=L(\e_2).
+  $$
+  Expand $w_1,w_2$ again in the same basis: $w_1=\omega_{11}\e_1+\omega_{21}\e_2$, $w_2=\omega_{12}\e_1+\omega_{22}\e_2$, and assemble the coordinate columns into a matrix
+  $$
+  W=\begin{pmatrix}\omega_{11}&\omega_{12}\\\omega_{21}&\omega_{22}\end{pmatrix}.
+  $$
+  </p>
+  <div class="definition">
+    <div class="def-head">Definition</div>
+    <p>The matrix $W$ is called the <strong>matrix of the linear operator $L$ in the basis $\{\e_i\}$</strong> — its columns are the coordinates of the images of the basis vectors.</p>
+  </div>
+  <p>A direct check shows that the coordinates of $L(v)$ are obtained from the coordinates of $v$ by ordinary multiplication of the matrix by the column vector:
+  $$
+  \begin{pmatrix}\omega_{11}&\omega_{12}\\\omega_{21}&\omega_{22}\end{pmatrix}\begin{pmatrix}\xi\\\eta\end{pmatrix}=\begin{pmatrix}\xi\omega_{11}+\eta\omega_{12}\\\xi\omega_{21}+\eta\omega_{22}\end{pmatrix}.
+  $$
+  </p>
+  <p>In other words: through the isomorphism $\Phi:V\to\R^n$ from §3, the action of the abstract operator $L$ on $V$ becomes the action of the concrete matrix $W$ on $\R^n$ — it's exactly this matrix that makes the algebra of operators computable.</p>
+
+  <p class="lang-section-label">Matrices of the Simplest Operators on the Plane (Standard Basis)</p>
+  <div class="lang-cards cols-2">
+    <div class="lang-card blue">
+      <div class="lang-card-top"><span class="lang-card-num">Rotation by $\alpha$</span></div>
+      <p class="lang-card-body">$$R_\alpha=\begin{pmatrix}\cos\alpha&-\sin\alpha\\\sin\alpha&\cos\alpha\end{pmatrix}$$</p>
+    </div>
+    <div class="lang-card rust">
+      <div class="lang-card-top"><span class="lang-card-num">Reflection about $Ox$</span></div>
+      <p class="lang-card-body">$$S_x=\begin{pmatrix}1&0\\0&-1\end{pmatrix}$$</p>
+    </div>
+    <div class="lang-card sage">
+      <div class="lang-card-top"><span class="lang-card-num">Homothety with Ratio $\kappa$</span></div>
+      <p class="lang-card-body">$$H_\kappa=\begin{pmatrix}\kappa&0\\0&\kappa\end{pmatrix}$$</p>
+    </div>
+    <div class="lang-card amber">
+      <div class="lang-card-top"><span class="lang-card-num">Stretch Along $Ox$ — <em>not a similarity!</em></span></div>
+      <p class="lang-card-body">$$\begin{pmatrix}\lambda&0\\0&1\end{pmatrix}$$ The first linear operator in this material that isn't built from motions and homotheties — distances grow differently along different axes (a reminder: matrices in general can do much more than just these geometric special cases).</p>
+    </div>
+  </div>
+</section>
+
+<section id="sec-algebra">
+  <h2>5. The Ring of Matrices and the Dual Space</h2>
+  <p class="lead">Let $L,M:V\to U$ be linear operators. Define $(L+M)(v)=L(v)+M(v)$ and $(\lambda L)(v)=\lambda L(v)$ — the operations on vectors carry over to operators, and satisfy the same module axioms. So <strong>the set $\mathcal L(V,U)$ of all linear operators from $V$ to $U$ is itself a vector space</strong> over the same field $K$.</p>
+
+  <h3>Composition of Operators = Matrix Multiplication</h3>
+  <p>On operators acting on one and the same space $V$ (that is, on $\mathrm{End}(V)=\mathcal L(V,V)$), there's also a composition $LM:=L\circ M$, which by convention we call multiplication here. It satisfies the identity
+  $$
+  \lambda(LM)=(\lambda L)M=L(\lambda M),
+  $$
+  — exactly the defining condition for an algebra from §1: $\mathrm{End}(V)$ is the <strong>algebra of linear operators</strong> over $K$. Expanding the composition $L\circ M$ in a basis, just as in §4, gives the usual "row by column" rule for matrix multiplication — that is, matrix arithmetic isn't postulated separately, but is <em>derived</em> from the arithmetic of operators.</p>
+  <p>In a fixed basis, the correspondence "operator ↔ matrix" is a bijection and preserves every operation: addition, scalar multiplication, composition/multiplication. The identity operator $\mathrm{id}$ corresponds to the identity matrix $E$. So <strong>the algebra $\mathrm{End}(V)$ is isomorphic to the algebra of square matrices $\mathrm{Mat}_n(K)$</strong> — but unlike $\R[x]$ (example 4 in §1), this multiplication is <em>noncommutative</em>: $LM\ne ML$ in general (exactly as composition of transformations of the plane is).</p>
+
+  <h3>Invertibility, Determinant, Rank</h3>
+  <p>An operator $L$ is invertible if and only if its matrix is invertible. For a $2\times2$ matrix $W=\begin{pmatrix}\omega_{11}&\omega_{12}\\\omega_{21}&\omega_{22}\end{pmatrix}$, the decisive role is played by the number $\omega_{11}\omega_{22}-\omega_{12}\omega_{21}$.</p>
+  <div class="definition">
+    <div class="def-head">Definition</div>
+    <p>This number is called the <strong>determinant of the matrix</strong> $W$ and is denoted $\det W$. In general dimension $n$, the determinant is given by a sum over permutations:
+    $$
+    \det W=\sum_{\sigma\in\mathrm S_n}\mathrm{sgn}(\sigma)\,\omega^{(1)}_{\sigma(1)}\cdots \omega^{(n)}_{\sigma(n)}.
+    $$
+    </p>
+  </div>
+  <p>When $\det W\ne0$, a direct computation for $2\times2$ gives an explicit inverse matrix:
+  $$
+  W^{-1}=\frac1{\det W}\begin{pmatrix}\omega_{22}&-\omega_{12}\\-\omega_{21}&\omega_{11}\end{pmatrix},
+  $$
+  and in any dimension the determinant satisfies $\det(WU)=\det W\det U$, $\det E=1$, $\det W^{-1}=1/\det W$.</p>
+  <p>The kernel $\ker L=\{v\mid Lv=0\}$ and the image $L[V]$ are subspaces of $V$, related by the identity $\dim\ker L+\dim L[V]=\dim V$.</p>
+  <div class="definition">
+    <div class="def-head">Definition</div>
+    <p>The <strong>rank</strong> of the matrix $W$ of the operator $L$ is the dimension of its image: $\mathrm{rank}(W):=\dim L[V]$.</p>
+  </div>
+  <p>From this — a criterion uniting geometry and algebra in a single list of equivalent conditions:</p>
+  <div class="note">
+    <span class="note-head">Theorem</span>
+    <p>For a linear operator $L:V\to V$, the following are equivalent:</p>
+    <ul class="plain">
+      <li>$L$ is invertible;</li>
+      <li>the matrix of $L$ is invertible;</li>
+      <li>$\det W\ne0$;</li>
+      <li>$\ker L=\{0\}$;</li>
+      <li>$\mathrm{rank}(W)=\dim V$;</li>
+      <li>$L[V]=V$.</li>
+    </ul>
+  </div>
+  <div class="definition">
+    <div class="def-head">Definition</div>
+    <p>The group $\mathrm{GL}(V)$ of invertible operators is isomorphic to the group $\mathrm{GL}(n)$ of invertible $n\times n$ matrices. Inside it we single out the <strong>orthogonal matrices</strong> $\mathrm O(n)=\{A\mid A^{\mathsf T}A=E\}$ and the matrices with determinant $\pm1$ — the <strong>special linear group</strong> $\mathrm{SL}(n)$; their intersection $\mathrm{SL}(n)\cap\mathrm O(n)$ (determinant exactly $+1$) is the <strong>special orthogonal group</strong> $\mathrm{SO}(n)$.</p>
+  </div>
+  <p>All three will return in §6, now in geometric guise.</p>
+
+  <h3>The Dual (Conjugate) Space</h3>
+  <p>The fact "$\mathcal L(V,U)$ is a vector space" was stated above for <em>arbitrary</em> $U$ — earlier in §5 we simply took $U=V$. Let's now take a different special case: $U=K$, the field of scalars itself, viewed as a one-dimensional vector space over itself.</p>
+  <div class="definition">
+    <div class="def-head">Definition</div>
+    <p>Elements of $\mathcal L(V,K)$ — linear maps $f:V\to K$ — are called <strong>linear functionals</strong>. The space
+    $$
+    V^*:=\mathcal L(V,K)
+    $$
+    is called the <strong>dual</strong> (or <strong>conjugate</strong>) space to $V$.</p>
+  </div>
+  <p>For finite-dimensional $V$ with basis $\e_1,\dots,\e_n$, consider the functionals $\e_1^*,\dots,\e_n^*\in V^*$ given by the rule $\e_i^*(\e_j)=\delta_{ij}$ (one if $i=j$, zero otherwise) — that is, $\e_i^*$ is literally the $i$-th coordinate function $\xi_i$ from §3. Any functional $f$ is uniquely recovered from its values on the basis: $f=\sum_i f(\e_i)\,\e_i^*$, so $\{\e_i^*\}$ is a basis of $V^*$.</p>
+  <div class="definition">
+    <div class="def-head">Definition</div>
+    <p>The basis $\e_1^*,\dots,\e_n^*$, built this way from the basis $\e_1,\dots,\e_n$ of $V$, is called the <strong>dual</strong> (or <strong>conjugate</strong>) <strong>basis</strong>. In particular,
+    $$
+    \dim V^*=\dim V.
+    $$
+    </p>
+  </div>
+  <div class="lang-cards cols-2">
+    <div class="lang-card blue">
+      <div class="lang-card-top">
+        <span class="lang-card-num">$\mathrm{End}(V)=\mathcal L(V,V)$</span>
+        <span class="lang-card-name">an algebra</span>
+      </div>
+      <p class="lang-card-body">Composition $LM$ type-checks correctly: $V\xrightarrow{M}V\xrightarrow{L}V$. This is exactly what supplies the second operation turning the space of operators into an algebra.</p>
+    </div>
+    <div class="lang-card rust">
+      <div class="lang-card-top">
+        <span class="lang-card-num">$V^*=\mathcal L(V,K)$</span>
+        <span class="lang-card-name">a space only</span>
+      </div>
+      <p class="lang-card-body">Composition $f\circ g$ for $f,g\in V^*$ doesn't type-check: $g:V\to K$, while $f$ needs to be applied to a vector from $V$, not to a number from $K$. There's no natural multiplication — so $V^*$ remains just a vector space, without the structure of an algebra.</p>
+    </div>
+  </div>
+  <p>The simplest example of a functional, besides the coordinate projections, is the <strong>trace</strong> $\mathrm{tr}:\mathrm{Mat}_n(\R)\to\R$, $\mathrm{tr}(A)=\sum_i \omega_{ii}$: applying the same construction to the space $V=\mathrm{Mat}_n(\R)$ from example 5 in §1, we get a linear functional on the space of matrices — an element of its own dual space.</p>
+</section>
+
+<section id="sec-bridge">
+  <h2>6. Motions and Similarities as Operators on $\R^2$</h2>
+  <p class="lead">Everything is in place to return to «<a href="/Materials/chasles_en.html">Motions of the Plane</a>» and «<a href="/Materials/similarities_en.html">Similarities of the Plane</a>» and see them precisely as a special class of the linear operators from §4–5.</p>
+
+  <div class="map-table-wrap">
+    <table class="map-table">
+      <thead><tr><th>Geometric Transformation</th><th>Matrix (Standard Basis)</th><th>$\det$</th></tr></thead>
+      <tbody>
+        <tr><td>Identity $\mathrm{id}$</td><td>$E=\begin{pmatrix}1&0\\0&1\end{pmatrix}$</td><td>$+1$</td></tr>
+        <tr><td>Rotation $R_\alpha$</td><td>$\begin{pmatrix}\cos\alpha&-\sin\alpha\\\sin\alpha&\cos\alpha\end{pmatrix}$</td><td>$+1$</td></tr>
+        <tr><td>Homothety $H_\kappa$, $\kappa&gt;0$</td><td>$\kappa E$</td><td>$+\kappa^2$</td></tr>
+        <tr><td>Rotational homothety $RH_\alpha^\kappa$</td><td>$\kappa\begin{pmatrix}\cos\alpha&-\sin\alpha\\\sin\alpha&\cos\alpha\end{pmatrix}$</td><td>$+\kappa^2$</td></tr>
+        <tr><td>Reflection $S_{Ox}$</td><td>$\begin{pmatrix}1&0\\0&-1\end{pmatrix}$</td><td>$-1$</td></tr>
+        <tr><td>Reflected homothety $SH^\kappa_{Ox}$</td><td>$\begin{pmatrix}\kappa&0\\0&-\kappa\end{pmatrix}$</td><td>$-\kappa^2$</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>All six matrices are built the same way: the columns are two mutually perpendicular vectors of the same length $\kappa$. This isn't a coincidence, but an exhaustive criterion that can be proved with the tools already assembled in §5.</p>
+
+  <div class="note teal">
+    <span class="note-head">Theorem (Matrix Criterion for a Similarity)</span>
+    <p>A linear operator $L$ on the plane (with the standard inner product) is the linear part of a similarity with ratio $\kappa&gt;0$ — that is, $|Lx|=\kappa|x|$ for every vector $x$ — if and only if its matrix $W$ satisfies $W^{\mathsf T}W=\kappa^2E$: the columns of $W$ are perpendicular and of the same length $\kappa$. Here $\det W=\kappa^2&gt;0$ corresponds to a rotational homothety (in particular, to a rotation when $\kappa=1$), and $\det W=-\kappa^2&lt;0$ to a reflected homothety (in particular, to a reflection when $\kappa=1$).</p>
+  </div>
+  <p>The proof assembles from §5 without a single new ingredient. The condition $|Lx|=\kappa|x|$ for all $x$ is equivalent to $\langle Lx,Lx\rangle=\kappa^2\langle x,x\rangle$; substituting $x=u+v$ and expanding both sides by bilinearity of the inner product, then subtracting off the already-known equalities for $u$ and for $v$ separately, gives the polarized form $\langle Lu,Lv\rangle=\kappa^2\langle u,v\rangle$ for any $u,v$. On the other hand, $\langle Lu,Lv\rangle=\langle u,W^{\mathsf T}Wv\rangle$ (the identity from "Matrix Arithmetic," applied to $A=W^{\mathsf T}W$) — so $W^{\mathsf T}W=\kappa^2E$. Then $\det(W^{\mathsf T}W)=(\det W)^2=\det(\kappa^2E)=\kappa^4$, giving $\det W=\pm\kappa^2$; the sign fixes the orientation — whether it matches the original one (rotational homothety) or reverses it (reflected homothety), exactly per the classification of plane similarities.</p>
+
+  <p>The stretch operator $\mathrm{diag}(\lambda,1)$ from §4 violates this condition as soon as $\lambda\ne1$ ($\kappa_1=\lambda\ne1=\kappa_2$) — the simplest example of a linear operator that isn't a similarity, because it stretches different directions differently. This is exactly the mechanism that distinguishes general $\R$-linear maps $\R^2\to\R^2$ from $\C$-linear ones: complex differentiability is precisely the requirement of being <em>locally</em> a rotational homothety, with no license to stretch different directions differently (more on this in «<a href="/Materials/conformal_maps_en.html">Conformality and Fractional-Linear Transformations</a>», §1–2).</p>
+
+  <p>Below — a constructor: drag the endpoints of the vectors $Le_1$ and $Le_2$ (or pick a preset) and see for which matrices the operator remains a similarity, and for which it doesn't.</p>
+
+  <div class="mw-tabs" id="op-tabs">
+    <button type="button" class="mw-tab" data-preset="id">Identity</button>
+    <button type="button" class="mw-tab" data-preset="rot">Rotation 60°</button>
+    <button type="button" class="mw-tab" data-preset="hom">Homothety κ=1.8</button>
+    <button type="button" class="mw-tab" data-preset="refl">Reflection (Ox)</button>
+    <button type="button" class="mw-tab" data-preset="stretch">Stretch (not a similarity)</button>
+    <button type="button" class="mw-tab" data-preset="deg">Degenerate (rank 1)</button>
+  </div>
+  <figure>
+    <div class="motion-widget" id="widget-operator"></div>
+    <div class="formula-box" id="op-matrix"></div>
+    <div id="op-badge-wrap"></div>
+    <figcaption>Gray dashed vectors are the original basis $e_1,e_2$ and the unit square on them; blue/rust are their images $Le_1,Le_2$ under the operator, and the light-blue region is the image of the unit square.</figcaption>
+  </figure>
+
+  <p>«Motions of the Plane» and «Similarities of the Plane» are precisely the classification of all linear operators $\R^2\to\R^2$ satisfying $W^{\mathsf T}W=\kappa^2E$, by the sign of $\det W$ and the value of $\kappa$ — only arrived at geometrically rather than algebraically. And multiplication by a complex number $a\ne0$ from «Complex Numbers» is that very same operator, written not as a $2\times2$ matrix but as a single number $a=\kappa e^{i\alpha}$: Construction II there assigns to $a=x+iy$ exactly the matrix $\begin{pmatrix}x&-y\\y&x\end{pmatrix}$, whose columns are perpendicular and equal in length to $|a|$ — that is, they automatically satisfy this theorem's criterion.</p>
+</section>
+
+<script id="linop-widget">
+window.LinOpWidget = (function () {
+  var UNIT = 34;
+  var FRAME_HALF_W = 150, FRAME_HALF_H = 110;
+  var FRAME_VB = (-FRAME_HALF_W) + ' ' + (-FRAME_HALF_H) + ' ' + (2 * FRAME_HALF_W) + ' ' + (2 * FRAME_HALF_H);
+  var SNAP = UNIT / 4; // quarter-unit grid, e.g. 1.25, 1.5, ...
+  var DRAG_CAP_X = 130, DRAG_CAP_Y = 95; // px, keeps handle+square inside the frame
+
+  var PRESETS = {
+    id:      { w1: [1, 0], w2: [0, 1] },
+    rot:     { w1: [Math.cos(Math.PI / 3), Math.sin(Math.PI / 3)], w2: [-Math.sin(Math.PI / 3), Math.cos(Math.PI / 3)] },
+    hom:     { w1: [1.8, 0], w2: [0, 1.8] },
+    refl:    { w1: [1, 0], w2: [0, -1] },
+    stretch: { w1: [2, 0], w2: [0, 1] },
+    deg:     { w1: [1.5, 1], w2: [3, 2] }
+  };
+
+  function snap(v) { return Math.round(v / SNAP) * SNAP; }
+  function clampXY(x, y, capX, capY) {
+    return [Math.max(-capX, Math.min(capX, snap(x))), Math.max(-capY, Math.min(capY, snap(y)))];
+  }
+  // math (y-up) -> svg (y-down)
+  function toSvg(mx, my) { return [mx * UNIT, -my * UNIT]; }
+  function toMath(sx, sy) { return [sx / UNIT, -sy / UNIT]; }
+
+  function axesMarkup() {
+    return '<line x1="' + (-FRAME_HALF_W) + '" y1="0" x2="' + FRAME_HALF_W + '" y2="0" class="mw-coord-axis"/>' +
+      '<line x1="0" y1="' + (-FRAME_HALF_H) + '" x2="0" y2="' + FRAME_HALF_H + '" class="mw-coord-axis"/>' +
+      '<circle cx="0" cy="0" r="3" class="mw-origin"/>';
+  }
+
+  function fmtPts(pts) {
+    return pts.map(function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' ');
+  }
+
+  function classify(w1, w2) {
+    var det = w1[0] * w2[1] - w2[0] * w1[1];
+    if (Math.abs(det) < 0.03) {
+      var bothZero = Math.hypot(w1[0], w1[1]) < 0.03 && Math.hypot(w2[0], w2[1]) < 0.03;
+      return { kind: 'deg', det: det, text: bothZero ? 'degenerate: image is a point (rank 0)' : 'degenerate: image is a line (rank 1), det = 0' };
+    }
+    var k1 = Math.hypot(w1[0], w1[1]), k2 = Math.hypot(w2[0], w2[1]);
+    var dot = w1[0] * w2[0] + w1[1] * w2[1];
+    var relTol = 0.06;
+    var isSim = Math.abs(k1 - k2) < relTol * Math.max(k1, k2) && Math.abs(dot) < relTol * k1 * k2;
+    if (!isSim) {
+      return { kind: 'no', det: det, text: 'not a similarity: |Le₁|≈' + k1.toFixed(2) + ', |Le₂|≈' + k2.toFixed(2) + ' — directions are stretched unequally' };
+    }
+    var k = (k1 + k2) / 2;
+    var orientationPreserving = det > 0;
+    var isUnit = Math.abs(k - 1) < relTol;
+    var label;
+    if (orientationPreserving) label = isUnit ? (Math.hypot(w1[0]-1,w1[1])<0.05 && Math.hypot(w2[0],w2[1]-1)<0.05 ? 'identity operator' : 'rotation, κ≈1') : 'rotational homothety, κ≈' + k.toFixed(2);
+    else label = isUnit ? 'reflection, κ=1' : 'reflected homothety, κ≈' + k.toFixed(2);
+    return { kind: 'ok', det: det, text: 'similarity: ' + label };
+  }
+
+  function createLinOpWidget(container, opts) {
+    var onChange = (opts && opts.onChange) || function () {};
+    var state = { w1: PRESETS.rot.w1.slice(), w2: PRESETS.rot.w2.slice() };
+
+    container.innerHTML = '<svg class="mw-svg motion-frame" viewBox="' + FRAME_VB + '"></svg>';
+    var svg = container.querySelector('.mw-svg');
+
+    function localPointFromClient(clientX, clientY) {
+      var rect = svg.getBoundingClientRect();
+      var vb = svg.viewBox.baseVal;
+      var s = rect.width / vb.width;
+      return [(clientX - rect.left) / s + vb.x, (clientY - rect.top) / s + vb.y];
+    }
+
+    function render() {
+      var e1 = toSvg(1, 0), e2 = toSvg(0, 1);
+      var sw1 = toSvg(state.w1[0], state.w1[1]), sw2 = toSvg(state.w2[0], state.w2[1]);
+      var sqGhost = [[0, 0], e1, [e1[0] + e2[0], e1[1] + e2[1]], e2];
+      var sqImage = [[0, 0], sw1, [sw1[0] + sw2[0], sw1[1] + sw2[1]], sw2];
+
+      var parts = [];
+      parts.push(axesMarkup());
+      parts.push('<polygon points="' + fmtPts(sqGhost) + '" class="mw-flag-ghost"/>');
+      parts.push('<line x1="0" y1="0" x2="' + e1[0].toFixed(1) + '" y2="' + e1[1].toFixed(1) + '" class="mw-ref-vector"/>');
+      parts.push('<line x1="0" y1="0" x2="' + e2[0].toFixed(1) + '" y2="' + e2[1].toFixed(1) + '" class="mw-ref-vector"/>');
+      parts.push('<text x="' + (e1[0] + 6).toFixed(1) + '" y="' + (e1[1] + 14).toFixed(1) + '" class="mw-handle-label">e₁</text>');
+      parts.push('<text x="' + (e2[0] + 6).toFixed(1) + '" y="' + (e2[1] - 6).toFixed(1) + '" class="mw-handle-label">e₂</text>');
+
+      parts.push('<polygon points="' + fmtPts(sqImage) + '" class="mw-flag-solid"/>');
+      parts.push('<line x1="0" y1="0" x2="' + sw1[0].toFixed(1) + '" y2="' + sw1[1].toFixed(1) + '" class="mw-vector"/>');
+      parts.push('<line x1="0" y1="0" x2="' + sw2[0].toFixed(1) + '" y2="' + sw2[1].toFixed(1) + '" class="mw-vector2"/>');
+
+      parts.push('<circle class="mw-handle" cx="' + sw1[0].toFixed(1) + '" cy="' + sw1[1].toFixed(1) + '" r="7"/>');
+      parts.push('<circle class="mw-hit" data-handle="w1" cx="' + sw1[0].toFixed(1) + '" cy="' + sw1[1].toFixed(1) + '" r="18"/>');
+      parts.push('<text x="' + (sw1[0] + 9).toFixed(1) + '" y="' + (sw1[1] - 6).toFixed(1) + '" class="mw-handle-label">Le₁</text>');
+
+      parts.push('<circle class="mw-handle2" cx="' + sw2[0].toFixed(1) + '" cy="' + sw2[1].toFixed(1) + '" r="7"/>');
+      parts.push('<circle class="mw-hit" data-handle="w2" cx="' + sw2[0].toFixed(1) + '" cy="' + sw2[1].toFixed(1) + '" r="18"/>');
+      parts.push('<text x="' + (sw2[0] + 9).toFixed(1) + '" y="' + (sw2[1] - 6).toFixed(1) + '" class="mw-handle-label">Le₂</text>');
+
+      svg.innerHTML = parts.join('');
+      wireDrag();
+      onChange({ w1: state.w1.slice(), w2: state.w2.slice() });
+    }
+
+    var dragging = null, activePointerId = null;
+    function onPointerDown(e) {
+      if (!e.target.classList || !e.target.classList.contains('mw-hit')) return;
+      dragging = e.target.getAttribute('data-handle');
+      activePointerId = e.pointerId;
+      e.preventDefault();
+    }
+    function onPointerMove(e) {
+      if (!dragging || e.pointerId !== activePointerId) return;
+      var p = localPointFromClient(e.clientX, e.clientY);
+      var c = clampXY(p[0], p[1], DRAG_CAP_X, DRAG_CAP_Y);
+      var m = toMath(c[0], c[1]);
+      state[dragging] = m;
+      render();
+      e.preventDefault();
+    }
+    function onPointerUp(e) {
+      if (e.pointerId !== activePointerId) return;
+      dragging = null; activePointerId = null;
+    }
+    function wireDrag() {
+      var hits = svg.querySelectorAll('.mw-hit');
+      hits.forEach(function (hit) {
+        hit.removeEventListener('pointerdown', onPointerDown);
+        hit.addEventListener('pointerdown', onPointerDown);
+      });
+    }
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerup', onPointerUp);
+    window.addEventListener('pointercancel', onPointerUp);
+
+    render();
+    return {
+      getState: function () { return { w1: state.w1.slice(), w2: state.w2.slice() }; },
+      setPreset: function (key) {
+        var p = PRESETS[key];
+        if (!p) return;
+        state.w1 = p.w1.slice(); state.w2 = p.w2.slice();
+        render();
+      }
+    };
+  }
+
+  return {
+    create: createLinOpWidget,
+    classify: classify,
+    presets: PRESETS,
+    _test: { toSvg: toSvg, toMath: toMath }
+  };
+})();
+</script>
+
+<script>
+(function () {
+  var el = document.getElementById('widget-operator');
+  var matEl = document.getElementById('op-matrix');
+  var badgeWrap = document.getElementById('op-badge-wrap');
+  var tabs = document.getElementById('op-tabs');
+
+  function init() {
+    if (!el || !matEl || !badgeWrap || !window.LinOpWidget || !window.katex) return;
+
+    function update(state) {
+      var w1 = state.w1, w2 = state.w2;
+      var texMat = 'W=\\begin{pmatrix}' + w1[0].toFixed(2) + '&' + w2[0].toFixed(2) + '\\\\' + w1[1].toFixed(2) + '&' + w2[1].toFixed(2) + '\\end{pmatrix}';
+      var det = w1[0] * w2[1] - w2[0] * w1[1];
+      katex.render(texMat + ',\\quad \\det W\\approx ' + det.toFixed(2), matEl, { throwOnError: false });
+      var cls = LinOpWidget.classify(w1, w2);
+      var cssKind = cls.kind === 'deg' ? 'deg' : (cls.kind === 'ok' ? 'ok' : 'no');
+      badgeWrap.innerHTML = '<span class="op-badge ' + cssKind + '">' + cls.text + '</span>';
+    }
+
+    var widget = LinOpWidget.create(el, { onChange: update });
+    update(widget.getState());
+
+    if (tabs) {
+      tabs.addEventListener('click', function (e) {
+        var btn = e.target.closest('.mw-tab');
+        if (!btn) return;
+        tabs.querySelectorAll('.mw-tab').forEach(function (b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        widget.setPreset(btn.getAttribute('data-preset'));
+      });
+    }
+  }
+  window.addEventListener('load', init);
+})();
+</script>
+
+<script>
+(function () {
+  var btn = document.getElementById('proof-toggle');
+  var panel = document.getElementById('proof-panel');
+  if (!btn || !panel) return;
+  btn.addEventListener('click', function () {
+    var open = panel.classList.toggle('open');
+    btn.classList.toggle('active', open);
+  });
+})();
+</script>
+
+<p class="page-footer">© Nikolai Kazimirov · <a href="https://mathem.at" rel="noopener">mathem.at</a></p>
+
+</div><!-- .page -->
+</body>
+</html>

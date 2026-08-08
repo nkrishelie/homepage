@@ -194,6 +194,20 @@ export const MATERIALS_ITEMS: MaterialItem[] = [
     "lang": "ru"
   },
   {
+    "filename": "linear_spaces_en.html",
+    "href": "/Materials/linear_spaces_en.html",
+    "title": "Linear Spaces and Operators: From Module to Matrix",
+    "category": "algebra",
+    "lang": "en"
+  },
+  {
+    "filename": "linear_spaces.html",
+    "href": "/Materials/linear_spaces.html",
+    "title": "Линейные пространства и операторы: от модуля к матрице",
+    "category": "algebra",
+    "lang": "ru"
+  },
+  {
     "filename": "maglish_index_en.html",
     "href": "/Materials/maglish_index_en.html",
     "title": "Mathematics as a Foreign Language — Book Overview",

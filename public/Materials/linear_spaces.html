@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="ru" style="scroll-behavior: smooth;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Линейные пространства и операторы: от модуля к матрице</title>
+<meta name="description" content="Модуль над кольцом и его частные случаи — векторное пространство и алгебра; базис Гамеля и теорема о равномощности базисов (в том числе бесконечных, следствие аксиомы выбора); координаты и изоморфизм с Rⁿ; линейный оператор и его матрица в базисе; кольцо матриц, алгебра операторов и сопряжённое пространство; движения и подобия плоскости как линейные операторы на R².">
+<link rel="canonical" href="https://mathem.at/Materials/linear_spaces.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Линейные пространства и операторы: от модуля к матрице">
+<meta property="og:description" content="От модуля над кольцом до матрицы линейного оператора — с базисом Гамеля, координатами, кольцом матриц, сопряжённым пространством и движениями плоскости как частным случаем.">
+<meta property="og:url" content="https://mathem.at/Materials/linear_spaces.html">
+<meta property="og:locale" content="ru_RU">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPsKxw5fDtzwvdGV4dD48L3N2Zz4=" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\]', display: true}, {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}], macros: {'\\R': '\\mathbb{R}', '\\C': '\\mathbb{C}', '\\N': '\\mathbb{N}', '\\Z': '\\mathbb{Z}', '\\Q': '\\mathbb{Q}', '\\e': '\\mathsf{e}'}, throwOnError: false})"></script>
+<style>
+:root {
+  --bg:#faf9f6; --bg2:#f2f0eb; --ink:#1a1917; --ink2:#5a5750; --ink3:#8a8680; --border:#dcd9d2;
+  --blue-bg:#e8eef7;  --blue-acc:#3a5f9e;
+  --rust-bg:#f0ebe8;  --rust-acc:#8c4a32;
+  --sage-bg:#e8f0eb;  --sage-acc:#2e6645;
+  --teal-bg:#e6f5ef;  --teal-acc:#0f6e56;
+  --amber-bg:#fdf3e0; --amber-acc:#7a4f0d;
+  --coral-bg:#faeae6; --coral-acc:#9b2f1a;
+  --purple-bg:#eeedfb; --purple-acc:#4a3a9a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Georgia,serif;font-size:22px;line-height:1.65;min-height:100vh}
+.page{max-width:1320px;margin:0 auto;padding:3rem 2.5rem 5rem}
+
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.8rem}
+.crumbs{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink3)}
+.crumbs a{color:var(--ink3);text-decoration:none}
+.crumbs a:hover{color:var(--ink)}
+.lang-pills{display:flex;gap:8px}
+.lang-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border:1px solid var(--border);color:var(--ink2);transition:.15s}
+.lang-pill.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.lang-pill:not(.active):hover{border-color:var(--ink)}
+
+header{margin-bottom:2.5rem;border-bottom:1.5px solid var(--ink);padding-bottom:1.5rem}
+.kicker{font-family:'JetBrains Mono',monospace;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:.6rem}
+h1{font-size:clamp(28px,3.2vw,44px);font-weight:500;line-height:1.15;color:var(--ink);margin-bottom:.5rem}
+.desc{font-size:19px;color:var(--ink2);font-style:italic;max-width:900px}
+
+section{margin-bottom:3.5rem}
+h2{font-size:28px;font-weight:500;margin-bottom:1.2rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+h3{font-size:22px;font-weight:500;margin:1.8rem 0 .8rem;color:var(--ink)}
+h4{font-size:19px;font-weight:500;margin:1.2rem 0 .5rem;color:var(--ink)}
+p{margin-bottom:.9rem;color:var(--ink2)}
+p.lead{color:var(--ink)}
+strong{color:var(--ink);font-weight:500}
+em{color:var(--ink)}
+ul.plain,ol.plain{margin:.6rem 0 1rem 1.4rem;color:var(--ink2)}
+ul.plain li,ol.plain li{margin-bottom:.4rem}
+.katex{font-size:1.05em}
+.katex-display{margin:.6em 0!important;overflow-x:auto;overflow-y:hidden}
+
+.page-footer{margin-top:2.75rem;padding-top:1.1rem;border-top:0.5px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.04em;color:var(--ink3);text-align:center;line-height:1.5}
+.page-footer a{color:var(--ink3);text-decoration:none;border-bottom:1px solid rgba(138,134,128,.35)}
+.page-footer a:hover{color:var(--ink2);border-bottom-color:var(--ink2)}
+
+.lang-section-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:.8rem}
+.lang-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:0.5px solid var(--border);margin-bottom:1rem}
+.lang-cards.cols-2{grid-template-columns:repeat(2,1fr)}
+.lang-card{background:var(--bg);padding:1.3rem 1.4rem 1.3rem;display:flex;flex-direction:column;gap:.6rem}
+.lang-card.blue{background:var(--blue-bg)} .lang-card.rust{background:var(--rust-bg)} .lang-card.sage{background:var(--sage-bg)}
+.lang-card.teal{background:var(--teal-bg)} .lang-card.amber{background:var(--amber-bg)} .lang-card.purple{background:var(--purple-bg)}
+.lang-card-top{display:flex;flex-direction:column;gap:2px;padding-bottom:.6rem;border-bottom:1px solid rgba(0,0,0,.08)}
+.lang-card-num{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+.blue .lang-card-num{color:var(--blue-acc)} .rust .lang-card-num{color:var(--rust-acc)} .sage .lang-card-num{color:var(--sage-acc)}
+.teal .lang-card-num{color:var(--teal-acc)} .amber .lang-card-num{color:var(--amber-acc)} .purple .lang-card-num{color:var(--purple-acc)}
+.lang-card-name{font-size:16px;font-weight:500;color:var(--ink);line-height:1.25}
+.lang-card-sub{font-size:13px;color:var(--ink3);font-style:italic}
+.lang-card-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:2px;width:fit-content}
+.blue .lang-card-tag{background:rgba(58,95,158,.12);color:var(--blue-acc)}
+.rust .lang-card-tag{background:rgba(140,74,50,.12);color:var(--rust-acc)}
+.sage .lang-card-tag{background:rgba(46,102,69,.12);color:var(--sage-acc)}
+.teal .lang-card-tag{background:rgba(15,110,86,.12);color:var(--teal-acc)}
+.amber .lang-card-tag{background:rgba(122,79,13,.12);color:var(--amber-acc)}
+.purple .lang-card-tag{background:rgba(74,58,154,.12);color:var(--purple-acc)}
+.lang-card-body{font-size:14.5px;color:var(--ink2);line-height:1.62}
+
+.axioms-btn{margin-top:4px;display:inline-flex;align-items:center;gap:5px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);border:0.5px solid var(--border);background:rgba(0,0,0,.03);padding:4px 10px;border-radius:3px;transition:color .15s,background .15s}
+.axioms-btn:hover{color:var(--ink2);background:rgba(0,0,0,.06)}
+.axioms-btn .arr{display:inline-block;transition:transform .2s;font-size:10px}
+.axioms-btn.active .arr{transform:rotate(90deg)}
+.axioms-panel{display:none;border:0.5px solid var(--border);border-top:none;background:var(--bg);padding:1.2rem 1.5rem 1.4rem;margin-bottom:1rem}
+.axioms-panel.open{display:block}
+.axioms-panel p{font-size:15px;color:var(--ink2);margin-top:.8rem}
+.ax-panel-title{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:.9rem}
+.ax-panel-title span{color:var(--ink2);font-weight:500}
+.ax-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.9rem 2rem}
+.ax-item{margin-bottom:.5rem}
+.ax-label{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);display:block;margin-bottom:3px}
+.ax-text{font-size:15px;color:var(--ink2)}
+
+.motion-frame{width:100%;max-width:560px;height:auto;aspect-ratio:300/220;display:block;background:var(--bg2);border:1px solid var(--border);border-radius:6px;touch-action:none}
+.motion-widget{margin:1rem 0;max-width:560px}
+.mw-flag-ghost{fill:rgba(26,25,23,.08);stroke:var(--ink3);stroke-width:1;stroke-dasharray:3 3}
+.mw-flag-solid{fill:rgba(58,95,158,.18);stroke:var(--blue-acc);stroke-width:1.6}
+.mw-vector{stroke:var(--blue-acc);stroke-width:2}
+.mw-vector2{stroke:var(--rust-acc);stroke-width:2}
+.mw-ref-vector{stroke:var(--ink3);stroke-width:1.3;stroke-dasharray:2 2}
+.mw-handle{fill:var(--ink);stroke:var(--bg);stroke-width:1.5}
+.mw-handle2{fill:var(--rust-acc);stroke:var(--bg);stroke-width:1.5}
+.mw-hit{fill:#000;opacity:0;cursor:grab;touch-action:none}
+.mw-hit:active{cursor:grabbing}
+.mw-coord-axis{stroke:var(--ink3);stroke-width:1;opacity:.55}
+.mw-origin{fill:var(--ink3)}
+.mw-handle-label{font-family:'JetBrains Mono',monospace;font-size:11px;fill:var(--ink2)}
+.mw-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:.6rem}
+.mw-tab{font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:.02em;padding:6px 12px;border-radius:999px;border:1px solid var(--border);background:var(--bg);color:var(--ink2);cursor:pointer}
+.mw-tab.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.mw-tab:not(.active):hover{border-color:var(--ink2)}
+figure{margin:1.4rem 0}
+figcaption{font-size:16.5px;color:var(--ink3);margin-top:.6rem;line-height:1.55;font-style:italic}
+.svg-label{font-family:'JetBrains Mono',monospace;font-size:13px;fill:var(--ink2)}
+.formula-box{font-family:'JetBrains Mono',monospace;font-size:16px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:.8rem 1.1rem;margin-top:.8rem;color:var(--ink)}
+.op-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.03em;padding:5px 12px;border-radius:4px;margin-top:.6rem}
+.op-badge.ok{background:var(--sage-bg);color:var(--sage-acc)}
+.op-badge.no{background:var(--amber-bg);color:var(--amber-acc)}
+.op-badge.deg{background:var(--coral-bg);color:var(--coral-acc)}
+.note{border-left:3px solid var(--rust-acc);background:var(--rust-bg);border-radius:0 6px 6px 0;padding:.8rem 1.1rem;margin:1rem 0;font-size:17.5px;color:var(--ink2)}
+.note.purple{border-left-color:var(--purple-acc);background:var(--purple-bg)}
+.note.teal{border-left-color:var(--teal-acc);background:var(--teal-bg)}
+.note.amber{border-left-color:var(--amber-acc);background:var(--amber-bg)}
+.note .note-head{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--rust-acc);margin-bottom:.35rem}
+.note.purple .note-head{color:var(--purple-acc)}
+.note.teal .note-head{color:var(--teal-acc)}
+.note.amber .note-head{color:var(--amber-acc)}
+.note p{margin-bottom:.55rem;color:var(--ink2)}
+.note p:last-child{margin-bottom:0}
+
+.definition{border:1.5px solid var(--blue-acc);background:var(--blue-bg);border-radius:6px;padding:1.1rem 1.4rem;margin:1.2rem 0}
+.definition .def-head{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-acc);font-weight:700;margin-bottom:.6rem}
+.definition p{margin-bottom:.7rem;color:var(--ink2)}
+.definition p:last-child{margin-bottom:0}
+.definition ol.plain{margin-bottom:0}
+.note ul.plain,.note ol.plain{margin-top:.5rem;margin-bottom:0}
+
+.map-table-wrap{overflow-x:auto;margin:1rem 0}
+table.map-table{border-collapse:collapse;width:100%;font-size:16px}
+table.map-table th,table.map-table td{border:0.5px solid var(--border);padding:.55rem .8rem;text-align:left;vertical-align:middle}
+table.map-table th{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);background:var(--bg2);font-weight:500}
+table.map-table td{color:var(--ink2)}
+table.map-table tr:nth-child(even) td{background:#f6f4f0}
+
+.scheme-wrap{width:100%;overflow-x:auto;margin:1.4rem 0}
+.scheme-svg{width:100%;min-width:560px;max-width:760px;display:block;margin:0 auto}
+.scheme-box-title{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:16px}
+.scheme-box-sub{font-family:'EB Garamond',serif;font-size:13.5px}
+.scheme-axiom{font-family:'JetBrains Mono',monospace;font-size:11px}
+.scheme-cond{font-family:'JetBrains Mono',monospace;font-size:11px;font-style:normal}
+.scheme-arrow{stroke:var(--ink3);stroke-width:1.4;fill:none}
+
+@media(max-width:700px){
+  body{font-size:19px}
+  .page{padding:1.5rem 1rem 3rem}
+  .lang-cards{grid-template-columns:1fr}
+  .lang-cards.cols-2{grid-template-columns:1fr}
+  .ax-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="topbar">
+  <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> / <a href="/#materials">Материалы</a></div>
+  <div class="lang-pills">
+    <a class="lang-pill" href="/Materials/linear_spaces_en.html">🇬🇧 EN</a>
+    <a class="lang-pill active" href="/Materials/linear_spaces.html">🇷🇺 RU</a>
+  </div>
+</div>
+
+<header>
+  <p class="kicker">Алгебра и структуры · Линейная алгебра</p>
+  <h1>От модуля к оператору</h1>
+  <p class="desc">В «<a href="/Materials/chasles.html">Движениях плоскости</a>» и «<a href="/Materials/similarities.html">Подобиях плоскости</a>» уже встретился характерный узор: переносы складываются, а концентрические гомотетии перемножаются — совсем как числа. Здесь мы собираем общий алгебраический каркас за этим узором: модуль над кольцом, его частные случаи (векторное пространство, алгебра), базис, координаты, линейный оператор и его матрица, кольцо матриц и сопряжённое пространство — а матрицы, напомним, умеют задавать не только движения и подобия, но и куда более сложные преобразования. В конце — сами движения и подобия, уже как линейные операторы на $\R^2$.</p>
+</header>
+
+<nav class="toc" style="background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 1.2rem 1.5rem; margin-bottom: 2.5rem;">
+  <h3 style="margin-top: 0; margin-bottom: 0.8rem; font-size: 19px;">Содержание</h3>
+  <ol style="margin: 0 0 0 1.5rem; padding: 0; color: var(--ink2); line-height: 1.6;">
+    <li><a href="#sec-module" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Модуль над кольцом</a></li>
+    <li><a href="#sec-basis" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Базис Гамеля</a></li>
+    <li><a href="#sec-coords" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Координаты и изоморфизм с $\R^n$</a></li>
+    <li><a href="#sec-operator" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Линейный оператор и его матрица</a></li>
+    <li><a href="#sec-algebra" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Кольцо матриц и сопряжённое пространство</a></li>
+    <li><a href="#sec-bridge" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Движения и подобия как операторы на $\R^2$</a></li>
+  </ol>
+</nav>
+
+<section id="sec-module">
+  <h2>1. Модуль над кольцом</h2>
+  <p class="lead">Любая абелева группа $\langle M,+\rangle$ становится модулем над $\Z$ ровно одним естественным способом: целое число $n$ действует на вектор повторным сложением — при $n&gt;0$ это $n$-кратное «$v+v+\dots+v$», при $n&lt;0$ то же самое со знаком минус, а $0*v=\vec 0$. Возьмём эту идею и абстрагируем: пусть роль $\Z$ играет произвольное кольцо $K$, а конкретная операция «сложить $n$ раз» заменяется абстрактной операцией $*$, подчинённой тем же тождествам, каким «сложить $n$ раз» подчиняется автоматически.</p>
+
+  <div class="definition">
+    <div class="def-head">Определение</div>
+    <p>Пусть $M$ — некоторое множество («векторы») с операцией $+$, а $K$ — некоторое множество («числа») с операциями $+,\cdot$ и выделенным элементом $1$. Говорят, что $M$ — <strong>модуль над кольцом $K$</strong>, если задана ещё одна операция $*:K\times M\to M$ (умножение числа на вектор), причём выполнены три группы требований:</p>
+    <ol class="plain">
+      <li><strong>Mod1.</strong> $\langle M,+\rangle$ — абелева группа: сложение векторов ассоциативно, коммутативно, есть нейтральный вектор $\vec 0$ и у каждого вектора есть противоположный.</li>
+      <li><strong>Mod2.</strong> $\langle K,+,\cdot,1\rangle$ — коммутативное кольцо с единицей.</li>
+      <li><strong>Mod3.</strong> Операция $*$ согласована со сложением в $M$ и со сложением/умножением в $K$:
+        $$
+        1*v=v,\quad (\lambda\mu)*v=\lambda*(\mu*v),\quad \lambda*(u+v)=\lambda*u+\lambda*v,\quad (\lambda+\mu)*v=\lambda*v+\mu*v.
+        $$
+      </li>
+    </ol>
+  </div>
+
+  <p>Знаки $+$ и «$\cdot$» (или короткий пробел вместо точки) здесь работают за двоих: один и тот же символ «$+$» — это и сложение векторов, и сложение чисел; один и тот же символ «$\cdot$»/пробел — и умножение числа на вектор ($*$), и умножение двух чисел. Путаницы это не создаёт, потому что тип операнда всегда виден из его обозначения. <strong>Всюду в этом материале строчные латинские буквы ($u,v,w,x,\dots$) обозначают векторы, а строчные греческие ($\lambda,\mu,\xi,\eta,\kappa,\alpha,\dots$) — числа</strong>; заглавные буквы ($K,M,V,L,W,\dots$) — кольца, пространства, операторы, матрицы.</p>
+
+  <div class="note">
+    <span class="note-head">Левый и правый модуль</span>
+    <p>Умножение числа на вектор мы записали как $\lambda*v$ — число слева. Если вместо этого задать операцию $v*\lambda$ (число справа) с зеркальными аксиомами, получится <em>правый</em> модуль; структура выше тогда для ясности называется <em>левым</em> модулем. Для коммутативного $K$ различие несущественно ($\lambda v$ и $v\lambda$ можно отождествить), но для некоммутативного кольца левые и правые модули — разные, хотя и родственные структуры. Всюду ниже $K$ коммутативно, так что это различие не играет роли — но полезно знать, что оно вообще есть.</p>
+  </div>
+
+  <div class="scheme-wrap">
+    <svg class="scheme-svg" viewBox="0 0 720 430" role="img" aria-label="Схема: модуль над кольцом и его специализации в векторное пространство и в алгебру">
+      <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="7" refY="4.5" orient="auto">
+          <path d="M0,0 L9,4.5 L0,9 Z" fill="var(--ink3)"/>
+        </marker>
+      </defs>
+
+      <rect x="40" y="24" width="200" height="66" rx="8" fill="var(--blue-bg)" stroke="var(--blue-acc)" stroke-width="1.3"/>
+      <text x="140" y="54" text-anchor="middle" class="scheme-box-title" fill="var(--blue-acc)" font-size="19">K</text>
+      <text x="140" y="73" text-anchor="middle" class="scheme-box-sub" fill="var(--ink2)" font-size="14">⟨K,+,·,1⟩ — коммутативное</text>
+      <text x="140" y="87" text-anchor="middle" class="scheme-box-sub" fill="var(--ink2)" font-size="14">кольцо с единицей</text>
+
+      <rect x="480" y="24" width="200" height="66" rx="8" fill="var(--rust-bg)" stroke="var(--rust-acc)" stroke-width="1.3"/>
+      <text x="580" y="54" text-anchor="middle" class="scheme-box-title" fill="var(--rust-acc)" font-size="19">M</text>
+      <text x="580" y="73" text-anchor="middle" class="scheme-box-sub" fill="var(--ink2)" font-size="14">⟨M,+⟩ — абелева группа</text>
+      <text x="580" y="87" text-anchor="middle" class="scheme-box-sub" fill="var(--ink2)" font-size="14">(«векторы»)</text>
+
+      <path d="M170,90 C170,130 280,130 320,158" class="scheme-arrow" marker-end="url(#arrowhead)"/>
+      <path d="M550,90 C550,130 440,130 400,158" class="scheme-arrow" marker-end="url(#arrowhead)"/>
+
+      <rect x="230" y="160" width="260" height="66" rx="33" fill="var(--bg2)" stroke="var(--ink)" stroke-width="1.5"/>
+      <text x="360" y="188" text-anchor="middle" class="scheme-box-title" fill="var(--ink)" font-size="18">∗ : K × M → M</text>
+      <text x="360" y="210" text-anchor="middle" class="scheme-box-sub" fill="var(--ink2)" font-size="13">Mod1–Mod3 (см. определение выше)</text>
+
+      <text x="360" y="252" text-anchor="middle" class="scheme-box-title" fill="var(--ink)" font-size="19">= МОДУЛЬ над K</text>
+
+      <path d="M300,264 C260,290 190,300 170,320" class="scheme-arrow" marker-end="url(#arrowhead)"/>
+      <path d="M420,264 C460,290 530,300 550,320" class="scheme-arrow" marker-end="url(#arrowhead)"/>
+
+      <rect x="20" y="324" width="300" height="86" rx="8" fill="var(--sage-bg)" stroke="var(--sage-acc)" stroke-width="1.3"/>
+      <text x="170" y="352" text-anchor="middle" class="scheme-box-title" fill="var(--sage-acc)" font-size="16">ВЕКТОРНОЕ (ЛИНЕЙНОЕ)</text>
+      <text x="170" y="372" text-anchor="middle" class="scheme-box-title" fill="var(--sage-acc)" font-size="16">ПРОСТРАНСТВО</text>
+      <text x="170" y="396" text-anchor="middle" class="scheme-cond" fill="var(--sage-acc)" font-size="13">если K — поле</text>
+
+      <rect x="400" y="324" width="300" height="86" rx="8" fill="var(--amber-bg)" stroke="var(--amber-acc)" stroke-width="1.3"/>
+      <text x="550" y="352" text-anchor="middle" class="scheme-box-title" fill="var(--amber-acc)" font-size="16">АЛГЕБРА НАД</text>
+      <text x="550" y="372" text-anchor="middle" class="scheme-box-title" fill="var(--amber-acc)" font-size="16">КОЛЬЦОМ / ПОЛЕМ</text>
+      <text x="550" y="396" text-anchor="middle" class="scheme-cond" fill="var(--amber-acc)" font-size="13">+ умножение на M: λ(uv)=(λu)v=u(λv)</text>
+    </svg>
+  </div>
+
+  <p>Два частных случая важны настолько, что получают собственные названия.</p>
+  <div class="definition">
+    <div class="def-head">Определение</div>
+    <p><strong>Если $K$ — поле</strong> (числа можно ещё и делить друг на друга), модуль $M$ называется <strong>векторным</strong> (или <strong>линейным</strong>) <strong>пространством</strong>.</p>
+    <p><strong>Если, кроме того, на $M$ задано ещё и умножение векторов</strong> $\cdot:M\times M\to M$, согласованное с $*$ тождеством $\lambda(uv)=(\lambda u)v=u(\lambda v)$, структура называется <strong>алгеброй над кольцом (или полем) $K$</strong>.</p>
+  </div>
+  <p>У модуля, ставшего алгеброй, третья операция взаимодействует с $*$ по тому же правилу, что мы увидим ниже для композиции линейных операторов.</p>
+  <p>В терминах «<a href="/Materials/math_structures.html">Как конструируются математические структуры</a>» модуль — это ровно первый, <strong>алгебраический слой</strong> $\Sigma$, навешенный на голый домен $M$: внутренняя операция $+:M\times M\to M$ (это как раз пример «внутренних операций $f:M^n\to M$» из общей схемы) и внешняя операция $*:K\times M\to M$ (пример «внешних операций $R\times M\to M$» — там роль $R$ играет наше $K$). Векторное пространство и алгебра — тот же слой $\Sigma$, только богаче: у поля есть деление, у алгебры — вторая внутренняя операция. До следующих слоёв той схемы, топологического и метрического, этот материал почти не доходит — единственное исключение: в §6 ненадолго понадобится скалярное произведение, которое в той схеме уже относится к метрическому слою $\Phi$.</p>
+  <p>Пара коммутативных групп, из которых складывается кольцо $K$ в аксиоме Mod2 (сложение и умножение чисел), уже встречалась геометрически, только по отдельности: в «<a href="/Materials/similarities.html">Подобиях плоскости</a>» переносы плоскости композируются в точности как сложение чисел ($T_a\circ T_b=T_{a+b}$), а концентрические гомотетии — как умножение ($H_O^k\circ H_O^s=H_O^{ks}$). В §6 мы увидим, как сами движения и подобия становятся линейными операторами уже в собранной здесь рамке.</p>
+
+  <p class="lang-section-label">Примеры модулей, векторных пространств и алгебр</p>
+  <div class="lang-cards">
+    <div class="lang-card blue">
+      <div class="lang-card-top">
+        <span class="lang-card-num">Пример 1</span>
+        <span class="lang-card-name">Абелева группа $A$ над $\Z$</span>
+        <span class="lang-card-sub">модуль над $\Z$ = абелева группа</span>
+      </div>
+      <span class="lang-card-tag">канонический пример</span>
+      <p class="lang-card-body">Любая абелева группа $\langle A,+\rangle$ становится $\Z$-модулем единственным способом: $n*a=\underbrace{a+\dots+a}_{n}$ при $n&gt;0$, $(-n)*a=-(n*a)$, $0*a=\vec 0$ — аксиомы Mod1–3 выполняются автоматически, это лишь повторное применение уже имеющегося сложения. Верно и обратное: всякий $\Z$-модуль устроен только так. То есть «модуль над $\Z$» и «абелева группа» — буквально одно и то же понятие под двумя именами.</p>
+    </div>
+    <div class="lang-card rust">
+      <div class="lang-card-top">
+        <span class="lang-card-num">Пример 2</span>
+        <span class="lang-card-name">$\Z^n$</span>
+        <span class="lang-card-sub">модуль над $\Z$ — <em>не</em> векторное пространство</span>
+      </div>
+      <span class="lang-card-tag">кольцо $\Z$ — не поле</span>
+      <p class="lang-card-body">Целочисленные векторы с покомпонентным сложением и умножением на целое число — модуль, поскольку $\Z$ не поле: например, вектор $\langle1,0\rangle$ нельзя «поделить на 3» и остаться в $\Z^2$. Обычная линейная алгебра (базис, размерность в привычном смысле) сюда без оговорок не переносится.</p>
+    </div>
+    <div class="lang-card sage">
+      <div class="lang-card-top">
+        <span class="lang-card-num">Пример 3</span>
+        <span class="lang-card-name">Подмодуль в $\Z/6\Z$ без базиса</span>
+        <span class="lang-card-sub">кольцо $K=\Z/6\Z$ — с делителями нуля</span>
+      </div>
+      <span class="lang-card-tag">делитель нуля — источник кручения</span>
+      <p class="lang-card-body">В $K=\Z/6\Z$ числа $2$ и $3$ — делители нуля: $2\cdot3=6\equiv0$, хотя оба множителя ненулевые. Подмодуль $M=\{0,2,4\}\subset K$ (все кратные двойки) порождается элементом $2$, но система $\{2\}$ не независима: $3*2=6\equiv0$, а $3\ne0$. Дело не в неудачном выборе образующей — в $M$ всего 3 элемента, а свободный $K$-модуль ранга $r$ состоял бы из $6^r$ элементов ($1,6,36,\dots$), и $3$ среди них нет. Значит, у $M$ нет базиса вообще — корень проблемы именно в том, что $2$ делит ноль.</p>
+    </div>
+    <div class="lang-card teal">
+      <div class="lang-card-top">
+        <span class="lang-card-num">Пример 4</span>
+        <span class="lang-card-name">$\R[x]$</span>
+        <span class="lang-card-sub">векторное пространство и алгебра над $\R$</span>
+      </div>
+      <span class="lang-card-tag">бесконечномерное</span>
+      <p class="lang-card-body">Многочлены с вещественными коэффициентами: складываются и умножаются на числа как векторы (пространство $\R[x]$), но их ещё можно умножать друг на друга — согласование $\lambda(pq)=(\lambda p)q=p(\lambda q)$ выполнено, значит, это алгебра над $\R$. Естественный базис — $\{1,x,x^2,\dots\}$, бесконечный.</p>
+    </div>
+    <div class="lang-card amber">
+      <div class="lang-card-top">
+        <span class="lang-card-num">Пример 5</span>
+        <span class="lang-card-name">$\mathrm{Mat}_n(\R)$</span>
+        <span class="lang-card-sub">векторное пространство и (некоммутативная) алгебра</span>
+      </div>
+      <span class="lang-card-tag">умножение матриц ↔ композиция операторов</span>
+      <p class="lang-card-body">Квадратные матрицы складываются и умножаются на числа покомпонентно (пространство), а произведение матриц даёт вторую операцию — согласованную с $*$ точно так же. Некоммутативность умножения (в отличие от $\R[x]$) — предмет §5.</p>
+    </div>
+    <div class="lang-card purple">
+      <div class="lang-card-top">
+        <span class="lang-card-num">Пример 6</span>
+        <span class="lang-card-name">$\C$ как $\R$-пространство</span>
+        <span class="lang-card-sub">размерность 2, и тоже алгебра</span>
+      </div>
+      <span class="lang-card-tag">см. «Три конструкции ℂ»</span>
+      <p class="lang-card-body">Комплексные числа — двумерное вещественное векторное пространство с базисом $\{1,i\}$, а умножение комплексных чисел превращает его ещё и в алгебру над $\R$. В <a href="/Materials/complex_numbers.html">«Комплексных числах»</a> это же умножение представлено $2\times2$-матрицами вида $\begin{pmatrix}x&-y\\y&x\end{pmatrix}$ — конструкция II оттуда буквально совпадает с матрицей линейного оператора из §4 этой страницы.</p>
+    </div>
+  </div>
+</section>
+
+<section id="sec-basis">
+  <h2>2. Базис Гамеля</h2>
+  <p class="lead">Пусть $V$ — модуль (в частности, векторное пространство) над кольцом $K$.</p>
+
+  <div class="definition">
+    <div class="def-head">Определение</div>
+    <p>Возьмём набор векторов $\{\e_i\}_{i\in I}\subset V$, индексированный произвольным множеством $I$ — конечным или бесконечным. Такой набор называется <strong>системой векторов</strong>: в отличие от множества, в системе важен сам индекс, и потому один и тот же вектор в принципе может отвечать разным индексам (повтор) — линейная независимость, определяемая ниже, такие повторы как раз исключает.</p>
+    <p><strong>Линейная комбинация</strong> системы — это всегда <em>конечное</em> выражение $\xi_{i_1}\e_{i_1}+\dots+\xi_{i_n}\e_{i_n}$ с коэффициентами из $K$, где $i_1,\dots,i_n$ — произвольный конечный набор различных индексов из $I$: даже если сама система бесконечна, в каждой отдельной комбинации участвует лишь конечное число её векторов. Множество всех таких комбинаций называется <strong>линейной оболочкой</strong> системы.</p>
+    <p>Система <strong>линейно независима</strong>, если никакая её нетривиальная линейная комбинация не равна нулю.</p>
+    <p><strong>Базисом</strong> (или <strong>базисом Гамеля</strong>) называется линейно независимая система, линейная оболочка которой совпадает со всем $V$ — то есть каждый вектор единственным образом раскладывается в линейную комбинацию векторов системы.</p>
+  </div>
+
+  <p>Слово «Гамеля» в названии подчёркивает именно то, что уже заложено в определении линейной комбинации: разложение любого вектора по базису — всегда конечная сумма, даже когда сам базис (как система) бесконечен.</p>
+
+  <div class="note amber">
+    <span class="note-head">Не у всякого модуля есть базис</span>
+    <p>Пример уже встречался: подмодуль $M=\{0,2,4\}\subset\Z/6\Z$ (пример 3, §1) базиса не имеет вовсе — корень проблемы там в делителях нуля кольца $\Z/6\Z$. Ниже, начиная с теоремы о равномощности, речь снова только о векторных пространствах (модулях над <em>полем</em>) — а поле по определению делителей нуля не имеет (каждый ненулевой элемент обратим), так что там, как будет видно, базис есть всегда.</p>
+  </div>
+
+  <h3>Существование базиса</h3>
+  <p>Прежде чем спрашивать, все ли базисы данного пространства «одного размера», нужно убедиться, что базис вообще есть. Здесь начинается теория множеств.</p>
+  <div class="note teal">
+    <span class="note-head">Теорема</span>
+    <p>У любого векторного пространства есть базис.</p>
+  </div>
+  <p>Доказывается леммой Цорна: рассматривается семейство всех линейно независимых подмножеств $V$, упорядоченное по включению; объединение любой цепи таких множеств снова линейно независимо (любая конкретная линейная зависимость внутри объединения использует лишь конечное число векторов, а значит, целиком лежит в каком-то одном звене цепи), поэтому лемма Цорна даёт максимальный элемент — а максимальное по включению линейно независимое множество и есть базис. Лемма Цорна равносильна аксиоме выбора (АС; об этом и других формах АС — счётный выбор, зависимый выбор — подробнее в <a href="/Materials/math_analysis_levels.html">«Уровнях формализации математического анализа»</a>).</p>
+  <div class="note">
+    <span class="note-head">Замечательный факт (Blass, 1984)</span>
+    <p>Связь с аксиомой выбора глубже, чем кажется: утверждение «у каждого векторного пространства есть базис» не просто следует из АС, а равносильно ей (в теории ZF без АС). Доказал это Андреас Бласс в 1984 году. Существование базиса Гамеля — не техническая деталь, а полноценная форма аксиомы выбора.</p>
+  </div>
+
+  <h3>Равномощность базисов и размерность</h3>
+  <div class="note purple">
+    <span class="note-head">Теорема</span>
+    <p>Любые два базиса одного и того же векторного пространства равномощны — даже если оба бесконечны.</p>
+  </div>
+  <p>Для конечных базисов доказательство элементарно и работает даже для произвольного модуля над коммутативным кольцом, не только для векторного пространства:</p>
+  <button type="button" class="axioms-btn" id="proof-toggle"><span class="arr">▶</span> Доказательство (конечный случай)</button>
+  <div class="axioms-panel" id="proof-panel">
+    <p><strong>Лемма.</strong> В ненулевом коммутативном кольце однородная система из $m$ линейных уравнений с $n$ неизвестными при $m&lt;n$ всегда имеет нетривиальное решение. Доказывается индукцией по $n$: при $n=2$ решение выписывается явно ($\omega_{11}\xi_1+\omega_{12}\xi_2=0$ решается парой $\xi_1=\omega_{12},\,\xi_2=-\omega_{11}$, либо тривиально, если оба коэффициента нулевые); шаг индукции исключает первую переменную из всех уравнений, кроме одного, комбинируя строки — коммутативность кольца делает эту комбинацию корректной — и применяет предположение индукции к оставшимся $m-1$ уравнениям от $n$ переменных.</p>
+    <p><strong>Доказательство.</strong> Пусть $\e_1,\dots,\e_m$ и $\e_1',\dots,\e_n'$ — два базиса, $m&lt;n$. Разложим второй базис по первому: $\e_j'=\sum_i \omega_{ij}\e_i$. По лемме однородная система $\sum_j \omega_{ij}\xi_j=0$ ($m$ уравнений, $n&gt;m$ неизвестных) имеет нетривиальное решение $\xi_1^*,\dots,\xi_n^*$. Тогда
+    $$
+    \sum_j \xi_j^*\e_j' = \sum_j \xi_j^*\sum_i \omega_{ij}\e_i = \sum_i\Big(\sum_j \omega_{ij}\xi_j^*\Big)\e_i = \sum_i 0\cdot\e_i = 0,
+    $$
+    то есть нетривиальная комбинация $\e_1',\dots,\e_n'$ равна нулю — противоречие с их независимостью. Значит, $n&gt;m$ невозможно; по симметрии и $m&gt;n$ невозможно, откуда $m=n$.</p>
+  </div>
+  <p>Сама равномощность любых двух бесконечных базисов доказывается отдельно: каждый вектор одного базиса — конечная линейная комбинация векторов другого, поэтому каждому элементу одного базиса сопоставляется <em>конечное</em> подмножество другого; отсюда с помощью арифметики бесконечных кардиналов ($\kappa=\kappa\cdot\aleph_0$ для бесконечного $\kappa$ — тоже, вообще говоря, использующее AC равенство) выводится, что оба базиса имеют одинаковую мощность.</p>
+
+  <div class="definition">
+    <div class="def-head">Определение</div>
+    <p><strong>Размерностью</strong> $\dim V$ называется мощность базисного множества — по теореме выше она не зависит от того, какой именно базис выбран.</p>
+  </div>
+
+  <h3>Примеры базисов</h3>
+  <p class="lang-section-label">От конечных до непостроимых</p>
+  <div class="lang-cards cols-2">
+    <div class="lang-card blue">
+      <div class="lang-card-top">
+        <span class="lang-card-num">Конечномерные</span>
+        <span class="lang-card-name">$\R^n$, $\C$ над $\R$, $\mathrm{Mat}_n(\R)$</span>
+      </div>
+      <p class="lang-card-body">Стандартный базис $\{\langle1,0,\dots\rangle,\langle0,1,0,\dots\rangle,\dots\}$ в $\R^n$; $\{1,i\}$ в $\C$ над $\R$ ($\dim=2$); матричные единицы $E_{ij}$ в $\mathrm{Mat}_n(\R)$ ($\dim=n^2$) — все эти базисы можно выписать явно, конечны, никакого выбора не требуют.</p>
+    </div>
+    <div class="lang-card teal">
+      <div class="lang-card-top">
+        <span class="lang-card-num">Счётно-бесконечный</span>
+        <span class="lang-card-name">$\R[x]$ над $\R$</span>
+      </div>
+      <p class="lang-card-body">$\{1,x,x^2,x^3,\dots\}$ — каждый многочлен есть конечная (это важно — именно конечная, как и требует базис Гамеля) линейная комбинация степеней $x$. Базис явный, но бесконечный.</p>
+    </div>
+    <div class="lang-card purple" style="grid-column:1/-1">
+      <div class="lang-card-top">
+        <span class="lang-card-num">Несчётный и принципиально непостроимый</span>
+        <span class="lang-card-name">$\R$ как векторное пространство над $\Q$</span>
+      </div>
+      <span class="lang-card-tag">отсюда и название «базис Гамеля»</span>
+      <p class="lang-card-body">Забудем про умножение вещественных чисел и оставим только сложение и умножение на рациональные числа — $\R$ становится $\Q$-векторным пространством мощности континуум. Теорема выше гарантирует, что базис у него есть, но ни один такой базис нельзя предъявить явной формулой: его существование — прямое следствие АС (через лемму Цорна выше), а не конструкция. Термин «базис Гамеля» появился именно из этого примера: в 1905 году Георг Гамель использовал такой базис $\R$ над $\Q$, чтобы построить разрывное (и потому «патологическое») решение функционального уравнения Коши $f(x+y)=f(x)+f(y)$, отличное от очевидных линейных решений $f(x)=cx$ — определив $f$ по-разному на разных базисных векторах и продолжив по $\Q$-линейности.</p>
+    </div>
+  </div>
+</section>
+
+<section id="sec-coords">
+  <h2>3. Координаты и изоморфизм с $\R^n$</h2>
+  <p class="lead">Пусть $V$ — векторное пространство над $\R$ размерности $n$ с базисом $\e_1,\dots,\e_n$. По определению базиса каждый вектор $v\in V$ раскладывается по нему <em>единственным</em> образом: $v=\xi_1\e_1+\dots+\xi_n\e_n$.</p>
+  <div class="definition">
+    <div class="def-head">Определение</div>
+    <p>Числа $\langle\xi_1,\dots,\xi_n\rangle$ называются <strong>координатами</strong> $v$ в этом базисе.</p>
+  </div>
+  <p>Единственность разложения — не случайность, а прямое следствие независимости базиса: если бы $v=\xi_1\e_1+\dots+\xi_n\e_n=\xi_1'\e_1+\dots+\xi_n'\e_n$, то вычитание дало бы $(\xi_1-\xi_1')\e_1+\dots+(\xi_n-\xi_n')\e_n=0$, а линейная независимость $\{\e_i\}$ вынуждает все разности быть нулевыми.</p>
+  <p>Значит, отображение $\Phi:V\to\R^n$, $\Phi(v)=\langle\xi_1,\dots,\xi_n\rangle$, — биекция. Более того, оно линейно: координаты суммы складываются, координаты $\lambda v$ умножаются на $\lambda$ — это прямо следует из аксиом векторного пространства.</p>
+  <div class="definition">
+    <div class="def-head">Определение</div>
+    <p>Биективное линейное отображение называется <strong>изоморфизмом</strong> векторных пространств.</p>
+  </div>
+  <div class="note teal">
+    <span class="note-head">Теорема</span>
+    <p>Всякое вещественное векторное пространство размерности $n$ изоморфно $\R^n$.</p>
+  </div>
+  <p>Важная оговорка: этот изоморфизм <strong>не канонический</strong> — он зависит от выбора базиса. Смените базис — и координаты того же самого вектора $v$ станут другими числами. Именно поэтому дальше (§4) матрица линейного оператора тоже будет зависеть от выбора базиса, а не быть свойством «самого» оператора.</p>
+  <p>Это тот же приём, что и обычные декартовы координаты: два неколлинеарных вектора $\e_1,\e_2$ образуют базис, любой вектор $v$ раскладывается как $v=\xi\e_1+\eta\e_2$, и пара $\langle\xi,\eta\rangle$ — координаты, знакомые по осям $Ox,Oy$ (частный случай — когда $\e_1=\langle1,0\rangle$, $\e_2=\langle0,1\rangle$, стандартный базис). Ровно эта идентификация точки $z=x+iy$ с парой вещественных координат $\langle x,y\rangle$ в базисе $\{1,i\}$ пространства $\C$ над $\R$ используется в «<a href="/Materials/complex_numbers.html">Комплексных числах</a>» (конструкция I) — и негласно стоит за тем, как «Движения плоскости» и «Подобия плоскости» отождествляют точку с числом $z=x+iy$.</p>
+</section>
+
+<section id="sec-operator">
+  <h2>4. Линейный оператор и его матрица</h2>
+  <p class="lead">Пусть $V$ и $U$ — векторные пространства над одним полем $K$.</p>
+  <div class="definition">
+    <div class="def-head">Определение</div>
+    <p>Отображение $L:V\to U$ называется <strong>линейным оператором</strong>, если оно:</p>
+    <ol class="plain">
+      <li><strong>L1 (аддитивность):</strong> $L(u+v)=L(u)+L(v)$;</li>
+      <li><strong>L2 (однородность):</strong> $L(\lambda v)=\lambda L(v)$.</li>
+    </ol>
+    <p>Если $V=U$, говорят, что $L$ действует <em>на</em> пространстве $V$. Обратимые линейные операторы (те, что являются биекциями) с операцией композиции образуют группу $\mathrm{GL}(V)$ — <strong>полную линейную группу</strong>.</p>
+  </div>
+  <div class="note">
+    <span class="note-head">Замечание</span>
+    <p>Подобие плоскости $z\mapsto az+b$ (или $z\mapsto a\bar z+b$ для несобственных) — не линейный оператор, а <em>аффинное</em> отображение: слагаемое $b$ сдвигает начало координат, и при $b\ne0$ однородность нарушается ($L(0)=b\ne0$). Но его <strong>линейная часть</strong> — отображение $z\mapsto az$ (соотв. $z\mapsto a\bar z$), получаемое отбрасыванием сдвига, — уже линейный оператор на $\R^2\cong\C$: аддитивность и однородность для вещественных коэффициентов прямо следуют из арифметики $\C$, а разность образов двух точек зависит только от разности самих точек: $(az_2+b)-(az_1+b)=a(z_2-z_1)$.</p>
+  </div>
+  <p>Именно эту линейную часть мы сейчас снабдим матрицей — полное соответствие «оператор ↔ вид подобия» дальше, в §6.</p>
+
+  <h3>Матрица оператора в базисе</h3>
+  <p>Пусть $\e_1,\e_2$ — базис плоскости $V$. По линейности оператор $L:V\to V$ полностью определяется тем, куда он переводит базисные векторы: если $v=\xi\e_1+\eta\e_2$, то
+  $$
+  L(v)=\xi L(\e_1)+\eta L(\e_2)=\xi w_1+\eta w_2,\qquad w_1=L(\e_1),\ w_2=L(\e_2).
+  $$
+  Разложим $w_1,w_2$ снова по тому же базису: $w_1=\omega_{11}\e_1+\omega_{21}\e_2$, $w_2=\omega_{12}\e_1+\omega_{22}\e_2$, и составим из координатных столбцов матрицу
+  $$
+  W=\begin{pmatrix}\omega_{11}&\omega_{12}\\\omega_{21}&\omega_{22}\end{pmatrix}.
+  $$
+  </p>
+  <div class="definition">
+    <div class="def-head">Определение</div>
+    <p>Матрица $W$ называется <strong>матрицей линейного оператора $L$ в базисе $\{\e_i\}$</strong> — столбцы суть координаты образов базисных векторов.</p>
+  </div>
+  <p>Прямая проверка показывает, что координаты $L(v)$ получаются из координат $v$ обычным умножением матрицы на вектор-столбец:
+  $$
+  \begin{pmatrix}\omega_{11}&\omega_{12}\\\omega_{21}&\omega_{22}\end{pmatrix}\begin{pmatrix}\xi\\\eta\end{pmatrix}=\begin{pmatrix}\xi\omega_{11}+\eta\omega_{12}\\\xi\omega_{21}+\eta\omega_{22}\end{pmatrix}.
+  $$
+  </p>
+  <p>Иначе говоря: через изоморфизм $\Phi:V\to\R^n$ из §3 действие абстрактного оператора $L$ на $V$ становится действием конкретной матрицы $W$ на $\R^n$ — именно эта матрица и делает алгебру операторов вычислимой.</p>
+
+  <p class="lang-section-label">Матрицы простейших операторов на плоскости (стандартный базис)</p>
+  <div class="lang-cards cols-2">
+    <div class="lang-card blue">
+      <div class="lang-card-top"><span class="lang-card-num">Поворот на $\alpha$</span></div>
+      <p class="lang-card-body">$$R_\alpha=\begin{pmatrix}\cos\alpha&-\sin\alpha\\\sin\alpha&\cos\alpha\end{pmatrix}$$</p>
+    </div>
+    <div class="lang-card rust">
+      <div class="lang-card-top"><span class="lang-card-num">Отражение относительно $Ox$</span></div>
+      <p class="lang-card-body">$$S_x=\begin{pmatrix}1&0\\0&-1\end{pmatrix}$$</p>
+    </div>
+    <div class="lang-card sage">
+      <div class="lang-card-top"><span class="lang-card-num">Гомотетия с коэффициентом $\kappa$</span></div>
+      <p class="lang-card-body">$$H_\kappa=\begin{pmatrix}\kappa&0\\0&\kappa\end{pmatrix}$$</p>
+    </div>
+    <div class="lang-card amber">
+      <div class="lang-card-top"><span class="lang-card-num">Растяжение вдоль $Ox$ — <em>не подобие!</em></span></div>
+      <p class="lang-card-body">$$\begin{pmatrix}\lambda&0\\0&1\end{pmatrix}$$ Первый линейный оператор в этом материале, который не собран из движений и гомотетий, — расстояния вдоль разных осей растут по-разному (напомним: матрицы вообще умеют куда больше, чем только эти геометрические частные случаи).</p>
+    </div>
+  </div>
+</section>
+
+<section id="sec-algebra">
+  <h2>5. Кольцо матриц и сопряжённое пространство</h2>
+  <p class="lead">Пусть $L,M:V\to U$ — линейные операторы. Определим $(L+M)(v)=L(v)+M(v)$ и $(\lambda L)(v)=\lambda L(v)$ — операции с векторов переносятся на операторы, причём подчиняются тем же аксиомам модуля. Значит, <strong>множество $\mathcal L(V,U)$ всех линейных операторов из $V$ в $U$ само является векторным пространством</strong> над тем же полем $K$.</p>
+
+  <h3>Композиция операторов = умножение матриц</h3>
+  <p>На операторах, действующих на одном и том же пространстве $V$ (то есть на $\mathrm{End}(V)=\mathcal L(V,V)$), есть ещё и композиция $LM:=L\circ M$, которую здесь принято называть умножением. Она подчиняется тождеству
+  $$
+  \lambda(LM)=(\lambda L)M=L(\lambda M),
+  $$
+  — а это в точности определяющее условие алгебры из §1: $\mathrm{End}(V)$ — <strong>алгебра линейных операторов</strong> над $K$. Раскладывая композицию $L\circ M$ по базису так же, как в §4, получаем обычное правило умножения матриц «строка на столбец» — то есть арифметика матриц не постулируется отдельно, а <em>выводится</em> из арифметики операторов.</p>
+  <p>При фиксированном базисе соответствие «оператор ↔ матрица» биективно и сохраняет все операции: сложение, умножение на число, композицию/умножение. Единичному оператору $\mathrm{id}$ отвечает единичная матрица $E$. Значит, <strong>алгебра $\mathrm{End}(V)$ изоморфна алгебре квадратных матриц $\mathrm{Mat}_n(K)$</strong> — но в отличие от $\R[x]$ (пример 4 в §1), это умножение <em>некоммутативно</em>: $LM\ne ML$ в общем случае (в точности как композиция преобразований плоскости).</p>
+
+  <h3>Обратимость, определитель, ранг</h3>
+  <p>Оператор $L$ обратим тогда и только тогда, когда обратима его матрица. Для $2\times2$ матрицы $W=\begin{pmatrix}\omega_{11}&\omega_{12}\\\omega_{21}&\omega_{22}\end{pmatrix}$ решающую роль играет число $\omega_{11}\omega_{22}-\omega_{12}\omega_{21}$.</p>
+  <div class="definition">
+    <div class="def-head">Определение</div>
+    <p>Это число называется <strong>определителем матрицы</strong> $W$ и обозначается $\det W$. В общей размерности $n$ определитель задаётся суммой по перестановкам:
+    $$
+    \det W=\sum_{\sigma\in\mathrm S_n}\mathrm{sgn}(\sigma)\,\omega^{(1)}_{\sigma(1)}\cdots \omega^{(n)}_{\sigma(n)}.
+    $$
+    </p>
+  </div>
+  <p>При $\det W\ne0$ прямое вычисление для $2\times2$ даёт явную обратную матрицу:
+  $$
+  W^{-1}=\frac1{\det W}\begin{pmatrix}\omega_{22}&-\omega_{12}\\-\omega_{21}&\omega_{11}\end{pmatrix},
+  $$
+  а в любой размерности определитель удовлетворяет $\det(WU)=\det W\det U$, $\det E=1$, $\det W^{-1}=1/\det W$.</p>
+  <p>Ядро $\ker L=\{v\mid Lv=0\}$ и образ $L[V]$ — подпространства $V$, связанные тождеством $\dim\ker L+\dim L[V]=\dim V$.</p>
+  <div class="definition">
+    <div class="def-head">Определение</div>
+    <p><strong>Рангом</strong> матрицы $W$ оператора $L$ называется размерность его образа: $\mathrm{rank}(W):=\dim L[V]$.</p>
+  </div>
+  <p>Отсюда — критерий, объединяющий геометрию и алгебру в одном списке равносильных условий:</p>
+  <div class="note">
+    <span class="note-head">Теорема</span>
+    <p>Для линейного оператора $L:V\to V$ равносильны:</p>
+    <ul class="plain">
+      <li>$L$ обратим;</li>
+      <li>матрица $L$ обратима;</li>
+      <li>$\det W\ne0$;</li>
+      <li>$\ker L=\{0\}$;</li>
+      <li>$\mathrm{rank}(W)=\dim V$;</li>
+      <li>$L[V]=V$.</li>
+    </ul>
+  </div>
+  <div class="definition">
+    <div class="def-head">Определение</div>
+    <p>Группа $\mathrm{GL}(V)$ обратимых операторов изоморфна группе $\mathrm{GL}(n)$ обратимых $n\times n$ матриц. Внутри неё выделяются <strong>ортогональные матрицы</strong> $\mathrm O(n)=\{A\mid A^{\mathsf T}A=E\}$ и матрицы с определителем $\pm1$ — <strong>специальная линейная группа</strong> $\mathrm{SL}(n)$; их пересечение $\mathrm{SL}(n)\cap\mathrm O(n)$ (определитель ровно $+1$) — <strong>специальная ортогональная группа</strong> $\mathrm{SO}(n)$.</p>
+  </div>
+  <p>Все три вернутся в §6 уже в геометрическом облике.</p>
+
+  <h3>Сопряжённое (дуальное) пространство</h3>
+  <p>Факт «$\mathcal L(V,U)$ — векторное пространство» был сформулирован выше для <em>произвольного</em> $U$ — в §5 мы просто взяли $U=V$. Возьмём теперь другой частный случай: $U=K$, само поле скаляров, рассматриваемое как одномерное векторное пространство над собой.</p>
+  <div class="definition">
+    <div class="def-head">Определение</div>
+    <p>Элементы $\mathcal L(V,K)$ — линейные отображения $f:V\to K$ — называются <strong>линейными функционалами</strong>. Пространство
+    $$
+    V^*:=\mathcal L(V,K)
+    $$
+    называется <strong>сопряжённым</strong> (или <strong>дуальным</strong>) пространством к $V$.</p>
+  </div>
+  <p>Для конечномерного $V$ с базисом $\e_1,\dots,\e_n$ рассмотрим функционалы $\e_1^*,\dots,\e_n^*\in V^*$, заданные правилом $\e_i^*(\e_j)=\delta_{ij}$ (единица при $i=j$, ноль иначе) — то есть $\e_i^*$ буквально есть $i$-я координатная функция $\xi_i$ из §3. Любой функционал $f$ однозначно восстанавливается по своим значениям на базисе: $f=\sum_i f(\e_i)\,\e_i^*$, так что $\{\e_i^*\}$ — базис $V^*$.</p>
+  <div class="definition">
+    <div class="def-head">Определение</div>
+    <p>Базис $\e_1^*,\dots,\e_n^*$, построенный так по базису $\e_1,\dots,\e_n$ пространства $V$, называется <strong>сопряжённым</strong> (или <strong>дуальным</strong>) <strong>базисом</strong>. В частности,
+    $$
+    \dim V^*=\dim V.
+    $$
+    </p>
+  </div>
+  <div class="lang-cards cols-2">
+    <div class="lang-card blue">
+      <div class="lang-card-top">
+        <span class="lang-card-num">$\mathrm{End}(V)=\mathcal L(V,V)$</span>
+        <span class="lang-card-name">алгебра</span>
+      </div>
+      <p class="lang-card-body">Композиция $LM$ типизируется корректно: $V\xrightarrow{M}V\xrightarrow{L}V$. Это и даёт вторую операцию, превращающую пространство операторов в алгебру.</p>
+    </div>
+    <div class="lang-card rust">
+      <div class="lang-card-top">
+        <span class="lang-card-num">$V^*=\mathcal L(V,K)$</span>
+        <span class="lang-card-name">только пространство</span>
+      </div>
+      <p class="lang-card-body">Композиция $f\circ g$ для $f,g\in V^*$ не типизируется: $g:V\to K$, а $f$ нужно применять к вектору из $V$, а не к числу из $K$. Естественного умножения нет — отсюда $V^*$ остаётся просто векторным пространством, без структуры алгебры.</p>
+    </div>
+  </div>
+  <p>Простейший пример функционала, помимо координатных проекций, — <strong>след</strong> $\mathrm{tr}:\mathrm{Mat}_n(\R)\to\R$, $\mathrm{tr}(A)=\sum_i \omega_{ii}$: применяя ту же конструкцию к пространству $V=\mathrm{Mat}_n(\R)$ из примера 5 §1, получаем линейный функционал на пространстве матриц — элемент уже его собственного сопряжённого пространства.</p>
+</section>
+
+<section id="sec-bridge">
+  <h2>6. Движения и подобия как операторы на $\R^2$</h2>
+  <p class="lead">Всё готово, чтобы вернуться к «<a href="/Materials/chasles.html">Движениям плоскости</a>» и «<a href="/Materials/similarities.html">Подобиям плоскости</a>» и увидеть их в точности как частный класс линейных операторов из §4–5.</p>
+
+  <div class="map-table-wrap">
+    <table class="map-table">
+      <thead><tr><th>Геометрическое преобразование</th><th>Матрица (в стандартном базисе)</th><th>$\det$</th></tr></thead>
+      <tbody>
+        <tr><td>Тождественное $\mathrm{id}$</td><td>$E=\begin{pmatrix}1&0\\0&1\end{pmatrix}$</td><td>$+1$</td></tr>
+        <tr><td>Поворот $R_\alpha$</td><td>$\begin{pmatrix}\cos\alpha&-\sin\alpha\\\sin\alpha&\cos\alpha\end{pmatrix}$</td><td>$+1$</td></tr>
+        <tr><td>Гомотетия $H_\kappa$, $\kappa&gt;0$</td><td>$\kappa E$</td><td>$+\kappa^2$</td></tr>
+        <tr><td>Поворотная гомотетия $RH_\alpha^\kappa$</td><td>$\kappa\begin{pmatrix}\cos\alpha&-\sin\alpha\\\sin\alpha&\cos\alpha\end{pmatrix}$</td><td>$+\kappa^2$</td></tr>
+        <tr><td>Отражение $S_{Ox}$</td><td>$\begin{pmatrix}1&0\\0&-1\end{pmatrix}$</td><td>$-1$</td></tr>
+        <tr><td>Отражённая гомотетия $SH^\kappa_{Ox}$</td><td>$\begin{pmatrix}\kappa&0\\0&-\kappa\end{pmatrix}$</td><td>$-\kappa^2$</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Все шесть матриц устроены одинаково: столбцы — два взаимно перпендикулярных вектора одной и той же длины $\kappa$. Это не совпадение, а исчерпывающий критерий, который можно доказать средствами, уже собранными в §5.</p>
+
+  <div class="note teal">
+    <span class="note-head">Теорема (критерий подобия через матрицу)</span>
+    <p>Линейный оператор $L$ на плоскости (со стандартным скалярным произведением) есть линейная часть подобия с коэффициентом $\kappa&gt;0$ — то есть $|Lx|=\kappa|x|$ для любого вектора $x$ — тогда и только тогда, когда его матрица $W$ удовлетворяет $W^{\mathsf T}W=\kappa^2E$: столбцы $W$ перпендикулярны и имеют одинаковую длину $\kappa$. При этом $\det W=\kappa^2&gt;0$ отвечает поворотной гомотетии (в частности, повороту при $\kappa=1$), а $\det W=-\kappa^2&lt;0$ — отражённой гомотетии (в частности, отражению при $\kappa=1$).</p>
+  </div>
+  <p>Доказательство собирается из §5 без единого нового ингредиента. Условие $|Lx|=\kappa|x|$ для всех $x$ равносильно $\langle Lx,Lx\rangle=\kappa^2\langle x,x\rangle$; подставив $x=u+v$ и раскрыв обе части по билинейности скалярного произведения, а затем вычтя уже известные равенства для $u$ и для $v$ по отдельности, получаем поляризованную форму $\langle Lu,Lv\rangle=\kappa^2\langle u,v\rangle$ для любых $u,v$. С другой стороны, $\langle Lu,Lv\rangle=\langle u,W^{\mathsf T}Wv\rangle$ (тождество из «Арифметики матриц», применённое к $A=W^{\mathsf T}W$) — значит, $W^{\mathsf T}W=\kappa^2E$. Тогда $\det(W^{\mathsf T}W)=(\det W)^2=\det(\kappa^2E)=\kappa^4$, откуда $\det W=\pm\kappa^2$; знак фиксирует ориентацию — совпадает она с исходной (поворотная гомотетия) или обращается (отражённая гомотетия), в точности по классификации подобий плоскости.</p>
+
+  <p>Оператор растяжения $\mathrm{diag}(\lambda,1)$ из §4 нарушает это условие уже при $\lambda\ne1$ ($\kappa_1=\lambda\ne1=\kappa_2$) — простейший пример линейного оператора, который не является подобием, потому что растягивает разные направления по-разному. Это ровно тот механизм, который отличает произвольные $\R$-линейные отображения $\R^2\to\R^2$ от $\C$-линейных: комплексная дифференцируемость — это в точности требование быть <em>локально</em> поворотной гомотетией, без права растягивать по-разному в разных направлениях (подробнее — в «<a href="/Materials/conformal_maps.html">Конформности и дробно-линейных преобразованиях</a>», §1–2).</p>
+
+  <p>Ниже — конструктор: перетащите концы векторов $Le_1$ и $Le_2$ (или выберите пресет) и посмотрите, при каких матрицах оператор остаётся подобием, а при каких — нет.</p>
+
+  <div class="mw-tabs" id="op-tabs">
+    <button type="button" class="mw-tab" data-preset="id">Тождественный</button>
+    <button type="button" class="mw-tab" data-preset="rot">Поворот 60°</button>
+    <button type="button" class="mw-tab" data-preset="hom">Гомотетия κ=1.8</button>
+    <button type="button" class="mw-tab" data-preset="refl">Отражение (Ox)</button>
+    <button type="button" class="mw-tab" data-preset="stretch">Растяжение (не подобие)</button>
+    <button type="button" class="mw-tab" data-preset="deg">Вырожденный (rank 1)</button>
+  </div>
+  <figure>
+    <div class="motion-widget" id="widget-operator"></div>
+    <div class="formula-box" id="op-matrix"></div>
+    <div id="op-badge-wrap"></div>
+    <figcaption>Серые пунктирные векторы — исходный базис $e_1,e_2$ и единичный квадрат на них; синий/рыжий — их образы $Le_1,Le_2$ под действием оператора, светло-синяя область — образ единичного квадрата.</figcaption>
+  </figure>
+
+  <p>«Движения плоскости» и «Подобия плоскости» и есть в точности классификация всех линейных операторов $\R^2\to\R^2$, удовлетворяющих $W^{\mathsf T}W=\kappa^2E$, по знаку $\det W$ и значению $\kappa$ — только полученная геометрически, а не алгебраически. А умножение на комплексное число $a\ne0$ из «Комплексных чисел» — это тот же самый оператор, записанный не матрицей $2\times2$, а одним числом $a=\kappa e^{i\alpha}$: конструкция II оттуда сопоставляет $a=x+iy$ ровно матрицу $\begin{pmatrix}x&-y\\y&x\end{pmatrix}$, столбцы которой перпендикулярны и равны по длине $|a|$ — то есть автоматически удовлетворяют критерию этой теоремы.</p>
+</section>
+
+<script id="linop-widget">
+window.LinOpWidget = (function () {
+  var UNIT = 34;
+  var FRAME_HALF_W = 150, FRAME_HALF_H = 110;
+  var FRAME_VB = (-FRAME_HALF_W) + ' ' + (-FRAME_HALF_H) + ' ' + (2 * FRAME_HALF_W) + ' ' + (2 * FRAME_HALF_H);
+  var SNAP = UNIT / 4; // quarter-unit grid, e.g. 1.25, 1.5, ...
+  var DRAG_CAP_X = 130, DRAG_CAP_Y = 95; // px, keeps handle+square inside the frame
+
+  var PRESETS = {
+    id:      { w1: [1, 0], w2: [0, 1] },
+    rot:     { w1: [Math.cos(Math.PI / 3), Math.sin(Math.PI / 3)], w2: [-Math.sin(Math.PI / 3), Math.cos(Math.PI / 3)] },
+    hom:     { w1: [1.8, 0], w2: [0, 1.8] },
+    refl:    { w1: [1, 0], w2: [0, -1] },
+    stretch: { w1: [2, 0], w2: [0, 1] },
+    deg:     { w1: [1.5, 1], w2: [3, 2] }
+  };
+
+  function snap(v) { return Math.round(v / SNAP) * SNAP; }
+  function clampXY(x, y, capX, capY) {
+    return [Math.max(-capX, Math.min(capX, snap(x))), Math.max(-capY, Math.min(capY, snap(y)))];
+  }
+  // math (y-up) -> svg (y-down)
+  function toSvg(mx, my) { return [mx * UNIT, -my * UNIT]; }
+  function toMath(sx, sy) { return [sx / UNIT, -sy / UNIT]; }
+
+  function axesMarkup() {
+    return '<line x1="' + (-FRAME_HALF_W) + '" y1="0" x2="' + FRAME_HALF_W + '" y2="0" class="mw-coord-axis"/>' +
+      '<line x1="0" y1="' + (-FRAME_HALF_H) + '" x2="0" y2="' + FRAME_HALF_H + '" class="mw-coord-axis"/>' +
+      '<circle cx="0" cy="0" r="3" class="mw-origin"/>';
+  }
+
+  function fmtPts(pts) {
+    return pts.map(function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' ');
+  }
+
+  function classify(w1, w2) {
+    var det = w1[0] * w2[1] - w2[0] * w1[1];
+    if (Math.abs(det) < 0.03) {
+      var bothZero = Math.hypot(w1[0], w1[1]) < 0.03 && Math.hypot(w2[0], w2[1]) < 0.03;
+      return { kind: 'deg', det: det, text: bothZero ? 'вырожден: образ — точка (rank 0)' : 'вырожден: образ — прямая (rank 1), det = 0' };
+    }
+    var k1 = Math.hypot(w1[0], w1[1]), k2 = Math.hypot(w2[0], w2[1]);
+    var dot = w1[0] * w2[0] + w1[1] * w2[1];
+    var relTol = 0.06;
+    var isSim = Math.abs(k1 - k2) < relTol * Math.max(k1, k2) && Math.abs(dot) < relTol * k1 * k2;
+    if (!isSim) {
+      return { kind: 'no', det: det, text: 'не подобие: |Le₁|≈' + k1.toFixed(2) + ', |Le₂|≈' + k2.toFixed(2) + ' — направления растягиваются по-разному' };
+    }
+    var k = (k1 + k2) / 2;
+    var orientationPreserving = det > 0;
+    var isUnit = Math.abs(k - 1) < relTol;
+    var label;
+    if (orientationPreserving) label = isUnit ? (Math.hypot(w1[0]-1,w1[1])<0.05 && Math.hypot(w2[0],w2[1]-1)<0.05 ? 'тождественный оператор' : 'поворот, κ≈1') : 'поворотная гомотетия, κ≈' + k.toFixed(2);
+    else label = isUnit ? 'отражение, κ=1' : 'отражённая гомотетия, κ≈' + k.toFixed(2);
+    return { kind: 'ok', det: det, text: 'подобие: ' + label };
+  }
+
+  function createLinOpWidget(container, opts) {
+    var onChange = (opts && opts.onChange) || function () {};
+    var state = { w1: PRESETS.rot.w1.slice(), w2: PRESETS.rot.w2.slice() };
+
+    container.innerHTML = '<svg class="mw-svg motion-frame" viewBox="' + FRAME_VB + '"></svg>';
+    var svg = container.querySelector('.mw-svg');
+
+    function localPointFromClient(clientX, clientY) {
+      var rect = svg.getBoundingClientRect();
+      var vb = svg.viewBox.baseVal;
+      var s = rect.width / vb.width;
+      return [(clientX - rect.left) / s + vb.x, (clientY - rect.top) / s + vb.y];
+    }
+
+    function render() {
+      var e1 = toSvg(1, 0), e2 = toSvg(0, 1);
+      var sw1 = toSvg(state.w1[0], state.w1[1]), sw2 = toSvg(state.w2[0], state.w2[1]);
+      var sqGhost = [[0, 0], e1, [e1[0] + e2[0], e1[1] + e2[1]], e2];
+      var sqImage = [[0, 0], sw1, [sw1[0] + sw2[0], sw1[1] + sw2[1]], sw2];
+
+      var parts = [];
+      parts.push(axesMarkup());
+      parts.push('<polygon points="' + fmtPts(sqGhost) + '" class="mw-flag-ghost"/>');
+      parts.push('<line x1="0" y1="0" x2="' + e1[0].toFixed(1) + '" y2="' + e1[1].toFixed(1) + '" class="mw-ref-vector"/>');
+      parts.push('<line x1="0" y1="0" x2="' + e2[0].toFixed(1) + '" y2="' + e2[1].toFixed(1) + '" class="mw-ref-vector"/>');
+      parts.push('<text x="' + (e1[0] + 6).toFixed(1) + '" y="' + (e1[1] + 14).toFixed(1) + '" class="mw-handle-label">e₁</text>');
+      parts.push('<text x="' + (e2[0] + 6).toFixed(1) + '" y="' + (e2[1] - 6).toFixed(1) + '" class="mw-handle-label">e₂</text>');
+
+      parts.push('<polygon points="' + fmtPts(sqImage) + '" class="mw-flag-solid"/>');
+      parts.push('<line x1="0" y1="0" x2="' + sw1[0].toFixed(1) + '" y2="' + sw1[1].toFixed(1) + '" class="mw-vector"/>');
+      parts.push('<line x1="0" y1="0" x2="' + sw2[0].toFixed(1) + '" y2="' + sw2[1].toFixed(1) + '" class="mw-vector2"/>');
+
+      parts.push('<circle class="mw-handle" cx="' + sw1[0].toFixed(1) + '" cy="' + sw1[1].toFixed(1) + '" r="7"/>');
+      parts.push('<circle class="mw-hit" data-handle="w1" cx="' + sw1[0].toFixed(1) + '" cy="' + sw1[1].toFixed(1) + '" r="18"/>');
+      parts.push('<text x="' + (sw1[0] + 9).toFixed(1) + '" y="' + (sw1[1] - 6).toFixed(1) + '" class="mw-handle-label">Le₁</text>');
+
+      parts.push('<circle class="mw-handle2" cx="' + sw2[0].toFixed(1) + '" cy="' + sw2[1].toFixed(1) + '" r="7"/>');
+      parts.push('<circle class="mw-hit" data-handle="w2" cx="' + sw2[0].toFixed(1) + '" cy="' + sw2[1].toFixed(1) + '" r="18"/>');
+      parts.push('<text x="' + (sw2[0] + 9).toFixed(1) + '" y="' + (sw2[1] - 6).toFixed(1) + '" class="mw-handle-label">Le₂</text>');
+
+      svg.innerHTML = parts.join('');
+      wireDrag();
+      onChange({ w1: state.w1.slice(), w2: state.w2.slice() });
+    }
+
+    var dragging = null, activePointerId = null;
+    function onPointerDown(e) {
+      if (!e.target.classList || !e.target.classList.contains('mw-hit')) return;
+      dragging = e.target.getAttribute('data-handle');
+      activePointerId = e.pointerId;
+      e.preventDefault();
+    }
+    function onPointerMove(e) {
+      if (!dragging || e.pointerId !== activePointerId) return;
+      var p = localPointFromClient(e.clientX, e.clientY);
+      var c = clampXY(p[0], p[1], DRAG_CAP_X, DRAG_CAP_Y);
+      var m = toMath(c[0], c[1]);
+      state[dragging] = m;
+      render();
+      e.preventDefault();
+    }
+    function onPointerUp(e) {
+      if (e.pointerId !== activePointerId) return;
+      dragging = null; activePointerId = null;
+    }
+    function wireDrag() {
+      var hits = svg.querySelectorAll('.mw-hit');
+      hits.forEach(function (hit) {
+        hit.removeEventListener('pointerdown', onPointerDown);
+        hit.addEventListener('pointerdown', onPointerDown);
+      });
+    }
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerup', onPointerUp);
+    window.addEventListener('pointercancel', onPointerUp);
+
+    render();
+    return {
+      getState: function () { return { w1: state.w1.slice(), w2: state.w2.slice() }; },
+      setPreset: function (key) {
+        var p = PRESETS[key];
+        if (!p) return;
+        state.w1 = p.w1.slice(); state.w2 = p.w2.slice();
+        render();
+      }
+    };
+  }
+
+  return {
+    create: createLinOpWidget,
+    classify: classify,
+    presets: PRESETS,
+    _test: { toSvg: toSvg, toMath: toMath }
+  };
+})();
+</script>
+
+<script>
+(function () {
+  var el = document.getElementById('widget-operator');
+  var matEl = document.getElementById('op-matrix');
+  var badgeWrap = document.getElementById('op-badge-wrap');
+  var tabs = document.getElementById('op-tabs');
+
+  function init() {
+    if (!el || !matEl || !badgeWrap || !window.LinOpWidget || !window.katex) return;
+
+    function update(state) {
+      var w1 = state.w1, w2 = state.w2;
+      var texMat = 'W=\\begin{pmatrix}' + w1[0].toFixed(2) + '&' + w2[0].toFixed(2) + '\\\\' + w1[1].toFixed(2) + '&' + w2[1].toFixed(2) + '\\end{pmatrix}';
+      var det = w1[0] * w2[1] - w2[0] * w1[1];
+      katex.render(texMat + ',\\quad \\det W\\approx ' + det.toFixed(2), matEl, { throwOnError: false });
+      var cls = LinOpWidget.classify(w1, w2);
+      var cssKind = cls.kind === 'deg' ? 'deg' : (cls.kind === 'ok' ? 'ok' : 'no');
+      badgeWrap.innerHTML = '<span class="op-badge ' + cssKind + '">' + cls.text + '</span>';
+    }
+
+    var widget = LinOpWidget.create(el, { onChange: update });
+    update(widget.getState());
+
+    if (tabs) {
+      tabs.addEventListener('click', function (e) {
+        var btn = e.target.closest('.mw-tab');
+        if (!btn) return;
+        tabs.querySelectorAll('.mw-tab').forEach(function (b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        widget.setPreset(btn.getAttribute('data-preset'));
+      });
+    }
+  }
+  window.addEventListener('load', init);
+})();
+</script>
+
+<script>
+(function () {
+  var btn = document.getElementById('proof-toggle');
+  var panel = document.getElementById('proof-panel');
+  if (!btn || !panel) return;
+  btn.addEventListener('click', function () {
+    var open = panel.classList.toggle('open');
+    btn.classList.toggle('active', open);
+  });
+})();
+</script>
+
+<p class="page-footer">© Nikolai Kazimirov · <a href="https://mathem.at" rel="noopener">mathem.at</a></p>
+
+</div><!-- .page -->
+</body>
+</html>

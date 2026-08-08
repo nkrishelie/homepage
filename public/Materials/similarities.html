@@ -16,7 +16,7 @@
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\]', display: true}, {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}], throwOnError: false})"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\]', display: true}, {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}], macros: {'\\R': '\\mathbb{R}', '\\C': '\\mathbb{C}', '\\N': '\\mathbb{N}', '\\Z': '\\mathbb{Z}', '\\Q': '\\mathbb{Q}'}, throwOnError: false})"></script>
 <style>
 :root {
   --bg:#faf9f6; --bg2:#f2f0eb; --ink:#1a1917; --ink2:#5a5750; --ink3:#8a8680; --border:#dcd9d2;
@@ -138,7 +138,7 @@ figcaption{font-size:16.5px;color:var(--ink3);margin-top:.6rem;line-height:1.55;
 
 <section id="sec-intro">
   <h2>1. От движений к подобиям</h2>
-  <p class="lead"><strong>Подобие</strong> плоскости — это преобразование $P$, при котором расстояния между образами точек меняются в одно и то же число раз: $\rho(P(x),P(y)) = k\,\rho(x,y)$ для некоторого числа $k>0$, одного и того же для любых $x,y$. Число $k$ называется коэффициентом подобия.</p>
+  <p class="lead"><strong>Подобие</strong> плоскости — это преобразование $P$, при котором расстояния между образами точек меняются в одно и то же число раз: $\rho(P(x),P(y)) = k\,\rho(x,y)$ для некоторого числа $k&gt;0$, одного и того же для любых $x,y$. Число $k$ называется коэффициентом подобия.</p>
   <p>При $k=1$ расстояния сохраняются в точности — это в точности <a href="/Materials/chasles.html">движения плоскости</a>: перенос, поворот, отражение, скользящая симметрия. Всё дальше касается случая $k\ne1$ — когда фигуры не просто перемещаются, а ещё и меняют размер.</p>
   <p>Композиция подобий с коэффициентами $k$ и $s$ — снова подобие, с коэффициентом $ks$: это следует прямо из определения ($\rho$ умножается сначала на $k$, потом на $s$).</p>
 </section>
@@ -574,6 +574,7 @@ window.SimilarityWidget = (function () {
   </div>
   <p>Поворотная гомотетия уже разобрана в §3. <strong>Отражённая гомотетия</strong> — её «зеркальный» аналог: гомотетия $H_{z_0}^k$, скомбинированная с отражением относительно оси, проходящей через её же центр $z_0$ (гомотетия и такое отражение коммутируют, как и гомотетия с поворотом в §3). При $k=1$ это просто обычное отражение относительно этой оси. Именно за неё отвечает вкладка «Отражённая гомотетия» в калькуляторе (§7).</p>
   <p>Границы между классами пересекаются — и это не случайность, а часть той же картины, что уже встречалась у движений: тождественное преобразование одновременно и «нулевой» перенос, и «нулевая» поворотная гомотетия ($k=1$, $\alpha=0$); обычное отражение одновременно и скользящая симметрия с нулевым сдвигом, и отражённая гомотетия с $k=1$. Других подобий плоскости не бывает.</p>
+  <p>Эта классификация имеет чисто алгебраическое прочтение: линейная часть каждого из четырёх видов — линейный оператор на $\R^2$, чья матрица $W$ удовлетворяет $W^{\mathsf T}W=k^2E$ (столбцы перпендикулярны и равны по длине $k$), причём знак $\det W$ как раз и различает поворотную и отражённую гомотетию. Общая рамка — модуль, векторное пространство, линейный оператор и его матрица — собрана в материале «<a href="/Materials/linear_spaces.html">От модуля к оператору</a>», §6 которого возвращается сюда с этой самой теоремой.</p>
 </section>
 
 <section id="sec-fz">

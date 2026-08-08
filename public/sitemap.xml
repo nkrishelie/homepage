@@ -161,6 +161,16 @@
       <priority>0.6</priority>
    </url>
    <url>
+      <loc>https://mathem.at/Materials/linear_spaces.html</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.6</priority>
+   </url>
+   <url>
+      <loc>https://mathem.at/Materials/linear_spaces_en.html</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.6</priority>
+   </url>
+   <url>
       <loc>https://mathem.at/Materials/maglish_index.html</loc>
       <changefreq>weekly</changefreq>
       <priority>0.8</priority>
