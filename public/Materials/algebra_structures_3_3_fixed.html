@@ -60,10 +60,21 @@
   /* ── Tabs (top bar) ── */
   .tabs {
     display: flex;
+    align-items: center;
     border-bottom: 1px solid var(--border);
     flex-shrink: 0;
     background: var(--surface);
   }
+
+  .lang-pills { margin-left: auto; display: flex; gap: 8px; padding: 0 16px; }
+  .lang-pill {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 4px 11px; border-radius: 999px;
+    font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: .04em;
+    text-decoration: none; border: 1px solid var(--border-light); color: var(--text-muted); transition: .15s;
+  }
+  .lang-pill.active { background: var(--accent-dim); color: #fff; border-color: var(--accent-dim); }
+  .lang-pill:not(.active):hover { border-color: var(--accent); color: var(--accent); }
 
   .tab-btn {
     font-family: var(--font-mono);
@@ -452,7 +463,38 @@
   <a href="https://mathem.at" class="tabs-home">← mathem.at</a>
   <button class="tab-btn tab-algebra active" onclick="switchTab('algebra')">Алгебраические структуры</button>
   <button class="tab-btn tab-lattice" onclick="switchTab('lattice')">Теория решёток</button>
+  <div class="lang-pills">
+    <a class="lang-pill" href="/Materials/algebra_structures_3_3_fixed_en.html?lang=en">🇬🇧 EN</a>
+    <a class="lang-pill active" href="/Materials/algebra_structures_3_3_fixed.html?lang=ru">🇷🇺 RU</a>
+  </div>
 </div>
+<script>
+(function () {
+  var KEY = 'mathem_lang';
+  var pills = document.querySelectorAll('.lang-pill');
+  if (!pills.length) return;
+  var activeHref = null, otherHref = null, otherLang = null;
+  pills.forEach(function (a) {
+    var href = a.getAttribute('href');
+    var lang = /_en\.html/.test(href.split('?')[0]) ? 'en' : 'ru';
+    if (a.classList.contains('active')) { activeHref = href; }
+    else { otherHref = href; otherLang = lang; }
+  });
+  var currentLang = /_en\.html/.test((activeHref || location.pathname).split('?')[0]) ? 'en' : 'ru';
+  var params = new URLSearchParams(location.search);
+  if (params.get('lang')) {
+    try { localStorage.setItem(KEY, params.get('lang')); } catch (e) {}
+    return;
+  }
+  var pref;
+  try { pref = localStorage.getItem(KEY); } catch (e) {}
+  if (pref && pref === otherLang && otherHref) {
+    location.replace(otherHref);
+    return;
+  }
+  try { localStorage.setItem(KEY, currentLang); } catch (e) {}
+})();
+</script>
 
 <div class="layout">
 
@@ -582,7 +624,6 @@
   </div>
   <div class="legend-right">
     v3.3 &nbsp;·&nbsp; © Nikolai Kazimirov &nbsp;·&nbsp; <a href="https://mathem.at" target="_blank">mathem.at</a>
-    &nbsp;·&nbsp; <a href="/Materials/algebra_structures_3_3_fixed_en.html">English version</a>
   </div>
 </footer>
 

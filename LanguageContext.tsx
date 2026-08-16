@@ -11,14 +11,47 @@ export type Language = 'ru' | 'en';
 
 interface LanguageContextType {
   language: Language;
-  setLanguage: (lang: Language) => void;
+  /**
+   * Sets the display language. Persists to localStorage by default, so a
+   * manual choice here (the header toggle) follows the visitor to other
+   * pages of the site. Pass `{ persist: false }` for a page-local default
+   * (e.g. Portfolio forcing English on entry) that shouldn't overwrite the
+   * visitor's actual site-wide preference.
+   */
+  setLanguage: (lang: Language, options?: { persist?: boolean }) => void;
   content: SiteContent;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
+// Same key the static Materials/*.html pages read/write (see the inline
+// script next to each page's .lang-pills), so a language choice made
+// anywhere on the site — this app or a static material page — carries
+// over the next time either is opened.
+const STORAGE_KEY = 'mathem_lang';
+
+function getInitialLanguage(): Language {
+  try {
+    const stored = window.localStorage.getItem(STORAGE_KEY);
+    if (stored === 'ru' || stored === 'en') return stored;
+  } catch {
+    // localStorage unavailable (private mode, etc.) -- fall through to default
+  }
+  return 'en';
+}
+
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>('en');
+  const [language, setLanguageState] = useState<Language>(getInitialLanguage);
+
+  const setLanguage = (lang: Language, options?: { persist?: boolean }) => {
+    setLanguageState(lang);
+    if (options?.persist === false) return;
+    try {
+      window.localStorage.setItem(STORAGE_KEY, lang);
+    } catch {
+      // ignore
+    }
+  };
 
   // Здесь происходит магия подмены
   const content = language === 'ru' ? contentRu : contentEn;

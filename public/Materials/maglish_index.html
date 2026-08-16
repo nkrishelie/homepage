@@ -322,9 +322,36 @@ em{color:var(--ink)}
     <div class="hero-top">
       <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> <span style="opacity:.5">/</span> Материалы</div>
       <div class="lang-pills">
-        <a class="lang-pill" href="/Materials/maglish_index_en.html">🇬🇧 EN</a>
-        <a class="lang-pill active" href="/Materials/maglish_index.html">🇷🇺 RU</a>
+        <a class="lang-pill" href="/Materials/maglish_index_en.html?lang=en">🇬🇧 EN</a>
+        <a class="lang-pill active" href="/Materials/maglish_index.html?lang=ru">🇷🇺 RU</a>
       </div>
+<script>
+(function () {
+  var KEY = 'mathem_lang';
+  var pills = document.querySelectorAll('.lang-pill');
+  if (!pills.length) return;
+  var activeHref = null, otherHref = null, otherLang = null;
+  pills.forEach(function (a) {
+    var href = a.getAttribute('href');
+    var lang = /_en\.html/.test(href.split('?')[0]) ? 'en' : 'ru';
+    if (a.classList.contains('active')) { activeHref = href; }
+    else { otherHref = href; otherLang = lang; }
+  });
+  var currentLang = /_en\.html/.test((activeHref || location.pathname).split('?')[0]) ? 'en' : 'ru';
+  var params = new URLSearchParams(location.search);
+  if (params.get('lang')) {
+    try { localStorage.setItem(KEY, params.get('lang')); } catch (e) {}
+    return;
+  }
+  var pref;
+  try { pref = localStorage.getItem(KEY); } catch (e) {}
+  if (pref && pref === otherLang && otherHref) {
+    location.replace(otherHref);
+    return;
+  }
+  try { localStorage.setItem(KEY, currentLang); } catch (e) {}
+})();
+</script>
     </div>
     <div class="hero-body">
       <div class="hero-cover">

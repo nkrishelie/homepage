@@ -11,8 +11,10 @@ export const Portfolio: React.FC = () => {
   // ЛОГИКА АВТО-ПЕРЕКЛЮЧЕНИЯ
   // Оставляем принудительный английский при входе, так как резюме чаще всего нужно на EN.
   // Но теперь пользователь сможет переключить язык через верхнее меню, если захочет.
+  // persist: false -- это локальный дефолт для страницы портфолио, а не выбор
+  // пользователя, так что общесайтовое сохранённое предпочтение языка не трогаем.
   useEffect(() => {
-    setLanguage('en');
+    setLanguage('en', { persist: false });
   }, [setLanguage]);
 
   const CV_LINK = "https://docs.google.com/document/d/14eF1EOT46sqvChjIu2Z_rbAwE7jiInSrVZosBpb3OJY/edit?usp=sharing"; 
