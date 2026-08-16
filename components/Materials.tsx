@@ -14,7 +14,6 @@ export const Materials: React.FC = () => {
   if (!hasStaticMaterials && !hasPracticeTests) return null;
 
   const groups = hasStaticMaterials ? getMaterialsGroups(language) : [];
-  const isEnglish = language === 'en';
 
   return (
     <section
@@ -137,15 +136,6 @@ export const Materials: React.FC = () => {
             </div>
           ) : null}
 
-          {isEnglish && hasStaticMaterials ? (
-            <div className="md:col-span-2">
-              <div className="border-2 border-academic-300 border-dashed p-6 bg-academic-50 rounded-lg text-center">
-                <p className="text-academic-700">
-                  {content.materials.seeMoreInRussian}
-                </p>
-              </div>
-            </div>
-          ) : null}
         </div>
       </div>
     </section>

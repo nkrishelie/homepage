@@ -390,6 +390,5 @@ export const content: SiteContent = {
     linkOpensNewTabHint: "Opens in a new tab",
     practiceTestsHeading: "Quizzes (Google Forms)",
     practiceTests: [],
-    seeMoreInRussian: "More materials available in Russian version!",
   },
 };
