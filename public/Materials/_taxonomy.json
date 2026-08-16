@@ -63,6 +63,8 @@
     "chasles_en.html": "geometry",
     "similarities.html": "geometry",
     "similarities_en.html": "geometry",
+    "kissing_number.html": "geometry",
+    "kissing_number_en.html": "geometry",
     "complex_numbers.html": "analysis",
     "complex_numbers_en.html": "analysis",
     "complex_regularity.html": "analysis",

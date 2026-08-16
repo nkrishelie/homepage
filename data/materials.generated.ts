@@ -194,6 +194,20 @@ export const MATERIALS_ITEMS: MaterialItem[] = [
     "lang": "ru"
   },
   {
+    "filename": "kissing_number_en.html",
+    "href": "/Materials/kissing_number_en.html",
+    "title": "The Kissing Number: How Many Circles Fit Around One",
+    "category": "geometry",
+    "lang": "en"
+  },
+  {
+    "filename": "kissing_number.html",
+    "href": "/Materials/kissing_number.html",
+    "title": "Контактное число: сколько кругов поместится вокруг одного",
+    "category": "geometry",
+    "lang": "ru"
+  },
+  {
     "filename": "linear_spaces_en.html",
     "href": "/Materials/linear_spaces_en.html",
     "title": "Linear Spaces and Operators: From Module to Matrix",

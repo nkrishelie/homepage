@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="ru" style="scroll-behavior: smooth;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Контактное число: сколько кругов поместится вокруг одного</title>
+<meta name="description" content="Спор Ньютона и Грегори 1694 года о числе шаров, касающихся одного центрального: полное элементарное доказательство K(2)=6 на плоскости с интерактивной расстановкой кругов, и почему пространственный случай K(3)=12 доказывали 259 лет.">
+<link rel="canonical" href="https://mathem.at/Materials/kissing_number.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Контактное число: сколько кругов поместится вокруг одного">
+<meta property="og:description" content="Спор Ньютона и Грегори о числе шаров вокруг одного центрального: интерактивная расстановка кругов на плоскости, полное доказательство K(2)=6 и почему в пространстве всё оказалось намного сложнее.">
+<meta property="og:url" content="https://mathem.at/Materials/kissing_number.html">
+<meta property="og:locale" content="ru_RU">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPsKxw5fDtzwvdGV4dD48L3N2Zz4=" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\]', display: true}, {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}], macros: {'\\R': '\\mathbb{R}', '\\C': '\\mathbb{C}', '\\N': '\\mathbb{N}', '\\Z': '\\mathbb{Z}', '\\Q': '\\mathbb{Q}'}, throwOnError: false})"></script>
+<style>
+:root {
+  --bg:#faf9f6; --bg2:#f2f0eb; --ink:#1a1917; --ink2:#5a5750; --ink3:#8a8680; --border:#dcd9d2;
+  --blue-bg:#e8eef7;  --blue-acc:#3a5f9e;
+  --rust-bg:#f0ebe8;  --rust-acc:#8c4a32;
+  --sage-bg:#e8f0eb;  --sage-acc:#2e6645;
+  --teal-bg:#e6f5ef;  --teal-acc:#0f6e56;
+  --amber-bg:#fdf3e0; --amber-acc:#7a4f0d;
+  --coral-bg:#faeae6; --coral-acc:#9b2f1a;
+  --purple-bg:#eeedfb; --purple-acc:#4a3a9a;
+  --ring-red:#c0392b; --pastel-blue-fill:#d7e9f5; --pastel-blue-stroke:#6f9dbf;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Georgia,serif;font-size:22px;line-height:1.65;min-height:100vh}
+.page{max-width:1320px;margin:0 auto;padding:3rem 2.5rem 5rem}
+
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.8rem}
+.crumbs{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink3)}
+.crumbs a{color:var(--ink3);text-decoration:none}
+.crumbs a:hover{color:var(--ink)}
+.lang-pills{display:flex;gap:8px}
+.lang-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border:1px solid var(--border);color:var(--ink2);transition:.15s}
+.lang-pill.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.lang-pill:not(.active):hover{border-color:var(--ink)}
+
+header{margin-bottom:2.5rem;border-bottom:1.5px solid var(--ink);padding-bottom:1.5rem}
+.kicker{font-family:'JetBrains Mono',monospace;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:.6rem}
+h1{font-size:clamp(28px,3.2vw,44px);font-weight:500;line-height:1.15;color:var(--ink);margin-bottom:.5rem}
+.desc{font-size:19px;color:var(--ink2);font-style:italic;max-width:900px}
+
+section{margin-bottom:3.5rem}
+h2{font-size:28px;font-weight:500;margin-bottom:1.2rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+h3{font-size:22px;font-weight:500;margin:1.8rem 0 .8rem;color:var(--ink)}
+h4{font-size:19px;font-weight:500;margin:1.2rem 0 .5rem;color:var(--ink)}
+p{margin-bottom:.9rem;color:var(--ink2)}
+p.lead{color:var(--ink)}
+strong{color:var(--ink);font-weight:500}
+em{color:var(--ink)}
+.katex{font-size:1.05em}
+.katex-display{margin:.6em 0!important;overflow-x:auto;overflow-y:hidden}
+
+.page-footer{margin-top:2.75rem;padding-top:1.1rem;border-top:0.5px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.04em;color:var(--ink3);text-align:center;line-height:1.5}
+.page-footer a{color:var(--ink3);text-decoration:none;border-bottom:1px solid rgba(138,134,128,.35)}
+.page-footer a:hover{color:var(--ink2);border-bottom-color:var(--ink2)}
+
+@media(max-width:700px){
+  body{font-size:19px}
+  .page{padding:1.5rem 1rem 3rem}
+}
+
+figure{margin:1.4rem 0}
+figcaption{font-size:16.5px;color:var(--ink3);margin-top:.6rem;line-height:1.55;font-style:italic}
+.svg-label{font-family:'JetBrains Mono',monospace;font-size:13px;fill:var(--ink2)}
+.note{border-left:3px solid var(--rust-acc);background:var(--rust-bg);border-radius:0 6px 6px 0;padding:.8rem 1.1rem;margin:1rem 0;font-size:17.5px;color:var(--ink2)}
+.note .note-head{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--rust-acc);margin-bottom:.35rem;display:block}
+.note p{margin-bottom:.55rem;color:var(--ink2)}
+.note p:last-child{margin-bottom:0}
+.note.teal{border-left-color:var(--teal-acc);background:var(--teal-bg)}
+.note.teal .note-head{color:var(--teal-acc)}
+.note.theorem{border-left-color:var(--blue-acc);background:var(--blue-bg);font-size:22px}
+.note.theorem .note-head{color:var(--blue-acc)}
+.formula-box{font-family:'JetBrains Mono',monospace;font-size:16px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:.8rem 1.1rem;margin-top:.8rem;color:var(--ink)}
+.definition{border:1.5px solid var(--blue-acc);background:var(--blue-bg);border-radius:6px;padding:1.1rem 1.4rem;margin:1.2rem 0}
+.definition .def-head{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-acc);font-weight:700;margin-bottom:.6rem}
+.definition p{margin-bottom:.7rem;color:var(--ink2)}
+.definition p:last-child{margin-bottom:0}
+
+.ap-widget{margin:1rem 0;max-width:460px}
+.circle-frame{width:100%;max-width:460px;height:auto;aspect-ratio:1/1;display:block;background:var(--bg2);border:1px solid var(--border);border-radius:6px;touch-action:none}
+.circle-ring{fill:#fff;stroke:var(--ring-red)}
+.circle-arrow{fill:var(--sage-acc);stroke:none}
+.circle-center-fill{fill:var(--pastel-blue-fill);stroke:var(--pastel-blue-stroke);stroke-width:2.4}
+.circle-hit{fill:#000;opacity:0;cursor:grab;touch-action:none}
+.circle-hit:active{cursor:grabbing}
+.ring-guide{fill:none;stroke:var(--ink3);stroke-width:1;stroke-dasharray:3 3;opacity:.5}
+.ap-controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:.8rem}
+.ap-btn{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.02em;padding:6px 12px;border-radius:999px;border:1px solid var(--border);background:var(--bg);color:var(--ink2);cursor:pointer}
+.ap-btn:hover{border-color:var(--ink2);color:var(--ink)}
+.ap-badge{margin-top:.8rem}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="topbar">
+  <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> / <a href="/#materials">Материалы</a></div>
+  <div class="lang-pills">
+    <a class="lang-pill" href="/Materials/kissing_number_en.html">🇬🇧 EN</a>
+    <a class="lang-pill active" href="/Materials/kissing_number.html">🇷🇺 RU</a>
+  </div>
+</div>
+
+<header>
+  <p class="kicker">Геометрия · Комбинаторика упаковок</p>
+  <h1>Контактное число</h1>
+  <p class="desc">Сколько одинаковых кругов можно вплотную приложить к одному центральному, чтобы ни одна пара не налезала друг на друга? На плоскости ответ элементарен и доказывается за пять строк. В пространстве тот же на вид вопрос — предмет спора между Ньютоном и Грегори, растянувшегося на 259 лет.</p>
+</header>
+
+<nav class="toc" style="background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 1.2rem 1.5rem; margin-bottom: 2.5rem;">
+  <h3 style="margin-top: 0; margin-bottom: 0.8rem; font-size: 19px;">Содержание</h3>
+  <ol style="margin: 0 0 0 1.5rem; padding: 0; color: var(--ink2); line-height: 1.6;">
+    <li><a href="#sec-history" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Спор Ньютона и Грегори</a></li>
+    <li><a href="#sec-widget" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Расставьте круги сами</a></li>
+    <li><a href="#sec-proof" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Доказательство: почему именно шесть</a></li>
+    <li><a href="#sec-space" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Пространство: почему спор длился 259 лет</a></li>
+    <li><a href="#sec-beyond" style="color: var(--ink2); text-decoration: none; border-bottom: 0.5px solid rgba(138,134,128,.35);">Дальше: высшие размерности</a></li>
+  </ol>
+</nav>
+
+<section id="sec-history">
+  <h2>1. Спор Ньютона и Грегори</h2>
+  <p class="lead">В 1694 году Исаак Ньютон и шотландский астроном Дэвид Грегори спорили: сколько одинаковых шаров можно расположить так, чтобы каждый касался одного центрального шара того же радиуса, а сами шары не налезали друг на друга? Ньютон настаивал, что больше двенадцати не поместится. Грегори считал, что для тринадцатого, возможно, ещё останется место. Ни тот, ни другой не смогли этого доказать — и не потому, что были невнимательны: вопрос оказался по-настоящему трудным.</p>
+  <p>В русской математической литературе эту величину называют <strong>контактным числом</strong>. В англоязычной — <em>kissing number</em> («число поцелуев»): касание шаров по-английски иногда называют «поцелуем», отсюда и этот вариант названия, тоже прочно закрепившийся в литературе.</p>
+  <div class="definition">
+    <div class="def-head">Определение</div>
+    <p><strong>Контактным числом</strong> $K(n)$ в размерности $n$ называется наибольшее число шаров радиуса $1$ в $\R^n$, которые можно расположить так, чтобы каждый касался фиксированного центрального шара радиуса $1$, а сами шары попарно не имели общих внутренних точек.</p>
+    <p>Два шара радиуса $1$ <strong>касаются</strong>, когда расстояние между их центрами равно $2$; они <strong>налегают</strong> (пересекаются по внутренности), когда это расстояние меньше $2$.</p>
+  </div>
+  <p>На прямой ($n=1$) всё тривиально: у центрального отрезка-«шара» есть ровно два направления, слева и справа, — $K(1)=2$. Дальше становится интереснее.</p>
+</section>
+
+<section id="sec-widget">
+  <h2>2. Расставьте круги сами</h2>
+  <p class="lead">Возьмём плоский случай: круги одного радиуса можно свободно тащить по плоскости — но не сквозь друг друга и не сквозь центральный. Как только круг вплотную подходит к соседу, он в него упирается и толкает его в сторону, а сам дальше не проходит — совсем как настоящие твёрдые предметы. Пока круг касается центрального, внутри него горит зелёная стрелка, указывающая точно в точку касания; уберите круг подальше — стрелка погаснет. При сближении круг слегка «прилипает» к соседу, если это не наложит его на кого-то ещё — так удобнее ставить их вплотную. Ниже уже расставлены три круга; добавьте ещё и на ощупь найдите, сколько их поместится вокруг центрального одновременно, не налезая друг на друга.</p>
+  <figure>
+    <div class="ap-widget" id="widget-circles"></div>
+    <div class="ap-badge note" id="ap-badge">
+      <span class="note-head" id="ap-badge-head"></span>
+      <span id="ap-badge-body"></span>
+    </div>
+    <figcaption>Тащите круг куда угодно — он физически расталкивает соседей, но не проходит сквозь них и сквозь центральный. «+ круг» добавляет новый в свободном месте, «Расставить равномерно» раскладывает все имеющиеся круги на равные углы вокруг центра (в том числе, чтобы честно показать, где ровная укладка уже не получается без наложений), «Сброс» возвращает исходное состояние. Центральный круг — постоянного нейтрального цвета и сам никуда не перетаскивается.</figcaption>
+  </figure>
+</section>
+
+<script id="circle-widget">
+window.CirclePackingWidget = (function () {
+  // All circles (center + beads) share one radius, so the minimum allowed
+  // distance between any two centers is the same number, RING, whether
+  // it's bead-to-center or bead-to-bead -- there is deliberately no
+  // separate "MIN_DIST" constant, RING already means both.
+  var RING = 68, CIRCLE_R = 34, HIT_R = 42;
+  var BAND = CIRCLE_R * 0.1; // ring thickness = 10% of the circle's radius
+  var PATH_R = CIRCLE_R - BAND / 2; // stroked-circle path radius so the outer edge lands exactly at CIRCLE_R
+  var ARROW_TIP_R = CIRCLE_R * 0.84, ARROW_BASE_R = CIRCLE_R * 0.12, ARROW_HALF_W = CIRCLE_R * 0.2;
+  var HALF = 150;
+  var VB = (-HALF) + ' ' + (-HALF) + ' ' + (2 * HALF) + ' ' + (2 * HALF);
+  var MAX_CIRCLES = 10;
+  var TOUCH_EPS = 1.2; // distance-from-RING tolerance to count as "touching" (arrow visible) -- a UX/display concern only
+  var OVERLAP_EPS = 0.05; // tiny numerical-safety margin for genuine overlap checks -- NOT a tolerance, keep this near zero
+  var SNAP_RANGE = 10; // max snap distance (in world units) the sticky-snap assist will pull across
+  var RESOLVE_ITERS = 24;
+  var NUDGE = 0.12; // perpendicular blend fraction, see resolve()
+  var GRAVITY_STEP = 3; // per-iteration inward pull toward RING, see resolve()
+  var MIN_SNAP_GAP = 0.5; // below this, resolve() already put it there -- not a real gap to close, see trySnap()
+  var HEX_SNAP_BONUS = 5; // flat cost discount for hex-lattice candidates, see trySnap()
+  var SPAWN = { x: 0, y: -(RING + 40) };
+  var INITIAL = [0, 130, 250].map(function (deg) {
+    var r = deg * Math.PI / 180;
+    return { x: RING * Math.cos(r), y: RING * Math.sin(r) };
+  });
+
+  function distFromOrigin(p) { return Math.hypot(p.x, p.y); }
+  function touchesCenter(p) { return Math.abs(distFromOrigin(p) - RING) <= TOUCH_EPS; }
+
+  // Hard physical constraint: no two circles (center included) may end up
+  // closer than RING apart. Run as a few rounds of pairwise separation --
+  // cheap and stable for the handful of circles this widget ever holds.
+  // The circle currently being dragged (if any) is treated as the "hand"
+  // pushing everything else: on a dragged-vs-other collision, only the
+  // *other* one moves, so the dragged circle keeps following the pointer.
+  function resolve(circles, draggedIndex) {
+    for (var iter = 0; iter < RESOLVE_ITERS; iter++) {
+      // Gravity: every circle that isn't the one currently being dragged
+      // drifts a small step toward the touching ring whenever it sits
+      // further out than that. Without this, a circle nudged loose by a
+      // *different* circle's collision (see the pairwise pass below) had
+      // no reason to ever come back -- it would just stay wherever the
+      // push left it, even though nothing was actually still blocking a
+      // return to the center. With it, resolving any drag also re-settles
+      // every other circle currently drifting free, the same way marbles
+      // in a shallow dish roll back down against whatever they're leaning
+      // on once nothing is actively holding them out.
+      for (var g = 0; g < circles.length; g++) {
+        if (g === draggedIndex) continue;
+        var gp = circles[g], gd = distFromOrigin(gp);
+        if (gd <= RING) continue;
+        // Only pull a circle inward if it isn't currently overlapping
+        // anyone -- otherwise gravity fights the very push that's trying
+        // to resolve that overlap, dragging it right back into the
+        // collision every iteration undoes. This matters whenever there
+        // simply isn't room for everyone to touch the ring at once (e.g.
+        // "Spread evenly" forcing 7 circles into 6 slots): without this
+        // check, gravity kept re-trapping the whole ring in a stable but
+        // still-overlapping equilibrium instead of letting the excess
+        // circle actually get pushed out to where it belongs.
+        var overlapping = false;
+        for (var go = 0; go < circles.length; go++) {
+          if (go === g) continue;
+          if (Math.hypot(gp.x - circles[go].x, gp.y - circles[go].y) < RING) { overlapping = true; break; }
+        }
+        if (overlapping) continue;
+        var gStep = Math.min(GRAVITY_STEP, gd - RING);
+        var gs = (gd - gStep) / gd;
+        gp.x *= gs; gp.y *= gs;
+      }
+      for (var i = 0; i < circles.length; i++) {
+        var p = circles[i], d = distFromOrigin(p);
+        if (d < RING) {
+          if (d < 1e-6) { p.x = RING; p.y = 0; }
+          else { var s = RING / d; p.x *= s; p.y *= s; }
+        }
+      }
+      for (var a = 0; a < circles.length; a++) {
+        for (var b = a + 1; b < circles.length; b++) {
+          var pa = circles[a], pb = circles[b];
+          var dx = pb.x - pa.x, dy = pb.y - pa.y, d2 = Math.hypot(dx, dy);
+          if (d2 >= RING) continue;
+          if (d2 < 1e-6) { dx = 1; dy = 0; d2 = 1e-6; }
+          var overlap = RING - d2, ux = dx / d2, uy = dy / d2;
+          // Pushing a passive circle straight along the a-b line can fight
+          // the center constraint forever when that line happens to run
+          // through the origin (push it toward the center, the center
+          // constraint immediately clamps it right back onto the same
+          // spot, repeat) -- a real, previously-unconverging case whenever
+          // someone drags a circle in from directly "in front of" another
+          // one. Blending in a small fixed perpendicular component breaks
+          // that exact radial symmetry so the relaxation can spiral a
+          // passive circle sideways into a genuinely free spot instead of
+          // oscillating in place.
+          var px = -uy, py = ux;
+          var sign = ((a + b) % 2 === 0) ? 1 : -1;
+          var nx = ux + sign * NUDGE * px, ny = uy + sign * NUDGE * py;
+          var nlen = Math.hypot(nx, ny);
+          nx /= nlen; ny /= nlen;
+          if (a === draggedIndex) {
+            pb.x += nx * overlap; pb.y += ny * overlap;
+          } else if (b === draggedIndex) {
+            pa.x -= nx * overlap; pa.y -= ny * overlap;
+          } else {
+            pa.x -= nx * overlap / 2; pa.y -= ny * overlap / 2;
+            pb.x += nx * overlap / 2; pb.y += ny * overlap / 2;
+          }
+        }
+      }
+    }
+  }
+
+  // Soft "sticky" assist for the circle currently being dragged. Offers
+  // three kinds of nearby valid slot and, among whichever are within
+  // SNAP_RANGE, jumps to the one costing the least actual movement:
+  //   1. straight onto the touching ring, at the dragged circle's own
+  //      current angle;
+  //   2. tangent to some other circle, along the line to it;
+  //   3. tangent to the center *and* to some other on-ring circle at once
+  //      -- i.e. exactly 60 degrees (or a multiple) around from it. This
+  //      third kind is what makes the exact hexagon actually easy to hit
+  //      by hand: without it, two independently-dragged circles that are
+  //      each individually "close enough" to the ring (kind 1) can settle
+  //      a few degrees apart from being truly adjacent -- both valid, both
+  //      showing the tangency arrow, but with a visible gap between them,
+  //      since nothing was ever pulling them into exact alignment with
+  //      *each other*, only with the center. Offering the precise lattice
+  //      point next to an already-placed neighbor as its own candidate
+  //      removes that residual mismatch instead of just tolerating it.
+  // Only ever moves the dragged circle -- never displaces anyone else.
+  function trySnap(circles, draggedIndex) {
+    var d = circles[draggedIndex];
+    var bestCost = Infinity, bestX = null, bestY = null;
+
+    // A positive bonus gives a candidate an edge in the smallest-cost
+    // comparison without changing the SNAP_RANGE reach itself, which is
+    // always checked against the true (un-bonused) distance -- used to
+    // prefer the hex-lattice candidate (satisfies center AND neighbor
+    // tangency at once) over a merely-touches-one-thing candidate that
+    // happens to require a hair less raw movement; see the hex-lattice
+    // loop below for why that preference matters. A flat subtractive
+    // bonus (rather than a multiplicative discount) keeps the preference
+    // strong regardless of how far away either candidate happens to be.
+    function candidate(x, y, bonus) {
+      var raw = Math.hypot(x - d.x, y - d.y);
+      if (raw >= SNAP_RANGE) return;
+      var cost = raw - (bonus || 0);
+      if (cost >= bestCost) return;
+      if (Math.hypot(x, y) < RING - OVERLAP_EPS) return;
+      for (var k = 0; k < circles.length; k++) {
+        if (k === draggedIndex) continue;
+        if (Math.hypot(x - circles[k].x, y - circles[k].y) < RING - OVERLAP_EPS) return;
+      }
+      bestCost = cost; bestX = x; bestY = y;
+    }
+
+    // Candidates 1 and 2 are gated behind a minimum real gap: resolve()
+    // already leaves the dragged circle sitting almost exactly at RING
+    // from anything it just collided with, so "snap onto the ring at my
+    // own angle" or "snap onto the neighbor I'm already resting against"
+    // would otherwise be near-zero-cost no-ops that trivially outrank the
+    // hex-lattice candidate below -- even when that lattice slot (which
+    // satisfies *both* constraints at once) is clearly the better spot
+    // and only a few units further. Requiring an actual gap before
+    // offering 1/2 at all lets 3 win whenever it meaningfully applies.
+    var dAngle = Math.atan2(d.y, d.x), dc = distFromOrigin(d);
+    if (dc - RING > MIN_SNAP_GAP) {
+      candidate(RING * Math.cos(dAngle), RING * Math.sin(dAngle));
+    }
+
+    for (var j = 0; j < circles.length; j++) {
+      if (j === draggedIndex) continue;
+      var b = circles[j], dx = d.x - b.x, dy = d.y - b.y, dj = Math.hypot(dx, dy);
+      if (dj - RING > MIN_SNAP_GAP) {
+        var sj = RING / dj;
+        candidate(b.x + dx * sj, b.y + dy * sj);
+      }
+      if (Math.abs(distFromOrigin(b) - RING) <= TOUCH_EPS) {
+        var bAngle = Math.atan2(b.y, b.x);
+        for (var m = 1; m <= 5; m++) {
+          var a2 = bAngle + m * Math.PI / 3;
+          candidate(RING * Math.cos(a2), RING * Math.sin(a2), HEX_SNAP_BONUS);
+        }
+      }
+    }
+    if (bestX !== null) { d.x = bestX; d.y = bestY; }
+  }
+
+  // Center circle: plain pastel-blue disc, no ring, no arrow -- it has no
+  // single tangency point to point at, since every other circle touches it.
+  function centerSvg() {
+    return '<circle cx="0" cy="0" r="' + CIRCLE_R + '" class="circle-center-fill"/>';
+  }
+
+  // Bead circle: a red ring (10%-of-radius band) around a white interior.
+  // The green arrow is drawn only when this circle actually touches the
+  // central one, and points from inside straight at that tangency point --
+  // which lies on the segment from this circle's own center back to the
+  // origin, i.e. along the unit vector obtained by normalizing (-cx,-cy).
+  function beadSvg(cx, cy, showArrow) {
+    var d = Math.hypot(cx, cy) || 1;
+    var ux = -cx / d, uy = -cy / d; // toward the center
+    var vx = -uy, vy = ux; // perpendicular
+    var arrow = '';
+    if (showArrow) {
+      var tipX = ARROW_TIP_R * ux, tipY = ARROW_TIP_R * uy;
+      var b1x = ARROW_BASE_R * ux + ARROW_HALF_W * vx, b1y = ARROW_BASE_R * uy + ARROW_HALF_W * vy;
+      var b2x = ARROW_BASE_R * ux - ARROW_HALF_W * vx, b2y = ARROW_BASE_R * uy - ARROW_HALF_W * vy;
+      arrow = '<polygon points="' + tipX.toFixed(1) + ',' + tipY.toFixed(1) + ' ' + b1x.toFixed(1) + ',' + b1y.toFixed(1) + ' ' + b2x.toFixed(1) + ',' + b2y.toFixed(1) + '" class="circle-arrow"/>';
+    }
+    return '<g transform="translate(' + cx.toFixed(1) + ',' + cy.toFixed(1) + ')" class="circle-bead">' +
+      '<circle r="' + PATH_R + '" stroke-width="' + BAND + '" class="circle-ring"/>' +
+      arrow +
+      '</g>';
+  }
+
+  function create(container, opts) {
+    opts = opts || {};
+    var onChange = opts.onChange || function () {};
+    var circles = INITIAL.map(function (p) { return { x: p.x, y: p.y }; });
+
+    container.innerHTML =
+      '<svg class="ap-svg circle-frame" viewBox="' + VB + '"></svg>' +
+      '<div class="ap-controls">' +
+      '<button type="button" class="ap-btn" data-act="add">' + (opts.labels ? opts.labels.add : '+ круг') + '</button>' +
+      '<button type="button" class="ap-btn" data-act="remove">' + (opts.labels ? opts.labels.remove : '− круг') + '</button>' +
+      '<button type="button" class="ap-btn" data-act="spread">' + (opts.labels ? opts.labels.spread : 'Расставить равномерно') + '</button>' +
+      '<button type="button" class="ap-btn" data-act="reset">' + (opts.labels ? opts.labels.reset : 'Сброс') + '</button>' +
+      '</div>';
+
+    var svg = container.querySelector('.ap-svg');
+    var controls = container.querySelector('.ap-controls');
+
+    function localPointFromClient(clientX, clientY) {
+      var rect = svg.getBoundingClientRect();
+      var vb = svg.viewBox.baseVal;
+      var s = rect.width / vb.width;
+      return { x: (clientX - rect.left) / s + vb.x, y: (clientY - rect.top) / s + vb.y };
+    }
+
+    function render() {
+      var touching = 0;
+      var parts = ['<circle r="' + RING + '" class="ring-guide"/>'];
+      parts.push(centerSvg());
+      for (var i = 0; i < circles.length; i++) {
+        var p = circles[i], show = touchesCenter(p);
+        if (show) touching++;
+        parts.push(beadSvg(p.x, p.y, show));
+        parts.push('<circle class="circle-hit" data-idx="' + i + '" cx="' + p.x.toFixed(1) + '" cy="' + p.y.toFixed(1) + '" r="' + HIT_R + '"/>');
+      }
+      svg.innerHTML = parts.join('');
+      wireDrag();
+      onChange({ n: circles.length, touching: touching });
+    }
+
+    var dragIndex = -1, activePointerId = null;
+    function onPointerDown(e) {
+      var t = e.target;
+      if (!t.classList || !t.classList.contains('circle-hit')) return;
+      dragIndex = parseInt(t.getAttribute('data-idx'), 10);
+      activePointerId = e.pointerId;
+      e.preventDefault();
+    }
+    function onPointerMove(e) {
+      if (dragIndex < 0 || e.pointerId !== activePointerId) return;
+      var p = localPointFromClient(e.clientX, e.clientY);
+      circles[dragIndex].x = p.x; circles[dragIndex].y = p.y;
+      resolve(circles, dragIndex);
+      trySnap(circles, dragIndex);
+      render();
+      e.preventDefault();
+    }
+    function onPointerUp(e) {
+      if (e.pointerId !== activePointerId) return;
+      dragIndex = -1; activePointerId = null;
+    }
+    function wireDrag() {
+      var hits = svg.querySelectorAll('.circle-hit');
+      for (var i = 0; i < hits.length; i++) {
+        hits[i].removeEventListener('pointerdown', onPointerDown);
+        hits[i].addEventListener('pointerdown', onPointerDown);
+      }
+    }
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerup', onPointerUp);
+    window.addEventListener('pointercancel', onPointerUp);
+
+    controls.addEventListener('click', function (e) {
+      var btn = e.target.closest('.ap-btn');
+      if (!btn) return;
+      var act = btn.getAttribute('data-act');
+      if (act === 'add' && circles.length < MAX_CIRCLES) {
+        circles.push({ x: SPAWN.x, y: SPAWN.y });
+        resolve(circles, circles.length - 1);
+      } else if (act === 'remove' && circles.length > 0) {
+        circles.pop();
+      } else if (act === 'spread' && circles.length > 0) {
+        // Places all n circles at equal angles, touching distance from the
+        // center, then lets resolve() (nobody "dragged" -- every circle is
+        // equally passive) physically settle the result. For n<=6 this is
+        // already a valid, non-overlapping arrangement -- resolve() finds
+        // nothing to do, and it stays the theorem's own exact witness. For
+        // n>=7 the equal-angle placement genuinely overlaps, so resolve()
+        // pushes circles apart for real, and at least one ends up short of
+        // the center as a direct physical consequence -- the same
+        // impossibility the proof states, demonstrated by the same push-
+        // apart mechanics as any other drag, not by a separate overlap
+        // display.
+        var n = circles.length;
+        for (var i = 0; i < n; i++) {
+          var r = (i * 360 / n) * Math.PI / 180;
+          circles[i] = { x: RING * Math.cos(r), y: RING * Math.sin(r) };
+        }
+        resolve(circles, -1);
+      } else if (act === 'reset') {
+        circles = INITIAL.map(function (p) { return { x: p.x, y: p.y }; });
+      }
+      render();
+    });
+
+    render();
+    return { getState: function () { return circles.map(function (p) { return { x: p.x, y: p.y }; }); } };
+  }
+
+  return { create: create, resolve: resolve, trySnap: trySnap, touchesCenter: touchesCenter, RING: RING };
+})();
+
+(function () {
+  var el = document.getElementById('widget-circles');
+  var badge = document.getElementById('ap-badge');
+  var head = document.getElementById('ap-badge-head');
+  var body = document.getElementById('ap-badge-body');
+  if (!el || !badge || !head || !body || !window.CirclePackingWidget) return;
+
+  function update(state) {
+    var n = state.n, touching = state.touching;
+    if (n === 0) {
+      badge.className = 'ap-badge note';
+      head.textContent = 'Пусто';
+      body.textContent = 'Добавьте первый круг кнопкой «+ круг».';
+      return;
+    }
+    if (touching >= 6) {
+      badge.className = 'ap-badge note teal';
+      head.textContent = 'Касаются центрального: ' + touching + ' из ' + n;
+      body.textContent = 'Ровно максимум для плоскости — шесть, и без наложения больше не поместится (доказательство ниже).';
+      return;
+    }
+    badge.className = 'ap-badge note teal';
+    head.textContent = 'Касаются центрального: ' + touching + ' из ' + n;
+    body.textContent = n > touching
+      ? 'Остальные ' + (n - touching) + ' пока в стороне — подтащите их ближе, они прилипнут сами, если найдётся место.'
+      : 'Ещё есть место — добавьте ещё круг или подвиньте текущие, максимум для плоскости — 6.';
+  }
+
+  CirclePackingWidget.create(el, { onChange: update });
+})();
+</script>
+
+<section id="sec-proof">
+  <h2>3. Доказательство: почему именно шесть</h2>
+  <p class="lead">Виджет выше подсказывает механизм: чтобы круг касался центрального круга радиуса $r$, его центр обязан лежать ровно на расстоянии $2r$ от центра — на одной окружности («кольцо касания», та самая пунктирная линия на рисунке). Для всех кругов, которые касаются центра одновременно, единственный оставшийся параметр — угол $\theta$ на этом кольце, и вся задача сводится к тому, насколько близко друг к другу по углу могут стоять два таких круга, не налезая друг на друга.</p>
+  <h3>Угловое условие</h3>
+  <p>Пусть два круга стоят на кольце касания (радиус $2r$ от центра $O$) под углом $\theta$ друг к другу. Треугольник с вершинами в центре $O$ и в центрах этих двух кругов — равнобедренный, с боковыми сторонами $2r$ и углом $\theta$ между ними. Расстояние между центрами кругов (основание треугольника) равно $2\cdot(2r)\sin(\theta/2)$.</p>
+  <p>Круги не налегают друг на друга ровно тогда, когда это расстояние не меньше $2r$ (суммы их радиусов):</p>
+  <div class="formula-box">$4r\sin(\theta/2) \ge 2r \iff \sin(\theta/2) \ge \tfrac12 \iff \theta \ge 60^\circ$</div>
+  <p>Итак: два круга на кольце касания не налегают друг на друга тогда и только тогда, когда угол между ними не меньше $60^\circ$. Это в точности условие, которое проверяет виджет выше при каждом перетаскивании.</p>
+  <h3>Верхняя оценка: больше шести не поместится</h3>
+  <p>Допустим, на кольце стоит $m$ кругов. Идя вдоль кольца, они делят полный угол $360^\circ$ на $m$ промежутков между соседями, и промежутки в сумме дают ровно $360^\circ$. Если $m\ge7$, средний промежуток равен $360^\circ/m\le360^\circ/7\approx51{,}4^\circ$ — меньше $60^\circ$. А раз <em>средний</em> промежуток меньше $60^\circ$, найдётся и хотя бы один промежуток меньше $60^\circ$ (иначе сумма всех промежутков была бы не меньше $7\cdot60^\circ=420^\circ&gt;360^\circ$ — противоречие). Значит, у этой пары соседей нарушено угловое условие — они налегают друг на друга. Вывод: $m\le6$.</p>
+  <h3>Нижняя оценка: шесть поместится</h3>
+  <p>Осталось предъявить расстановку ровно шести кругов без наложений — это и делает кнопка «Расставить равномерно» при шести кругах на кольце: углы $0^\circ,60^\circ,120^\circ,180^\circ,240^\circ,300^\circ$. Каждая пара соседей отстоит ровно на $60^\circ$ — угловое условие выполнено с равенством (круги касаются друг друга, но не налегают). Шесть кругов действительно помещаются.</p>
+  <div class="note theorem">
+    <span class="note-head">Теорема</span>
+    <p>$K(2)=6$.</p>
+  </div>
+  <p>Обратите внимание, что оптимальная расстановка на плоскости не просто существует — она по сути единственна (с точностью до поворота всего кольца) и совершенно <strong>жёсткая</strong>: у шести кругов в правильном шестиугольнике нет никакого зазора, каждое касается сразу двух соседей. Именно эта жёсткость и делает доказательство элементарным. В пространстве, как выясняется дальше, жёсткости уже нет — и именно поэтому там всё оказалось так трудно.</p>
+</section>
+
+<section id="sec-space">
+  <h2>4. Пространство: почему спор длился 259 лет</h2>
+  <p class="lead">В $\R^3$ рассуждение начинается совершенно так же. Направление от центра шара к центру каждого касающегося его шара — это единичный вектор; два таких направления соответствуют не налегающим друг на друга шарам ровно тогда, когда угол между векторами не меньше $60^\circ$ — то же самое условие, тот же вывод $4\sin(\theta/2)\ge2$, только теперь речь о точках на сфере направлений, а не на окружности.</p>
+  <p>Угол $60^\circ$ между направлениями означает, что вокруг каждого направления можно описать сферическую «шапочку» углового радиуса $30^\circ$ (половина от $60^\circ$), и шапочки разных шаров не перекрываются. Площадь такой шапочки на единичной сфере равна $2\pi(1-\cos30^\circ)\approx0{,}842$, а площадь всей сферы — $4\pi\approx12{,}566$. Простое деление площадей даёт:</p>
+  <div class="formula-box">$4\pi \big/ 2\pi(1-\cos30^\circ) \approx 14{,}93$</div>
+  <p>То есть площадной довод сразу же даёт верхнюю оценку $K(3)\le14$ — и застревает на этом. В отличие от плоского случая, здесь он не может отличить $14$ от $13$ от настоящего ответа, $12$ — потому что площадной аргумент не учитывает, что шапочки должны ещё и укладываться на сфере <em>геометрически согласованно</em>, а не просто «по площади».</p>
+  <p>Более того, двенадцать шаров вокруг одного действительно помещаются — и не одним способом. Можно расставить их по вершинам правильного икосаэдра: тогда между соседними шарами остаётся заметный зазор, ни одна пара из двенадцати не касается друг друга. А можно — как в кубической или гексагональной плотнейшей упаковке шаров (той самой, из гипотезы Кеплера) — расставить их так, что каждый касается ещё четырёх своих соседей среди этих же двенадцати. Оба варианта дают ровно $12$, но это уже не одна жёсткая конфигурация, как правильный шестиугольник на плоскости, а целое семейство разных расстановок с ощутимым люфтом. Именно этот люфт и подпитывал уверенность Грегори: раз есть свободное место, кажется, что тринадцатый шар должен влезть — хотя на самом деле не влезает.</p>
+  <p>Из-за этого простого аргумента с суммой углов, который решил всё на плоскости за пять строк, в пространстве не хватает. Строгое доказательство того, что тринадцатый шар не помещается ни при какой расстановке, дали только в 1953 году Курт Шютте и Бартел ван дер Варден — спустя 259 лет после спора Ньютона и Грегори. Более простое доказательство нашёл в 1956 году Джон Лич.</p>
+  <div class="note theorem">
+    <span class="note-head">Теорема (Шютте, ван дер Варден, 1953)</span>
+    <p>$K(3)=12$ — Ньютон был прав.</p>
+  </div>
+</section>
+
+<section id="sec-beyond">
+  <h2>5. Дальше: высшие размерности</h2>
+  <p class="lead">Контактное число $K(n)$ имеет смысл в любой размерности $n$, но точно оно известно на удивление редко — метод площадей и жёсткие конструкции, которые сработали для $n=2$ и (с большим трудом) для $n=3$, дальше перестают быть достаточными сами по себе.</p>
+  <div class="formula-box">
+    $K(1)=2$ (тривиально) &nbsp;·&nbsp;
+    $K(2)=6$ (§3, элементарно) &nbsp;·&nbsp;
+    $K(3)=12$ (Шютте–ван дер Варден, 1953) &nbsp;·&nbsp;
+    $K(4)=24$ (Мусин, 2003) &nbsp;·&nbsp;
+    $K(8)=240$ (Вязовская, 2016) &nbsp;·&nbsp;
+    $K(24)=196560$ (Кон–Кумар–Миллер–Радченко–Вязовская, 2017)
+  </div>
+  <p>Для размерностей $8$ и $24$ ответ известен точно не случайно: именно там на решётках $E_8$ и Лича достигается не только рекордное контактное число, но и (что доказала Марина Вязовская с соавторами в 2016–2017 годах, применив методом линейного программирования Дельсарта специально построенные «магические функции» из теории модулярных форм) самая плотная возможная упаковка шаров — тот же метод одновременно закрывает обе задачи. За решение задачи об упаковке шаров в размерностях 8 и 24 Вязовская получила Филдсовскую медаль в 2022 году.</p>
+  <p>А вот $K(5)$, $K(6)$ и $K(7)$ до сих пор точно неизвестны — только оценки сверху и снизу, зазор между которыми пока не закрыт. Задача, которую можно честно и полностью решить для шаров на столе, за пределами первых нескольких размерностей остаётся открытой областью исследований прямо сейчас.</p>
+</section>
+
+<p class="page-footer">© Nikolai Kazimirov · <a href="https://mathem.at" rel="noopener">mathem.at</a></p>
+
+</div><!-- .page -->
+</body>
+</html>
