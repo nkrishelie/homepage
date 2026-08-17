@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
 import { SiteContent } from './types';
 import { content as contentRu } from './data/content';
 // Раскомментируй следующую строку, когда создашь файл
@@ -43,7 +43,15 @@ function getInitialLanguage(): Language {
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [language, setLanguageState] = useState<Language>(getInitialLanguage);
 
-  const setLanguage = (lang: Language, options?: { persist?: boolean }) => {
+  // useCallback with an empty dependency array keeps this reference stable
+  // across renders, matching the raw useState setter's identity guarantee
+  // that used to live here directly. Components that depend on
+  // `setLanguage` in a useEffect dependency array (e.g. Portfolio's
+  // force-English-on-mount effect) rely on that stability to only run
+  // once per mount -- an inline (non-memoized) version here gets a new
+  // identity on every language change, which re-fires those effects and
+  // immediately stomps on any language switch made while mounted.
+  const setLanguage = useCallback((lang: Language, options?: { persist?: boolean }) => {
     setLanguageState(lang);
     if (options?.persist === false) return;
     try {
@@ -51,7 +59,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     } catch {
       // ignore
     }
-  };
+  }, []);
 
   // Здесь происходит магия подмены
   const content = language === 'ru' ? contentRu : contentEn;
