@@ -93,12 +93,12 @@ export const content: SiteContent = {
       title: "Mathematics as a Foreign Language",
       role: "Author",
       year: "2026",
-      description: "The architecture of mathematical thought. A treatise on mathematics as a linguistic system: from the syntax of formulas to the semantics of formal theories.\nRelease date: September 19, 2026.",
+      description: "The architecture of mathematical thought. A treatise on mathematics as a linguistic system: from the syntax of formulas to the semantics of formal theories.\nPublished by Springer — available now in hardcover and eBook.",
       coverImage: "/Springer_cover.webp",
       link: "/Materials/maglish_index_en.html",
       type: "Monograph",
       preorder: {
-        label: "Pre-order",
+        label: "Buy the book",
         links: [
           { label: "Springer", href: "https://link.springer.com/book/9783032307200" },
           { label: "Barnes & Noble", href: "https://www.barnesandnoble.com/w/mathematics-as-a-foreign-language-nikolay-i-kazimirov/1150255362" },
