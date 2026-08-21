@@ -175,7 +175,7 @@ export const content: SiteContent = {
   ],
   about: {
     // Упрощено: Ph.D. in Mathematics, без кодов ВАК
-    bio: "Ph.D. in Mathematics. Graduated from the Faculty of Mathematics at PetrSU and postgraduate studies at KarRC RAS. Learning German at TU Graz (Austria) inspired me to write the book 'Mathematics as a Foreign Language' (Springer). I specialize in foundations of mathematics, model theory, and scientific popularization.",
+    bio: "Ph.D. in Mathematics. Graduated from the Faculty of Mathematics at PetrSU and postgraduate studies at KarRC RAS. Learning German at TU Graz (Austria) inspired me to write the book 'Mathematics as a Foreign Language' (Springer). I specialize in foundations of mathematics, model theory, and scientific popularization. Open to select academic collaborations and consulting projects.",
     interests: [
       "Mathematical Logic",
       "Set Theory",
