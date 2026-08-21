@@ -31,21 +31,25 @@
   --red-bg:#faeae6;   --red-fg:#9b2f1a;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Georgia,serif;font-size:19px;line-height:1.65;min-height:100vh}
-.page{max-width:900px;margin:0 auto;padding:3rem 2.5rem 5rem}
+body{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Georgia,serif;font-size:22px;line-height:1.65;min-height:100vh}
+.page{max-width:1320px;margin:0 auto;padding:3rem 2.5rem 5rem}
 
 /* ── Header ── */
 header{margin-bottom:2.5rem;border-bottom:1.5px solid var(--ink);padding-bottom:1.5rem}
-.kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:.6rem}
-h1{font-size:clamp(22px,2.6vw,36px);font-weight:500;line-height:1.2;color:var(--ink);margin-bottom:.5rem}
-.desc{font-size:16px;color:var(--ink2);font-style:italic;max-width:720px}
+.kicker{font-family:'JetBrains Mono',monospace;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:.6rem}
+h1{font-size:clamp(28px,3.2vw,44px);font-weight:500;line-height:1.15;color:var(--ink);margin-bottom:.5rem}
+.desc{font-size:19px;color:var(--ink2);font-style:italic;max-width:900px}
 
 /* ── Sections ── */
-.section{margin-bottom:2.4rem}
-.section-num{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:.35rem}
-h2{font-size:clamp(17px,1.8vw,22px);font-weight:500;line-height:1.25;color:var(--ink);margin-bottom:.85rem;padding-bottom:.5rem;border-bottom:0.5px solid var(--border)}
+.section{margin-bottom:2.75rem}
+.section-num{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:.35rem}
+h2{font-size:27px;font-weight:500;line-height:1.25;color:var(--ink);margin-bottom:.9rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
 p{margin-bottom:1rem;color:var(--ink2)}
 p:last-child{margin-bottom:0}
+strong{color:var(--ink);font-weight:500}
+em{color:var(--ink)}
+.section a,.tbl-note a{color:var(--blue-acc);text-decoration:none;border-bottom:1px solid rgba(58,95,158,.35)}
+.section a:hover,.tbl-note a:hover{border-bottom-color:var(--blue-acc)}
 
 /* ── Display math block ── */
 .math-block{margin:1.2rem 0;padding:.9rem 1.2rem;background:var(--bg2);border-left:2.5px solid var(--border);border-radius:0 4px 4px 0;overflow-x:auto}
@@ -55,29 +59,29 @@ p:last-child{margin-bottom:0}
 .section-rule{border:none;border-top:1.5px solid var(--ink);margin:2.5rem 0 2rem}
 
 /* ── Comparison table ── */
-.tbl-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:.8rem}
-.tbl-note{font-size:14px;color:var(--ink2);line-height:1.6;margin-bottom:1.1rem;padding:.75rem 1rem;background:var(--bg2);border-left:2.5px solid var(--border)}
+.tbl-label{font-family:'JetBrains Mono',monospace;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:.8rem}
+.tbl-note{font-size:17.5px;color:var(--ink2);line-height:1.6;margin-bottom:1.2rem;padding:.9rem 1.2rem;background:var(--bg2);border-left:2.5px solid var(--border)}
 .tbl-wrap{overflow-x:auto;margin-bottom:1.5rem}
-table{width:100%;border-collapse:collapse;min-width:640px;border:0.5px solid var(--border);border-top:2px solid var(--ink)}
-thead th{padding:9px 13px;vertical-align:bottom;border-bottom:1.5px solid var(--ink);border-right:0.5px solid var(--border);font-size:13px;font-weight:500;font-family:'JetBrains Mono',monospace;letter-spacing:.04em;text-transform:uppercase;background:var(--bg2);color:var(--ink2)}
-thead th:first-child{background:var(--bg);color:var(--ink);text-align:left;font-family:'EB Garamond',Georgia,serif;font-style:italic;text-transform:none;letter-spacing:0;font-size:14px}
+table{width:100%;border-collapse:collapse;min-width:980px;border:0.5px solid var(--border);border-top:2px solid var(--ink)}
+thead th{padding:11px 15px;vertical-align:bottom;border-bottom:1.5px solid var(--ink);border-right:0.5px solid var(--border);font-size:14px;font-weight:500;font-family:'JetBrains Mono',monospace;letter-spacing:.04em;text-transform:uppercase;background:var(--bg2);color:var(--ink2)}
+thead th:first-child{background:var(--bg);color:var(--ink);text-align:left;font-family:'EB Garamond',Georgia,serif;font-style:italic;text-transform:none;letter-spacing:0;font-size:17px}
 thead th:last-child{border-right:none}
 tbody tr{border-bottom:0.5px solid var(--border)}
 tbody tr:last-child{border-bottom:none}
 tbody tr:hover td{background:rgba(0,0,0,.018)}
-tbody td{padding:10px 13px;vertical-align:top;border-right:0.5px solid var(--border);font-size:15px;color:var(--ink2);line-height:1.55}
+tbody td{padding:12px 15px;vertical-align:top;border-right:0.5px solid var(--border);font-size:17.5px;color:var(--ink2);line-height:1.5}
 tbody td:last-child{border-right:none}
-tbody td:first-child{color:var(--ink);font-weight:500;font-size:15.5px;white-space:nowrap}
-.tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:2px;margin-top:3px}
+tbody td:first-child{color:var(--ink);font-weight:500;font-size:18px;white-space:nowrap}
+.tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:2px;margin-top:3px}
 .tag-blue{background:rgba(58,95,158,.1);color:var(--blue-acc)}
 .tag-rust{background:rgba(140,74,50,.1);color:var(--rust-acc)}
 .tag-sage{background:rgba(46,102,69,.1);color:var(--sage-acc)}
 .tag-amber{background:rgba(122,79,13,.1);color:var(--amber-fg)}
 .tag-neutral{background:var(--bg2);color:var(--ink3)}
-.cell-note{font-size:13px;color:var(--ink3);font-style:italic;margin-top:3px;display:block}
+.cell-note{font-size:15px;color:var(--ink3);font-style:italic;margin-top:3px;display:block}
 
 /* ── Footer ── */
-.page-copy{margin-top:2.75rem;padding-top:1.1rem;border-top:0.5px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.04em;color:var(--ink3);text-align:center;line-height:1.5}
+.page-copy{margin-top:2.75rem;padding-top:1.1rem;border-top:0.5px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.04em;color:var(--ink3);text-align:center;line-height:1.5}
 .page-copy a{color:var(--ink3);text-decoration:none;border-bottom:1px solid rgba(138,134,128,.35)}
 .page-copy a:hover{color:var(--ink2);border-bottom-color:var(--ink2)}
 
@@ -90,11 +94,11 @@ tbody td:first-child{color:var(--ink);font-weight:500;font-size:15.5px;white-spa
 .lang-pill.active{background:var(--ink);color:#fff;border-color:var(--ink)}
 .lang-pill:not(.active):hover{border-color:var(--ink)}
 
-.katex{font-size:1em}
+.katex{font-size:1.05em}
 
 /* ── Mobile ── */
-@media(max-width:640px){
-  body{font-size:17px}
+@media(max-width:700px){
+  body{font-size:19px}
   .page{padding:1.5rem 1rem 3rem}
   tbody td:first-child{white-space:normal}
 }
@@ -159,7 +163,7 @@ tbody td:first-child{color:var(--ink);font-weight:500;font-size:15.5px;white-spa
   <div class="section">
     <span class="section-num">§ 1</span>
     <h2>Расширение языка и иерархия формул</h2>
-    <p>Построение второпорядковой теории начинается с фиксации первопорядковой базы. К стандартному языку добавляется второй сорт переменных — переменные по множествам индивидной области ($X, Y, Z, \dots$). В сигнатуру вводится предикат принадлежности $x \in X$, где $x$ — индивид, а $X$ — множество. Также автоматически постулируется аксиома экстенсиональности (равенства) для множеств.</p>
+    <p>Построение второпорядковой теории начинается с фиксации первопорядковой базы. К стандартному языку добавляется второй сорт переменных — переменные по множествам индивидной области ($X, Y, Z, \dots$). В сигнатуру вводится предикат принадлежности $x \in X$, где $x$ — индивид, а $X$ — множество. Равенство между множествами при этом обычно не берут примитивным: запись $X = Y$ считается сокращением для $\forall n\,(n \in X \leftrightarrow n \in Y)$, так что экстенсиональность выполняется по определению языка, а не постулируется отдельной аксиомой (стандартное соглашение о языке $L_2$; Симпсон, <em>SOSOA</em>, §I.2).</p>
     <p>Такое расширение языка порождает строгую иерархию формул. На нижнем уровне находятся чисто первопорядковые формулы. База расширяется классом <em>арифметических</em> формул — в обозначениях арифметической иерархии это классы $\Sigma^0_k$ и $\Pi^0_k$ (их не следует путать с $\Sigma^1_k$ аналитической иерархии): они могут содержать переменные-множества в качестве параметров, но не допускают квантификации по множествам. Выше располагается аналитическая иерархия — собственно второпорядковые формулы с кванторами по множествам ($\Sigma^1_k$, $\Pi^1_k$, …).</p>
   </div>
 
@@ -167,37 +171,44 @@ tbody td:first-child{color:var(--ink);font-weight:500;font-size:15.5px;white-spa
   <div class="section">
     <span class="section-num">§ 2</span>
     <h2>Арифметическое свёртывание и теория $ACA_0$</h2>
-    <p>Фундаментальный шаг в построении теории — добавление схемы свертывания, гарантирующей существование множеств, заданных формулами. Если ограничить эту схему арифметическими формулами, получается теория $ACA_0$. Свёртывание здесь <em>узко</em> предикативно: определение множества не опирается на кванторы по множествам и не требует «перебирать» universum, к которому принадлежит само определяемое множество.</p>
-    <p>В более широком смысле предикативной математики (Вейль, Феферман, Шютте) допустимые системы простираются до $ATR_0$ (ординал доказательности $\Gamma_0$) — существенно выше $ACA_0$ (ординал $\varepsilon_0$). $ACA_0$ — лишь нижняя ступень этого диапазона, хотя именно она часто служит точкой входа в обратную математику.</p>
+    <p>Фундаментальный шаг в построении теории — добавление схемы свёртывания, гарантирующей существование множеств, заданных формулами. Если ограничить эту схему арифметическими формулами, получается теория $ACA_0$. Свёртывание здесь <em>узко</em> предикативно: определение множества не опирается на кванторы по множествам и не требует «перебирать» универсум, к которому принадлежит само определяемое множество.</p>
+    <p>В более широком смысле предикативной математики (Вейль, 1918; Феферман, 1964; Шютте, 1965) допустимые системы простираются до $ATR_0$, чей доказательный ординал $\Gamma_0$ и принято считать границей предикативности, — существенно выше $ACA_0$ (ординал $\varepsilon_0$). $ACA_0$ — лишь нижняя ступень этого диапазона, хотя именно она часто служит точкой входа в обратную математику. Сам предикативный анализ Вейля вынесен в отдельный уровень формализации в материале «<a href="/Materials/math_analysis_levels.html">Уровни формализации математического анализа</a>».</p>
     <p>На этом этапе мы уходим от первопорядковой схемы индукции и добавляем единую аксиому индукции по множествам:</p>
     <div class="math-block">
       $$(0 \in X \land \forall n\;(n \in X \to S(n) \in X)) \to \forall n\;(n \in X)$$
     </div>
-    <p>Благодаря наличию схемы свёртывания для арифметических формул, эта единственная аксиома автоматически влечёт за собой выполнимость индукции для всех арифметических формул. Так осуществляется переход от $PA$ к теории $ACA_0$.</p>
+    <p>Благодаря наличию схемы свёртывания для арифметических формул, эта единственная аксиома автоматически влечёт за собой выполнимость индукции для всех арифметических формул. Так осуществляется переход от $PA$ к теории $ACA_0$ — переход консервативный: всякое арифметическое предложение, доказуемое в $ACA_0$, доказуемо уже в $PA$; отсюда и общий доказательный ординал $\varepsilon_0$.</p>
+    <p>Замена счётной схемы аксиом на одну-единственную аксиому — не техническая деталь, а смена логической формы самого принципа: схема в $PA$, аксиома в $Z_2$, теорема в $ZFC$. Эти формы, их взаимосвязи и точки, где равносильность ломается, разобраны в материале «<a href="/Materials/induction.html">О математической индукции</a>».</p>
   </div>
 
   <!-- 3 -->
   <div class="section">
     <span class="section-num">§ 3</span>
     <h2>Импредикативность и формальная $Z_2$</h2>
-    <p>Схему свертывания можно расширить на вообще все формулы языка второго порядка, перейдя к импредикативной теории второго порядка $Z_2$. Важно отметить, что на данном этапе всё это по сути остается теорией первого порядка, но с двумя сортами переменных и предикатом принадлежности.</p>
-    <p>Будучи формальной системой, $Z_2$ в полной мере наследует «родовые пятна» первопорядковой арифметики: для нее справедливы теоремы Гёделя о неполноте и теорема Лёвенгейма — Скулема о существовании счетных нестандартных моделей.</p>
+    <p>Схему свёртывания можно расширить на вообще все формулы языка второго порядка, перейдя к импредикативной теории второго порядка $Z_2$. Важно отметить, что на данном этапе всё это по сути остаётся теорией первого порядка, но с двумя сортами переменных и предикатом принадлежности.</p>
+    <p>Будучи формальной системой, $Z_2$ в полной мере наследует «родовые пятна» первопорядковой арифметики. К ней применимы теоремы Гёделя о неполноте; по нисходящей теореме Лёвенгейма — Сколема у неё есть счётные модели — и ни одна из них не стандартна: второй сорт счётной модели заведомо не исчерпывает континуальный $\mathcal{P}(\mathbb{N})$. По теореме компактности существуют и модели с нестандартным <em>числовым</em> сортом.</p>
+    <p>Полнота исчисления здесь тоже первопорядковая: она достигается на общих (хенкиновских) моделях, где второй сорт — произвольное семейство, замкнутое относительно схемы свёртывания, а не настоящий булеан. Как из непротиворечивой теории строится такая модель, показано в материале «<a href="/Materials/henkin_construction.html">Конструкция Хенкина</a>».</p>
   </div>
 
   <!-- 4 -->
   <div class="section">
     <span class="section-num">§ 4</span>
     <h2>Теоретико-модельная арифметика и категоричность</h2>
-    <p>Принципиальный концептуальный сдвиг происходит при переходе к рассмотрению моделей. Мы можем наряду с формальной $Z_2$ рассматривать класс ее стандартных моделей, в которых переменные по множествам интерпретируются элементами настоящего булеана натурального ряда $\mathcal{P}(\mathbb{N})$. Такая комбинация теории и ограничения на класс моделей является теоретико-модельной второпорядковой арифметикой.</p>
-    <p>Формальный дедуктивный аппарат у этих двух подходов общий, поэтому множество выводимых конечными доказательствами теорем совпадает. Однако в рамках $ZF$ стандартная модель уникальна с точностью до изоморфизма (тотальная категоричность). Фиксация стандартной модели порождает полное, но неперечислимое множество истинных утверждений — элементарную теорию стандартной модели $\mathrm{Th}_2(\mathbb{N})$. Человек способен выявлять истины, невыводимые формально в $Z_2$, исключительно за счет выхода за пределы языка и использования внешних методов более сильных метатеорий (например, $ZFC$).</p>
+    <p>Принципиальный концептуальный сдвиг происходит при переходе к рассмотрению моделей. Мы можем наряду с формальной $Z_2$ рассматривать класс её стандартных моделей, в которых переменные по множествам интерпретируются элементами настоящего булеана натурального ряда $\mathcal{P}(\mathbb{N})$. Такая комбинация теории и ограничения на класс моделей является теоретико-модельной второпорядковой арифметикой.</p>
+    <p>Формальный дедуктивный аппарат у этих двух подходов общий, поэтому множество выводимых конечными доказательствами теорем совпадает. Однако в полной семантике стандартная модель уникальна с точностью до изоморфизма — это категоричность второпорядковой арифметики (по существу теорема Дедекинда, 1888), доказываемая в метатеории вроде $ZF$. Фиксация стандартной модели порождает полное, но неперечислимое множество истинных утверждений — полную теорию стандартной модели $\mathrm{Th}_2(\mathbb{N})$. Более того, $\mathrm{Th}_2(\mathbb{N})$ не определима в самом языке второго порядка — это второпорядковый вариант теоремы Тарского о неопределимости истины; для её определения нужен уже третий порядок. Человек способен выявлять истины, невыводимые формально в $Z_2$, исключительно за счёт выхода за пределы языка и использования внешних методов более сильных метатеорий (например, $ZFC$).</p>
   </div>
 
   <!-- 5 -->
   <div class="section">
     <span class="section-num">§ 5</span>
     <h2>Выразительная сила и высшие порядки ($PA_n$)</h2>
-    <p>В $Z_2$ вещественные числа кодируются множествами натуральных (дедекиндовы сечения $\mathbb{Q}$, последовательности Коши и т.п.), поэтому второпорядковые кванторы по множествам — это как раз кванторы «для любого вещественного $x$» ($\forall X\;(IsReal(X) \to \dots)$). Классический анализ — непрерывные функции, сходимость, борелевские множества — в $Z_2$ формализуется без перехода к высшим порядкам.</p>
-    <p>Ограничение $Z_2$ другое: теория не умеет непосредственно квантовать по <em>множествам</em> вещественных чисел (элементам $\mathcal{P}^2(\mathbb{N})$). Для произвольных семейств подмножеств $\mathbb{R}$, функциональных пространств в полном объёме и «третьего порядка» семантики нужны теории $PA_n$ с $n \ge 3$. Базовая теория меры Лебега на $\mathbb{R}$ (включая счётную аддитивность) по результатам обратной математики формализуется уже в слабых подсистемах вроде $WWKL_0$, слабее $ACA_0$; $Z_2$ для этого более чем достаточна.</p>
+    <p>В $Z_2$ вещественные числа кодируются множествами натуральных (дедекиндовы сечения $\mathbb{Q}$, последовательности Коши и т. п.), поэтому квантор по множествам даёт после релятивизации и квантор «для любого вещественного $x$»: $\forall X\,(\mathrm{IsReal}(X) \to \dots)$. Одним множеством кодируется и целая <em>последовательность</em> вещественных чисел, так что счётные семейства тоже остаются внутри языка. Классический анализ — непрерывные функции, сходимость, борелевские множества — в $Z_2$ формализуется без перехода к высшим порядкам.</p>
+    <p>Ограничение $Z_2$ другое: теория не умеет непосредственно квантовать по <em>произвольным</em> множествам вещественных чисел (элементам $\mathcal{P}^2(\mathbb{N})$). Для несчётных семейств подмножеств $\mathbb{R}$, функциональных пространств в полном объёме и «третьего порядка» семантики нужны теории $PA_n$ с $n \ge 3$ (в литературе их чаще обозначают $Z_n$).</p>
+    <p>Насколько скромных средств хватает на анализ, точно измеряет обратная математика. Базовая теория меры Лебега строится уже над $RCA_0$, а счётная аддитивность меры на открытых множествах равносильна над $RCA_0$ системе $WWKL_0$ — «слабой слабой» лемме Кёнига: всякое поддерево $2^{&lt;\mathbb{N}}$ положительной меры имеет бесконечный путь (Yu–Simpson, 1990). Это строго ниже $WKL_0$:</p>
+    <div class="math-block">
+      $$RCA_0 \subsetneq WWKL_0 \subsetneq WKL_0 \subsetneq ACA_0 \subsetneq \dots \subsetneq Z_2$$
+    </div>
+    <p>Иными словами, для меры Лебега не нужна даже $ACA_0$ — не говоря о полной $Z_2$.</p>
     <p>Как и $Z_2$, теории $PA_n$ можно рассматривать в формальном (дедуктивном) или теоретико-модельном ключе.</p>
   </div>
 
@@ -205,8 +216,9 @@ tbody td:first-child{color:var(--ink);font-weight:500;font-size:15.5px;white-spa
   <div class="section">
     <span class="section-num">§ 6</span>
     <h2>Кумулятивная иерархия и $ZFA$</h2>
-    <p>Глобальной альтернативой наращиванию порядков является переход к теории с урэлементами ($ZFA$). В этом случае $\mathbb{N}$ берется как множество урэлементов, и над ним строится стандартная кумулятивная иерархия множеств. Это обеспечивает полную свободу для формулировок и доказательств любых фактов функционального анализа и топологии.</p>
+    <p>Глобальной альтернативой наращиванию порядков является переход к теории с урэлементами ($ZFA$, она же $ZFU$; не путать с $ZFA$ в смысле анти-фундирования Акцеля). В этом случае $\mathbb{N}$ берётся как множество урэлементов, и над ним строится стандартная кумулятивная иерархия множеств. Это обеспечивает полную свободу для формулировок и доказательств любых фактов функционального анализа и топологии.</p>
     <p>Атомарность базовой теории нужна здесь исключительно для того, чтобы заблокировать синтаксическую возможность писать $x \in \alpha$, где $\alpha$ — урэлемент. Таким образом теория отвязывается от специфики конкретного способа теоретико-множественного конструирования чисел.</p>
+    <p>Тот же приём — атомы вместо конструкции — применён на верхнем уровне в материале «<a href="/Materials/math_analysis_levels.html">Уровни формализации математического анализа</a>», где кумулятивная иерархия строится уже над $\mathbb{R}$ как над множеством атомов; там же по шагам видно, что именно даёт и чего стоит каждый шаг вверх по выразительной силе.</p>
   </div>
 
   <hr class="section-rule">
@@ -229,23 +241,23 @@ tbody td:first-child{color:var(--ink);font-weight:500;font-size:15.5px;white-spa
         <tr>
           <td>Первопорядковая ($PA$)</td>
           <td>1 сорт переменных (числа)</td>
-          <td>Модели первого порядка; нестандартные модели существуют (Лёвенгейм–Сколем)</td>
+          <td>Модели первого порядка; нестандартные модели существуют (компактность)<span class="cell-note">Лёвенгейм–Сколем даёт сверх того модели любой бесконечной мощности</span></td>
           <td><span class="tag tag-rust">Неполна (Гёдель)</span><br><span class="tag tag-sage">Перечислима</span></td>
           <td>Арифметика, рекурсивные функции, конечные объекты</td>
         </tr>
         <tr>
           <td>$ACA_0$</td>
-          <td>2 сорта; схема свёртывания для арифметических ($\Sigma^0_k$) формул; аксиома индукции (одна)</td>
-          <td>Семантика Хенкина; нестандартные модели существуют<span class="cell-note">по Гёделю / Лёвенгейму–Скулему</span></td>
-          <td><span class="tag tag-rust">Неполна (Гёдель)</span><br><span class="tag tag-sage">Перечислима</span><span class="cell-note">доказательная сила = $PA$, ordinal $\varepsilon_0$; узко предикативна, полный предикативный диапазон — до $ATR_0$ ($\Gamma_0$)</span></td>
+          <td>2 сорта; схема свёртывания для арифметических ($\Sigma^0_k$) формул — без кванторов по множествам, но с параметрами обоих сортов; аксиома индукции (одна)</td>
+          <td>Общие (хенкиновские) модели; нестандартные модели существуют<span class="cell-note">$\omega$-модели $ACA_0$ — в точности тьюринговы идеалы, замкнутые относительно скачка; наименьший из них — арифметические множества</span></td>
+          <td><span class="tag tag-rust">Неполна (Гёдель)</span><br><span class="tag tag-sage">Перечислима</span><span class="cell-note">консервативна над $PA$, ординал $\varepsilon_0$; узко предикативна, полный предикативный диапазон — до $ATR_0$ ($\Gamma_0$)</span></td>
           <td>Вещественные числа, непрерывные функции, борелевские множества; теоремы Больцано–Вейерштрасса, монотонной сходимости и др. эквивалентны $ACA_0$ над $RCA_0$</td>
         </tr>
         <tr>
           <td>Импредикативная ($Z_2$)</td>
-          <td>2 сорта; полная схема свертывания (любая формула); полная схема индукции</td>
-          <td>Семантика Хенкина; нестандартные модели существуют</td>
+          <td>2 сорта; полная схема свёртывания (любая формула); полная схема индукции — следствие свёртывания и одной аксиомы индукции</td>
+          <td>Общие (хенкиновские) модели; нестандартные модели существуют</td>
           <td><span class="tag tag-rust">Неполна (Гёдель)</span><br><span class="tag tag-sage">Перечислима</span></td>
-          <td>Проективная иерархия, дескриптивная теория множеств; кванторы по отдельным вещественным, но не по их семействам</td>
+          <td>Проективная иерархия, дескриптивная теория множеств; кванторы по отдельным вещественным и по их последовательностям, но не по произвольным семействам</td>
         </tr>
         <tr>
           <td>Теоретико-модельная ($\mathrm{Th}_2(\mathbb{N})$)</td>
@@ -271,7 +283,7 @@ tbody td:first-child{color:var(--ink);font-weight:500;font-size:15.5px;white-spa
       </tbody>
     </table>
   </div>
-  <p class="tbl-note"><strong>Об $ACA$ и $ACA_0$.</strong> Нижний индекс 0 обозначает ограниченную индукцию (Симпсон 2009): $ACA_0$ имеет только аксиому индукции (одну формулу в языке второго порядка), тогда как $ACA$ (без индекса) — исторически более ранняя система (Феферман, 1977) — добавляет полную схему индукции второго порядка. Системы без нижнего индекса имеют существенно бо́льший доказательный ordinal при той же схеме свёртывания. В обратной математике (Стилуэлл, Симпсон) стандартом стали именно варианты с индексом 0.</p>
+  <p class="tbl-note"><strong>Об $ACA$ и $ACA_0$.</strong> Нижний индекс 0 обозначает ограниченную индукцию: $ACA_0$ имеет только аксиому индукции (одну формулу в языке второго порядка), тогда как $ACA$ без индекса добавляет полную схему индукции второго порядка. Разница не косметическая: при одной и той же схеме свёртывания $ACA_0$ консервативна над $PA$ и имеет ординал $\varepsilon_0$, а у $ACA$ ординал уже $\varepsilon_{\varepsilon_0}$. Системы без индекса восходят к классическому предикативному анализу (Вейль, 1918; Крайзель, Феферман, Шютте, 1960-е); варианты с ограниченной индукцией и сам индекс 0 введены Фридманом (Friedman, <em>Systems of second order arithmetic with restricted induction</em>, 1976), а стандартом обратной математики их сделала книга Симпсона (<em>SOSOA</em>, 2-е изд., 2009; см. также Стилуэлл, 2018).</p>
 
   <p class="page-copy">
     <a href="https://mathem.at">mathem.at</a> · Н.&nbsp;И.&nbsp;Казимиров

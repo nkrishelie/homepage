@@ -54,6 +54,8 @@ h1{font-size:clamp(28px,3.2vw,44px);font-weight:500;line-height:1.15;color:var(-
   padding:.8rem 1.1rem; font-size:17px; color:var(--ink2);
 }
 .pdf-banner a{color:var(--blue-acc); text-decoration:none; border-bottom:1px solid rgba(58,95,158,.35); font-weight:500}
+.card-body a,section p a,.status-col a{color:var(--blue-acc);text-decoration:none;border-bottom:1px solid rgba(58,95,158,.35)}
+.card-body a:hover,section p a:hover,.status-col a:hover{border-bottom-color:var(--blue-acc)}
 .pdf-banner a:hover{border-bottom-color:var(--blue-acc)}
 
 section{margin-bottom:2.75rem}
@@ -277,7 +279,9 @@ tbody td:last-child{border-right:none}
         <div class="card-formula">\[\forall X\bigl(0\in X\land\forall x(x\in X\to Sx\in X)\to\forall y(y\in X)\bigr)\]</div>
         Мощность теории задаётся не самой этой аксиомой, а <em>схемой свёртывания</em>: чем шире класс
         формул \(\varphi\), для которых гарантировано существование \(X=\{x\mid\varphi(x)\}\), тем на больший
-        запас множеств распространяется индукция.
+        запас множеств распространяется индукция. Как эта шкала устроена — от \(\mathsf{ACA}_0\) до полной
+        \(\mathsf{Z}_2\) и дальше к \(\mathsf{ZFA}\) — в материале
+        «<a href="/Materials/second_order_arithmetic.html">Иерархия теорий арифметики второго порядка</a>».
       </div>
     </div>
     <div class="card sage">

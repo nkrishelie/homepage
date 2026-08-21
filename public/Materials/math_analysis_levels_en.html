@@ -119,6 +119,8 @@ h1{font-size:clamp(24px,2.8vw,38px);font-weight:500;line-height:1.15;color:var(-
 .rust .lang-card-tag{background:rgba(140,74,50,.12);color:var(--rust-acc)}
 .sage .lang-card-tag{background:rgba(46,102,69,.12);color:var(--sage-acc)}
 .lang-card-body{font-size:14.5px;color:var(--ink2);line-height:1.62}
+.lang-card-body a,.tbl-hints a{color:var(--blue-acc);text-decoration:none;border-bottom:1px solid rgba(58,95,158,.35)}
+.lang-card-body a:hover,.tbl-hints a:hover{border-bottom-color:var(--blue-acc)}
 
 /* ── Axiom toggle buttons (inside cards, bottom) ── */
 .axioms-btn{
@@ -317,6 +319,8 @@ tbody tr:hover td.c1{background:rgba(44,74,124,.045)} tbody tr:hover td.c2{backg
       The theory is "syntactic sugar" over <span id="lc2-Z2"></span>
       (a conservative extension).
       As a recursively axiomatized two-sorted theory, it fits the standard Henkin&nbsp;semantics (completeness), without requiring uniqueness of the model (see the "Uniqueness of the model" row in the table).
+      The hierarchy of the second-order theories themselves — from arithmetical comprehension through impredicative completeness to categoricity — is examined in
+      «<a href="/Materials/second_order_arithmetic_en.html">Hierarchy of Second-Order Arithmetic Theories</a>».
     </p>
     <button class="axioms-btn" data-level="2" onclick="showAxioms(this)"><span class="arr">▶</span> Axioms</button>
   </div>
