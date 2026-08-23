@@ -100,10 +100,17 @@ export const content: SiteContent = {
       preorder: {
         label: "Buy the book",
         links: [
-          { label: "Springer", href: "https://link.springer.com/book/9783032307200" },
-          { label: "Barnes & Noble", href: "https://www.barnesandnoble.com/w/mathematics-as-a-foreign-language-nikolay-i-kazimirov/1150255362" },
-          { label: "Amazon", href: "#", disabled: true }
+          { label: "Springer", href: "https://link.springer.com/book/9783032307200" }
         ]
+      },
+      promo: {
+        code: "SPRAUT",
+        text: "20% off with code",
+        note: "Redeemable on link.springer.com only — the code does not work on Amazon, Barnes & Noble, or any other retailer. Individual customers only; not combinable with other discounts. Titles affected by fixed book price laws (Germany, Austria and others) are excluded, and regional VAT may apply.",
+        copyLabel: "copy",
+        copiedLabel: "copied",
+        termsLabel: "Full Springer terms",
+        terms: "Please note that promotional coupons are only valid for English-language Springer, Apress, and Palgrave Macmillan books & eBooks and are redeemable on link.springer.com only. Titles affected by fixed book price laws, forthcoming titles and titles temporarily not available on Springer Nature Link are excluded from promotions, as are reference works, handbooks, encyclopedias, subscriptions, or bulk purchases. The currency in which your order will be invoiced depends on the billing address associated with the payment method used, not necessarily your home currency. Regional VAT/tax may apply. Promotional prices may change due to exchange rates. Promotions are valid for individual customers only. Booksellers, book distributors, and institutions such as libraries and corporations please visit springernature.com/contact-us. Promotions do not work in combination with other discounts or gift cards."
       }
     },
     {

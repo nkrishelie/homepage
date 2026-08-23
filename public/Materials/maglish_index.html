@@ -77,6 +77,27 @@ a{color:inherit}
 .btn-accent:hover{background:#dcb862}
 .btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.08)}
 .hero-note{margin-top:.9rem;font-size:13.5px;color:var(--hero-ink2)}
+.promo{margin-top:1.3rem;max-width:640px;border:1px solid rgba(201,164,76,.45);border-radius:6px;
+  background:rgba(201,164,76,.08);padding:.85rem 1.1rem}
+.promo-main{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.promo-off{font-family:'EB Garamond',Georgia,serif;font-size:19px;font-weight:700;color:var(--gold)}
+.promo-label{font-size:15px;color:#dfe4ec}
+.promo-code{display:inline-flex;align-items:center;gap:9px;padding:.35rem .7rem;border-radius:4px;cursor:pointer;
+  border:1px dashed rgba(201,164,76,.7);background:rgba(0,0,0,.25);color:#fff;
+  font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;letter-spacing:.12em;transition:.15s}
+.promo-code:hover{border-style:solid;border-color:var(--gold);background:rgba(0,0,0,.4)}
+.promo-copy{font-size:10.5px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;color:var(--hero-ink2)}
+.promo-fine{margin-top:.7rem;font-size:12.5px;line-height:1.55;color:var(--hero-ink2)}
+.promo-fine strong{color:#e8dcc0;font-weight:700}
+.promo-terms{margin-top:.55rem}
+.promo-terms summary{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--hero-ink2);cursor:pointer;list-style:none}
+.promo-terms summary::-webkit-details-marker{display:none}
+.promo-terms summary::before{content:'\25B8  '}
+.promo-terms[open] summary::before{content:'\25BE  '}
+.promo-terms summary:hover{color:#e8dcc0}
+.promo-terms p{margin-top:.5rem;font-size:11.5px;line-height:1.6;color:var(--hero-ink2);
+  padding-left:.7rem;border-left:1px solid rgba(201,164,76,.3)}
 
 .stats{background:var(--hero2);border-top:1px solid var(--hero-line)}
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);padding:1.8rem 0}
@@ -372,7 +393,21 @@ em{color:var(--ink)}
           <a class="btn btn-accent" href="#support">♥ Поддержать автора</a>
           <a class="btn btn-ghost" href="/Materials/maglish.pdf" target="_blank" rel="noopener noreferrer">↓ Скачать книгу целиком (PDF, 354 стр.)</a>
         </div>
-        <div class="hero-note">Полный текст книги на русском языке — в свободном доступе. Релиз английского издания в <a href="https://link.springer.com/book/9783032307200" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline">Springer</a> — 19 сентября 2026 года.</div>
+        <div class="promo">
+          <div class="promo-main">
+            <span class="promo-off">−20%</span>
+            <span class="promo-label">на английское издание по коду</span>
+            <button class="promo-code" type="button" data-code="SPRAUT" data-copy="копировать" data-copied="скопировано">
+              SPRAUT<span class="promo-copy">копировать</span>
+            </button>
+          </div>
+          <p class="promo-fine">Код действует <strong>только на <a href="https://link.springer.com/book/9783032307217" target="_blank" rel="noopener noreferrer" style="color:#e8dcc0">link.springer.com</a></strong> — на Amazon, Barnes &amp; Noble и в других магазинах он не сработает. Только для частных покупателей, не суммируется с другими скидками и подарочными картами. В странах с законом о фиксированной цене на книги (Германия, Австрия и др.) скидка не действует; возможен региональный НДС.</p>
+          <details class="promo-terms">
+            <summary>Полные условия Springer (англ.)</summary>
+            <p>Please note that promotional coupons are only valid for English-language Springer, Apress, and Palgrave Macmillan books &amp; eBooks and are redeemable on link.springer.com only. Titles affected by fixed book price laws, forthcoming titles and titles temporarily not available on Springer Nature Link are excluded from promotions, as are reference works, handbooks, encyclopedias, subscriptions, or bulk purchases. The currency in which your order will be invoiced depends on the billing address associated with the payment method used, not necessarily your home currency. Regional VAT/tax may apply. Promotional prices may change due to exchange rates. Promotions are valid for individual customers only. Booksellers, book distributors, and institutions such as libraries and corporations please visit springernature.com/contact-us. Promotions do not work in combination with other discounts or gift cards.</p>
+          </details>
+        </div>
+        <div class="hero-note">Полный текст книги на русском языке — в свободном доступе. Английское издание вышло в <a href="https://link.springer.com/book/9783032307200" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline">Springer</a> — твёрдый переплёт и eBook уже доступны.</div>
       </div>
     </div>
   </div>
@@ -892,6 +927,24 @@ const KATEX_OPTS = {
   },
   throwOnError:false
 };
+</script>
+<script>
+(function () {
+  var btn = document.querySelector('.promo-code');
+  if (!btn) return;
+  var tag = btn.querySelector('.promo-copy');
+  var timer;
+  btn.addEventListener('click', function () {
+    var done = function () {
+      tag.textContent = btn.dataset.copied;
+      window.clearTimeout(timer);
+      timer = window.setTimeout(function () { tag.textContent = btn.dataset.copy; }, 2000);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(btn.dataset.code).then(done, function () {});
+    }
+  });
+})();
 </script>
 </body>
 </html>

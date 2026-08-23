@@ -98,6 +98,15 @@ export const content: SiteContent = {
       coverImage: "/litres_cover.png",
       link: "/Materials/maglish_index.html",
       type: "Монография",
+      promo: {
+        code: "SPRAUT",
+        text: "Скидка 20% на английское издание по коду",
+        note: "Код действует только на link.springer.com — на Amazon, Barnes & Noble и в других магазинах он не сработает. Только для частных покупателей, не суммируется с другими скидками. В странах с законом о фиксированной цене на книги (Германия, Австрия и др.) скидка не действует; возможен региональный НДС.",
+        copyLabel: "копировать",
+        copiedLabel: "скопировано",
+        termsLabel: "Полные условия Springer (англ.)",
+        terms: "Please note that promotional coupons are only valid for English-language Springer, Apress, and Palgrave Macmillan books & eBooks and are redeemable on link.springer.com only. Titles affected by fixed book price laws, forthcoming titles and titles temporarily not available on Springer Nature Link are excluded from promotions, as are reference works, handbooks, encyclopedias, subscriptions, or bulk purchases. The currency in which your order will be invoiced depends on the billing address associated with the payment method used, not necessarily your home currency. Regional VAT/tax may apply. Promotional prices may change due to exchange rates. Promotions are valid for individual customers only. Booksellers, book distributors, and institutions such as libraries and corporations please visit springernature.com/contact-us. Promotions do not work in combination with other discounts or gift cards."
+      }
     },
     {
       id: "savvateev",

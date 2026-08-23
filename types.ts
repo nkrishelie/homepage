@@ -32,6 +32,21 @@ export interface BookPreorder {
   links: BookPreorderLink[];
 }
 
+export interface BookPromo {
+  /** Промокод, например SPRAUT */
+  code: string;
+  /** Короткая строка вида «Скидка 20% по коду» */
+  text: string;
+  /** Мелкий шрифт: где именно код действует и какие ограничения */
+  note: string;
+  /** Подпись кнопки копирования и её состояние «скопировано» */
+  copyLabel: string;
+  copiedLabel: string;
+  /** Дословный текст условий издателя и подпись раскрывашки */
+  terms: string;
+  termsLabel: string;
+}
+
 export interface BookItem {
   id: string;
   title: string;
@@ -45,6 +60,8 @@ export interface BookItem {
   note?: string;
   /** Группа кнопок предзаказа/покупки у разных дистрибьюторов */
   preorder?: BookPreorder;
+  /** Промокод издателя со скидкой */
+  promo?: BookPromo;
 }
 
 // 1. Интерфейс для одной главы

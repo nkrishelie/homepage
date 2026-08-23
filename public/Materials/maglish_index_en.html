@@ -16,7 +16,11 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Mathematics as a Foreign Language — Nikolai Kazimirov">
 <meta name="twitter:description" content="A treatise on mathematics as a linguistic system, structured like a language course: A1 Survival → C1 A Mathematician's Paradise. Springer, 2026.">
-<meta name="twitter:image" content="https://mathem.at/Springer_cover.webp">
+<meta property="og:image" content="https://mathem.at/Springer_social.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="628">
+<meta property="og:image:alt" content="Mathematics as a Foreign Language — Nikolai I. Kazimirov (Springer, Mathematics in Mind)">
+<meta name="twitter:image" content="https://mathem.at/Springer_social.png">
 <link rel="alternate" hreflang="en" href="https://mathem.at/Materials/maglish_index_en.html">
 <link rel="alternate" hreflang="ru" href="https://mathem.at/Materials/maglish_index.html">
 <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPs6jPC90ZXh0Pjwvc3ZnPg==" type="image/svg+xml">
@@ -71,7 +75,6 @@ a{color:inherit}
 .hero-desc strong{color:#fff;font-weight:700}
 .hero-cta-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--hero-ink2);margin-bottom:.6rem}
 .hero-cta{display:flex;flex-wrap:wrap;gap:12px}
-.btn-disabled{background:rgba(255,255,255,.06);color:rgba(255,255,255,.35);cursor:not-allowed}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:.75rem 1.3rem;border-radius:5px;font-size:15.5px;font-weight:500;
   text-decoration:none;font-family:'EB Garamond',Georgia,serif;transition:.15s}
 .btn-primary{background:#fff;color:var(--hero)}
@@ -79,6 +82,27 @@ a{color:inherit}
 .btn-ghost{border:1px solid rgba(255,255,255,.35);color:#fff}
 .btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.08)}
 .hero-note{margin-top:.9rem;font-size:13.5px;color:var(--hero-ink2)}
+.promo{margin-top:1.3rem;max-width:640px;border:1px solid rgba(201,164,76,.45);border-radius:6px;
+  background:rgba(201,164,76,.08);padding:.85rem 1.1rem}
+.promo-main{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.promo-off{font-family:'EB Garamond',Georgia,serif;font-size:19px;font-weight:700;color:var(--gold)}
+.promo-label{font-size:15px;color:#dfe4ec}
+.promo-code{display:inline-flex;align-items:center;gap:9px;padding:.35rem .7rem;border-radius:4px;cursor:pointer;
+  border:1px dashed rgba(201,164,76,.7);background:rgba(0,0,0,.25);color:#fff;
+  font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;letter-spacing:.12em;transition:.15s}
+.promo-code:hover{border-style:solid;border-color:var(--gold);background:rgba(0,0,0,.4)}
+.promo-copy{font-size:10.5px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;color:var(--hero-ink2)}
+.promo-fine{margin-top:.7rem;font-size:12.5px;line-height:1.55;color:var(--hero-ink2)}
+.promo-fine strong{color:#e8dcc0;font-weight:700}
+.promo-terms{margin-top:.55rem}
+.promo-terms summary{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--hero-ink2);cursor:pointer;list-style:none}
+.promo-terms summary::-webkit-details-marker{display:none}
+.promo-terms summary::before{content:'\25B8  '}
+.promo-terms[open] summary::before{content:'\25BE  '}
+.promo-terms summary:hover{color:#e8dcc0}
+.promo-terms p{margin-top:.5rem;font-size:11.5px;line-height:1.6;color:var(--hero-ink2);
+  padding-left:.7rem;border-left:1px solid rgba(201,164,76,.3)}
 
 /* ── stats strip ── */
 .stats{background:var(--hero2);border-top:1px solid var(--hero-line)}
@@ -334,8 +358,20 @@ em{color:var(--ink)}
         <div class="hero-cta-label">Buy the book</div>
         <div class="hero-cta">
           <a class="btn btn-primary" href="https://link.springer.com/book/9783032307200" target="_blank" rel="noopener noreferrer">Springer</a>
-          <a class="btn btn-primary" href="https://www.barnesandnoble.com/w/mathematics-as-a-foreign-language-nikolay-i-kazimirov/1150255362" target="_blank" rel="noopener noreferrer">Barnes &amp; Noble</a>
-          <span class="btn btn-disabled" aria-disabled="true">Amazon</span>
+        </div>
+        <div class="promo">
+          <div class="promo-main">
+            <span class="promo-off">20% off</span>
+            <span class="promo-label">with code</span>
+            <button class="promo-code" type="button" data-code="SPRAUT" data-copy="copy" data-copied="copied">
+              SPRAUT<span class="promo-copy">copy</span>
+            </button>
+          </div>
+          <p class="promo-fine">Redeemable on <strong><a href="https://link.springer.com/book/9783032307217" target="_blank" rel="noopener noreferrer" style="color:#e8dcc0">link.springer.com</a> only</strong> — the code does not work on Amazon, Barnes &amp; Noble, or any other retailer. Individual customers only; not combinable with other discounts or gift cards. Titles affected by fixed book price laws (Germany, Austria and others) are excluded, and regional VAT may apply.</p>
+          <details class="promo-terms">
+            <summary>Full Springer terms</summary>
+            <p>Please note that promotional coupons are only valid for English-language Springer, Apress, and Palgrave Macmillan books &amp; eBooks and are redeemable on link.springer.com only. Titles affected by fixed book price laws, forthcoming titles and titles temporarily not available on Springer Nature Link are excluded from promotions, as are reference works, handbooks, encyclopedias, subscriptions, or bulk purchases. The currency in which your order will be invoiced depends on the billing address associated with the payment method used, not necessarily your home currency. Regional VAT/tax may apply. Promotional prices may change due to exchange rates. Promotions are valid for individual customers only. Booksellers, book distributors, and institutions such as libraries and corporations please visit springernature.com/contact-us. Promotions do not work in combination with other discounts or gift cards.</p>
+          </details>
         </div>
         <div class="hero-note">Published by Springer — hardcover and eBook available now · Author's original LaTeX typesetting available separately.</div>
       </div>
@@ -699,6 +735,24 @@ const KATEX_OPTS = {
   },
   throwOnError:false
 };
+</script>
+<script>
+(function () {
+  var btn = document.querySelector('.promo-code');
+  if (!btn) return;
+  var tag = btn.querySelector('.promo-copy');
+  var timer;
+  btn.addEventListener('click', function () {
+    var done = function () {
+      tag.textContent = btn.dataset.copied;
+      window.clearTimeout(timer);
+      timer = window.setTimeout(function () { tag.textContent = btn.dataset.copy; }, 2000);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(btn.dataset.code).then(done, function () {});
+    }
+  });
+})();
 </script>
 </body>
 </html>

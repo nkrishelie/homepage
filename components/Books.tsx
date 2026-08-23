@@ -1,7 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLanguage } from '../LanguageContext';
-import { ExternalLink, Mail, FileText, Book, GraduationCap } from 'lucide-react';
+import { ExternalLink, Mail, FileText, Book, GraduationCap, Check, Copy } from 'lucide-react';
 import { renderWithLinks } from './renderWithLinks';
+import type { BookPromo } from '../types';
+
+const PromoBlock: React.FC<{ promo: BookPromo }> = ({ promo }) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(promo.code);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Буфер обмена недоступен (нет https или запрет браузера) — код виден на экране.
+    }
+  };
+
+  return (
+    <div className="mt-6 max-w-2xl border border-academic-200 bg-academic-50 rounded p-4">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+        <span className="text-sm text-academic-700">{promo.text}</span>
+        <button
+          type="button"
+          onClick={handleCopy}
+          aria-label={`${promo.copyLabel}: ${promo.code}`}
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded border border-dashed border-academic-400 bg-white font-mono text-sm font-bold tracking-widest text-academic-900 hover:border-academic-900 transition-colors"
+        >
+          {promo.code}
+          <span className="inline-flex items-center gap-1 font-sans text-xs font-normal tracking-normal text-academic-500">
+            {copied ? <Check size={13} /> : <Copy size={13} />}
+            {copied ? promo.copiedLabel : promo.copyLabel}
+          </span>
+        </button>
+      </div>
+      <p className="mt-2.5 text-xs leading-relaxed text-academic-500">{promo.note}</p>
+      <details className="mt-2 group">
+        <summary className="cursor-pointer list-none text-[11px] uppercase tracking-widest text-academic-400 hover:text-academic-600 transition-colors">
+          <span className="inline-block group-open:hidden">▸ </span>
+          <span className="hidden group-open:inline-block">▾ </span>
+          {promo.termsLabel}
+        </summary>
+        <p className="mt-2 border-l border-academic-200 pl-3 text-[11px] leading-relaxed text-academic-400">
+          {promo.terms}
+        </p>
+      </details>
+    </div>
+  );
+};
 
 export const Books: React.FC = () => {
   const { content } = useLanguage();
@@ -178,6 +224,8 @@ export const Books: React.FC = () => {
                         </a>
                     )}
                    </div>
+
+                   {book.promo && <PromoBlock promo={book.promo} />}
 
                 </div>
               </div>
