@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Зоопарк отображений между моделями</title>
+<meta name="description" content="Частичный изоморфизм, вложение, элементарное вложение, изоморфизм, автоморфизм, гомогенность и игра Эренфойхта–Фраиссе — как эти понятия строятся из горстки атомарных условий и какие три теоремы их нетривиально связывают.">
+<link rel="canonical" href="https://mathem.at/Materials/elementary_maps_zoo.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Зоопарк отображений между моделями">
+<meta property="og:description" content="Частичный изоморфизм, вложение, элементарное вложение, изоморфизм, автоморфизм, гомогенность и игра Эренфойхта–Фраиссе — как эти понятия строятся из горстки атомарных условий и какие три теоремы их нетривиально связывают.">
+<meta property="og:url" content="https://mathem.at/Materials/elementary_maps_zoo.html">
+<meta property="og:locale" content="ru_RU">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPuKKojwvdGV4dD48L3N2Zz4=" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="initPage()"></script>
+<style>
+:root {
+  --bg: #faf9f6;
+  --surface: #ffffff;
+  --surface2: #f2f0eb;
+  --border: #dcd9d2;
+  --border2: #c5c1b7;
+  --text: #1a1917;
+  --muted: #5a5750;
+  --faint: #8a8680;
+  --blue: #3a5f9e;
+  --blue-bg: #e8eef7;
+  --teal: #0f6e56;
+  --teal-bg: #e6f5ef;
+  --amber: #7a4f0d;
+  --amber-bg: #fdf3e0;
+  --coral: #9b2f1a;
+  --coral-bg: #faeae6;
+  --purple: #4a3a9a;
+  --purple-bg: #eeedfb;
+  --mono: 'JetBrains Mono', 'Fira Mono', 'Cascadia Code', monospace;
+  --sans: 'EB Garamond', Georgia, serif;
+  --serif: 'EB Garamond', Georgia, 'Times New Roman', serif;
+  --radius: 8px;
+  --radius-sm: 4px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141412;
+    --surface: #1e1d1a;
+    --surface2: #252320;
+    --border: #2e2c28;
+    --border2: #3d3a34;
+    --text: #e8e6df;
+    --muted: #9c998e;
+    --faint: #6b6860;
+    --blue: #7ab2f5;
+    --blue-bg: #0e1f35;
+    --teal: #4cc9a0;
+    --teal-bg: #0b2a20;
+    --amber: #f0b855;
+    --amber-bg: #2a1e08;
+    --coral: #f08070;
+    --coral-bg: #2a1008;
+    --purple: #a090f5;
+    --purple-bg: #1e1a3a;
+  }
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 19px;
+  line-height: 1.6;
+  padding: 2rem 1rem 4rem;
+}
+
+.page { max-width: 1080px; margin: 0 auto; }
+
+header {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.75rem;
+}
+
+h1 {
+  font-family: var(--serif);
+  font-size: 30px;
+  font-weight: normal;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.35rem;
+}
+
+.subtitle { font-size: 17px; color: var(--muted); }
+
+.katex { font-size: 1.05em; }
+.katex-display { font-size: 1.05em; }
+
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.6rem}
+.crumbs{font-family:var(--mono);font-size:12.5px;color:var(--faint)}
+.crumbs a{color:var(--faint);text-decoration:none}
+.crumbs a:hover{color:var(--text)}
+.lang-pills{display:flex;gap:8px}
+.lang-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;font-family:var(--mono);font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border:1px solid var(--border);color:var(--muted);transition:.15s}
+.lang-pill.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+.lang-pill:not(.active):hover{border-color:var(--text)}
+
+/* ── Intro ── */
+.intro {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.intro h2 { font-size: 19px; font-weight: 500; margin-bottom: 0.6rem; }
+.intro p { font-size: 18px; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; }
+.intro strong { color: var(--text); font-weight: 500; }
+
+.legend-row {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+.legend-item { display: flex; align-items: center; gap: 8px; font-size: 16px; color: var(--muted); }
+.legend-swatch { width: 22px; height: 0; border-top-width: 3px; border-top-style: solid; flex-shrink: 0; }
+.legend-swatch.def { border-color: var(--border2); }
+.legend-swatch.thm { border-color: var(--coral); border-top-style: dashed; }
+
+/* ── Panels & sections ── */
+.section { margin-bottom: 1.75rem; }
+.section-title {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--faint);
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-title .n {
+  display:inline-flex; align-items:center; justify-content:center;
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--surface2); color: var(--muted);
+  font-size: 13px; font-weight: 700;
+}
+
+/* atomic-condition legend badges */
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 15px;
+  padding: 5px 11px;
+  border-radius: var(--radius-sm);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+.tag b { color: var(--text); font-weight: 700; }
+.tag sub { font-size: 0.75em; }
+
+.tags-note { margin-top: 0.75rem; font-size: 15px; color: var(--muted); line-height: 1.65; }
+.tags-note code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  color: var(--text);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+
+/* concept cards */
+.concept-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 14px;
+}
+.concept-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.15rem;
+}
+.concept-card.lvl1 { border-top: 3px solid var(--blue); }
+.concept-card.lvl2 { border-top: 3px solid var(--purple); }
+.concept-card.lvl3 { border-top: 3px solid var(--amber); }
+.concept-name { font-size: 18px; font-weight: 600; margin-bottom: 5px; }
+.concept-formula { font-size: 17px; color: var(--muted); margin-bottom: 10px; min-height: 1.2em; }
+.concept-badges { display: flex; flex-wrap: wrap; gap: 6px; }
+.concept-badges .tag { font-size: 13px; padding: 3px 9px; }
+.concept-badges .tag.plus { background: transparent; border-style: dashed; }
+
+/* theorem callouts */
+.thm-card {
+  background: var(--coral-bg);
+  border: 1px solid var(--coral);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin-bottom: 10px;
+}
+.thm-card .thm-label {
+  font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--coral); margin-bottom: 6px;
+}
+.thm-card .thm-body { font-size: 17px; color: var(--text); line-height: 1.6; }
+.thm-card .thm-body .katex { color: var(--text); }
+
+.thm-inline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0.9rem 0 1.4rem;
+  padding: 10px 14px;
+  border-left: 3px dashed var(--coral);
+  background: var(--coral-bg);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 16px;
+  color: var(--muted);
+  flex-wrap: wrap;
+}
+.thm-inline strong { color: var(--coral); }
+
+.close-loop {
+  margin-top: 6px;
+  font-size: 15px;
+  color: var(--faint);
+  font-style: italic;
+}
+
+/* worked examples */
+.example-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--teal);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin-bottom: 10px;
+}
+.example-card .ex-label {
+  font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--teal); margin-bottom: 6px;
+}
+.example-card .ex-body { font-size: 17px; color: var(--text); line-height: 1.65; }
+
+/* footer */
+.page-footer {
+  margin-top: 3rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--faint);
+  text-align: center;
+  line-height: 1.5;
+}
+.page-footer a { color: var(--faint); text-decoration: none; border-bottom: 1px solid var(--border2); }
+.page-footer a:hover { color: var(--muted); border-bottom-color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="topbar">
+  <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> / <a href="/#materials">Материалы</a></div>
+  <div class="lang-pills">
+    <a class="lang-pill" href="/Materials/elementary_maps_zoo_en.html?lang=en">🇬🇧 EN</a>
+    <a class="lang-pill active" href="/Materials/elementary_maps_zoo.html?lang=ru">🇷🇺 RU</a>
+  </div>
+<script>
+(function () {
+  var KEY = 'mathem_lang';
+  var pills = document.querySelectorAll('.lang-pill');
+  if (!pills.length) return;
+  var activeHref = null, otherHref = null, otherLang = null;
+  pills.forEach(function (a) {
+    var href = a.getAttribute('href');
+    var lang = /_en\.html/.test(href.split('?')[0]) ? 'en' : 'ru';
+    if (a.classList.contains('active')) { activeHref = href; }
+    else { otherHref = href; otherLang = lang; }
+  });
+  var currentLang = /_en\.html/.test((activeHref || location.pathname).split('?')[0]) ? 'en' : 'ru';
+  var params = new URLSearchParams(location.search);
+  if (params.get('lang')) {
+    try { localStorage.setItem(KEY, params.get('lang')); } catch (e) {}
+    return;
+  }
+  var pref;
+  try { pref = localStorage.getItem(KEY); } catch (e) {}
+  if (pref && pref === otherLang && otherHref) {
+    location.replace(otherHref);
+    return;
+  }
+  try { localStorage.setItem(KEY, currentLang); } catch (e) {}
+})();
+</script>
+</div>
+
+<header>
+  <h1>Зоопарк отображений между моделями</h1>
+  <p class="subtitle">Частичный изоморфизм, вложение, элементарное вложение, изоморфизм, элементарная подмодель, автоморфизм, гомогенность, игра Эренфойхта–Фраиссе — одна картина.</p>
+</header>
+
+<div class="intro">
+  <h2>Что здесь происходит</h2>
+  <p>
+    У всех понятий на этой странице — общий строительный материал: отображение \(f:A\to N\), где \(A\subseteq M\).
+    Каждое понятие получается как <strong>конъюнкция нескольких атомарных условий</strong> на это отображение
+    (какая у него область определения, инъективно ли оно, что именно оно обязано сохранять). А поверх определений
+    есть ровно <strong>три теоремы</strong>, которые связывают понятия уже не по определению, а содержательно —
+    это и есть настоящая математика этой темы.
+  </p>
+  <div class="legend-row">
+    <div class="legend-item"><span class="legend-swatch def"></span> сплошная граница карточки — понятие <em>есть</em> перечисленные условия, по определению</div>
+    <div class="legend-item"><span class="legend-swatch thm"></span> пунктир и цвет — теорема: из условий <em>следует</em>, но не по определению</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Атомарные условия — из них всё собрано</div>
+  <div class="tags">
+    <span class="tag"><b>fin</b> — область определения конечна: \(|A|<\omega\)</span>
+    <span class="tag"><b>part<sub>κ</sub></b> — область определения частична, ограничена кардиналом κ: \(A\subseteq M\), \(|A|<\kappa\)</span>
+    <span class="tag"><b>tot</b> — область определения тотальна: \(\operatorname{dom} f = M\)</span>
+    <span class="tag"><b>inj</b> — инъективность \(f\)</span>
+    <span class="tag"><b>surj</b> — сюръективность на \(N\) (биекция)</span>
+    <span class="tag"><b>atom</b> — сохраняет атомарные формулы (= сигнатуру)</span>
+    <span class="tag"><b>allf</b> — сохраняет <em>все</em> формулы (элементарность)</span>
+    <span class="tag"><b>M=N</b> — отображение модели в себя</span>
+    <span class="tag"><b>M⊆N,id</b> — \(M\subseteq N\), \(f=\mathrm{id}_M\)</span>
+    <span class="tag"><b>ext</b> — \(M,N\) произвольные (внешние) домены</span>
+  </div>
+  <p class="tags-note">
+    <code>inj</code> здесь не самостоятельное условие: сохранение атомарной формулы \(x=y\) — это равносильность
+    \(a=b \iff f(a)=f(b)\), и обратная импликация \(f(a)=f(b)\Rightarrow a=b\) — это и есть инъективность.
+    Значит <code>inj</code> — автоматическое следствие <code>atom</code> (а тем более <code>allf</code>), а не независимая пометка.
+    По той же причине <code>surj</code> вместе с <code>atom</code> или <code>allf</code> сразу даёт биекцию, а не просто
+    сюръекцию — отсюда и «(биекция)» в описании <code>surj</code> выше.
+  </p>
+</div>
+
+<div class="section">
+  <div class="section-title"><span class="n">1</span>Уровень 1 — базовые понятия: домен + инъективность + глубина сохранения</div>
+  <div class="concept-grid">
+    <div class="concept-card lvl1">
+      <div class="concept-name">Частичный изоморфизм</div>
+      <div class="concept-formula">\(f:A\to N\)</div>
+      <div class="concept-badges"><span class="tag">part<sub>κ</sub></span><span class="tag">inj</span><span class="tag">atom</span></div>
+    </div>
+    <div class="concept-card lvl1">
+      <div class="concept-name">Элементарное частичное отображение</div>
+      <div class="concept-formula">\(f:A\to N\)</div>
+      <div class="concept-badges"><span class="tag">part<sub>κ</sub></span><span class="tag">inj</span><span class="tag">allf</span></div>
+    </div>
+    <div class="concept-card lvl1">
+      <div class="concept-name">Вложение</div>
+      <div class="concept-formula">\(f:\mathcal M\hookrightarrow\mathcal N\)</div>
+      <div class="concept-badges"><span class="tag">tot</span><span class="tag">inj</span><span class="tag">atom</span></div>
+    </div>
+    <div class="concept-card lvl1">
+      <div class="concept-name">Элементарное вложение</div>
+      <div class="concept-formula">\(f:\mathcal M\preccurlyeq\mathcal N\)</div>
+      <div class="concept-badges"><span class="tag">tot</span><span class="tag">inj</span><span class="tag">allf</span></div>
+    </div>
+    <div class="concept-card lvl1">
+      <div class="concept-name">Изоморфизм</div>
+      <div class="concept-formula">\(f:\mathcal M\cong\mathcal N\)</div>
+      <div class="concept-badges"><span class="tag">tot</span><span class="tag">surj</span><span class="tag">atom</span></div>
+    </div>
+  </div>
+
+  <div class="thm-inline">
+    <strong>Теорема</strong> (о сохранении при изоморфизмах): всякий изоморфизм автоматически сохраняет
+    <em>все</em> формулы, а не только атомарные — т.е. Изоморфизм ⟹ Элементарное вложение, хотя в определении
+    изоморфизма про элементарность ни слова.
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title"><span class="n">2</span>Уровень 2 — специализация по носителям</div>
+  <div class="concept-grid">
+    <div class="concept-card lvl2">
+      <div class="concept-name">Элементарная подмодель</div>
+      <div class="concept-formula">\(\mathcal M\preccurlyeq\mathcal N\), \(M\subseteq N\)</div>
+      <div class="concept-badges"><span class="tag">элем. вложение</span><span class="tag plus">+ M⊆N,id</span></div>
+    </div>
+    <div class="concept-card lvl2">
+      <div class="concept-name">Собств. эл. самовложение</div>
+      <div class="concept-formula">\(M\hookrightarrow M\), не биекция</div>
+      <div class="concept-badges"><span class="tag">элем. вложение</span><span class="tag plus">+ M=N</span></div>
+    </div>
+    <div class="concept-card lvl2">
+      <div class="concept-name">Автоморфизм</div>
+      <div class="concept-formula">\(\alpha\in \operatorname{Aut}(\mathcal M)\)</div>
+      <div class="concept-badges"><span class="tag">изоморфизм</span><span class="tag plus">+ M=N</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title"><span class="n">3</span>Уровень 3 — третье измерение: продолжаемость («туда-сюда»)</div>
+  <div class="concept-grid">
+    <div class="concept-card lvl3">
+      <div class="concept-name">\(\kappa\)-гомогенность</div>
+      <div class="concept-formula">всякое \(f\) продолжается на \(A\cup\{c\}\)</div>
+      <div class="concept-badges"><span class="tag">эл. частичн. отобр.</span><span class="tag plus">+ M=N</span></div>
+    </div>
+    <div class="concept-card lvl3">
+      <div class="concept-name">Сильная \(\kappa\)-гомогенность</div>
+      <div class="concept-formula">всякое \(f\) продолжается до автоморфизма</div>
+      <div class="concept-badges"><span class="tag">эл. частичн. отобр.</span><span class="tag plus">+ M=N</span><span class="tag plus">+ автоморфизм</span></div>
+    </div>
+    <div class="concept-card lvl3">
+      <div class="concept-name">Игра ЭФ</div>
+      <div class="concept-formula">част. изоморфизм продолжается «туда-сюда» \(\forall n<\omega\)</div>
+      <div class="concept-badges"><span class="tag">частичн. изоморфизм</span><span class="tag plus">+ fin</span><span class="tag plus">+ ext</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Три теоремы — ради чего всё это строилось</div>
+
+  <div class="thm-card">
+    <div class="thm-label">Теорема Эренфойхта–Фраиссе</div>
+    <div class="thm-body">Игра ЭФ выигрывается на всех раундах &nbsp;⟹&nbsp; \(\mathcal M\equiv\mathcal N\) (элементарная эквивалентность).</div>
+  </div>
+
+  <div class="thm-card">
+    <div class="thm-label">Моноорбитальность типов</div>
+    <div class="thm-body">Сильная гомогенность &nbsp;⟹&nbsp; \(\operatorname{Orb}_{\operatorname{Aut}(\mathcal M)}(\vec a) = P[\operatorname{tp}(\vec a)]\) — орбиты автоморфизмов совпадают с множествами реализаций типа.</div>
+  </div>
+
+  <div class="thm-card">
+    <div class="thm-label">Изоморфизм насыщенных моделей</div>
+    <div class="thm-body">
+      \(\mathcal M,\mathcal N\) насыщены, одной мощности, \(\mathcal M\equiv\mathcal N\) &nbsp;⟹&nbsp; \(\mathcal M\cong\mathcal N\).
+    </div>
+    <div class="close-loop">⟲ и мы возвращаемся к изоморфизму, с которого начинался Уровень 1 — круг замкнулся: синтаксис (ЭЭ) при насыщенности полностью определяет алгебру (изоморфизм).</div>
+  </div>
+</div>
+
+  <div class="section">
+    <div class="section-title">Примеры — как это выглядит на конкретных моделях</div>
+
+    <div class="example-card">
+      <div class="ex-label">\(\langle\Z;<\rangle\) — гомогенность и моноорбитальность</div>
+      <div class="ex-body">
+        Автоморфизмы \(\langle\Z;<\rangle\) — это в точности сдвиги \(\alpha(x)=x+c\), \(c\in\Z\). Любое конечное
+        элементарное отображение \(f:A\to\Z\) сохраняет попарные расстояния (формула «ровно \(k\)» для каждого \(k\)),
+        значит \(f(a)-a\) — одна и та же константа для всех \(a\in A\): \(f\) — сужение сдвига, а сдвиг уже сам —
+        глобальный автоморфизм. Модель сильно \(\aleph_0\)-гомогенна без всякой трансфинитной рекурсии, и по
+        моноорбитальности каждый \(n\)-тип реализуется ровно одной орбитой \(\operatorname{Aut}(\langle\Z;<\rangle)\) —
+        их бесконечно много: по одной на каждое расстояние \(d\in\Z\) между парой точек.
+      </div>
+    </div>
+
+    <div class="example-card">
+      <div class="ex-label">\(\langle\R\setminus\{0\};<\rangle\) — гомогенность без сильной гомогенности</div>
+      <div class="ex-body">
+        Отображение \(1\mapsto-1\) элементарно (в \(\mathrm{DLO}\) элементарность частичного отображения сводится
+        к сохранению порядка), и модель \(\aleph_0\)-гомогенна — любое конечное отображение продолжается на новую
+        точку. Но до автоморфизма \(1\mapsto-1\) не продолжается: щель в нуле — единственная незаполненная «дыра»,
+        автоморфизм обязан переводить щель в щель и потому не может поменять местами отрицательную и положительную
+        половины. Разрыв между гомогенностью и <em>сильной</em> гомогенностью — не педантизм в определениях, а
+        разные факты уже на этой счётной локальной проверке.
+      </div>
+    </div>
+
+    <div class="example-card">
+      <div class="ex-label">\(\Q\preccurlyeq\R\) — элементарная подмодель</div>
+      <div class="ex-body">
+        \(\langle\Q;<\rangle\preccurlyeq\langle\R;<\rangle\) в теории \(\mathrm{DLO}\): любое уравнение с параметрами
+        из \(\Q\), разрешимое в \(\R\), разрешимо и в \(\Q\) — плотность рациональных гарантирует свидетеля. Отсюда
+        сразу \(\Q\equiv\R\), хотя \(|\Q|\ne|\R|\) и потому \(\Q\not\cong\R\) — иерархия «изоморфизм \(\Rightarrow\)
+        элементарное вложение \(\Rightarrow\) элементарная эквивалентность» строго убывает по силе уже на этой паре.
+      </div>
+    </div>
+  </div>
+
+  <p class="page-footer">© Nikolai Kazimirov · <a href="https://mathem.at" rel="noopener">mathem.at</a></p>
+
+</div><!-- .page -->
+
+<script>
+const opts = {
+  delimiters:[
+    {left:"\\(",right:"\\)",display:false},
+    {left:"\\[",right:"\\]",display:true},
+  ],
+  macros: {'\\R': '\\mathbb{R}', '\\C': '\\mathbb{C}', '\\N': '\\mathbb{N}', '\\Z': '\\mathbb{Z}', '\\Q': '\\mathbb{Q}'},
+  throwOnError:false
+};
+function initPage(){
+  renderMathInElement(document.body, opts);
+}
+</script>
+</body>
+</html>

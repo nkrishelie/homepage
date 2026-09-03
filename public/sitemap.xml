@@ -76,6 +76,16 @@
       <priority>0.6</priority>
    </url>
    <url>
+      <loc>https://mathem.at/Materials/elementary_maps_zoo.html</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.6</priority>
+   </url>
+   <url>
+      <loc>https://mathem.at/Materials/elementary_maps_zoo_en.html</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.6</priority>
+   </url>
+   <url>
       <loc>https://mathem.at/Materials/chasles.html</loc>
       <changefreq>monthly</changefreq>
       <priority>0.6</priority>

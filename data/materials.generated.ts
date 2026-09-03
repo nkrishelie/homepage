@@ -152,6 +152,20 @@ export const MATERIALS_ITEMS: MaterialItem[] = [
     "lang": "ru"
   },
   {
+    "filename": "elementary_maps_zoo_en.html",
+    "href": "/Materials/elementary_maps_zoo_en.html",
+    "title": "A Zoo of Maps Between Models",
+    "category": "foundations",
+    "lang": "en"
+  },
+  {
+    "filename": "elementary_maps_zoo.html",
+    "href": "/Materials/elementary_maps_zoo.html",
+    "title": "Зоопарк отображений между моделями",
+    "category": "foundations",
+    "lang": "ru"
+  },
+  {
     "filename": "galton_watson_process_en.html",
     "href": "/Materials/galton_watson_process_en.html",
     "title": "The Galton–Watson Process",

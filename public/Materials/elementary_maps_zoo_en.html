@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Zoo of Maps Between Models</title>
+<meta name="description" content="Partial isomorphism, embedding, elementary embedding, isomorphism, automorphism, homogeneity, and the Ehrenfeucht–Fraïssé game — how these notions are built from a handful of atomic conditions, and the three theorems that connect them non-trivially.">
+<link rel="canonical" href="https://mathem.at/Materials/elementary_maps_zoo_en.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A Zoo of Maps Between Models">
+<meta property="og:description" content="Partial isomorphism, embedding, elementary embedding, isomorphism, automorphism, homogeneity, and the Ehrenfeucht–Fraïssé game — how these notions are built from a handful of atomic conditions, and the three theorems that connect them non-trivially.">
+<meta property="og:url" content="https://mathem.at/Materials/elementary_maps_zoo_en.html">
+<meta property="og:locale" content="en_US">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPuKKojwvdGV4dD48L3N2Zz4=" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="initPage()"></script>
+<style>
+:root {
+  --bg: #faf9f6;
+  --surface: #ffffff;
+  --surface2: #f2f0eb;
+  --border: #dcd9d2;
+  --border2: #c5c1b7;
+  --text: #1a1917;
+  --muted: #5a5750;
+  --faint: #8a8680;
+  --blue: #3a5f9e;
+  --blue-bg: #e8eef7;
+  --teal: #0f6e56;
+  --teal-bg: #e6f5ef;
+  --amber: #7a4f0d;
+  --amber-bg: #fdf3e0;
+  --coral: #9b2f1a;
+  --coral-bg: #faeae6;
+  --purple: #4a3a9a;
+  --purple-bg: #eeedfb;
+  --mono: 'JetBrains Mono', 'Fira Mono', 'Cascadia Code', monospace;
+  --sans: 'EB Garamond', Georgia, serif;
+  --serif: 'EB Garamond', Georgia, 'Times New Roman', serif;
+  --radius: 8px;
+  --radius-sm: 4px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141412;
+    --surface: #1e1d1a;
+    --surface2: #252320;
+    --border: #2e2c28;
+    --border2: #3d3a34;
+    --text: #e8e6df;
+    --muted: #9c998e;
+    --faint: #6b6860;
+    --blue: #7ab2f5;
+    --blue-bg: #0e1f35;
+    --teal: #4cc9a0;
+    --teal-bg: #0b2a20;
+    --amber: #f0b855;
+    --amber-bg: #2a1e08;
+    --coral: #f08070;
+    --coral-bg: #2a1008;
+    --purple: #a090f5;
+    --purple-bg: #1e1a3a;
+  }
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 19px;
+  line-height: 1.6;
+  padding: 2rem 1rem 4rem;
+}
+
+.page { max-width: 1080px; margin: 0 auto; }
+
+header {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.75rem;
+}
+
+h1 {
+  font-family: var(--serif);
+  font-size: 30px;
+  font-weight: normal;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.35rem;
+}
+
+.subtitle { font-size: 17px; color: var(--muted); }
+
+.katex { font-size: 1.05em; }
+.katex-display { font-size: 1.05em; }
+
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.6rem}
+.crumbs{font-family:var(--mono);font-size:12.5px;color:var(--faint)}
+.crumbs a{color:var(--faint);text-decoration:none}
+.crumbs a:hover{color:var(--text)}
+.lang-pills{display:flex;gap:8px}
+.lang-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;font-family:var(--mono);font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border:1px solid var(--border);color:var(--muted);transition:.15s}
+.lang-pill.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+.lang-pill:not(.active):hover{border-color:var(--text)}
+
+/* ── Intro ── */
+.intro {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.intro h2 { font-size: 19px; font-weight: 500; margin-bottom: 0.6rem; }
+.intro p { font-size: 18px; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; }
+.intro strong { color: var(--text); font-weight: 500; }
+
+.legend-row {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+.legend-item { display: flex; align-items: center; gap: 8px; font-size: 16px; color: var(--muted); }
+.legend-swatch { width: 22px; height: 0; border-top-width: 3px; border-top-style: solid; flex-shrink: 0; }
+.legend-swatch.def { border-color: var(--border2); }
+.legend-swatch.thm { border-color: var(--coral); border-top-style: dashed; }
+
+/* ── Panels & sections ── */
+.section { margin-bottom: 1.75rem; }
+.section-title {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--faint);
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-title .n {
+  display:inline-flex; align-items:center; justify-content:center;
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--surface2); color: var(--muted);
+  font-size: 13px; font-weight: 700;
+}
+
+/* atomic-condition legend badges */
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 15px;
+  padding: 5px 11px;
+  border-radius: var(--radius-sm);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+.tag b { color: var(--text); font-weight: 700; }
+.tag sub { font-size: 0.75em; }
+
+.tags-note { margin-top: 0.75rem; font-size: 15px; color: var(--muted); line-height: 1.65; }
+.tags-note code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  color: var(--text);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+
+/* concept cards */
+.concept-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 14px;
+}
+.concept-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.15rem;
+}
+.concept-card.lvl1 { border-top: 3px solid var(--blue); }
+.concept-card.lvl2 { border-top: 3px solid var(--purple); }
+.concept-card.lvl3 { border-top: 3px solid var(--amber); }
+.concept-name { font-size: 18px; font-weight: 600; margin-bottom: 5px; }
+.concept-formula { font-size: 17px; color: var(--muted); margin-bottom: 10px; min-height: 1.2em; }
+.concept-badges { display: flex; flex-wrap: wrap; gap: 6px; }
+.concept-badges .tag { font-size: 13px; padding: 3px 9px; }
+.concept-badges .tag.plus { background: transparent; border-style: dashed; }
+
+/* theorem callouts */
+.thm-card {
+  background: var(--coral-bg);
+  border: 1px solid var(--coral);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin-bottom: 10px;
+}
+.thm-card .thm-label {
+  font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--coral); margin-bottom: 6px;
+}
+.thm-card .thm-body { font-size: 17px; color: var(--text); line-height: 1.6; }
+.thm-card .thm-body .katex { color: var(--text); }
+
+.thm-inline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0.9rem 0 1.4rem;
+  padding: 10px 14px;
+  border-left: 3px dashed var(--coral);
+  background: var(--coral-bg);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 16px;
+  color: var(--muted);
+  flex-wrap: wrap;
+}
+.thm-inline strong { color: var(--coral); }
+
+.close-loop {
+  margin-top: 6px;
+  font-size: 15px;
+  color: var(--faint);
+  font-style: italic;
+}
+
+/* worked examples */
+.example-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--teal);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin-bottom: 10px;
+}
+.example-card .ex-label {
+  font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--teal); margin-bottom: 6px;
+}
+.example-card .ex-body { font-size: 17px; color: var(--text); line-height: 1.65; }
+
+/* footer */
+.page-footer {
+  margin-top: 3rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--faint);
+  text-align: center;
+  line-height: 1.5;
+}
+.page-footer a { color: var(--faint); text-decoration: none; border-bottom: 1px solid var(--border2); }
+.page-footer a:hover { color: var(--muted); border-bottom-color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="topbar">
+  <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> / <a href="/#materials">Materials</a></div>
+  <div class="lang-pills">
+    <a class="lang-pill active" href="/Materials/elementary_maps_zoo_en.html?lang=en">🇬🇧 EN</a>
+    <a class="lang-pill" href="/Materials/elementary_maps_zoo.html?lang=ru">🇷🇺 RU</a>
+  </div>
+<script>
+(function () {
+  var KEY = 'mathem_lang';
+  var pills = document.querySelectorAll('.lang-pill');
+  if (!pills.length) return;
+  var activeHref = null, otherHref = null, otherLang = null;
+  pills.forEach(function (a) {
+    var href = a.getAttribute('href');
+    var lang = /_en\.html/.test(href.split('?')[0]) ? 'en' : 'ru';
+    if (a.classList.contains('active')) { activeHref = href; }
+    else { otherHref = href; otherLang = lang; }
+  });
+  var currentLang = /_en\.html/.test((activeHref || location.pathname).split('?')[0]) ? 'en' : 'ru';
+  var params = new URLSearchParams(location.search);
+  if (params.get('lang')) {
+    try { localStorage.setItem(KEY, params.get('lang')); } catch (e) {}
+    return;
+  }
+  var pref;
+  try { pref = localStorage.getItem(KEY); } catch (e) {}
+  if (pref && pref === otherLang && otherHref) {
+    location.replace(otherHref);
+    return;
+  }
+  try { localStorage.setItem(KEY, currentLang); } catch (e) {}
+})();
+</script>
+</div>
+
+<header>
+  <h1>A Zoo of Maps Between Models</h1>
+  <p class="subtitle">Partial isomorphism, embedding, elementary embedding, isomorphism, elementary submodel, automorphism, homogeneity, the Ehrenfeucht–Fraïssé game — one picture.</p>
+</header>
+
+<div class="intro">
+  <h2>What's going on here</h2>
+  <p>
+    Every notion on this page is built from the same raw material: a map \(f:A\to N\), where \(A\subseteq M\).
+    Each notion is a <strong>conjunction of a handful of atomic conditions</strong> on that map
+    (what its domain is, whether it's injective, exactly what it must preserve). On top of the definitions
+    sit exactly <strong>three theorems</strong> that link the notions not by definition, but substantively —
+    and that's where the real mathematics of this subject lives.
+  </p>
+  <div class="legend-row">
+    <div class="legend-item"><span class="legend-swatch def"></span> solid card border — the notion <em>is</em> the listed conditions, by definition</div>
+    <div class="legend-item"><span class="legend-swatch thm"></span> dashed and colored — a theorem: <em>follows</em> from the conditions, but not by definition</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Atomic conditions — everything else is built from these</div>
+  <div class="tags">
+    <span class="tag"><b>fin</b> — domain is finite: \(|A|<\omega\)</span>
+    <span class="tag"><b>part<sub>κ</sub></b> — domain is partial, bounded by a cardinal κ: \(A\subseteq M\), \(|A|<\kappa\)</span>
+    <span class="tag"><b>tot</b> — domain is total: \(\operatorname{dom} f = M\)</span>
+    <span class="tag"><b>inj</b> — injectivity of \(f\)</span>
+    <span class="tag"><b>surj</b> — surjectivity onto \(N\) (bijection)</span>
+    <span class="tag"><b>atom</b> — preserves atomic formulas (= the signature)</span>
+    <span class="tag"><b>allf</b> — preserves <em>all</em> formulas (elementarity)</span>
+    <span class="tag"><b>M=N</b> — a model mapped into itself</span>
+    <span class="tag"><b>M⊆N,id</b> — \(M\subseteq N\), \(f=\mathrm{id}_M\)</span>
+    <span class="tag"><b>ext</b> — \(M,N\) arbitrary (external) domains</span>
+  </div>
+  <p class="tags-note">
+    <code>inj</code> isn't an independent condition here: preserving the atomic formula \(x=y\) means the
+    equivalence \(a=b \iff f(a)=f(b)\) holds, and the reverse implication \(f(a)=f(b)\Rightarrow a=b\) is exactly
+    injectivity. So <code>inj</code> is an automatic consequence of <code>atom</code> (and hence of <code>allf</code>
+    too), not an independent tag. For the same reason, <code>surj</code> together with <code>atom</code> or
+    <code>allf</code> immediately gives a bijection, not just a surjection — hence the "(bijection)" in the
+    description of <code>surj</code> above.
+  </p>
+</div>
+
+<div class="section">
+  <div class="section-title"><span class="n">1</span>Level 1 — basic notions: domain + injectivity + depth of preservation</div>
+  <div class="concept-grid">
+    <div class="concept-card lvl1">
+      <div class="concept-name">Partial isomorphism</div>
+      <div class="concept-formula">\(f:A\to N\)</div>
+      <div class="concept-badges"><span class="tag">part<sub>κ</sub></span><span class="tag">inj</span><span class="tag">atom</span></div>
+    </div>
+    <div class="concept-card lvl1">
+      <div class="concept-name">Elementary partial map</div>
+      <div class="concept-formula">\(f:A\to N\)</div>
+      <div class="concept-badges"><span class="tag">part<sub>κ</sub></span><span class="tag">inj</span><span class="tag">allf</span></div>
+    </div>
+    <div class="concept-card lvl1">
+      <div class="concept-name">Embedding</div>
+      <div class="concept-formula">\(f:\mathcal M\hookrightarrow\mathcal N\)</div>
+      <div class="concept-badges"><span class="tag">tot</span><span class="tag">inj</span><span class="tag">atom</span></div>
+    </div>
+    <div class="concept-card lvl1">
+      <div class="concept-name">Elementary embedding</div>
+      <div class="concept-formula">\(f:\mathcal M\preccurlyeq\mathcal N\)</div>
+      <div class="concept-badges"><span class="tag">tot</span><span class="tag">inj</span><span class="tag">allf</span></div>
+    </div>
+    <div class="concept-card lvl1">
+      <div class="concept-name">Isomorphism</div>
+      <div class="concept-formula">\(f:\mathcal M\cong\mathcal N\)</div>
+      <div class="concept-badges"><span class="tag">tot</span><span class="tag">surj</span><span class="tag">atom</span></div>
+    </div>
+  </div>
+
+  <div class="thm-inline">
+    <strong>Theorem</strong> (preservation under isomorphisms): every isomorphism automatically preserves
+    <em>all</em> formulas, not just the atomic ones — i.e. Isomorphism ⟹ Elementary embedding, even though
+    elementarity is never mentioned in the definition of isomorphism.
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title"><span class="n">2</span>Level 2 — specializing the carrier sets</div>
+  <div class="concept-grid">
+    <div class="concept-card lvl2">
+      <div class="concept-name">Elementary submodel</div>
+      <div class="concept-formula">\(\mathcal M\preccurlyeq\mathcal N\), \(M\subseteq N\)</div>
+      <div class="concept-badges"><span class="tag">elem. embedding</span><span class="tag plus">+ M⊆N,id</span></div>
+    </div>
+    <div class="concept-card lvl2">
+      <div class="concept-name">Proper elem. self-embedding</div>
+      <div class="concept-formula">\(M\hookrightarrow M\), not a bijection</div>
+      <div class="concept-badges"><span class="tag">elem. embedding</span><span class="tag plus">+ M=N</span></div>
+    </div>
+    <div class="concept-card lvl2">
+      <div class="concept-name">Automorphism</div>
+      <div class="concept-formula">\(\alpha\in \operatorname{Aut}(\mathcal M)\)</div>
+      <div class="concept-badges"><span class="tag">isomorphism</span><span class="tag plus">+ M=N</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title"><span class="n">3</span>Level 3 — the third dimension: extendability ("back-and-forth")</div>
+  <div class="concept-grid">
+    <div class="concept-card lvl3">
+      <div class="concept-name">\(\kappa\)-homogeneity</div>
+      <div class="concept-formula">every \(f\) extends to \(A\cup\{c\}\)</div>
+      <div class="concept-badges"><span class="tag">elem. partial map</span><span class="tag plus">+ M=N</span></div>
+    </div>
+    <div class="concept-card lvl3">
+      <div class="concept-name">Strong \(\kappa\)-homogeneity</div>
+      <div class="concept-formula">every \(f\) extends to an automorphism</div>
+      <div class="concept-badges"><span class="tag">elem. partial map</span><span class="tag plus">+ M=N</span><span class="tag plus">+ automorphism</span></div>
+    </div>
+    <div class="concept-card lvl3">
+      <div class="concept-name">EF game</div>
+      <div class="concept-formula">partial isomorphism extends "back-and-forth" \(\forall n<\omega\)</div>
+      <div class="concept-badges"><span class="tag">partial isomorphism</span><span class="tag plus">+ fin</span><span class="tag plus">+ ext</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Three theorems — what all of this was built for</div>
+
+  <div class="thm-card">
+    <div class="thm-label">Ehrenfeucht–Fraïssé theorem</div>
+    <div class="thm-body">The EF game is won at every round &nbsp;⟹&nbsp; \(\mathcal M\equiv\mathcal N\) (elementary equivalence).</div>
+  </div>
+
+  <div class="thm-card">
+    <div class="thm-label">Mono-orbitality of types</div>
+    <div class="thm-body">Strong homogeneity &nbsp;⟹&nbsp; \(\operatorname{Orb}_{\operatorname{Aut}(\mathcal M)}(\vec a) = P[\operatorname{tp}(\vec a)]\) — automorphism orbits coincide with the sets of realizations of a type.</div>
+  </div>
+
+  <div class="thm-card">
+    <div class="thm-label">Isomorphism of saturated models</div>
+    <div class="thm-body">
+      \(\mathcal M,\mathcal N\) saturated, same cardinality, \(\mathcal M\equiv\mathcal N\) &nbsp;⟹&nbsp; \(\mathcal M\cong\mathcal N\).
+    </div>
+    <div class="close-loop">⟲ and we're back to the isomorphism Level 1 started with — the loop closes: under saturation, syntax (elementary equivalence) fully determines algebra (isomorphism).</div>
+  </div>
+</div>
+
+  <div class="section">
+    <div class="section-title">Examples — what this looks like on concrete models</div>
+
+    <div class="example-card">
+      <div class="ex-label">\(\langle\Z;<\rangle\) — homogeneity and mono-orbitality</div>
+      <div class="ex-body">
+        The automorphisms of \(\langle\Z;<\rangle\) are exactly the shifts \(\alpha(x)=x+c\), \(c\in\Z\). Any finite
+        elementary map \(f:A\to\Z\) preserves pairwise distances (the formula "exactly \(k\) apart" for each \(k\)),
+        so \(f(a)-a\) is the same constant for every \(a\in A\): \(f\) is a restriction of a shift, and a shift is
+        already a global automorphism. The model is strongly \(\aleph_0\)-homogeneous with no transfinite recursion
+        needed at all, and by mono-orbitality every \(n\)-type is realized by exactly one orbit of
+        \(\operatorname{Aut}(\langle\Z;<\rangle)\) — there are infinitely many of them, one per distance
+        \(d\in\Z\) between a pair of points.
+      </div>
+    </div>
+
+    <div class="example-card">
+      <div class="ex-label">\(\langle\R\setminus\{0\};<\rangle\) — homogeneous without being strongly homogeneous</div>
+      <div class="ex-body">
+        The map \(1\mapsto-1\) is elementary (in \(\mathrm{DLO}\), elementarity of a partial map reduces to
+        preserving the order), and the model is \(\aleph_0\)-homogeneous — any finite map extends to a new point.
+        But \(1\mapsto-1\) does not extend to an automorphism: the gap at zero is the model's only unfilled "hole,"
+        an automorphism must send a gap to a gap, and so it can't swap the negative and positive halves. The gap
+        between homogeneity and <em>strong</em> homogeneity isn't pedantry over definitions — it's a real fact,
+        already visible at this countable, purely local check.
+      </div>
+    </div>
+
+    <div class="example-card">
+      <div class="ex-label">\(\Q\preccurlyeq\R\) — an elementary submodel</div>
+      <div class="ex-body">
+        \(\langle\Q;<\rangle\preccurlyeq\langle\R;<\rangle\) in the theory \(\mathrm{DLO}\): any equation with
+        parameters from \(\Q\) that's solvable in \(\R\) is solvable in \(\Q\) too — density of the rationals
+        guarantees a witness. This immediately gives \(\Q\equiv\R\), even though \(|\Q|\ne|\R|\) and hence
+        \(\Q\not\cong\R\) — the hierarchy "isomorphism \(\Rightarrow\) elementary embedding \(\Rightarrow\)
+        elementary equivalence" strictly weakens in strength already on this one pair.
+      </div>
+    </div>
+  </div>
+
+  <p class="page-footer">© Nikolai Kazimirov · <a href="https://mathem.at" rel="noopener">mathem.at</a></p>
+
+</div><!-- .page -->
+
+<script>
+const opts = {
+  delimiters:[
+    {left:"\\(",right:"\\)",display:false},
+    {left:"\\[",right:"\\]",display:true},
+  ],
+  macros: {'\\R': '\\mathbb{R}', '\\C': '\\mathbb{C}', '\\N': '\\mathbb{N}', '\\Z': '\\mathbb{Z}', '\\Q': '\\mathbb{Q}'},
+  throwOnError:false
+};
+function initPage(){
+  renderMathInElement(document.body, opts);
+}
+</script>
+</body>
+</html>
