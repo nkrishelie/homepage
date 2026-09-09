@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>A Zoo of Maps Between Models</title>
-<meta name="description" content="Partial isomorphism, embedding, elementary embedding, isomorphism, automorphism, homogeneity, and the Ehrenfeucht–Fraïssé game — how these notions are built from a handful of atomic conditions, and the three theorems that connect them non-trivially.">
+<meta name="description" content="Partial isomorphism, embedding, elementary embedding, isomorphism, automorphism, homogeneity, and the Ehrenfeucht–Fraïssé game — how these notions are built from a handful of atomic conditions, and the key theorems that connect them non-trivially.">
 <link rel="canonical" href="https://mathem.at/Materials/elementary_maps_zoo_en.html">
 <meta property="og:type" content="article">
 <meta property="og:title" content="A Zoo of Maps Between Models">
-<meta property="og:description" content="Partial isomorphism, embedding, elementary embedding, isomorphism, automorphism, homogeneity, and the Ehrenfeucht–Fraïssé game — how these notions are built from a handful of atomic conditions, and the three theorems that connect them non-trivially.">
+<meta property="og:description" content="Partial isomorphism, embedding, elementary embedding, isomorphism, automorphism, homogeneity, and the Ehrenfeucht–Fraïssé game — how these notions are built from a handful of atomic conditions, and the key theorems that connect them non-trivially.">
 <meta property="og:url" content="https://mathem.at/Materials/elementary_maps_zoo_en.html">
 <meta property="og:locale" content="en_US">
 <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPuKKojwvdGV4dD48L3N2Zz4=" type="image/svg+xml">
@@ -322,7 +322,7 @@ h1 {
     Every notion on this page is built from the same raw material: a map \(f:A\to N\), where \(A\subseteq M\).
     Each notion is a <strong>conjunction of a handful of atomic conditions</strong> on that map
     (what its domain is, whether it's injective, exactly what it must preserve). On top of the definitions
-    sit exactly <strong>three theorems</strong> that link the notions not by definition, but substantively —
+    sit <strong>key theorems</strong> that link the notions not by definition, but substantively —
     and that's where the real mathematics of this subject lives.
   </p>
   <div class="legend-row">
@@ -446,7 +446,7 @@ h1 {
 </div>
 
 <div class="section">
-  <div class="section-title">Three theorems — what all of this was built for</div>
+  <div class="section-title">Key theorems — elementarity, homogeneity, saturation</div>
 
   <div class="thm-card">
     <div class="thm-label">Ehrenfeucht–Fraïssé theorem</div>
@@ -456,6 +456,16 @@ h1 {
   <div class="thm-card">
     <div class="thm-label">Mono-orbitality of types</div>
     <div class="thm-body">Strong homogeneity &nbsp;⟹&nbsp; \(\operatorname{Orb}_{\operatorname{Aut}(\mathcal M)}(\vec a) = P[\operatorname{tp}(\vec a)]\) — automorphism orbits coincide with the sets of realizations of a type.</div>
+  </div>
+
+  <div class="thm-card">
+    <div class="thm-label">Universality of the monster model</div>
+    <div class="thm-body">
+      If \(\mathfrak M\models T\) and \(|M|<\kappa\), there is an elementary embedding
+      \(f:\mathfrak M\preccurlyeq\mathfrak C\) into any fixed \(\kappa\)-saturated model \(\mathfrak C\models T\)
+      (a "monster model"). The monster model, in effect, pulls in every model of \(T\) of bounded cardinality —
+      each of them lives inside \(\mathfrak C\) as an elementary submodel.
+    </div>
   </div>
 
   <div class="thm-card">
