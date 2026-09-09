@@ -200,6 +200,11 @@ h1 {
 .concept-badges .tag { font-size: 13px; padding: 3px 9px; }
 .concept-badges .tag.plus { background: transparent; border-style: dashed; }
 
+.concept-example { margin-top: 8px; font-size: 14px; color: var(--faint); line-height: 1.4; }
+.concept-example a { color: var(--faint); text-decoration: none; border-bottom: 1px dashed var(--border2); }
+.concept-example a:hover { color: var(--blue); border-bottom-color: var(--blue); }
+.concept-example .katex { font-size: 0.95em; }
+
 /* theorem callouts */
 .thm-card {
   background: var(--coral-bg);
@@ -357,26 +362,31 @@ h1 {
       <div class="concept-name">Partial isomorphism</div>
       <div class="concept-formula">\(f:A\to N\)</div>
       <div class="concept-badges"><span class="tag">part<sub>κ</sub></span><span class="tag">atom</span></div>
+      <div class="concept-example">e.g. any finite increasing \(f:A\to\Q\), \(A\subseteq\Q\)</div>
     </div>
     <div class="concept-card lvl1">
       <div class="concept-name">Elementary partial map</div>
       <div class="concept-formula">\(f:A\to N\)</div>
       <div class="concept-badges"><span class="tag">part<sub>κ</sub></span><span class="tag">allf</span></div>
+      <div class="concept-example">→ example: <a href="#ex-zn">finite \(f\) on \(\langle\Z;<\rangle\)</a></div>
     </div>
     <div class="concept-card lvl1">
       <div class="concept-name">Embedding</div>
       <div class="concept-formula">\(f:\mathcal M\hookrightarrow\mathcal N\)</div>
       <div class="concept-badges"><span class="tag">tot</span><span class="tag">atom</span></div>
+      <div class="concept-example">→ example: <a href="#ex-idzr">\(\mathrm{id}:\Z\to\R\)</a></div>
     </div>
     <div class="concept-card lvl1">
       <div class="concept-name">Elementary embedding</div>
       <div class="concept-formula">\(f:\mathcal M\preccurlyeq\mathcal N\)</div>
       <div class="concept-badges"><span class="tag">tot</span><span class="tag">allf</span></div>
+      <div class="concept-example">→ example: <a href="#ex-qr">\(\Q\preccurlyeq\R\)</a></div>
     </div>
     <div class="concept-card lvl1">
       <div class="concept-name">Isomorphism</div>
       <div class="concept-formula">\(f:\mathcal M\cong\mathcal N\)</div>
       <div class="concept-badges"><span class="tag">tot</span><span class="tag">surj</span><span class="tag">atom</span></div>
+      <div class="concept-example">e.g. \(x\mapsto x/2\): \(2\Z\cong\Z\) — <a href="#ex-2z">more</a></div>
     </div>
   </div>
 
@@ -394,16 +404,19 @@ h1 {
       <div class="concept-name">Elementary submodel</div>
       <div class="concept-formula">\(\mathcal M\preccurlyeq\mathcal N\), \(M\subseteq N\)</div>
       <div class="concept-badges"><span class="tag">elem. embedding</span><span class="tag plus">+ M⊆N,id</span></div>
+      <div class="concept-example">→ example: <a href="#ex-qr">\(\Q\preccurlyeq\R\)</a></div>
     </div>
     <div class="concept-card lvl2">
       <div class="concept-name">Proper elem. self-embedding</div>
       <div class="concept-formula">\(M\hookrightarrow M\), not a bijection</div>
       <div class="concept-badges"><span class="tag">elem. embedding</span><span class="tag plus">+ M=N</span></div>
+      <div class="concept-example">→ example: <a href="#ex-selfemb">\(\Q\) shrunk into an interval</a></div>
     </div>
     <div class="concept-card lvl2">
       <div class="concept-name">Automorphism</div>
       <div class="concept-formula">\(\alpha\in \operatorname{Aut}(\mathcal M)\)</div>
       <div class="concept-badges"><span class="tag">isomorphism</span><span class="tag plus">+ M=N</span></div>
+      <div class="concept-example">e.g. \(\alpha(x)=x+c\) on \(\langle\Z;<\rangle\)</div>
     </div>
   </div>
 </div>
@@ -415,16 +428,19 @@ h1 {
       <div class="concept-name">\(\kappa\)-homogeneity</div>
       <div class="concept-formula">every \(f\) extends to \(A\cup\{c\}\)</div>
       <div class="concept-badges"><span class="tag">elem. partial map</span><span class="tag plus">+ M=N</span></div>
+      <div class="concept-example">→ example: <a href="#ex-r0">\(\langle\R\setminus\{0\};<\rangle\)</a></div>
     </div>
     <div class="concept-card lvl3">
       <div class="concept-name">Strong \(\kappa\)-homogeneity</div>
       <div class="concept-formula">every \(f\) extends to an automorphism</div>
       <div class="concept-badges"><span class="tag">elem. partial map</span><span class="tag plus">+ M=N</span><span class="tag plus">+ automorphism</span></div>
+      <div class="concept-example">→ example: <a href="#ex-zn">\(\langle\Z;<\rangle\)</a></div>
     </div>
     <div class="concept-card lvl3">
       <div class="concept-name">EF game</div>
       <div class="concept-formula">partial isomorphism extends "back-and-forth" \(\forall n<\omega\)</div>
       <div class="concept-badges"><span class="tag">partial isomorphism</span><span class="tag plus">+ fin</span><span class="tag plus">+ ext</span></div>
+      <div class="concept-example">same back-and-forth idea as the <a href="#ex-qr">\(\Q\preccurlyeq\R\) example</a></div>
     </div>
   </div>
 </div>
@@ -454,7 +470,42 @@ h1 {
   <div class="section">
     <div class="section-title">Examples — what this looks like on concrete models</div>
 
-    <div class="example-card">
+    <div class="example-card" id="ex-idzr">
+      <div class="ex-label">\(\mathrm{id}:\Z\to\R\) — an embedding that isn't elementary</div>
+      <div class="ex-body">
+        The identity map from the ring \(\langle\Z;+,\cdot\rangle\) into the field \(\langle\R;+,\cdot\rangle\)
+        preserves the signature and so is an embedding. But the formula \(\exists y(y\cdot y=x)\) is true in \(\R\)
+        at \(x=2\) (witness \(\sqrt2\)), while it's false in \(\Z\): \(2\) simply has no integer square root. The
+        type of the element \(2\) changes when passing from \(\Z\) to \(\R\): \(\mathrm{id}\) is an embedding, but
+        not an elementary one. The gap between the <code>atom</code> and <code>allf</code> badges is exactly one
+        formula like this with a quantifier.
+      </div>
+    </div>
+
+    <div class="example-card" id="ex-2z">
+      <div class="ex-label">\(2\Z\subseteq\Z\) — a submodel, but not an elementary one</div>
+      <div class="ex-body">
+        \(2\Z=\{\dots,-4,-2,0,2,4,\dots\}\) with the same operations is a submodel of \(\langle\Z;+,\cdot\rangle\),
+        and the map \(x\mapsto x/2\) is an isomorphism \(2\Z\cong\Z\), hence \(2\Z\equiv\Z\). But the identity
+        embedding \(\mathrm{id}:2\Z\subseteq\Z\) is not elementary: the formula \(\exists y(y+y=x)\) ("\(x\) is
+        divisible by \(2\)") is true in \(\Z\) at \(x=2\) (\(y=1\)), but false inside \(2\Z\) itself at the same
+        \(x=2\) — the only candidate \(y=1\) doesn't lie in \(2\Z\). The existence of <em>some</em> elementary
+        embedding (an isomorphism, here) does not make \(2\Z\) an elementary submodel — that requires the identity
+        inclusion itself to be elementary.
+      </div>
+    </div>
+
+    <div class="example-card" id="ex-selfemb">
+      <div class="ex-label">\(\Q\to\Q\) — a proper elementary self-embedding</div>
+      <div class="ex-body">
+        On \(\langle\Q;<\rangle\) (in \(\mathrm{DLO}\), elementarity of an embedding reduces to preserving the
+        order), the map \(f(x)=\dfrac{x}{1+|x|}\) is strictly increasing and injects \(\Q\) into
+        \((-1,1)\cap\Q\subsetneq\Q\). So \(f:\Q\hookrightarrow\Q\) preserves every formula but isn't surjective —
+        a proper elementary self-embedding, with no transfinite construction needed.
+      </div>
+    </div>
+
+    <div class="example-card" id="ex-zn">
       <div class="ex-label">\(\langle\Z;<\rangle\) — homogeneity and mono-orbitality</div>
       <div class="ex-body">
         The automorphisms of \(\langle\Z;<\rangle\) are exactly the shifts \(\alpha(x)=x+c\), \(c\in\Z\). Any finite
@@ -467,7 +518,7 @@ h1 {
       </div>
     </div>
 
-    <div class="example-card">
+    <div class="example-card" id="ex-r0">
       <div class="ex-label">\(\langle\R\setminus\{0\};<\rangle\) — homogeneous without being strongly homogeneous</div>
       <div class="ex-body">
         The map \(1\mapsto-1\) is elementary (in \(\mathrm{DLO}\), elementarity of a partial map reduces to
@@ -479,7 +530,7 @@ h1 {
       </div>
     </div>
 
-    <div class="example-card">
+    <div class="example-card" id="ex-qr">
       <div class="ex-label">\(\Q\preccurlyeq\R\) — an elementary submodel</div>
       <div class="ex-body">
         \(\langle\Q;<\rangle\preccurlyeq\langle\R;<\rangle\) in the theory \(\mathrm{DLO}\): any equation with
