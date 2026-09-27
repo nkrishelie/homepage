@@ -1,9 +1,11 @@
 import React from 'react';
 import { useLanguage } from '../LanguageContext';
-import { Mail, Youtube, Send, MapPin, ExternalLink, Linkedin, Github, GraduationCap } from 'lucide-react';
+import { Mail, Youtube, Send, MapPin, ExternalLink, Linkedin, Github, GraduationCap, Coffee } from 'lucide-react';
+
+const KOFI_LINK = "https://ko-fi.com/nkrishelie";
 
 export const About: React.FC = () => {
-  const { content } = useLanguage();
+  const { content, language } = useLanguage();
 
   const getIcon = (label: string) => {
     const l = label.toLowerCase();
@@ -98,6 +100,19 @@ export const About: React.FC = () => {
                         </li>
                     ))}
                 </ul>
+
+                {/* Ko-fi — только в английской версии: для читателей из-за рубежа */}
+                {language === 'en' && (
+                    <a
+                        href={KOFI_LINK}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mb-8 inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-[#c9a44c] text-academic-900 font-bold rounded hover:bg-[#dab862] transition-colors text-sm"
+                    >
+                        <Coffee size={16} />
+                        Support on Ko-fi
+                    </a>
+                )}
 
                 <div className="mt-auto pt-5 border-t border-academic-700/50">
                     <div className="text-academic-500 mb-1 font-mono text-xs uppercase tracking-widest flex items-center gap-2">
