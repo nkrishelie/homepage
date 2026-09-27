@@ -3,7 +3,7 @@ import { useLanguage } from '../LanguageContext';
 import { Header } from './Header'; // Импортируем нашу исправленную шапку
 import { Footer } from './Footer';
 import { BookChapterCard } from './BookChapterCard';
-import { Download, BookOpen, Image as ImageIcon, List, Star, Send, Youtube, Mail, Linkedin, Heart } from 'lucide-react';
+import { Download, BookOpen, Image as ImageIcon, List, Star, Send, Youtube, Mail, Linkedin, Heart, Coffee } from 'lucide-react';
 import { renderWithLinks } from './renderWithLinks';
 
 // Кнопка с раскрытием по клику: сперва только подпись, по клику — значение,
@@ -62,6 +62,7 @@ export const BookDetails: React.FC = () => {
 
   const relatedBooks = content.books.filter((book) => book.id === 'springer' || book.id === 'savvateev');
   const PDF_LINK = "/archetypeswithface.pdf";
+  const KOFI_LINK = "https://ko-fi.com/nkrishelie";
 
   const support = language === 'ru' ? {
     heroCta: 'Поддержать автора',
@@ -69,6 +70,8 @@ export const BookDetails: React.FC = () => {
     lead: 'Книга в свободном доступе. Если она оказалась полезной и вы хотите поддержать мою дальнейшую работу — вот пара способов, без каких-либо обязательств.',
     russia: 'Россия',
     other: 'Остальные страны',
+    kofi: 'Поддержать на Ko-fi',
+    kofiHint: 'Картой или через PayPal, без регистрации',
     orCard: 'или картой:',
     belarus: 'Беларусь (BYN)',
     kazakhstan: 'Казахстан (USD, EUR, KZT)',
@@ -83,6 +86,8 @@ export const BookDetails: React.FC = () => {
     lead: 'The book is freely available. If you found it useful and would like to support my ongoing work, here are a couple of options — no obligation.',
     russia: 'Russia',
     other: 'Other countries',
+    kofi: 'Support on Ko-fi',
+    kofiHint: 'Card or PayPal, no sign-up needed',
     orCard: 'or by card:',
     belarus: 'Belarus (BYN)',
     kazakhstan: 'Kazakhstan (USD, EUR, KZT)',
@@ -467,6 +472,20 @@ export const BookDetails: React.FC = () => {
             <div className="bg-white border border-academic-200 rounded-lg p-6">
               <div className="text-xs font-bold uppercase tracking-widest text-academic-500 mb-4">
                 {support.other}
+              </div>
+              <div className="mb-5">
+                <a
+                  href={KOFI_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#c9a44c] text-academic-900 font-bold rounded hover:bg-[#dab862] transition-colors shadow-sm text-[15px]"
+                >
+                  <Coffee size={18} />
+                  {support.kofi}
+                </a>
+                <div className="mt-1.5 text-xs italic text-academic-400">
+                  {support.kofiHint}
+                </div>
               </div>
               <RevealValue
                 display="ngoogstein@gmail.com (USD, EUR)"
