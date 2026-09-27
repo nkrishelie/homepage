@@ -114,7 +114,6 @@ export interface UILabels {
     about: string;
     interests: string;
     contacts: string;
-    location: string;
   };
   buttons: {
     details: string;
@@ -199,7 +198,6 @@ export interface SiteContent {
     bio: string;
     interests: string[];
     socials: SocialLink[];
-    location?: string;
   };
   bookPage: BookPageContent;
   portfolio: PortfolioContent;

@@ -19,8 +19,7 @@ export const content: SiteContent = {
       materials: "Materials",
       about: "About Me",
       interests: "Research Interests",
-      contacts: "Contact",
-      location: "Location"
+      contacts: "Contact"
     },
     buttons: {
       details: "Details",
@@ -200,8 +199,7 @@ export const content: SiteContent = {
       { label: "GitHub", href: "https://github.com/nkrishelie" }, // Если есть
       { label: "ORCID", href: "https://orcid.org/0000-0002-1784-2293" },
       { label: "News", href: "/news_en.html" }
-    ],
-    location: "Moscow, Russia"
+    ]
   },
   // Добавить в конец объекта content
 // В файле src/data/content-en.ts

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLanguage } from '../LanguageContext';
-import { Mail, Youtube, Send, MapPin, ExternalLink, Linkedin, Github, GraduationCap, Coffee } from 'lucide-react';
+import { Mail, Youtube, Send, ExternalLink, Linkedin, Github, GraduationCap, Coffee } from 'lucide-react';
 
 const KOFI_LINK = "https://ko-fi.com/nkrishelie";
 
@@ -83,7 +83,7 @@ export const About: React.FC = () => {
                   {content.ui.headers.contacts}
                 </h3>
                 
-                <ul className="space-y-4 mb-8">
+                <ul className="space-y-4">
                     {content.about.socials.map((social) => (
                         <li key={social.label}>
                             <a 
@@ -107,22 +107,12 @@ export const About: React.FC = () => {
                         href={KOFI_LINK}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mb-8 inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-[#c9a44c] text-academic-900 font-bold rounded hover:bg-[#dab862] transition-colors text-sm"
+                        className="mt-6 inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-[#c9a44c] text-academic-900 font-bold rounded hover:bg-[#dab862] transition-colors text-sm"
                     >
                         <Coffee size={16} />
                         Support on Ko-fi
                     </a>
                 )}
-
-                <div className="mt-auto pt-5 border-t border-academic-700/50">
-                    <div className="text-academic-500 mb-1 font-mono text-xs uppercase tracking-widest flex items-center gap-2">
-                        <MapPin size={14} />
-                        {content.ui.headers.location}
-                    </div>
-                    <div className="text-white text-sm pl-6">
-                        {content.about.location || "Москва, Россия"}
-                    </div>
-                </div>
             </div>
 
         </div>

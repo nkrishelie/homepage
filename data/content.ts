@@ -19,8 +19,7 @@ export const content: SiteContent = {
       materials: "Материалы",
       about: "Обо мне",
       interests: "Научные интересы",
-      contacts: "Контакты",
-      location: "Локация"
+      contacts: "Контакты"
     },
     buttons: {
       details: "Подробнее",
@@ -194,8 +193,7 @@ export const content: SiteContent = {
       { label: "GitHub", href: "https://github.com/nkrishelie" }, // Если есть
       { label: "ORCID", href: "https://orcid.org/0000-0002-1784-2293" },
       { label: "Новости", href: "/news.html" }
-    ],
-    location: "Москва, Россия"
+    ]
   },
   // Добавить в конец объекта content, перед закрывающей скобкой };
   portfolio: {
