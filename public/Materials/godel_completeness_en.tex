@@ -783,10 +783,47 @@ Hence $\neg\sigma_{n,\vec d}$ is already derivable from
 and therefore $\mathrm{ACF}_{>p_0} \models \neg\sigma_{n,\vec d}$.
 But for any prime $p > p_0$, the algebraic closure $\overline{\mathbb{F}_p}$
 is a model of $\mathrm{ACF}_{>p_0}$, and hence
-$\overline{\mathbb{F}_p} \models \neg\sigma_{n,\vec d}$. At the same time
-$\overline{\mathbb{F}_p}$ contains the finite subfields $\mathbb{F}_{p^k}$, and
-restricting the argument of Step~2 gives $\overline{\mathbb{F}_p} \models \sigma_{n,\vec d}$~---
-a contradiction.
+$\overline{\mathbb{F}_p} \models \neg\sigma_{n,\vec d}$.
+
+The passage from Step~2, established for the finite fields $\mathbb{F}_{p^k}$,
+to the algebraic closure $\overline{\mathbb{F}_p}$ does not reduce to the mere
+inclusion $\mathbb{F}_{p^k} \subseteq \overline{\mathbb{F}_p}$ and requires a
+separate argument, using the structure of $\overline{\mathbb{F}_p}$ as a union
+of a chain of finite subfields:
+\[
+  \overline{\mathbb{F}_p} \;=\; \bigcup_{m \ge 1} \mathbb{F}_{p^m},
+  \qquad
+  \mathbb{F}_{p^k} \subseteq \mathbb{F}_{p^m} \iff k \mid m.
+\]
+The formula $\neg\sigma_{n,\vec d}$, true in $\overline{\mathbb{F}_p}$, yields
+a specific finite tuple of coefficients $\vec a \in \overline{\mathbb{F}_p}^{\,r}$
+for which $f_{\vec a}$ is injective but not surjective on
+$\overline{\mathbb{F}_p}^n$. The coefficients $\vec a$, being a finite set of
+elements of $\overline{\mathbb{F}_p}$, lie in some finite subfield
+$\mathbb{F}_{p^k}$; for any $m$ a multiple of $k$, the subfield
+$\mathbb{F}_{p^m}$ is closed under the ring operations and contains $\vec a$,
+so $f_{\vec a}$ maps $\mathbb{F}_{p^m}^n$ into itself.
+
+Injectivity of $f_{\vec a}$ on all of $\overline{\mathbb{F}_p}^n$ entails
+injectivity of its restriction to $\mathbb{F}_{p^m}^n$ for every such $m$,
+and by Step~2 (finiteness of $\mathbb{F}_{p^m}^n$) this restriction is
+surjective on $\mathbb{F}_{p^m}^n$.
+
+On the other hand, non-surjectivity of $f_{\vec a}$ on $\overline{\mathbb{F}_p}^n$
+means there exists $\vec z \in \overline{\mathbb{F}_p}^n$ with no preimage.
+The coordinates of $\vec z$ are likewise a finite set of elements of the
+field, so they lie in some $\mathbb{F}_{p^l}$; choosing $m$ a common
+multiple of $k$ and $l$ (such $m$ exists, and then $\mathbb{F}_{p^m} \supseteq
+\mathbb{F}_{p^k} \cup \mathbb{F}_{p^l}$), one gets $\vec z \in \mathbb{F}_{p^m}^n$.
+Surjectivity of $f_{\vec a}$ on $\mathbb{F}_{p^m}^n$ then yields a preimage
+$\vec x \in \mathbb{F}_{p^m}^n \subseteq \overline{\mathbb{F}_p}^n$ with
+$f_{\vec a}(\vec x) = \vec z$~--- contradicting the choice of $\vec z$ as an
+element without a preimage.
+
+Hence the assumption $\overline{\mathbb{F}_p} \models \neg\sigma_{n,\vec d}$
+is incompatible with Step~2, that is,
+$\overline{\mathbb{F}_p} \models \sigma_{n,\vec d}$~--- a contradiction
+with the earlier $\overline{\mathbb{F}_p} \models \neg\sigma_{n,\vec d}$.
 
 Hence $\mathbb{C} \models \sigma_{n,\vec d}$.
 \end{proof}
@@ -803,103 +840,6 @@ a method is called a \emph{transfer} or a \emph{paraphrase} argument: a fact ava
 class of structures is carried over to another through semantic
 mediation.
 \end{remark}
-
-% ==============================================
-\section*{Illustration: The Construction on a Running Example}
-% ==============================================
-
-The following diagram brings together the three steps of the construction for the language
-$\mathcal{L} = \{=,\,{<},\,0\}$ from Section~7: the growth of the language by levels,
-the passage to a complete consistent set, and the resulting carrier
-of the term model, with the order that has already emerged on it.
-
-\begin{center}
-\begin{tikzpicture}[
-  scale=0.88, every node/.style={scale=0.88},
-  font=\small,
-  level/.style={draw, rounded corners, minimum width=2.6cm, minimum height=0.6cm, align=center},
-  arrow/.style={-{Stealth[length=2.2mm]}, thick},
-  annot/.style={font=\tiny, align=left, text width=2.8cm},
-]
-
-% ============ COLUMN 1: language tower ============
-\node[level, fill=blue!8]   (L0) at (0,0)   {$\mathcal{L}_0 = \{=,<,0\}$};
-\node[level, fill=teal!10]  (L1) at (0,1.6) {$\mathcal{L}_1$};
-\node[level, fill=teal!10]  (L2) at (0,3.2) {$\mathcal{L}_2$};
-\node[level, fill=teal!25]  (Lw) at (0,4.8) {$\mathcal{L}_\omega = \bigcup_n \mathcal{L}_n$};
-
-\draw[arrow] (L0) -- (L1);
-\node[annot, anchor=west] at (1.5,0.8) {$+\,c_{0,0},c_{0,1}$\\witnesses for $\exists x(0{<}x)$};
-
-\draw[arrow] (L1) -- (L2);
-\node[annot, anchor=west] at (1.5,2.4) {$+\,c_{1,0},c_{1,1},\ldots$\\witnesses of formulas of $\mathcal{L}_1$};
-
-\draw[arrow, dashed] (L2) -- (Lw);
-\node[font=\tiny, anchor=west] at (1.5,4.0) {$\omega$ steps};
-
-\node[font=\footnotesize\bfseries] at (0,-0.85) {Step 1};
-\node[font=\footnotesize] at (0,-1.2) {extending the language};
-
-% ============ COLUMN 2: Lindenbaum ============
-\node[level, fill=orange!15, minimum width=1.6cm] (Delta) at (6.0,4.8) {$\Delta$};
-
-\draw[arrow, ultra thick, blue!45!black] (Lw) -- (Delta);
-\node[font=\footnotesize] at (4.55,5.35) {Lindenbaum};
-\node[font=\tiny] at (4.55,5.0) {$\Gamma^* \rightsquigarrow \Delta$};
-\node[annot, anchor=north] at (4.45,4.55)
-  {complete\\consistent set};
-
-\node[font=\footnotesize\bfseries] at (6.0,-0.85) {Step 2};
-\node[font=\footnotesize] at (6.0,-1.2) {Lindenbaum extension};
-
-% ============ COLUMN 3: model carrier ============
-\draw[arrow, ultra thick, teal!50!black] (Delta) -- (8.7,4.8);
-\node[font=\footnotesize] at (10.0,5.35) {synthesis of the model};
-
-\begin{scope}[shift={(9.0,2.05)}]
-\draw[thick] (0,0) -- (4.0,0);
-\draw (0,-0.1)    -- (0,0.1);    \node[font=\tiny, below=2pt] at (0,-0.15)    {$[0]$};
-\draw (0.75,-0.1) -- (0.75,0.1); \node[font=\tiny, below=2pt] at (0.75,-0.15) {$[c_{1,2}]$};
-\draw (1.5,-0.1)  -- (1.5,0.1);  \node[font=\tiny, below=2pt] at (1.5,-0.15)  {$[c_{0,0}]$};
-\draw (2.2,-0.1)  -- (2.2,0.1);  \node[font=\tiny, below=2pt] at (2.2,-0.15)  {$[c_{1,0}]$};
-\draw (2.95,-0.1) -- (2.95,0.1); \node[font=\tiny, below=2pt] at (2.95,-0.15) {$[c_{0,1}]$};
-\draw (3.7,-0.1)  -- (3.7,0.1);  \node[font=\tiny, below=2pt] at (3.7,-0.15)  {$[c_{1,1}]$};
-\node[font=\tiny] at (4.35,0) {$\cdots$};
-\node[font=\footnotesize] at (2.0,0.5) {carrier $T/{\sim}$};
-\end{scope}
-
-\node[annot, anchor=north, text width=4cm] at (11.0,3.7)
-  {$P_<^{\mathfrak M}([s],[t])=\top$\\[2pt] $\iff (s{<}t)\in\Delta$};
-
-\node[font=\footnotesize\bfseries] at (11.0,-0.85) {Step 3};
-\node[font=\footnotesize] at (11.0,-1.2) {the term model};
-
-\end{tikzpicture}
-\end{center}
-
-% ==============================================
-\section*{Summary of the Construction}
-% ==============================================
-
-\begin{center}
-\footnotesize
-\begin{tabular}{cp{12cm}}
-  \hline
-  \textbf{Step} & \textbf{What We Do} \\
-  \hline
-  1 & Extend the language: add the Henkin constants $c_{n,k}$ iteratively
-      (with the witness registry, Remark~\ref{rem:registry}) \\
-  2 & Extend $\Gamma$ with the Henkin axioms~--- obtaining $\Gamma^*$,
-      consistent by Lemma~\ref{lem:henkin-consistent} \\
-  3 & Use the Lindenbaum algorithm to build a CC-set $\Delta \supseteq \Gamma^*$ \\
-  4 & The carrier of the model is the set of equivalence classes of closed terms of $\Lw$ \\
-  5 & Define the predicates and functions via $\Delta$; well-definedness is given by
-      Lemma~\ref{lem:welldefined} (the congruence axioms) \\
-  6 & The truth lemma (induction on complexity) gives $\Struct \models \Delta$ \\
-  7 & The reduct $\Struct|_{\Lang}$ (Lemma~\ref{lem:reduct}) is a model of the original $\Gamma$ \\
-  \hline
-\end{tabular}
-\end{center}
 
 \vfill
 \begin{center}
