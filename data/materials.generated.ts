@@ -292,6 +292,20 @@ export const MATERIALS_ITEMS: MaterialItem[] = [
     "lang": "ru"
   },
   {
+    "filename": "set_theories_en.html",
+    "href": "/Materials/set_theories_en.html",
+    "title": "The Spectrum of Set Theories: ZFC, NBG, ZFA, NF",
+    "category": "sets",
+    "lang": "en"
+  },
+  {
+    "filename": "set_theories.html",
+    "href": "/Materials/set_theories.html",
+    "title": "Спектр теорий множеств: ZFC, NBG, ZFA, NF",
+    "category": "sets",
+    "lang": "ru"
+  },
+  {
     "filename": "similarities_en.html",
     "href": "/Materials/similarities_en.html",
     "title": "Similarities of the Plane: Homothety and Rotational Homothety",

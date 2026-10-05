@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ru" style="scroll-behavior: smooth;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Спектр теорий множеств: ZFC, NBG, ZFA, NF</title>
+<meta name="description" content="Сравнительная таблица теорий множеств ZFC, NBG, ZFA (антифундирование Акцеля), NF Куайна и двух конечных моделей: статус универсума, фундирование, парадокс Рассела, теорема Кантора, предикативность, ординалы, аксиома выбора — и философские установки Цермело, Гильберта, фон Неймана, Куайна, Акцеля и Фефермана.">
+<link rel="canonical" href="https://mathem.at/Materials/set_theories.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Спектр теорий множеств: ZFC, NBG, ZFA, NF">
+<meta property="og:description" content="ZFC, NBG, ZFA и NF в одной таблице: какие решения о природе множества превращаются в какие аксиомы — от кумулятивного универсума фон Неймана до универсального множества Куайна.">
+<meta property="og:url" content="https://mathem.at/Materials/set_theories.html">
+<meta property="og:locale" content="ru_RU">
+<link rel="alternate" hreflang="ru" href="/Materials/set_theories.html">
+<link rel="alternate" hreflang="en" href="/Materials/set_theories_en.html">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPuKIhTwvdGV4dD48L3N2Zz4=" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\]', display: true}, {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}], macros: {'\\R': '\\mathbb{R}', '\\C': '\\mathbb{C}', '\\N': '\\mathbb{N}', '\\Z': '\\mathbb{Z}', '\\Q': '\\mathbb{Q}'}, throwOnError: false})"></script>
+<style>
+:root {
+  --bg:#faf9f6; --bg2:#f2f0eb; --ink:#1a1917; --ink2:#5a5750; --ink3:#8a8680; --border:#dcd9d2;
+  --blue-bg:#e8eef7;  --blue-acc:#3a5f9e;
+  --rust-bg:#f0ebe8;  --rust-acc:#8c4a32;
+  --sage-bg:#e8f0eb;  --sage-acc:#2e6645;
+  --teal-bg:#e6f5ef;  --teal-acc:#0f6e56;
+  --amber-bg:#fdf3e0; --amber-acc:#7a4f0d;
+  --coral-bg:#faeae6; --coral-acc:#9b2f1a;
+  --purple-bg:#eeedfb; --purple-acc:#4a3a9a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Georgia,serif;font-size:22px;line-height:1.65;min-height:100vh}
+.page{max-width:1320px;margin:0 auto;padding:3rem 2.5rem 5rem}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.8rem}
+.crumbs{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink3)}
+.crumbs a{color:var(--ink3);text-decoration:none}
+.crumbs a:hover{color:var(--ink)}
+.lang-pills{display:flex;gap:8px}
+.lang-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border:1px solid var(--border);color:var(--ink2);transition:.15s}
+.lang-pill.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.lang-pill:not(.active):hover{border-color:var(--ink)}
+header{margin-bottom:2.5rem;border-bottom:1.5px solid var(--ink);padding-bottom:1.5rem}
+.kicker{font-family:'JetBrains Mono',monospace;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:.6rem}
+h1{font-size:clamp(28px,3.2vw,44px);font-weight:500;line-height:1.15;color:var(--ink);margin-bottom:.5rem}
+.desc{font-size:19px;color:var(--ink2);font-style:italic;max-width:900px}
+section{margin-bottom:3.5rem;scroll-margin-top:1.5rem}
+h2{font-size:28px;font-weight:500;margin-bottom:1.2rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+h3{font-size:22px;font-weight:500;margin:1.8rem 0 .8rem;color:var(--ink)}
+p{margin-bottom:.9rem;color:var(--ink2)}
+p.lead{color:var(--ink)}
+strong{color:var(--ink);font-weight:500}
+em{color:var(--ink)}
+.katex{font-size:1.05em}
+.katex-display{margin:.6em 0!important;overflow-x:auto;overflow-y:hidden}
+section a,.tbl-note a,.toc a{color:var(--blue-acc);text-decoration:none;border-bottom:1px solid rgba(58,95,158,.35)}
+section a:hover,.tbl-note a:hover,.toc a:hover{border-bottom-color:var(--blue-acc)}
+
+/* ── Contents ── */
+.toc{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1.2rem 1.5rem;margin-bottom:2.5rem}
+.toc h3{margin:0 0 .8rem;font-size:19px}
+.toc ol{margin:0 0 0 1.5rem;padding:0;color:var(--ink2);line-height:1.6}
+.toc a{color:var(--ink2);border-bottom:0.5px solid rgba(138,134,128,.35)}
+
+ul.plain{padding-left:1.3rem;margin-bottom:1rem;color:var(--ink2)}
+ul.plain li{margin-bottom:.6rem;line-height:1.6}
+ul.plain li::marker{color:var(--ink3)}
+
+.math-block{margin:1.1rem 0;padding:.8rem 1.2rem;background:var(--bg2);border-left:2.5px solid var(--border);border-radius:0 4px 4px 0;overflow-x:auto}
+.math-block .katex-display{margin:0!important}
+
+.definition{border:1.5px solid var(--blue-acc);background:var(--blue-bg);border-radius:6px;padding:1.1rem 1.4rem;margin:1.2rem 0}
+.definition .def-head{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-acc);font-weight:700;margin-bottom:.6rem}
+.definition p{margin-bottom:.7rem;color:var(--ink2)}
+.definition p:last-child{margin-bottom:0}
+
+.note{border-left:3px solid var(--rust-acc);background:var(--rust-bg);border-radius:0 6px 6px 0;padding:.8rem 1.1rem;margin:1rem 0;font-size:18px;color:var(--ink2)}
+.note .note-head{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--rust-acc);margin-bottom:.35rem;display:block}
+.note p{margin-bottom:.55rem;color:var(--ink2)}
+.note p:last-child{margin-bottom:0}
+
+/* ── Comparison table ── */
+.tbl-label{font-family:'JetBrains Mono',monospace;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:.8rem}
+.tbl-note{font-size:17px;color:var(--ink2);line-height:1.6;margin:0 0 1.2rem;padding:.9rem 1.2rem;background:var(--bg2);border-left:2.5px solid var(--border)}
+.legend{display:flex;flex-wrap:wrap;gap:.45rem 1.3rem;align-items:center;font-size:16.5px;color:var(--ink2);margin-bottom:1rem}
+.legend span.item{display:inline-flex;align-items:center;gap:.45rem}
+.cmp-wrap{overflow-x:auto;margin-bottom:1rem;border:0.5px solid var(--border);border-top:2px solid var(--ink);background:var(--bg)}
+table.cmp{width:100%;min-width:1240px;border-collapse:separate;border-spacing:0;table-layout:fixed}
+table.cmp col.c-head{width:12%}
+table.cmp col.c-sys{width:14.66%}
+table.cmp th,table.cmp td{text-align:left;vertical-align:top;border-right:0.5px solid var(--border);border-bottom:0.5px solid var(--border)}
+table.cmp th:last-child,table.cmp td:last-child{border-right:none}
+table.cmp tbody tr:last-child th,table.cmp tbody tr:last-child td{border-bottom:none}
+table.cmp thead th{padding:12px 14px;background:var(--bg2);border-bottom:1.5px solid var(--ink);font-weight:400;vertical-align:bottom}
+table.cmp thead th.corner{font-style:italic;font-size:17px;color:var(--ink)}
+table.cmp tbody th{padding:12px 14px;font-size:17.5px;font-weight:500;color:var(--ink);line-height:1.35}
+table.cmp tbody td{padding:12px 14px;font-size:16.5px;line-height:1.5;color:var(--ink2)}
+table.cmp .sticky{position:sticky;left:0;z-index:2;background:var(--bg)}
+table.cmp thead .sticky{background:var(--bg2);z-index:3}
+table.cmp tbody tr:hover td,table.cmp tbody tr:hover th{background:#f5f3ee}
+.th-name{display:block;font-size:20px;color:var(--ink);font-weight:500;line-height:1.25}
+.th-sub{display:block;font-size:14.5px;color:var(--ink3);font-style:italic;line-height:1.35;margin-top:3px}
+.th-stance{display:inline-block;margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink2);border:1px solid var(--border);border-radius:999px;padding:2px 9px;background:var(--bg);line-height:1.5}
+.st{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:3px;line-height:1.5;white-space:nowrap}
+table.cmp td .st{margin-bottom:6px;white-space:normal}
+.st .katex{text-transform:none;letter-spacing:0}
+.st-yes{background:var(--sage-bg);color:var(--sage-acc)}
+.st-no{background:var(--coral-bg);color:var(--coral-acc)}
+.st-mod{background:var(--amber-bg);color:var(--amber-acc)}
+.st-cls{background:var(--blue-bg);color:var(--blue-acc)}
+.st-na{background:var(--bg2);color:var(--ink3);border:0.5px solid var(--border)}
+.cell{display:block}
+.nw{white-space:nowrap}
+.ax-list{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:5px}
+.ax{display:inline-block;font-size:15px;padding:1px 7px;border-radius:3px;white-space:nowrap;line-height:1.5}
+.ax.y{background:var(--sage-bg);color:var(--sage-acc)}
+.ax.n{background:var(--coral-bg);color:var(--coral-acc)}
+.ax.m{background:var(--amber-bg);color:var(--amber-acc)}
+.cell-note{display:block;font-size:14.5px;color:var(--ink3);font-style:italic;margin-top:4px;line-height:1.4}
+
+/* ── Small verification table ── */
+.tbl-wrap{overflow-x:auto;margin:1rem 0 1.4rem}
+table.basic{width:100%;border-collapse:collapse;min-width:720px;border:0.5px solid var(--border);border-top:2px solid var(--ink)}
+table.basic thead th{padding:10px 14px;vertical-align:bottom;border-bottom:1.5px solid var(--ink);border-right:0.5px solid var(--border);font-size:17px;font-weight:500;text-align:left;background:var(--bg2)}
+table.basic thead th:last-child{border-right:none}
+table.basic tbody tr{border-bottom:0.5px solid var(--border)}
+table.basic tbody tr:last-child{border-bottom:none}
+table.basic tbody td{padding:9px 14px;vertical-align:top;border-right:0.5px solid var(--border);font-size:17px;color:var(--ink2);line-height:1.45}
+table.basic tbody td:last-child{border-right:none}
+table.basic tbody td:first-child{color:var(--ink)}
+.ok{color:var(--sage-acc);font-weight:500}
+.fail{color:var(--coral-acc);font-weight:500}
+
+/* ── Positions ── */
+.pos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:16px;margin:1.3rem 0 1.5rem}
+.pos-card{background:var(--bg);border:1px solid var(--border);border-top:3px solid var(--ink3);border-radius:6px;padding:1.05rem 1.25rem 1rem;display:flex;flex-direction:column}
+.pos-name{font-size:22px;font-weight:500;color:var(--ink);line-height:1.25}
+.pos-thesis{font-style:italic;color:var(--ink);font-size:18px;line-height:1.4;margin:.3rem 0 .7rem}
+.pos-card p{font-size:17px;line-height:1.6;margin-bottom:.6rem}
+.pos-link{margin-top:auto;padding-top:.35rem;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink3);line-height:1.5}
+
+/* ── References ── */
+ol.refs{padding-left:1.6rem;color:var(--ink2);font-size:17px;line-height:1.55}
+ol.refs li{margin-bottom:.45rem}
+ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font-size:13px}
+
+.page-footer{margin-top:2.75rem;padding-top:1.1rem;border-top:0.5px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.04em;color:var(--ink3);text-align:center;line-height:1.5}
+.page-footer a{color:var(--ink3);text-decoration:none;border-bottom:1px solid rgba(138,134,128,.35)}
+.page-footer a:hover{color:var(--ink2);border-bottom-color:var(--ink2)}
+@media(max-width:700px){
+  body{font-size:19px}
+  .page{padding:1.5rem 1rem 3rem}
+  .pos-grid{grid-template-columns:1fr}
+  .math-block{padding:.7rem .6rem}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="topbar">
+  <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> / <a href="/#materials">Материалы</a></div>
+  <div class="lang-pills">
+    <a class="lang-pill" href="/Materials/set_theories_en.html?lang=en">🇬🇧 EN</a>
+    <a class="lang-pill active" href="/Materials/set_theories.html?lang=ru">🇷🇺 RU</a>
+  </div>
+<script>
+(function () {
+  var KEY = 'mathem_lang';
+  var pills = document.querySelectorAll('.lang-pill');
+  if (!pills.length) return;
+  var activeHref = null, otherHref = null, otherLang = null;
+  pills.forEach(function (a) {
+    var href = a.getAttribute('href');
+    var lang = /_en\.html/.test(href.split('?')[0]) ? 'en' : 'ru';
+    if (a.classList.contains('active')) { activeHref = href; }
+    else { otherHref = href; otherLang = lang; }
+  });
+  var currentLang = /_en\.html/.test((activeHref || location.pathname).split('?')[0]) ? 'en' : 'ru';
+  var params = new URLSearchParams(location.search);
+  if (params.get('lang')) {
+    try { localStorage.setItem(KEY, params.get('lang')); } catch (e) {}
+    return;
+  }
+  var pref;
+  try { pref = localStorage.getItem(KEY); } catch (e) {}
+  if (pref && pref === otherLang && otherHref) {
+    location.replace(otherHref);
+    return;
+  }
+  try { localStorage.setItem(KEY, currentLang); } catch (e) {}
+})();
+</script>
+</div>
+
+<header>
+  <p class="kicker">Теория множеств · Основания математики</p>
+  <h1>Спектр теорий множеств</h1>
+  <p class="desc">ZFC, NBG, ZFA и NF — четыре ответа на вопрос, что такое множество. Системы различаются тем, существует ли универсум как объект, допустимы ли классы, обязано ли отношение принадлежности быть фундированным, каким ограничением свёртывания блокируется парадокс Рассела и допустимы ли импредикативные определения; из этих решений вытекают различия в теореме Кантора, в ординалах и в статусе аксиомы выбора. Две конечные модели обозначают границы спектра.</p>
+</header>
+
+<nav class="toc">
+  <h3>Содержание</h3>
+  <ol>
+    <li><a href="#sec-family">Одна теория или семейство теорий</a></li>
+    <li><a href="#sec-table">Сравнительная таблица</a></li>
+    <li><a href="#sec-rows">Комментарии к строкам таблицы</a></li>
+    <li><a href="#sec-toy">Конечные модели $M_1$ и $M_2$</a></li>
+    <li><a href="#sec-positions">Позиции: Цермело, Гильберт, фон Нейман, Куайн, Акцель, Феферман</a></li>
+    <li><a href="#sec-beyond">За пределами таблицы</a></li>
+    <li><a href="#sec-refs">Литература</a></li>
+  </ol>
+</nav>
+
+<section id="sec-family">
+  <h2>1. Одна теория или семейство теорий</h2>
+  <p class="lead">Выражение «теория множеств» обозначает не одну аксиоматическую систему, а семейство систем в общем языке — первопорядковом языке с единственным нелогическим символом $\in$ (в NBG к нему добавляется сорт классов). Все они возникли в ответ на одну проблему: наивный принцип свёртывания, согласно которому всякое свойство $\varphi(x)$ задаёт множество $\{x:\varphi(x)\}$, противоречив. При $\varphi(x)\equiv x\notin x$ он даёт множество $R$ с $R\in R\leftrightarrow R\notin R$ (Рассел, 1901). Свёртывание необходимо ограничить, а способ ограничения математикой однозначно не определяется: он выражает представление о том, что такое множество.</p>
+  <p>Выбор системы складывается из решений по нескольким независимым осям.</p>
+  <ul class="plain">
+    <li><strong>Итеративная концепция.</strong> Множества образуются по этапам из ранее образованных; универсум — кумулятивная иерархия $V=\bigcup_\alpha V_\alpha$, которая никогда не завершается и потому сама множеством не является (Цермело, 1930; Булос, 1971). На этой концепции основана ZFC.</li>
+    <li><strong>Ограничение размера.</strong> Противоречие порождают лишь «слишком большие» совокупности. Их можно допустить как объекты особого рода — классы, — запретив им быть элементами (фон Нейман, 1925). Эта установка воплощена в NBG.</li>
+    <li><strong>Фундированность.</strong> Либо отношение $\in$ фундировано — запрещены $x\in x$, циклы $x\in y\in x$ и бесконечные убывающие <span class="nw">$\in$-цепи</span> (понятие фундированного множества — Мириманов, 1917; аксиома — фон Нейман, 1925, и Цермело, 1930), либо циклические объекты законны и задаются графами с точностью до бисимуляции (Форти и Хонселл, 1983; Акцель, 1988). Второй выбор приводит к ZFA.</li>
+    <li><strong>Универсальность.</strong> Всё есть множество, включая универсум; свёртывание ограничивается не размером, а синтаксически — стратификацией, восходящей к теории типов Рассела (Куайн, 1937). Это NF.</li>
+    <li><strong>Предикативность.</strong> Допустимо ли определять объект квантором по совокупности, которой этот объект сам принадлежит (Пуанкаре, 1906; Рассел, 1908; Вейль, 1918; Феферман, 1964). Ответ разделяет, в частности, NBG и теорию Морса–Келли.</li>
+    <li><strong>Формальная допустимость.</strong> По Гильберту, непротиворечивая система аксиом сама обеспечивает существование своих объектов. С этой точки зрения конкурирующие системы сравниваются не по «истинности», а по непротиворечивости и относительной силе.</li>
+  </ul>
+  <p>Таблица сопоставляет четыре стандартные системы — ZFC, NBG, ZFA в смысле Акцеля и NF — с двумя конечными <span class="nw">$\in$-структурами</span>. Пусть $\Omega$ — атом Куайна, то есть множество, для которого $\Omega=\{\Omega\}$, и</p>
+  <div class="math-block">$$M_1=\langle\{\Omega\};\in\rangle,\quad M_2=\langle\{\varnothing,\Omega\};\in\rangle,$$</div>
+  <p>где отношение принадлежности в обеих структурах состоит из единственной пары: $\Omega\in\Omega$. Полные теории $\mathrm{Th}(M_1)$ и $\mathrm{Th}(M_2)$ на роль оснований математики не претендуют. Они служат контрольными случаями: в конечной модели каждое утверждение проверяется непосредственно, и потому видно, какое следствие держится на какой аксиоме (<a href="#sec-toy">§ 4</a>).</p>
+</section>
+
+<section id="sec-table">
+  <h2>2. Сравнительная таблица</h2>
+  <p>Точкой отсчёта служит ZFC — кумулятивный универсум фон Неймана; цвет метки показывает положение остальных систем относительно неё.</p>
+  <div class="legend">
+    <span class="item"><span class="st st-yes">как в ZFC</span> классический случай</span>
+    <span class="item"><span class="st st-mod">изменено</span> изменённая или ограниченная форма</span>
+    <span class="item"><span class="st st-no">нарушено</span> свойство не выполняется</span>
+    <span class="item"><span class="st st-cls">классы</span> решение через классы</span>
+    <span class="item"><span class="st st-na">—</span> вопрос неприменим</span>
+  </div>
+  <div class="cmp-wrap">
+    <table class="cmp">
+      <colgroup><col class="c-head"><col class="c-sys"><col class="c-sys"><col class="c-sys"><col class="c-sys"><col class="c-sys"><col class="c-sys"></colgroup>
+      <thead>
+        <tr>
+          <th scope="col" class="sticky corner">Характеристика</th>
+          <th scope="col"><span class="th-name">ZFC</span><span class="th-sub">Цермело–Френкель + выбор</span><span class="th-stance">итеративная концепция</span></th>
+          <th scope="col"><span class="th-name">NBG</span><span class="th-sub">фон Нейман–Бернайс–Гёдель</span><span class="th-stance">ограничение размера</span></th>
+          <th scope="col"><span class="th-name">ZFA</span><span class="th-sub">$\mathrm{ZFC}^-+\mathrm{AFA},$ антифундирование Акцеля</span><span class="th-stance">циклы допустимы</span></th>
+          <th scope="col"><span class="th-name">NF</span><span class="th-sub">New Foundations, Куайн</span><span class="th-stance">всё — множество</span></th>
+          <th scope="col"><span class="th-name">$\mathrm{Th}(M_1)$</span><span class="th-sub">одноточечная модель $\{\Omega\}$</span><span class="th-stance">универсум без выделения</span></th>
+          <th scope="col"><span class="th-name">$\mathrm{Th}(M_2)$</span><span class="th-sub">двухточечная модель $\{\varnothing,\Omega\}$</span><span class="th-stance">выделение без универсума</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row" class="sticky">Статус универсума $V$</th>
+          <td><span class="st st-yes">не множество</span><span class="cell">$\mathrm{ZFC}\vdash\neg\exists v\,\forall x\,(x\in v).$ «Класс» $V$ — сокращение формулы $x=x;$ $V=\bigcup_\alpha V_\alpha.$</span></td>
+          <td><span class="st st-cls">собственный класс</span><span class="cell">$V$ и $\mathrm{On}$ — объекты второго сорта, но не элементы.</span></td>
+          <td><span class="st st-yes">не множество</span><span class="cell">Как в ZFC; $\mathrm{WF}\subsetneq V,$ так как $\Omega\notin\mathrm{WF}.$</span></td>
+          <td><span class="st st-mod">множество, $V\in V$</span><span class="cell">$V=\{x:x=x\}$ задаётся стратифицированной формулой.</span></td>
+          <td><span class="st st-mod">множество, $V=\Omega$</span><span class="cell">Носитель $\{\Omega\}$ совпадает с $\Omega,$ поэтому $V\in V.$</span></td>
+          <td><span class="st st-yes">не элемент модели</span><span class="cell">Носитель — $\{\varnothing,\Omega\},$ но $\Omega=\{\Omega\}\ne\{\varnothing,\Omega\}.$</span></td>
+        </tr>
+        <tr>
+          <th scope="row" class="sticky">Фундирование / регулярность</th>
+          <td><span class="st st-yes">да</span><span class="cell">Исключает $x\in x,$ <span class="nw">$\in$-циклы</span> и бесконечные убывающие <span class="nw">$\in$-цепи</span>; равносильно $V=\mathrm{WF}.$</span></td>
+          <td><span class="st st-yes">да</span><span class="cell">В форме для классов: всякий непустой класс имеет <span class="nw">$\in$-минимальный</span> элемент.</span></td>
+          <td><span class="st st-no">нет → AFA</span><span class="cell">Всякий граф имеет единственную декорацию; бисимилярные множества равны.</span></td>
+          <td><span class="st st-no">нет</span><span class="cell">$V\in V.$</span></td>
+          <td><span class="st st-no">нет</span><span class="cell">$\Omega\in\Omega.$</span></td>
+          <td><span class="st st-no">нет</span><span class="cell">У $\Omega=\{\Omega\}$ нет <span class="nw">$\in$-минимального</span> элемента.</span></td>
+        </tr>
+        <tr>
+          <th scope="row" class="sticky">Блокировка парадокса Рассела</th>
+          <td><span class="st st-yes">выделение</span><span class="cell">Только из готового множества: $\{x\in A:x\notin x\}\notin A;$ следовательно, универсального множества нет.</span></td>
+          <td><span class="st st-cls">собственный класс</span><span class="cell">Класс Рассела $\{x:x\notin x\}$ существует, но элементом быть не может.</span></td>
+          <td><span class="st st-yes">выделение</span><span class="cell">Как в ZFC; фундирование в аргументе не участвует.</span></td>
+          <td><span class="st st-mod">стратификация</span><span class="cell">Формула $x\notin x$ нестратифицируема, свёртывание к ней неприменимо.</span></td>
+          <td><span class="st st-no">выделения нет</span><span class="cell">$\{x\in\Omega:x\notin x\}=\varnothing$ отсутствует, поэтому универсальное множество не ведёт к противоречию.</span></td>
+          <td><span class="st st-yes">выделение</span><span class="cell">Выделение выполнено, и по аргументу Рассела универсального множества нет.</span></td>
+        </tr>
+        <tr>
+          <th scope="row" class="sticky">Теорема Кантора</th>
+          <td><span class="st st-yes">верна</span><span class="cell">$|A|&lt;|\mathcal P(A)|.$</span></td>
+          <td><span class="st st-yes">для множеств</span><span class="cell">Для собственных классов неверна: при глобальном выборе все они равномощны.</span></td>
+          <td><span class="st st-yes">верна</span><span class="cell">Диагональный аргумент не использует фундирования.</span></td>
+          <td><span class="st st-mod">ограничена</span><span class="cell">$\mathcal P(V)=V;$ верно $|\mathcal P_1(A)|&lt;|\mathcal P(A)|,$ где $\mathcal P_1(A)=\{\{a\}:a\in A\}.$</span></td>
+          <td><span class="st st-no">ложна</span><span class="cell">$\mathcal P(\Omega)=\Omega,$ и $\Omega=\{\langle\Omega,\Omega\rangle\}$ — биекция $\Omega$ на $\mathcal P(\Omega).$</span></td>
+          <td><span class="st st-mod">без степени</span><span class="cell">Степеней нет; диагональная форма верна, так как выделение выполнено.</span></td>
+        </tr>
+        <tr>
+          <th scope="row" class="sticky">Предикативность</th>
+          <td><span class="st st-yes">импредикативна</span><span class="cell">Выделение по формулам с кванторами по всему $V;$ $\mathcal P(A)$ — совокупность всех подмножеств.</span></td>
+          <td><span class="st st-cls">предикативна по классам</span><span class="cell">Свёртывание классов с кванторами только по множествам; консервативна над ZFC. Импредикативный вариант MK сильнее.</span></td>
+          <td><span class="st st-yes">импредикативна</span><span class="cell">Как ZFC.</span></td>
+          <td><span class="st st-yes">импредикативна</span><span class="cell">Кванторы стратифицированных формул пробегают $V,$ а $V$ — множество.</span></td>
+          <td colspan="2"><span class="st st-na">неприменимо</span><span class="cell">Теории заданы моделями, а не принципами построения множеств.</span></td>
+        </tr>
+        <tr>
+          <th scope="row" class="sticky">Определение ординалов</th>
+          <td><span class="st st-yes">фон Нейман</span><span class="cell">Транзитивное множество, вполне упорядоченное отношением $\in;$ $\alpha=\{\beta:\beta&lt;\alpha\}.$</span></td>
+          <td><span class="st st-yes">фон Нейман</span><span class="cell">$\mathrm{On}$ — собственный класс (парадокс Бурали-Форти).</span></td>
+          <td><span class="st st-yes">фон Нейман</span><span class="cell">Те же, что в ZFC, и лежат в $\mathrm{WF};$ ослабленное определение пропускает $\Omega=\{\Omega\}.$</span></td>
+          <td><span class="st st-mod">Фреге–Рассел</span><span class="cell">Ординал — множество всех изоморфных вполне упорядочений; множество всех ординалов существует.</span></td>
+          <td><span class="st st-no">нет</span><span class="cell">Ординалов нет: даже $0=\varnothing$ отсутствует.</span></td>
+          <td><span class="st st-mod">только $0$</span><span class="cell">Единственный ординал — $\varnothing;$ $1=\{\varnothing\}$ отсутствует.</span></td>
+        </tr>
+        <tr>
+          <th scope="row" class="sticky">Аксиома выбора (AC)</th>
+          <td><span class="st st-yes">да</span><span class="cell">Постулируется; независима от ZF (Гёдель, 1938; Коэн, 1963).</span></td>
+          <td><span class="st st-cls">глобальный выбор</span><span class="cell">Класс-функция выбора на $V;$ консервативно над ZFC (Фельгнер, 1971).</span></td>
+          <td><span class="st st-yes">да</span><span class="cell">Совместна с AFA.</span></td>
+          <td><span class="st st-no">опровергается</span><span class="cell">$V$ нельзя вполне упорядочить (Шпеккер, 1953); отсюда NF доказывает бесконечность.</span></td>
+          <td><span class="st st-yes">тривиально</span><span class="cell">$\Omega=\{\langle\Omega,\Omega\rangle\}$ — функция выбора для <span class="nw">$\Omega.$</span></span></td>
+          <td><span class="st st-yes">тривиально</span><span class="cell">Функции выбора — $\varnothing$ и <span class="nw">$\Omega.$</span></span></td>
+        </tr>
+        <tr>
+          <th scope="row" class="sticky">Базовые аксиомы<span class="cell-note">пустое, пара, объединение, степень, выделение</span></th>
+          <td><span class="ax-list"><span class="ax y">$\varnothing$ ✓</span><span class="ax y">пара ✓</span><span class="ax y">$\bigcup$ ✓</span><span class="ax y">$\mathcal P$ ✓</span><span class="ax y">выд. ✓</span></span></td>
+          <td><span class="ax-list"><span class="ax y">$\varnothing$ ✓</span><span class="ax y">пара ✓</span><span class="ax y">$\bigcup$ ✓</span><span class="ax y">$\mathcal P$ ✓</span><span class="ax y">выд. ✓</span></span><span class="cell-note">для множеств</span></td>
+          <td><span class="ax-list"><span class="ax y">$\varnothing$ ✓</span><span class="ax y">пара ✓</span><span class="ax y">$\bigcup$ ✓</span><span class="ax y">$\mathcal P$ ✓</span><span class="ax y">выд. ✓</span></span></td>
+          <td><span class="ax-list"><span class="ax y">$\varnothing$ ✓</span><span class="ax y">пара ✓</span><span class="ax y">$\bigcup$ ✓</span><span class="ax y">$\mathcal P$ ✓</span><span class="ax m">выд. ±</span></span><span class="cell-note">выделение — только стратифицированное; зато есть дополнения $V\setminus A$</span></td>
+          <td><span class="ax-list"><span class="ax n">$\varnothing$ ✗</span><span class="ax y">пара ✓</span><span class="ax y">$\bigcup$ ✓</span><span class="ax y">$\mathcal P$ ✓</span><span class="ax n">выд. ✗</span></span></td>
+          <td><span class="ax-list"><span class="ax y">$\varnothing$ ✓</span><span class="ax n">пара ✗</span><span class="ax y">$\bigcup$ ✓</span><span class="ax n">$\mathcal P$ ✗</span><span class="ax y">выд. ✓</span></span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="tbl-note">$\mathcal P(A)$ — множество всех подмножеств $A$; $\mathcal P_1(A)=\{\{a\}:a\in A\}$ — множество синглетонов; $V_0=\varnothing$, $V_{\alpha+1}=\mathcal P(V_\alpha)$, $V_\lambda=\bigcup_{\alpha&lt;\lambda}V_\alpha$ — кумулятивная иерархия, $\mathrm{WF}=\bigcup_\alpha V_\alpha$ — класс фундированных множеств; $\langle a,b\rangle=\{\{a\},\{a,b\}\}$ — пара по Куратовскому. $\mathrm{ZFC}^-$ — ZFC без аксиомы фундирования (обозначение Акцеля; в другой традиции так обозначают ZFC без аксиомы степени). Аббревиатура ZFA употребляется и для ZF с праэлементами (атомами) — в этом смысле она использована в материале «<a href="/Materials/second_order_arithmetic.html">Иерархия теорий арифметики второго порядка</a>»; здесь $\mathrm{ZFA}=\mathrm{ZFC}^-+\mathrm{AFA}$. Столбцы $\mathrm{Th}(M_1)$ и $\mathrm{Th}(M_2)$ разобраны в <a href="#sec-toy">§ 4</a>.</p>
+</section>
+
+<section id="sec-rows">
+  <h2>3. Комментарии к строкам таблицы</h2>
+
+  <h3>Статус универсума</h3>
+  <p>В ZFC существование универсального множества опровергается. Если $\forall x\,(x\in v)$, то по схеме выделения существует $R=\{x\in v:x\notin x\}$; поскольку $R\in v$, получаем $R\in R\leftrightarrow R\notin R$. Выражения «класс $V$», «класс $\mathrm{On}$» допустимы в ZFC лишь как сокращения формул ($x=x$, «$x$ — ординал»); такие совокупности называются виртуальными классами (Куайн, 1963).</p>
+  <p>NBG делает классы объектами второго сорта: $V$ и $\mathrm{On}$ существуют, но элементами не бывают. В NF совокупность $\{x:x=x\}$ задаётся стратифицированной формулой, поэтому $V$ — множество и $V\in V$; дополнение $V\setminus A$ любого множества $A$ — тоже множество. В $M_1$ универсумом служит сам $\Omega$; в $M_2$ носитель $\{\varnothing,\Omega\}$ элементом модели не является.</p>
+
+  <h3>Фундирование</h3>
+  <p>Аксиома фундирования (регулярности): всякое непустое множество $x$ содержит элемент $y$ с $y\cap x=\varnothing$. При остальных аксиомах ZF она равносильна равенству $V=\mathrm{WF}$: каждое множество $x$ имеет ранг — наименьший ординал $\alpha$ с $x\subseteq V_\alpha$. Фундирование исключает $x\in x$ (иначе у множества $\{x\}$ не было бы <span class="nw">$\in$-минимального</span> элемента), конечные циклы $x_0\in x_1\in\dots\in x_n\in x_0$ и бесконечные убывающие цепи $\dots\in x_2\in x_1\in x_0$. Ей же равносильна схема индукции по $\in$, обобщающая трансфинитную индукцию по ординалам. Кумулятивная иерархия разобрана в конспекте главы C1 «<a href="/Materials/maglish_c1_paradise.html">Рай для математиков</a>» книги «Математика как иностранный», трансфинитная индукция — в материале «<a href="/Materials/induction.html">О математической индукции</a>».</p>
+  <p>Отказ от фундирования не затрагивает математику, строящуюся внутри ZFC: класс $\mathrm{WF}$ остаётся моделью ZFC и содержит все стандартные объекты — числа, функции, пространства. Меняется лишь то, что лежит вне $\mathrm{WF}$.</p>
+  <div class="definition">
+    <div class="def-head">Аксиома антифундирования AFA (Форти и Хонселл, 1983; Акцель, 1988)</div>
+    <p><strong>Декорацией</strong> ориентированного графа $G$ называется отображение $d$, сопоставляющее каждой вершине $a$ множество $d(a)=\{d(b):a\to b\}$. <strong>AFA:</strong> всякий граф имеет ровно одну декорацию.</p>
+    <p>Граф из одной вершины с петлёй даёт уравнение $x=\{x\}$; по AFA оно имеет единственное решение $\Omega$, так что атом Куайна существует и единствен. Множества, декорирующие бисимилярные графы, равны (сильная экстенсиональность): система $x=\{y\}$, $y=\{x\}$ имеет единственное решение $x=y=\Omega$, поскольку граф из двух вершин, ссылающихся друг на друга, бисимилярен петле. Теория $\mathrm{ZFA}=\mathrm{ZFC}^-+\mathrm{AFA}$ содержит аксиому выбора и равнонепротиворечива с ZFC.</p>
+  </div>
+
+  <h3>Парадокс Рассела</h3>
+  <p>Предложение $\neg\exists R\,\forall x\,(x\in R\leftrightarrow x\notin x)$ — теорема чистой логики первого порядка: оно истинно в любой структуре, в том числе в $M_1$ и $M_2$. Системы различаются не тем, «избегают» ли они парадокса, а тем, какой принцип свёртывания сохраняют. Наивное свёртывание и переход от него к наследственно конечным множествам разобраны в конспекте главы B2 «<a href="/Materials/maglish_b2_foundations.html">Фундамент математики</a>» той же книги.</p>
+  <ul class="plain">
+    <li><strong>ZFC и ZFA</strong> сохраняют выделение (Aussonderung Цермело): свойство выделяет подмножество лишь из уже данного множества. Аргумент Рассела превращается в теорему: для всякого $A$ множество $\{x\in A:x\notin x\}$ не принадлежит $A$, и универсального множества нет. Фундирование в рассуждении не участвует, поэтому ZFA ведёт себя так же, как ZFC.</li>
+    <li><strong>NBG</strong> сохраняет свёртывание для классов $\{x:\varphi(x)\}$, где кванторы $\varphi$ пробегают только множества. Класс Рассела существует, но он собственный, а элементами бывают лишь множества; при фундировании он совпадает с $V$.</li>
+    <li><strong>NF</strong> сохраняет свёртывание без ограничения размера, но только для стратифицируемых формул.</li>
+  </ul>
+  <div class="definition">
+    <div class="def-head">Стратификация (Куайн, 1937)</div>
+    <p>Формула <strong>стратифицируема</strong>, если её переменным можно приписать целые числа — типы — так, что в каждой атомарной подформуле $x\in y$ тип $y$ на единицу больше типа $x$, а в подформуле $x=y$ типы равны. Аксиомы NF: экстенсиональность и схема $\exists y\,\forall x\,(x\in y\leftrightarrow\varphi)$ для каждой стратифицируемой формулы $\varphi$, не содержащей $y$ свободно.</p>
+    <p>Формулы $x=x$ и $x\notin A$ стратифицируемы — отсюда $V$ и дополнения; формула $x\notin x$ — нет.</p>
+  </div>
+
+  <h3>Теорема Кантора</h3>
+  <p>Диагональное доказательство использует только выделение: для $f\colon A\to\mathcal P(A)$ множество $D=\{x\in A:x\notin f(x)\}$ не лежит в образе $f$, поскольку из $D=f(d)$ следует $d\in D\leftrightarrow d\notin D$. Поэтому теорема верна в ZFC и в ZFA независимо от фундирования. В NBG она относится к множествам; для собственных классов аналога нет: при глобальном выборе все собственные классы равномощны.</p>
+  <p>В NF условие $x\notin f(x)$ для $f\colon A\to\mathcal P(A)$ нестратифицируемо: запись $\langle x,y\rangle\in f$ требует равенства типов $x$ и $y=f(x)$, а $x\notin y$ — различия на единицу. Для $f\colon\mathcal P_1(A)\to\mathcal P(A)$ диагональное условие $a\notin f(\{a\})$ стратифицируемо, и доказательство проходит: $|\mathcal P_1(A)|&lt;|\mathcal P(A)|$. Отображение $a\mapsto\{a\}$ в NF, вообще говоря, множеством не является, поэтому $|A|$ и $|\mathcal P_1(A)|$ могут различаться. При $A=V$ имеем $\mathcal P(V)=V$ и $|\mathcal P_1(V)|&lt;|V|$: синглетонов строго меньше, чем множеств.</p>
+
+  <h3>Предикативность</h3>
+  <p>Определение импредикативно, если определяемый объект задаётся квантором по совокупности, которой сам принадлежит. Пуанкаре (1906) и Рассел (1908) видели в таких определениях источник парадоксов (принцип порочного круга); в книге Вейля «Das Kontinuum» (1918) значительная часть анализа построена предикативно; точная граница предикативности при заданном натуральном ряде — ординал $\Gamma_0$ (Феферман, 1964; Шютте, 1965).</p>
+  <p>ZFC импредикативна в двух отношениях. Формула в схеме выделения может содержать кванторы по всему универсуму, включая определяемое множество. Аксиома степени постулирует совокупность всех подмножеств, в частности $\mathcal P(\N)$, как завершённое целое. ZFA и NF импредикативны в том же смысле; в NF кванторы стратифицированной формулы пробегают $V$, а $V$ — множество.</p>
+  <p>NBG предикативна по классам: в свёртывании классов кванторы пробегают лишь множества. Поэтому схема свёртывания заменяется конечным числом аксиом (NBG конечно аксиоматизируема), и NBG консервативна над ZFC: утверждение о множествах доказуемо в NBG тогда и только тогда, когда оно доказуемо в ZFC. Импредикативное свёртывание классов даёт теорию Морса–Келли (MK) — строго более сильную: MK доказывает непротиворечивость ZFC. Таким образом, классы как объекты не меняют теории множеств, а импредикативные классы её усиливают.</p>
+  <p>В предикативной программе Фефермана основная часть научно применимого анализа развивается в системах, консервативных над арифметикой Пеано (система W, 1988). Иерархия предикативных и импредикативных систем разобрана в материале «<a href="/Materials/second_order_arithmetic.html">Иерархия теорий арифметики второго порядка</a>», предикативный анализ Вейля — в «<a href="/Materials/math_analysis_levels.html">Уровнях формализации математического анализа</a>».</p>
+
+  <h3>Ординалы</h3>
+  <p>По фон Нейману (1923) ординал — транзитивное множество, строго вполне упорядоченное отношением $\in$; каждый ординал совпадает с множеством меньших ординалов: $\alpha=\{\beta:\beta&lt;\alpha\}$. Совокупность всех ординалов $\mathrm{On}$ множеством быть не может (парадокс Бурали-Форти): в ZFC это виртуальный класс, в NBG — собственный класс. В ZFA ординалы те же, что в ZFC, и все лежат в $\mathrm{WF}$. Однако определения, равносильные при фундировании, без него расходятся: условию «транзитивное множество транзитивных множеств» в ZFA удовлетворяет и множество $\Omega=\{\Omega\}$, не являющееся ординалом.</p>
+  <p>В NF уже условие транзитивности $\forall y\in x\;\forall z\in y\;(z\in x)$ нестратифицируемо (типы $x$ и $z$ должны различаться одновременно на $1$ и на $2$), так что стратифицированное свёртывание не даёт множества фон-неймановских ординалов. Ординалы определяются по Фреге и Расселу: ординал — множество всех вполне упорядочений, изоморфных данному; так же кардинал — множество всех множеств, равномощных данному, а натуральное число $n$ — множество всех $n$-элементных множеств. Множество всех ординалов существует; тип его естественного упорядочения обозначим $\Theta$ (в литературе по NF — $\Omega$; здесь эта буква занята атомом Куайна).</p>
+  <p>Парадокс Бурали-Форти снимается тем, что ординалы, меньшие $\Theta$, образуют собственный начальный отрезок этого упорядочения и потому имеют тип, строго меньший $\Theta$: равенство «тип $\{\beta:\beta&lt;\alpha\}$ равен $\alpha$», тривиальное для ординалов фон Неймана, нестратифицируемо и при $\alpha=\Theta$ неверно. Его стратифицированный вариант выражается через операцию $T$, поднимающую тип упорядочения на один уровень, и даёт убывающую цепочку $\Theta&gt;T(\Theta)&gt;T^2(\Theta)&gt;\dots$, которая множеством не является. Извне эта цепочка бесконечна; поэтому ни в одной модели NF порядок на ординалах не фундирован с точки зрения метатеории (Россер и Ван, 1950).</p>
+
+  <h3>Аксиома выбора</h3>
+  <p>В ZFC выбор постулируется отдельной аксиомой; она не зависит от остальных аксиом ZF (Гёдель, 1938; Коэн, 1963). В NBG обычно принимается глобальный выбор — существование класса-функции, выбирающей элемент из каждого непустого множества (Гёдель, 1940); такое расширение консервативно над ZFC (Фельгнер, 1971). В системе фон Неймана (1925) глобальный выбор не постулируется отдельно, а следует из аксиомы ограничения размера: класс является собственным тогда и только тогда, когда его можно отобразить на $V$. Из той же аксиомы следуют выделение и замещение, но не аксиома степени: ограничение размера само по себе не обеспечивает существования $\mathcal P(A)$.</p>
+  <p>AFA с выбором совместна. В NF выбор опровергается: универсум нельзя вполне упорядочить (Шпеккер, 1953); как следствие, NF доказывает аксиому бесконечности. Вариант NFU, допускающий праэлементы, непротиворечив относительно систем значительно более слабых, чем ZFC, и совместим с выбором (Йенсен, 1969). Непротиворечивость самой NF оставалась открытой с 1937 года; доказательство Холмса и Уилшоу строит модель «спутанной» теории типов TTT, непротиворечивость которой равносильна непротиворечивости NF, и проверено в системе Lean (2024).</p>
+
+  <h3>Базовые аксиомы</h3>
+  <p>Отличие NF от остальных бесконечных систем — в выделении: из множества $A$ выделяется лишь подмножество, заданное стратифицируемым условием; так, $\{x\in V:x\notin x\}$ не существует. Взамен NF содержит множества, невозможные в ZFC: $V$, дополнения, множество всех ординалов, множество всех кардиналов. Выполнение базовых аксиом в $M_1$ и $M_2$ проверено в <a href="#sec-toy">§ 4</a>.</p>
+</section>
+
+<section id="sec-toy">
+  <h2>4. Конечные модели $M_1$ и $M_2$</h2>
+  <p class="lead">Модели $M_1=\langle\{\Omega\};\in\rangle$ и $M_2=\langle\{\varnothing,\Omega\};\in\rangle$, где $\Omega=\{\Omega\}$, проверяются полным перебором: в конечной структуре всякое подмножество носителя определимо с параметрами, поэтому схемы выделения и замещения сводятся к конечному числу проверок.</p>
+  <div class="tbl-wrap">
+    <table class="basic">
+      <thead>
+        <tr><th>Аксиома</th><th>$M_1=\{\Omega\}$</th><th>$M_2=\{\varnothing,\Omega\}$</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Экстенсиональность</td><td><span class="ok">✓</span></td><td><span class="ok">✓</span> — $\varnothing$ и $\Omega$ различаются элементами</td></tr>
+        <tr><td>Пустое множество</td><td><span class="fail">✗</span> — единственный элемент $\Omega$ непуст</td><td><span class="ok">✓</span></td></tr>
+        <tr><td>Пара</td><td><span class="ok">✓</span> — $\{\Omega,\Omega\}=\Omega$</td><td><span class="fail">✗</span> — $\{\varnothing\}$ отсутствует</td></tr>
+        <tr><td>Объединение</td><td><span class="ok">✓</span> — $\bigcup\Omega=\Omega$</td><td><span class="ok">✓</span></td></tr>
+        <tr><td>Степень</td><td><span class="ok">✓</span> — $\mathcal P(\Omega)=\Omega$</td><td><span class="fail">✗</span> — $\mathcal P(\varnothing)=\{\varnothing\}$ отсутствует</td></tr>
+        <tr><td>Выделение</td><td><span class="fail">✗</span> — $\{x\in\Omega:x\ne x\}=\varnothing$ отсутствует</td><td><span class="ok">✓</span> — подмножества $\varnothing$ и $\Omega$ исчерпываются $\varnothing$ и $\Omega$</td></tr>
+        <tr><td>Замещение</td><td><span class="ok">✓</span></td><td><span class="fail">✗</span> — образ $\Omega$ при $x\mapsto\varnothing$ равен $\{\varnothing\}$</td></tr>
+        <tr><td>Бесконечность: $\exists x\,(\varnothing\in x\wedge\forall y\in x\,(y\cup\{y\}\in x))$</td><td><span class="fail">✗</span></td><td><span class="fail">✗</span></td></tr>
+        <tr><td>Фундирование</td><td><span class="fail">✗</span></td><td><span class="fail">✗</span></td></tr>
+        <tr><td>Выбор</td><td><span class="ok">✓</span></td><td><span class="ok">✓</span></td></tr>
+        <tr><td>Универсальное множество</td><td><span class="ok">✓</span> — $\Omega$</td><td><span class="fail">✗</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p><strong>Развилка Рассела в миниатюре.</strong> Выделение и универсальное множество несовместимы: из выделения аргумент Рассела выводит $\{x\in A:x\notin x\}\notin A$ для всякого $A$. Модели $M_1$ и $M_2$ реализуют две стороны этой развилки. В $M_1$ универсальное множество $\Omega$ есть, а выделение нарушено: $\{x\in\Omega:x\notin x\}=\varnothing$ в модели отсутствует. В $M_2$ выделение выполнено, и универсального множества нет: $\{x\in\Omega:x\notin x\}=\varnothing\notin\Omega$. Тот же выбор в полном масштабе разделяет ZFC (полное выделение, универсума нет) и NF (универсум есть, выделение ограничено стратификацией).</p>
+  <p><strong>Теорема Кантора.</strong> В $M_1$ пара по Куратовскому вырождается: $\langle\Omega,\Omega\rangle=\{\{\Omega\},\{\Omega,\Omega\}\}=\{\Omega\}=\Omega$. Поэтому $\Omega=\{\langle\Omega,\Omega\rangle\}$ — функция с областью определения $\Omega$, а так как $\mathcal P(\Omega)=\Omega$, она биективно отображает $\Omega$ на $\mathcal P(\Omega)$: теорема Кантора ложна. Диагональное множество $\{x\in\Omega:x\notin f(x)\}$ было бы пустым и в модели отсутствует — опровержение держится на отсутствии выделения. В $M_2$ степеней нет: $\mathcal P(\varnothing)=\{\varnothing\}$ и $\mathcal P(\Omega)=\{\varnothing,\Omega\}$ не являются элементами модели, так что формулировка $|A|&lt;|\mathcal P(A)|$ беспредметна. Формулировка без степени — для всякой функции $f$ с областью определения $A$ найдётся $B\subseteq A$, не лежащее в образе $f$, — верна: функциями в $M_2$ являются лишь $\varnothing$ и $\Omega$, и для $f=\Omega$ подходит $B=\varnothing$. Это снова следствие выделения.</p>
+  <p><strong>Фундирование и выбор.</strong> В обеих моделях множество $\Omega=\{\Omega\}$ не имеет <span class="nw">$\in$-минимального</span> элемента. Существенно, что множество $\{\Omega\}$ присутствует в модели: без аксиомы пары регулярность не влечёт $x\notin x$. Если заменить $\Omega$ элементом $\Omega'=\{\varnothing,\Omega'\}$, то в структуре $\langle\{\varnothing,\Omega'\};\in\rangle$ регулярность выполнена ($\varnothing$ — <span class="nw">$\in$-минимальный</span> элемент $\Omega'$), хотя $\Omega'\in\Omega'$. Выбор в $M_1$ и $M_2$ тривиален: единственное непустое семейство непустых множеств — $\Omega$, и $\Omega=\{\langle\Omega,\Omega\rangle\}$ — его функция выбора.</p>
+  <p><strong>Ординалы и бесконечность.</strong> В $M_1$ ординалов нет: $\Omega$ транзитивно, но $\Omega\in\Omega$ нарушает строгость порядка, а $\varnothing$ отсутствует. В $M_2$ единственный ординал — $0=\varnothing$; уже $1=\{\varnothing\}$ отсутствует. Стандартная аксиома бесконечности нарушена в обеих моделях. Однако формулировка «существует непустое множество без <span class="nw">$\in$-максимального</span> элемента», $\exists x\,(\exists y\,(y\in x)\wedge\forall y\in x\;\exists z\in x\;(y\in z))$, равносильная стандартной при остальных аксиомах ZF, в обеих моделях выполнена: свидетель — $\Omega$. Без фундирования формулировки, эквивалентные в ZF, перестают быть эквивалентными.</p>
+</section>
+
+<section id="sec-positions">
+  <h2>5. Позиции: Цермело, Гильберт, фон Нейман, Куайн, Акцель, Феферман</h2>
+  <p class="lead">Столбцы таблицы — следствия нескольких философских установок относительно природы множества и критериев допустимости математических объектов. В каждой карточке указаны столбцы и строки таблицы, в которых соответствующая установка проявляется.</p>
+  <div class="pos-grid">
+    <div class="pos-card">
+      <div class="pos-name">Эрнст Цермело</div>
+      <div class="pos-thesis">Множества образуются; универсум не завершается</div>
+      <p>Аксиоматизация 1908 года должна была обосновать теорему о вполне упорядочении (1904) и устранить антиномии. Её центральный принцип — выделение: свойство выделяет множество лишь внутри уже данного множества.</p>
+      <p>В работе «Über Grenzzahlen und Mengenbereiche» (1930) система дополнена аксиомами замещения и фундирования, универсум описан как кумулятивная иерархия, а её начальные отрезки $V_\kappa$ для сильно недостижимых $\kappa$ — как естественные модели. Универсум трактуется как неограниченная последовательность таких моделей, каждая из которых — множество в следующей; антиномии свидетельствуют об этой незавершённости, а не о дефекте понятия множества.</p>
+      <div class="pos-link">Таблица: ZFC · статус универсума · фундирование</div>
+    </div>
+    <div class="pos-card">
+      <div class="pos-name">Давид Гильберт</div>
+      <div class="pos-thesis">Существование объектов обеспечивается непротиворечивостью аксиом</div>
+      <p>Письмо Фреге (1899): если произвольно заданные аксиомы не противоречат друг другу со всеми следствиями, то они истинны и определяемые ими объекты существуют. Гёттингенский аксиоматический метод — среда, в которой возникла система Цермело. Программа Гильберта (1920-е) требовала финитного доказательства непротиворечивости классической математики, включая канторовскую теорию множеств: «Из рая, который создал для нас Кантор, никто не сможет нас изгнать» (1926). Теоремы Гёделя о неполноте (1931) показали, что в исходной форме программа невыполнима: достаточно сильная непротиворечивая система не доказывает собственной непротиворечивости.</p>
+      <p>Гильбертова точка зрения задаёт измерение, по которому сопоставимы все столбцы, — относительную непротиворечивость: NBG консервативна над ZFC, ZFA равнонепротиворечива с ZFC, непротиворечивость NF долго оставалась открытой, а $\mathrm{Th}(M_1)$ и $\mathrm{Th}(M_2)$ непротиворечивы просто потому, что имеют модели.</p>
+      <div class="pos-link">Таблица: все столбцы · аксиома выбора</div>
+    </div>
+    <div class="pos-card">
+      <div class="pos-name">Джон фон Нейман</div>
+      <div class="pos-thesis">Слишком большое — не множество, но объект</div>
+      <p>Ординалы как транзитивные множества, вполне упорядоченные отношением $\in$ (1923). Аксиоматика 1925 года строится на понятии функции и допускает объекты, не являющиеся элементами, — будущие классы; аксиома ограничения размера (класс собственный тогда и только тогда, когда его можно отобразить на $V$) заменяет выделение, замещение и выбор единым принципом.</p>
+      <p>В 1929 году введена иерархия $V_\alpha$ и доказана относительная непротиворечивость фундирования: фундированные множества образуют модель остальных аксиом. Работы Бернайса (1937–1954) и Гёделя (1940) придали системе форму NBG.</p>
+      <div class="pos-link">Таблица: NBG · ординалы · аксиома выбора</div>
+    </div>
+    <div class="pos-card">
+      <div class="pos-name">Уиллард ван Орман Куайн</div>
+      <div class="pos-thesis">Всё — множество; ограничение синтаксическое</div>
+      <p>NF (1937) получена из простой теории типов Рассела «стиранием» типов: от типизации остаётся лишь требование, чтобы формула свёртывания её допускала (стратификация). Объекты одного сорта, все они — множества; универсальное множество, дополнения, кардиналы и ординалы по Фреге–Расселу возвращаются в теорию.</p>
+      <p>Установка соответствует онтологической экономии Куайна («быть — значит быть значением связанной переменной», 1948): классы ZFC — лишь «виртуальные» сокращения формул. Книга «Set Theory and Its Logic» (1963) содержит систематическое сравнение конкурирующих систем — ZF, NBG, NF и ML.</p>
+      <div class="pos-link">Таблица: NF · статус универсума · теорема Кантора</div>
+    </div>
+    <div class="pos-card">
+      <div class="pos-name">Питер Акцель</div>
+      <div class="pos-thesis">Циклы законны; множество — граф с точностью до бисимуляции</div>
+      <p>Поводом к книге «Non-Well-Founded Sets» (1988) послужила теоретико-множественная семантика параллельных процессов Милнера (CCS): естественная модель процесса, ссылающегося на себя, нарушает фундирование. AFA, впервые изученная Форти и Хонселлом (1983), делает такие объекты законными: множество задаётся графом принадлежности, а равенство множеств — бисимуляцией графов.</p>
+      <p>Предшественники — различение «обыкновенных» и «необыкновенных» множеств у Мириманова (1917) и система Финслера (1926); применения — семантика самореферентных высказываний (Барвайс и Этчеменди, «The Liar», 1987) и коиндуктивные объекты информатики (Барвайс и Мосс, «Vicious Circles», 1996). Акцелю принадлежит также конструктивная теория множеств CZF (1978) — без аксиомы степени и с выделением лишь по формулам с ограниченными кванторами.</p>
+      <div class="pos-link">Таблица: ZFA · фундирование · ординалы</div>
+    </div>
+    <div class="pos-card">
+      <div class="pos-name">Соломон Феферман</div>
+      <div class="pos-thesis">Предикативность при данном натуральном ряде</div>
+      <p>Натуральный ряд принимается как завершённая совокупность, $\mathcal P(\N)$ — нет. Граница предикативности при таком допущении — ординал $\Gamma_0$ (Феферман, 1964; Шютте, 1965). В работе «Weyl vindicated» (1988) показано, что система W, консервативная над арифметикой Пеано, достаточна для основной части научно применимого анализа; отсюда тезис о том, что импредикативные части теории множеств для приложений не нужны.</p>
+      <p>Скептическое отношение к определённости континуум-гипотезы (2011) продолжает ту же линию: понятие произвольного подмножества $\N$ не является вполне определённым, и вопросы, зависящие от полного $\mathcal P(\N)$, могут не иметь определённого ответа.</p>
+      <div class="pos-link">Таблица: предикативность · NBG против MK</div>
+    </div>
+  </div>
+  <p>Принцип порочного круга сформулирован Пуанкаре (1906) и Расселом (1908); разветвлённая теория типов Рассела — общий предок предикативной программы и, через простую теорию типов, системы NF. Окончательная форма NBG принадлежит Бернайсу и Гёделю; центральные результаты о NF и NFU — Шпеккеру (1953) и Йенсену (1969); анализ итеративной концепции как обоснования аксиом ZFC — Булосу (1971).</p>
+</section>
+
+<section id="sec-beyond">
+  <h2>6. За пределами таблицы</h2>
+  <ul class="plain">
+    <li><strong>Z и ZC.</strong> Система Цермело 1908 года без замещения. $V_{\omega+\omega}$ — её модель, поэтому Z не доказывает существования ординала $\omega+\omega$, а значит, и $\aleph_\omega$.</li>
+    <li><strong>MK.</strong> Теория Морса–Келли: NBG с импредикативным свёртыванием классов; доказывает непротиворечивость ZFC.</li>
+    <li><strong>KP.</strong> Теория Крипке–Платека: без аксиомы степени, выделение и собирание — только по формулам с ограниченными кванторами; основа теории допустимых множеств (Барвайс, 1975).</li>
+    <li><strong>ZF с праэлементами.</strong> Атомы — объекты без элементов, отличные от $\varnothing$; перестановочные модели Френкеля–Мостовского доказывают независимость аксиомы выбора в этом контексте.</li>
+    <li><strong>NFU.</strong> NF с праэлементами: непротиворечива, совместима с выбором и бесконечностью (Йенсен, 1969).</li>
+    <li><strong>CZF и IZF.</strong> Конструктивные теории множеств с интуиционистской логикой; CZF (Акцель, 1978) не содержит аксиомы степени и интерпретируется в теории типов Мартин-Лёфа.</li>
+  </ul>
+</section>
+
+<section id="sec-refs">
+  <h2>7. Литература</h2>
+  <ol class="refs">
+    <li>Zermelo E. Untersuchungen über die Grundlagen der Mengenlehre I // Math. Ann. 1908. Bd. 65. S. 261–281.</li>
+    <li>Zermelo E. Über Grenzzahlen und Mengenbereiche // Fund. Math. 1930. Vol. 16. P. 29–47.</li>
+    <li>Mirimanoff D. Les antinomies de Russell et de Burali-Forti et le problème fondamental de la théorie des ensembles // Enseign. Math. 1917. Vol. 19. P. 37–52.</li>
+    <li>von Neumann J. Eine Axiomatisierung der Mengenlehre // J. reine angew. Math. 1925. Bd. 154. S. 219–240.</li>
+    <li>Hilbert D. Über das Unendliche // Math. Ann. 1926. Bd. 95. S. 161–190.</li>
+    <li>Quine W. V. New foundations for mathematical logic // Amer. Math. Monthly. 1937. Vol. 44. P. 70–80.</li>
+    <li>Rosser J. B., Wang H. Non-standard models for formal logics // J. Symbolic Logic. 1950. Vol. 15. P. 113–129.</li>
+    <li>Specker E. The axiom of choice in Quine's New Foundations for mathematical logic // Proc. Nat. Acad. Sci. USA. 1953. Vol. 39. P. 972–975.</li>
+    <li>Quine W. V. Set Theory and Its Logic. Cambridge, MA: Harvard Univ. Press, 1963.</li>
+    <li>Feferman S. Systems of predicative analysis // J. Symbolic Logic. 1964. Vol. 29. P. 1–30.</li>
+    <li>Jensen R. B. On the consistency of a slight (?) modification of Quine's New Foundations // Synthese. 1969. Vol. 19. P. 250–263.</li>
+    <li>Boolos G. The iterative conception of set // J. Philos. 1971. Vol. 68. P. 215–231.</li>
+    <li>Felgner U. Comparison of the axioms of local and universal choice // Fund. Math. 1971. Vol. 71. P. 43–62.</li>
+    <li>Forti M., Honsell F. Set theory with free construction principles // Ann. Sc. Norm. Super. Pisa Cl. Sci. (4). 1983. Vol. 10. P. 493–522.</li>
+    <li>Aczel P. Non-Well-Founded Sets. Stanford: CSLI, 1988. (CSLI Lecture Notes; 14).</li>
+    <li>Feferman S. Weyl vindicated: <em>Das Kontinuum</em> seventy years later (1988) // Feferman S. In the Light of Logic. New York: Oxford Univ. Press, 1998. P. 249–283.</li>
+    <li>Holmes M. R., Wilshaw S. NF is consistent. arXiv:1503.01406.</li>
+  </ol>
+</section>
+
+<p class="page-footer">© Nikolai Kazimirov · <a href="https://mathem.at" rel="noopener">mathem.at</a></p>
+
+</div>
+</body>
+</html>

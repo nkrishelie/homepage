@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Spectrum of Set Theories: ZFC, NBG, ZFA, NF</title>
+<meta name="description" content="A comparison table of the set theories ZFC, NBG, ZFA (Aczel's anti-foundation), Quine's NF and two finite models: the status of the universe, foundation, Russell's paradox, Cantor's theorem, predicativity, ordinals, the axiom of choice — and the philosophical positions of Zermelo, Hilbert, von Neumann, Quine, Aczel and Feferman.">
+<link rel="canonical" href="https://mathem.at/Materials/set_theories_en.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Spectrum of Set Theories: ZFC, NBG, ZFA, NF">
+<meta property="og:description" content="ZFC, NBG, ZFA and NF in one table: which decisions about the nature of sets turn into which axioms — from von Neumann's cumulative universe to Quine's universal set.">
+<meta property="og:url" content="https://mathem.at/Materials/set_theories_en.html">
+<meta property="og:locale" content="en_US">
+<link rel="alternate" hreflang="ru" href="/Materials/set_theories.html">
+<link rel="alternate" hreflang="en" href="/Materials/set_theories_en.html">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMxYTE5MTciLz48dGV4dCB4PSIxNiIgeT0iMTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iNzAwIiBmb250LWZhbWlseT0iR2VvcmdpYSxUaW1lcyBOZXcgUm9tYW4sc2VyaWYiPuKIhTwvdGV4dD48L3N2Zz4=" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\]', display: true}, {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}], macros: {'\\R': '\\mathbb{R}', '\\C': '\\mathbb{C}', '\\N': '\\mathbb{N}', '\\Z': '\\mathbb{Z}', '\\Q': '\\mathbb{Q}'}, throwOnError: false})"></script>
+<style>
+:root {
+  --bg:#faf9f6; --bg2:#f2f0eb; --ink:#1a1917; --ink2:#5a5750; --ink3:#8a8680; --border:#dcd9d2;
+  --blue-bg:#e8eef7;  --blue-acc:#3a5f9e;
+  --rust-bg:#f0ebe8;  --rust-acc:#8c4a32;
+  --sage-bg:#e8f0eb;  --sage-acc:#2e6645;
+  --teal-bg:#e6f5ef;  --teal-acc:#0f6e56;
+  --amber-bg:#fdf3e0; --amber-acc:#7a4f0d;
+  --coral-bg:#faeae6; --coral-acc:#9b2f1a;
+  --purple-bg:#eeedfb; --purple-acc:#4a3a9a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Georgia,serif;font-size:22px;line-height:1.65;min-height:100vh}
+.page{max-width:1320px;margin:0 auto;padding:3rem 2.5rem 5rem}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.8rem}
+.crumbs{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink3)}
+.crumbs a{color:var(--ink3);text-decoration:none}
+.crumbs a:hover{color:var(--ink)}
+.lang-pills{display:flex;gap:8px}
+.lang-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border:1px solid var(--border);color:var(--ink2);transition:.15s}
+.lang-pill.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.lang-pill:not(.active):hover{border-color:var(--ink)}
+header{margin-bottom:2.5rem;border-bottom:1.5px solid var(--ink);padding-bottom:1.5rem}
+.kicker{font-family:'JetBrains Mono',monospace;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:.6rem}
+h1{font-size:clamp(28px,3.2vw,44px);font-weight:500;line-height:1.15;color:var(--ink);margin-bottom:.5rem}
+.desc{font-size:19px;color:var(--ink2);font-style:italic;max-width:900px}
+section{margin-bottom:3.5rem;scroll-margin-top:1.5rem}
+h2{font-size:28px;font-weight:500;margin-bottom:1.2rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+h3{font-size:22px;font-weight:500;margin:1.8rem 0 .8rem;color:var(--ink)}
+p{margin-bottom:.9rem;color:var(--ink2)}
+p.lead{color:var(--ink)}
+strong{color:var(--ink);font-weight:500}
+em{color:var(--ink)}
+.katex{font-size:1.05em}
+.katex-display{margin:.6em 0!important;overflow-x:auto;overflow-y:hidden}
+section a,.tbl-note a,.toc a{color:var(--blue-acc);text-decoration:none;border-bottom:1px solid rgba(58,95,158,.35)}
+section a:hover,.tbl-note a:hover,.toc a:hover{border-bottom-color:var(--blue-acc)}
+
+/* ── Contents ── */
+.toc{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1.2rem 1.5rem;margin-bottom:2.5rem}
+.toc h3{margin:0 0 .8rem;font-size:19px}
+.toc ol{margin:0 0 0 1.5rem;padding:0;color:var(--ink2);line-height:1.6}
+.toc a{color:var(--ink2);border-bottom:0.5px solid rgba(138,134,128,.35)}
+
+ul.plain{padding-left:1.3rem;margin-bottom:1rem;color:var(--ink2)}
+ul.plain li{margin-bottom:.6rem;line-height:1.6}
+ul.plain li::marker{color:var(--ink3)}
+
+.math-block{margin:1.1rem 0;padding:.8rem 1.2rem;background:var(--bg2);border-left:2.5px solid var(--border);border-radius:0 4px 4px 0;overflow-x:auto}
+.math-block .katex-display{margin:0!important}
+
+.definition{border:1.5px solid var(--blue-acc);background:var(--blue-bg);border-radius:6px;padding:1.1rem 1.4rem;margin:1.2rem 0}
+.definition .def-head{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-acc);font-weight:700;margin-bottom:.6rem}
+.definition p{margin-bottom:.7rem;color:var(--ink2)}
+.definition p:last-child{margin-bottom:0}
+
+.note{border-left:3px solid var(--rust-acc);background:var(--rust-bg);border-radius:0 6px 6px 0;padding:.8rem 1.1rem;margin:1rem 0;font-size:18px;color:var(--ink2)}
+.note .note-head{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--rust-acc);margin-bottom:.35rem;display:block}
+.note p{margin-bottom:.55rem;color:var(--ink2)}
+.note p:last-child{margin-bottom:0}
+
+/* ── Comparison table ── */
+.tbl-label{font-family:'JetBrains Mono',monospace;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:.8rem}
+.tbl-note{font-size:17px;color:var(--ink2);line-height:1.6;margin:0 0 1.2rem;padding:.9rem 1.2rem;background:var(--bg2);border-left:2.5px solid var(--border)}
+.legend{display:flex;flex-wrap:wrap;gap:.45rem 1.3rem;align-items:center;font-size:16.5px;color:var(--ink2);margin-bottom:1rem}
+.legend span.item{display:inline-flex;align-items:center;gap:.45rem}
+.cmp-wrap{overflow-x:auto;margin-bottom:1rem;border:0.5px solid var(--border);border-top:2px solid var(--ink);background:var(--bg)}
+table.cmp{width:100%;min-width:1240px;border-collapse:separate;border-spacing:0;table-layout:fixed}
+table.cmp col.c-head{width:12%}
+table.cmp col.c-sys{width:14.66%}
+table.cmp th,table.cmp td{text-align:left;vertical-align:top;border-right:0.5px solid var(--border);border-bottom:0.5px solid var(--border)}
+table.cmp th:last-child,table.cmp td:last-child{border-right:none}
+table.cmp tbody tr:last-child th,table.cmp tbody tr:last-child td{border-bottom:none}
+table.cmp thead th{padding:12px 14px;background:var(--bg2);border-bottom:1.5px solid var(--ink);font-weight:400;vertical-align:bottom}
+table.cmp thead th.corner{font-style:italic;font-size:17px;color:var(--ink)}
+table.cmp tbody th{padding:12px 14px;font-size:17.5px;font-weight:500;color:var(--ink);line-height:1.35}
+table.cmp tbody td{padding:12px 14px;font-size:16.5px;line-height:1.5;color:var(--ink2)}
+table.cmp .sticky{position:sticky;left:0;z-index:2;background:var(--bg)}
+table.cmp thead .sticky{background:var(--bg2);z-index:3}
+table.cmp tbody tr:hover td,table.cmp tbody tr:hover th{background:#f5f3ee}
+.th-name{display:block;font-size:20px;color:var(--ink);font-weight:500;line-height:1.25}
+.th-sub{display:block;font-size:14.5px;color:var(--ink3);font-style:italic;line-height:1.35;margin-top:3px}
+.th-stance{display:inline-block;margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink2);border:1px solid var(--border);border-radius:999px;padding:2px 9px;background:var(--bg);line-height:1.5}
+.st{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:3px;line-height:1.5;white-space:nowrap}
+table.cmp td .st{margin-bottom:6px;white-space:normal}
+.st .katex{text-transform:none;letter-spacing:0}
+.st-yes{background:var(--sage-bg);color:var(--sage-acc)}
+.st-no{background:var(--coral-bg);color:var(--coral-acc)}
+.st-mod{background:var(--amber-bg);color:var(--amber-acc)}
+.st-cls{background:var(--blue-bg);color:var(--blue-acc)}
+.st-na{background:var(--bg2);color:var(--ink3);border:0.5px solid var(--border)}
+.cell{display:block}
+.nw{white-space:nowrap}
+.ax-list{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:5px}
+.ax{display:inline-block;font-size:15px;padding:1px 7px;border-radius:3px;white-space:nowrap;line-height:1.5}
+.ax.y{background:var(--sage-bg);color:var(--sage-acc)}
+.ax.n{background:var(--coral-bg);color:var(--coral-acc)}
+.ax.m{background:var(--amber-bg);color:var(--amber-acc)}
+.cell-note{display:block;font-size:14.5px;color:var(--ink3);font-style:italic;margin-top:4px;line-height:1.4}
+
+/* ── Small verification table ── */
+.tbl-wrap{overflow-x:auto;margin:1rem 0 1.4rem}
+table.basic{width:100%;border-collapse:collapse;min-width:720px;border:0.5px solid var(--border);border-top:2px solid var(--ink)}
+table.basic thead th{padding:10px 14px;vertical-align:bottom;border-bottom:1.5px solid var(--ink);border-right:0.5px solid var(--border);font-size:17px;font-weight:500;text-align:left;background:var(--bg2)}
+table.basic thead th:last-child{border-right:none}
+table.basic tbody tr{border-bottom:0.5px solid var(--border)}
+table.basic tbody tr:last-child{border-bottom:none}
+table.basic tbody td{padding:9px 14px;vertical-align:top;border-right:0.5px solid var(--border);font-size:17px;color:var(--ink2);line-height:1.45}
+table.basic tbody td:last-child{border-right:none}
+table.basic tbody td:first-child{color:var(--ink)}
+.ok{color:var(--sage-acc);font-weight:500}
+.fail{color:var(--coral-acc);font-weight:500}
+
+/* ── Positions ── */
+.pos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:16px;margin:1.3rem 0 1.5rem}
+.pos-card{background:var(--bg);border:1px solid var(--border);border-top:3px solid var(--ink3);border-radius:6px;padding:1.05rem 1.25rem 1rem;display:flex;flex-direction:column}
+.pos-name{font-size:22px;font-weight:500;color:var(--ink);line-height:1.25}
+.pos-thesis{font-style:italic;color:var(--ink);font-size:18px;line-height:1.4;margin:.3rem 0 .7rem}
+.pos-card p{font-size:17px;line-height:1.6;margin-bottom:.6rem}
+.pos-link{margin-top:auto;padding-top:.35rem;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink3);line-height:1.5}
+
+/* ── References ── */
+ol.refs{padding-left:1.6rem;color:var(--ink2);font-size:17px;line-height:1.55}
+ol.refs li{margin-bottom:.45rem}
+ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font-size:13px}
+
+.page-footer{margin-top:2.75rem;padding-top:1.1rem;border-top:0.5px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.04em;color:var(--ink3);text-align:center;line-height:1.5}
+.page-footer a{color:var(--ink3);text-decoration:none;border-bottom:1px solid rgba(138,134,128,.35)}
+.page-footer a:hover{color:var(--ink2);border-bottom-color:var(--ink2)}
+@media(max-width:700px){
+  body{font-size:19px}
+  .page{padding:1.5rem 1rem 3rem}
+  .pos-grid{grid-template-columns:1fr}
+  .math-block{padding:.7rem .6rem}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="topbar">
+  <div class="crumbs"><a href="https://mathem.at">← mathem.at</a> / <a href="/#materials">Materials</a></div>
+  <div class="lang-pills">
+    <a class="lang-pill active" href="/Materials/set_theories_en.html?lang=en">🇬🇧 EN</a>
+    <a class="lang-pill" href="/Materials/set_theories.html?lang=ru">🇷🇺 RU</a>
+  </div>
+<script>
+(function () {
+  var KEY = 'mathem_lang';
+  var pills = document.querySelectorAll('.lang-pill');
+  if (!pills.length) return;
+  var activeHref = null, otherHref = null, otherLang = null;
+  pills.forEach(function (a) {
+    var href = a.getAttribute('href');
+    var lang = /_en\.html/.test(href.split('?')[0]) ? 'en' : 'ru';
+    if (a.classList.contains('active')) { activeHref = href; }
+    else { otherHref = href; otherLang = lang; }
+  });
+  var currentLang = /_en\.html/.test((activeHref || location.pathname).split('?')[0]) ? 'en' : 'ru';
+  var params = new URLSearchParams(location.search);
+  if (params.get('lang')) {
+    try { localStorage.setItem(KEY, params.get('lang')); } catch (e) {}
+    return;
+  }
+  var pref;
+  try { pref = localStorage.getItem(KEY); } catch (e) {}
+  if (pref && pref === otherLang && otherHref) {
+    location.replace(otherHref);
+    return;
+  }
+  try { localStorage.setItem(KEY, currentLang); } catch (e) {}
+})();
+</script>
+</div>
+
+<header>
+  <p class="kicker">Set Theory · Foundations of Mathematics</p>
+  <h1>The Spectrum of Set Theories</h1>
+  <p class="desc">ZFC, NBG, ZFA and NF are four answers to the question of what a set is. The systems differ in whether the universe exists as an object, whether classes are admitted, whether membership must be well-founded, which restriction of comprehension blocks Russell's paradox, and whether impredicative definitions are allowed; these decisions account for the differences in Cantor's theorem, in the ordinals and in the status of the axiom of choice. Two finite models mark the ends of the spectrum.</p>
+</header>
+
+<nav class="toc">
+  <h3>Contents</h3>
+  <ol>
+    <li><a href="#sec-family">One theory or a family of theories</a></li>
+    <li><a href="#sec-table">Comparison table</a></li>
+    <li><a href="#sec-rows">Comments on the rows</a></li>
+    <li><a href="#sec-toy">The finite models $M_1$ and $M_2$</a></li>
+    <li><a href="#sec-positions">Positions: Zermelo, Hilbert, von Neumann, Quine, Aczel, Feferman</a></li>
+    <li><a href="#sec-beyond">Beyond the table</a></li>
+    <li><a href="#sec-refs">References</a></li>
+  </ol>
+</nav>
+
+<section id="sec-family">
+  <h2>1. One theory or a family of theories</h2>
+  <p class="lead">The phrase “set theory” denotes not a single axiomatic system but a family of systems in a common language — the first-order language whose only non-logical symbol is $\in$ (NBG adds a sort of classes). All of them arose in response to one problem: the naive comprehension principle, according to which every property $\varphi(x)$ determines a set $\{x:\varphi(x)\}$, is inconsistent. For $\varphi(x)\equiv x\notin x$ it yields a set $R$ with $R\in R\leftrightarrow R\notin R$ (Russell, 1901). Comprehension must be restricted, and mathematics does not determine the restriction uniquely: the choice expresses a conception of what a set is.</p>
+  <p>A system results from decisions along several independent axes.</p>
+  <ul class="plain">
+    <li><strong>The iterative conception.</strong> Sets are formed in stages from previously formed sets; the universe is the cumulative hierarchy $V=\bigcup_\alpha V_\alpha$, which is never completed and is therefore not itself a set (Zermelo, 1930; Boolos, 1971). ZFC rests on this conception.</li>
+    <li><strong>Limitation of size.</strong> Only “too large” collections produce contradictions. They can be admitted as objects of a special kind — classes — that are forbidden to be members (von Neumann, 1925). This position is embodied in NBG.</li>
+    <li><strong>Well-foundedness.</strong> Either membership is well-founded — $x\in x$, cycles $x\in y\in x$ and infinite descending <span class="nw">$\in$-chains</span> are excluded (the notion of a well-founded set: Mirimanoff, 1917; the axiom: von Neumann, 1925, and Zermelo, 1930) — or circular objects are legitimate and are given by graphs up to bisimulation (Forti and Honsell, 1983; Aczel, 1988). The second choice leads to ZFA.</li>
+    <li><strong>Universality.</strong> Everything is a set, the universe included; comprehension is restricted not by size but syntactically — by stratification, which descends from Russell's theory of types (Quine, 1937). This is NF.</li>
+    <li><strong>Predicativity.</strong> Whether an object may be defined by a quantifier over a totality to which the object itself belongs (Poincaré, 1906; Russell, 1908; Weyl, 1918; Feferman, 1964). The answer separates, in particular, NBG from Morse–Kelley set theory.</li>
+    <li><strong>Formal admissibility.</strong> For Hilbert, a consistent system of axioms itself secures the existence of its objects. From this standpoint competing systems are compared not by “truth” but by consistency and relative strength.</li>
+  </ul>
+  <p>The table compares four standard systems — ZFC, NBG, ZFA in Aczel's sense, and NF — with two finite <span class="nw">$\in$-structures</span>. Let $\Omega$ be a Quine atom, i.e. a set satisfying $\Omega=\{\Omega\}$, and</p>
+  <div class="math-block">$$M_1=\langle\{\Omega\};\in\rangle,\quad M_2=\langle\{\varnothing,\Omega\};\in\rangle,$$</div>
+  <p>where in both structures the membership relation consists of the single pair $\Omega\in\Omega$. The complete theories $\mathrm{Th}(M_1)$ and $\mathrm{Th}(M_2)$ make no claim to serve as foundations of mathematics. They serve as control cases: in a finite model every statement is checked directly, which shows which consequence rests on which axiom (<a href="#sec-toy">§ 4</a>).</p>
+</section>
+
+<section id="sec-table">
+  <h2>2. Comparison table</h2>
+  <p>ZFC — von Neumann's cumulative universe — serves as the reference point; the colour of a label indicates the position of the other systems relative to it.</p>
+  <div class="legend">
+    <span class="item"><span class="st st-yes">as in ZFC</span> the classical case</span>
+    <span class="item"><span class="st st-mod">modified</span> a modified or restricted form</span>
+    <span class="item"><span class="st st-no">fails</span> the property does not hold</span>
+    <span class="item"><span class="st st-cls">classes</span> resolved via classes</span>
+    <span class="item"><span class="st st-na">—</span> not applicable</span>
+  </div>
+  <div class="cmp-wrap">
+    <table class="cmp">
+      <colgroup><col class="c-head"><col class="c-sys"><col class="c-sys"><col class="c-sys"><col class="c-sys"><col class="c-sys"><col class="c-sys"></colgroup>
+      <thead>
+        <tr>
+          <th scope="col" class="sticky corner">Feature</th>
+          <th scope="col"><span class="th-name">ZFC</span><span class="th-sub">Zermelo–Fraenkel + Choice</span><span class="th-stance">iterative conception</span></th>
+          <th scope="col"><span class="th-name">NBG</span><span class="th-sub">von Neumann–Bernays–Gödel</span><span class="th-stance">limitation of size</span></th>
+          <th scope="col"><span class="th-name">ZFA</span><span class="th-sub">$\mathrm{ZFC}^-+\mathrm{AFA},$ Aczel's anti-foundation</span><span class="th-stance">cycles allowed</span></th>
+          <th scope="col"><span class="th-name">NF</span><span class="th-sub">New Foundations, Quine</span><span class="th-stance">everything is a set</span></th>
+          <th scope="col"><span class="th-name">$\mathrm{Th}(M_1)$</span><span class="th-sub">one-point model $\{\Omega\}$</span><span class="th-stance">universe without separation</span></th>
+          <th scope="col"><span class="th-name">$\mathrm{Th}(M_2)$</span><span class="th-sub">two-point model $\{\varnothing,\Omega\}$</span><span class="th-stance">separation without universe</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row" class="sticky">Status of the universe $V$</th>
+          <td><span class="st st-yes">not a set</span><span class="cell">$\mathrm{ZFC}\vdash\neg\exists v\,\forall x\,(x\in v).$ The “class” $V$ abbreviates the formula $x=x;$ $V=\bigcup_\alpha V_\alpha.$</span></td>
+          <td><span class="st st-cls">proper class</span><span class="cell">$V$ and $\mathrm{On}$ are objects of the second sort, but not members.</span></td>
+          <td><span class="st st-yes">not a set</span><span class="cell">As in ZFC; $\mathrm{WF}\subsetneq V,$ since $\Omega\notin\mathrm{WF}.$</span></td>
+          <td><span class="st st-mod">a set, $V\in V$</span><span class="cell">$V=\{x:x=x\}$ is given by a stratified formula.</span></td>
+          <td><span class="st st-mod">a set, $V=\Omega$</span><span class="cell">The domain $\{\Omega\}$ coincides with $\Omega,$ hence $V\in V.$</span></td>
+          <td><span class="st st-yes">not in the model</span><span class="cell">The domain is $\{\varnothing,\Omega\},$ but $\Omega=\{\Omega\}\ne\{\varnothing,\Omega\}.$</span></td>
+        </tr>
+        <tr>
+          <th scope="row" class="sticky">Foundation / regularity</th>
+          <td><span class="st st-yes">yes</span><span class="cell">Excludes $x\in x,$ <span class="nw">$\in$-cycles</span> and infinite descending <span class="nw">$\in$-chains</span>; equivalent to $V=\mathrm{WF}.$</span></td>
+          <td><span class="st st-yes">yes</span><span class="cell">In class form: every nonempty class has an <span class="nw">$\in$-minimal</span> element.</span></td>
+          <td><span class="st st-no">no → AFA</span><span class="cell">Every graph has a unique decoration; bisimilar sets are equal.</span></td>
+          <td><span class="st st-no">no</span><span class="cell">$V\in V.$</span></td>
+          <td><span class="st st-no">no</span><span class="cell">$\Omega\in\Omega.$</span></td>
+          <td><span class="st st-no">no</span><span class="cell">$\Omega=\{\Omega\}$ has no <span class="nw">$\in$-minimal</span> element.</span></td>
+        </tr>
+        <tr>
+          <th scope="row" class="sticky">Blocking Russell's paradox</th>
+          <td><span class="st st-yes">separation</span><span class="cell">Only from a given set: $\{x\in A:x\notin x\}\notin A;$ hence there is no universal set.</span></td>
+          <td><span class="st st-cls">proper class</span><span class="cell">The Russell class $\{x:x\notin x\}$ exists but cannot be a member.</span></td>
+          <td><span class="st st-yes">separation</span><span class="cell">As in ZFC; foundation plays no role in the argument.</span></td>
+          <td><span class="st st-mod">stratification</span><span class="cell">The formula $x\notin x$ is not stratifiable; comprehension does not apply to it.</span></td>
+          <td><span class="st st-no">no separation</span><span class="cell">$\{x\in\Omega:x\notin x\}=\varnothing$ is absent, so the universal set causes no contradiction.</span></td>
+          <td><span class="st st-yes">separation</span><span class="cell">Separation holds, and by Russell's argument there is no universal set.</span></td>
+        </tr>
+        <tr>
+          <th scope="row" class="sticky">Cantor's theorem</th>
+          <td><span class="st st-yes">holds</span><span class="cell">$|A|&lt;|\mathcal P(A)|.$</span></td>
+          <td><span class="st st-yes">for sets</span><span class="cell">Fails for proper classes: under global choice all of them are equinumerous.</span></td>
+          <td><span class="st st-yes">holds</span><span class="cell">The diagonal argument does not use foundation.</span></td>
+          <td><span class="st st-mod">restricted</span><span class="cell">$\mathcal P(V)=V;$ $|\mathcal P_1(A)|&lt;|\mathcal P(A)|$ holds, where $\mathcal P_1(A)=\{\{a\}:a\in A\}.$</span></td>
+          <td><span class="st st-no">false</span><span class="cell">$\mathcal P(\Omega)=\Omega,$ and $\Omega=\{\langle\Omega,\Omega\rangle\}$ is a bijection of $\Omega$ onto $\mathcal P(\Omega).$</span></td>
+          <td><span class="st st-mod">no power sets</span><span class="cell">There are no power sets; the diagonal form holds, since separation holds.</span></td>
+        </tr>
+        <tr>
+          <th scope="row" class="sticky">Predicativity</th>
+          <td><span class="st st-yes">impredicative</span><span class="cell">Separation for formulas quantifying over all of $V;$ $\mathcal P(A)$ is the totality of all subsets.</span></td>
+          <td><span class="st st-cls">predicative in classes</span><span class="cell">Class comprehension with quantifiers over sets only; conservative over ZFC. The impredicative variant MK is stronger.</span></td>
+          <td><span class="st st-yes">impredicative</span><span class="cell">As ZFC.</span></td>
+          <td><span class="st st-yes">impredicative</span><span class="cell">Quantifiers of stratified formulas range over $V,$ and $V$ is a set.</span></td>
+          <td colspan="2"><span class="st st-na">not applicable</span><span class="cell">The theories are given by models, not by principles of set formation.</span></td>
+        </tr>
+        <tr>
+          <th scope="row" class="sticky">Definition of ordinals</th>
+          <td><span class="st st-yes">von Neumann</span><span class="cell">A transitive set well-ordered by $\in;$ $\alpha=\{\beta:\beta&lt;\alpha\}.$</span></td>
+          <td><span class="st st-yes">von Neumann</span><span class="cell">$\mathrm{On}$ is a proper class (Burali-Forti paradox).</span></td>
+          <td><span class="st st-yes">von Neumann</span><span class="cell">The same as in ZFC, and they lie in $\mathrm{WF};$ a weakened definition admits $\Omega=\{\Omega\}.$</span></td>
+          <td><span class="st st-mod">Frege–Russell</span><span class="cell">An ordinal is the set of all well-orderings isomorphic to a given one; the set of all ordinals exists.</span></td>
+          <td><span class="st st-no">none</span><span class="cell">There are no ordinals: even $0=\varnothing$ is absent.</span></td>
+          <td><span class="st st-mod">only $0$</span><span class="cell">The only ordinal is $\varnothing;$ $1=\{\varnothing\}$ is absent.</span></td>
+        </tr>
+        <tr>
+          <th scope="row" class="sticky">Axiom of choice (AC)</th>
+          <td><span class="st st-yes">yes</span><span class="cell">Postulated; independent of ZF (Gödel, 1938; Cohen, 1963).</span></td>
+          <td><span class="st st-cls">global choice</span><span class="cell">A class choice function on $V;$ conservative over ZFC (Felgner, 1971).</span></td>
+          <td><span class="st st-yes">yes</span><span class="cell">Consistent with AFA.</span></td>
+          <td><span class="st st-no">refuted</span><span class="cell">$V$ cannot be well-ordered (Specker, 1953); hence NF proves infinity.</span></td>
+          <td><span class="st st-yes">trivially</span><span class="cell">$\Omega=\{\langle\Omega,\Omega\rangle\}$ is a choice function for <span class="nw">$\Omega.$</span></span></td>
+          <td><span class="st st-yes">trivially</span><span class="cell">The choice functions are $\varnothing$ and <span class="nw">$\Omega.$</span></span></td>
+        </tr>
+        <tr>
+          <th scope="row" class="sticky">Basic axioms<span class="cell-note">empty set, pairing, union, power set, separation</span></th>
+          <td><span class="ax-list"><span class="ax y">$\varnothing$ ✓</span><span class="ax y">pair ✓</span><span class="ax y">$\bigcup$ ✓</span><span class="ax y">$\mathcal P$ ✓</span><span class="ax y">sep. ✓</span></span></td>
+          <td><span class="ax-list"><span class="ax y">$\varnothing$ ✓</span><span class="ax y">pair ✓</span><span class="ax y">$\bigcup$ ✓</span><span class="ax y">$\mathcal P$ ✓</span><span class="ax y">sep. ✓</span></span><span class="cell-note">for sets</span></td>
+          <td><span class="ax-list"><span class="ax y">$\varnothing$ ✓</span><span class="ax y">pair ✓</span><span class="ax y">$\bigcup$ ✓</span><span class="ax y">$\mathcal P$ ✓</span><span class="ax y">sep. ✓</span></span></td>
+          <td><span class="ax-list"><span class="ax y">$\varnothing$ ✓</span><span class="ax y">pair ✓</span><span class="ax y">$\bigcup$ ✓</span><span class="ax y">$\mathcal P$ ✓</span><span class="ax m">sep. ±</span></span><span class="cell-note">separation for stratified formulas only; complements $V\setminus A$ exist</span></td>
+          <td><span class="ax-list"><span class="ax n">$\varnothing$ ✗</span><span class="ax y">pair ✓</span><span class="ax y">$\bigcup$ ✓</span><span class="ax y">$\mathcal P$ ✓</span><span class="ax n">sep. ✗</span></span></td>
+          <td><span class="ax-list"><span class="ax y">$\varnothing$ ✓</span><span class="ax n">pair ✗</span><span class="ax y">$\bigcup$ ✓</span><span class="ax n">$\mathcal P$ ✗</span><span class="ax y">sep. ✓</span></span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="tbl-note">$\mathcal P(A)$ is the set of all subsets of $A$; $\mathcal P_1(A)=\{\{a\}:a\in A\}$ is the set of singletons; $V_0=\varnothing$, $V_{\alpha+1}=\mathcal P(V_\alpha)$, $V_\lambda=\bigcup_{\alpha&lt;\lambda}V_\alpha$ is the cumulative hierarchy, and $\mathrm{WF}=\bigcup_\alpha V_\alpha$ is the class of well-founded sets; $\langle a,b\rangle=\{\{a\},\{a,b\}\}$ is the Kuratowski pair. $\mathrm{ZFC}^-$ denotes ZFC without the axiom of foundation (Aczel's notation; in another tradition the same symbol denotes ZFC without the power set axiom). The abbreviation ZFA is also used for ZF with urelements (atoms), and it is used in that sense in “<a href="/Materials/second_order_arithmetic_en.html">Hierarchy of Second-Order Arithmetic Theories</a>”; here $\mathrm{ZFA}=\mathrm{ZFC}^-+\mathrm{AFA}$. The columns $\mathrm{Th}(M_1)$ and $\mathrm{Th}(M_2)$ are analysed in <a href="#sec-toy">§ 4</a>.</p>
+</section>
+
+<section id="sec-rows">
+  <h2>3. Comments on the rows</h2>
+
+  <h3>Status of the universe</h3>
+  <p>In ZFC the existence of a universal set is refuted. If $\forall x\,(x\in v)$, then by the separation schema there is $R=\{x\in v:x\notin x\}$; since $R\in v$, one obtains $R\in R\leftrightarrow R\notin R$. Expressions such as “the class $V$” or “the class $\mathrm{On}$” are admissible in ZFC only as abbreviations of formulas ($x=x$, “$x$ is an ordinal”); such collections are called virtual classes (Quine, 1963).</p>
+  <p>NBG makes classes objects of a second sort: $V$ and $\mathrm{On}$ exist but are never members. In NF the collection $\{x:x=x\}$ is given by a stratified formula, so $V$ is a set and $V\in V$; the complement $V\setminus A$ of every set $A$ is a set as well. In $M_1$ the universe is $\Omega$ itself; in $M_2$ the domain $\{\varnothing,\Omega\}$ is not an element of the model.</p>
+
+  <h3>Foundation</h3>
+  <p>The axiom of foundation (regularity): every nonempty set $x$ contains an element $y$ with $y\cap x=\varnothing$. Given the remaining axioms of ZF, it is equivalent to $V=\mathrm{WF}$: every set $x$ has a rank, the least ordinal $\alpha$ with $x\subseteq V_\alpha$. Foundation excludes $x\in x$ (otherwise the set $\{x\}$ would have no <span class="nw">$\in$-minimal</span> element), finite cycles $x_0\in x_1\in\dots\in x_n\in x_0$ and infinite descending chains $\dots\in x_2\in x_1\in x_0$. It is also equivalent to the schema of <span class="nw">$\in$-induction</span>, which generalizes transfinite induction on the ordinals. The cumulative hierarchy is treated in the summary of chapter C1, “<a href="/Materials/maglish_c1_paradise_en.html">A Mathematician's Paradise</a>”, of the book <em>Mathematics as a Foreign Language</em>; transfinite induction in “<a href="/Materials/induction_en.html">On Mathematical Induction</a>”.</p>
+  <p>Abandoning foundation does not affect mathematics developed inside ZFC: the class $\mathrm{WF}$ remains a model of ZFC and contains all standard objects — numbers, functions, spaces. Only what lies outside $\mathrm{WF}$ changes.</p>
+  <div class="definition">
+    <div class="def-head">The anti-foundation axiom AFA (Forti and Honsell, 1983; Aczel, 1988)</div>
+    <p>A <strong>decoration</strong> of a directed graph $G$ is a map $d$ assigning to each vertex $a$ the set $d(a)=\{d(b):a\to b\}$. <strong>AFA:</strong> every graph has exactly one decoration.</p>
+    <p>The graph consisting of one vertex with a loop yields the equation $x=\{x\}$; by AFA it has a unique solution $\Omega$, so the Quine atom exists and is unique. Sets decorating bisimilar graphs are equal (strong extensionality): the system $x=\{y\}$, $y=\{x\}$ has the unique solution $x=y=\Omega$, because the graph of two vertices pointing to each other is bisimilar to the loop. The theory $\mathrm{ZFA}=\mathrm{ZFC}^-+\mathrm{AFA}$ includes the axiom of choice and is equiconsistent with ZFC.</p>
+  </div>
+
+  <h3>Russell's paradox</h3>
+  <p>The sentence $\neg\exists R\,\forall x\,(x\in R\leftrightarrow x\notin x)$ is a theorem of pure first-order logic: it holds in every structure, $M_1$ and $M_2$ included. The systems differ not in whether they “avoid” the paradox, but in which comprehension principle they retain. Naive comprehension and the passage from it to the hereditarily finite sets are treated in the summary of chapter B2, “<a href="/Materials/maglish_b2_foundations_en.html">The Foundations of Mathematics</a>”, of the same book.</p>
+  <ul class="plain">
+    <li><strong>ZFC and ZFA</strong> retain separation (Zermelo's <em>Aussonderung</em>): a property separates a subset only from an already given set. Russell's argument becomes a theorem: for every $A$, the set $\{x\in A:x\notin x\}$ does not belong to $A$, and there is no universal set. Foundation plays no role in the argument, so ZFA behaves exactly like ZFC.</li>
+    <li><strong>NBG</strong> retains comprehension for classes $\{x:\varphi(x)\}$ where the quantifiers of $\varphi$ range over sets only. The Russell class exists, but it is proper, and only sets are members; under foundation it coincides with $V$.</li>
+    <li><strong>NF</strong> retains comprehension without any restriction of size, but only for stratifiable formulas.</li>
+  </ul>
+  <div class="definition">
+    <div class="def-head">Stratification (Quine, 1937)</div>
+    <p>A formula is <strong>stratifiable</strong> if its variables can be assigned integers — types — so that in every atomic subformula $x\in y$ the type of $y$ exceeds the type of $x$ by one, and in every subformula $x=y$ the types are equal. The axioms of NF are extensionality and the schema $\exists y\,\forall x\,(x\in y\leftrightarrow\varphi)$ for every stratifiable formula $\varphi$ in which $y$ does not occur free.</p>
+    <p>The formulas $x=x$ and $x\notin A$ are stratifiable — hence $V$ and complements; the formula $x\notin x$ is not.</p>
+  </div>
+
+  <h3>Cantor's theorem</h3>
+  <p>The diagonal proof uses only separation: for $f\colon A\to\mathcal P(A)$, the set $D=\{x\in A:x\notin f(x)\}$ does not lie in the range of $f$, since $D=f(d)$ implies $d\in D\leftrightarrow d\notin D$. Hence the theorem holds in ZFC and in ZFA regardless of foundation. In NBG it concerns sets; for proper classes there is no analogue: under global choice all proper classes are equinumerous.</p>
+  <p>In NF the condition $x\notin f(x)$ for $f\colon A\to\mathcal P(A)$ is not stratifiable: $\langle x,y\rangle\in f$ requires $x$ and $y=f(x)$ to have equal types, while $x\notin y$ requires a difference of one. For $f\colon\mathcal P_1(A)\to\mathcal P(A)$ the diagonal condition $a\notin f(\{a\})$ is stratifiable, and the proof goes through: $|\mathcal P_1(A)|&lt;|\mathcal P(A)|$. The map $a\mapsto\{a\}$ is in general not a set in NF, so $|A|$ and $|\mathcal P_1(A)|$ may differ. For $A=V$ one has $\mathcal P(V)=V$ and $|\mathcal P_1(V)|&lt;|V|$: there are strictly fewer singletons than sets.</p>
+
+  <h3>Predicativity</h3>
+  <p>A definition is impredicative if the object being defined is specified by a quantifier over a totality to which the object itself belongs. Poincaré (1906) and Russell (1908) saw in such definitions the source of the paradoxes (the vicious circle principle); in Weyl's <em>Das Kontinuum</em> (1918) a substantial part of analysis is developed predicatively; the exact limit of predicativity given the natural numbers is the ordinal $\Gamma_0$ (Feferman, 1964; Schütte, 1965).</p>
+  <p>ZFC is impredicative in two respects. A formula in the separation schema may contain quantifiers over the whole universe, including the set being defined. The power set axiom postulates the totality of all subsets, in particular $\mathcal P(\N)$, as a completed whole. ZFA and NF are impredicative in the same sense; in NF the quantifiers of a stratified formula range over $V$, and $V$ is a set.</p>
+  <p>NBG is predicative in classes: in class comprehension the quantifiers range over sets only. Consequently the comprehension schema can be replaced by finitely many axioms (NBG is finitely axiomatizable), and NBG is conservative over ZFC: a statement about sets is provable in NBG if and only if it is provable in ZFC. Impredicative class comprehension yields Morse–Kelley set theory (MK), which is strictly stronger: MK proves the consistency of ZFC. Thus classes as objects do not change set theory, whereas impredicative classes strengthen it.</p>
+  <p>In Feferman's predicativist programme the bulk of scientifically applicable analysis is developed in systems conservative over Peano arithmetic (the system W, 1988). The hierarchy of predicative and impredicative systems is treated in “<a href="/Materials/second_order_arithmetic_en.html">Hierarchy of Second-Order Arithmetic Theories</a>”, Weyl's predicative analysis in “<a href="/Materials/math_analysis_levels_en.html">Levels of Formalization of Mathematical Analysis</a>”.</p>
+
+  <h3>Ordinals</h3>
+  <p>Following von Neumann (1923), an ordinal is a transitive set strictly well-ordered by $\in$; every ordinal coincides with the set of smaller ordinals: $\alpha=\{\beta:\beta&lt;\alpha\}$. The collection $\mathrm{On}$ of all ordinals cannot be a set (the Burali-Forti paradox): in ZFC it is a virtual class, in NBG a proper class. In ZFA the ordinals are the same as in ZFC, and all of them lie in $\mathrm{WF}$. However, definitions that are equivalent under foundation diverge without it: in ZFA the condition “a transitive set of transitive sets” is also satisfied by the set $\Omega=\{\Omega\}$, which is not an ordinal.</p>
+  <p>In NF already the transitivity condition $\forall y\in x\;\forall z\in y\;(z\in x)$ is not stratifiable (the types of $x$ and $z$ would have to differ by $1$ and by $2$ simultaneously), so stratified comprehension does not yield a set of von Neumann ordinals. Ordinals are defined after Frege and Russell: an ordinal is the set of all well-orderings isomorphic to a given one; likewise a cardinal is the set of all sets equinumerous with a given one, and the natural number $n$ is the set of all $n$-element sets. The set of all ordinals exists; denote the type of its natural ordering by $\Theta$ (in the NF literature, $\Omega$; here that letter is reserved for the Quine atom).</p>
+  <p>The Burali-Forti paradox is resolved by the fact that the ordinals smaller than $\Theta$ form a proper initial segment of this ordering and therefore have a type strictly smaller than $\Theta$: the equation “the type of $\{\beta:\beta&lt;\alpha\}$ is $\alpha$”, trivial for von Neumann ordinals, is not stratifiable and fails for $\alpha=\Theta$. Its stratified version is expressed through the operation $T$, which raises the type of an ordering by one level, and yields a descending chain $\Theta&gt;T(\Theta)&gt;T^2(\Theta)&gt;\dots$ that is not a set. Externally the chain is infinite; hence in no model of NF is the ordering of the ordinals well-founded from the standpoint of the metatheory (Rosser and Wang, 1950).</p>
+
+  <h3>The axiom of choice</h3>
+  <p>In ZFC choice is postulated as a separate axiom; it is independent of the other axioms of ZF (Gödel, 1938; Cohen, 1963). NBG usually adopts global choice — the existence of a class function selecting an element from every nonempty set (Gödel, 1940); this extension is conservative over ZFC (Felgner, 1971). In von Neumann's system (1925) global choice is not postulated separately but follows from the axiom of limitation of size: a class is proper if and only if it can be mapped onto $V$. The same axiom yields separation and replacement, but not the power set axiom: limitation of size by itself does not secure the existence of $\mathcal P(A)$.</p>
+  <p>AFA is compatible with choice. In NF choice is refuted: the universe cannot be well-ordered (Specker, 1953); as a consequence, NF proves the axiom of infinity. The variant NFU, which admits urelements, is consistent relative to systems considerably weaker than ZFC and compatible with choice (Jensen, 1969). The consistency of NF itself had remained open since 1937; the proof by Holmes and Wilshaw constructs a model of tangled type theory TTT, whose consistency is equivalent to that of NF, and has been verified in the Lean proof assistant (2024).</p>
+
+  <h3>Basic axioms</h3>
+  <p>NF differs from the other infinite systems in separation: from a set $A$ only a subset defined by a stratifiable condition can be separated; thus $\{x\in V:x\notin x\}$ does not exist. In return NF contains sets impossible in ZFC: $V$, complements, the set of all ordinals, the set of all cardinals. The basic axioms in $M_1$ and $M_2$ are checked in <a href="#sec-toy">§ 4</a>.</p>
+</section>
+
+<section id="sec-toy">
+  <h2>4. The finite models $M_1$ and $M_2$</h2>
+  <p class="lead">The models $M_1=\langle\{\Omega\};\in\rangle$ and $M_2=\langle\{\varnothing,\Omega\};\in\rangle$, where $\Omega=\{\Omega\}$, are checked by exhaustive search: in a finite structure every subset of the domain is definable with parameters, so the separation and replacement schemas reduce to finitely many checks.</p>
+  <div class="tbl-wrap">
+    <table class="basic">
+      <thead>
+        <tr><th>Axiom</th><th>$M_1=\{\Omega\}$</th><th>$M_2=\{\varnothing,\Omega\}$</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Extensionality</td><td><span class="ok">✓</span></td><td><span class="ok">✓</span> — $\varnothing$ and $\Omega$ differ in their elements</td></tr>
+        <tr><td>Empty set</td><td><span class="fail">✗</span> — the only element $\Omega$ is nonempty</td><td><span class="ok">✓</span></td></tr>
+        <tr><td>Pairing</td><td><span class="ok">✓</span> — $\{\Omega,\Omega\}=\Omega$</td><td><span class="fail">✗</span> — $\{\varnothing\}$ is absent</td></tr>
+        <tr><td>Union</td><td><span class="ok">✓</span> — $\bigcup\Omega=\Omega$</td><td><span class="ok">✓</span></td></tr>
+        <tr><td>Power set</td><td><span class="ok">✓</span> — $\mathcal P(\Omega)=\Omega$</td><td><span class="fail">✗</span> — $\mathcal P(\varnothing)=\{\varnothing\}$ is absent</td></tr>
+        <tr><td>Separation</td><td><span class="fail">✗</span> — $\{x\in\Omega:x\ne x\}=\varnothing$ is absent</td><td><span class="ok">✓</span> — the subsets of $\varnothing$ and $\Omega$ are exactly $\varnothing$ and $\Omega$</td></tr>
+        <tr><td>Replacement</td><td><span class="ok">✓</span></td><td><span class="fail">✗</span> — the image of $\Omega$ under $x\mapsto\varnothing$ is $\{\varnothing\}$</td></tr>
+        <tr><td>Infinity: $\exists x\,(\varnothing\in x\wedge\forall y\in x\,(y\cup\{y\}\in x))$</td><td><span class="fail">✗</span></td><td><span class="fail">✗</span></td></tr>
+        <tr><td>Foundation</td><td><span class="fail">✗</span></td><td><span class="fail">✗</span></td></tr>
+        <tr><td>Choice</td><td><span class="ok">✓</span></td><td><span class="ok">✓</span></td></tr>
+        <tr><td>Universal set</td><td><span class="ok">✓</span> — $\Omega$</td><td><span class="fail">✗</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p><strong>Russell's dilemma in miniature.</strong> Separation and a universal set are incompatible: from separation Russell's argument derives $\{x\in A:x\notin x\}\notin A$ for every $A$. The models $M_1$ and $M_2$ realize the two horns of this dilemma. In $M_1$ the universal set $\Omega$ exists, while separation fails: $\{x\in\Omega:x\notin x\}=\varnothing$ is absent from the model. In $M_2$ separation holds, and there is no universal set: $\{x\in\Omega:x\notin x\}=\varnothing\notin\Omega$. The same choice, at full scale, separates ZFC (full separation, no universe) from NF (a universe, separation restricted by stratification).</p>
+  <p><strong>Cantor's theorem.</strong> In $M_1$ the Kuratowski pair degenerates: $\langle\Omega,\Omega\rangle=\{\{\Omega\},\{\Omega,\Omega\}\}=\{\Omega\}=\Omega$. Hence $\Omega=\{\langle\Omega,\Omega\rangle\}$ is a function with domain $\Omega$, and since $\mathcal P(\Omega)=\Omega$, it maps $\Omega$ bijectively onto $\mathcal P(\Omega)$: Cantor's theorem fails. The diagonal set $\{x\in\Omega:x\notin f(x)\}$ would be empty and is absent from the model — the counterexample rests on the failure of separation. In $M_2$ there are no power sets: $\mathcal P(\varnothing)=\{\varnothing\}$ and $\mathcal P(\Omega)=\{\varnothing,\Omega\}$ are not elements of the model, so the formulation $|A|&lt;|\mathcal P(A)|$ is vacuous. The formulation without power sets — for every function $f$ with domain $A$ there is $B\subseteq A$ not in the range of $f$ — holds: the only functions in $M_2$ are $\varnothing$ and $\Omega$, and $B=\varnothing$ works for $f=\Omega$. This is again a consequence of separation.</p>
+  <p><strong>Foundation and choice.</strong> In both models the set $\Omega=\{\Omega\}$ has no <span class="nw">$\in$-minimal</span> element. It is essential that the set $\{\Omega\}$ be present in the model: without the pairing axiom, regularity does not imply $x\notin x$. If $\Omega$ is replaced by an element $\Omega'=\{\varnothing,\Omega'\}$, then regularity holds in the structure $\langle\{\varnothing,\Omega'\};\in\rangle$ ($\varnothing$ is an <span class="nw">$\in$-minimal</span> element of $\Omega'$), although $\Omega'\in\Omega'$. Choice in $M_1$ and $M_2$ is trivial: the only nonempty family of nonempty sets is $\Omega$, and $\Omega=\{\langle\Omega,\Omega\rangle\}$ is its choice function.</p>
+  <p><strong>Ordinals and infinity.</strong> In $M_1$ there are no ordinals: $\Omega$ is transitive, but $\Omega\in\Omega$ violates the strictness of the order, and $\varnothing$ is absent. In $M_2$ the only ordinal is $0=\varnothing$; already $1=\{\varnothing\}$ is absent. The standard axiom of infinity fails in both models. However, the formulation “there is a nonempty set without an <span class="nw">$\in$-maximal</span> element”, $\exists x\,(\exists y\,(y\in x)\wedge\forall y\in x\;\exists z\in x\;(y\in z))$, which is equivalent to the standard one given the remaining axioms of ZF, holds in both models, with $\Omega$ as a witness. Without foundation, formulations equivalent in ZF cease to be equivalent.</p>
+</section>
+
+<section id="sec-positions">
+  <h2>5. Positions: Zermelo, Hilbert, von Neumann, Quine, Aczel, Feferman</h2>
+  <p class="lead">The columns of the table are consequences of several philosophical positions on the nature of sets and on the criteria of admissibility of mathematical objects. Each card indicates the columns and rows of the table in which the corresponding position manifests itself.</p>
+  <div class="pos-grid">
+    <div class="pos-card">
+      <div class="pos-name">Ernst Zermelo</div>
+      <div class="pos-thesis">Sets are formed; the universe is never completed</div>
+      <p>The axiomatization of 1908 was meant to secure the well-ordering theorem (1904) and to eliminate the antinomies. Its central principle is separation: a property separates a set only within an already given set.</p>
+      <p>In “Über Grenzzahlen und Mengenbereiche” (1930) the system is supplemented with the axioms of replacement and foundation, the universe is described as the cumulative hierarchy, and its initial segments $V_\kappa$ for strongly inaccessible $\kappa$ as the natural models. The universe is conceived as an unbounded sequence of such models, each of which is a set in the next; the antinomies witness this open-endedness rather than a defect of the concept of set.</p>
+      <div class="pos-link">Table: ZFC · status of the universe · foundation</div>
+    </div>
+    <div class="pos-card">
+      <div class="pos-name">David Hilbert</div>
+      <div class="pos-thesis">The existence of objects is secured by the consistency of axioms</div>
+      <p>Letter to Frege (1899): if arbitrarily given axioms do not contradict one another with all their consequences, then they are true and the things defined by them exist. The Göttingen axiomatic method is the setting in which Zermelo's system arose. Hilbert's programme (1920s) demanded a finitary proof of the consistency of classical mathematics, Cantorian set theory included: “No one shall expel us from the paradise that Cantor has created for us” (1926). Gödel's incompleteness theorems (1931) showed that the programme cannot be carried out in its original form: a sufficiently strong consistent system does not prove its own consistency.</p>
+      <p>Hilbert's standpoint provides the dimension along which all the columns are comparable — relative consistency: NBG is conservative over ZFC, ZFA is equiconsistent with ZFC, the consistency of NF long remained open, and $\mathrm{Th}(M_1)$ and $\mathrm{Th}(M_2)$ are consistent simply because they have models.</p>
+      <div class="pos-link">Table: all columns · axiom of choice</div>
+    </div>
+    <div class="pos-card">
+      <div class="pos-name">John von Neumann</div>
+      <div class="pos-thesis">Too large to be a set, yet still an object</div>
+      <p>Ordinals as transitive sets well-ordered by $\in$ (1923). The axiomatization of 1925 is based on the notion of function and admits objects that are not members — the future classes; the axiom of limitation of size (a class is proper if and only if it can be mapped onto $V$) replaces separation, replacement and choice by a single principle.</p>
+      <p>In 1929 the hierarchy $V_\alpha$ is introduced and the relative consistency of foundation is proved: the well-founded sets form a model of the remaining axioms. The work of Bernays (1937–1954) and Gödel (1940) gave the system the form of NBG.</p>
+      <div class="pos-link">Table: NBG · ordinals · axiom of choice</div>
+    </div>
+    <div class="pos-card">
+      <div class="pos-name">Willard Van Orman Quine</div>
+      <div class="pos-thesis">Everything is a set; the restriction is syntactic</div>
+      <p>NF (1937) is obtained from Russell's simple theory of types by “erasing” the types: all that remains of the typing is the requirement that a comprehension formula admit it (stratification). There is one sort of objects, all of them sets; the universal set, complements, and Frege–Russell cardinals and ordinals return to the theory.</p>
+      <p>The position corresponds to Quine's ontological economy (“to be is to be the value of a variable”, 1948): the classes of ZFC are mere “virtual” abbreviations of formulas. <em>Set Theory and Its Logic</em> (1963) contains a systematic comparison of the competing systems — ZF, NBG, NF and ML.</p>
+      <div class="pos-link">Table: NF · status of the universe · Cantor's theorem</div>
+    </div>
+    <div class="pos-card">
+      <div class="pos-name">Peter Aczel</div>
+      <div class="pos-thesis">Cycles are legitimate; a set is a graph up to bisimulation</div>
+      <p>The occasion for <em>Non-Well-Founded Sets</em> (1988) was the set-theoretic semantics of Milner's concurrent processes (CCS): the natural model of a self-referring process violates foundation. AFA, first studied by Forti and Honsell (1983), makes such objects legitimate: a set is given by a membership graph, and equality of sets by bisimulation of graphs.</p>
+      <p>Forerunners are Mirimanoff's distinction between “ordinary” and “extraordinary” sets (1917) and Finsler's system (1926); applications include the semantics of self-referential statements (Barwise and Etchemendy, <em>The Liar</em>, 1987) and the coinductive objects of computer science (Barwise and Moss, <em>Vicious Circles</em>, 1996). Aczel is also the author of the constructive set theory CZF (1978), which has no power set axiom and admits separation only for formulas with bounded quantifiers.</p>
+      <div class="pos-link">Table: ZFA · foundation · ordinals</div>
+    </div>
+    <div class="pos-card">
+      <div class="pos-name">Solomon Feferman</div>
+      <div class="pos-thesis">Predicativity given the natural numbers</div>
+      <p>The natural numbers are accepted as a completed totality, $\mathcal P(\N)$ is not. The limit of predicativity under this assumption is the ordinal $\Gamma_0$ (Feferman, 1964; Schütte, 1965). “Weyl vindicated” (1988) shows that the system W, conservative over Peano arithmetic, suffices for the bulk of scientifically applicable analysis; hence the thesis that the impredicative parts of set theory are dispensable for applications.</p>
+      <p>Scepticism about the definiteness of the continuum hypothesis (2011) continues the same line: the concept of an arbitrary subset of $\N$ is not fully definite, and questions depending on the full $\mathcal P(\N)$ may lack a determinate answer.</p>
+      <div class="pos-link">Table: predicativity · NBG versus MK</div>
+    </div>
+  </div>
+  <p>The vicious circle principle was formulated by Poincaré (1906) and Russell (1908); Russell's ramified theory of types is a common ancestor of the predicativist programme and, through the simple theory of types, of NF. The final form of NBG is due to Bernays and Gödel; the central results on NF and NFU to Specker (1953) and Jensen (1969); the analysis of the iterative conception as a justification of the ZFC axioms to Boolos (1971).</p>
+</section>
+
+<section id="sec-beyond">
+  <h2>6. Beyond the table</h2>
+  <ul class="plain">
+    <li><strong>Z and ZC.</strong> Zermelo's 1908 system, without replacement. $V_{\omega+\omega}$ is a model of it, so Z does not prove the existence of the ordinal $\omega+\omega$, let alone of $\aleph_\omega$.</li>
+    <li><strong>MK.</strong> Morse–Kelley set theory: NBG with impredicative class comprehension; proves the consistency of ZFC.</li>
+    <li><strong>KP.</strong> Kripke–Platek set theory: no power set axiom, separation and collection only for formulas with bounded quantifiers; the basis of the theory of admissible sets (Barwise, 1975).</li>
+    <li><strong>ZF with urelements.</strong> Atoms are objects without elements distinct from $\varnothing$; the Fraenkel–Mostowski permutation models prove the independence of the axiom of choice in this setting.</li>
+    <li><strong>NFU.</strong> NF with urelements: consistent, compatible with choice and infinity (Jensen, 1969).</li>
+    <li><strong>CZF and IZF.</strong> Constructive set theories with intuitionistic logic; CZF (Aczel, 1978) has no power set axiom and is interpreted in Martin-Löf type theory.</li>
+  </ul>
+</section>
+
+<section id="sec-refs">
+  <h2>7. References</h2>
+  <ol class="refs">
+    <li>E. Zermelo, Untersuchungen über die Grundlagen der Mengenlehre I, <em>Math. Ann.</em> 65 (1908), 261–281.</li>
+    <li>E. Zermelo, Über Grenzzahlen und Mengenbereiche, <em>Fund. Math.</em> 16 (1930), 29–47.</li>
+    <li>D. Mirimanoff, Les antinomies de Russell et de Burali-Forti et le problème fondamental de la théorie des ensembles, <em>Enseign. Math.</em> 19 (1917), 37–52.</li>
+    <li>J. von Neumann, Eine Axiomatisierung der Mengenlehre, <em>J. reine angew. Math.</em> 154 (1925), 219–240.</li>
+    <li>D. Hilbert, Über das Unendliche, <em>Math. Ann.</em> 95 (1926), 161–190.</li>
+    <li>W. V. Quine, New foundations for mathematical logic, <em>Amer. Math. Monthly</em> 44 (1937), 70–80.</li>
+    <li>J. B. Rosser, H. Wang, Non-standard models for formal logics, <em>J. Symbolic Logic</em> 15 (1950), 113–129.</li>
+    <li>E. Specker, The axiom of choice in Quine's New Foundations for mathematical logic, <em>Proc. Nat. Acad. Sci. USA</em> 39 (1953), 972–975.</li>
+    <li>W. V. Quine, <em>Set Theory and Its Logic</em>, Harvard University Press, Cambridge, MA, 1963.</li>
+    <li>S. Feferman, Systems of predicative analysis, <em>J. Symbolic Logic</em> 29 (1964), 1–30.</li>
+    <li>R. B. Jensen, On the consistency of a slight (?) modification of Quine's New Foundations, <em>Synthese</em> 19 (1969), 250–263.</li>
+    <li>G. Boolos, The iterative conception of set, <em>J. Philos.</em> 68 (1971), 215–231.</li>
+    <li>U. Felgner, Comparison of the axioms of local and universal choice, <em>Fund. Math.</em> 71 (1971), 43–62.</li>
+    <li>M. Forti, F. Honsell, Set theory with free construction principles, <em>Ann. Sc. Norm. Super. Pisa Cl. Sci. (4)</em> 10 (1983), 493–522.</li>
+    <li>P. Aczel, <em>Non-Well-Founded Sets</em>, CSLI Lecture Notes 14, CSLI, Stanford, 1988.</li>
+    <li>S. Feferman, Weyl vindicated: <em>Das Kontinuum</em> seventy years later (1988), in: S. Feferman, <em>In the Light of Logic</em>, Oxford University Press, New York, 1998, 249–283.</li>
+    <li>M. R. Holmes, S. Wilshaw, NF is consistent, arXiv:1503.01406.</li>
+  </ol>
+</section>
+
+<p class="page-footer">© Nikolai Kazimirov · <a href="https://mathem.at" rel="noopener">mathem.at</a></p>
+
+</div>
+</body>
+</html>
