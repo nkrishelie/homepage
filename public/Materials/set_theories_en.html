@@ -92,7 +92,7 @@ table.cmp col.c-sys{width:14.66%}
 table.cmp th,table.cmp td{text-align:left;vertical-align:top;border-right:0.5px solid var(--border);border-bottom:0.5px solid var(--border)}
 table.cmp th:last-child,table.cmp td:last-child{border-right:none}
 table.cmp tbody tr:last-child th,table.cmp tbody tr:last-child td{border-bottom:none}
-table.cmp thead th{padding:12px 14px;background:var(--bg2);border-bottom:1.5px solid var(--ink);font-weight:400;vertical-align:bottom}
+table.cmp thead th{padding:12px 14px;background:var(--bg2);border-bottom:1.5px solid var(--ink);font-weight:400;vertical-align:top}
 table.cmp thead th.corner{font-style:italic;font-size:17px;color:var(--ink)}
 table.cmp tbody th{padding:12px 14px;font-size:17.5px;font-weight:500;color:var(--ink);line-height:1.35}
 table.cmp tbody td{padding:12px 14px;font-size:16.5px;line-height:1.5;color:var(--ink2)}
@@ -256,6 +256,14 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
       </thead>
       <tbody>
         <tr>
+          <th scope="row" class="sticky">Key prohibition of the language</th>
+          <td><span class="st st-yes">bounded comprehension</span><span class="cell">No unrestricted comprehension $\{x:\varphi(x)\}$: the comprehension variable ranges over a given set, $\{x\in A:\varphi(x)\}.$</span></td>
+          <td><span class="st st-cls">no class left of $\in$</span><span class="cell">In the two-sorted language only $x\in y$ and $x\in X$ are atomic: a class cannot be a member. Class comprehension is not restricted by size.</span></td>
+          <td><span class="st st-yes">as in ZFC</span><span class="cell">Bounded comprehension; AFA enlarges the stock of sets but adds no new syntactic prohibition.</span></td>
+          <td><span class="st st-mod">stratification</span><span class="cell">Comprehension $\{x:\varphi\}$ only for stratifiable $\varphi:$ the shape of the formula is restricted, not its range.</span></td>
+          <td colspan="2"><span class="st st-na">no prohibition</span><span class="cell">The same language $\{\in\}$ with no syntactic restriction; whatever is missing is simply absent from the structure.</span></td>
+        </tr>
+        <tr>
           <th scope="row" class="sticky">Status of the universe $V$</th>
           <td><span class="st st-yes">not a set</span><span class="cell">$\mathrm{ZFC}\vdash\neg\exists v\,\forall x\,(x\in v).$ The “class” $V$ abbreviates the formula $x=x;$ $V=\bigcup_\alpha V_\alpha.$</span></td>
           <td><span class="st st-cls">proper class</span><span class="cell">$V$ and $\mathrm{On}$ are objects of the second sort, but not members.</span></td>
@@ -334,6 +342,9 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
 
 <section id="sec-rows">
   <h2>3. Comments on the rows</h2>
+
+  <h3>Key prohibition of the language</h3>
+  <p>Each system blocks Russell's paradox by a restriction of a particular kind. In ZFC and ZFA the language admits all formulas, and the restriction concerns the comprehension schema: the collection being defined is separated from an already given set. In two-sorted NBG the prohibition is built into the syntax itself: the atomic formulas are $x\in y$ and $x\in X$, where lower-case variables range over sets and upper-case ones over classes, so a class never stands to the left of $\in$; class comprehension is restricted not by size but by its quantifiers (see “Predicativity”). In one-sorted presentations of NBG the same prohibition is stated as an axiom: every member is a set. In NF the shape of the comprehension formula is restricted — it must be stratifiable — while the range of comprehension is not. $\mathrm{Th}(M_1)$ and $\mathrm{Th}(M_2)$ have no syntactic prohibitions: missing sets are simply absent from the structure.</p>
 
   <h3>Status of the universe</h3>
   <p>In ZFC the existence of a universal set is refuted. If $\forall x\,(x\in v)$, then by the separation schema there is $R=\{x\in v:x\notin x\}$; since $R\in v$, one obtains $R\in R\leftrightarrow R\notin R$. Expressions such as “the class $V$” or “the class $\mathrm{On}$” are admissible in ZFC only as abbreviations of formulas ($x=x$, “$x$ is an ordinal”); such collections are called virtual classes (Quine, 1963).</p>

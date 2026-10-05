@@ -92,7 +92,7 @@ table.cmp col.c-sys{width:14.66%}
 table.cmp th,table.cmp td{text-align:left;vertical-align:top;border-right:0.5px solid var(--border);border-bottom:0.5px solid var(--border)}
 table.cmp th:last-child,table.cmp td:last-child{border-right:none}
 table.cmp tbody tr:last-child th,table.cmp tbody tr:last-child td{border-bottom:none}
-table.cmp thead th{padding:12px 14px;background:var(--bg2);border-bottom:1.5px solid var(--ink);font-weight:400;vertical-align:bottom}
+table.cmp thead th{padding:12px 14px;background:var(--bg2);border-bottom:1.5px solid var(--ink);font-weight:400;vertical-align:top}
 table.cmp thead th.corner{font-style:italic;font-size:17px;color:var(--ink)}
 table.cmp tbody th{padding:12px 14px;font-size:17.5px;font-weight:500;color:var(--ink);line-height:1.35}
 table.cmp tbody td{padding:12px 14px;font-size:16.5px;line-height:1.5;color:var(--ink2)}
@@ -256,6 +256,14 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
       </thead>
       <tbody>
         <tr>
+          <th scope="row" class="sticky">Ключевой запрет языка</th>
+          <td><span class="st st-yes">ограниченное свёртывание</span><span class="cell">Нет свёртывания $\{x:\varphi(x)\}$ без ограничения: переменная свёртывания пробегает уже данное множество, $\{x\in A:\varphi(x)\}.$</span></td>
+          <td><span class="st st-cls">класс не слева от $\in$</span><span class="cell">В двусортном языке атомарны лишь $x\in y$ и $x\in X$: класс не может быть элементом. Свёртывание классов по размеру не ограничено.</span></td>
+          <td><span class="st st-yes">как в ZFC</span><span class="cell">Ограниченное свёртывание; AFA расширяет запас множеств, но нового синтаксического запрета не вводит.</span></td>
+          <td><span class="st st-mod">стратификация</span><span class="cell">Свёртывание $\{x:\varphi\}$ — только для стратифицируемых $\varphi:$ ограничена форма формулы, а не её область.</span></td>
+          <td colspan="2"><span class="st st-na">запрета нет</span><span class="cell">Язык тот же, $\{\in\}$, без синтаксических ограничений; всё, чего нет, отсутствует в самой структуре.</span></td>
+        </tr>
+        <tr>
           <th scope="row" class="sticky">Статус универсума $V$</th>
           <td><span class="st st-yes">не множество</span><span class="cell">$\mathrm{ZFC}\vdash\neg\exists v\,\forall x\,(x\in v).$ «Класс» $V$ — сокращение формулы $x=x;$ $V=\bigcup_\alpha V_\alpha.$</span></td>
           <td><span class="st st-cls">собственный класс</span><span class="cell">$V$ и $\mathrm{On}$ — объекты второго сорта, но не элементы.</span></td>
@@ -334,6 +342,9 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
 
 <section id="sec-rows">
   <h2>3. Комментарии к строкам таблицы</h2>
+
+  <h3>Ключевой запрет языка</h3>
+  <p>Каждая система блокирует парадокс Рассела ограничением определённого вида. В ZFC и ZFA язык допускает любые формулы, а ограничение относится к схеме свёртывания: определяемая совокупность выделяется из уже данного множества. В двусортной NBG запрет встроен в сам синтаксис: атомарные формулы имеют вид $x\in y$ и $x\in X$, где строчные переменные пробегают множества, а прописные — классы, так что класс слева от $\in$ не стоит; свёртывание классов при этом ограничено не по размеру, а по кванторам (см. «Предикативность»). В односортных изложениях NBG тот же запрет формулируется аксиомой: всякий элемент есть множество. В NF ограничена форма формулы свёртывания — она должна быть стратифицируема, — тогда как область свёртывания не ограничена. У $\mathrm{Th}(M_1)$ и $\mathrm{Th}(M_2)$ синтаксических запретов нет: недостающие множества просто отсутствуют в структуре.</p>
 
   <h3>Статус универсума</h3>
   <p>В ZFC существование универсального множества опровергается. Если $\forall x\,(x\in v)$, то по схеме выделения существует $R=\{x\in v:x\notin x\}$; поскольку $R\in v$, получаем $R\in R\leftrightarrow R\notin R$. Выражения «класс $V$», «класс $\mathrm{On}$» допустимы в ZFC лишь как сокращения формул ($x=x$, «$x$ — ординал»); такие совокупности называются виртуальными классами (Куайн, 1963).</p>
