@@ -92,12 +92,12 @@ table.cmp col.c-sys{width:12.714%}
 table.cmp th,table.cmp td{text-align:left;vertical-align:top;border-right:0.5px solid var(--border);border-bottom:0.5px solid var(--border)}
 table.cmp th:last-child,table.cmp td:last-child{border-right:none}
 table.cmp tbody tr:last-child th,table.cmp tbody tr:last-child td{border-bottom:none}
-table.cmp thead th{padding:12px 14px;background:var(--bg2);border-bottom:1.5px solid var(--ink);font-weight:400;vertical-align:top}
+table.cmp thead th{padding:12px 14px;background:var(--bg2);border-bottom:1.5px solid var(--ink);font-weight:400;vertical-align:top;position:relative;z-index:4}
 table.cmp thead th.corner{font-style:italic;font-size:17px;color:var(--ink)}
 table.cmp tbody th{padding:12px 14px;font-size:17.5px;font-weight:500;color:var(--ink);line-height:1.35}
 table.cmp tbody td{padding:12px 14px;font-size:16.5px;line-height:1.5;color:var(--ink2)}
 table.cmp .sticky{position:sticky;left:0;z-index:2;background:var(--bg)}
-table.cmp thead .sticky{background:var(--bg2);z-index:3}
+table.cmp thead .sticky{background:var(--bg2);z-index:5}
 table.cmp tbody tr:hover td,table.cmp tbody tr:hover th{background:#f5f3ee}
 .th-name{display:block;font-size:20px;color:var(--ink);font-weight:500;line-height:1.25}
 .th-sub{display:block;font-size:14.5px;color:var(--ink3);font-style:italic;line-height:1.35;margin-top:3px}
@@ -148,6 +148,12 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
 .page-footer{margin-top:2.75rem;padding-top:1.1rem;border-top:0.5px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.04em;color:var(--ink3);text-align:center;line-height:1.5}
 .page-footer a{color:var(--ink3);text-decoration:none;border-bottom:1px solid rgba(138,134,128,.35)}
 .page-footer a:hover{color:var(--ink2);border-bottom-color:var(--ink2)}
+/* Header row stays at the top of the viewport while the table scrolls under it:
+   natively when the table fits the page, by script when it scrolls sideways. */
+@media(min-width:1410px){
+  .cmp-wrap{overflow:visible}
+  table.cmp thead th{position:sticky;top:0}
+}
 @media(max-width:700px){
   body{font-size:19px}
   .page{padding:1.5rem 1rem 3rem}
@@ -350,6 +356,30 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
       </tbody>
     </table>
   </div>
+<script>
+(function () {
+  var wrap = document.querySelector('.cmp-wrap');
+  if (!wrap) return;
+  var table = wrap.querySelector('table.cmp');
+  var head = table.tHead, cells = head.rows[0].cells, pending = false;
+  function update() {
+    pending = false;
+    var shift = 0;
+    if (getComputedStyle(wrap).overflowX !== 'visible') {
+      var r = table.getBoundingClientRect();
+      shift = Math.max(0, Math.floor(Math.min(-r.top, r.height - head.offsetHeight)));
+    }
+    var t = shift ? 'translateY(' + shift + 'px)' : '';
+    for (var i = 0; i < cells.length; i++) cells[i].style.transform = t;
+  }
+  function request() { if (!pending) { pending = true; requestAnimationFrame(update); } }
+  window.addEventListener('scroll', request, { passive: true });
+  window.addEventListener('resize', request);
+  window.addEventListener('load', request);
+  if (window.ResizeObserver) new ResizeObserver(request).observe(document.body);
+  update();
+})();
+</script>
   <p class="tbl-note">$\mathcal P(A)$ is the set of all subsets of $A$; $\mathcal P_1(A)=\{\{a\}:a\in A\}$ is the set of singletons; $V_0=\varnothing$, $V_{\alpha+1}=\mathcal P(V_\alpha)$, $V_\lambda=\bigcup_{\alpha&lt;\lambda}V_\alpha$ is the cumulative hierarchy, and $\mathrm{WF}=\bigcup_\alpha V_\alpha$ is the class of well-founded sets; $\langle a,b\rangle=\{\{a\},\{a,b\}\}$ is the Kuratowski pair. $\mathrm{ZFC}^-$ denotes ZFC without the axiom of foundation (Aczel's notation; in another tradition the same symbol denotes ZFC without the power set axiom). The abbreviation ZFA is also used for ZF with urelements (atoms), and it is used in that sense in “<a href="/Materials/second_order_arithmetic_en.html">Hierarchy of Second-Order Arithmetic Theories</a>”; here $\mathrm{ZFA}=\mathrm{ZFC}^-+\mathrm{AFA}$. In the IST column, $\mathrm{st}(x)$ reads “$x$ is standard”; an internal formula is a formula without $\mathrm{st}$, all other formulas are external; I, S, T are the schemas of idealization, standardization and transfer (<a href="#sec-rows">§ 3</a>). The columns $\mathrm{Th}(M_1)$ and $\mathrm{Th}(M_2)$ are analysed in <a href="#sec-toy">§ 5</a>.</p>
 </section>
 
