@@ -353,6 +353,15 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
           <td><span class="ax-list"><span class="ax n">$\varnothing$ ✗</span><span class="ax y">пара ✓</span><span class="ax y">$\bigcup$ ✓</span><span class="ax y">$\mathcal P$ ✓</span><span class="ax n">выд. ✗</span></span></td>
           <td><span class="ax-list"><span class="ax y">$\varnothing$ ✓</span><span class="ax n">пара ✗</span><span class="ax y">$\bigcup$ ✓</span><span class="ax n">$\mathcal P$ ✗</span><span class="ax y">выд. ✓</span></span></td>
         </tr>
+        <tr>
+          <th scope="row" class="sticky">Интерпрети&shy;руемость в ZF</th>
+          <td><span class="st st-yes">да</span><span class="cell">Конструктивный универсум $L$ (Гёдель, 1938).</span></td>
+          <td><span class="st st-no">нет</span><span class="cell">NBG конечно аксиоматизируема, а ZF доказывает непротиворечивость своих конечных подтеорий. В ZF с недостижимым кардиналом $\kappa$ — да: $V_\kappa$ и <span class="nw">$V_{\kappa+1}.$</span></span></td>
+          <td><span class="st st-yes">да</span><span class="cell">Множества — точечные графы с точностью до бисимуляции (Акцель, 1988).</span></td>
+          <td><span class="st st-yes">да</span><span class="cell">ZFC доказывает <span class="nw">$\mathrm{Con}(\mathrm{NF})$:</span> модель TTT (Холмс и Уилшоу). Обратной интерпретации нет.</span></td>
+          <td><span class="st st-mod">да, по компактности</span><span class="cell">Для конечных наборов аксиом — ультрапредел $V_\alpha$ (Нельсон, 1977); в целом — по теореме Ори (1961).</span></td>
+          <td colspan="2"><span class="st st-yes">да, по построению</span><span class="cell">Конечные структуры определимы в ZF: области $\{\varnothing\}$ и $\{\varnothing,\{\varnothing\}\}.$</span></td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -453,6 +462,16 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
 
   <h3>Базовые аксиомы</h3>
   <p>NF и IST отличаются от остальных бесконечных систем схемой выделения. В NF из множества $A$ выделяется лишь подмножество, заданное стратифицируемым условием; так, $\{x\in V:x\notin x\}$ не существует. Взамен NF содержит множества, невозможные в ZFC: $V$, дополнения, множество всех ординалов, множество всех кардиналов. В IST подмножество выделяется лишь внутренним условием; для внешнего условия $\Phi$ и стандартного $A$ стандартизация даёт стандартное множество ${}^{\mathrm s}\{x\in A:\Phi(x)\}$, содержащее те же стандартные элементы, что и совокупность $\{x\in A:\Phi(x)\}$. Новых множеств по сравнению с ZFC аксиомы IST не добавляют: всякое внутреннее утверждение о существовании, доказуемое в IST, доказуемо в ZFC. Выполнение базовых аксиом в $M_1$ и $M_2$ проверено в <a href="#sec-toy">§ 5</a>.</p>
+
+  <h3>Интерпретируемость в ZF</h3>
+  <p>Теория $U$ интерпретируема в теории $T$, если в языке $T$ заданы формула $\delta(x)$, выделяющая область интерпретации, и формулы, переводящие нелогические символы $U$ (для NBG — ещё и область для классов, для IST — формула для $\mathrm{st}$), так что переводы всех аксиом $U$ доказуемы в $T$. Интерпретация даёт финитное доказательство импликации $\mathrm{Con}(T)\to\mathrm{Con}(U)$. ZFC интерпретируется в ZF конструктивным универсумом $L$ (Гёдель, 1938): релятивизация к $L$ переводит аксиомы ZFC в теоремы ZF. Поэтому всякая теория, интерпретируемая в ZFC, интерпретируема и в ZF.</p>
+  <ul class="plain">
+    <li><strong>ZFA.</strong> Областью интерпретации служат достижимые точечные графы, равенство переводится бисимуляцией, а принадлежность $a\in^*b$ — условием «граф $a$ бисимилярен подграфу $b$, порождённому одним из потомков отмеченной вершины» (Форти и Хонселл, 1983; Акцель, 1988). В обратную сторону ZFC интерпретируется в ZFA классом $\mathrm{WF}$.</li>
+    <li><strong>NBG</strong> в ZF не интерпретируема. Теория NBG конечно аксиоматизируема, поэтому её интерпретация использовала бы лишь конечную подтеорию $T_0\subset\mathrm{ZF}$. По принципу отражения ZF доказывает непротиворечивость каждой своей конечной подтеории и, следовательно, доказывала бы $\mathrm{Con}(\mathrm{NBG})$; тогда NBG, содержащая ZF, доказывала бы собственную непротиворечивость, что противоречит второй теореме Гёделя. Консервативность NBG над ZFC устанавливается иначе — расширением модели ZFC её определимыми классами (а при глобальном выборе — форсингом); интерпретации это не даёт, так как квантор по определимым классам не выражается одной формулой языка ZF. Препятствием служит лишь недоказуемость $\mathrm{Con}(\mathrm{NBG})$ в ZF, и усиление ZF его снимает. Пусть SI — утверждение о существовании сильно недостижимого кардинала. В ZF + SI наименьший такой кардинал $\kappa$ определим; множества интерпретируются элементами $V_\kappa$, классы — элементами $V_{\kappa+1}=\mathcal P(V_\kappa)$, и получается интерпретация не только NBG, но и MK. Для NBG с глобальным выбором та же конструкция проводится внутри $L$. Достаточно и более слабого допущения: ZF + $\mathrm{Con}(\mathrm{ZF})$ доказывает $\mathrm{Con}(\mathrm{NBG})$, поэтому NBG интерпретируема в ZF + $\mathrm{Con}(\mathrm{ZF})$ по арифметизированной теореме о полноте.</li>
+    <li><strong>NF.</strong> Модель теории TTT в доказательстве Холмса и Уилшоу строится средствами ZFC, так что ZFC доказывает $\mathrm{Con}(\mathrm{NF})$. Это утверждение арифметическое и потому доказуемо уже в ZF, а теория, непротиворечивость которой доказуема в ZF, интерпретируема в ZF по арифметизированной теореме о полноте. Обратной интерпретации нет: из неё и из $\mathrm{ZF}\vdash\mathrm{Con}(\mathrm{NF})$ следовало бы $\mathrm{ZF}\vdash\mathrm{Con}(\mathrm{ZF})$.</li>
+    <li><strong>IST.</strong> Для каждого конечного набора аксиом IST в ZFC строится модель: по принципу отражения берётся $V_\alpha$, удовлетворяющее нужному конечному фрагменту ZFC, и его ультрапредел, в котором $\mathrm{st}$ выделяет образ $V_\alpha$ (Нельсон, 1977). Тем самым ZFC доказывает непротиворечивость каждой конечной подтеории IST, и по теореме компактности Ори (1961) IST интерпретируема в ZFC. Единой конструкции, достраивающей универсум ZFC до универсума IST, при этом нет: класс стандартных множеств модели IST — не произвольная модель ZFC (Кановей и Реекен, 1997).</li>
+    <li><strong>$\mathrm{Th}(M_1)$ и $\mathrm{Th}(M_2)$</strong> интерпретируются конечными определимыми структурами: для $M_1$ область — $\{\varnothing\}$, и $x\in^*y$ истинно всегда; для $M_2$ область — $\{\varnothing,\{\varnothing\}\}$, и $x\in^*y$ означает $x=y=\{\varnothing\}$.</li>
+  </ul>
 </section>
 
 <section id="sec-syntax">
@@ -566,7 +585,7 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
       <div class="pos-thesis">Существование объектов обеспечивается непротиворечивостью аксиом</div>
       <p>Письмо Фреге (1899): если произвольно заданные аксиомы не противоречат друг другу со всеми следствиями, то они истинны и определяемые ими объекты существуют. Гёттингенский аксиоматический метод — среда, в которой возникла система Цермело. Программа Гильберта (1920-е) требовала финитного доказательства непротиворечивости классической математики, включая канторовскую теорию множеств: «Из рая, который создал для нас Кантор, никто не сможет нас изгнать» (1926). Теоремы Гёделя о неполноте (1931) показали, что в исходной форме программа невыполнима: достаточно сильная непротиворечивая система не доказывает собственной непротиворечивости.</p>
       <p>Гильбертова точка зрения задаёт измерение, по которому сопоставимы все столбцы, — относительную непротиворечивость: NBG и IST консервативны над ZFC, ZFA равнонепротиворечива с ZFC, непротиворечивость NF долго оставалась открытой, а $\mathrm{Th}(M_1)$ и $\mathrm{Th}(M_2)$ непротиворечивы просто потому, что имеют модели.</p>
-      <div class="pos-link">Таблица: все столбцы · аксиома выбора</div>
+      <div class="pos-link">Таблица: все столбцы · аксиома выбора · интерпретируемость в ZF</div>
     </div>
     <div class="pos-card">
       <div class="pos-name">Джон фон Нейман</div>
@@ -632,6 +651,7 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
     <li>Quine W. V. New foundations for mathematical logic // Amer. Math. Monthly. 1937. Vol. 44. P. 70–80.</li>
     <li>Rosser J. B., Wang H. Non-standard models for formal logics // J. Symbolic Logic. 1950. Vol. 15. P. 113–129.</li>
     <li>Specker E. The axiom of choice in Quine's New Foundations for mathematical logic // Proc. Nat. Acad. Sci. USA. 1953. Vol. 39. P. 972–975.</li>
+    <li>Orey S. Relative interpretations // Z. Math. Logik Grundlagen Math. 1961. Bd. 7. S. 146–153.</li>
     <li>Robinson A. Non-standard analysis // Indag. Math. 1961. Vol. 23. P. 432–440.</li>
     <li>Quine W. V. Set Theory and Its Logic. Cambridge, MA: Harvard Univ. Press, 1963.</li>
     <li>Feferman S. Systems of predicative analysis // J. Symbolic Logic. 1964. Vol. 29. P. 1–30.</li>
@@ -650,6 +670,7 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
     <li>Boffa M. ZFJ and the consistency problem for NF // Jahrb. Kurt-Gödel-Ges. 1988. S. 102–106.</li>
     <li>Кановей В. Г. Неразрешимые гипотезы в теории внутренних множеств Эдварда Нельсона // УМН. 1991. Т. 46, вып. 6. С. 3–50.</li>
     <li>Kanovei V. IST is more than an algorithm to prove ZFC theorems. arXiv:math/9310213. 1993.</li>
+    <li>Kanovei V., Reeken M. What internal set theory knows about standard sets. arXiv:math/9711205. 1997.</li>
     <li>Kanovei V., Reeken M. Nonstandard Analysis, Axiomatically. Berlin: Springer, 2004.</li>
     <li>Hrbacek K., Katz M. G. Infinitesimal analysis without the Axiom of Choice // Ann. Pure Appl. Logic. 2021. Vol. 172, no. 6. Art. 102959.</li>
     <li>Holmes M. R., Wilshaw S. NF is consistent. arXiv:1503.01406.</li>
