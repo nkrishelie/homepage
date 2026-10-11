@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Спектр теорий множеств: ZFC, NBG, ZFA, NF, IST</title>
-<meta name="description" content="Сравнительная таблица теорий множеств ZFC, NBG, ZFA (антифундирование Акцеля), NF Куайна, IST Нельсона и двух конечных моделей: статус универсума, фундирование, парадокс Рассела, теорема Кантора, предикативность, ординалы, аксиома выбора — и философские установки Цермело, Гильберта, фон Неймана, Куайна, Акцеля, Нельсона и Фефермана.">
+<meta name="description" content="Сравнительная таблица теорий множеств ZFC, NBG, ZFA (антифундирование Акцеля), NF Куайна, IST Нельсона и двух конечных моделей: статус универсума, фундирование, парадокс Рассела, теорема Кантора, предикативность, ординалы, аксиома выбора — и философские установки Цермело, Гильберта, фон Неймана, Куайна, Акцеля, Нельсона, Гротендика, Гжегорчика и Фефермана.">
 <link rel="canonical" href="https://mathem.at/Materials/set_theories.html">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Спектр теорий множеств: ZFC, NBG, ZFA, NF, IST">
@@ -215,7 +215,7 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
     <li><a href="#sec-syntax">Ограничение по форме формулы: NF и IST</a></li>
     <li><a href="#sec-toy">Конечные модели $M_1$ и $M_2$</a></li>
     <li><a href="#sec-uniform">Невозможность полной однородности</a></li>
-    <li><a href="#sec-positions">Позиции: Цермело, Гильберт, фон Нейман, Куайн, Акцель, Нельсон, Феферман</a></li>
+    <li><a href="#sec-positions">Позиции: Цермело, Гильберт, фон Нейман, Куайн, Акцель, Нельсон, Гротендик, Гжегорчик, Феферман</a></li>
     <li><a href="#sec-beyond">За пределами таблицы</a></li>
     <li><a href="#sec-refs">Литература</a></li>
   </ol>
@@ -570,7 +570,7 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
 </section>
 
 <section id="sec-positions">
-  <h2>7. Позиции: Цермело, Гильберт, фон Нейман, Куайн, Акцель, Нельсон, Феферман</h2>
+  <h2>7. Позиции: Цермело, Гильберт, фон Нейман, Куайн, Акцель, Нельсон, Гротендик, Гжегорчик, Феферман</h2>
   <p class="lead">Столбцы таблицы — следствия нескольких философских установок относительно природы множества и критериев допустимости математических объектов. В каждой карточке указаны столбцы и строки таблицы, в которых соответствующая установка проявляется.</p>
   <div class="pos-grid">
     <div class="pos-card">
@@ -616,6 +616,20 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
       <div class="pos-link">Таблица: IST · ключевой запрет языка · ординалы</div>
     </div>
     <div class="pos-card">
+      <div class="pos-name">Александр Гротендик</div>
+      <div class="pos-thesis">«Большое» — это множество следующего универсума</div>
+      <p>Категории всех множеств, всех групп, всех пучков и категории функторов между ними множествами не являются, а классов NBG для них недостаточно: совокупность классов объектом уже не является. В семинаре SGA 4 (1963–1964) принято другое решение. Универсум — транзитивное множество, замкнутое относительно пар, степеней и объединений семейств, индексированных его элементами; аксиома универсумов утверждает, что всякое множество принадлежит некоторому универсуму.</p>
+      <p>Универсумы, содержащие $\omega$, — в точности множества $V_\kappa$ с сильно недостижимым $\kappa$, так что аксиома равносильна существованию сколь угодно больших недостижимых кардиналов (в другой форме — Тарский, 1938). Различие между множеством и классом становится относительным: собственные классы одного универсума — множества следующего. Та же неограниченная последовательность моделей $V_\kappa$ описана у Цермело (1930); пара <span class="nw">$V_\kappa$,</span> $V_{\kappa+1}$ интерпретирует NBG и MK.</p>
+      <div class="pos-link">Таблица: NBG · статус универсума · интерпретируемость в ZF</div>
+    </div>
+    <div class="pos-card">
+      <div class="pos-name">Анджей Гжегорчик</div>
+      <div class="pos-thesis">Исходные объекты метаматематики — тексты, а не числа и не множества</div>
+      <p>Формулы, доказательства и вычисления — конечные строки символов, и операции над ними сводятся к приписыванию. Тарский (1935) включил аксиомы конкатенации в метатеорию, Куайн (1946) установил взаимную определимость конкатенации и арифметики. В работе «Undecidability without arithmetization» (2005) неразрешимость доказана непосредственно для теории конкатенации TC, без кодирования текстов числами.</p>
+      <p>TC не содержит ни множеств, ни чисел и при этом взаимно интерпретируема с арифметикой Робинсона Q и со слабыми теориями множеств; она показывает, насколько малого запаса объектов достаточно для существенной неразрешимости. Гжегорчику принадлежит также иерархия примитивно рекурсивных функций (1953).</p>
+      <div class="pos-link">За пределами таблицы: TC · HF</div>
+    </div>
+    <div class="pos-card">
       <div class="pos-name">Соломон Феферман</div>
       <div class="pos-thesis">Предикативность при данном натуральном ряде</div>
       <p>Натуральный ряд принимается как завершённая совокупность, $\mathcal P(\N)$ — нет. Граница предикативности при таком допущении — ординал $\Gamma_0$ (Феферман, 1964; Шютте, 1965). В работе «Weyl vindicated» (1988) показано, что система W, консервативная над арифметикой Пеано, достаточна для основной части научно применимого анализа; отсюда тезис о том, что импредикативные части теории множеств для приложений не нужны.</p>
@@ -629,8 +643,11 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
 <section id="sec-beyond">
   <h2>8. За пределами таблицы</h2>
   <ul class="plain">
+    <li><strong>HF и $\mathrm{ZF}_{\mathrm{fin}}$.</strong> Наследственно конечные множества образуют $V_\omega$ — модель теории $\mathrm{ZF}_{\mathrm{fin}}$, в которой аксиома бесконечности заменена её отрицанием. Кодирование Аккермана (1937) — $n\in^*m$, если $n$-й двоичный разряд числа $m$ равен $1$, — интерпретирует $\mathrm{ZF}_{\mathrm{fin}}$ в арифметике Пеано; при добавлении аксиомы «всякое множество содержится в транзитивном множестве» эти теории биинтерпретируемы (Кайе и Вонг, 2007). Переход от наивного свёртывания к наследственно конечным множествам разобран в конспекте главы B2 «<a href="/Materials/maglish_b2_foundations.html">Фундамент математики</a>».</li>
+    <li><strong>TC.</strong> Теория конкатенации: объекты — строки, единственная операция — приписывание $x^\frown y$ (Тарский, 1935; Куайн, 1946). Аксиомы Гжегорчика (2005): ассоциативность, существование общего разбиения при $x^\frown y=u^\frown v$ и две различные неразложимые строки. Ни множеств, ни чисел в теории нет, но она существенно неразрешима (Гжегорчик и Здановский, 2008) и взаимно интерпретируема с арифметикой Робинсона Q, а через неё — с теорией множеств, в которой постулированы лишь пустое множество и присоединение элемента $x\cup\{y\}$.</li>
     <li><strong>Z и ZC.</strong> Система Цермело 1908 года без замещения. $V_{\omega+\omega}$ — её модель, поэтому Z не доказывает существования ординала $\omega+\omega$, а значит, и $\aleph_\omega$.</li>
     <li><strong>MK.</strong> Теория Морса–Келли: NBG с импредикативным свёртыванием классов; доказывает непротиворечивость ZFC.</li>
+    <li><strong>TG.</strong> Теория Тарского–Гротендика: ZFC с аксиомой универсумов — всякое множество принадлежит универсуму Гротендика, то есть множеству $V_\kappa$ с сильно недостижимым $\kappa$. Собственные классы одного универсума являются множествами следующего.</li>
     <li><strong>KP.</strong> Теория Крипке–Платека: без аксиомы степени, выделение и собирание — только по формулам с ограниченными кванторами; основа теории допустимых множеств (Барвайс, 1975).</li>
     <li><strong>ZF с праэлементами.</strong> Атомы — объекты без элементов, отличные от $\varnothing$; перестановочные модели Френкеля–Мостовского доказывают независимость аксиомы выбора в этом контексте.</li>
     <li><strong>NFU.</strong> NF с праэлементами: непротиворечива, совместима с выбором и бесконечностью (Йенсен, 1969).</li>
@@ -649,6 +666,9 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
     <li>von Neumann J. Eine Axiomatisierung der Mengenlehre // J. reine angew. Math. 1925. Bd. 154. S. 219–240.</li>
     <li>Hilbert D. Über das Unendliche // Math. Ann. 1926. Bd. 95. S. 161–190.</li>
     <li>Quine W. V. New foundations for mathematical logic // Amer. Math. Monthly. 1937. Vol. 44. P. 70–80.</li>
+    <li>Ackermann W. Die Widerspruchsfreiheit der allgemeinen Mengenlehre // Math. Ann. 1937. Bd. 114. S. 305–315.</li>
+    <li>Tarski A. Über unerreichbare Kardinalzahlen // Fund. Math. 1938. Vol. 30. P. 68–89.</li>
+    <li>Quine W. V. Concatenation as a basis for arithmetic // J. Symbolic Logic. 1946. Vol. 11. P. 105–114.</li>
     <li>Rosser J. B., Wang H. Non-standard models for formal logics // J. Symbolic Logic. 1950. Vol. 15. P. 113–129.</li>
     <li>Specker E. The axiom of choice in Quine's New Foundations for mathematical logic // Proc. Nat. Acad. Sci. USA. 1953. Vol. 39. P. 972–975.</li>
     <li>Orey S. Relative interpretations // Z. Math. Logik Grundlagen Math. 1961. Bd. 7. S. 146–153.</li>
@@ -659,6 +679,7 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
     <li>Jensen R. B. On the consistency of a slight (?) modification of Quine's New Foundations // Synthese. 1969. Vol. 19. P. 250–263.</li>
     <li>Boolos G. The iterative conception of set // J. Philos. 1971. Vol. 68. P. 215–231.</li>
     <li>Felgner U. Comparison of the axioms of local and universal choice // Fund. Math. 1971. Vol. 71. P. 43–62.</li>
+    <li>Artin M., Grothendieck A., Verdier J.-L. Théorie des topos et cohomologie étale des schémas (SGA 4). T. 1. Berlin: Springer, 1972. (Lecture Notes in Math.; 269).</li>
     <li>Vopěnka P., Hájek P. The Theory of Semisets. Amsterdam: North-Holland, 1972.</li>
     <li>Nelson E. Internal set theory: a new approach to nonstandard analysis // Bull. Amer. Math. Soc. 1977. Vol. 83. P. 1165–1198.</li>
     <li>Hrbáček K. Axiomatic foundations for nonstandard analysis // Fund. Math. 1978. Vol. 98. P. 1–19.</li>
@@ -672,6 +693,8 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
     <li>Kanovei V. IST is more than an algorithm to prove ZFC theorems. arXiv:math/9310213. 1993.</li>
     <li>Kanovei V., Reeken M. What internal set theory knows about standard sets. arXiv:math/9711205. 1997.</li>
     <li>Kanovei V., Reeken M. Nonstandard Analysis, Axiomatically. Berlin: Springer, 2004.</li>
+    <li>Grzegorczyk A. Undecidability without arithmetization // Studia Logica. 2005. Vol. 79. P. 163–230.</li>
+    <li>Kaye R., Wong T. L. On interpretations of arithmetic and set theory // Notre Dame J. Formal Logic. 2007. Vol. 48. P. 497–510.</li>
     <li>Hrbacek K., Katz M. G. Infinitesimal analysis without the Axiom of Choice // Ann. Pure Appl. Logic. 2021. Vol. 172, no. 6. Art. 102959.</li>
     <li>Holmes M. R., Wilshaw S. NF is consistent. arXiv:1503.01406.</li>
   </ol>

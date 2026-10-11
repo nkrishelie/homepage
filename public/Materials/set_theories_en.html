@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Spectrum of Set Theories: ZFC, NBG, ZFA, NF, IST</title>
-<meta name="description" content="A comparison table of the set theories ZFC, NBG, ZFA (Aczel's anti-foundation), Quine's NF, Nelson's IST and two finite models: the status of the universe, foundation, Russell's paradox, Cantor's theorem, predicativity, ordinals, the axiom of choice — and the philosophical positions of Zermelo, Hilbert, von Neumann, Quine, Aczel, Nelson and Feferman.">
+<meta name="description" content="A comparison table of the set theories ZFC, NBG, ZFA (Aczel's anti-foundation), Quine's NF, Nelson's IST and two finite models: the status of the universe, foundation, Russell's paradox, Cantor's theorem, predicativity, ordinals, the axiom of choice — and the philosophical positions of Zermelo, Hilbert, von Neumann, Quine, Aczel, Nelson, Grothendieck, Grzegorczyk and Feferman.">
 <link rel="canonical" href="https://mathem.at/Materials/set_theories_en.html">
 <meta property="og:type" content="article">
 <meta property="og:title" content="The Spectrum of Set Theories: ZFC, NBG, ZFA, NF, IST">
@@ -215,7 +215,7 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
     <li><a href="#sec-syntax">Restriction by the form of the formula: NF and IST</a></li>
     <li><a href="#sec-toy">The finite models $M_1$ and $M_2$</a></li>
     <li><a href="#sec-uniform">The impossibility of full homogeneity</a></li>
-    <li><a href="#sec-positions">Positions: Zermelo, Hilbert, von Neumann, Quine, Aczel, Nelson, Feferman</a></li>
+    <li><a href="#sec-positions">Positions: Zermelo, Hilbert, von Neumann, Quine, Aczel, Nelson, Grothendieck, Grzegorczyk, Feferman</a></li>
     <li><a href="#sec-beyond">Beyond the table</a></li>
     <li><a href="#sec-refs">References</a></li>
   </ol>
@@ -570,7 +570,7 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
 </section>
 
 <section id="sec-positions">
-  <h2>7. Positions: Zermelo, Hilbert, von Neumann, Quine, Aczel, Nelson, Feferman</h2>
+  <h2>7. Positions: Zermelo, Hilbert, von Neumann, Quine, Aczel, Nelson, Grothendieck, Grzegorczyk, Feferman</h2>
   <p class="lead">The columns of the table are consequences of several philosophical positions on the nature of sets and on the criteria of admissibility of mathematical objects. Each card indicates the columns and rows of the table in which the corresponding position manifests itself.</p>
   <div class="pos-grid">
     <div class="pos-card">
@@ -616,6 +616,20 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
       <div class="pos-link">Table: IST · key prohibition of the language · ordinals</div>
     </div>
     <div class="pos-card">
+      <div class="pos-name">Alexander Grothendieck</div>
+      <div class="pos-thesis">“Large” means a set of the next universe</div>
+      <p>The categories of all sets, all groups, all sheaves, and the categories of functors between them are not sets, and the classes of NBG do not suffice for them: the collection of classes is no longer an object. The seminar SGA 4 (1963–1964) adopts a different solution. A universe is a transitive set closed under pairs, power sets and unions of families indexed by its elements; the axiom of universes states that every set belongs to some universe.</p>
+      <p>The universes containing $\omega$ are exactly the sets $V_\kappa$ with $\kappa$ strongly inaccessible, so the axiom is equivalent to the existence of arbitrarily large inaccessible cardinals (in another form, Tarski, 1938). The distinction between set and class becomes relative: the proper classes of one universe are sets of the next. The same unbounded sequence of models $V_\kappa$ is described by Zermelo (1930); the pair <span class="nw">$V_\kappa$,</span> $V_{\kappa+1}$ interprets NBG and MK.</p>
+      <div class="pos-link">Table: NBG · status of the universe · interpretability in ZF</div>
+    </div>
+    <div class="pos-card">
+      <div class="pos-name">Andrzej Grzegorczyk</div>
+      <div class="pos-thesis">The primary objects of metamathematics are texts, not numbers or sets</div>
+      <p>Formulas, proofs and computations are finite strings of symbols, and operations on them reduce to juxtaposition. Tarski (1935) included axioms of concatenation in the metatheory, and Quine (1946) established the mutual definability of concatenation and arithmetic. In “Undecidability without arithmetization” (2005) undecidability is proved directly for the theory of concatenation TC, without coding texts by numbers.</p>
+      <p>TC contains neither sets nor numbers and is nevertheless mutually interpretable with Robinson arithmetic Q and with weak set theories; it shows how small a stock of objects suffices for essential undecidability. Grzegorczyk is also the author of the hierarchy of primitive recursive functions (1953).</p>
+      <div class="pos-link">Beyond the table: TC · HF</div>
+    </div>
+    <div class="pos-card">
       <div class="pos-name">Solomon Feferman</div>
       <div class="pos-thesis">Predicativity given the natural numbers</div>
       <p>The natural numbers are accepted as a completed totality, $\mathcal P(\N)$ is not. The limit of predicativity under this assumption is the ordinal $\Gamma_0$ (Feferman, 1964; Schütte, 1965). “Weyl vindicated” (1988) shows that the system W, conservative over Peano arithmetic, suffices for the bulk of scientifically applicable analysis; hence the thesis that the impredicative parts of set theory are dispensable for applications.</p>
@@ -629,8 +643,11 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
 <section id="sec-beyond">
   <h2>8. Beyond the table</h2>
   <ul class="plain">
+    <li><strong>HF and $\mathrm{ZF}_{\mathrm{fin}}$.</strong> The hereditarily finite sets form $V_\omega$, a model of the theory $\mathrm{ZF}_{\mathrm{fin}}$ in which the axiom of infinity is replaced by its negation. Ackermann's coding (1937) — $n\in^*m$ if the $n$-th binary digit of $m$ is $1$ — interprets $\mathrm{ZF}_{\mathrm{fin}}$ in Peano arithmetic; with the added axiom “every set is contained in a transitive set” the two theories are bi-interpretable (Kaye and Wong, 2007). The passage from naive comprehension to the hereditarily finite sets is treated in the summary of chapter B2, “<a href="/Materials/maglish_b2_foundations_en.html">The Foundations of Mathematics</a>”.</li>
+    <li><strong>TC.</strong> The theory of concatenation: the objects are strings and the only operation is juxtaposition $x^\frown y$ (Tarski, 1935; Quine, 1946). Grzegorczyk's axioms (2005): associativity, the existence of a common refinement whenever $x^\frown y=u^\frown v$, and two distinct irreducible strings. The theory has neither sets nor numbers, yet it is essentially undecidable (Grzegorczyk and Zdanowski, 2008) and mutually interpretable with Robinson arithmetic Q, and through it with the set theory that postulates only the empty set and the adjunction of an element, $x\cup\{y\}$.</li>
     <li><strong>Z and ZC.</strong> Zermelo's 1908 system, without replacement. $V_{\omega+\omega}$ is a model of it, so Z does not prove the existence of the ordinal $\omega+\omega$, let alone of $\aleph_\omega$.</li>
     <li><strong>MK.</strong> Morse–Kelley set theory: NBG with impredicative class comprehension; proves the consistency of ZFC.</li>
+    <li><strong>TG.</strong> Tarski–Grothendieck set theory: ZFC with the axiom of universes — every set belongs to a Grothendieck universe, i.e. to a set $V_\kappa$ with $\kappa$ strongly inaccessible. The proper classes of one universe are sets of the next.</li>
     <li><strong>KP.</strong> Kripke–Platek set theory: no power set axiom, separation and collection only for formulas with bounded quantifiers; the basis of the theory of admissible sets (Barwise, 1975).</li>
     <li><strong>ZF with urelements.</strong> Atoms are objects without elements distinct from $\varnothing$; the Fraenkel–Mostowski permutation models prove the independence of the axiom of choice in this setting.</li>
     <li><strong>NFU.</strong> NF with urelements: consistent, compatible with choice and infinity (Jensen, 1969).</li>
@@ -649,6 +666,9 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
     <li>J. von Neumann, Eine Axiomatisierung der Mengenlehre, <em>J. reine angew. Math.</em> 154 (1925), 219–240.</li>
     <li>D. Hilbert, Über das Unendliche, <em>Math. Ann.</em> 95 (1926), 161–190.</li>
     <li>W. V. Quine, New foundations for mathematical logic, <em>Amer. Math. Monthly</em> 44 (1937), 70–80.</li>
+    <li>W. Ackermann, Die Widerspruchsfreiheit der allgemeinen Mengenlehre, <em>Math. Ann.</em> 114 (1937), 305–315.</li>
+    <li>A. Tarski, Über unerreichbare Kardinalzahlen, <em>Fund. Math.</em> 30 (1938), 68–89.</li>
+    <li>W. V. Quine, Concatenation as a basis for arithmetic, <em>J. Symbolic Logic</em> 11 (1946), 105–114.</li>
     <li>J. B. Rosser, H. Wang, Non-standard models for formal logics, <em>J. Symbolic Logic</em> 15 (1950), 113–129.</li>
     <li>E. Specker, The axiom of choice in Quine's New Foundations for mathematical logic, <em>Proc. Nat. Acad. Sci. USA</em> 39 (1953), 972–975.</li>
     <li>S. Orey, Relative interpretations, <em>Z. Math. Logik Grundlagen Math.</em> 7 (1961), 146–153.</li>
@@ -659,6 +679,7 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
     <li>R. B. Jensen, On the consistency of a slight (?) modification of Quine's New Foundations, <em>Synthese</em> 19 (1969), 250–263.</li>
     <li>G. Boolos, The iterative conception of set, <em>J. Philos.</em> 68 (1971), 215–231.</li>
     <li>U. Felgner, Comparison of the axioms of local and universal choice, <em>Fund. Math.</em> 71 (1971), 43–62.</li>
+    <li>M. Artin, A. Grothendieck, J.-L. Verdier, <em>Théorie des topos et cohomologie étale des schémas (SGA 4)</em>, t. 1, Lecture Notes in Math. 269, Springer, Berlin, 1972.</li>
     <li>P. Vopěnka, P. Hájek, <em>The Theory of Semisets</em>, North-Holland, Amsterdam, 1972.</li>
     <li>E. Nelson, Internal set theory: a new approach to nonstandard analysis, <em>Bull. Amer. Math. Soc.</em> 83 (1977), 1165–1198.</li>
     <li>K. Hrbáček, Axiomatic foundations for nonstandard analysis, <em>Fund. Math.</em> 98 (1978), 1–19.</li>
@@ -672,6 +693,8 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
     <li>V. Kanovei, IST is more than an algorithm to prove ZFC theorems, arXiv:math/9310213 (1993).</li>
     <li>V. Kanovei, M. Reeken, What internal set theory knows about standard sets, arXiv:math/9711205 (1997).</li>
     <li>V. Kanovei, M. Reeken, <em>Nonstandard Analysis, Axiomatically</em>, Springer, Berlin, 2004.</li>
+    <li>A. Grzegorczyk, Undecidability without arithmetization, <em>Studia Logica</em> 79 (2005), 163–230.</li>
+    <li>R. Kaye, T. L. Wong, On interpretations of arithmetic and set theory, <em>Notre Dame J. Formal Logic</em> 48 (2007), 497–510.</li>
     <li>K. Hrbacek, M. G. Katz, Infinitesimal analysis without the Axiom of Choice, <em>Ann. Pure Appl. Logic</em> 172 (2021), no. 6, 102959.</li>
     <li>M. R. Holmes, S. Wilshaw, NF is consistent, arXiv:1503.01406.</li>
   </ol>
