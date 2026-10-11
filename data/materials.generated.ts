@@ -294,14 +294,14 @@ export const MATERIALS_ITEMS: MaterialItem[] = [
   {
     "filename": "set_theories_en.html",
     "href": "/Materials/set_theories_en.html",
-    "title": "The Spectrum of Set Theories: ZFC, NBG, ZFA, NF",
+    "title": "The Spectrum of Set Theories: ZFC, NBG, ZFA, NF, IST",
     "category": "sets",
     "lang": "en"
   },
   {
     "filename": "set_theories.html",
     "href": "/Materials/set_theories.html",
-    "title": "Спектр теорий множеств: ZFC, NBG, ZFA, NF",
+    "title": "Спектр теорий множеств: ZFC, NBG, ZFA, NF, IST",
     "category": "sets",
     "lang": "ru"
   },

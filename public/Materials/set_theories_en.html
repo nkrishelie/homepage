@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Spectrum of Set Theories: ZFC, NBG, ZFA, NF</title>
-<meta name="description" content="A comparison table of the set theories ZFC, NBG, ZFA (Aczel's anti-foundation), Quine's NF and two finite models: the status of the universe, foundation, Russell's paradox, Cantor's theorem, predicativity, ordinals, the axiom of choice — and the philosophical positions of Zermelo, Hilbert, von Neumann, Quine, Aczel and Feferman.">
+<title>The Spectrum of Set Theories: ZFC, NBG, ZFA, NF, IST</title>
+<meta name="description" content="A comparison table of the set theories ZFC, NBG, ZFA (Aczel's anti-foundation), Quine's NF, Nelson's IST and two finite models: the status of the universe, foundation, Russell's paradox, Cantor's theorem, predicativity, ordinals, the axiom of choice — and the philosophical positions of Zermelo, Hilbert, von Neumann, Quine, Aczel, Nelson and Feferman.">
 <link rel="canonical" href="https://mathem.at/Materials/set_theories_en.html">
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Spectrum of Set Theories: ZFC, NBG, ZFA, NF">
-<meta property="og:description" content="ZFC, NBG, ZFA and NF in one table: which decisions about the nature of sets turn into which axioms — from von Neumann's cumulative universe to Quine's universal set.">
+<meta property="og:title" content="The Spectrum of Set Theories: ZFC, NBG, ZFA, NF, IST">
+<meta property="og:description" content="ZFC, NBG, ZFA, NF and IST in one table: which decisions about the nature of sets turn into which axioms — from von Neumann's cumulative universe to Quine's universal set and Nelson's nonstandard sets.">
 <meta property="og:url" content="https://mathem.at/Materials/set_theories_en.html">
 <meta property="og:locale" content="en_US">
 <link rel="alternate" hreflang="ru" href="/Materials/set_theories.html">
@@ -32,7 +32,7 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Georgia,serif;font-size:22px;line-height:1.65;min-height:100vh}
-.page{max-width:1320px;margin:0 auto;padding:3rem 2.5rem 5rem}
+.page{max-width:1600px;margin:0 auto;padding:3rem 2rem 5rem}
 .topbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.8rem}
 .crumbs{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink3)}
 .crumbs a{color:var(--ink3);text-decoration:none}
@@ -86,9 +86,9 @@ ul.plain li::marker{color:var(--ink3)}
 .legend{display:flex;flex-wrap:wrap;gap:.45rem 1.3rem;align-items:center;font-size:16.5px;color:var(--ink2);margin-bottom:1rem}
 .legend span.item{display:inline-flex;align-items:center;gap:.45rem}
 .cmp-wrap{overflow-x:auto;margin-bottom:1rem;border:0.5px solid var(--border);border-top:2px solid var(--ink);background:var(--bg)}
-table.cmp{width:100%;min-width:1240px;border-collapse:separate;border-spacing:0;table-layout:fixed}
-table.cmp col.c-head{width:12%}
-table.cmp col.c-sys{width:14.66%}
+table.cmp{width:100%;min-width:1340px;border-collapse:separate;border-spacing:0;table-layout:fixed}
+table.cmp col.c-head{width:11%}
+table.cmp col.c-sys{width:12.714%}
 table.cmp th,table.cmp td{text-align:left;vertical-align:top;border-right:0.5px solid var(--border);border-bottom:0.5px solid var(--border)}
 table.cmp th:last-child,table.cmp td:last-child{border-right:none}
 table.cmp tbody tr:last-child th,table.cmp tbody tr:last-child td{border-bottom:none}
@@ -197,7 +197,7 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
 <header>
   <p class="kicker">Set Theory · Foundations of Mathematics</p>
   <h1>The Spectrum of Set Theories</h1>
-  <p class="desc">ZFC, NBG, ZFA and NF are four answers to the question of what a set is. The systems differ in whether the universe exists as an object, whether classes are admitted, whether membership must be well-founded, which restriction of comprehension blocks Russell's paradox, and whether impredicative definitions are allowed; these decisions account for the differences in Cantor's theorem, in the ordinals and in the status of the axiom of choice. Two finite models mark the ends of the spectrum.</p>
+  <p class="desc">ZFC, NBG, ZFA, NF and IST are five answers to the question of what a set is. The systems differ in whether the universe exists as an object, whether classes are admitted, whether membership must be well-founded, which restriction of comprehension blocks Russell's paradox, whether impredicative definitions are allowed, and whether the standardness of a set is expressible in the language; these decisions account for the differences in Cantor's theorem, in the ordinals and in the status of the axiom of choice. Two finite models mark the ends of the spectrum.</p>
 </header>
 
 <nav class="toc">
@@ -206,8 +206,10 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
     <li><a href="#sec-family">One theory or a family of theories</a></li>
     <li><a href="#sec-table">Comparison table</a></li>
     <li><a href="#sec-rows">Comments on the rows</a></li>
+    <li><a href="#sec-syntax">Restriction by the form of the formula: NF and IST</a></li>
     <li><a href="#sec-toy">The finite models $M_1$ and $M_2$</a></li>
-    <li><a href="#sec-positions">Positions: Zermelo, Hilbert, von Neumann, Quine, Aczel, Feferman</a></li>
+    <li><a href="#sec-uniform">The impossibility of full homogeneity</a></li>
+    <li><a href="#sec-positions">Positions: Zermelo, Hilbert, von Neumann, Quine, Aczel, Nelson, Feferman</a></li>
     <li><a href="#sec-beyond">Beyond the table</a></li>
     <li><a href="#sec-refs">References</a></li>
   </ol>
@@ -215,19 +217,20 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
 
 <section id="sec-family">
   <h2>1. One theory or a family of theories</h2>
-  <p class="lead">The phrase “set theory” denotes not a single axiomatic system but a family of systems in a common language — the first-order language whose only non-logical symbol is $\in$ (NBG adds a sort of classes). All of them arose in response to one problem: the naive comprehension principle, according to which every property $\varphi(x)$ determines a set $\{x:\varphi(x)\}$, is inconsistent. For $\varphi(x)\equiv x\notin x$ it yields a set $R$ with $R\in R\leftrightarrow R\notin R$ (Russell, 1901). Comprehension must be restricted, and mathematics does not determine the restriction uniquely: the choice expresses a conception of what a set is.</p>
+  <p class="lead">The phrase “set theory” denotes not a single axiomatic system but a family of systems in a common language — the first-order language whose only non-logical symbol is $\in$ (NBG adds a sort of classes, IST a standardness predicate). All of them arose in response to one problem: the naive comprehension principle, according to which every property $\varphi(x)$ determines a set $\{x:\varphi(x)\}$, is inconsistent. For $\varphi(x)\equiv x\notin x$ it yields a set $R$ with $R\in R\leftrightarrow R\notin R$ (Russell, 1901). Comprehension must be restricted, and mathematics does not determine the restriction uniquely: the choice expresses a conception of what a set is.</p>
   <p>A system results from decisions along several independent axes.</p>
   <ul class="plain">
     <li><strong>The iterative conception.</strong> Sets are formed in stages from previously formed sets; the universe is the cumulative hierarchy $V=\bigcup_\alpha V_\alpha$, which is never completed and is therefore not itself a set (Zermelo, 1930; Boolos, 1971). ZFC rests on this conception.</li>
     <li><strong>Limitation of size.</strong> Only “too large” collections produce contradictions. They can be admitted as objects of a special kind — classes — that are forbidden to be members (von Neumann, 1925). This position is embodied in NBG.</li>
     <li><strong>Well-foundedness.</strong> Either membership is well-founded — $x\in x$, cycles $x\in y\in x$ and infinite descending <span class="nw">$\in$-chains</span> are excluded (the notion of a well-founded set: Mirimanoff, 1917; the axiom: von Neumann, 1925, and Zermelo, 1930) — or circular objects are legitimate and are given by graphs up to bisimulation (Forti and Honsell, 1983; Aczel, 1988). The second choice leads to ZFA.</li>
     <li><strong>Universality.</strong> Everything is a set, the universe included; comprehension is restricted not by size but syntactically — by stratification, which descends from Russell's theory of types (Quine, 1937). This is NF.</li>
+    <li><strong>Standardness.</strong> The language is extended by a unary predicate $\mathrm{st}(x)$, “$x$ is standard”, while the separation and replacement schemas are retained only for formulas of the original language. The infinitesimal and infinitely large numbers of nonstandard analysis (Robinson, 1961) turn out to be elements of the sets $\R$ and $\N$ themselves rather than of extensions of them (Nelson, 1977). This is IST.</li>
     <li><strong>Predicativity.</strong> Whether an object may be defined by a quantifier over a totality to which the object itself belongs (Poincaré, 1906; Russell, 1908; Weyl, 1918; Feferman, 1964). The answer separates, in particular, NBG from Morse–Kelley set theory.</li>
     <li><strong>Formal admissibility.</strong> For Hilbert, a consistent system of axioms itself secures the existence of its objects. From this standpoint competing systems are compared not by “truth” but by consistency and relative strength.</li>
   </ul>
-  <p>The table compares four standard systems — ZFC, NBG, ZFA in Aczel's sense, and NF — with two finite <span class="nw">$\in$-structures</span>. Let $\Omega$ be a Quine atom, i.e. a set satisfying $\Omega=\{\Omega\}$, and</p>
+  <p>The table compares five axiomatic systems — ZFC, NBG, ZFA in Aczel's sense, NF and IST — with two finite <span class="nw">$\in$-structures</span>. Let $\Omega$ be a Quine atom, i.e. a set satisfying $\Omega=\{\Omega\}$, and</p>
   <div class="math-block">$$M_1=\langle\{\Omega\};\in\rangle,\quad M_2=\langle\{\varnothing,\Omega\};\in\rangle,$$</div>
-  <p>where in both structures the membership relation consists of the single pair $\Omega\in\Omega$. The complete theories $\mathrm{Th}(M_1)$ and $\mathrm{Th}(M_2)$ make no claim to serve as foundations of mathematics. They serve as control cases: in a finite model every statement is checked directly, which shows which consequence rests on which axiom (<a href="#sec-toy">§ 4</a>).</p>
+  <p>where in both structures the membership relation consists of the single pair $\Omega\in\Omega$. The complete theories $\mathrm{Th}(M_1)$ and $\mathrm{Th}(M_2)$ make no claim to serve as foundations of mathematics. They serve as control cases: in a finite model every statement is checked directly, which shows which consequence rests on which axiom (<a href="#sec-toy">§ 5</a>).</p>
 </section>
 
 <section id="sec-table">
@@ -242,7 +245,7 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
   </div>
   <div class="cmp-wrap">
     <table class="cmp">
-      <colgroup><col class="c-head"><col class="c-sys"><col class="c-sys"><col class="c-sys"><col class="c-sys"><col class="c-sys"><col class="c-sys"></colgroup>
+      <colgroup><col class="c-head"><col class="c-sys"><col class="c-sys"><col class="c-sys"><col class="c-sys"><col class="c-sys"><col class="c-sys"><col class="c-sys"></colgroup>
       <thead>
         <tr>
           <th scope="col" class="sticky corner">Feature</th>
@@ -250,6 +253,7 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
           <th scope="col"><span class="th-name">NBG</span><span class="th-sub">von Neumann–Bernays–Gödel</span><span class="th-stance">limitation of size</span></th>
           <th scope="col"><span class="th-name">ZFA</span><span class="th-sub">$\mathrm{ZFC}^-+\mathrm{AFA},$ Aczel's anti-foundation</span><span class="th-stance">cycles allowed</span></th>
           <th scope="col"><span class="th-name">NF</span><span class="th-sub">New Foundations, Quine</span><span class="th-stance">everything is a set</span></th>
+          <th scope="col"><span class="th-name">IST</span><span class="th-sub">Internal Set Theory, Nelson</span><span class="th-stance">standardness is a predicate</span></th>
           <th scope="col"><span class="th-name">$\mathrm{Th}(M_1)$</span><span class="th-sub">one-point model $\{\Omega\}$</span><span class="th-stance">universe without separation</span></th>
           <th scope="col"><span class="th-name">$\mathrm{Th}(M_2)$</span><span class="th-sub">two-point model $\{\varnothing,\Omega\}$</span><span class="th-stance">separation without universe</span></th>
         </tr>
@@ -261,6 +265,7 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
           <td><span class="st st-cls">no class left of $\in$</span><span class="cell">In the two-sorted language only $x\in y$ and $x\in X$ are atomic: a class cannot be a member. Class comprehension is not restricted by size.</span></td>
           <td><span class="st st-yes">as in ZFC</span><span class="cell">Bounded comprehension; AFA enlarges the stock of sets but adds no new syntactic prohibition.</span></td>
           <td><span class="st st-mod">stratification</span><span class="cell">Comprehension $\{x:\varphi\}$ only for stratifiable $\varphi:$ the shape of the formula is restricted, not its range.</span></td>
+          <td><span class="st st-mod">internal formulas</span><span class="cell">The language is <span class="nw">$\{\in,\mathrm{st}\}.$</span> Separation and replacement only for formulas without $\mathrm{st};$ as in NF, the shape of the formula is restricted.</span></td>
           <td colspan="2"><span class="st st-na">no prohibition</span><span class="cell">The same language $\{\in\}$ with no syntactic restriction; whatever is missing is simply absent from the structure.</span></td>
         </tr>
         <tr>
@@ -269,6 +274,7 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
           <td><span class="st st-cls">proper class</span><span class="cell">$V$ and $\mathrm{On}$ are objects of the second sort, but not members.</span></td>
           <td><span class="st st-yes">not a set</span><span class="cell">As in ZFC; $\mathrm{WF}\subsetneq V,$ since $\Omega\notin\mathrm{WF}.$</span></td>
           <td><span class="st st-mod">a set, $V\in V$</span><span class="cell">$V=\{x:x=x\}$ is given by a stratified formula.</span></td>
+          <td><span class="st st-yes">not a set</span><span class="cell">As in ZFC. The standard sets do not form a set either, although all of them belong to some finite set.</span></td>
           <td><span class="st st-mod">a set, $V=\Omega$</span><span class="cell">The domain $\{\Omega\}$ coincides with $\Omega,$ hence $V\in V.$</span></td>
           <td><span class="st st-yes">not in the model</span><span class="cell">The domain is $\{\varnothing,\Omega\},$ but $\Omega=\{\Omega\}\ne\{\varnothing,\Omega\}.$</span></td>
         </tr>
@@ -278,6 +284,7 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
           <td><span class="st st-yes">yes</span><span class="cell">In class form: every nonempty class has an <span class="nw">$\in$-minimal</span> element.</span></td>
           <td><span class="st st-no">no → AFA</span><span class="cell">Every graph has a unique decoration; bisimilar sets are equal.</span></td>
           <td><span class="st st-no">no</span><span class="cell">$V\in V.$</span></td>
+          <td><span class="st st-yes">yes</span><span class="cell">An internal axiom of ZFC. The nonstandard natural numbers have no least element, but they do not form a set.</span></td>
           <td><span class="st st-no">no</span><span class="cell">$\Omega\in\Omega.$</span></td>
           <td><span class="st st-no">no</span><span class="cell">$\Omega=\{\Omega\}$ has no <span class="nw">$\in$-minimal</span> element.</span></td>
         </tr>
@@ -287,6 +294,7 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
           <td><span class="st st-cls">proper class</span><span class="cell">The Russell class $\{x:x\notin x\}$ exists but cannot be a member.</span></td>
           <td><span class="st st-yes">separation</span><span class="cell">As in ZFC; foundation plays no role in the argument.</span></td>
           <td><span class="st st-mod">stratification</span><span class="cell">The formula $x\notin x$ is not stratifiable; comprehension does not apply to it.</span></td>
+          <td><span class="st st-yes">separation</span><span class="cell">As in ZFC. Excluding external formulas from separation removes another contradiction — induction on the predicate $\mathrm{st}.$</span></td>
           <td><span class="st st-no">no separation</span><span class="cell">$\{x\in\Omega:x\notin x\}=\varnothing$ is absent, so the universal set causes no contradiction.</span></td>
           <td><span class="st st-yes">separation</span><span class="cell">Separation holds, and by Russell's argument there is no universal set.</span></td>
         </tr>
@@ -296,6 +304,7 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
           <td><span class="st st-yes">for sets</span><span class="cell">Fails for proper classes: under global choice all of them are equinumerous.</span></td>
           <td><span class="st st-yes">holds</span><span class="cell">The diagonal argument does not use foundation.</span></td>
           <td><span class="st st-mod">restricted</span><span class="cell">$\mathcal P(V)=V;$ $|\mathcal P_1(A)|&lt;|\mathcal P(A)|$ holds, where $\mathcal P_1(A)=\{\{a\}:a\in A\}.$</span></td>
+          <td><span class="st st-yes">holds</span><span class="cell">An internal theorem of ZFC. The standard elements of any set lie in a finite subset of it.</span></td>
           <td><span class="st st-no">false</span><span class="cell">$\mathcal P(\Omega)=\Omega,$ and $\Omega=\{\langle\Omega,\Omega\rangle\}$ is a bijection of $\Omega$ onto $\mathcal P(\Omega).$</span></td>
           <td><span class="st st-mod">no power sets</span><span class="cell">There are no power sets; the diagonal form holds, since separation holds.</span></td>
         </tr>
@@ -305,6 +314,7 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
           <td><span class="st st-cls">predicative in classes</span><span class="cell">Class comprehension with quantifiers over sets only; conservative over ZFC. The impredicative variant MK is stronger.</span></td>
           <td><span class="st st-yes">impredicative</span><span class="cell">As ZFC.</span></td>
           <td><span class="st st-yes">impredicative</span><span class="cell">Quantifiers of stratified formulas range over $V,$ and $V$ is a set.</span></td>
+          <td><span class="st st-yes">impredicative</span><span class="cell">As ZFC; standardization applies to every formula, external ones included.</span></td>
           <td colspan="2"><span class="st st-na">not applicable</span><span class="cell">The theories are given by models, not by principles of set formation.</span></td>
         </tr>
         <tr>
@@ -313,6 +323,7 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
           <td><span class="st st-yes">von Neumann</span><span class="cell">$\mathrm{On}$ is a proper class (Burali-Forti paradox).</span></td>
           <td><span class="st st-yes">von Neumann</span><span class="cell">The same as in ZFC, and they lie in $\mathrm{WF};$ a weakened definition admits $\Omega=\{\Omega\}.$</span></td>
           <td><span class="st st-mod">Frege–Russell</span><span class="cell">An ordinal is the set of all well-orderings isomorphic to a given one; the set of all ordinals exists.</span></td>
+          <td><span class="st st-yes">von Neumann</span><span class="cell">As in ZFC; $\omega$ and every infinite ordinal contain nonstandard elements.</span></td>
           <td><span class="st st-no">none</span><span class="cell">There are no ordinals: even $0=\varnothing$ is absent.</span></td>
           <td><span class="st st-mod">only $0$</span><span class="cell">The only ordinal is $\varnothing;$ $1=\{\varnothing\}$ is absent.</span></td>
         </tr>
@@ -322,6 +333,7 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
           <td><span class="st st-cls">global choice</span><span class="cell">A class choice function on $V;$ conservative over ZFC (Felgner, 1971).</span></td>
           <td><span class="st st-yes">yes</span><span class="cell">Consistent with AFA.</span></td>
           <td><span class="st st-no">refuted</span><span class="cell">$V$ cannot be well-ordered (Specker, 1953); hence NF proves infinity.</span></td>
+          <td><span class="st st-yes">yes</span><span class="cell">Part of ZFC. Over ZF the schemas I, S, T yield a nonprincipal ultrafilter on <span class="nw">$\N.$</span></span></td>
           <td><span class="st st-yes">trivially</span><span class="cell">$\Omega=\{\langle\Omega,\Omega\rangle\}$ is a choice function for <span class="nw">$\Omega.$</span></span></td>
           <td><span class="st st-yes">trivially</span><span class="cell">The choice functions are $\varnothing$ and <span class="nw">$\Omega.$</span></span></td>
         </tr>
@@ -331,24 +343,34 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
           <td><span class="ax-list"><span class="ax y">$\varnothing$ ✓</span><span class="ax y">pair ✓</span><span class="ax y">$\bigcup$ ✓</span><span class="ax y">$\mathcal P$ ✓</span><span class="ax y">sep. ✓</span></span><span class="cell-note">for sets</span></td>
           <td><span class="ax-list"><span class="ax y">$\varnothing$ ✓</span><span class="ax y">pair ✓</span><span class="ax y">$\bigcup$ ✓</span><span class="ax y">$\mathcal P$ ✓</span><span class="ax y">sep. ✓</span></span></td>
           <td><span class="ax-list"><span class="ax y">$\varnothing$ ✓</span><span class="ax y">pair ✓</span><span class="ax y">$\bigcup$ ✓</span><span class="ax y">$\mathcal P$ ✓</span><span class="ax m">sep. ±</span></span><span class="cell-note">separation for stratified formulas only; complements $V\setminus A$ exist</span></td>
+          <td><span class="ax-list"><span class="ax y">$\varnothing$ ✓</span><span class="ax y">pair ✓</span><span class="ax y">$\bigcup$ ✓</span><span class="ax y">$\mathcal P$ ✓</span><span class="ax m">sep. ±</span></span><span class="cell-note">separation for internal formulas only; standardization for external ones</span></td>
           <td><span class="ax-list"><span class="ax n">$\varnothing$ ✗</span><span class="ax y">pair ✓</span><span class="ax y">$\bigcup$ ✓</span><span class="ax y">$\mathcal P$ ✓</span><span class="ax n">sep. ✗</span></span></td>
           <td><span class="ax-list"><span class="ax y">$\varnothing$ ✓</span><span class="ax n">pair ✗</span><span class="ax y">$\bigcup$ ✓</span><span class="ax n">$\mathcal P$ ✗</span><span class="ax y">sep. ✓</span></span></td>
         </tr>
       </tbody>
     </table>
   </div>
-  <p class="tbl-note">$\mathcal P(A)$ is the set of all subsets of $A$; $\mathcal P_1(A)=\{\{a\}:a\in A\}$ is the set of singletons; $V_0=\varnothing$, $V_{\alpha+1}=\mathcal P(V_\alpha)$, $V_\lambda=\bigcup_{\alpha&lt;\lambda}V_\alpha$ is the cumulative hierarchy, and $\mathrm{WF}=\bigcup_\alpha V_\alpha$ is the class of well-founded sets; $\langle a,b\rangle=\{\{a\},\{a,b\}\}$ is the Kuratowski pair. $\mathrm{ZFC}^-$ denotes ZFC without the axiom of foundation (Aczel's notation; in another tradition the same symbol denotes ZFC without the power set axiom). The abbreviation ZFA is also used for ZF with urelements (atoms), and it is used in that sense in “<a href="/Materials/second_order_arithmetic_en.html">Hierarchy of Second-Order Arithmetic Theories</a>”; here $\mathrm{ZFA}=\mathrm{ZFC}^-+\mathrm{AFA}$. The columns $\mathrm{Th}(M_1)$ and $\mathrm{Th}(M_2)$ are analysed in <a href="#sec-toy">§ 4</a>.</p>
+  <p class="tbl-note">$\mathcal P(A)$ is the set of all subsets of $A$; $\mathcal P_1(A)=\{\{a\}:a\in A\}$ is the set of singletons; $V_0=\varnothing$, $V_{\alpha+1}=\mathcal P(V_\alpha)$, $V_\lambda=\bigcup_{\alpha&lt;\lambda}V_\alpha$ is the cumulative hierarchy, and $\mathrm{WF}=\bigcup_\alpha V_\alpha$ is the class of well-founded sets; $\langle a,b\rangle=\{\{a\},\{a,b\}\}$ is the Kuratowski pair. $\mathrm{ZFC}^-$ denotes ZFC without the axiom of foundation (Aczel's notation; in another tradition the same symbol denotes ZFC without the power set axiom). The abbreviation ZFA is also used for ZF with urelements (atoms), and it is used in that sense in “<a href="/Materials/second_order_arithmetic_en.html">Hierarchy of Second-Order Arithmetic Theories</a>”; here $\mathrm{ZFA}=\mathrm{ZFC}^-+\mathrm{AFA}$. In the IST column, $\mathrm{st}(x)$ reads “$x$ is standard”; an internal formula is a formula without $\mathrm{st}$, all other formulas are external; I, S, T are the schemas of idealization, standardization and transfer (<a href="#sec-rows">§ 3</a>). The columns $\mathrm{Th}(M_1)$ and $\mathrm{Th}(M_2)$ are analysed in <a href="#sec-toy">§ 5</a>.</p>
 </section>
 
 <section id="sec-rows">
   <h2>3. Comments on the rows</h2>
 
   <h3>Key prohibition of the language</h3>
-  <p>Each system blocks Russell's paradox by a restriction of a particular kind. In ZFC and ZFA the language admits all formulas, and the restriction concerns the comprehension schema: the collection being defined is separated from an already given set. In two-sorted NBG the prohibition is built into the syntax itself: the atomic formulas are $x\in y$ and $x\in X$, where lower-case variables range over sets and upper-case ones over classes, so a class never stands to the left of $\in$; class comprehension is restricted not by size but by its quantifiers (see “Predicativity”). In one-sorted presentations of NBG the same prohibition is stated as an axiom: every member is a set. In NF the shape of the comprehension formula is restricted — it must be stratifiable — while the range of comprehension is not. $\mathrm{Th}(M_1)$ and $\mathrm{Th}(M_2)$ have no syntactic prohibitions: missing sets are simply absent from the structure.</p>
+  <p>Each system blocks Russell's paradox by a restriction of a particular kind. In ZFC and ZFA the language admits all formulas, and the restriction concerns the comprehension schema: the collection being defined is separated from an already given set. In two-sorted NBG the prohibition is built into the syntax itself: the atomic formulas are $x\in y$ and $x\in X$, where lower-case variables range over sets and upper-case ones over classes, so a class never stands to the left of $\in$; class comprehension is restricted not by size but by its quantifiers (see “Predicativity”). In one-sorted presentations of NBG the same prohibition is stated as an axiom: every member is a set. In NF the shape of the comprehension formula is restricted — it must be stratifiable — while the range of comprehension is not. In IST the restriction is of the same kind as in NF, namely by the form of the formula: the language is extended by the predicate $\mathrm{st}$, and the separation and replacement schemas admit only formulas without $\mathrm{st}$; the range of separation is, as in ZFC, an already given set. $\mathrm{Th}(M_1)$ and $\mathrm{Th}(M_2)$ have no syntactic prohibitions: missing sets are simply absent from the structure.</p>
+  <div class="definition">
+    <div class="def-head">The axioms of IST (Nelson, 1977)</div>
+    <p>The language contains $\in$ and a unary predicate $\mathrm{st}(x)$, “$x$ is standard”. A formula without $\mathrm{st}$ is called <strong>internal</strong>, all other formulas <strong>external</strong>. The notation $\forall^{\mathrm{st}}x\,\varphi$ stands for $\forall x\,(\mathrm{st}(x)\to\varphi)$, and $\exists^{\mathrm{st}}x\,\varphi$ for $\exists x\,(\mathrm{st}(x)\wedge\varphi)$; $\forall^{\mathrm{st\,fin}}z$ is the quantifier over standard finite sets. The axioms of IST are the axioms of ZFC, with only internal formulas admitted in the separation and replacement schemas, together with three schemas.</p>
+    <p><strong>Transfer (T).</strong> For an internal formula $\varphi(x,t_1,\dots,t_k)$ with no other free variables: $$\forall^{\mathrm{st}}t_1\dots\forall^{\mathrm{st}}t_k\,\bigl(\forall^{\mathrm{st}}x\,\varphi\to\forall x\,\varphi\bigr).$$</p>
+    <p><strong>Idealization (I).</strong> For an internal formula $\varphi(x,y)$ with arbitrary parameters: $$\forall^{\mathrm{st\,fin}}z\;\exists x\;\forall y\in z\;\varphi(x,y)\;\leftrightarrow\;\exists x\;\forall^{\mathrm{st}}y\;\varphi(x,y).$$</p>
+    <p><strong>Standardization (S).</strong> For every formula $\Phi(x)$, internal or external, with arbitrary parameters: $$\forall^{\mathrm{st}}A\;\exists^{\mathrm{st}}B\;\forall^{\mathrm{st}}x\,\bigl(x\in B\leftrightarrow x\in A\wedge\Phi(x)\bigr).$$ The set $B$ is unique by transfer and is denoted by ${}^{\mathrm s}\{x\in A:\Phi(x)\}$; the schema asserts nothing about its nonstandard elements.</p>
+  </div>
+  <p>By transfer, every set uniquely defined by an internal formula with standard parameters is standard: such are $\varnothing$, $\N$, $\R$, $\pi$ and every explicitly given natural number. By idealization applied to the formula $x\in A\wedge x\ne y$, every infinite set $A$ contains a nonstandard element. In particular, $\N$ contains a nonstandard number $\nu$; it exceeds all standard natural numbers, and $1/\nu$ is a positive real number smaller than all standard positive reals. A set is standard and finite if and only if all its elements are standard. Idealization for the formula “$x$ is finite and $y\in x$” yields a finite set containing all standard sets.</p>
+  <p>IST is a conservative extension of ZFC: an internal sentence is provable in IST if and only if it is provable in ZFC (Nelson, 1977). Nelson's reduction algorithm converts an external formula with bounded quantifiers and standard parameters into an internal formula equivalent to it in IST; the algorithm does not extend to arbitrary formulas: there is a sentence of the language of IST that is not equivalent in IST to any internal sentence (Kanovei, 1993). The restrictions of NF and IST are compared in <a href="#sec-syntax">§ 4</a>.</p>
 
   <h3>Status of the universe</h3>
   <p>In ZFC the existence of a universal set is refuted. If $\forall x\,(x\in v)$, then by the separation schema there is $R=\{x\in v:x\notin x\}$; since $R\in v$, one obtains $R\in R\leftrightarrow R\notin R$. Expressions such as “the class $V$” or “the class $\mathrm{On}$” are admissible in ZFC only as abbreviations of formulas ($x=x$, “$x$ is an ordinal”); such collections are called virtual classes (Quine, 1963).</p>
-  <p>NBG makes classes objects of a second sort: $V$ and $\mathrm{On}$ exist but are never members. In NF the collection $\{x:x=x\}$ is given by a stratified formula, so $V$ is a set and $V\in V$; the complement $V\setminus A$ of every set $A$ is a set as well. In $M_1$ the universe is $\Omega$ itself; in $M_2$ the domain $\{\varnothing,\Omega\}$ is not an element of the model.</p>
+  <p>NBG makes classes objects of a second sort: $V$ and $\mathrm{On}$ exist but are never members. In NF the collection $\{x:x=x\}$ is given by a stratified formula, so $V$ is a set and $V\in V$; the complement $V\setminus A$ of every set $A$ is a set as well. In IST the universe fails to be a set for the same reason as in ZFC. The standard sets do not form a set either, although all of them belong to some finite set: a collection may fail to be a set for reasons other than size (<a href="#sec-syntax">§ 4</a>). In $M_1$ the universe is $\Omega$ itself; in $M_2$ the domain $\{\varnothing,\Omega\}$ is not an element of the model.</p>
 
   <h3>Foundation</h3>
   <p>The axiom of foundation (regularity): every nonempty set $x$ contains an element $y$ with $y\cap x=\varnothing$. Given the remaining axioms of ZF, it is equivalent to $V=\mathrm{WF}$: every set $x$ has a rank, the least ordinal $\alpha$ with $x\subseteq V_\alpha$. Foundation excludes $x\in x$ (otherwise the set $\{x\}$ would have no <span class="nw">$\in$-minimal</span> element), finite cycles $x_0\in x_1\in\dots\in x_n\in x_0$ and infinite descending chains $\dots\in x_2\in x_1\in x_0$. It is also equivalent to the schema of <span class="nw">$\in$-induction</span>, which generalizes transfinite induction on the ordinals. The cumulative hierarchy is treated in the summary of chapter C1, “<a href="/Materials/maglish_c1_paradise_en.html">A Mathematician's Paradise</a>”, of the book <em>Mathematics as a Foreign Language</em>; transfinite induction in “<a href="/Materials/induction_en.html">On Mathematical Induction</a>”.</p>
@@ -358,6 +380,7 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
     <p>A <strong>decoration</strong> of a directed graph $G$ is a map $d$ assigning to each vertex $a$ the set $d(a)=\{d(b):a\to b\}$. <strong>AFA:</strong> every graph has exactly one decoration.</p>
     <p>The graph consisting of one vertex with a loop yields the equation $x=\{x\}$; by AFA it has a unique solution $\Omega$, so the Quine atom exists and is unique. Sets decorating bisimilar graphs are equal (strong extensionality): the system $x=\{y\}$, $y=\{x\}$ has the unique solution $x=y=\Omega$, because the graph of two vertices pointing to each other is bisimilar to the loop. The theory $\mathrm{ZFA}=\mathrm{ZFC}^-+\mathrm{AFA}$ includes the axiom of choice and is equiconsistent with ZFC.</p>
   </div>
+  <p>In IST foundation is retained as an internal axiom of ZFC. The collection of nonstandard natural numbers is nonempty and has no least element, but it is not a set, so the well-ordering of $\N$ is not violated.</p>
 
   <h3>Russell's paradox</h3>
   <p>The sentence $\neg\exists R\,\forall x\,(x\in R\leftrightarrow x\notin x)$ is a theorem of pure first-order logic: it holds in every structure, $M_1$ and $M_2$ included. The systems differ not in whether they “avoid” the paradox, but in which comprehension principle they retain. Naive comprehension and the passage from it to the hereditarily finite sets are treated in the summary of chapter B2, “<a href="/Materials/maglish_b2_foundations_en.html">The Foundations of Mathematics</a>”, of the same book.</p>
@@ -365,6 +388,7 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
     <li><strong>ZFC and ZFA</strong> retain separation (Zermelo's <em>Aussonderung</em>): a property separates a subset only from an already given set. Russell's argument becomes a theorem: for every $A$, the set $\{x\in A:x\notin x\}$ does not belong to $A$, and there is no universal set. Foundation plays no role in the argument, so ZFA behaves exactly like ZFC.</li>
     <li><strong>NBG</strong> retains comprehension for classes $\{x:\varphi(x)\}$ where the quantifiers of $\varphi$ range over sets only. The Russell class exists, but it is proper, and only sets are members; under foundation it coincides with $V$.</li>
     <li><strong>NF</strong> retains comprehension without any restriction of size, but only for stratifiable formulas.</li>
+    <li><strong>IST</strong> retains separation for internal formulas, and Russell's argument goes through exactly as in ZFC. Excluding external formulas from the separation schema removes a different contradiction: the set $\{n\in\N:\mathrm{st}(n)\}$ would contain $0$, would be closed under the passage from $n$ to $n+1$, and would differ from $\N$.</li>
   </ul>
   <div class="definition">
     <div class="def-head">Stratification (Quine, 1937)</div>
@@ -375,10 +399,11 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
   <h3>Cantor's theorem</h3>
   <p>The diagonal proof uses only separation: for $f\colon A\to\mathcal P(A)$, the set $D=\{x\in A:x\notin f(x)\}$ does not lie in the range of $f$, since $D=f(d)$ implies $d\in D\leftrightarrow d\notin D$. Hence the theorem holds in ZFC and in ZFA regardless of foundation. In NBG it concerns sets; for proper classes there is no analogue: under global choice all proper classes are equinumerous.</p>
   <p>In NF the condition $x\notin f(x)$ for $f\colon A\to\mathcal P(A)$ is not stratifiable: $\langle x,y\rangle\in f$ requires $x$ and $y=f(x)$ to have equal types, while $x\notin y$ requires a difference of one. For $f\colon\mathcal P_1(A)\to\mathcal P(A)$ the diagonal condition $a\notin f(\{a\})$ is stratifiable, and the proof goes through: $|\mathcal P_1(A)|&lt;|\mathcal P(A)|$. The map $a\mapsto\{a\}$ is in general not a set in NF, so $|A|$ and $|\mathcal P_1(A)|$ may differ. For $A=V$ one has $\mathcal P(V)=V$ and $|\mathcal P_1(V)|&lt;|V|$: there are strictly fewer singletons than sets.</p>
+  <p>In IST Cantor's theorem is an internal statement, provable already in ZFC. External comparison of collections behaves differently: the standard elements of any set $A$ lie in some finite subset of $A$. Thus all standard real numbers are contained in a finite set $F\subset\R$; the number of its elements is nonstandard.</p>
 
   <h3>Predicativity</h3>
   <p>A definition is impredicative if the object being defined is specified by a quantifier over a totality to which the object itself belongs. Poincaré (1906) and Russell (1908) saw in such definitions the source of the paradoxes (the vicious circle principle); in Weyl's <em>Das Kontinuum</em> (1918) a substantial part of analysis is developed predicatively; the exact limit of predicativity given the natural numbers is the ordinal $\Gamma_0$ (Feferman, 1964; Schütte, 1965).</p>
-  <p>ZFC is impredicative in two respects. A formula in the separation schema may contain quantifiers over the whole universe, including the set being defined. The power set axiom postulates the totality of all subsets, in particular $\mathcal P(\N)$, as a completed whole. ZFA and NF are impredicative in the same sense; in NF the quantifiers of a stratified formula range over $V$, and $V$ is a set.</p>
+  <p>ZFC is impredicative in two respects. A formula in the separation schema may contain quantifiers over the whole universe, including the set being defined. The power set axiom postulates the totality of all subsets, in particular $\mathcal P(\N)$, as a completed whole. ZFA, NF and IST are impredicative in the same sense. In NF the quantifiers of a stratified formula range over $V$, and $V$ is a set; in IST standardization applies to formulas with quantifiers over the whole universe, external formulas included.</p>
   <p>NBG is predicative in classes: in class comprehension the quantifiers range over sets only. Consequently the comprehension schema can be replaced by finitely many axioms (NBG is finitely axiomatizable), and NBG is conservative over ZFC: a statement about sets is provable in NBG if and only if it is provable in ZFC. Impredicative class comprehension yields Morse–Kelley set theory (MK), which is strictly stronger: MK proves the consistency of ZFC. Thus classes as objects do not change set theory, whereas impredicative classes strengthen it.</p>
   <p>In Feferman's predicativist programme the bulk of scientifically applicable analysis is developed in systems conservative over Peano arithmetic (the system W, 1988). The hierarchy of predicative and impredicative systems is treated in “<a href="/Materials/second_order_arithmetic_en.html">Hierarchy of Second-Order Arithmetic Theories</a>”, Weyl's predicative analysis in “<a href="/Materials/math_analysis_levels_en.html">Levels of Formalization of Mathematical Analysis</a>”.</p>
 
@@ -386,17 +411,63 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
   <p>Following von Neumann (1923), an ordinal is a transitive set strictly well-ordered by $\in$; every ordinal coincides with the set of smaller ordinals: $\alpha=\{\beta:\beta&lt;\alpha\}$. The collection $\mathrm{On}$ of all ordinals cannot be a set (the Burali-Forti paradox): in ZFC it is a virtual class, in NBG a proper class. In ZFA the ordinals are the same as in ZFC, and all of them lie in $\mathrm{WF}$. However, definitions that are equivalent under foundation diverge without it: in ZFA the condition “a transitive set of transitive sets” is also satisfied by the set $\Omega=\{\Omega\}$, which is not an ordinal.</p>
   <p>In NF already the transitivity condition $\forall y\in x\;\forall z\in y\;(z\in x)$ is not stratifiable (the types of $x$ and $z$ would have to differ by $1$ and by $2$ simultaneously), so stratified comprehension does not yield a set of von Neumann ordinals. Ordinals are defined after Frege and Russell: an ordinal is the set of all well-orderings isomorphic to a given one; likewise a cardinal is the set of all sets equinumerous with a given one, and the natural number $n$ is the set of all $n$-element sets. The set of all ordinals exists; denote the type of its natural ordering by $\Theta$ (in the NF literature, $\Omega$; here that letter is reserved for the Quine atom).</p>
   <p>The Burali-Forti paradox is resolved by the fact that the ordinals smaller than $\Theta$ form a proper initial segment of this ordering and therefore have a type strictly smaller than $\Theta$: the equation “the type of $\{\beta:\beta&lt;\alpha\}$ is $\alpha$”, trivial for von Neumann ordinals, is not stratifiable and fails for $\alpha=\Theta$. Its stratified version is expressed through the operation $T$, which raises the type of an ordering by one level, and yields a descending chain $\Theta&gt;T(\Theta)&gt;T^2(\Theta)&gt;\dots$ that is not a set. Externally the chain is infinite; hence in no model of NF is the ordering of the ordinals well-founded from the standpoint of the metatheory (Rosser and Wang, 1950).</p>
+  <p>In IST the ordinals are defined after von Neumann and have the same internal properties as in ZFC; $\omega$ and every larger ordinal contain nonstandard elements. Induction on $\N$ is provable for internal formulas. For an arbitrary formula $\Phi$ one has external induction, whose conclusion concerns standard numbers only:</p>
+  <div class="math-block">$$\Phi(0)\wedge\forall^{\mathrm{st}}n\in\N\;\bigl(\Phi(n)\to\Phi(n+1)\bigr)\;\to\;\forall^{\mathrm{st}}n\in\N\;\Phi(n).$$</div>
+  <p>It follows from ordinary induction for the set ${}^{\mathrm s}\{n\in\N:\Phi(n)\}$.</p>
 
   <h3>The axiom of choice</h3>
   <p>In ZFC choice is postulated as a separate axiom; it is independent of the other axioms of ZF (Gödel, 1938; Cohen, 1963). NBG usually adopts global choice — the existence of a class function selecting an element from every nonempty set (Gödel, 1940); this extension is conservative over ZFC (Felgner, 1971). In von Neumann's system (1925) global choice is not postulated separately but follows from the axiom of limitation of size: a class is proper if and only if it can be mapped onto $V$. The same axiom yields separation and replacement, but not the power set axiom: limitation of size by itself does not secure the existence of $\mathcal P(A)$.</p>
   <p>AFA is compatible with choice. In NF choice is refuted: the universe cannot be well-ordered (Specker, 1953); as a consequence, NF proves the axiom of infinity. The variant NFU, which admits urelements, is consistent relative to systems considerably weaker than ZFC and compatible with choice (Jensen, 1969). The consistency of NF itself had remained open since 1937; the proof by Holmes and Wilshaw constructs a model of tangled type theory TTT, whose consistency is equivalent to that of NF, and has been verified in the Lean proof assistant (2024).</p>
+  <p>IST contains ZFC together with the axiom of choice. Without choice the schemas I, S and T are not conservative over ZF: if $\nu\in\N$ is nonstandard, then ${}^{\mathrm s}\{A\in\mathcal P(\N):\nu\in A\}$ is a nonprincipal ultrafilter on $\N$, and the existence of such an ultrafilter is not provable in ZF. The theory SPOT, with weakened schemas, is conservative over ZF and suffices for analysis with infinitesimals (Hrbacek and Katz, 2021).</p>
 
   <h3>Basic axioms</h3>
-  <p>NF differs from the other infinite systems in separation: from a set $A$ only a subset defined by a stratifiable condition can be separated; thus $\{x\in V:x\notin x\}$ does not exist. In return NF contains sets impossible in ZFC: $V$, complements, the set of all ordinals, the set of all cardinals. The basic axioms in $M_1$ and $M_2$ are checked in <a href="#sec-toy">§ 4</a>.</p>
+  <p>NF and IST differ from the other infinite systems in the separation schema. In NF only a subset defined by a stratifiable condition can be separated from a set $A$; thus $\{x\in V:x\notin x\}$ does not exist. In return NF contains sets impossible in ZFC: $V$, complements, the set of all ordinals, the set of all cardinals. In IST a subset is separated only by an internal condition; for an external condition $\Phi$ and a standard set $A$, standardization yields the standard set ${}^{\mathrm s}\{x\in A:\Phi(x)\}$, which has the same standard elements as the collection $\{x\in A:\Phi(x)\}$. The axioms of IST add no new sets to those of ZFC: every internal existence statement provable in IST is provable in ZFC. The basic axioms in $M_1$ and $M_2$ are checked in <a href="#sec-toy">§ 5</a>.</p>
+</section>
+
+<section id="sec-syntax">
+  <h2>4. Restriction by the form of the formula: NF and IST</h2>
+  <p class="lead">In ZFC and ZFA every part of a set that is defined by a formula of the language is a set: a definable collection can fail to be a set only because of its size. In NF and IST the admissibility of comprehension depends on the syntactic form of the formula — stratifiability in NF, absence of the predicate $\mathrm{st}$ in IST — and a definable part of a set may fail to be a set. In the terminology of Vopěnka and Hájek (1972) such a collection is a proper semiset.</p>
+  <div class="tbl-wrap">
+    <table class="basic">
+      <thead>
+        <tr><th style="width:22%"></th><th style="width:39%">NF</th><th style="width:39%">IST</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Source</td><td>Russell's simple theory of types: the types are erased, and what remains of the typing is the stratifiability condition</td><td>Robinson's nonstandard analysis: the distinction between the universe and its extension is erased, and what remains of it is the predicate $\mathrm{st}$</td></tr>
+        <tr><td>Admissible formulas</td><td>Stratifiable</td><td>Internal, i.e. without $\mathrm{st}$</td></tr>
+        <tr><td>Restricted schema</td><td>Comprehension $\{x:\varphi\}$; the range is unrestricted</td><td>Separation $\{x\in A:\varphi\}$ and replacement; the range is, as in ZFC, a given set</td></tr>
+        <tr><td>Inadmissible formulas</td><td colspan="2">Belong to the language and occur in statements and proofs of theorems, but define no sets</td></tr>
+        <tr><td>A proper semiset</td><td>$\{x\in V:x\notin x\}$</td><td>$\{n\in\N:\mathrm{st}(n)\}$</td></tr>
+        <tr><td>Induction on $\N$</td><td>For stratifiable formulas. The unstratifiable statement “the set $\{1,\dots,n\}$ has $n$ elements” (Rosser's axiom of counting) is not provable (Orey, 1964)</td><td>For internal formulas. For external ones, only external induction, with a conclusion about standard $n$</td></tr>
+        <tr><td>A descending chain that is not a set</td><td>$\Theta&gt;T(\Theta)&gt;T^2(\Theta)&gt;\dots$</td><td>$\nu&gt;\nu-1&gt;\nu-2&gt;\dots$ for a nonstandard $\nu\in\N$</td></tr>
+        <tr><td>Sets on which the restriction is lifted</td><td>Strongly cantorian sets: $\{\langle a,\{a\}\rangle:a\in A\}$ is a set</td><td>Standard finite sets: all elements are standard</td></tr>
+        <tr><td>Models</td><td>NFU: a model of set theory with an external automorphism moving an ordinal</td><td>An elementary extension of a model of ZFC; $\mathrm{st}$ picks out the image of the original model</td></tr>
+        <tr><td>Relation to ZFC</td><td>Incompatible: $V\in V$, the axiom of choice is refuted</td><td>A conservative extension</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Semisets and induction</h3>
+  <p>In NF the set $\N$ is defined as the intersection of all inductive sets, so induction on a condition $\varphi(n)$ requires the existence of the set $\{n\in\N:\varphi(n)\}$ and is secured only for stratifiable $\varphi$. In IST the reason is the same: induction follows from separation, and separation is restricted to internal formulas. The predicate $\mathrm{st}$ refutes unrestricted induction. By transfer, $0$ is standard and the standardness of $n$ implies that of $n+1$, while by idealization $\N$ contains nonstandard numbers. Hence the collection $\{n\in\N:\mathrm{st}(n)\}$ is not a set. Neither is the collection of all standard sets: otherwise its intersection with $\N$ would be a set.</p>
+
+  <h3>Well-foundedness inside the theory and in the metatheory</h3>
+  <p>In both theories $\N$ and the ordinals are well-ordered in the sense of the theory itself: every nonempty <em>set</em> has a least element. The descending chains $\Theta&gt;T(\Theta)&gt;T^2(\Theta)&gt;\dots$ in NF and $\nu&gt;\nu-1&gt;\nu-2&gt;\dots$ in IST are given by inadmissible formulas and do not form sets. From the standpoint of the metatheory both chains are infinite. Hence in every model of NF the ordering of the ordinals is not well-founded, and in every model of IST already the ordering of the natural numbers is not: the natural numbers of a model of IST are nonstandard in the model-theoretic sense. Nonstandard models of Peano arithmetic are discussed in “<a href="/Materials/induction_en.html">On Mathematical Induction</a>”.</p>
+
+  <h3>Sets on which the restriction is lifted</h3>
+  <p>In NF a set $A$ is called strongly cantorian if the map $a\mapsto\{a\}$ on $A$ is a set. The type of a variable ranging over such a set can be shifted, and separation from $A$ goes through for conditions that fail to be stratifiable only because of that variable. For instance, for a strongly cantorian $A$ and $\iota_A=\{\langle a,\{a\}\rangle:a\in A\}$, the condition $x\in x$ for $x\in A$ is equivalent to the stratifiable condition $\exists s\,(\langle x,s\rangle\in\iota_A\wedge\forall u\in s\,(u\in x))$, so that $\{x\in A:x\notin x\}$ is a set.</p>
+  <p>In IST the same role is played by the standard finite sets. If $A$ is standard and finite, then all its elements are standard, and for every formula $\Phi$ the collection $\{x\in A:\Phi(x)\}$ coincides with the set $A\cap{}^{\mathrm s}\{x\in A:\Phi(x)\}$.</p>
+
+  <h3>The external structure of a nonstandard model</h3>
+  <p>A model of NFU is obtained from a model $M$ of set theory with an automorphism $j$ that moves some ordinal (Jensen, 1969; Boffa, 1988): the domain is an initial segment of the cumulative hierarchy of $M$, and the membership relation of the new model is defined from $\in^M$ and $j$. Since $j$ is an automorphism, a stratifiable formula of the new model can be rewritten as a formula of the language of $M$ without $j$, and comprehension for it follows from separation in $M$. In an unstratifiable formula $j$ remains, and the automorphism $j$ is not definable in $M$, so separation does not apply to such a formula.</p>
+  <p>The proof of the conservativity of IST (Nelson, 1977) constructs an elementary extension — an ultralimit — of a fragment of the universe of ZFC in which the predicate $\mathrm{st}$ is interpreted by the image of the original structure; this image is not definable in the extension. In both cases the comprehension schema covers the formulas that do not depend on the external structure of the nonstandard model — the automorphism in NFU, the elementary submodel in IST — and reduces to separation in that model. The models of NF itself in the proof of Holmes and Wilshaw are constructed differently.</p>
+
+  <h3>Differences</h3>
+  <p>Stratifiability is a property of the formula as a whole: a coherent assignment of types to all variables is required. Internality is the absence of a single symbol from the formula. In NF stratification is the only restriction on comprehension, and the theory is incompatible with ZFC. In IST Russell's paradox is blocked, as in ZFC, by separation from a given set; the exclusion of external formulas reconciles separation with idealization, and the internal theorems remain those of ZFC. The standardization schema, which assigns a standard set to an inadmissible condition, has no analogue in NF.</p>
+  <p>A restriction by the form of the formula is present in NBG as well: class comprehension, and with it separation and induction, are secured only for formulas without class quantifiers. Induction on $\N$ for formulas with such quantifiers is not provable in NBG but is provable in MK; the proof of the consistency of ZFC in MK rests on this (see “<a href="#sec-rows">Predicativity</a>”).</p>
 </section>
 
 <section id="sec-toy">
-  <h2>4. The finite models $M_1$ and $M_2$</h2>
+  <h2>5. The finite models $M_1$ and $M_2$</h2>
   <p class="lead">The models $M_1=\langle\{\Omega\};\in\rangle$ and $M_2=\langle\{\varnothing,\Omega\};\in\rangle$, where $\Omega=\{\Omega\}$, are checked by exhaustive search: in a finite structure every subset of the domain is definable with parameters, so the separation and replacement schemas reduce to finitely many checks.</p>
   <div class="tbl-wrap">
     <table class="basic">
@@ -424,8 +495,32 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
   <p><strong>Ordinals and infinity.</strong> In $M_1$ there are no ordinals: $\Omega$ is transitive, but $\Omega\in\Omega$ violates the strictness of the order, and $\varnothing$ is absent. In $M_2$ the only ordinal is $0=\varnothing$; already $1=\{\varnothing\}$ is absent. The standard axiom of infinity fails in both models. However, the formulation “there is a nonempty set without an <span class="nw">$\in$-maximal</span> element”, $\exists x\,(\exists y\,(y\in x)\wedge\forall y\in x\;\exists z\in x\;(y\in z))$, which is equivalent to the standard one given the remaining axioms of ZF, holds in both models, with $\Omega$ as a witness. Without foundation, formulations equivalent in ZF cease to be equivalent.</p>
 </section>
 
+<section id="sec-uniform">
+  <h2>6. The impossibility of full homogeneity</h2>
+  <p class="lead">Naive set theory is homogeneous in three respects: all its objects are of one sort and each of them can be a member; all formulas of the language have equal standing in the comprehension schema; the range of comprehension is unrestricted. These three requirements are incompatible. The sentence $\neg\exists R\,\forall x\,(x\in R\leftrightarrow x\notin x)$ is a theorem of logic, so in every <span class="nw">$\in$-structure</span> the collection $\{x:x\notin x\}$ is definable but coincides with no element. In the naive theory, comprehension for the formula $x\notin x$ yields Russell's paradox, for the formula “$x$ is an ordinal” the Burali-Forti paradox, and for the formula $x=x$ Cantor's paradox.</p>
+  <p>Every consistent system in the table gives up at least one of the three requirements, or the comprehension schema itself.</p>
+  <div class="tbl-wrap">
+    <table class="basic">
+      <thead>
+        <tr><th style="width:18%">System</th><th style="width:41%">Homogeneity given up</th><th style="width:41%">Status of the collection $\{x:x\notin x\}$</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Naive theory</td><td>None</td><td>A set; the theory is inconsistent</td></tr>
+        <tr><td>ZFC, ZFA</td><td>The range of comprehension: $\{x\in A:\varphi\}$ instead of $\{x:\varphi\}$</td><td>Not an object of the theory; a virtual class, i.e. an abbreviation of a formula</td></tr>
+        <tr><td>NBG, MK</td><td>Objects: sets and proper classes</td><td>A proper class — an object that is not a member</td></tr>
+        <tr><td>NF</td><td>Formulas: stratifiable and unstratifiable</td><td>A part of the set $V$ that is not a set</td></tr>
+        <tr><td>IST</td><td>Formulas: internal and external; the range of comprehension is restricted as in ZFC</td><td>As in ZFC; in addition, external formulas define parts of sets that are not sets</td></tr>
+        <tr><td>$\mathrm{Th}(M_1)$, $\mathrm{Th}(M_2)$</td><td>None; the comprehension schema fails</td><td>Absent from the structure: $\varnothing\notin M_1$, $\{\varnothing\}\notin M_2$</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The systems differ in where the inhomogeneity is placed. Russell's theory of types and NBG distinguish objects: types in the former, sets and classes in the latter; in NBG the collection of all classes is in turn no longer an object. NF and IST keep a single sort of objects and distinguish formulas; NF is obtained from the theory of types by erasing the types of objects, and the distinction of types passes in it from objects to formulas. In ZFC and ZFA neither objects nor formulas are distinguished within the theory, but the collections $V$, $\mathrm{On}$ and $\{x:x\notin x\}$ exist only in the metalanguage, as abbreviations of formulas: the distinction between set and class is moved outside the theory.</p>
+  <p>In $M_1$ and $M_2$ there are no sorts of objects, no distinguished formulas and no restriction on the range of comprehension, but there is no comprehension schema either: $M_1$ lacks the empty set, $M_2$ lacks pairs and power sets, and neither the natural numbers nor the ordinals are represented in these structures. Homogeneity is attained in them at the cost of expressive power.</p>
+  <p>The columns of the table thus correspond to ways of placing one and the same ineliminable inhomogeneity: between sorts of objects, between kinds of formulas, between the theory and the metalanguage, or between the sets that exist and those that are absent.</p>
+</section>
+
 <section id="sec-positions">
-  <h2>5. Positions: Zermelo, Hilbert, von Neumann, Quine, Aczel, Feferman</h2>
+  <h2>7. Positions: Zermelo, Hilbert, von Neumann, Quine, Aczel, Nelson, Feferman</h2>
   <p class="lead">The columns of the table are consequences of several philosophical positions on the nature of sets and on the criteria of admissibility of mathematical objects. Each card indicates the columns and rows of the table in which the corresponding position manifests itself.</p>
   <div class="pos-grid">
     <div class="pos-card">
@@ -439,7 +534,7 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
       <div class="pos-name">David Hilbert</div>
       <div class="pos-thesis">The existence of objects is secured by the consistency of axioms</div>
       <p>Letter to Frege (1899): if arbitrarily given axioms do not contradict one another with all their consequences, then they are true and the things defined by them exist. The Göttingen axiomatic method is the setting in which Zermelo's system arose. Hilbert's programme (1920s) demanded a finitary proof of the consistency of classical mathematics, Cantorian set theory included: “No one shall expel us from the paradise that Cantor has created for us” (1926). Gödel's incompleteness theorems (1931) showed that the programme cannot be carried out in its original form: a sufficiently strong consistent system does not prove its own consistency.</p>
-      <p>Hilbert's standpoint provides the dimension along which all the columns are comparable — relative consistency: NBG is conservative over ZFC, ZFA is equiconsistent with ZFC, the consistency of NF long remained open, and $\mathrm{Th}(M_1)$ and $\mathrm{Th}(M_2)$ are consistent simply because they have models.</p>
+      <p>Hilbert's standpoint provides the dimension along which all the columns are comparable — relative consistency: NBG and IST are conservative over ZFC, ZFA is equiconsistent with ZFC, the consistency of NF long remained open, and $\mathrm{Th}(M_1)$ and $\mathrm{Th}(M_2)$ are consistent simply because they have models.</p>
       <div class="pos-link">Table: all columns · axiom of choice</div>
     </div>
     <div class="pos-card">
@@ -464,6 +559,13 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
       <div class="pos-link">Table: ZFA · foundation · ordinals</div>
     </div>
     <div class="pos-card">
+      <div class="pos-name">Edward Nelson</div>
+      <div class="pos-thesis">Nonstandard elements are already there in the ordinary sets; what is new is the predicate</div>
+      <p>Robinson's nonstandard analysis (1961) constructs an extension ${}^*\R\supset\R$ by model-theoretic means. In IST (1977) there is no extension: the sets $\N$ and $\R$ are the same as before, and the language acquires a predicate “standard” that discriminates among their elements; the infinitesimals are the real numbers smaller in absolute value than all standard positive reals. The predicate is given by the schemas I, S, T alone and calls for no semantic interpretation, in keeping with the formalism that Nelson professed. Axiomatic nonstandard set theories were proposed independently by Hrbáček (1978).</p>
+      <p><em>Predicative Arithmetic</em> (1986) extends the critique of impredicativity to the natural numbers themselves: induction for formulas with quantifiers over all numbers presupposes the completed totality $\N$. <em>Radically Elementary Probability Theory</em> (1987) develops probability theory on finite spaces with a nonstandard number of elements.</p>
+      <div class="pos-link">Table: IST · key prohibition of the language · ordinals</div>
+    </div>
+    <div class="pos-card">
       <div class="pos-name">Solomon Feferman</div>
       <div class="pos-thesis">Predicativity given the natural numbers</div>
       <p>The natural numbers are accepted as a completed totality, $\mathcal P(\N)$ is not. The limit of predicativity under this assumption is the ordinal $\Gamma_0$ (Feferman, 1964; Schütte, 1965). “Weyl vindicated” (1988) shows that the system W, conservative over Peano arithmetic, suffices for the bulk of scientifically applicable analysis; hence the thesis that the impredicative parts of set theory are dispensable for applications.</p>
@@ -471,23 +573,25 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
       <div class="pos-link">Table: predicativity · NBG versus MK</div>
     </div>
   </div>
-  <p>The vicious circle principle was formulated by Poincaré (1906) and Russell (1908); Russell's ramified theory of types is a common ancestor of the predicativist programme and, through the simple theory of types, of NF. The final form of NBG is due to Bernays and Gödel; the central results on NF and NFU to Specker (1953) and Jensen (1969); the analysis of the iterative conception as a justification of the ZFC axioms to Boolos (1971).</p>
+  <p>The vicious circle principle was formulated by Poincaré (1906) and Russell (1908); Russell's ramified theory of types is a common ancestor of the predicativist programme and, through the simple theory of types, of NF. The final form of NBG is due to Bernays and Gödel; the central results on NF and NFU to Specker (1953) and Jensen (1969); nonstandard analysis to Robinson (1961), the notion of semiset to Vopěnka and Hájek (1972); the analysis of the iterative conception as a justification of the ZFC axioms to Boolos (1971).</p>
 </section>
 
 <section id="sec-beyond">
-  <h2>6. Beyond the table</h2>
+  <h2>8. Beyond the table</h2>
   <ul class="plain">
     <li><strong>Z and ZC.</strong> Zermelo's 1908 system, without replacement. $V_{\omega+\omega}$ is a model of it, so Z does not prove the existence of the ordinal $\omega+\omega$, let alone of $\aleph_\omega$.</li>
     <li><strong>MK.</strong> Morse–Kelley set theory: NBG with impredicative class comprehension; proves the consistency of ZFC.</li>
     <li><strong>KP.</strong> Kripke–Platek set theory: no power set axiom, separation and collection only for formulas with bounded quantifiers; the basis of the theory of admissible sets (Barwise, 1975).</li>
     <li><strong>ZF with urelements.</strong> Atoms are objects without elements distinct from $\varnothing$; the Fraenkel–Mostowski permutation models prove the independence of the axiom of choice in this setting.</li>
     <li><strong>NFU.</strong> NF with urelements: consistent, compatible with choice and infinity (Jensen, 1969).</li>
+    <li><strong>BST and HST.</strong> Nonstandard set theories studied by Kanovei and Reeken (2004). BST is a variant of IST with the boundedness axiom (every set belongs to a standard set) and a correspondingly bounded idealization; in BST every formula is equivalent to a formula of the form $\exists^{\mathrm{st}}a\,\forall^{\mathrm{st}}b\,\varphi$ with $\varphi$ internal. The theory HST also has external sets as objects.</li>
+    <li><strong>AST.</strong> Vopěnka's alternative set theory (1979): all sets are finite in the sense of the theory, and infinity is represented by proper semisets — parts of sets that are not sets.</li>
     <li><strong>CZF and IZF.</strong> Constructive set theories with intuitionistic logic; CZF (Aczel, 1978) has no power set axiom and is interpreted in Martin-Löf type theory.</li>
   </ul>
 </section>
 
 <section id="sec-refs">
-  <h2>7. References</h2>
+  <h2>9. References</h2>
   <ol class="refs">
     <li>E. Zermelo, Untersuchungen über die Grundlagen der Mengenlehre I, <em>Math. Ann.</em> 65 (1908), 261–281.</li>
     <li>E. Zermelo, Über Grenzzahlen und Mengenbereiche, <em>Fund. Math.</em> 16 (1930), 29–47.</li>
@@ -497,14 +601,26 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
     <li>W. V. Quine, New foundations for mathematical logic, <em>Amer. Math. Monthly</em> 44 (1937), 70–80.</li>
     <li>J. B. Rosser, H. Wang, Non-standard models for formal logics, <em>J. Symbolic Logic</em> 15 (1950), 113–129.</li>
     <li>E. Specker, The axiom of choice in Quine's New Foundations for mathematical logic, <em>Proc. Nat. Acad. Sci. USA</em> 39 (1953), 972–975.</li>
+    <li>A. Robinson, Non-standard analysis, <em>Indag. Math.</em> 23 (1961), 432–440.</li>
     <li>W. V. Quine, <em>Set Theory and Its Logic</em>, Harvard University Press, Cambridge, MA, 1963.</li>
     <li>S. Feferman, Systems of predicative analysis, <em>J. Symbolic Logic</em> 29 (1964), 1–30.</li>
+    <li>S. Orey, New Foundations and the axiom of counting, <em>Duke Math. J.</em> 31 (1964), 655–660.</li>
     <li>R. B. Jensen, On the consistency of a slight (?) modification of Quine's New Foundations, <em>Synthese</em> 19 (1969), 250–263.</li>
     <li>G. Boolos, The iterative conception of set, <em>J. Philos.</em> 68 (1971), 215–231.</li>
     <li>U. Felgner, Comparison of the axioms of local and universal choice, <em>Fund. Math.</em> 71 (1971), 43–62.</li>
+    <li>P. Vopěnka, P. Hájek, <em>The Theory of Semisets</em>, North-Holland, Amsterdam, 1972.</li>
+    <li>E. Nelson, Internal set theory: a new approach to nonstandard analysis, <em>Bull. Amer. Math. Soc.</em> 83 (1977), 1165–1198.</li>
+    <li>K. Hrbáček, Axiomatic foundations for nonstandard analysis, <em>Fund. Math.</em> 98 (1978), 1–19.</li>
+    <li>P. Vopěnka, <em>Mathematics in the Alternative Set Theory</em>, Teubner, Leipzig, 1979.</li>
     <li>M. Forti, F. Honsell, Set theory with free construction principles, <em>Ann. Sc. Norm. Super. Pisa Cl. Sci. (4)</em> 10 (1983), 493–522.</li>
+    <li>E. Nelson, <em>Predicative Arithmetic</em>, Mathematical Notes 32, Princeton University Press, Princeton, 1986.</li>
     <li>P. Aczel, <em>Non-Well-Founded Sets</em>, CSLI Lecture Notes 14, CSLI, Stanford, 1988.</li>
     <li>S. Feferman, Weyl vindicated: <em>Das Kontinuum</em> seventy years later (1988), in: S. Feferman, <em>In the Light of Logic</em>, Oxford University Press, New York, 1998, 249–283.</li>
+    <li>M. Boffa, ZFJ and the consistency problem for NF, <em>Jahrb. Kurt-Gödel-Ges.</em> (1988), 102–106.</li>
+    <li>V. G. Kanovei, Undecidable hypotheses in Edward Nelson's internal set theory, <em>Russian Math. Surveys</em> 46:6 (1991), 1–54.</li>
+    <li>V. Kanovei, IST is more than an algorithm to prove ZFC theorems, arXiv:math/9310213 (1993).</li>
+    <li>V. Kanovei, M. Reeken, <em>Nonstandard Analysis, Axiomatically</em>, Springer, Berlin, 2004.</li>
+    <li>K. Hrbacek, M. G. Katz, Infinitesimal analysis without the Axiom of Choice, <em>Ann. Pure Appl. Logic</em> 172 (2021), no. 6, 102959.</li>
     <li>M. R. Holmes, S. Wilshaw, NF is consistent, arXiv:1503.01406.</li>
   </ol>
 </section>
