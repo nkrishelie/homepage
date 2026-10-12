@@ -223,7 +223,7 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
 
 <section id="sec-family">
   <h2>1. One theory or a family of theories</h2>
-  <p class="lead">The phrase “set theory” denotes not a single axiomatic system but a family of systems in a common language — the first-order language whose only non-logical symbol is $\in$ (NBG adds a sort of classes, IST a standardness predicate). All of them arose in response to one problem: the naive comprehension principle, according to which every property $\varphi(x)$ determines a set $\{x:\varphi(x)\}$, is inconsistent. For $\varphi(x)\equiv x\notin x$ it yields a set $R$ with $R\in R\leftrightarrow R\notin R$ (Russell, 1901). Comprehension must be restricted, and mathematics does not determine the restriction uniquely: the choice expresses a conception of what a set is.</p>
+  <p class="lead">The phrase “set theory” denotes not a single axiomatic system but a family of systems in a common language — the first-order language whose only non-logical symbol is $\in$ (NBG adds a sort of classes, IST a standardness predicate). All of them arose in response to one problem: the naive comprehension principle, according to which every property $\varphi(x)$ determines a set $\{x:\varphi(x)\}$, is inconsistent. For $\varphi(x)\equiv x\notin x$ it yields a set $R$ with $R\in R\leftrightarrow R\notin R$ (Russell, 1901). The derivation does not use the meaning of the relation $\in$ and goes through for every binary predicate (<a href="#sec-uniform">§ 6</a>). Comprehension must be restricted, and mathematics does not determine the restriction uniquely: the choice expresses a conception of what a set is.</p>
   <p>A system results from decisions along several independent axes.</p>
   <ul class="plain">
     <li><strong>The iterative conception.</strong> Sets are formed in stages from previously formed sets; the universe is the cumulative hierarchy $V=\bigcup_\alpha V_\alpha$, which is never completed and is therefore not itself a set (Zermelo, 1930; Boolos, 1971). ZFC rests on this conception.</li>
@@ -423,7 +423,7 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
   <p>In IST foundation is retained as an internal axiom of ZFC. The collection of nonstandard natural numbers is nonempty and has no least element, but it is not a set, so the well-ordering of $\N$ is not violated.</p>
 
   <h3>Russell's paradox</h3>
-  <p>The sentence $\neg\exists R\,\forall x\,(x\in R\leftrightarrow x\notin x)$ is a theorem of pure first-order logic: it holds in every structure, $M_1$ and $M_2$ included. The systems differ not in whether they “avoid” the paradox, but in which comprehension principle they retain. Naive comprehension and the passage from it to the hereditarily finite sets are treated in the summary of chapter B2, “<a href="/Materials/maglish_b2_foundations_en.html">The Foundations of Mathematics</a>”, of the same book.</p>
+  <p>The sentence $\neg\exists R\,\forall x\,(x\in R\leftrightarrow x\notin x)$ is a theorem of pure first-order logic: it holds in every structure, $M_1$ and $M_2$ included; its general form for an arbitrary binary predicate is given in <a href="#sec-uniform">§ 6</a>. The systems differ not in whether they “avoid” the paradox, but in which comprehension principle they retain. Naive comprehension and the passage from it to the hereditarily finite sets are treated in the summary of chapter B2, “<a href="/Materials/maglish_b2_foundations_en.html">The Foundations of Mathematics</a>”, of the same book.</p>
   <ul class="plain">
     <li><strong>ZFC and ZFA</strong> retain separation (Zermelo's <em>Aussonderung</em>): a property separates a subset only from an already given set. Russell's argument becomes a theorem: for every $A$, the set $\{x\in A:x\notin x\}$ does not belong to $A$, and there is no universal set. Foundation plays no role in the argument, so ZFA behaves exactly like ZFC.</li>
     <li><strong>NBG</strong> retains comprehension for classes $\{x:\varphi(x)\}$ where the quantifiers of $\varphi$ range over sets only. The Russell class exists, but it is proper, and only sets are members; under foundation it coincides with $V$.</li>
@@ -547,26 +547,33 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
 
 <section id="sec-uniform">
   <h2>6. The impossibility of full homogeneity</h2>
-  <p class="lead">Naive set theory is homogeneous in three respects: all its objects are of one sort and each of them can be a member; all formulas of the language have equal standing in the comprehension schema; the range of comprehension is unrestricted. These three requirements are incompatible. The sentence $\neg\exists R\,\forall x\,(x\in R\leftrightarrow x\notin x)$ is a theorem of logic, so in every <span class="nw">$\in$-structure</span> the collection $\{x:x\notin x\}$ is definable but coincides with no element. In the naive theory, comprehension for the formula $x\notin x$ yields Russell's paradox, for the formula “$x$ is an ordinal” the Burali-Forti paradox, and for the formula $x=x$ Cantor's paradox.</p>
-  <p>Every consistent system in the table gives up at least one of the three requirements, or the comprehension schema itself.</p>
+  <p class="lead">The need to restrict comprehension has nothing to do with the meaning of the membership relation: it follows from predicate logic and concerns every binary predicate.</p>
+  <div class="definition">
+    <div class="def-head">The general form of Russell's argument</div>
+    <p>Let $P(x,y)$ be a binary predicate, or an arbitrary formula with two free variables, in some first-order language. The <strong>schema of full comprehension for $P$</strong> consists of the sentences $$\exists y\,\forall x\,\bigl(P(x,y)\leftrightarrow\varphi(x)\bigr)$$ for all formulas $\varphi(x)$ of that language, possibly with parameters, in which $y$ does not occur free.</p>
+    <p>This schema is inconsistent: for $\varphi(x)\equiv\neg P(x,x)$ the substitution $x:=y$ yields $P(y,y)\leftrightarrow\neg P(y,y)$. Thus the sentence $$\neg\exists y\,\forall x\,\bigl(P(x,y)\leftrightarrow\neg P(x,x)\bigr)$$ is a theorem of predicate logic (Thomson, 1962). In every structure the sets $\{x:P(x,y)\}$ fail to exhaust the definable subsets of the domain: the diagonal set $\{x:\neg P(x,x)\}$ is not among them.</p>
+  </div>
+  <p>The interpretation of the predicate $P$ plays no role in the derivation. For $P(x,y)\equiv x\in y$ one obtains Russell's paradox; for $P(x,y)\equiv x\in f(y)$ with a map $f\colon A\to\mathcal P(A)$, the diagonal proof of Cantor's theorem. The derivation goes through for equality as well: for $P(x,y)\equiv x=y$ and $\varphi(x)\equiv x\ne x$ one obtains $y=y\leftrightarrow y\ne y$. Hence comprehension for any binary predicate must be restricted, and the kind of restriction is determined by which element of the schema is changed.</p>
+  <p>Three elements of the schema take part in the derivation of the contradiction. The quantifiers $\exists y$ and $\forall x$ range over the same domain, which makes the substitution $x:=y$ possible. The formula $\varphi$ is arbitrary and may, in particular, be $\neg P(x,x)$. The right-hand side of the equivalence is the formula $\varphi(x)$ itself, with no additional conditions. Naive set theory is the schema of full comprehension for the predicate $\in$, and it is homogeneous in all three respects: the objects are of one sort and each of them can be a member; all formulas of the language have equal standing; the range of comprehension is unrestricted. In it, comprehension for the formula $x\notin x$ yields Russell's paradox, for the formula “$x$ is an ordinal” the Burali-Forti paradox, and for the formula $x=x$ Cantor's paradox.</p>
+  <p>Every consistent system in the table changes at least one of the three elements of the schema, or gives up the comprehension schema altogether.</p>
   <div class="tbl-wrap">
     <table class="basic">
       <thead>
-        <tr><th style="width:18%">System</th><th style="width:41%">Homogeneity given up</th><th style="width:41%">Status of the collection $\{x:x\notin x\}$</th></tr>
+        <tr><th style="width:13%">System</th><th style="width:27%">Comprehension schema</th><th style="width:32%">Element of the schema changed</th><th style="width:28%">Status of the collection $\{x:x\notin x\}$</th></tr>
       </thead>
       <tbody>
-        <tr><td>Naive theory</td><td>None</td><td>A set; the theory is inconsistent</td></tr>
-        <tr><td>ZFC, ZFA</td><td>The range of comprehension: $\{x\in A:\varphi\}$ instead of $\{x:\varphi\}$</td><td>Not an object of the theory; a virtual class, i.e. an abbreviation of a formula</td></tr>
-        <tr><td>NBG, MK</td><td>Objects: sets and proper classes</td><td>A proper class — an object that is not a member</td></tr>
-        <tr><td>NF</td><td>Formulas: stratifiable and unstratifiable</td><td>A part of the set $V$ that is not a set</td></tr>
-        <tr><td>IST</td><td>Formulas: internal and external; the range of comprehension is restricted as in ZFC</td><td>As in ZFC; in addition, external formulas define parts of sets that are not sets</td></tr>
-        <tr><td>$\mathrm{Th}(M_1)$, $\mathrm{Th}(M_2)$</td><td>None; the comprehension schema fails</td><td>Absent from the structure: $\varnothing\notin M_1$, $\{\varnothing\}\notin M_2$</td></tr>
+        <tr><td>Naive theory</td><td>$\exists y\,\forall x\,(x\in y\leftrightarrow\varphi(x))$, any $\varphi$</td><td>None</td><td>A set; the theory is inconsistent</td></tr>
+        <tr><td>ZFC, ZFA</td><td>$\exists y\,\forall x\,(x\in y\leftrightarrow x\in A\wedge\varphi(x))$</td><td>The right-hand side: the condition $x\in A$ is added. The substitution $x:=y$ yields not a contradiction but $y\notin A$</td><td>Not an object of the theory; a virtual class, i.e. an abbreviation of a formula</td></tr>
+        <tr><td>NBG, MK</td><td>$\exists Y\,\forall x\,(x\in Y\leftrightarrow\varphi(x))$</td><td>The ranges of the quantifiers: $x$ ranges over sets, $Y$ over classes. The substitution $x:=Y$ is possible only for a set and shows that $Y$ is not a set. In NBG, moreover, $\varphi$ contains no class quantifiers</td><td>A proper class — an object that is not a member</td></tr>
+        <tr><td>NF</td><td>$\exists y\,\forall x\,(x\in y\leftrightarrow\varphi(x))$, $\varphi$ stratifiable</td><td>The stock of formulas: $x\notin x$ is not in the schema</td><td>A part of the set $V$ that is not a set</td></tr>
+        <tr><td>IST</td><td>$\exists y\,\forall x\,(x\in y\leftrightarrow x\in A\wedge\varphi(x))$, $\varphi$ internal</td><td>The right-hand side, as in ZFC, and the stock of formulas: formulas containing $\mathrm{st}$ are not in the schema</td><td>As in ZFC; in addition, external formulas define parts of sets that are not sets</td></tr>
+        <tr><td>$\mathrm{Th}(M_1)$, $\mathrm{Th}(M_2)$</td><td>Fails</td><td>None</td><td>Absent from the structure: $\varnothing\notin M_1$, $\{\varnothing\}\notin M_2$</td></tr>
       </tbody>
     </table>
   </div>
   <p>The systems differ in where the inhomogeneity is placed. Russell's theory of types and NBG distinguish objects: types in the former, sets and classes in the latter; in NBG the collection of all classes is in turn no longer an object. NF and IST keep a single sort of objects and distinguish formulas; NF is obtained from the theory of types by erasing the types of objects, and the distinction of types passes in it from objects to formulas. In ZFC and ZFA neither objects nor formulas are distinguished within the theory, but the collections $V$, $\mathrm{On}$ and $\{x:x\notin x\}$ exist only in the metalanguage, as abbreviations of formulas: the distinction between set and class is moved outside the theory.</p>
   <p>In $M_1$ and $M_2$ there are no sorts of objects, no distinguished formulas and no restriction on the range of comprehension, but there is no comprehension schema either: $M_1$ lacks the empty set, $M_2$ lacks pairs and power sets, and neither the natural numbers nor the ordinals are represented in these structures. Homogeneity is attained in them at the cost of expressive power.</p>
-  <p>The columns of the table thus correspond to ways of placing one and the same ineliminable inhomogeneity: between sorts of objects, between kinds of formulas, between the theory and the metalanguage, or between the sets that exist and those that are absent.</p>
+  <p>The columns of the table thus correspond to ways of placing one and the same inhomogeneity: between sorts of objects, between kinds of formulas, between the theory and the metalanguage, or between the sets that exist and those that are absent. It cannot be eliminated, for purely logical reasons that do not depend on the concept of set.</p>
 </section>
 
 <section id="sec-positions">
@@ -673,6 +680,7 @@ ol.refs li::marker{color:var(--ink3);font-family:'JetBrains Mono',monospace;font
     <li>E. Specker, The axiom of choice in Quine's New Foundations for mathematical logic, <em>Proc. Nat. Acad. Sci. USA</em> 39 (1953), 972–975.</li>
     <li>S. Orey, Relative interpretations, <em>Z. Math. Logik Grundlagen Math.</em> 7 (1961), 146–153.</li>
     <li>A. Robinson, Non-standard analysis, <em>Indag. Math.</em> 23 (1961), 432–440.</li>
+    <li>J. F. Thomson, On some paradoxes, in: R. J. Butler (ed.), <em>Analytical Philosophy</em>, Barnes &amp; Noble, New York, 1962, 104–119.</li>
     <li>W. V. Quine, <em>Set Theory and Its Logic</em>, Harvard University Press, Cambridge, MA, 1963.</li>
     <li>S. Feferman, Systems of predicative analysis, <em>J. Symbolic Logic</em> 29 (1964), 1–30.</li>
     <li>S. Orey, New Foundations and the axiom of counting, <em>Duke Math. J.</em> 31 (1964), 655–660.</li>
