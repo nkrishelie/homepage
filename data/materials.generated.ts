@@ -278,6 +278,20 @@ export const MATERIALS_ITEMS: MaterialItem[] = [
     "lang": "ru"
   },
   {
+    "filename": "propositional_calculus_en.html",
+    "href": "/Materials/propositional_calculus_en.html",
+    "title": "Propositional Calculus: Finitary Basis and Models",
+    "category": "foundations",
+    "lang": "en"
+  },
+  {
+    "filename": "propositional_calculus.html",
+    "href": "/Materials/propositional_calculus.html",
+    "title": "Исчисление высказываний: финитарная база и модели",
+    "category": "foundations",
+    "lang": "ru"
+  },
+  {
     "filename": "second_order_arithmetic_en.html",
     "href": "/Materials/second_order_arithmetic_en.html",
     "title": "Hierarchy of Second-Order Arithmetic Theories",
