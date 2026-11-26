@@ -106,6 +106,16 @@
       <priority>0.6</priority>
    </url>
    <url>
+      <loc>https://mathem.at/Materials/first_order_logic.html</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.6</priority>
+   </url>
+   <url>
+      <loc>https://mathem.at/Materials/first_order_logic_en.html</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.6</priority>
+   </url>
+   <url>
       <loc>https://mathem.at/Materials/chasles.html</loc>
       <changefreq>monthly</changefreq>
       <priority>0.6</priority>

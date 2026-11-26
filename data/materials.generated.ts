@@ -166,6 +166,20 @@ export const MATERIALS_ITEMS: MaterialItem[] = [
     "lang": "ru"
   },
   {
+    "filename": "first_order_logic_en.html",
+    "href": "/Materials/first_order_logic_en.html",
+    "title": "First-Order Predicate Calculus: Finitary Syntax, Derivation, and Models",
+    "category": "foundations",
+    "lang": "en"
+  },
+  {
+    "filename": "first_order_logic.html",
+    "href": "/Materials/first_order_logic.html",
+    "title": "Исчисление предикатов первого порядка: финитарный синтаксис, вывод и модели",
+    "category": "foundations",
+    "lang": "ru"
+  },
+  {
     "filename": "galton_watson_process_en.html",
     "href": "/Materials/galton_watson_process_en.html",
     "title": "The Galton–Watson Process",
